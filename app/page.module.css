@@ -1,0 +1,14 @@
+.page {
+  width: 100%;
+
+  margin: 0 auto;
+  background: var(--color-bg-black);
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  padding: 80px 80px;
+  background: var(--color-bg-white);
+}

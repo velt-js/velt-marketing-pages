@@ -1,0 +1,948 @@
+.section {
+  max-width: var(--content-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 106px;
+}
+
+/* =============================================
+   Content Container
+   ============================================= */
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+  width: 100%;
+}
+
+/* =============================================
+   Header
+   ============================================= */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 800px;
+}
+
+.title {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.2;
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+.subtitle {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--color-text-dark);
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btnSecondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  height: 44px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: transparent;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-text-dark);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btnSecondary:hover {
+  background: var(--color-purple-light);
+}
+
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  height: 44px;
+  border: 1px solid var(--color-bg-white);
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--color-text-white);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
+
+.btnIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   Feature Grid — absolute positioned container
+   ============================================= */
+.featureGrid {
+  width: 100%;
+  height: 866px;
+  border: 2px solid #111111;
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--color-bg-white);
+  position: relative;
+}
+
+/* =============================================
+   Tab Rail
+   ============================================= */
+.tabRail {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: 47px;
+  background: #1c1d21;
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-code-alt);
+  font-weight: 500;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.tab:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.tabActive {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-text-white);
+}
+
+/* =============================================
+   Feature Cells — Shared
+   ============================================= */
+.featureCell {
+  position: absolute;
+  overflow: hidden;
+  background: var(--color-bg-white);
+}
+
+.featureCellInfo {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 3;
+}
+
+.featureName {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--color-text-dark);
+}
+
+.featureDesc {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--color-text-dark);
+  opacity: 0.52;
+  max-width: 380px;
+}
+
+.featurePreview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* =============================================
+   Cell Positions
+   ============================================= */
+
+/* Comments — left column top */
+.cellComments {
+  left: 0;
+  top: 47px;
+  width: 50%;
+  height: 493px;
+  border-right: 2px solid #111111;
+  border-bottom: 2px solid #111111;
+}
+
+/* Recording — right column top */
+.cellRecording {
+  left: 50%;
+  top: 47px;
+  width: 50%;
+  height: 347px;
+  border-bottom: 2px solid #111111;
+}
+
+/* View Analytics — left column bottom */
+.cellAnalytics {
+  left: 0;
+  top: 540px;
+  width: 50%;
+  height: 326px;
+  border-right: 2px solid #111111;
+}
+
+/* Notifications — right column bottom */
+.cellNotifications {
+  left: 50%;
+  top: 394px;
+  width: 50%;
+  height: 472px;
+}
+
+/* Notifications info positioned differently — bottom-left within right half cell */
+.cellNotifications .featureCellInfo {
+  bottom: 30px;
+  left: 30px;
+}
+
+/* =============================================
+   Comments Mockup
+   ============================================= */
+.commentsMockup {
+  position: absolute;
+  left: 83px;
+  top: 60px;
+}
+
+/* Pin */
+.commentPin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.commentPinCircle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(98, 93, 245, 0.35);
+  border: 3px solid white;
+}
+
+.commentPinAvatar {
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+}
+
+.commentPinTail {
+  width: 2px;
+  height: 12px;
+  background: var(--color-primary);
+}
+
+/* Bubble */
+.commentBubble {
+  position: absolute;
+  left: 63px;
+  top: 0;
+  width: 410px;
+  background: var(--color-bg-white);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 0 27px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Top bar: Open badge + flag | action icons */
+.commentBubbleTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commentBubbleTopLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.commentBubbleTopRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.commentStatusBadge {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-primary);
+  background: #f2f2fe;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.commentFlagIcon {
+  opacity: 0.4;
+}
+
+.commentActionIcon {
+  opacity: 0.35;
+  cursor: pointer;
+}
+
+/* Body */
+.commentBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.commentUserRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.commentSmallAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.commentUserName {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-text-dark);
+}
+
+.commentTime {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.commentChecksIcon {
+  opacity: 0.4;
+}
+
+.commentText {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-dark);
+  padding-left: 30px;
+}
+
+.commentMention {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Footer */
+.commentFooter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.commentReplyIcon {
+  opacity: 0.5;
+}
+
+.commentReplyCount {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+/* =============================================
+   Recording Mockup
+   ============================================= */
+.recordingMockup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Recording Bar */
+.recordingBar {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px 8px 8px;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 16px rgba(98, 93, 245, 0.3);
+}
+
+.recordingBarLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recordingScreenShareCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recordingTimer {
+  font-family: var(--font-accent);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-white);
+  letter-spacing: 0.5px;
+}
+
+.recordingDivider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.recordingBarRight {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recordingBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s;
+}
+
+.recordingBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Webcam */
+.webcamContainer {
+  position: absolute;
+  right: 40px;
+  top: 30px;
+  width: 182px;
+  height: 182px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webcamRing {
+  position: absolute;
+  inset: 0;
+  width: 182px;
+  height: 182px;
+}
+
+.webcamFace {
+  width: 162px;
+  height: 162px;
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.webcamControls {
+  position: absolute;
+  bottom: -8px;
+  display: flex;
+  gap: 4px;
+  z-index: 2;
+}
+
+.webcamControlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-bg-white);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  padding: 0;
+}
+
+/* =============================================
+   Analytics Mockup
+   ============================================= */
+.analyticsMockup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.analyticsCardArea {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: var(--color-bg-white);
+  border-radius: 14px;
+  box-shadow: 0 0 27px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* Purple stats card */
+.analyticsCard {
+  background: #f4f3ff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px 16px 0 16px;
+}
+
+.analyticsStatMain {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.analyticsNumber {
+  font-family: var(--font-accent);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.analyticsLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.analyticsEyeIcon {
+  opacity: 0.6;
+}
+
+.analyticsLabel {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-primary);
+}
+
+/* Views today */
+.analyticsViewsToday {
+  padding: 10px 20px;
+  margin: 0 16px;
+}
+
+.analyticsViewsTodayText {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 12px;
+  color: #848297;
+  letter-spacing: 0.5px;
+}
+
+/* User List */
+.analyticsUsers {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 16px;
+}
+
+.analyticsUserRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.analyticsAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-text-white);
+  flex-shrink: 0;
+}
+
+.avatarRed {
+  background: #ff7162;
+}
+
+.avatarGreen {
+  background: #0dcf82;
+}
+
+.avatarBlue {
+  background: #3772ff;
+}
+
+.analyticsUserName {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-dark);
+  flex: 1;
+}
+
+.analyticsUserTime {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* Gradient overlay */
+.analyticsGradient {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* =============================================
+   Notifications Mockup
+   ============================================= */
+.notifMockup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Bell icon */
+.notifBellWrap {
+  position: absolute;
+  top: 30px;
+  right: 60px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+/* Popover panel */
+.notifPanel {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 380px;
+  background: var(--color-bg-white);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Panel Header */
+.notifHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 10px;
+}
+
+.notifTitle {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text-dark);
+}
+
+.notifHeaderIcons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.5;
+}
+
+/* Notification Tabs */
+.notifTabsWrap {
+  padding: 0 20px 12px;
+}
+
+.notifTabs {
+  display: flex;
+  gap: 0;
+  background: #f0f0f0;
+  border-radius: var(--radius-full);
+  padding: 3px;
+}
+
+.notifTab {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.notifTabActive {
+  background: var(--color-bg-white);
+  color: var(--color-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Notification List */
+.notifList {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.notifItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 20px;
+  transition: background 0.1s;
+}
+
+.notifItem:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.notifItem:hover {
+  background: var(--color-bg-light-5);
+}
+
+.notifAvatarWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.notifAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.notifDot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+}
+
+.notifContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.notifText {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-text-dark);
+}
+
+.notifText strong {
+  font-weight: 600;
+}
+
+.notifTime {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Gradient overlay */
+.notifGradient {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* =============================================
+   Testimonial
+   ============================================= */
+.testimonial {
+  width: 100%;
+  min-height: 224px;
+  background: #111111;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 48px 64px;
+  gap: 48px;
+}
+
+.testimonialQuote {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--color-text-white);
+  max-width: 520px;
+}
+
+.testimonialHighlight {
+  color: #b4b1fa;
+}
+
+.personInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.personAvatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid #b4b1fa;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.personDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.personName {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--color-text-white);
+  white-space: nowrap;
+}
+
+.personRole {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--color-text-white);
+  opacity: 0.7;
+  white-space: nowrap;
+}

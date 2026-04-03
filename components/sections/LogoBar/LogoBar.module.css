@@ -1,0 +1,137 @@
+.logoBar {
+  width: 100%;
+  background: var(--color-bg-black);
+  padding: 40px 80px;
+  position: relative;
+}
+
+.wrapper {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* --- Default: Logo Grid --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.centerCell {
+  composes: cell;
+  grid-column: span 2;
+}
+
+.centerLabel {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 12.6px;
+  letter-spacing: 1.89px;
+  text-transform: uppercase;
+  color: var(--color-text-white);
+  white-space: nowrap;
+}
+
+.centerHighlight {
+  color: #b3b0fb;
+}
+
+/* --- Hover: Migrated Panel --- */
+.hoverPanel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg-black);
+}
+
+.wrapper:hover .hoverPanel {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wrapper:hover .grid {
+  opacity: 0;
+}
+
+.hoverTitle {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 12.6px;
+  letter-spacing: 1.89px;
+  text-transform: uppercase;
+  color: var(--color-text-white);
+  text-align: center;
+  padding: 24px 0 20px;
+}
+
+.hoverHighlight {
+  color: #b3b0fb;
+}
+
+.hoverLogos {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hoverLogoCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  padding: 0 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hoverLinks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hoverLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 64px;
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.hoverLink:hover {
+  color: var(--color-text-white);
+}
+
+.arrow {
+  font-size: 18px;
+}

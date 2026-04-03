@@ -1,0 +1,185 @@
+.outcomes {
+  background: var(--color-primary);
+  border-radius: 32px 32px 0 0;
+  padding: 48px 80px 220px;
+  width: 100%;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  width: 100%;
+}
+
+/* --- Tab Rail --- */
+.tabRail {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  width: 100%;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.12);
+}
+
+.tab {
+  display: flex;
+  flex: 1 0 0;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.tabActive {
+  border-bottom: 2px solid white;
+}
+
+.tabIcon {
+  flex-shrink: 0;
+}
+
+.tabLabel {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: -0.54px;
+  color: var(--color-text-white);
+  opacity: 0.52;
+  white-space: nowrap;
+}
+
+.tabActive .tabLabel {
+  font-weight: 700;
+  opacity: 1;
+}
+
+/* --- Heading --- */
+.headingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--color-text-white);
+  width: 100%;
+}
+
+.heading {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1.2;
+  letter-spacing: -1.56px;
+}
+
+.headingGradient {
+  background: linear-gradient(to right, #5cffce, #dadaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subheading {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.72px;
+  color: var(--color-text-white);
+  opacity: 0.75;
+}
+
+/* --- Visual + Testimonial --- */
+.contentRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.visualArea {
+  flex: 1 0 0;
+  position: relative;
+  height: 513px;
+  border-radius: 32px;
+  overflow: hidden;
+}
+
+.visualImage {
+  object-fit: cover;
+  border-radius: 32px;
+}
+
+.visualOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 32px;
+  box-shadow: inset -8px -8px 32px 0 rgba(99, 132, 235, 0.32),
+    inset 0 0 32px 0 rgba(99, 132, 235, 0.52);
+  pointer-events: none;
+}
+
+/* --- Testimonial Card --- */
+.testimonial {
+  width: 400px;
+  flex-shrink: 0;
+  align-self: stretch;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 32px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.companyLogo {
+}
+
+.testimonialContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.quote {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.2;
+  color: var(--color-text-white);
+}
+
+.personInfo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 50%;
+  border: 2px solid #fcca44;
+  object-fit: cover;
+}
+
+.personText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 0 0;
+}
+
+.personName {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--color-text-white);
+}
+
+.personRole {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.2;
+  color: var(--color-text-white);
+}

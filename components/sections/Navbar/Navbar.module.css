@@ -1,0 +1,170 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 80px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: #000;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+/* --- Light variant (over white/purple backgrounds) --- */
+.navLight {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+.navLight .navLabel {
+  color: #111;
+  opacity: 0.75;
+}
+
+.navLight .chevron {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.navLight .actionLabel {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.navLight .actionIcon {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.navLight .navItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.navLight .actionBtn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.navLight .logoImg {
+  filter: brightness(0);
+}
+
+/* --- Base styles (dark, over black background) --- */
+.links {
+  display: flex;
+  flex: 1 0 0;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.logoImg {
+  transition: filter 0.3s;
+}
+
+.navLinks {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.navItem {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navLabel {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.42px;
+  color: var(--color-text-white);
+  opacity: 0.75;
+  white-space: nowrap;
+  text-transform: capitalize;
+  transition: color 0.3s;
+}
+
+.chevron {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.actionBtn {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 12px 8px 8px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.actionBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.actionIcon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.3s;
+}
+
+.actionLabel {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.421px;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.bookDemo {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  cursor: pointer;
+}
+
+.bookDemo:hover {
+  opacity: 0.9;
+}
+
+.bookDemoLabel {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.421px;
+  color: var(--color-text-white);
+  white-space: nowrap;
+}
