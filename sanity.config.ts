@@ -10,6 +10,7 @@ export default defineConfig({
   title: "Velt Marketing",
   projectId,
   dataset,
+  basePath: "/studio",
   plugins: [structureTool(), visionTool(), codeInput()],
   schema: {
     types: schemaTypes,
