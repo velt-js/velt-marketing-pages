@@ -1,0 +1,2 @@
+import{t as e}from"./rolldown-runtime.gMpkHn_l.mjs";function t(e,t){return{description:`Add powerful real-time and multiplayer features to your product with Velt's easy-to-use collaboration SDK. Integrate comments, live cursors, and more in minutes.`,favicon:`/assets/vCF2hcxqRxsOmGcdO72Zk3CMbU.svg`,robots:`max-image-preview:large`,socialImage:`/assets/fKXD4tWdcYJRhG0GLv4acqwzsII.png`,title:`The Collaboration Stack for B2B | Velt`}}var n=e((()=>{}));export{t as n,n as t};
+//# sourceMappingURL=siteMetadata.CFXIbKnD.mjs.map
