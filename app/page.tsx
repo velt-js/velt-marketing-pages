@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import "../framer/styles.css";
-// @ts-expect-error — user-translated JSX, no types
 import HomeStatic from "./home-static";
 
 const CLI_CMD = "npx skills add velt-js/agent-skills";
