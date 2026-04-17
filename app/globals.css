@@ -5,3 +5,11 @@ body {
   color: #fff;
   margin: 0;
 }
+
+/* Framer SSRs appear-effect wrappers at opacity:0.001 and relies on its
+   runtime to animate them to 1 during hydration. React hydration mismatches
+   prevent that from completing cleanly in our setup, leaving the hero
+   grid-dots GIF and other backgrounds invisible. Force them visible. */
+[data-framer-appear-id] {
+  opacity: 1 !important;
+}
