@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect } from "react";
-import "../framer/styles.css";
+import Script from "next/script";
+import "./framer.css";
 import HomeStatic from "./home-static";
+import { FRAMER_HANDOVER_JSON, FRAMER_RUNTIME_SRC } from "./framer-handover";
 
 const CLI_CMD = "npx skills add velt-js/agent-skills";
 
@@ -51,61 +53,9 @@ function injectCliSnippet() {
   row.parentElement.insertBefore(wrap, row.nextSibling);
 }
 
-// Silence known-harmless unframer/Framer runtime warnings that surface when
-// the Framer-classed DOM is embedded directly.
-if (typeof window !== "undefined" && !(window as { __framerWarningsPatched?: boolean }).__framerWarningsPatched) {
-  (window as { __framerWarningsPatched?: boolean }).__framerWarningsPatched = true;
-  const originalError = console.error.bind(console);
-  const SUPPRESS = [
-    "__withFX",
-    "parentSize",
-    "providedWindow",
-    "motionChild",
-    "scopeId",
-    "clickTrackingId",
-    "preserveParams",
-    "relValues",
-    "element.ref was removed",
-    "Accessing element.ref was removed",
-    'unique "key" prop',
-    "hydration",
-    "Hydration",
-    "Invalid DOM property",
-    "non-boolean attribute",
-    "React does not recognize",
-    "Unknown event handler",
-    "Using kebab-case",
-    "aria-",
-    // Framer runtime tries to dynamically import CMS collection modules that
-    // aren't shipped with the static export (blog moved to Sanity). The
-    // runtime catches the failure internally — no user impact — but the
-    // rejection still surfaces via console.error.
-    "Failed to import collection module",
-    "Failed to fetch dynamically imported module",
-  ];
-  console.error = (...args: unknown[]) => {
-    const msg = args.map((a) => (typeof a === "string" ? a : "")).join(" ");
-    if (SUPPRESS.some((s) => msg.includes(s))) return;
-    originalError(...args);
-  };
-
-  // Framer's runtime calls `import(...)` for CMS/snippet chunks that aren't
-  // shipped with the static export. It handles the failure internally, but
-  // the rejected promise still bubbles up as an unhandledrejection, which
-  // Next.js's dev error overlay catches independently of console.error.
-  window.addEventListener("unhandledrejection", (event) => {
-    const reason = event.reason;
-    const msg =
-      reason instanceof Error ? `${reason.name}: ${reason.message}` : String(reason);
-    if (
-      msg.includes("Failed to fetch dynamically imported module") ||
-      msg.includes("Failed to import collection module") ||
-      msg.includes("/framer-runtime/")
-    ) {
-      event.preventDefault();
-    }
-  });
-}
+// Framer warning suppression + unhandledrejection guard live in
+// `app/layout.tsx` as an inline <head> script so they apply to every route
+// (this module only loads on `/`).
 
 export default function Home() {
   useEffect(() => {
@@ -122,5 +72,23 @@ export default function Home() {
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, []);
-  return <HomeStatic />;
+  // Handover JSON must exist in the DOM before the runtime script executes;
+  // render it as a sibling before <HomeStatic />. Runtime loads post-hydration.
+  // Both are scoped to the homepage — on other routes the runtime would read
+  // this homepage-specific handover and fatal-error during hydration.
+  return (
+    <>
+      <script
+        type="framer/handover"
+        id="__framer__handoverData"
+        dangerouslySetInnerHTML={{ __html: FRAMER_HANDOVER_JSON }}
+      />
+      <HomeStatic />
+      <Script
+        type="module"
+        src={FRAMER_RUNTIME_SRC}
+        strategy="afterInteractive"
+      />
+    </>
+  );
 }
