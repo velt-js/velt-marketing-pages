@@ -10,20 +10,17 @@ const CLI_CMD = "npx skills add velt-js/agent-skills";
 
 function injectCliSnippet() {
   if (document.getElementById("velt-cli-snippet")) return;
-  // Anchor: the "Get Free API Key" button's <a> wrapper. From index.jsx structure,
-  // the button row container sits 3 levels above the anchor.
   const label = Array.from(document.querySelectorAll("p")).find(
     (el) => el.textContent?.trim() === "Get Free API Key",
   );
   const anchor = label?.closest("a");
+  // The button row container sits 3 levels above the anchor in the Framer markup.
   let row: HTMLElement | null = anchor ?? null;
   for (let i = 0; i < 3 && row; i++) row = row.parentElement;
   if (!row || !row.parentElement) return;
 
   const wrap = document.createElement("div");
   wrap.id = "velt-cli-snippet";
-  // Dimensions from Framer MCP XML (node lfBuetMTl): fit-content width,
-  // 8px 8px 8px 16px padding, 10px gap, 8px border-radius.
   wrap.style.cssText = [
     "display:flex",
     "flex-direction:row",
@@ -53,17 +50,11 @@ function injectCliSnippet() {
   row.parentElement.insertBefore(wrap, row.nextSibling);
 }
 
-// Framer warning suppression + unhandledrejection guard live in
-// `app/layout.tsx` as an inline <head> script so they apply to every route
-// (this module only loads on `/`).
-
 export default function Home() {
   useEffect(() => {
     injectCliSnippet();
-    // Framer's runtime re-renders parts of the tree asynchronously (including
-    // after CMS module import failures), which can wipe out the injected node
-    // after our initial attempts. Observe the body and re-inject whenever the
-    // snippet goes missing.
+    // Framer's runtime re-renders the tree asynchronously and can wipe the
+    // injected node; re-inject whenever it goes missing.
     const observer = new MutationObserver(() => {
       if (!document.getElementById("velt-cli-snippet")) {
         injectCliSnippet();
@@ -72,10 +63,9 @@ export default function Home() {
     observer.observe(document.body, { childList: true, subtree: true });
     return () => observer.disconnect();
   }, []);
-  // Handover JSON must exist in the DOM before the runtime script executes;
-  // render it as a sibling before <HomeStatic />. Runtime loads post-hydration.
-  // Both are scoped to the homepage — on other routes the runtime would read
-  // this homepage-specific handover and fatal-error during hydration.
+  // Order matters: handover JSON must be in the DOM before the runtime script
+  // runs. Both are homepage-scoped — other routes would read this handover and
+  // fatal-error during hydration.
   return (
     <>
       <script

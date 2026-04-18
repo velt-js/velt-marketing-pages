@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return {
       fallback: [
-        // All other routes: try /pages-html/<path>/index.html
         {
           source: "/:path*",
           destination: "/pages-html/:path*/index.html",
