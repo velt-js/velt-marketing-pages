@@ -6,17 +6,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        {/* Must run before Next's dev error-overlay mounts, otherwise Next's
-            patch wraps ours and Framer's known-harmless warnings still leak. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){if(typeof window==="undefined"||window.__framerWarningsPatched)return;window.__framerWarningsPatched=true;var SUPPRESS=["__withFX","parentSize","providedWindow","motionChild","scopeId","clickTrackingId","preserveParams","relValues","element.ref was removed","Accessing element.ref was removed",'unique "key" prop',"hydration","Hydration","Invalid DOM property","non-boolean attribute","React does not recognize","Unknown event handler","Using kebab-case","aria-","Failed to import collection module","Failed to fetch dynamically imported module","Failed to fetch","Fatal error","framer.com/contact","/framer-runtime/"];function shouldSuppress(args){var msg=args.map(function(a){return typeof a==="string"?a:(a&&a.message)||"";}).join(" ");for(var i=0;i<SUPPRESS.length;i++){if(msg.indexOf(SUPPRESS[i])>=0)return true;}return false;}function installConsoleErrorPatch(){var upstream=console.error.bind(console);var patched=function(){var args=Array.prototype.slice.call(arguments);if(shouldSuppress(args))return;upstream.apply(null,args);};patched.__framerSuppressWrapper=true;console.error=patched;}installConsoleErrorPatch();setTimeout(function(){if(!console.error.__framerSuppressWrapper)installConsoleErrorPatch();},0);setTimeout(function(){if(!console.error.__framerSuppressWrapper)installConsoleErrorPatch();},500);setTimeout(function(){if(!console.error.__framerSuppressWrapper)installConsoleErrorPatch();},2000);window.addEventListener("unhandledrejection",function(e){var r=e&&e.reason;var m=(r&&r.message)||String(r||"");for(var i=0;i<SUPPRESS.length;i++){if(m.indexOf(SUPPRESS[i])>=0){e.preventDefault();e.stopImmediatePropagation();return;}}},true);})();`,
-          }}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap"
         />
       </head>
-      <body style={{ margin: 0 }}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

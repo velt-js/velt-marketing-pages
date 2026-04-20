@@ -1,15 +1,34 @@
 @import "tailwindcss";
 
+/* Webfonts (Urbanist, Fira Mono, Fira Code, Poppins) are loaded via a
+   `<link>` tag in app/layout.tsx — @import url(...) from a Tailwind-4 file
+   can't live after the Tailwind import, and both orderings hit Turbopack's
+   "@import must precede all rules" error. */
+
+/* Figma design tokens — exposed via Tailwind 4's @theme directive so they
+   appear as real utility classes (`bg-velt-purple`, `font-urbanist`, etc.). */
+@theme {
+  --color-velt-purple: rgb(98, 93, 245);
+  --color-velt-ink: rgb(17, 17, 17);
+  --color-velt-charcoal: rgb(28, 29, 33);
+  --color-velt-midnight: rgb(13, 13, 13);
+  --color-velt-mint: rgb(139, 242, 225);
+  --color-velt-offwhite: rgb(247, 247, 247);
+  --color-velt-mutedgrey: rgb(147, 147, 147);
+  --color-velt-coral: rgb(245, 93, 103);
+  --color-velt-peach: rgb(255, 122, 89);
+  --color-velt-sky: rgb(81, 169, 227);
+
+  --font-urbanist: "Urbanist", system-ui, sans-serif;
+  --font-firamono: "Fira Mono", ui-monospace, monospace;
+  --font-firacode: "Fira Code", ui-monospace, monospace;
+  --font-poppins: "Poppins", system-ui, sans-serif;
+}
+
 body {
   background: #000;
   color: #fff;
   margin: 0;
-}
-
-/* Framer SSRs appear-effect wrappers at opacity:0.001 and relies on its
-   runtime to animate them to 1 during hydration. React hydration mismatches
-   prevent that from completing cleanly in our setup, leaving the hero
-   grid-dots GIF and other backgrounds invisible. Force them visible. */
-[data-framer-appear-id] {
-  opacity: 1 !important;
+  font-family: var(--font-urbanist);
+  -webkit-font-smoothing: antialiased;
 }

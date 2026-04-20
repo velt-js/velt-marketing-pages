@@ -1,84 +1,75 @@
-"use client";
+import { ScaleWrapper } from "@/components/home/ScaleWrapper";
+import { Nav } from "@/components/home/Nav";
+import { Hero } from "@/components/home/Hero";
+import { Outcomes } from "@/components/home/Outcomes";
+import { TrustedLogos } from "@/components/home/TrustedLogos";
+import { GetStartedSteps } from "@/components/home/GetStartedSteps";
+import { StealFeatures } from "@/components/home/StealFeatures";
+import { FeaturesGrid } from "@/components/home/FeaturesGrid";
+import { CustomerUI } from "@/components/home/CustomerUI";
+import { Connectors } from "@/components/home/Connectors";
+import { LibrarySupport } from "@/components/home/LibrarySupport";
+import { Security } from "@/components/home/Security";
+import { Footer } from "@/components/home/Footer";
 
-import { useEffect } from "react";
-import Script from "next/script";
-import "./framer.css";
-import HomeStatic from "./home-static";
-import { FRAMER_HANDOVER_JSON, FRAMER_RUNTIME_SRC } from "./framer-handover";
-
-const CLI_CMD = "npx skills add velt-js/agent-skills";
-
-function injectCliSnippet() {
-  if (document.getElementById("velt-cli-snippet")) return;
-  const label = Array.from(document.querySelectorAll("p")).find(
-    (el) => el.textContent?.trim() === "Get Free API Key",
-  );
-  const anchor = label?.closest("a");
-  // The button row container sits 3 levels above the anchor in the Framer markup.
-  let row: HTMLElement | null = anchor ?? null;
-  for (let i = 0; i < 3 && row; i++) row = row.parentElement;
-  if (!row || !row.parentElement) return;
-
-  const wrap = document.createElement("div");
-  wrap.id = "velt-cli-snippet";
-  wrap.style.cssText = [
-    "display:flex",
-    "flex-direction:row",
-    "align-items:center",
-    "gap:10px",
-    "padding:8px 8px 8px 16px",
-    "border-radius:8px",
-    "background:rgba(12,12,14,0.8)",
-    "border:1px solid rgba(255,255,255,0.1)",
-    "margin:12px auto 0",
-    "width:420px",
-    "box-sizing:border-box",
-    "justify-content:space-between",
-  ].join(";");
-  wrap.innerHTML = `
-    <code style="font-family:'Geist Mono','IBM Plex Mono','Menlo',monospace;font-weight:500;font-size:14px;line-height:1;color:#fff;white-space:nowrap;">${CLI_CMD}</code>
-    <button type="button" aria-label="Copy command" id="velt-cli-copy" style="width:24px;height:24px;border:none;background:transparent;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-      </svg>
-    </button>
-  `;
-  wrap.querySelector("#velt-cli-copy")?.addEventListener("click", () => {
-    navigator.clipboard?.writeText(CLI_CMD);
-  });
-  row.parentElement.insertBefore(wrap, row.nextSibling);
-}
+// Figma y-positions for top-level sections (8506:97015, 1440×11703):
+//   Nav          y=0    h=57    (floats over Hero top)
+//   Hero         y=0    h=1174
+//   TrustedLogos y=1251 h=216   → 77 gap from Hero end
+//   Outcomes     y=1544 h=1032  → 77 gap from TrustedLogos end
+//   Content     y=2504 h=7014  → starts BEFORE Outcomes ends (-72 overlap)
+//   GetStarted   y=9604 h=811   → 87 gap from Content Container end
+//   Footer       y=10502 h=1200 → 87 gap from GetStarted end
+//
+// Everything inside ScaleWrapper sits at a 1440 design width that scales
+// proportionally below 1440 and centers above.
 
 export default function Home() {
-  useEffect(() => {
-    injectCliSnippet();
-    // Framer's runtime re-renders the tree asynchronously and can wipe the
-    // injected node; re-inject whenever it goes missing.
-    const observer = new MutationObserver(() => {
-      if (!document.getElementById("velt-cli-snippet")) {
-        injectCliSnippet();
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-    return () => observer.disconnect();
-  }, []);
-  // Order matters: handover JSON must be in the DOM before the runtime script
-  // runs. Both are homepage-scoped — other routes would read this handover and
-  // fatal-error during hydration.
   return (
-    <>
-      <script
-        type="framer/handover"
-        id="__framer__handoverData"
-        dangerouslySetInnerHTML={{ __html: FRAMER_HANDOVER_JSON }}
-      />
-      <HomeStatic />
-      <Script
-        type="module"
-        src={FRAMER_RUNTIME_SRC}
-        strategy="afterInteractive"
-      />
-    </>
+    <ScaleWrapper>
+      <div className="relative bg-black text-white font-urbanist" style={{ width: 1440 }}>
+        {/* Nav is absolutely positioned so Hero's grid background spans full width under it */}
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}>
+          <Nav />
+        </div>
+
+        <Hero />
+
+        <div style={{ marginTop: 77 }}>
+          <TrustedLogos />
+        </div>
+
+        <div style={{ marginTop: 77 }}>
+          <Outcomes />
+        </div>
+
+        {/* White rounded content container — overlaps Outcomes' bottom padding
+            by 72 px so its top-rounded corners sit inside the purple band. */}
+        <div
+          className="bg-white relative"
+          style={{
+            marginTop: -72,
+            borderRadius: 52,
+            paddingTop: 100,
+            paddingBottom: 100,
+          }}
+        >
+          <StealFeatures />
+          <FeaturesGrid />
+          <CustomerUI />
+          <Connectors />
+          <LibrarySupport />
+          <Security />
+        </div>
+
+        <div style={{ marginTop: 87 }}>
+          <GetStartedSteps />
+        </div>
+
+        <div style={{ marginTop: 87 }}>
+          <Footer />
+        </div>
+      </div>
+    </ScaleWrapper>
   );
 }
