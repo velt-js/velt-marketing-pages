@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "framer": "unframer 7e5af5d66397a8a1 --outDir framer-components"
   },
   "dependencies": {
+    "@motionone/dom": "^10.18.0",
     "@portabletext/react": "^6.0.3",
     "@sanity/client": "^7.21.0",
     "@sanity/code-input": "^7.1.0",
