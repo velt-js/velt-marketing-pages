@@ -1,19 +1,104 @@
-// Outcomes — Figma node 8506:97016. Purple rounded-top band with a 5-tab
-// rail, a big gradient-word headline, and a side-by-side visual + testimonial.
+"use client";
 
-type Tab = { label: string; icon: string; active: boolean };
+// Outcomes — Figma node 8506:97016 + tab variants 8576:6259 / 8576:6298 /
+// 8576:6337 / 8576:6376 / 8576:6415. Purple rounded-top band with a 5-tab
+// rail, a big gradient-word headline, and a side-by-side visual + testimonial
+// card that both swap per-tab.
 
-const tabs: Tab[] = [
-  { label: "Boost Engagement", icon: "/images/home/icon-broadcast.svg", active: true },
-  { label: "Boost Growth",     icon: "/images/home/icon-chart-line.svg", active: false },
-  { label: "Differentiate",    icon: "/images/home/icon-versions.svg", active: false },
-  { label: "Save Cost",        icon: "/images/home/icon-dollar.svg", active: false },
-  { label: "Ship Fast",        icon: "/images/home/icon-clock.svg", active: false },
+import { useState } from "react";
+
+type TabId = "engagement" | "growth" | "differentiate" | "savecost" | "shipfast";
+
+type TabDef = {
+  id: TabId;
+  label: string;
+  icon: string;
+  visual: string;
+  logo: { src: string; width: number; height: number };
+  quote: string;
+  person: { name: string; title: string; avatar: string; avatarBorder: string };
+};
+
+const TABS: TabDef[] = [
+  {
+    id: "engagement",
+    label: "Boost Engagement",
+    icon: "/images/home/icon-broadcast.svg",
+    visual: "/images/home/outcomes-visual.png",
+    logo: { src: "/images/home/trumpet-logo.svg", width: 133, height: 23 },
+    quote: "Engagement at Trumpet grew by 10%\u201D after adding collaborative features from Velt",
+    person: {
+      name: "William Angle",
+      title: "Lead PM, Trumpet",
+      avatar: "/images/home/william-angle.png",
+      avatarBorder: "#fcca44",
+    },
+  },
+  {
+    id: "growth",
+    label: "Boost Growth",
+    icon: "/images/home/icon-chart-line.svg",
+    visual: "/images/home/outcomes/growth-visual.png",
+    logo: { src: "/images/home/outcomes/growth-logo.png", width: 133, height: 18 },
+    quote: "With Velt\u2019s collaborative features we boosted our app\u2019s weekly active users by 26%",
+    person: {
+      name: "Jeff Cunning",
+      title: "CPO @MetaImpact",
+      avatar: "/images/home/outcomes/growth-profile.png",
+      avatarBorder: "#fcca44",
+    },
+  },
+  {
+    id: "differentiate",
+    label: "Differentiate",
+    icon: "/images/home/icon-versions.svg",
+    visual: "/images/home/outcomes/differentiate-visual.png",
+    logo: { src: "/images/home/outcomes/differentiate-logo.png", width: 140, height: 25 },
+    quote: "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
+    person: {
+      name: "Fenne Buitenrust",
+      title: "Product Lead @CloudFactory",
+      avatar: "/images/home/outcomes/differentiate-profile.png",
+      avatarBorder: "#fcca44",
+    },
+  },
+  {
+    id: "savecost",
+    label: "Save Cost",
+    icon: "/images/home/icon-dollar.svg",
+    visual: "/images/home/outcomes/savecost-visual.png",
+    logo: { src: "/images/home/outcomes/savecost-logo.png", width: 143, height: 33 },
+    quote: "Instead of quarters of work for 3 FTEs, it only took a few weeks with Velt",
+    person: {
+      name: "Hope Callaway",
+      title: "Sr. Product Manager @Leadpages",
+      avatar: "/images/home/outcomes/savecost-profile.png",
+      avatarBorder: "#fcca44",
+    },
+  },
+  {
+    id: "shipfast",
+    label: "Ship Fast",
+    icon: "/images/home/icon-clock.svg",
+    visual: "/images/home/outcomes/shipfast-visual.png",
+    logo: { src: "/images/home/outcomes/shipfast-logo.png", width: 125, height: 35 },
+    quote: "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
+    person: {
+      name: "Weller Miranda",
+      title: "Sr. Software Engineer @marco",
+      avatar: "/images/home/outcomes/shipfast-profile.png",
+      avatarBorder: "#fcca44",
+    },
+  },
 ];
 
 export function Outcomes() {
+  const [activeId, setActiveId] = useState<TabId>("engagement");
+  const active = TABS.find((t) => t.id === activeId) ?? TABS[0];
+
   return (
     <section
+      data-outcomes
       className="flex flex-col items-start w-full relative"
       style={{
         background: "#625df5",
@@ -28,32 +113,43 @@ export function Outcomes() {
           className="flex items-center w-full"
           style={{ gap: 2, borderBottom: "2px solid rgba(255,255,255,0.12)" }}
         >
-          {tabs.map((tab) => (
-            <div
-              key={tab.label}
-              className="flex-1 flex items-center justify-center gap-3 relative"
-              style={{
-                padding: "16px 20px",
-                borderBottom: tab.active ? "2px solid #fff" : "none",
-                marginBottom: tab.active ? -2 : 0,
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={tab.icon} alt="" width={20} height={20} style={{ opacity: tab.active ? 1 : 0.52 }} />
-              <span
-                className={`font-urbanist ${tab.active ? "font-bold" : "font-medium"} whitespace-nowrap`}
+          {TABS.map((tab) => {
+            const isActive = tab.id === activeId;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveId(tab.id)}
+                className="flex-1 flex items-center justify-center gap-3 relative cursor-pointer"
                 style={{
-                  fontSize: 18,
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.03em",
-                  color: "#fff",
-                  opacity: tab.active ? 1 : 0.52,
+                  padding: "16px 20px",
+                  marginBottom: -2,
+                  background: "transparent",
+                  borderTopWidth: 0,
+                  borderLeftWidth: 0,
+                  borderRightWidth: 0,
+                  borderBottomWidth: 2,
+                  borderBottomStyle: "solid",
+                  borderBottomColor: isActive ? "#fff" : "transparent",
                 }}
               >
-                {tab.label}
-              </span>
-            </div>
-          ))}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={tab.icon} alt="" width={20} height={20} style={{ opacity: isActive ? 1 : 0.52 }} />
+                <span
+                  className={`font-urbanist ${isActive ? "font-bold" : "font-medium"} whitespace-nowrap`}
+                  style={{
+                    fontSize: 18,
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.03em",
+                    color: "#fff",
+                    opacity: isActive ? 1 : 0.52,
+                  }}
+                >
+                  {tab.label}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Headline + sub */}
@@ -100,8 +196,9 @@ export function Outcomes() {
           <div className="flex-1 relative" style={{ height: 513 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/home/outcomes-visual.png"
-              alt="With Velt vs Without Velt comparison"
+              key={active.id}
+              src={active.visual}
+              alt={`${active.label} visual`}
               className="absolute inset-0 w-full h-full object-cover"
               style={{ borderRadius: 32 }}
             />
@@ -127,11 +224,11 @@ export function Outcomes() {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/home/trumpet-logo.svg"
-              alt="Trumpet"
-              width={133}
-              height={23}
-              style={{ width: 133, height: 23 }}
+              src={active.logo.src}
+              alt={active.person.title}
+              width={active.logo.width}
+              height={active.logo.height}
+              style={{ width: active.logo.width, height: active.logo.height, objectFit: "contain" }}
             />
 
             <div className="flex flex-col w-full" style={{ gap: 32 }}>
@@ -139,8 +236,7 @@ export function Outcomes() {
                 className="font-urbanist font-bold text-white"
                 style={{ fontSize: 32, lineHeight: 1.2 }}
               >
-                Engagement at Trumpet grew by 10%&rdquo; after adding
-                collaborative features from Velt
+                {active.quote}
               </p>
               <div className="flex items-center w-full" style={{ gap: 16 }}>
                 <div
@@ -149,22 +245,22 @@ export function Outcomes() {
                     width: 50,
                     height: 50,
                     borderRadius: "50%",
-                    border: "1.887px solid #fcca44",
+                    border: `1.887px solid ${active.person.avatarBorder}`,
                   }}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/home/william-angle.png"
-                    alt="William Angle"
+                    src={active.person.avatar}
+                    alt={active.person.name}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
                 <div className="flex-1 flex flex-col text-white" style={{ gap: 4 }}>
                   <p className="font-urbanist font-bold" style={{ fontSize: 16, lineHeight: 1.2 }}>
-                    William Angle
+                    {active.person.name}
                   </p>
                   <p className="font-urbanist" style={{ fontSize: 16, lineHeight: 1.2 }}>
-                    Lead PM, Trumpet
+                    {active.person.title}
                   </p>
                 </div>
               </div>

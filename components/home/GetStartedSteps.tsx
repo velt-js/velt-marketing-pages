@@ -277,6 +277,7 @@ function Step3Column() {
 export function GetStartedSteps() {
   return (
     <section
+      data-getstarted
       className="flex flex-col items-center bg-black w-full"
       style={{ padding: "100px 80px", gap: 50 }}
     >

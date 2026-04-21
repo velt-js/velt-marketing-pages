@@ -26,14 +26,29 @@ import { Footer } from "@/components/home/Footer";
 
 export default function Home() {
   return (
-    <ScaleWrapper>
-      <div className="relative bg-black text-white font-urbanist" style={{ width: 1440 }}>
-        {/* Nav is absolutely positioned so Hero's grid background spans full width under it */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 10 }}>
+    <>
+      {/* Fixed nav — lives OUTSIDE ScaleWrapper so its position is relative to
+          the viewport, not the scale-transformed inner div. Flips to white bg
+          when Outcomes scrolls under it. */}
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: 1440 }}>
           <Nav />
         </div>
+      </div>
 
-        <Hero />
+      <ScaleWrapper>
+        <div className="relative bg-black text-white font-urbanist" style={{ width: 1440 }}>
+          <Hero />
 
         <div style={{ marginTop: 77 }}>
           <TrustedLogos />
@@ -66,10 +81,11 @@ export default function Home() {
           <GetStartedSteps />
         </div>
 
-        <div style={{ marginTop: 87 }}>
-          <Footer />
+          <div style={{ marginTop: 87 }}>
+            <Footer />
+          </div>
         </div>
-      </div>
-    </ScaleWrapper>
+      </ScaleWrapper>
+    </>
   );
 }

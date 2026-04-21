@@ -1,9 +1,15 @@
+"use client";
+
 // Hero — Figma node 8506:102927 (1440×1174). Rebuilt 1:1 from Figma design
 // context: pixel-grid animated background, centered title + buttons at the
 // top, a dark use-case demo panel in the lower half, and two cursor badges
 // (Sean teal-left, Emma pink-right) overlaying the middle. Positions below
 // are absolute-pixel to match the Figma canvas.
+//
+// Demo panel tabs swap a full-bleed screenshot per product variant (Figma
+// nodes 8576:6546–6558). Click to switch — matches the live Framer demo.
 
+import { useState } from "react";
 import Image from "next/image";
 
 function CursorSean() {
@@ -62,14 +68,29 @@ function CursorEmma() {
   );
 }
 
-function UseCaseTabRail() {
-  // 8506:101872 — Use Cases label + 4 product tabs, first active
-  const tabs = [
-    { label: "Sheets Product", active: true },
-    { label: "Documentation Product", active: false },
-    { label: "Dashboards", active: false },
-    { label: "Website Builder", active: false },
-  ];
+// Tab IDs map to the 5 demo screenshots (Figma nodes 8576:6546-6558).
+type DemoTab = {
+  id: "dashboard" | "documentation" | "video" | "cms" | "canvas";
+  label: string;
+  image: string;
+};
+
+const DEMO_TABS: DemoTab[] = [
+  { id: "dashboard",     label: "Dashboard Product",     image: "/images/home/demo-dashboard.png" },
+  { id: "documentation", label: "Documentation Product", image: "/images/home/demo-documentation.png" },
+  { id: "video",         label: "Video Editor",          image: "/images/home/demo-video.png" },
+  { id: "cms",           label: "CMS Product",           image: "/images/home/demo-cms.png" },
+  { id: "canvas",        label: "Canvas Editor",         image: "/images/home/demo-canvas.png" },
+];
+
+function UseCaseTabRail({
+  activeId,
+  onSelect,
+}: {
+  activeId: DemoTab["id"];
+  onSelect: (id: DemoTab["id"]) => void;
+}) {
+  // 8506:101872 — "Use Cases" label + product tabs
   return (
     <div
       className="flex items-center gap-6 w-full"
@@ -85,28 +106,38 @@ function UseCaseTabRail() {
         </span>
       </div>
       <div className="flex items-start gap-2">
-        {tabs.map((tab) => (
-          <div
-            key={tab.label}
-            className="rounded-lg px-3 py-2 flex items-center font-firamono uppercase whitespace-nowrap"
-            style={{
-              background: tab.active ? "rgba(255,255,255,0.08)" : "transparent",
-              color: tab.active ? "#fff" : "rgba(255,255,255,0.52)",
-              fontSize: 14,
-              letterSpacing: "-0.03em",
-              lineHeight: 1,
-            }}
-          >
-            {tab.label}
-          </div>
-        ))}
+        {DEMO_TABS.map((tab) => {
+          const active = tab.id === activeId;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => onSelect(tab.id)}
+              className="rounded-lg px-3 py-2 flex items-center font-firamono uppercase whitespace-nowrap cursor-pointer"
+              style={{
+                background: active ? "rgba(255,255,255,0.08)" : "transparent",
+                color: active ? "#fff" : "rgba(255,255,255,0.52)",
+                fontSize: 14,
+                letterSpacing: "-0.03em",
+                lineHeight: 1,
+                border: 0,
+              }}
+            >
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
 }
 
 function UseCaseDemo() {
-  // 8506:101871 — 1280×660 panel at y=514 x=80
+  // 8506:101871 — 1280×660 panel at y=514 x=80. Tab state drives which demo
+  // screenshot is shown — mirrors the live Framer component's behavior.
+  const [activeId, setActiveId] = useState<DemoTab["id"]>("dashboard");
+  const activeTab = DEMO_TABS.find((t) => t.id === activeId) ?? DEMO_TABS[0];
+
   return (
     <div
       className="absolute flex flex-col items-start"
@@ -132,8 +163,8 @@ function UseCaseDemo() {
             "linear-gradient(90deg, rgb(159,159,159) 0%, rgb(45,125,255) 25%, rgb(197,93,245) 50%, rgb(45,125,255) 74.519%, rgb(159,159,159) 100%)",
         }}
       />
-      <UseCaseTabRail />
-      {/* 8506:101886 — black inner with 4px charcoal border */}
+      <UseCaseTabRail activeId={activeId} onSelect={setActiveId} />
+      {/* 8506:101886 — screenshot stage with 4px charcoal inner border */}
       <div
         className="relative w-full overflow-hidden"
         style={{
@@ -142,7 +173,17 @@ function UseCaseDemo() {
           border: "4px solid #1c1d21",
           borderRadius: 12,
         }}
-      />
+      >
+        <Image
+          key={activeTab.id}
+          src={activeTab.image}
+          alt={`${activeTab.label} demo`}
+          fill
+          sizes="1280px"
+          style={{ objectFit: "cover", objectPosition: "top left" }}
+          priority={activeId === "dashboard"}
+        />
+      </div>
       {/* 8506:101888 — bottom-right Live Demo + Github pill strip */}
       <div
         className="absolute flex items-center gap-3"
