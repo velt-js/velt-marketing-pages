@@ -1,11 +1,12 @@
-// Footer — Figma node: `footer` (1280 wide, ~1120 tall). Left info column
-// (logo, tagline, SOC2 + AICPA badges, Get Free API Key CTA) + 6 right-side
-// link-group columns. Horizontal divider + bottom row (socials + copyright +
-// "Backed by YC").
+// Footer — Figma node 1:20067. Outer container 1280px wide, 64px vertical
+// inner padding. Left info column (340px) + 940px link area with 8 link
+// groups that flex-wrap into 4 × 2. Chart and Canvas Libraries stack
+// inside the same column. Divider + 3-column bottom row below.
 
 type LinkGroup = {
   heading: string;
   links: string[];
+  variant?: "default" | "library";
 };
 
 const asyncFeatures: LinkGroup = {
@@ -25,16 +26,7 @@ const asyncFeatures: LinkGroup = {
 const editorLibraries: LinkGroup = {
   heading: "Editor Libraries",
   links: ["YJS", "Tiptap", "BlockNote", "CodeMirror", "Lexical", "SlateJS"],
-};
-
-const chartLibraries: LinkGroup = {
-  heading: "Chart Libraries",
-  links: ["ChartJS"],
-};
-
-const canvasLibraries: LinkGroup = {
-  heading: "Canvas Libraries",
-  links: ["React Flow"],
+  variant: "library",
 };
 
 const realtimeFeatures: LinkGroup = {
@@ -53,9 +45,38 @@ const realtimeFeatures: LinkGroup = {
   ],
 };
 
+const chartLibraries: LinkGroup = {
+  heading: "Chart Libraries",
+  links: ["ChartJS", "Nivo Charts", "HighCharts"],
+  variant: "library",
+};
+
+const canvasLibraries: LinkGroup = {
+  heading: "Canvas Libraries",
+  links: ["React Flow"],
+  variant: "library",
+};
+
 const platform: LinkGroup = {
   heading: "Platform",
   links: ["Admin Console", "Dev Tools", "MCP", "Webhooks & API"],
+};
+
+const resources: LinkGroup = {
+  heading: "Resources",
+  links: [
+    "Blog",
+    "Docs",
+    "Release Notes",
+    "Migrate from Liveblocks",
+    "Migrate from Cord",
+    "Launch Kit",
+    "Themes Playground",
+    "Figma UI Kit",
+    "Examples",
+    "Compare Velt",
+    "Compare Velt Implementation",
+  ],
 };
 
 const useCases: LinkGroup = {
@@ -68,7 +89,6 @@ const useCases: LinkGroup = {
     "Sheets Product",
     "Session Replay Tool",
     "CRM Product",
-    "View All",
   ],
 };
 
@@ -89,22 +109,32 @@ const company: LinkGroup = {
 };
 
 function LinkColumn({ group }: { group: LinkGroup }) {
+  const linkColor =
+    group.variant === "library" ? "#939393" : "rgba(255,255,255,0.52)";
+  const linkWeight = group.variant === "library" ? 300 : 400;
   return (
-    <div className="flex flex-col gap-5" style={{ width: 229 }}>
+    <div className="flex flex-col" style={{ gap: 20, minWidth: 0 }}>
       <h3
         className="font-urbanist font-bold text-white"
-        style={{ fontSize: 14 }}
+        style={{ fontSize: 14, lineHeight: "15.4px" }}
       >
         {group.heading}
       </h3>
-      <ul className="flex flex-col gap-5">
+      <ul className="flex flex-col" style={{ gap: 20 }}>
         {group.links.map((link) => (
           <li
             key={link}
-            className="font-urbanist text-white/80"
-            style={{ fontSize: 14 }}
+            className="font-urbanist"
+            style={{
+              fontSize: 14,
+              lineHeight: "15.4px",
+              color: linkColor,
+              fontWeight: linkWeight,
+            }}
           >
-            <a href="#" className="hover:text-white">{link}</a>
+            <a href="#" className="hover:text-white whitespace-nowrap">
+              {link}
+            </a>
           </li>
         ))}
       </ul>
@@ -117,7 +147,7 @@ function SocialIcon({ label, src }: { label: string; src: string }) {
     <a
       href="#"
       aria-label={label}
-      className="flex items-center justify-center"
+      className="flex items-center justify-center opacity-40 hover:opacity-100"
       style={{ width: 24, height: 24 }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -134,43 +164,99 @@ export function Footer() {
     >
       <div
         className="flex flex-col"
-        style={{ width: 1280, padding: "64px 0" }}
+        style={{ width: 1280, padding: "64px 0", gap: 64 }}
       >
-        <div className="flex justify-between items-start">
-          {/* Left info column */}
+        {/* Main content row: info column + link grid */}
+        <div className="flex items-start justify-between">
+          {/* Left info column — Figma 1:20071 (340×280) */}
           <div
-            className="flex flex-col justify-between"
-            style={{ width: 340, height: 280 }}
+            className="flex flex-col"
+            style={{ width: 340, gap: 64 }}
           >
-            <div className="flex flex-col gap-4">
-              {/* Logo */}
-              <div className="flex items-center justify-center overflow-hidden" style={{ width: 100, height: 40, padding: "0 3px" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/home/velt-logo-footer.svg" alt="Velt" width={93.75} height={40} style={{ objectFit: "contain" }} />
-              </div>
-              <p className="font-urbanist font-medium text-white" style={{ fontSize: 16, lineHeight: 1.25, width: 232, opacity: 0.4 }}>
-                Add powerful collaborative
-                <br />
-                features ridiculously fast!
-              </p>
-              <div className="flex items-center" style={{ gap: 16 }}>
-                <div className="relative overflow-hidden rounded-full" style={{ width: 52, height: 52 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/images/home/soc2-badge.png" alt="SOC2 Type II certified" className="absolute inset-0 w-full h-full object-cover" />
-                </div>
-                {/* AICPA badge — Figma exports only the outer circle; render as a
-                    white circle with "AICPA / SOC" text overlay until we have the
-                    inner badge artwork. */}
+            <div className="flex flex-col" style={{ gap: 24 }}>
+              <div className="flex flex-col" style={{ gap: 16 }}>
+                {/* Logo */}
                 <div
-                  className="relative overflow-hidden rounded-full flex flex-col items-center justify-center text-velt-ink font-urbanist"
-                  style={{ width: 52, height: 52, background: "#fff" }}
-                  aria-label="AICPA SOC"
+                  className="flex items-center justify-center overflow-hidden"
+                  style={{ width: 100, height: 40, padding: "0 3.125px" }}
                 >
-                  <span style={{ fontSize: 8, fontWeight: 600, letterSpacing: "0.1em" }}>AICPA</span>
-                  <span style={{ fontSize: 10, fontWeight: 700, marginTop: 2 }}>SOC</span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/home/velt-logo-footer.svg"
+                    alt="Velt"
+                    width={93.75}
+                    height={40}
+                    style={{ display: "block", objectFit: "contain" }}
+                  />
+                </div>
+                {/* Tagline */}
+                <p
+                  className="font-urbanist font-medium text-white"
+                  style={{
+                    fontSize: 16,
+                    lineHeight: "20px",
+                    width: 232,
+                    opacity: 0.4,
+                  }}
+                >
+                  Add powerful collaborative
+                  <br />
+                  features ridiculously fast!
+                </p>
+              </div>
+              {/* Badges */}
+              <div className="flex items-center" style={{ gap: 16 }}>
+                <div
+                  className="relative overflow-hidden rounded-full"
+                  style={{ width: 52, height: 52 }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/home/aicpa-badge.svg"
+                    alt="AICPA SOC"
+                    width={52}
+                    height={52}
+                    style={{ display: "block", objectFit: "cover" }}
+                  />
+                </div>
+                <div
+                  className="relative overflow-hidden rounded-full flex flex-col items-center justify-center bg-white"
+                  style={{ width: 52, height: 52 }}
+                  aria-label="HIPAA"
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginBottom: 1 }}
+                  >
+                    <path
+                      d="M12 2 L9 6 L12 8 L15 6 Z M9 6 L7 14 L12 14 L17 14 L15 6 M12 8 L12 20 M9 18 L15 18"
+                      stroke="#111"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      fill="none"
+                    />
+                  </svg>
+                  <span
+                    className="font-urbanist"
+                    style={{
+                      fontSize: 7,
+                      fontWeight: 700,
+                      letterSpacing: "0.08em",
+                      color: "#111",
+                      lineHeight: 1,
+                    }}
+                  >
+                    HIPAA
+                  </span>
                 </div>
               </div>
             </div>
+            {/* Button */}
             <button
               className="rounded-md font-urbanist font-semibold text-white"
               style={{
@@ -178,54 +264,136 @@ export function Footer() {
                 border: "1px solid rgb(38,34,145)",
                 fontSize: 16,
                 width: 160,
+                letterSpacing: "-0.48px",
               }}
             >
               Get Free API Key
             </button>
           </div>
 
-          {/* Link columns */}
-          <div className="flex items-start gap-2">
-            <LinkColumn group={asyncFeatures} />
-            <div className="flex flex-col gap-10" style={{ width: 229 }}>
+          {/* Link grid — Figma 1:20109 (940 wide, flex-wrap 4 × 2) */}
+          <div
+            className="flex flex-wrap content-start items-start"
+            style={{ flex: "1 0 0", minWidth: 0, rowGap: 36, columnGap: 8 }}
+          >
+            <div style={{ flex: "1 0 0", minWidth: 220 }}>
+              <LinkColumn group={asyncFeatures} />
+            </div>
+            <div style={{ flex: "1 0 0", minWidth: 220 }}>
               <LinkColumn group={editorLibraries} />
+            </div>
+            <div style={{ flex: "1 0 0", minWidth: 220 }}>
+              <LinkColumn group={realtimeFeatures} />
+            </div>
+            {/* Chart + Canvas stacked in one column — Figma 1:20195 */}
+            <div
+              style={{ flex: "1 0 0", minWidth: 220 }}
+              className="flex flex-col"
+            >
               <LinkColumn group={chartLibraries} />
+              <div style={{ height: 36 }} />
               <LinkColumn group={canvasLibraries} />
             </div>
-            <div className="flex flex-col gap-10" style={{ width: 229 }}>
-              <LinkColumn group={realtimeFeatures} />
+            <div style={{ flex: "1 0 0", minWidth: 220 }}>
               <LinkColumn group={platform} />
             </div>
-            <LinkColumn group={useCases} />
-            <LinkColumn group={company} />
+            <div style={{ flex: "1 0 0", minWidth: 220 }}>
+              <LinkColumn group={resources} />
+            </div>
+            <div
+              style={{ flex: "1 0 0", minWidth: 220 }}
+              className="flex flex-col"
+            >
+              <LinkColumn group={useCases} />
+              <a
+                href="#"
+                className="mt-5 inline-flex items-center gap-[10px] font-urbanist whitespace-nowrap"
+                style={{
+                  fontSize: 14,
+                  lineHeight: "15.4px",
+                  color: "rgba(255,255,255,0.4)",
+                }}
+              >
+                View All
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.5 6 H9.5 M6.5 3 L9.5 6 L6.5 9"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </div>
+            <div style={{ flex: "1 0 0", minWidth: 220 }}>
+              <LinkColumn group={company} />
+            </div>
           </div>
         </div>
 
-        {/* Divider */}
+        {/* Divider — Figma 1:20343. Radial white gradient, 20% opacity. */}
         <div
           style={{
             width: "100%",
             height: 1,
-            background: "rgba(255,255,255,0.08)",
-            margin: "64px 0 24px",
+            opacity: 0.2,
+            background:
+              "radial-gradient(ellipse 50% 100% at 50% 50%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)",
           }}
         />
 
-        {/* Bottom row */}
-        <div className="flex items-start justify-between">
-          <div className="flex items-center" style={{ gap: 32 }}>
+        {/* Bottom row — Figma 1:20344. 3 equal columns, 24px tall. */}
+        <div className="flex items-center" style={{ height: 24, gap: 10 }}>
+          <div
+            className="flex items-center"
+            style={{ flex: "1 0 0", minWidth: 0, gap: 32 }}
+          >
             <SocialIcon label="LinkedIn" src="/images/home/icon-linkedin.svg" />
             <SocialIcon label="X (Twitter)" src="/images/home/icon-x-social.svg" />
           </div>
-          <p className="font-urbanist font-medium text-white text-center" style={{ fontSize: 16 }}>
-            All rights reserved © 2025 Velt
-          </p>
-          <div className="flex items-center" style={{ gap: 10 }}>
-            <span className="font-urbanist font-medium text-white text-right" style={{ fontSize: 16 }}>
+          <div
+            className="flex justify-center"
+            style={{ flex: "1 0 0", minWidth: 0, opacity: 0.4 }}
+          >
+            <p
+              className="font-urbanist font-medium text-white text-center whitespace-nowrap"
+              style={{ fontSize: 16, lineHeight: "19.2px" }}
+            >
+              All rights reserved © 2025 Velt
+            </p>
+          </div>
+          <div
+            className="flex items-center justify-end"
+            style={{ flex: "1 0 0", minWidth: 0, gap: 10 }}
+          >
+            <span
+              className="font-urbanist font-medium text-white whitespace-nowrap"
+              style={{ fontSize: 16, lineHeight: "19.2px", opacity: 0.4 }}
+            >
               Backed by
             </span>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/home/yc-logo.svg" alt="Y Combinator" height={26} style={{ objectFit: "contain" }} />
+            <div style={{ width: 100, height: 26, opacity: 0.3 }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/home/yc-logo.svg"
+                alt="Y Combinator"
+                width={100}
+                height={26}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

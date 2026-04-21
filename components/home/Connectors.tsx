@@ -1,113 +1,245 @@
-// Connectors — Figma node 8506:101917. Header at top, then a 2×3 grid of
-// integration categories (Messaging, Storage, CRM, Analytics, Email,
-// Workflow Automation). Each cell is 640×313 with a 2px border.
+// Connectors — matches live velt.dev "Connect Velt with 3rd Party Apps".
+// Logo positioning ripped from the Framer export CSS
+// (`/Users/yoenzhang/Downloads/79f9d44e-aee0-4640-93c0-37f7eddaf158/page.html`):
+// cell height 365px, text block absolute at bottom:30/left:30/right:30,
+// each logo placed with Framer's own calc(XX% − Ypx) coordinates.
+
+type Logo = {
+  src: string;
+  alt: string;
+  left: string;
+  top: string;
+  w: number;
+  h: number;
+};
 
 type Category = {
   title: string;
   description: string;
-  logos: { src: string; w: number; h: number; alt: string }[];
+  logos: Logo[];
+  emailComposite?: boolean; // Email uses inset-based layout, not per-logo position
 };
 
+// Row 1
 const messaging: Category = {
   title: "Messaging",
   description: "Push messages to Discord, Slack and Microsoft Teams",
+  // framer-dghwby: 269×94 centered — top calc(40% - 47px), left calc(50% - 134.5px)
   logos: [
-    { src: "/images/home/logo-discord.svg", w: 55, h: 42, alt: "Discord" },
-    { src: "/images/home/logo-slack-1.svg", w: 37, h: 42, alt: "Slack" },
-    { src: "/images/home/logo-ms-teams.png", w: 65, h: 66, alt: "Microsoft Teams" },
+    {
+      src: "/images/home/connector-messaging.png",
+      alt: "Discord, Slack, Microsoft Teams",
+      left: "calc(50% - 134.5px)",
+      top: "calc(40% - 47px)",
+      w: 269,
+      h: 94,
+    },
   ],
 };
+
 const storage: Category = {
   title: "Storage",
-  description: "Store data in your preferred storage  S3, Azure or GCP",
+  description: "Store data on platforms like GCP, AWS S3, or Microsoft Azure",
   logos: [
-    { src: "/images/home/logo-aws-s3-1.png", w: 146, h: 68, alt: "AWS S3" },
-    { src: "/images/home/logo-azure.png", w: 134, h: 61, alt: "Microsoft Azure" },
-    { src: "/images/home/logo-gcp-1.png", w: 128, h: 75, alt: "Google Cloud" },
+    // framer-5m3usk: Google Cloud Storage 114×79
+    {
+      src: "/images/home/connector-storage-gcp.png",
+      alt: "Google Cloud Storage",
+      left: "calc(25.6219% - 57.1889px)",
+      top: "calc(23.5616% - 39.4298px)",
+      w: 114,
+      h: 79,
+    },
+    // framer-91cetd: AWS|S3 105×48
+    {
+      src: "/images/home/connector-storage-aws.png",
+      alt: "AWS S3",
+      left: "calc(52.9851% - 52.6501px)",
+      top: "calc(48.4932% - 24.0205px)",
+      w: 105,
+      h: 48,
+    },
+    // framer-9wfuxs: Microsoft Azure Blob Storage 164×49
+    {
+      src: "/images/home/connector-storage-azure.png",
+      alt: "Microsoft Azure Blob Storage",
+      left: "calc(68.1592% - 82.1523px)",
+      top: "calc(23.5616% - 24.4737px)",
+      w: 164,
+      h: 49,
+    },
   ],
 };
+
+// Row 2
 const crm: Category = {
   title: "CRM",
-  description: "Trigger notification or messages",
+  description: "Link collaboration data to your customer lists",
   logos: [
-    { src: "/images/home/logo-hubspot.svg", w: 132, h: 38, alt: "HubSpot" },
-    { src: "/images/home/logo-close-raw.svg", w: 133, h: 36, alt: "Close" },
+    // framer-a4ur7u: HubSpot 105×31
+    {
+      src: "/images/home/connector-crm-hubspot.png",
+      alt: "HubSpot",
+      left: "calc(27.6119% - 52.5px)",
+      top: "calc(40% - 15.5px)",
+      w: 105,
+      h: 31,
+    },
+    // framer-1o92qac: Close 107×30
+    {
+      src: "/images/home/connector-crm-close.png",
+      alt: "Close",
+      left: "calc(67.1642% - 53.5px)",
+      top: "calc(40% - 14.75px)",
+      w: 107,
+      h: 30,
+    },
   ],
 };
+
 const analytics: Category = {
   title: "Analytics",
-  description: "Trigger notification or messages",
+  description: "Collect telemetry for analytics platforms",
   logos: [
-    { src: "/images/home/logo-opentelemetry.svg", w: 145, h: 55, alt: "OpenTelemetry" },
-    { src: "/images/home/logo-segment.svg", w: 52, h: 53, alt: "Segment" },
+    // framer-1x10v9a: OpenTelemetry 128×48
+    {
+      src: "/images/home/connector-analytics-otel.png",
+      alt: "OpenTelemetry",
+      left: "calc(37.3134% - 63.75px)",
+      top: "calc(41.0959% - 24px)",
+      w: 128,
+      h: 48,
+    },
+    // framer-yfd9na: Segment 47×48
+    {
+      src: "/images/home/connector-analytics-segment.png",
+      alt: "Segment",
+      left: "calc(72.6368% - 23.25px)",
+      top: "calc(41.0959% - 23.75px)",
+      w: 47,
+      h: 48,
+    },
   ],
 };
-const email: Category = {
-  title: "Email",
-  description: "Trigger notification or messages",
-  logos: [
-    { src: "/images/home/logo-resend.svg", w: 93, h: 20, alt: "Resend" },
-    { src: "/images/home/logo-customerio.svg", w: 142, h: 20, alt: "Customer.io" },
-    { src: "/images/home/logo-loops.svg", w: 100, h: 22, alt: "Loops" },
-    { src: "/images/home/logo-sendgrid.svg", w: 32, h: 32, alt: "Sendgrid" },
-  ],
-};
+
+// Row 3
 const workflow: Category = {
   title: "Workflow Automation",
-  description: "Trigger notification or messages",
+  description: "Make Velt features a part of existing workflows",
   logos: [
-    { src: "/images/home/logo-zapier.svg", w: 139, h: 38, alt: "Zapier" },
-    { src: "/images/home/logo-inngest.png", w: 60, h: 60, alt: "Inngest" },
-    { src: "/images/home/logo-windmill.svg", w: 65, h: 64, alt: "Windmill" },
+    // framer-oaoild: Inngest 44×45 (left)
+    {
+      src: "/images/home/connector-workflow-inngest.png",
+      alt: "Inngest",
+      left: "calc(16.6667% - 21.75px)",
+      top: "calc(35.0685% - 22.25px)",
+      w: 44,
+      h: 45,
+    },
+    // framer-wmfe5k: Zapier 113×31 (middle)
+    {
+      src: "/images/home/connector-workflow-zapier.png",
+      alt: "Zapier",
+      left: "calc(48.5075% - 56.25px)",
+      top: "calc(35.0685% - 15.5px)",
+      w: 113,
+      h: 31,
+    },
+    // framer-35fgua: Windmill 41×41 (right)
+    {
+      src: "/images/home/connector-workflow-windmill.png",
+      alt: "Windmill",
+      left: "calc(78.1095% - 20.5px)",
+      top: "calc(34.5206% - 20.5px)",
+      w: 41,
+      h: 41,
+    },
   ],
 };
 
-const categories: Category[] = [messaging, storage, crm, analytics, email, workflow];
+const email: Category = {
+  title: "Email",
+  description: "Send email notifications or updates on popular platforms",
+  emailComposite: true,
+  // framer-s6d80r: inset 81px 56px 185px 57px — fills upper portion of cell
+  logos: [
+    {
+      src: "/images/home/connector-email.png",
+      alt: "Resend, Customer.io, Loops, Sendgrid",
+      left: "57px",
+      top: "81px",
+      w: 0, // ignored for composite
+      h: 0,
+    },
+  ],
+};
 
-function CategoryCell({
-  cat,
-  borderRight,
-  borderBottom,
-}: {
-  cat: Category;
-  borderRight: boolean;
-  borderBottom: boolean;
-}) {
+const categories: Category[] = [messaging, storage, crm, analytics, workflow, email];
+
+function CategoryCell({ cat }: { cat: Category }) {
   return (
     <div
-      className="relative shrink-0 bg-white"
+      className="relative overflow-hidden"
       style={{
-        width: 640,
-        height: 313,
-        borderRight: borderRight ? "2px solid #111" : undefined,
-        borderBottom: borderBottom ? "2px solid #111" : undefined,
+        flex: "1 0 0",
+        height: 365,
+        background: "#f4f4f5",
+        borderRadius: 24,
       }}
     >
-      {/* Logos row — centered at top */}
-      <div
-        className="absolute flex items-center justify-center"
-        style={{ top: 60, left: 0, right: 0, gap: 60, height: 100 }}
-      >
-        {cat.logos.map((logo) => (
+      {cat.emailComposite ? (
+        <div
+          style={{
+            position: "absolute",
+            top: 81,
+            right: 56,
+            bottom: 185,
+            left: 57,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={cat.logos[0].src}
+            alt={cat.logos[0].alt}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              objectPosition: "center",
+            }}
+          />
+        </div>
+      ) : (
+        cat.logos.map((logo) => (
           <div
             key={logo.alt}
-            className="flex items-center justify-center shrink-0"
-            style={{ width: logo.w, height: logo.h }}
+            style={{
+              position: "absolute",
+              left: logo.left,
+              top: logo.top,
+              width: logo.w,
+              height: logo.h,
+            }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={logo.src}
               alt={logo.alt}
-              style={{ maxWidth: logo.w, maxHeight: logo.h, objectFit: "contain" }}
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
             />
           </div>
-        ))}
-      </div>
+        ))
+      )}
 
-      {/* Title + description bottom-left */}
       <div
-        className="absolute flex flex-col items-start"
-        style={{ top: 218, left: 29, width: 305, gap: 8 }}
+        className="flex flex-col items-start"
+        style={{
+          position: "absolute",
+          bottom: 30,
+          left: 30,
+          right: 30,
+          gap: 8,
+        }}
       >
         <h3
           className="font-urbanist font-bold"
@@ -126,23 +258,35 @@ function CategoryCell({
   );
 }
 
+function renderHighlightedQuote(quote: string, highlight: string) {
+  const idx = quote.indexOf(highlight);
+  if (idx === -1) return <>{quote}</>;
+  return (
+    <>
+      {quote.slice(0, idx)}
+      <span style={{ color: "#b387f7" }}>{highlight}</span>
+      {quote.slice(idx + highlight.length)}
+    </>
+  );
+}
+
 export function Connectors() {
   return (
     <section
       className="flex flex-col items-center bg-white relative"
       style={{ padding: "52px 80px 0", gap: 32 }}
     >
-      {/* Header */}
-      <div className="flex flex-col items-center" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>
+      {/* Header — max-width 820 per Framer */}
+      <div className="flex flex-col items-center" style={{ gap: 32, maxWidth: 820, width: "100%" }}>
+        <div className="flex flex-col items-center text-center" style={{ gap: 12, width: "100%" }}>
           <h2
-            className="font-urbanist font-bold whitespace-nowrap"
+            className="font-urbanist font-bold"
             style={{ color: "#111", fontSize: 48, lineHeight: 1.2, letterSpacing: "-0.03em" }}
           >
-            Connect Velt with your Apps
+            Connect Velt with 3rd Party Apps
           </h2>
           <p className="font-urbanist" style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}>
-            Velt provides support across libraries
+            Velt connects with other services in your product workflow
           </p>
         </div>
         <div className="flex items-start" style={{ gap: 12 }}>
@@ -167,25 +311,84 @@ export function Connectors() {
               className="font-urbanist font-semibold text-white whitespace-nowrap"
               style={{ fontSize: 16, letterSpacing: "-0.03em" }}
             >
-              View All Examples
+              Book Demo
             </span>
           </button>
         </div>
       </div>
 
-      {/* 2×3 grid */}
-      <div
-        className="grid grid-cols-2 grid-rows-3 overflow-hidden bg-white"
-        style={{ width: 1280, border: "2px solid #111", borderRadius: 24 }}
-      >
-        {categories.map((cat, i) => (
-          <CategoryCell
-            key={cat.title}
-            cat={cat}
-            borderRight={i % 2 === 0}
-            borderBottom={i < 4}
-          />
+      {/* 2×3 grid — 3 flex rows of 2 cells with gap:16, cells flex:1 0 0 height:365 */}
+      <div className="flex flex-col" style={{ width: 1280, gap: 16 }}>
+        {[0, 2, 4].map((rowStart) => (
+          <div
+            key={rowStart}
+            className="flex"
+            style={{ gap: 16, width: "100%" }}
+          >
+            <CategoryCell cat={categories[rowStart]} />
+            <CategoryCell cat={categories[rowStart + 1]} />
+          </div>
         ))}
+      </div>
+
+      {/* Testimonial card — Hope Callaway @Leadpages */}
+      <div
+        className="flex items-center justify-between"
+        style={{
+          width: 1280,
+          background: "#111",
+          borderRadius: 24,
+          padding: 40,
+        }}
+      >
+        <div className="flex items-center shrink-0" style={{ gap: 16 }}>
+          <div
+            className="relative overflow-hidden shrink-0"
+            style={{
+              width: 52,
+              height: 52,
+              borderRadius: "50%",
+              background: "#b387f7",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/home/avatar-leadpages.png"
+              alt="Hope Callaway profile photo"
+              className="absolute inset-0 w-full h-full"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div className="flex flex-col" style={{ gap: 4 }}>
+            <span
+              className="font-urbanist font-semibold text-white"
+              style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            >
+              Hope Callaway
+            </span>
+            <span
+              className="font-urbanist text-white"
+              style={{ fontSize: 16, lineHeight: 1.2, opacity: 0.52, letterSpacing: "-0.03em" }}
+            >
+              Senior PM @Leadpages
+            </span>
+          </div>
+        </div>
+        <p
+          className="font-urbanist font-semibold text-white"
+          style={{
+            fontSize: 22,
+            maxWidth: 540,
+            lineHeight: 1.3,
+            letterSpacing: "-0.03em",
+            textAlign: "right",
+          }}
+        >
+          {renderHighlightedQuote(
+            "With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
+            "weeks, instead of the quarters"
+          )}
+        </p>
       </div>
     </section>
   );
