@@ -12,7 +12,7 @@
 // white-on-dark. Driven by an IntersectionObserver on the Outcomes and
 // GetStartedSteps markers.
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 
 type DropdownId = "product" | "useCases" | "enterprise" | "resources";
 
@@ -33,12 +33,28 @@ const topLinks: TopLink[] = [
 type DropdownItem = {
   label: string;
   href: string;
-  icon: ReactNode;
+  /** Inline icon (SVG) or image URL. Omit for text-only rows. */
+  icon?: ReactNode;
+  iconSrc?: string;
   /** optional tint applied to the icon container for monochrome Tabler glyphs */
   tint?: string;
 };
 
-type DropdownColumn = { heading: string; width: number; items: DropdownItem[] };
+type DropdownSection = {
+  /** Optional group heading (e.g. "ASYNC"). Omit for Enterprise / Use Cases col 3. */
+  heading?: string;
+  items: DropdownItem[];
+};
+
+type DropdownColumn = {
+  width: number;
+  /** Row height — 33 for Product/Resources/Enterprise, 36 for Use Cases. */
+  itemHeight?: number;
+  /** Smaller 11.2px labels instead of 14px. */
+  compact?: boolean;
+  sections: DropdownSection[];
+  footer?: { label: string; href: string };
+};
 
 // Tabler icon strokes (MIT). viewBox 0 0 24 24, stroke-width 1.6, stroke-linecap round.
 function I({ d, children }: { d?: string; children?: ReactNode }) {
@@ -174,6 +190,87 @@ const icons = {
       <path d="M4 20l3.5 -3.5 M15 4l-3.5 3.5 M20 9l-3.5 3.5" />
     </I>
   ),
+  // Tabler: shield
+  shield: (
+    <I d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+  ),
+  // Tabler: shield-check
+  shieldCheck: (
+    <I>
+      <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
+      <path d="M9 12l2 2l4 -4" />
+    </I>
+  ),
+  // Tabler: lock
+  lock: (
+    <I>
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <circle cx="12" cy="16" r="1" />
+      <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+    </I>
+  ),
+  // Tabler: key
+  key: (
+    <I>
+      <circle cx="8" cy="15" r="4" />
+      <path d="M10.85 12.15l10.15 -10.15 M18 5l3 3 M15 8l3 3" />
+    </I>
+  ),
+  // Tabler: life-buoy
+  lifebuoy: (
+    <I>
+      <circle cx="12" cy="12" r="9" />
+      <circle cx="12" cy="12" r="3" />
+      <path d="M15 15l3.35 3.35 M9 15l-3.35 3.35 M15 9l3.35 -3.35 M9 9l-3.35 -3.35" />
+    </I>
+  ),
+  // Tabler: book
+  book: (
+    <I>
+      <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+      <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+      <path d="M3 6v13 M12 6v13 M21 6v13" />
+    </I>
+  ),
+  // Tabler: scale (comparison)
+  scale: (
+    <I>
+      <path d="M7 20l10 0" />
+      <path d="M6 6l6 -1l6 1" />
+      <path d="M12 3l0 17" />
+      <path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+      <path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0" />
+    </I>
+  ),
+  // Tabler: sparkles
+  sparkles: (
+    <I d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" />
+  ),
+  // Tabler: rocket
+  rocket: (
+    <I>
+      <path d="M4 13a8 8 0 0 1 7 7a6 6 0 0 0 3 -5a9 9 0 0 0 6 -8a3 3 0 0 0 -3 -3a9 9 0 0 0 -8 6a6 6 0 0 0 -5 3" />
+      <path d="M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3" />
+      <circle cx="15" cy="9" r="1" />
+    </I>
+  ),
+  // Tabler: palette
+  palette: (
+    <I d="M12 21a9 9 0 1 1 0 -18a9 8 0 0 1 9 8a4.5 4 0 0 1 -4.5 4h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+  ),
+  // Tabler: layout-grid
+  grid: (
+    <I>
+      <rect x="4" y="4" width="6" height="6" rx="1" />
+      <rect x="14" y="4" width="6" height="6" rx="1" />
+      <rect x="4" y="14" width="6" height="6" rx="1" />
+      <rect x="14" y="14" width="6" height="6" rx="1" />
+    </I>
+  ),
+  // Tabler: transfer / arrow-right
+  transfer: (
+    <I d="M4 12h16m-5 -5l5 5l-5 5" />
+  ),
 };
 
 const productAsync: DropdownItem[] = [
@@ -205,9 +302,130 @@ const productPlatform: DropdownItem[] = [
 ];
 
 const productColumns: DropdownColumn[] = [
-  { heading: "ASYNC", width: 171, items: productAsync },
-  { heading: "REALTIME", width: 201, items: productRealtime },
-  { heading: "PLATFORM", width: 157, items: productPlatform },
+  { width: 171, sections: [{ heading: "ASYNC", items: productAsync }] },
+  { width: 201, compact: true, sections: [{ heading: "REALTIME", items: productRealtime }] },
+  { width: 157, compact: true, sections: [{ heading: "PLATFORM", items: productPlatform }] },
+];
+
+// ---------- Use Cases dropdown — Figma 93:1268 ----------
+
+// Library glyph icons extracted from the Framer reference (chunk-IJ4UZSEE).
+// Rendered as a fixed 16×16 square — these are single marks, not wordmarks,
+// so `object-fit: contain` centers them without letterboxing.
+function LibraryIcon({ src }: { src: string }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt=""
+      style={{ display: "block", width: 16, height: 16, objectFit: "contain" }}
+    />
+  );
+}
+
+const useCasesAppTypes: DropdownItem[] = [
+  { label: "Dashboard", href: "/use-cases/dashboard" },
+  { label: "Tables", href: "/use-cases/tables" },
+  { label: "Documents", href: "/use-cases/documents" },
+  { label: "Video Player", href: "/use-cases/video-player" },
+  { label: "Presentation", href: "/use-cases/presentation" },
+  { label: "No Code Tools", href: "/use-cases/no-code" },
+];
+
+const useCasesEditors: DropdownItem[] = [
+  { label: "Lexical", href: "/libraries/lexical", iconSrc: "/images/home/nav-icons/lexical.svg" },
+  { label: "SlateJS", href: "/libraries/slate", iconSrc: "/images/home/nav-icons/slatejs.png" },
+  { label: "Tiptap", href: "/libraries/tiptap", iconSrc: "/images/home/nav-icons/tiptap.svg" },
+  { label: "YJS", href: "/libraries/yjs", iconSrc: "/images/home/nav-icons/yjs.svg" },
+  { label: "BlockNote", href: "/libraries/blocknote", iconSrc: "/images/home/nav-icons/blocknote.svg" },
+  { label: "CodeMirror", href: "/libraries/codemirror", iconSrc: "/images/home/nav-icons/codemirror.svg" },
+];
+
+const useCasesCharts: DropdownItem[] = [
+  { label: "React Flow", href: "/libraries/react-flow", iconSrc: "/images/home/nav-icons/reactflow.svg" },
+  { label: "HighCharts", href: "/libraries/highcharts", iconSrc: "/images/home/nav-icons/highcharts.svg" },
+  { label: "NivoCharts", href: "/libraries/nivo", iconSrc: "/images/home/nav-icons/nivocharts.svg" },
+  { label: "ChartJS", href: "/libraries/chartjs", iconSrc: "/images/home/nav-icons/chartjs.svg" },
+];
+
+const useCasesColumns: DropdownColumn[] = [
+  {
+    width: 171,
+    itemHeight: 48,
+    sections: [{ heading: "APP TYPES", items: useCasesAppTypes }],
+    footer: { label: "ALL APP TYPES", href: "/use-cases" },
+  },
+  {
+    width: 201,
+    itemHeight: 48,
+    sections: [{ heading: "LIBRARIES", items: useCasesEditors }],
+    footer: { label: "ALL LIBRARIES", href: "/libraries" },
+  },
+  {
+    width: 201,
+    itemHeight: 48,
+    // Empty-heading spacer keeps this column's first row aligned with the
+    // "LIBRARIES" heading in column 2.
+    sections: [{ items: useCasesCharts }],
+  },
+];
+
+// ---------- Enterprise dropdown — Figma 89:1230 ----------
+
+const enterpriseItems: DropdownItem[] = [
+  { label: "Self Hosting", href: "/enterprise/self-hosting", icon: icons.server, tint: "#5ca3ff" },
+  { label: "Compliance Tools", href: "/enterprise/compliance", icon: icons.shieldCheck, tint: "#5eda7a" },
+  { label: "Advanced Encryption", href: "/enterprise/encryption", icon: icons.lock, tint: "#b387f7" },
+  { label: "Access Controls", href: "/enterprise/access-controls", icon: icons.key, tint: "#f5d14a" },
+  { label: "Security", href: "/enterprise/security", icon: icons.shield, tint: "#f47474" },
+  { label: "Support", href: "/enterprise/support", icon: icons.lifebuoy, tint: "#48cfad" },
+];
+
+const enterpriseColumns: DropdownColumn[] = [
+  { width: 201, sections: [{ heading: "ENTERPRISE", items: enterpriseItems }] },
+];
+
+// ---------- Resources dropdown — Figma 88:1113 ----------
+
+const resourcesLearn: DropdownItem[] = [
+  { label: "Docs", href: "/docs", icon: icons.book, tint: "#5ca3ff" },
+  { label: "Comparison", href: "/comparison", icon: icons.scale, tint: "#f5a15e" },
+  { label: "Examples", href: "/examples", icon: icons.sparkles, tint: "#f5d14a" },
+];
+
+const resourcesTools: DropdownItem[] = [
+  { label: "Launch Kit", href: "/launch-kit", icon: icons.rocket, tint: "#ffa3fa" },
+  { label: "Themes Playground", href: "/themes-playground", icon: icons.palette, tint: "#b387f7" },
+  { label: "Figma UI Kit", href: "/figma-ui-kit", icon: icons.grid, tint: "#48cfad" },
+];
+
+const resourcesMigrate: DropdownItem[] = [
+  { label: "Migrate from Liveblocks", href: "/migrate/liveblocks", icon: icons.transfer, tint: "#5eda7a" },
+  { label: "Migrate from Cord", href: "/migrate/cord", icon: icons.transfer, tint: "#5eda7a" },
+];
+
+const resourcesRealtime: DropdownItem[] = [
+  { label: "Live State Sync", href: "/live-state-sync", icon: icons.refresh, tint: "#48cfad" },
+  { label: "Live Selection", href: "/live-selection", icon: icons.click, tint: "#b387f7" },
+  { label: "Huddle", href: "/huddle", icon: icons.headphones, tint: "#a4bd52" },
+  { label: "Presence", href: "/presence", icon: icons.usersGroup, tint: "#97e07f" },
+];
+
+const resourcesColumns: DropdownColumn[] = [
+  {
+    width: 201,
+    sections: [
+      { heading: "LEARN", items: resourcesLearn },
+      { heading: "TOOLS", items: resourcesTools },
+    ],
+  },
+  {
+    width: 201,
+    sections: [
+      { heading: "MIGRATE", items: resourcesMigrate },
+      { heading: "REALTIME", items: resourcesRealtime },
+    ],
+  },
 ];
 
 // ---------- Component ----------
@@ -298,21 +516,38 @@ export function Nav() {
                 onMouseEnter={isDropdown ? () => requestOpen(link.dropdown) : undefined}
               >
                 {isDropdown ? (
-                  <button
-                    type="button"
-                    className="flex items-center rounded-[4px]"
-                    style={{
-                      padding: "4px 8px",
-                      gap: 4,
-                      background: "transparent",
-                      border: 0,
-                    }}
-                  >
-                    <NavLabel color={textColor} opacity={textOpacity}>
-                      {link.label}
-                    </NavLabel>
-                    <Caret open={isOpen} filter={iconFilter} />
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      className="flex items-center rounded-[4px]"
+                      style={{
+                        padding: "4px 8px",
+                        gap: 4,
+                        background: "transparent",
+                        border: 0,
+                      }}
+                    >
+                      <NavLabel color={textColor} opacity={textOpacity}>
+                        {link.label}
+                      </NavLabel>
+                      <Caret open={isOpen} filter={iconFilter} />
+                    </button>
+                    <DropdownPanel
+                      isOpen={isOpen}
+                      onEnter={() => requestOpen(link.dropdown)}
+                      onLeave={requestClose}
+                    >
+                      {link.dropdown === "product" ? (
+                        <ProductDropdown />
+                      ) : link.dropdown === "useCases" ? (
+                        <MultiColumnDropdown columns={useCasesColumns} />
+                      ) : link.dropdown === "enterprise" ? (
+                        <MultiColumnDropdown columns={enterpriseColumns} />
+                      ) : (
+                        <MultiColumnDropdown columns={resourcesColumns} />
+                      )}
+                    </DropdownPanel>
+                  </>
                 ) : (
                   <a
                     href={link.href}
@@ -377,38 +612,6 @@ export function Nav() {
         </a>
       </div>
 
-      {/* Product mega-menu — Figma 1:21692. Use Cases / Resources reuse the
-          same shell with placeholder content until their Figma nodes are
-          built out — this keeps caret-rotation + hover transition consistent
-          across all three triggers. */}
-      <DropdownPanel
-        isOpen={open === "product"}
-        onEnter={() => requestOpen("product")}
-        onLeave={requestClose}
-      >
-        <ProductDropdown />
-      </DropdownPanel>
-      <DropdownPanel
-        isOpen={open === "useCases"}
-        onEnter={() => requestOpen("useCases")}
-        onLeave={requestClose}
-      >
-        <PlaceholderDropdown label="Use Cases" />
-      </DropdownPanel>
-      <DropdownPanel
-        isOpen={open === "enterprise"}
-        onEnter={() => requestOpen("enterprise")}
-        onLeave={requestClose}
-      >
-        <PlaceholderDropdown label="Enterprise" />
-      </DropdownPanel>
-      <DropdownPanel
-        isOpen={open === "resources"}
-        onEnter={() => requestOpen("resources")}
-        onLeave={requestClose}
-      >
-        <PlaceholderDropdown label="Resources" />
-      </DropdownPanel>
     </div>
     </nav>
   );
@@ -477,7 +680,7 @@ function DropdownPanel({
       style={{
         position: "absolute",
         top: "100%",
-        left: 80,
+        left: 0,
         paddingTop: 8,
         pointerEvents: isOpen ? "auto" : "none",
         opacity: isOpen ? 1 : 0,
@@ -510,15 +713,60 @@ function ProductDropdown() {
         boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
       }}
     >
-      {productColumns.map((col) => (
-        <LinkGroup key={col.heading} column={col} />
+      {productColumns.map((col, i) => (
+        <LinkGroup key={i} column={col} />
       ))}
       <PreviewCard />
     </div>
   );
 }
 
+// Generic shell used by Use Cases / Enterprise / Resources.
+function MultiColumnDropdown({ columns }: { columns: DropdownColumn[] }) {
+  return (
+    <div
+      className="flex items-start"
+      style={{
+        background: "#0c0c0d",
+        border: "1px solid #171617",
+        borderRadius: 22,
+        padding: 4,
+        gap: 5,
+        boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
+      }}
+    >
+      {columns.map((col, i) => (
+        <LinkGroup key={i} column={col} />
+      ))}
+    </div>
+  );
+}
+
+function GroupHeading({ label, itemHeight }: { label?: string; itemHeight: number }) {
+  return (
+    <div
+      className="flex items-center w-full"
+      style={{ padding: 10, borderRadius: 12, height: itemHeight }}
+    >
+      {label ? (
+        <span
+          className="font-mono text-white whitespace-nowrap"
+          style={{
+            fontSize: 10,
+            opacity: 0.32,
+            fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+            fontWeight: 500,
+          }}
+        >
+          {label}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
 function LinkGroup({ column }: { column: DropdownColumn }) {
+  const itemHeight = column.itemHeight ?? 33;
   return (
     <div
       className="flex flex-col items-start"
@@ -530,31 +778,40 @@ function LinkGroup({ column }: { column: DropdownColumn }) {
         width: column.width,
       }}
     >
-      <div
-        className="flex items-end w-full"
-        style={{ padding: 10, borderRadius: 12 }}
-      >
-        <span
-          className="font-mono text-white whitespace-nowrap"
-          style={{
-            fontSize: 10,
-            opacity: 0.32,
-            fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
-            fontWeight: 500,
-          }}
-        >
-          {column.heading}
-        </span>
-      </div>
-      {column.items.map((item) => (
-        <DropdownLink key={item.label} item={item} compact={column.heading !== "ASYNC"} />
+      {column.sections.map((section, si) => (
+        <Fragment key={si}>
+          {/* Render heading (or empty spacer) for every section so that
+              stacked multi-section columns and empty-header columns keep
+              their rows aligned. */}
+          <GroupHeading label={section.heading} itemHeight={itemHeight} />
+          {section.items.map((item) => (
+            <DropdownLink
+              key={item.label}
+              item={item}
+              compact={!!column.compact}
+              itemHeight={itemHeight}
+            />
+          ))}
+        </Fragment>
       ))}
+      {column.footer ? (
+        <DropdownFooterLink footer={column.footer} itemHeight={itemHeight} />
+      ) : null}
     </div>
   );
 }
 
-function DropdownLink({ item, compact }: { item: DropdownItem; compact: boolean }) {
+function DropdownLink({
+  item,
+  compact,
+  itemHeight,
+}: {
+  item: DropdownItem;
+  compact: boolean;
+  itemHeight: number;
+}) {
   const [hover, setHover] = useState(false);
+  const hasIcon = item.icon !== undefined || item.iconSrc !== undefined;
   return (
     <a
       href={item.href}
@@ -565,17 +822,24 @@ function DropdownLink({ item, compact }: { item: DropdownItem; compact: boolean 
         padding: 10,
         borderRadius: 12,
         gap: 12,
+        height: itemHeight,
         color: "#fff",
         background: hover ? "#1b1a1a" : "transparent",
         transition: "background 140ms ease",
       }}
     >
-      <span
-        className="shrink-0 flex items-center justify-center"
-        style={{ width: 16, height: 16, color: item.tint ?? "#fff" }}
-      >
-        {item.icon}
-      </span>
+      {hasIcon ? (
+        <span
+          className="shrink-0 flex items-center justify-center"
+          style={{
+            minWidth: 16,
+            height: 16,
+            color: item.tint ?? "#fff",
+          }}
+        >
+          {item.iconSrc ? <LibraryIcon src={item.iconSrc} /> : item.icon}
+        </span>
+      ) : null}
       <span
         className="font-urbanist font-medium whitespace-nowrap"
         style={{
@@ -587,6 +851,59 @@ function DropdownLink({ item, compact }: { item: DropdownItem; compact: boolean 
       >
         {item.label}
       </span>
+    </a>
+  );
+}
+
+function DropdownFooterLink({
+  footer,
+  itemHeight,
+}: {
+  footer: { label: string; href: string };
+  itemHeight: number;
+}) {
+  const [hover, setHover] = useState(false);
+  return (
+    <a
+      href={footer.href}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className="flex items-center w-full"
+      style={{
+        padding: 10,
+        borderRadius: 12,
+        gap: 8,
+        height: itemHeight,
+        background: hover ? "#1b1a1a" : "transparent",
+        transition: "background 140ms ease",
+      }}
+    >
+      <span
+        className="font-mono whitespace-nowrap"
+        style={{
+          fontSize: 10,
+          opacity: 0.32,
+          color: "#fff",
+          fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+          fontWeight: 500,
+        }}
+      >
+        {footer.label}
+      </span>
+      <svg
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#fff"
+        strokeOpacity="0.32"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <path d="M9 6l6 6l-6 6" />
+      </svg>
     </a>
   );
 }
@@ -651,25 +968,3 @@ function PreviewCard() {
   );
 }
 
-function PlaceholderDropdown({ label }: { label: string }) {
-  return (
-    <div
-      className="flex items-center justify-center"
-      style={{
-        background: "#0c0c0d",
-        border: "1px solid #171617",
-        borderRadius: 22,
-        padding: "24px 32px",
-        minWidth: 280,
-        boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
-      }}
-    >
-      <span
-        className="font-urbanist"
-        style={{ color: "rgba(255,255,255,0.52)", fontSize: 13 }}
-      >
-        {label} menu · coming soon
-      </span>
-    </div>
-  );
-}
