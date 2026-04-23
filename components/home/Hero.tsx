@@ -9,8 +9,9 @@
 // Demo panel tabs swap a full-bleed screenshot per product variant (Figma
 // nodes 8576:6546–6558). Click to switch — matches the live Framer demo.
 
-import { useState } from "react";
 import Image from "next/image";
+
+import { UseCaseDemo } from "./UseCaseDemo";
 
 function CursorSean() {
   // 8506:101911 — teal cursor, left side, y=235 x=248
@@ -62,172 +63,6 @@ function CursorEmma() {
           }}
         >
           Emma
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Tab IDs map to the 5 demo screenshots (Figma nodes 8576:6546-6558).
-type DemoTab = {
-  id: "dashboard" | "documentation" | "video" | "cms" | "canvas";
-  label: string;
-  image: string;
-};
-
-const DEMO_TABS: DemoTab[] = [
-  { id: "dashboard",     label: "Dashboard Product",     image: "/images/home/demo-dashboard.png" },
-  { id: "documentation", label: "Documentation Product", image: "/images/home/demo-documentation.png" },
-  { id: "video",         label: "Video Editor",          image: "/images/home/demo-video.png" },
-  { id: "cms",           label: "CMS Product",           image: "/images/home/demo-cms.png" },
-  { id: "canvas",        label: "Canvas Editor",         image: "/images/home/demo-canvas.png" },
-];
-
-function UseCaseTabRail({
-  activeId,
-  onSelect,
-}: {
-  activeId: DemoTab["id"];
-  onSelect: (id: DemoTab["id"]) => void;
-}) {
-  // 8506:101872 — "Use Cases" label + product tabs
-  return (
-    <div
-      className="flex items-center gap-6 w-full"
-      style={{ background: "#1c1d21", padding: "6px 16px 4px" }}
-    >
-      <div className="flex items-center gap-2">
-        <Image src="/images/home/icon-pointer.svg" alt="" width={16} height={16} aria-hidden="true" />
-        <span
-          className="font-firamono uppercase whitespace-nowrap"
-          style={{ fontSize: 14, letterSpacing: "-0.03em", color: "#b4b1fa", lineHeight: 1.2 }}
-        >
-          Use Cases
-        </span>
-      </div>
-      <div className="flex items-start gap-2">
-        {DEMO_TABS.map((tab) => {
-          const active = tab.id === activeId;
-          return (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => onSelect(tab.id)}
-              className="rounded-lg px-3 py-2 flex items-center font-firamono uppercase whitespace-nowrap cursor-pointer"
-              style={{
-                background: active ? "rgba(255,255,255,0.08)" : "transparent",
-                color: active ? "#fff" : "rgba(255,255,255,0.52)",
-                fontSize: 14,
-                letterSpacing: "-0.03em",
-                lineHeight: 1,
-                border: 0,
-              }}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function UseCaseDemo() {
-  // 8506:101871 — 1280×660 panel at y=514 x=80. Tab state drives which demo
-  // screenshot is shown — mirrors the live Framer component's behavior.
-  const [activeId, setActiveId] = useState<DemoTab["id"]>("dashboard");
-  const activeTab = DEMO_TABS.find((t) => t.id === activeId) ?? DEMO_TABS[0];
-
-  return (
-    <div
-      className="absolute flex flex-col items-start"
-      style={{
-        top: 514,
-        left: 80,
-        width: 1280,
-        background: "#1c1d21",
-        border: "2px solid #1c1d21",
-        borderRadius: 12,
-      }}
-    >
-      {/* Blurred gradient accent bar — 8506:102928 */}
-      <div
-        className="absolute"
-        style={{
-          top: 26,
-          left: -2,
-          width: 1280,
-          height: 26,
-          filter: "blur(60px)",
-          backgroundImage:
-            "linear-gradient(90deg, rgb(159,159,159) 0%, rgb(45,125,255) 25%, rgb(197,93,245) 50%, rgb(45,125,255) 74.519%, rgb(159,159,159) 100%)",
-        }}
-      />
-      <UseCaseTabRail activeId={activeId} onSelect={setActiveId} />
-      {/* 8506:101886 — screenshot stage with 4px charcoal inner border */}
-      <div
-        className="relative w-full overflow-hidden"
-        style={{
-          height: 620,
-          background: "#000",
-          border: "4px solid #1c1d21",
-          borderRadius: 12,
-        }}
-      >
-        <Image
-          key={activeTab.id}
-          src={activeTab.image}
-          alt={`${activeTab.label} demo`}
-          fill
-          sizes="1280px"
-          style={{ objectFit: "cover", objectPosition: "top left" }}
-          priority={activeId === "dashboard"}
-        />
-      </div>
-      {/* 8506:101888 — bottom-right Live Demo + Github pill strip */}
-      <div
-        className="absolute flex items-center gap-3"
-        style={{
-          right: -2,
-          bottom: -2,
-          background: "#1c1d21",
-          padding: 2,
-          borderBottomRightRadius: 10,
-          borderTopLeftRadius: 10,
-        }}
-      >
-        <div className="flex items-center gap-2 rounded-lg px-2 py-1.5">
-          <Image src="/images/home/icon-pointer-filled.svg" alt="" width={16} height={16} />
-          <span
-            className="font-firamono uppercase whitespace-nowrap"
-            style={{ color: "rgba(255,255,255,0.52)", fontSize: 14, letterSpacing: "-0.03em", lineHeight: 1.2 }}
-          >
-            Live Demo
-          </span>
-        </div>
-        <div className="flex items-center gap-2 rounded-lg px-2 py-1.5">
-          <Image src="/images/home/icon-github.svg" alt="" width={16} height={16} />
-          <span
-            className="font-firamono uppercase whitespace-nowrap"
-            style={{ color: "rgba(255,255,255,0.52)", fontSize: 14, letterSpacing: "-0.03em", lineHeight: 1.2 }}
-          >
-            Github
-          </span>
-        </div>
-      </div>
-      {/* 8506:101897 — bottom-left info icon */}
-      <div
-        className="absolute flex items-center"
-        style={{
-          left: -2,
-          bottom: -2,
-          background: "#1c1d21",
-          padding: 2,
-          borderTopRightRadius: 10,
-        }}
-      >
-        <div className="flex items-center rounded-lg p-1.5">
-          <Image src="/images/home/icon-info.svg" alt="" width={16} height={16} aria-label="More info" />
         </div>
       </div>
     </div>
@@ -298,35 +133,41 @@ function TitleBlock() {
 export function Hero() {
   return (
     <section
-      className="relative w-full bg-black overflow-hidden"
+      className="relative w-full bg-black"
       style={{ height: 1174 }}
     >
-      {/* Pixel-grid animated background — Figma `grid-animation-gif`, 1440×740 */}
+      {/* Pixel-grid animated background — Figma `grid-animation-gif`, 1440×740.
+          Rendered as a CSS background-image so it tiles horizontally via
+          repeat-x when the .hero-grid-full breakout kicks in at viewports
+          ≥ 1440 (see globals.css). At and below 1440 the inline width/left
+          keep it aligned to the design; at >1440 it fills the viewport. */}
       <div
-        className="absolute overflow-hidden"
-        style={{ top: 0, left: 0, width: 1440, height: 534 }}
-      >
-        <Image
-          src="/images/home/grid-animation.gif"
-          alt=""
-          width={1440}
-          height={740}
-          unoptimized
-          priority
-          style={{ objectFit: "cover", width: 1440, height: 740 }}
-        />
-      </div>
-      {/* Radial-vignette overlay fading grid into black */}
+        className="hero-grid-full absolute overflow-hidden"
+        style={{
+          top: 0,
+          left: 0,
+          width: 1440,
+          height: 534,
+          backgroundImage: "url('/images/home/grid-animation.gif')",
+          backgroundRepeat: "repeat-x",
+          backgroundSize: "1440px 740px",
+          backgroundPosition: "top center",
+        }}
+      />
+      {/* Radial-vignette overlay fading grid into black. Uses the same
+          .hero-grid-full breakout at ≥1440 so the vignette edges track the
+          extended grid; the gradient size switches to 100% of the widened
+          element so the fade spans the viewport. */}
       <div
         aria-hidden="true"
-        className="absolute"
+        className="hero-grid-full absolute"
         style={{
           top: 0,
           left: 0,
           width: 1440,
           height: 534,
           background:
-            "radial-gradient(ellipse 1440px 534px at 50% 0%, rgba(0,0,0,0.7) 0%, #000 100%)",
+            "radial-gradient(ellipse 100% 534px at 50% 0%, rgba(0,0,0,0.7) 0%, #000 100%)",
         }}
       />
 

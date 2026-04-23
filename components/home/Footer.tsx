@@ -212,7 +212,7 @@ export function Footer() {
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/images/home/aicpa-badge.svg"
+                    src="/images/home/badge-soc2-light.png"
                     alt="AICPA SOC"
                     width={52}
                     height={52}
@@ -220,39 +220,17 @@ export function Footer() {
                   />
                 </div>
                 <div
-                  className="relative overflow-hidden rounded-full flex flex-col items-center justify-center bg-white"
+                  className="relative overflow-hidden rounded-full"
                   style={{ width: 52, height: 52 }}
-                  aria-label="HIPAA"
                 >
-                  <svg
-                    width="22"
-                    height="22"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    style={{ marginBottom: 1 }}
-                  >
-                    <path
-                      d="M12 2 L9 6 L12 8 L15 6 Z M9 6 L7 14 L12 14 L17 14 L15 6 M12 8 L12 20 M9 18 L15 18"
-                      stroke="#111"
-                      strokeWidth="1.4"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                    />
-                  </svg>
-                  <span
-                    className="font-urbanist"
-                    style={{
-                      fontSize: 7,
-                      fontWeight: 700,
-                      letterSpacing: "0.08em",
-                      color: "#111",
-                      lineHeight: 1,
-                    }}
-                  >
-                    HIPAA
-                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/home/badge-hipaa-base.png"
+                    alt="HIPAA"
+                    width={52}
+                    height={52}
+                    style={{ display: "block", objectFit: "cover" }}
+                  />
                 </div>
               </div>
             </div>

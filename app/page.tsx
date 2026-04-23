@@ -29,7 +29,8 @@ export default function Home() {
     <>
       {/* Fixed nav — lives OUTSIDE ScaleWrapper so its position is relative to
           the viewport, not the scale-transformed inner div. Flips to white bg
-          when Outcomes scrolls under it. */}
+          when Outcomes scrolls under it. Nav handles its own full-width bg
+          with a 1440-centered inner content row. */}
       <div
         style={{
           position: "fixed",
@@ -37,13 +38,9 @@ export default function Home() {
           left: 0,
           right: 0,
           zIndex: 50,
-          display: "flex",
-          justifyContent: "center",
         }}
       >
-        <div style={{ width: "100%", maxWidth: 1440 }}>
-          <Nav />
-        </div>
+        <Nav />
       </div>
 
       <ScaleWrapper>
@@ -61,7 +58,7 @@ export default function Home() {
         {/* White rounded content container — overlaps Outcomes' bottom padding
             by 72 px so its top-rounded corners sit inside the purple band. */}
         <div
-          className="bg-white relative"
+          className="bg-white relative full-bleed-bg"
           style={{
             marginTop: -72,
             borderRadius: 52,

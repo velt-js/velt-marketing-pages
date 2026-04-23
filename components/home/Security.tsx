@@ -201,41 +201,22 @@ export function Security() {
             </p>
           </div>
           <div className="flex items-center" style={{ gap: 24 }}>
-            <div
-              className="rounded-full flex flex-col items-center justify-center"
-              style={{
-                width: 128,
-                height: 128,
-                background: "#fff",
-                border: "1px solid rgba(17,17,17,0.08)",
-                fontFamily: "var(--font-urbanist)",
-                color: "#111",
-                textAlign: "center",
-              }}
-            >
-              <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em" }}>AICPA</span>
-              <span style={{ fontSize: 20, fontWeight: 700, marginTop: 4 }}>SOC</span>
-              <span style={{ fontSize: 9, opacity: 0.6, marginTop: 8 }}>aicpa.org/soc4so</span>
-            </div>
-            <div
-              className="rounded-full flex items-center justify-center"
-              style={{
-                width: 128,
-                height: 128,
-                background: "#fff",
-                border: "1px solid rgba(17,17,17,0.08)",
-                fontFamily: "var(--font-urbanist)",
-                color: "#111",
-              }}
-            >
-              <div className="flex flex-col items-center" style={{ gap: 4 }}>
-                <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                  <path d="M16 4 V16 M12 8 Q16 12 20 8 M10 12 Q16 18 22 12" stroke="#111" strokeWidth="1.5" />
-                  <rect x="10" y="18" width="12" height="8" rx="1" stroke="#111" strokeWidth="1.5" />
-                </svg>
-                <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: "0.05em" }}>HIPAA</span>
-              </div>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/home/badge-soc2-light.png"
+              alt="AICPA SOC"
+              width={128}
+              height={128}
+              style={{ display: "block", objectFit: "contain" }}
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/home/badge-hipaa-base.png"
+              alt="HIPAA"
+              width={128}
+              height={128}
+              style={{ display: "block", objectFit: "contain" }}
+            />
           </div>
         </article>
       </div>

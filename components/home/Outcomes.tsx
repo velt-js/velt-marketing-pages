@@ -99,7 +99,7 @@ export function Outcomes() {
   return (
     <section
       data-outcomes
-      className="flex flex-col items-start w-full relative"
+      className="flex flex-col items-start w-full relative full-bleed-bg"
       style={{
         background: "#625df5",
         padding: "48px 80px 220px",

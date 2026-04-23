@@ -60,9 +60,9 @@ function TabRail({ active, onChange }: { active: TabId; onChange: (id: TabId) =>
  * ASYNC TAB
  * ========================================================================= */
 
-function AsyncCardTitle({ title, desc, maxWidth = 395 }: { title: string; desc: string; maxWidth?: number }) {
+function AsyncCardTitle({ title, desc, maxWidth = 395, bottom = 29 }: { title: string; desc: string; maxWidth?: number; bottom?: number }) {
   return (
-    <div className="absolute flex flex-col items-start" style={{ left: 30, bottom: 29, gap: 8 }}>
+    <div className="absolute flex flex-col items-start" style={{ left: 30, bottom, gap: 8 }}>
       <h3 className="font-urbanist font-bold" style={{ color: "#111", fontSize: 28, lineHeight: 1.2, letterSpacing: "-0.03em" }}>{title}</h3>
       <p className="font-urbanist" style={{ color: "#111", fontSize: 18, lineHeight: 1.2, opacity: 0.52, maxWidth }}>{desc}</p>
     </div>
@@ -161,9 +161,122 @@ function CommentsCard() {
   );
 }
 
+function AIReviewsCard() {
+  const rowTops = [-32, 18, 68, 118];
+  const colLefts = [62, 298, 534, 770];
+  return (
+    <div
+      className="absolute overflow-hidden"
+      style={{ top: 47, left: 640, width: 640, height: 326, borderBottom: "2px solid #111" }}
+    >
+      {/* 4×4 row/col grid pattern — Figma 32:4841–4856. Extends past the right edge and gets clipped. */}
+      {rowTops.map((top) =>
+        colLefts.map((left) => (
+          <div
+            key={`${top}-${left}`}
+            className="absolute"
+            style={{ top, left, width: 236, height: 50, border: "1px solid #ececec" }}
+          />
+        ))
+      )}
+      {/* $52 */}
+      <span
+        className="absolute font-urbanist font-semibold"
+        style={{ top: 62, left: 75, fontSize: 24, color: "#000", lineHeight: 1.2 }}
+      >
+        $52
+      </span>
+      {/* AI comment pin (32×32) */}
+      <div
+        className="absolute flex items-center justify-center"
+        style={{
+          top: 78,
+          left: 223,
+          width: 32,
+          height: 32,
+          background: "#625df5",
+          border: "2.08px solid #fff",
+          borderTopLeftRadius: 104,
+          borderTopRightRadius: 104,
+          borderBottomRightRadius: 104,
+          borderBottomLeftRadius: 2,
+          boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
+        }}
+      >
+        <div
+          className="flex items-center justify-center bg-white overflow-hidden"
+          style={{ width: 19.2, height: 19.2, borderRadius: 25.6 }}
+        >
+          <svg width="13.77" height="13.77" viewBox="0 0 14 14" fill="#625df5" aria-hidden>
+            <path d="M7 0 L8.4 5.6 L14 7 L8.4 8.4 L7 14 L5.6 8.4 L0 7 L5.6 5.6 Z" />
+          </svg>
+        </div>
+      </div>
+      {/* Thread wrapper */}
+      <div
+        className="absolute flex flex-col bg-white"
+        style={{
+          top: 78,
+          left: 264.55,
+          width: 287.5,
+          border: "1px solid #3e43ad",
+          borderRadius: 17,
+          padding: 16,
+          boxShadow: "0 4px 16px rgba(0,0,0,0.06)",
+        }}
+      >
+        <div className="flex items-start w-full" style={{ gap: 12 }}>
+          <div className="shrink-0" style={{ width: 20, height: 20 }}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="#625df5" aria-hidden>
+              <path d="M10 0 L12 8 L20 10 L12 12 L10 20 L8 12 L0 10 L8 8 Z" />
+            </svg>
+          </div>
+          <div className="flex items-center flex-1" style={{ gap: 6 }}>
+            <span className="font-firamono font-medium" style={{ fontSize: 14, color: "#0a0a0a", letterSpacing: "-0.02em", lineHeight: 1.37 }}>
+              AI Auto Review
+            </span>
+            <span className="font-poppins" style={{ fontSize: 10, color: "#999", letterSpacing: "0.01em" }}>
+              2w
+            </span>
+          </div>
+        </div>
+        <div style={{ paddingLeft: 32, marginTop: 6 }}>
+          <p className="font-poppins" style={{ fontSize: 14, color: "#525252", lineHeight: 1.8 }}>
+            This has increased 40% from last week <span style={{ color: "#625df5" }}>@Mark</span>
+          </p>
+        </div>
+      </div>
+      {/* "Reviewing..." cursor */}
+      <div className="absolute flex flex-col items-start" style={{ top: 152, left: 439 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/images/home/features/cursor-pointer-purple.svg" alt="" width={40} height={40} />
+        <div className="flex items-start" style={{ paddingLeft: 40 }}>
+          <div
+            className="flex items-start"
+            style={{
+              background: "linear-gradient(to right, #3e43ad, #191c47)",
+              padding: "5px 20px",
+              borderRadius: 18,
+              boxShadow: "0 2.5px 10px rgba(0,0,0,0.16)",
+            }}
+          >
+            <span
+              className="font-urbanist font-bold whitespace-nowrap"
+              style={{ fontSize: 27.5, color: "#fff", lineHeight: "42.5px", letterSpacing: "0.01em" }}
+            >
+              Reviewing...
+            </span>
+          </div>
+        </div>
+      </div>
+      <AsyncCardTitle title="Automated AI Reviews" desc="Track users view activity" />
+    </div>
+  );
+}
+
 function RecordingCard() {
   return (
-    <div className="absolute overflow-hidden" style={{ top: 47, left: 640, width: 640, height: 347, borderBottom: "2px solid #111" }}>
+    <div className="absolute overflow-hidden" style={{ top: 981, left: 640, width: 640, height: 346 }}>
       {/* Ring + headshot: Figma card-relative left=421, top=64 */}
       <div className="absolute" style={{ left: 421, top: 64, width: 182, height: 182 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -199,6 +312,76 @@ function RecordingCard() {
   );
 }
 
+function AnnotationModeCard() {
+  return (
+    <div
+      className="absolute overflow-hidden"
+      style={{
+        top: 540,
+        left: 0,
+        width: 640,
+        height: 461,
+        borderRight: "2px solid #111",
+        borderBottom: "2px solid #111",
+      }}
+    >
+      {/* Dashed annotation outline — Figma 32:4978. Extends past top/right edges; clipped. */}
+      <div
+        className="absolute"
+        style={{
+          top: -67,
+          left: 147,
+          width: 653,
+          height: 292,
+          border: "2px dashed #ff7162",
+          borderRadius: 12,
+        }}
+      />
+      {/* Faded "Google Willow" headline */}
+      <span
+        className="absolute font-urbanist font-semibold whitespace-nowrap"
+        style={{ top: 45, left: 281, fontSize: 54, color: "#000", opacity: 0.3, lineHeight: 1.2, letterSpacing: "-0.02em" }}
+      >
+        Google Willow
+      </span>
+      {/* Faded subheadline */}
+      <span
+        className="absolute font-urbanist whitespace-nowrap"
+        style={{ top: 127, left: 204, fontSize: 24, color: "#000", opacity: 0.3, lineHeight: 1.2 }}
+      >
+        Meet Willow, our state-of-the-art quantum chip
+      </span>
+      {/* Annotation badge row: orange avatar + pill */}
+      <div className="absolute flex items-start" style={{ top: 245, left: 147, gap: 6.25 }}>
+        <div
+          className="relative flex items-center justify-center rounded-full text-white font-poppins font-bold"
+          style={{ background: "#ff7162", width: 40, height: 40, fontSize: 15, lineHeight: 1 }}
+        >
+          M
+        </div>
+        <div
+          className="flex items-center justify-center"
+          style={{
+            height: 42.5,
+            padding: "7.5px 15px",
+            borderRadius: 10,
+            background:
+              "linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9)), linear-gradient(90deg, #ff7162, #ff7162)",
+          }}
+        >
+          <span
+            className="font-urbanist font-semibold whitespace-nowrap"
+            style={{ fontSize: 22.5, color: "#ff7162", lineHeight: 1.2 }}
+          >
+            This needs to be updated
+          </span>
+        </div>
+      </div>
+      <AsyncCardTitle title="Annotation Mode" desc="Mark and highlight sections" />
+    </div>
+  );
+}
+
 function AnalyticsCard() {
   const users: Array<{ bg: string; initial: string; name: string; when: string }> = [
     { bg: "#ff7162", initial: "M", name: "Miri", when: "2 Days ago" },
@@ -206,7 +389,7 @@ function AnalyticsCard() {
     { bg: "#3772ff", initial: "Y", name: "Yoen", when: "1 Week ago" },
   ];
   return (
-    <div className="absolute overflow-hidden" style={{ top: 540, left: 0, width: 640, height: 326, borderRight: "2px solid #111" }}>
+    <div className="absolute overflow-hidden" style={{ top: 1001, left: 0, width: 640, height: 326, borderRight: "2px solid #111" }}>
       <div className="absolute" style={{ top: 30, left: 194 }}>
         <div className="relative flex bg-white" style={{ width: 425, height: 197.5, borderRadius: 15, border: "1.25px solid rgba(0,0,0,0.08)", boxShadow: "0px 0px 40px 0px rgba(0,0,0,0.08)" }}>
           <div className="flex flex-col items-start" style={{ padding: 30, gap: 5 }}>
@@ -248,14 +431,13 @@ function NotificationsCard() {
     { avatar: "/images/home/avatar-notif-3.png", prefix: "Vivek", action: "Approved", doc: "Velt-x-Pendo.png", file: "Slides", when: "2 mins ago", active: false },
   ];
   return (
-    <div className="absolute overflow-hidden" style={{ top: 394, left: 640, width: 640, height: 472 }}>
+    <div className="absolute overflow-hidden" style={{ top: 373, left: 640, width: 640, height: 608, borderBottom: "2px solid #111" }}>
       <div className="absolute inset-0">
-        <div className="absolute flex items-center justify-center rounded-full" style={{ left: 131, top: 60, width: 52, height: 52, background: "#f5f5f5", padding: 12 }}>
+        <div className="absolute flex items-center justify-center rounded-full" style={{ left: 131, top: 45, width: 52, height: 52, background: "#f5f5f5", padding: 12 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/home/icon-bell.svg" alt="" width={26} height={26} />
-          <div className="absolute rounded-full" style={{ top: 10, right: 14, width: 8, height: 8, background: "#ff7162", border: "2px solid #fff" }} />
         </div>
-        <div className="absolute flex flex-col bg-white overflow-hidden" style={{ left: 179, top: 60, width: 380, height: 400, borderRadius: 16, border: "1px solid #fafafa", boxShadow: "0px 0px 32px 0px rgba(0,0,0,0.08)", padding: 4, gap: 2 }}>
+        <div className="absolute flex flex-col bg-white overflow-hidden" style={{ left: 200, top: 45, width: 380, height: 400, borderRadius: 16, border: "1px solid #fafafa", boxShadow: "0px 0px 32px 0px rgba(0,0,0,0.08)", padding: 4, gap: 2 }}>
           <div className="flex items-center justify-between w-full" style={{ padding: "8px 12px 2px" }}>
             <span className="flex-1 font-poppins font-medium" style={{ fontSize: 14, color: "#0a0a0a" }}>Notifications</span>
             <div className="flex items-center rounded-lg p-2">
@@ -309,20 +491,18 @@ function NotificationsCard() {
             ))}
           </div>
         </div>
-        {/* White-to-transparent gradient fade over popover bottom — Figma 8506:97477.
-            Masks the 3rd notification tile so it appears to dissolve into the card. */}
         <div
           className="absolute pointer-events-none"
           style={{
             left: 179,
-            bottom: -9,
+            top: 285,
             width: 423,
-            height: 181,
+            height: 167,
             background: "linear-gradient(to top, #fff 56.63%, rgba(255,255,255,0))",
           }}
         />
       </div>
-      <AsyncCardTitle title="Notifications" desc="Get collaboration notifications or push your own" />
+      <AsyncCardTitle title="Notifications" desc="Get collaboration notifications or push your own" bottom={181} />
     </div>
   );
 }
@@ -331,9 +511,11 @@ function AsyncGrid() {
   return (
     <>
       <CommentsCard />
-      <RecordingCard />
-      <AnalyticsCard />
+      <AIReviewsCard />
+      <AnnotationModeCard />
       <NotificationsCard />
+      <AnalyticsCard />
+      <RecordingCard />
     </>
   );
 }
@@ -978,8 +1160,8 @@ function TestimonialStrip() {
 
 export function FeaturesGrid() {
   const [activeTab, setActiveTab] = useState<TabId>("async");
-  // Async grid is 866 tall; Realtime/AI are 900+47=947
-  const gridHeight = activeTab === "async" ? 866 : 947;
+  // Async grid is 1327 tall (3-row asymmetric); Realtime/AI are 900+47=947
+  const gridHeight = activeTab === "async" ? 1327 : 947;
 
   return (
     <section className="flex flex-col items-center bg-white" style={{ padding: "52px 80px 0", gap: 52 }}>

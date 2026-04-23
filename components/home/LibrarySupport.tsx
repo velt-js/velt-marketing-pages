@@ -236,15 +236,30 @@ export function LibrarySupport() {
             </div>
 
             {/* Nivo Charts — Figma node 1:20921:
-                105.314×32.825 at left:146.59 top:227.94 */}
-            <div className="absolute" style={{ left: 146.59, top: 227.94 }}>
+                105.314×32.825 at left:146.59 top:227.94.
+                Two PNGs share the same source canvas: wordmark "nivo"
+                (with a plain blue/red "o") + colored ring. Overlaying the
+                ring on top of the wordmark at matching coordinates replaces
+                the plain "o" with the colorful ring. */}
+            <div
+              className="absolute"
+              style={{ left: 146.59, top: 227.94, width: 105.314, height: 32.825 }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/home/logo-nivo-top.png"
+                src="/images/home/logo-nivo-bot.png"
                 alt="Nivo Charts"
                 width={105.314}
                 height={32.825}
-                style={{ display: "block" }}
+                style={{ position: "absolute", left: 0, top: 0, display: "block" }}
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/home/logo-nivo-top.png"
+                alt=""
+                width={104.847}
+                height={32.825}
+                style={{ position: "absolute", left: 0.47, top: 0, display: "block" }}
               />
             </div>
 

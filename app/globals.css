@@ -32,3 +32,35 @@ body {
   font-family: var(--font-urbanist);
   -webkit-font-smoothing: antialiased;
 }
+
+/* Full-bleed utility for section-scoped colored backgrounds (purple Outcomes,
+   white content container) — below 1440 ScaleWrapper scales the 1440 design
+   to fit the viewport so default `width: 100%` already fills. Above 1440 the
+   design pins at 1440 centered, so we break the section's bg out to viewport
+   width. Element-qualified + !important to beat Tailwind's `.w-full`.
+   NOTE: plain-CSS rule (not a Tailwind `@utility`) so Tailwind's purger can't
+   drop it when the class temporarily has no uses during HMR. */
+.full-bleed-bg {
+  /* placeholder so Tailwind's JIT always emits the rule; actual break-out
+     happens in the media query below. */
+}
+@media (min-width: 1440px) {
+  section.full-bleed-bg,
+  div.full-bleed-bg {
+    width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+  }
+}
+
+/* Hero pixel-grid background — tiles as a CSS background so it can extend
+   past the 1440 design width on ultrawide viewports without scaling the
+   rest of the Hero. Below 1440 the inline `left:0; width:1440` wins and
+   ScaleWrapper scales the whole thing to fit; at ≥1440 we break out to
+   viewport width and the repeat-x tiling fills the extra space. */
+@media (min-width: 1440px) {
+  .hero-grid-full {
+    left: calc(50% - 50vw) !important;
+    width: 100vw !important;
+  }
+}
+
