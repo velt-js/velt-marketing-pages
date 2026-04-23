@@ -1,6 +1,5 @@
 import { PortableText as SanityPortableText } from "@portabletext/react";
-import type { PortableTextComponents } from "@portabletext/react";
-import type { TypedObject } from "@portabletext/types";
+import type { PortableTextComponents, PortableTextBlock } from "@portabletext/react";
 
 const components: PortableTextComponents = {
   block: {
@@ -86,6 +85,6 @@ const components: PortableTextComponents = {
   },
 };
 
-export function PortableTextRenderer({ value }: { value: TypedObject[] }) {
+export function PortableTextRenderer({ value }: { value: PortableTextBlock[] }) {
   return <SanityPortableText value={value} components={components} />;
 }
