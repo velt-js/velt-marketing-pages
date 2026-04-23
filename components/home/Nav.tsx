@@ -440,10 +440,17 @@ export function Nav() {
     const check = () => {
       const outcomes = document.querySelector<HTMLElement>("[data-outcomes]");
       const getStarted = document.querySelector<HTMLElement>("[data-getstarted]");
-      if (!outcomes) return;
-      const outcomesTop = outcomes.getBoundingClientRect().top;
-      const getStartedTop = getStarted?.getBoundingClientRect().top ?? Infinity;
-      setOverPurple(outcomesTop <= NAV_STRIP && getStartedTop > NAV_STRIP);
+      if (outcomes) {
+        // Homepage: flip while between the Outcomes and GetStartedSteps markers.
+        const outcomesTop = outcomes.getBoundingClientRect().top;
+        const getStartedTop = getStarted?.getBoundingClientRect().top ?? Infinity;
+        setOverPurple(outcomesTop <= NAV_STRIP && getStartedTop > NAV_STRIP);
+        return;
+      }
+      // Fallback for pages without homepage markers (e.g. /libraries/*):
+      // flip to solid once the user has scrolled past roughly the dark hero.
+      // One viewport-height is a reasonable heuristic for a full-bleed hero.
+      setOverPurple(window.scrollY > window.innerHeight - NAV_STRIP);
     };
     check();
     window.addEventListener("scroll", check, { passive: true });

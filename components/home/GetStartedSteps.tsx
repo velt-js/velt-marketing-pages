@@ -3,7 +3,9 @@
 // card split into 3 columns (Initialize / Add Component / Style Your
 // Components), capped by a #1a1a1a testimonial strip (Linda Belcher).
 
-function Step1Column() {
+import { TestimonialStrip } from "./TestimonialStrip";
+
+function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string }) {
   return (
     <div
       className="relative overflow-hidden shrink-0"
@@ -41,7 +43,7 @@ function Step1Column() {
         <p className="absolute font-firacode font-medium whitespace-nowrap" style={{ left: 21, top: 72, fontSize: 20, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
           <span style={{ color: "rgba(255,255,255,0.32)" }}>app &gt;</span>
           <span style={{ color: "#fff" }}> npm i </span>
-          <span style={{ color: "#b387f7" }}>@veltdev/client</span>
+          <span style={{ color: "#b387f7" }}>{packageName}</span>
         </p>
         <p className="absolute font-firacode font-medium whitespace-nowrap" style={{ left: 21, top: 125, fontSize: 20, lineHeight: 1.2, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.32)" }}>
           app &gt; <span style={{ color: "#fff" }}>Enter your API Key:</span>
@@ -274,7 +276,13 @@ function Step3Column() {
   );
 }
 
-export function GetStartedSteps() {
+export type GetStartedStepsProps = {
+  /** Package name shown in Step 1's `npm i ...` line. Defaults to `@veltdev/client`
+   *  for the homepage; per-library pages pass their own (e.g. `@veltdev/tiptap-collab`). */
+  step1PackageName?: string;
+};
+
+export function GetStartedSteps({ step1PackageName }: GetStartedStepsProps = {}) {
   return (
     <section
       data-getstarted
@@ -346,45 +354,12 @@ export function GetStartedSteps() {
           className="flex items-center overflow-hidden w-full"
           style={{ gap: 6, padding: 2, background: "#111" }}
         >
-          <Step1Column />
+          <Step1Column packageName={step1PackageName} />
           <Step2Column />
           <Step3Column />
         </div>
 
-        {/* Testimonial strip */}
-        <div
-          className="flex items-center justify-between w-full"
-          style={{ padding: 40, background: "#1a1a1a" }}
-        >
-          <div className="flex items-center" style={{ gap: 16 }}>
-            <div
-              className="relative overflow-hidden"
-              style={{ width: 52, height: 52, borderRadius: "50%" }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/linda-steps.png"
-                alt="Linda Belcher"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col" style={{ gap: 4 }}>
-              <span className="font-urbanist font-semibold text-white" style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}>
-                Linda Belcher
-              </span>
-              <span className="font-urbanist text-white" style={{ fontSize: 16, lineHeight: 1.2, opacity: 0.52, letterSpacing: "-0.03em" }}>
-                Product Manager @HeyGen
-              </span>
-            </div>
-          </div>
-          <p
-            className="font-urbanist font-semibold text-white"
-            style={{ fontSize: 24, width: 421, lineHeight: 1.2, letterSpacing: "-0.03em" }}
-          >
-            Velt hosts all collaboration functionalities needed to{" "}
-            <span style={{ color: "#0085ff" }}>boost engagement</span> at HeyGen
-          </p>
-        </div>
+        <TestimonialStrip />
       </div>
     </section>
   );

@@ -74,6 +74,63 @@ export async function getMarketingPagesByType(pageType: string) {
   );
 }
 
+// Library page queries
+export async function getAllLibraryPages() {
+  return client.fetch(`
+    *[_type == "libraryPage"] | order(category asc, title asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      category,
+      tagline,
+      "logo": logo.asset->url
+    }
+  `);
+}
+
+export async function getLibraryPageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "libraryPage" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      category,
+      tagline,
+      "logo": logo.asset->url,
+      hero {
+        eyebrow,
+        heading,
+        subheading,
+        "illustration": illustration.asset->url,
+        primaryCta,
+        secondaryCta
+      },
+      sections[] {
+        _key,
+        _type,
+        ...,
+        _type == "sectionFeatureGrid" => {
+          items[] { ..., "icon": icon.asset->url }
+        },
+        _type == "sectionDemo" => {
+          "image": image.asset->url,
+          "video": video.asset->url
+        }
+        // sectionCodeBlock, sectionFaq, sectionCta are inline values —
+        // the top-level ... spread covers them.
+      },
+      seo {
+        metaTitle,
+        metaDescription,
+        "ogImage": ogImage.asset->url
+      }
+    }
+  `,
+    { slug }
+  );
+}
+
 // Customer queries
 export async function getFeaturedCustomers() {
   return client.fetch(`
