@@ -1,28 +1,34 @@
 "use client";
 
-// "All Libraries" grid — matches the Framer export's "2025/Library Card"
-// (chunk-YRWKAGDD.js) tiled into the library-landing grid.
+// "All Libraries" section — tabs + filterable grid in one block.
 //
-// Card spec (default state):
-// - 271×150 px
-// - background #f7f7f7, 16px radius
-// - logo centered in flex-1 area (20px padding, 25px tall image)
-// - no visible CTAs
+// Section spec:
+//   inner stage 1280 px (matches homepage sections like TrustedLogos and
+//   GetStartedSteps), padding 52px 80px 100px, gap 52 between header block
+//   and grid, 24 between heading group / tabs / grid.
 //
+// Card spec (default):
+//   height 240 px, light #f7f7f7 bg, 16 px radius, logo centered.
 // Card spec (hover):
-// - background white, inset 0 0 0 2px rgb(0,0,0) border
-// - two buttons slide up from bottom: "View Docs" and "Learn More"
-// - buttons are 48% width each, 33px tall, sit at bottom 8px left/right 8px
+//   white bg + 2 px inset border, two buttons slide up (View Docs + Learn More).
 //
-// Grid: 3 columns × N rows, 16px gap. Header with "All Libraries" heading
-// and a subtle subheading above the grid. Lives on a white section.
+// Grid: 3 columns × N rows, 20 px gap, `repeat(3, minmax(50px, 1fr))`.
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { LibraryTabs, type LibraryTab } from "./LibraryTabs";
+
+export type LibraryCategory = "Text Editor" | "Charts" | "Canvas";
 
 export type LibraryCardData = {
   name: string;
+  /** Unified logo (icon+wordmark) as a single image. If omitted, `name` renders as bold text. */
   logoSrc?: string;
   logoAlt?: string;
+  /** Natural pixel dimensions of the logo — becomes the <img> width/height
+   *  attributes so the browser establishes the correct intrinsic aspect. */
+  logoWidth?: number;
+  logoHeight?: number;
+  category: LibraryCategory;
   docsHref: string;
   learnMoreHref: string;
 };
@@ -31,6 +37,12 @@ type AllLibrariesProps = {
   heading?: string;
   subheading?: string;
   items: LibraryCardData[];
+  tabs?: LibraryTab[];
+  /** When this section is the first white block after a dark block (as on
+   *  /libraries), set true to render a rounded top + extra margin so the
+   *  dark background shows through as breathing room. Leave false when it
+   *  follows another white section (as on per-library pages). */
+  topAccent?: boolean;
 };
 
 function LibraryLogoCard({ data }: { data: LibraryCardData }) {
@@ -42,15 +54,13 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
       onMouseLeave={() => setHovered(false)}
       className="relative overflow-hidden"
       style={{
-        width: 271,
-        height: 150,
+        height: 240,
         borderRadius: 16,
         background: hovered ? "rgb(255, 255, 255)" : "rgb(247, 247, 247)",
         boxShadow: hovered ? "inset 0px 0px 0px 2px rgb(0, 0, 0)" : "none",
         transition: "background 200ms ease, box-shadow 200ms ease",
       }}
     >
-      {/* Logo area */}
       <div
         className="absolute flex items-center justify-center"
         style={{
@@ -58,33 +68,38 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
           left: 0,
           right: 0,
           bottom: 0,
-          padding: 20,
+          padding: "40px 60px",
           transition: "padding-bottom 200ms ease",
-          paddingBottom: hovered ? 60 : 20,
+          paddingBottom: hovered ? 70 : 40,
         }}
       >
         {data.logoSrc ? (
+          // HTML width/height attrs establish the intrinsic aspect ratio;
+          // CSS width:100%/height:100% + object-fit:contain letterboxes
+          // the image to fit the wrapper while preserving that aspect.
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={data.logoSrc}
             alt={data.logoAlt ?? data.name}
+            width={data.logoWidth}
+            height={data.logoHeight}
             style={{
-              maxHeight: 25,
-              maxWidth: "80%",
+              width: "100%",
+              height: "100%",
               objectFit: "contain",
+              objectPosition: "center",
             }}
           />
         ) : (
           <span
             className="font-urbanist font-bold"
-            style={{ fontSize: 20, color: "#111" }}
+            style={{ fontSize: 22, color: "#111" }}
           >
             {data.name}
           </span>
         )}
       </div>
 
-      {/* Hover CTAs — slide up from bottom */}
       <div
         className="absolute flex items-center"
         style={{
@@ -142,47 +157,91 @@ export function AllLibraries({
   heading = "All Libraries",
   subheading = "These libraries require less than 10 lines to integrate",
   items,
+  tabs,
+  topAccent = false,
 }: AllLibrariesProps) {
+  const [active, setActive] = useState(0);
+
+  const filtered = useMemo(() => {
+    if (!tabs || tabs.length === 0) return items;
+    const activeLabel = tabs[active]?.label ?? "All";
+    if (activeLabel === "All") return items;
+    return items.filter((item) => item.category === activeLabel);
+  }, [items, tabs, active]);
+
   return (
     <section
-      className="flex flex-col items-center bg-white"
-      style={{ padding: "52px 80px 100px", gap: 52 }}
+      // `data-outcomes` is the Nav's "light-start" marker — flips the
+      // sticky nav from transparent-over-dark to solid-over-light as this
+      // white section scrolls under it.
+      // `full-bleed-bg` (globals.css) stretches the section to 100vw on
+      // viewports ≥ 1440 so the white background matches the body edge —
+      // same trick the homepage uses on its white content container.
+      data-outcomes
+      className="flex flex-col items-center bg-white full-bleed-bg"
+      style={{
+        padding: topAccent ? "100px 80px" : "52px 80px 100px",
+        gap: 52,
+        marginTop: topAccent ? 80 : 0,
+        borderTopLeftRadius: topAccent ? 48 : 0,
+        borderTopRightRadius: topAccent ? 48 : 0,
+      }}
     >
       <div
-        className="flex flex-col items-center text-center"
-        style={{ gap: 12, maxWidth: 820 }}
+        className="flex flex-col items-center"
+        style={{ width: 1280, gap: 24 }}
       >
-        <h2
-          className="font-urbanist font-bold"
+        <div
+          className="flex flex-col items-center text-center"
+          style={{ gap: 12, maxWidth: 820 }}
+        >
+          <h2
+            className="font-urbanist font-bold"
+            style={{
+              color: "#111",
+              fontSize: 52,
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+            }}
+          >
+            {heading}
+          </h2>
+          {subheading && (
+            <p
+              className="font-urbanist"
+              style={{
+                color: "#111",
+                fontSize: 20,
+                lineHeight: 1.2,
+                opacity: 0.72,
+              }}
+            >
+              {subheading}
+            </p>
+          )}
+        </div>
+
+        {tabs && tabs.length > 0 && (
+          <LibraryTabs
+            tabs={tabs}
+            variant="inline"
+            active={active}
+            onChange={setActive}
+          />
+        )}
+
+        <div
+          className="grid"
           style={{
-            color: "#111",
-            fontSize: 52,
-            lineHeight: 1.2,
-            letterSpacing: "-0.03em",
+            width: "100%",
+            gridTemplateColumns: "repeat(3, minmax(50px, 1fr))",
+            gap: 20,
           }}
         >
-          {heading}
-        </h2>
-        {subheading && (
-          <p
-            className="font-urbanist"
-            style={{ color: "#111", fontSize: 20, lineHeight: 1.2, opacity: 0.72 }}
-          >
-            {subheading}
-          </p>
-        )}
-      </div>
-
-      <div
-        className="grid"
-        style={{
-          gridTemplateColumns: "repeat(3, 271px)",
-          gap: 16,
-        }}
-      >
-        {items.map((item) => (
-          <LibraryLogoCard key={item.name} data={item} />
-        ))}
+          {filtered.map((item) => (
+            <LibraryLogoCard key={item.name} data={item} />
+          ))}
+        </div>
       </div>
     </section>
   );

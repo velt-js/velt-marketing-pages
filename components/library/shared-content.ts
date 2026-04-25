@@ -10,6 +10,9 @@ import type { LibraryCardData } from "./AllLibraries";
 // from library-faq.jsx; questions are written to fit each answer (the
 // export shipped all four with placeholder "Does it work with other
 // libraries?" text, replaced at runtime by CMS questions).
+//
+// Per-library pages prepend their own library-specific Q+As (see
+// `tiptapFAQ` below) before this shared list.
 export const sharedFAQ: FaqEntry[] = [
   {
     question: "What counts as an active collaborator?",
@@ -32,64 +35,137 @@ export const sharedFAQ: FaqEntry[] = [
   },
 ];
 
-// Tabs at the top of the white "All Libraries" section. Labels render in
-// Fira Mono UPPERCASE via LibraryTabs. "All" is the default-selected tab.
+// Tiptap-specific FAQ entries. Rendered before the sharedFAQ on
+// /libraries/tiptap so the page leads with library-specific questions
+// before the general billing/implementation answers.
+export const tiptapFAQ: FaqEntry[] = [
+  {
+    question: "Will comments move as the document changes?",
+    answer:
+      "Yes. Velt anchors each comment to a range in the Tiptap document and rebases that anchor as the surrounding content is edited. Comments stay attached to the right text even after multi-user edits, formatting changes, or block reflows.",
+  },
+  {
+    question: "Does this work with custom Tiptap extensions?",
+    answer:
+      "Yes. The Velt Tiptap integration ships as a Tiptap extension that composes alongside your own extensions without overriding their schema, commands, or keyboard shortcuts. You can keep using any other extensions you already have.",
+  },
+];
+
+// Tabs rendered inline inside AllLibraries. Categories match the reference
+// Framer CMS enum (chunk-5XPNNWAZ.js: "Text Editor", "Chart", "Canvas").
+// Labels go through LibraryTabs (Fira Mono UPPERCASE). "All" always first.
 export const libraryTabs: LibraryTab[] = [
   { label: "All" },
   { label: "Text Editor" },
-  { label: "Chart" },
+  { label: "Charts" },
   { label: "Canvas" },
 ];
 
-// 6 libraries shown in the main /libraries landing "All Libraries" grid.
-// Logo paths reuse the files already vendored for the home LibrarySupport
-// section (public/images/home/). Each card links to its docs + landing.
-// Docs URLs follow the pattern:
-//   https://docs.velt.dev/async-collaboration/comments/setup/<library>
+// 10 libraries in the /libraries grid. Logos, order, slugs, and category
+// assignment mirror production velt.dev/libraries (images downloaded from
+// framerusercontent.com under public/images/home/libraries/).
 const docsBase = "https://docs.velt.dev/async-collaboration/comments/setup";
+const libBase = "/images/home/libraries";
 
 export const allLibraryCards: LibraryCardData[] = [
   {
+    name: "Yjs",
+    logoSrc: `${libBase}/yjs.png`,
+    logoAlt: "Yjs",
+    logoWidth: 57,
+    logoHeight: 67,
+    category: "Text Editor",
+    docsHref: "https://docs.velt.dev/realtime-collaboration/crdt",
+    learnMoreHref: "/libraries/yjs",
+  },
+  {
+    name: "Tiptap",
+    logoSrc: `${libBase}/tiptap.png`,
+    logoAlt: "Tiptap",
+    logoWidth: 219,
+    logoHeight: 53,
+    category: "Text Editor",
+    docsHref: `${docsBase}/tiptap`,
+    learnMoreHref: "/libraries/tiptap",
+  },
+  {
+    name: "React Flow",
+    logoSrc: `${libBase}/react-flow.png`,
+    logoAlt: "React Flow",
+    logoWidth: 303,
+    logoHeight: 56,
+    category: "Canvas",
+    docsHref: "https://docs.velt.dev/realtime-collaboration/crdt/setup/reactflow",
+    learnMoreHref: "/libraries/react-flow",
+  },
+  {
+    name: "BlockNote",
+    logoSrc: `${libBase}/blocknote.png`,
+    logoAlt: "BlockNote",
+    logoWidth: 353,
+    logoHeight: 67,
+    category: "Text Editor",
+    docsHref: "https://docs.velt.dev/realtime-collaboration/crdt/setup/blocknote",
+    learnMoreHref: "/libraries/blocknote",
+  },
+  {
     name: "CodeMirror",
-    logoSrc: "/images/home/logo-codemirror-text.svg",
+    logoSrc: `${libBase}/codemirror.png`,
     logoAlt: "CodeMirror",
+    logoWidth: 289,
+    logoHeight: 67,
+    category: "Text Editor",
     docsHref: `${docsBase}/codemirror`,
     learnMoreHref: "/libraries/codemirror",
   },
   {
     name: "Lexical",
-    logoSrc: "/images/home/logo-lexical.svg",
+    logoSrc: `${libBase}/lexical.png`,
     logoAlt: "Lexical",
+    logoWidth: 212,
+    logoHeight: 48,
+    category: "Text Editor",
     docsHref: `${docsBase}/lexical`,
     learnMoreHref: "/libraries/lexical",
   },
   {
-    name: "BlockNote",
-    logoSrc: "/images/home/logo-blocknote.svg",
-    logoAlt: "BlockNote",
-    docsHref: `${docsBase}/blocknote`,
-    learnMoreHref: "/libraries/blocknote",
-  },
-  {
-    name: "Tiptap",
-    logoSrc: "/images/home/logo-tiptap-wordmark.svg",
-    logoAlt: "Tiptap",
-    docsHref: `${docsBase}/tiptap`,
-    learnMoreHref: "/libraries/tiptap",
-  },
-  {
     name: "Slate",
-    logoSrc: undefined,
+    logoSrc: `${libBase}/slatejs.png`,
     logoAlt: "Slate",
-    docsHref: `${docsBase}/slate`,
-    learnMoreHref: "/libraries/slate",
+    logoWidth: 115,
+    logoHeight: 75,
+    category: "Text Editor",
+    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/slatejs",
+    learnMoreHref: "/libraries/slatejs",
   },
   {
     name: "Chart.js",
-    logoSrc: "/images/home/logo-chartjs.svg",
+    logoSrc: `${libBase}/chartjs.png`,
     logoAlt: "Chart.js",
-    docsHref:
-      "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/chartjs#chartjs-comments-setup",
+    logoWidth: 1364,
+    logoHeight: 484,
+    category: "Charts",
+    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/chartjs",
     learnMoreHref: "/libraries/chartjs",
+  },
+  {
+    name: "nivo",
+    logoSrc: `${libBase}/nivo-charts.png`,
+    logoAlt: "nivo",
+    logoWidth: 212,
+    logoHeight: 66,
+    category: "Charts",
+    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
+    learnMoreHref: "/libraries/nivo-charts",
+  },
+  {
+    name: "HighCharts",
+    logoSrc: `${libBase}/highcharts.png`,
+    logoAlt: "HighCharts",
+    logoWidth: 422,
+    logoHeight: 72,
+    category: "Charts",
+    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/highcharts",
+    learnMoreHref: "/libraries/highcharts",
   },
 ];

@@ -64,6 +64,12 @@ export function LibraryFAQ({
 
   return (
     <section
+      // `data-getstarted` is the Nav's "dark-return" marker. On pages where
+      // the FAQ is the first dark section after the white content block, it
+      // tells Nav to flip back to transparent-on-dark here. On the homepage
+      // there's no LibraryFAQ, so GetStartedSteps' own data-getstarted still
+      // wins; querySelector returns the first DOM match either way.
+      data-getstarted
       className="flex flex-col items-center bg-black"
       style={{ padding: "100px 80px", gap: 52 }}
     >

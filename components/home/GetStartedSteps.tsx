@@ -317,8 +317,16 @@ export function GetStartedSteps({ step1PackageName }: GetStartedStepsProps = {})
             className="flex items-center justify-center gap-1 rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}
           >
+            {/* icon-book-2.svg ships with black strokes; flip to white for
+                this dark-section button so the glyph is visible. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/home/icon-book-2.svg" alt="" width={18} height={18} />
+            <img
+              src="/images/home/icon-book-2.svg"
+              alt=""
+              width={18}
+              height={18}
+              style={{ filter: "brightness(0) invert(1)" }}
+            />
             <span
               className="font-urbanist font-semibold text-white whitespace-nowrap"
               style={{ fontSize: 16, letterSpacing: "-0.03em", mixBlendMode: "exclusion" }}

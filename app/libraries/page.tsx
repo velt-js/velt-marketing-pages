@@ -1,17 +1,17 @@
-// Main /libraries landing page — Figma node 1:1118. Composition order
-// matches the HTML reference: dark hero + demo + tabs sit on the black
-// block; the white content block carries the tabs row, All Libraries
-// grid, testimonial, Enterprise Security, and another testimonial; the
-// black tail carries FAQ, Get Started, and a closing testimonial strip.
+// Main /libraries landing page — Figma node 1:1118.
+// Dark block: PageHero → LibraryDemo → TrustedLogos.
+// White block: Explore Other Libraries (heading + tabs + grid in one section)
+//   → inline testimonial → Enterprise Security (2×2 + cert).
+// Dark tail: FAQ → GetStartedSteps (closes with its own testimonial strip) → Footer.
 
 import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TestimonialStrip } from "@/components/home/TestimonialStrip";
+import { TrustedLogos } from "@/components/home/TrustedLogos";
 import { PageHero } from "@/components/library/PageHero";
-import { DemoPlayer } from "@/components/library/DemoPlayer";
-import { LibraryTabs } from "@/components/library/LibraryTabs";
+import { LibraryDemo } from "@/components/library/LibraryDemo";
 import { AllLibraries } from "@/components/library/AllLibraries";
 import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import {
@@ -27,14 +27,17 @@ export const metadata = {
 };
 
 function InlineTestimonial() {
+  // Figma node 1:1203 — 824×132 card centered on the white block.
+  // `full-bleed-bg` stretches the white strip to 100vw on viewports ≥1440
+  // so it aligns edge-to-edge with the surrounding white sections.
   return (
     <section
-      className="flex justify-center w-full bg-white"
+      className="flex justify-center w-full bg-white full-bleed-bg"
       style={{ padding: "0 80px 52px" }}
     >
       <div
         className="overflow-hidden"
-        style={{ width: 1280, background: "#111", borderRadius: 24 }}
+        style={{ width: 824, background: "#111", borderRadius: 24 }}
       >
         <TestimonialStrip />
       </div>
@@ -50,9 +53,9 @@ export default function LibrariesLandingPage() {
         style={{ width: 1440 }}
       >
         <PageHero
-          eyebrow={{ label: "Deep Library Integrations" }}
+          decorated
           heading="Deep Integrations with Popular Libraries"
-          subheading="Velt has deep integrations with popular libraries"
+          subheading="Velt has 6+ deep integrations with popular libraries"
           primaryCta={{
             label: "Get Free API Key",
             href: "https://console.velt.dev/",
@@ -61,17 +64,15 @@ export default function LibrariesLandingPage() {
           secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
         />
 
-        <DemoPlayer label="All Libraries Demo" />
+        <LibraryDemo />
 
-        <LibraryTabs tabs={libraryTabs} />
+        <TrustedLogos />
 
-        <AllLibraries items={allLibraryCards} />
+        <AllLibraries items={allLibraryCards} tabs={libraryTabs} topAccent />
 
         <InlineTestimonial />
 
         <Security />
-
-        <InlineTestimonial />
 
         <LibraryFAQ items={sharedFAQ} />
 
