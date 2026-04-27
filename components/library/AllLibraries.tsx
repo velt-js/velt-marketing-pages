@@ -2,13 +2,13 @@
 
 // "All Libraries" section — tabs + filterable grid in one block.
 //
-// Section spec:
-//   inner stage 1280 px (matches homepage sections like TrustedLogos and
-//   GetStartedSteps), padding 52px 80px 100px, gap 52 between header block
-//   and grid, 24 between heading group / tabs / grid.
+// Section spec (matches velt.dev Framer source — framer-1fbfv1s):
+//   inner stage width 820 (max-width 1280), single column, gap 24 between
+//   header block / tabs / grid. Tabs row capped at 520 wide.
 //
 // Card spec (default):
-//   height 240 px, light #f7f7f7 bg, 16 px radius, logo centered.
+//   height 180, light #f7f7f7 bg, 16 px radius, logo wrapper fixed at 25 px
+//   tall (matches framer-w61anh) centered in a flex zone with 20 px padding.
 // Card spec (hover):
 //   white bg + 2 px inset border, two buttons slide up (View Docs + Learn More).
 //
@@ -54,7 +54,7 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
       onMouseLeave={() => setHovered(false)}
       className="relative overflow-hidden"
       style={{
-        height: 240,
+        height: 180,
         borderRadius: 16,
         background: hovered ? "rgb(255, 255, 255)" : "rgb(247, 247, 247)",
         boxShadow: hovered ? "inset 0px 0px 0px 2px rgb(0, 0, 0)" : "none",
@@ -62,21 +62,13 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
       }}
     >
       <div
-        className="absolute flex items-center justify-center"
-        style={{
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          padding: "40px 60px",
-          transition: "padding-bottom 200ms ease",
-          paddingBottom: hovered ? 70 : 40,
-        }}
+        className="flex items-center justify-center"
+        style={{ width: "100%", height: "100%", padding: 20 }}
       >
         {data.logoSrc ? (
-          // HTML width/height attrs establish the intrinsic aspect ratio;
-          // CSS width:100%/height:100% + object-fit:contain letterboxes
-          // the image to fit the wrapper while preserving that aspect.
+          // Logo wrapper is fixed 25 px tall (framer-w61anh) — image scales
+          // by aspect with object-fit: contain, capped at 80% of inner width
+          // (approximates the live flex:.8 of the logo zone).
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={data.logoSrc}
@@ -84,16 +76,19 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
             width={data.logoWidth}
             height={data.logoHeight}
             style={{
-              width: "100%",
-              height: "100%",
+              height: 25,
+              maxHeight: 25,
+              maxWidth: "80%",
+              width: "auto",
               objectFit: "contain",
               objectPosition: "center",
+              display: "block",
             }}
           />
         ) : (
           <span
             className="font-urbanist font-bold"
-            style={{ fontSize: 22, color: "#111" }}
+            style={{ fontSize: 18, color: "#111" }}
           >
             {data.name}
           </span>
@@ -181,7 +176,6 @@ export function AllLibraries({
       className="flex flex-col items-center bg-white full-bleed-bg"
       style={{
         padding: topAccent ? "100px 80px" : "52px 80px 100px",
-        gap: 52,
         marginTop: topAccent ? 80 : 0,
         borderTopLeftRadius: topAccent ? 48 : 0,
         borderTopRightRadius: topAccent ? 48 : 0,
@@ -189,7 +183,7 @@ export function AllLibraries({
     >
       <div
         className="flex flex-col items-center"
-        style={{ width: 1280, gap: 24 }}
+        style={{ width: 820, maxWidth: 1280, gap: 24 }}
       >
         <div
           className="flex flex-col items-center text-center"
@@ -210,10 +204,9 @@ export function AllLibraries({
             <p
               className="font-urbanist"
               style={{
-                color: "#111",
+                color: "#000",
                 fontSize: 20,
                 lineHeight: 1.2,
-                opacity: 0.72,
               }}
             >
               {subheading}

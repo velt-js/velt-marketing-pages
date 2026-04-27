@@ -204,34 +204,24 @@ export function Footer() {
                   features ridiculously fast!
                 </p>
               </div>
-              {/* Badges */}
+              {/* Badges — match live velt.dev/libraries footer (SOC2 + HIPAA, 52×52). */}
               <div className="flex items-center" style={{ gap: 16 }}>
-                <div
-                  className="relative overflow-hidden rounded-full"
-                  style={{ width: 52, height: 52 }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/home/badge-soc2-light.png"
-                    alt="AICPA SOC"
-                    width={52}
-                    height={52}
-                    style={{ display: "block", objectFit: "cover" }}
-                  />
-                </div>
-                <div
-                  className="relative overflow-hidden rounded-full"
-                  style={{ width: 52, height: 52 }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/images/home/badge-hipaa-base.png"
-                    alt="HIPAA"
-                    width={52}
-                    height={52}
-                    style={{ display: "block", objectFit: "cover" }}
-                  />
-                </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/security/badge-soc2-footer.png"
+                  alt="AICPA SOC"
+                  width={52}
+                  height={52}
+                  style={{ display: "block", objectFit: "contain" }}
+                />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/security/badge-hipaa-footer.svg"
+                  alt="HIPAA"
+                  width={52}
+                  height={52}
+                  style={{ display: "block", objectFit: "contain", filter: "grayscale(1)" }}
+                />
               </div>
             </div>
             {/* Button */}

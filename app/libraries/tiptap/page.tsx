@@ -31,6 +31,7 @@ import { AllLibraries } from "@/components/library/AllLibraries";
 import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import {
   allLibraryCards,
+  libraryTabs,
   sharedFAQ,
   tiptapFAQ,
 } from "@/components/library/shared-content";
@@ -179,6 +180,7 @@ export default function LibraryTiptapPage() {
         <AllLibraries
           heading="Explore Other Libraries"
           items={allLibraryCards}
+          tabs={libraryTabs}
         />
 
         <LibraryFAQ items={[...tiptapFAQ, ...sharedFAQ]} />
