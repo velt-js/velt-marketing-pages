@@ -142,10 +142,12 @@ function LinkColumn({ group }: { group: LinkGroup }) {
   );
 }
 
-function SocialIcon({ label, src }: { label: string; src: string }) {
+function SocialIcon({ label, src, href }: { label: string; src: string; href: string }) {
   return (
     <a
-      href="#"
+      href={href}
+      target="_blank"
+      rel="noopener"
       aria-label={label}
       className="flex items-center justify-center opacity-40 hover:opacity-100"
       style={{ width: 24, height: 24 }}
@@ -323,8 +325,16 @@ export function Footer() {
             className="flex items-center"
             style={{ flex: "1 0 0", minWidth: 0, gap: 32 }}
           >
-            <SocialIcon label="LinkedIn" src="/images/home/icon-linkedin.svg" />
-            <SocialIcon label="X (Twitter)" src="/images/home/icon-x-social.svg" />
+            <SocialIcon
+              label="LinkedIn"
+              src="/images/home/icon-linkedin.svg"
+              href="https://www.linkedin.com/company/veltjs"
+            />
+            <SocialIcon
+              label="X (Twitter)"
+              src="/images/home/icon-x-social.svg"
+              href="https://x.com/veltjs"
+            />
           </div>
           <div
             className="flex justify-center"
@@ -339,29 +349,37 @@ export function Footer() {
           </div>
           <div
             className="flex items-center justify-end"
-            style={{ flex: "1 0 0", minWidth: 0, gap: 10 }}
+            style={{ flex: "1 0 0", minWidth: 0 }}
           >
-            <span
-              className="font-urbanist font-medium text-white whitespace-nowrap"
-              style={{ fontSize: 16, lineHeight: "19.2px", opacity: 0.4 }}
+            <a
+              href="https://www.ycombinator.com/companies/velt"
+              target="_blank"
+              rel="noopener"
+              className="flex items-center"
+              style={{ gap: 10 }}
             >
-              Backed by
-            </span>
-            <div style={{ width: 100, height: 26, opacity: 0.3 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/yc-logo.svg"
-                alt="Y Combinator"
-                width={100}
-                height={26}
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
+              <span
+                className="font-urbanist font-medium text-white whitespace-nowrap"
+                style={{ fontSize: 16, lineHeight: "19.2px", opacity: 0.4 }}
+              >
+                Backed by
+              </span>
+              <div style={{ width: 100, height: 26, opacity: 0.3 }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/images/home/yc-logo.png"
+                  alt="Y Combinator"
+                  width={100}
+                  height={26}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+            </a>
           </div>
         </div>
       </div>

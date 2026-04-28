@@ -1,25 +1,45 @@
-// Per-library "Built for X" bento — 2×4 grid of 640-wide cards with
-// illustrations on top and title + description anchored to the bottom-left.
-// Matches the Figma spec at node 1:5594 for /libraries/tiptap: each row is
-// a fixed height (493 / 429 / 424 / 424) with a 2px #111 internal divider
-// grid and a 2px #111 outline + 24px radius on the container.
+// Per-library "Built for X" bento — 2-column grid of 640-wide cards. Row
+// count and heights are configurable per library via `rowHeights`. Each
+// card has an illustration on top and a title + description overlay
+// anchored to the bottom-left.
 //
-// Section header is a heading + subheading + two CTAs (View Docs + View
-// All Examples) + a "No Custom Logic Required" info pill below.
+// The illustration source is one of:
+//   - a registered React component (`illustration`), used by tiptap/yjs
+//     where each tile is a pre-built component pointing at a static PNG.
+//   - a CMS-uploaded image URL (`imageSrc`), used by libraries that
+//     supply their own PNGs through Sanity (e.g. highcharts).
+//
+// Either way, title + description render as a React overlay so they
+// stay CMS-driven and selectable as text.
+//
+// When `testimonial` is provided, a dark customer-quote bar is rendered
+// inside the same outer container, attached to the bottom of the cards
+// grid. This matches the live design across all library pages.
+//
+// Tiptap's spec is from Figma node 1:5594; highcharts from 1:9845.
 
 import type { ReactNode } from "react";
 
 export type LibraryBentoCard = {
   title: string;
   description: string;
-  /** Illustration rendered above the title block. */
+  /** Illustration rendered above the title block (illustration mode). */
   illustration?: ReactNode;
+  /** Full-bleed image fill (image mode). Suppresses the React text overlay. */
+  imageSrc?: string;
 };
 
 export type LibraryBentoCta = {
   label: string;
   href: string;
   newTab?: boolean;
+};
+
+export type LibraryBentoTestimonial = {
+  name?: string;
+  role?: string;
+  quote?: string;
+  avatarSrc?: string;
 };
 
 type LibraryBentoProps = {
@@ -29,17 +49,20 @@ type LibraryBentoProps = {
   eyebrow?: string;
   viewDocsCta?: LibraryBentoCta;
   primaryCta?: LibraryBentoCta;
-  /** Exactly 8 cards, rendered in the 2×4 grid below the header. */
+  /** Cards rendered in a 2-column grid. Length must equal rowHeights × 2. */
   cards: LibraryBentoCard[];
+  /** Per-row pixel heights. Defaults to [493, 429, 424, 424] (tiptap/yjs). */
+  rowHeights?: number[];
+  /** Customer quote rendered as a dark footer attached to the bento's
+   *  bottom edge. Only renders when `quote` is populated. */
+  testimonial?: LibraryBentoTestimonial;
   /** When true, gives the section a 48px top corner curve and 80px top
    *  margin so it can sit immediately under a dark section as the first
    *  light block of the page. Mirrors AllLibraries' `topAccent`. */
   topAccent?: boolean;
 };
 
-// Row heights from Figma: 493 + 429 + 424 + 424 = 1770. These are baked in
-// because the 8 tiles each rely on their own illustration geometry.
-const ROW_HEIGHTS = [493, 429, 424, 424] as const;
+const DEFAULT_ROW_HEIGHTS = [493, 429, 424, 424];
 
 export function LibraryBento({
   heading,
@@ -48,9 +71,17 @@ export function LibraryBento({
   viewDocsCta,
   primaryCta,
   cards,
+  rowHeights,
+  testimonial,
   topAccent = false,
 }: LibraryBentoProps) {
   if (cards.length === 0) return null;
+
+  const rows =
+    rowHeights && rowHeights.length > 0 ? rowHeights : DEFAULT_ROW_HEIGHTS;
+  const expectedCardCount = rows.length * 2;
+  const cardsForGrid = cards.slice(0, expectedCardCount);
+  const hasTestimonial = Boolean(testimonial?.quote);
 
   return (
     <section
@@ -180,7 +211,8 @@ export function LibraryBento({
         )}
       </div>
 
-      {/* 2×4 grid container */}
+      {/* Outer container — wraps the cards grid and (optionally) a
+          testimonial footer in one bordered, rounded box. */}
       <div
         className="overflow-hidden"
         style={{
@@ -188,16 +220,24 @@ export function LibraryBento({
           background: "#fff",
           border: "4px solid #1C1D21",
           borderRadius: 16,
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gridTemplateRows: ROW_HEIGHTS.map((h) => `${h}px`).join(" "),
         }}
       >
-        {cards.slice(0, 8).map((card, i) => {
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gridTemplateRows: rows.map((h) => `${h}px`).join(" "),
+        }}
+      >
+        {cardsForGrid.map((card, i) => {
           const col = i % 2;
           const row = Math.floor(i / 2);
           const isTopRow = row === 0;
-          const isLastRow = row === ROW_HEIGHTS.length - 1;
+          // When a testimonial footer is rendered, the bottom-row cards
+          // are no longer at the outer container's corner — drop their
+          // bottom-corner radii so the seam between cards and footer is
+          // visually flush.
+          const isLastRow = !hasTestimonial && row === rows.length - 1;
           const isLeftCol = col === 0;
           const isRightCol = col === 1;
           // Match the parent's inner border-radius (outer 16 − 4 border = 12)
@@ -217,7 +257,27 @@ export function LibraryBento({
                 borderBottomRightRadius: isLastRow && isRightCol ? R : undefined,
               }}
             >
-              {card.illustration}
+              {card.imageSrc ? (
+                <div
+                  className="absolute inset-0 overflow-hidden pointer-events-none"
+                  aria-hidden
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={card.imageSrc}
+                    alt=""
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </div>
+              ) : (
+                card.illustration
+              )}
               <div
                 className="absolute flex flex-col items-start"
                 style={{
@@ -252,6 +312,96 @@ export function LibraryBento({
             </article>
           );
         })}
+      </div>
+
+        {hasTestimonial && testimonial && (
+          // Layout matches Figma node 1:5574 — 224px tall #111 bar with
+          // avatar + name/role anchored to the left and the quote
+          // pinned to the right at a fixed 421px column.
+          <div
+            style={{
+              background: "#111",
+              height: 224,
+              padding: "0 57px 0 40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 24,
+            }}
+          >
+            <div className="flex items-center" style={{ gap: 16, flexShrink: 0 }}>
+              {testimonial.avatarSrc && (
+                <div
+                  style={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: "50%",
+                    border: "2px solid #B4B1FA",
+                    overflow: "hidden",
+                    flexShrink: 0,
+                  }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={testimonial.avatarSrc}
+                    alt={
+                      testimonial.name
+                        ? `${testimonial.name} Profile Photo`
+                        : ""
+                    }
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+              )}
+              <div className="flex flex-col" style={{ gap: 4 }}>
+                {testimonial.name && (
+                  <p
+                    className="font-urbanist font-semibold"
+                    style={{
+                      color: "#fff",
+                      fontSize: 18,
+                      lineHeight: 1.2,
+                      letterSpacing: "-0.03em",
+                    }}
+                  >
+                    {testimonial.name}
+                  </p>
+                )}
+                {testimonial.role && (
+                  <p
+                    className="font-urbanist"
+                    style={{
+                      color: "#fff",
+                      opacity: 0.52,
+                      fontSize: 16,
+                      lineHeight: 1.2,
+                      letterSpacing: "-0.03em",
+                    }}
+                  >
+                    {testimonial.role}
+                  </p>
+                )}
+              </div>
+            </div>
+            <p
+              className="font-urbanist font-semibold"
+              style={{
+                color: "#fff",
+                fontSize: 24,
+                lineHeight: 1.2,
+                letterSpacing: "-0.03em",
+                width: 421,
+                flexShrink: 0,
+              }}
+            >
+              {testimonial.quote}
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

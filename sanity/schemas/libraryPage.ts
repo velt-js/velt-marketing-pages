@@ -197,16 +197,29 @@ export const libraryPage = defineType({
           type: "ctaLink",
         }),
         defineField({
+          name: "rowHeights",
+          title: "Row Heights (px)",
+          description:
+            "Explicit row heights for the 2-column grid. Length determines row count and must equal cards.length / 2. Defaults to [493, 429, 424, 424] (tiptap/yjs) when omitted.",
+          type: "array",
+          of: [{ type: "number" }],
+        }),
+        defineField({
           name: "cards",
-          title: "Cards (exactly 8)",
-          description: "Rendered in a 2×4 grid.",
+          title: "Cards (paired into 2 columns)",
+          description:
+            "Cards must come in pairs (2 columns). Total cards = rowHeights.length × 2 if rowHeights is set; otherwise must equal 8.",
           type: "array",
           of: [{ type: "bentoCard" }],
           validation: (rule) =>
             rule
               .required()
-              .length(8)
-              .error("Bento must contain exactly 8 cards (2×4 grid)."),
+              .min(2)
+              .custom((cards) =>
+                Array.isArray(cards) && cards.length % 2 === 0
+                  ? true
+                  : "Bento cards must come in pairs (2 columns).",
+              ),
         }),
       ],
     }),
@@ -470,7 +483,7 @@ export const bentoCard = defineType({
       name: "illustrationKey",
       title: "Illustration",
       description:
-        "Picks a React illustration from components/library/illustrations. To add new options, register them in components/library/illustrations/keys.ts.",
+        "Picks a registered React illustration from components/library/illustrations. Use this OR Card Image — not both.",
       type: "string",
       options: {
         list: ILLUSTRATION_KEYS.map((key) => ({
@@ -478,10 +491,36 @@ export const bentoCard = defineType({
           value: key,
         })),
       },
-      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "image",
+      title: "Card Image",
+      description:
+        "Illustration-only PNG/SVG (no baked-in title) — rendered top-aligned at full width. Title and description still render as a CMS-driven overlay at the bottom-left.",
+      type: "image",
+      options: { hotspot: false },
     }),
   ],
+  validation: (rule) =>
+    rule.custom((card) => {
+      if (!card) return true;
+      const hasIllustration = Boolean(
+        (card as { illustrationKey?: string }).illustrationKey,
+      );
+      const hasImage = Boolean((card as { image?: unknown }).image);
+      if (hasIllustration && hasImage) {
+        return "Set either Illustration or Card Image, not both.";
+      }
+      if (!hasIllustration && !hasImage) {
+        return "Either Illustration or Card Image is required.";
+      }
+      return true;
+    }),
   preview: {
-    select: { title: "title", subtitle: "illustrationKey" },
+    select: {
+      title: "title",
+      subtitle: "illustrationKey",
+      media: "image",
+    },
   },
 });

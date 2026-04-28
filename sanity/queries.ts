@@ -123,10 +123,12 @@ export async function getLibraryPageBySlug(slug: string) {
         subheading,
         viewDocsCta,
         primaryCta,
+        rowHeights,
         cards[] {
           title,
           description,
-          illustrationKey
+          illustrationKey,
+          "imageSrc": image.asset->url
         }
       },
       inlineTestimonial {

@@ -21,7 +21,6 @@ import {
 import { LibraryGetStartedCallout } from "@/components/library/LibraryGetStartedCallout";
 import { AllLibraries } from "@/components/library/AllLibraries";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
-import { InlineTestimonial } from "@/components/library/InlineTestimonial";
 import {
   allLibraryCards,
   libraryTabs,
@@ -64,10 +63,12 @@ type LibraryPageDoc = {
     subheading?: string;
     viewDocsCta?: CtaLink;
     primaryCta?: CtaLink;
+    rowHeights?: number[] | null;
     cards: Array<{
       title: string;
       description: string;
-      illustrationKey: IllustrationKey;
+      illustrationKey?: IllustrationKey | null;
+      imageSrc?: string | null;
     }>;
   };
   inlineTestimonial?: {
@@ -96,7 +97,8 @@ type LibraryPageDoc = {
   };
 };
 
-function resolveIllustration(key: IllustrationKey): ReactNode {
+function resolveIllustration(key?: IllustrationKey | null): ReactNode {
+  if (!key) return null;
   const Component = illustrationRegistry[key];
   if (!Component) return null;
   return <Component />;
@@ -149,6 +151,7 @@ export default async function LibraryPage({
     title: card.title,
     description: card.description,
     illustration: resolveIllustration(card.illustrationKey),
+    imageSrc: card.imageSrc ?? undefined,
   }));
 
   const ownPath = `/libraries/${slug}`;
@@ -197,11 +200,18 @@ export default async function LibraryPage({
           viewDocsCta={toBentoCta(doc.bento.viewDocsCta)}
           primaryCta={toBentoCta(doc.bento.primaryCta)}
           cards={bentoCards}
+          rowHeights={doc.bento.rowHeights ?? undefined}
+          testimonial={
+            doc.inlineTestimonial?.quote
+              ? {
+                  name: doc.inlineTestimonial.name,
+                  role: doc.inlineTestimonial.role,
+                  quote: doc.inlineTestimonial.quote,
+                  avatarSrc: doc.inlineTestimonial.avatarSrc,
+                }
+              : undefined
+          }
         />
-
-        {doc.inlineTestimonial?.quote && (
-          <InlineTestimonial {...doc.inlineTestimonial} />
-        )}
 
         <LibraryGetStartedCallout
           heading={doc.getStartedCallout.heading}
