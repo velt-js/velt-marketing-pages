@@ -88,6 +88,12 @@ export async function getAllLibraryPages() {
   `);
 }
 
+export async function getAllLibrarySlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "libraryPage" && defined(slug.current)].slug.current`
+  );
+}
+
 export async function getLibraryPageBySlug(slug: string) {
   return client.fetch(
     `
@@ -99,28 +105,61 @@ export async function getLibraryPageBySlug(slug: string) {
       tagline,
       "logo": logo.asset->url,
       hero {
-        eyebrow,
         heading,
         subheading,
-        "illustration": illustration.asset->url,
+        decorated,
         primaryCta,
         secondaryCta
       },
-      sections[] {
-        _key,
-        _type,
-        ...,
-        _type == "sectionFeatureGrid" => {
-          items[] { ..., "icon": icon.asset->url }
-        },
-        _type == "sectionDemo" => {
-          "image": image.asset->url,
-          "video": video.asset->url
-        }
-        // sectionCodeBlock, sectionFaq, sectionCta are inline values —
-        // the top-level ... spread covers them.
+      demoStage {
+        label,
+        demoUrl,
+        githubUrl,
+        "previewSrc": previewImage.asset->url
       },
-      seo {
+      bento {
+        eyebrow,
+        heading,
+        subheading,
+        viewDocsCta,
+        primaryCta,
+        cards[] {
+          title,
+          description,
+          illustrationKey
+        }
+      },
+      inlineTestimonial {
+        name,
+        role,
+        quote,
+        accentFragment,
+        accentColor,
+        "avatarSrc": avatar.asset->url
+      },
+      getStartedCallout {
+        heading,
+        body,
+        viewDocsHref,
+        getApiKeyHref,
+        codeImageAlt,
+        "codeImage": codeImage.asset->{
+          url,
+          "width": metadata.dimensions.width,
+          "height": metadata.dimensions.height
+        },
+        codeSnippet { code, language }
+      },
+      getStartedSteps {
+        step1PackageName
+      },
+      faq {
+        items[] {
+          question,
+          answer
+        }
+      },
+      pageMeta {
         metaTitle,
         metaDescription,
         "ogImage": ogImage.asset->url

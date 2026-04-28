@@ -56,10 +56,14 @@ body {
    past the 1440 design width on ultrawide viewports without scaling the
    rest of the Hero. Below 1440 the inline `left:0; width:1440` wins and
    ScaleWrapper scales the whole thing to fit; at ≥1440 we break out to
-   viewport width and the repeat-x tiling fills the extra space. */
+   viewport width and the repeat-x tiling fills the extra space.
+   Using left:50% + translateX(-50%) instead of calc(50% - 50vw) keeps
+   the grid centered regardless of parent positioning quirks (scrollbar
+   width, browser zoom, full-bleed parent already offset, etc.). */
 @media (min-width: 1440px) {
   .hero-grid-full {
-    left: calc(50% - 50vw) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     width: 100vw !important;
   }
 }

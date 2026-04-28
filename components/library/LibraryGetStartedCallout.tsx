@@ -1,13 +1,17 @@
 // Production-Ready callout — light section with heading, body, View
-// Docs / Get Free API Key buttons, and an optional code-block image
-// rendered below. Sits inside the white block between the bento and
-// the dark Security section. Layout matches Figma node 163:19160.
+// Docs / Get Free API Key buttons, and an optional code block rendered
+// below. Sits inside the white block between the bento and the dark
+// Security section. Layout matches Figma node 163:19160.
 //
-// The code block is intentionally a static image (exported from the
-// Figma asset) rather than SSR'd <pre> text — it ships pixel-perfect
-// without paying for a syntax-highlighting runtime.
+// Two ways to render the code block:
+//   - codeImage: legacy path, renders a static PNG/SVG (kept for back-
+//     compat with any docs that still ship a Figma export).
+//   - codeSnippet: text + language, syntax-highlighted at SSR via shiki
+//     using a custom theme that mirrors Sandpack's atom-one-light token
+//     mapping (definition→amber, property→blue, etc.). Zero client JS.
 
 import Image from "next/image";
+import { codeToHtml, type ThemeRegistration } from "shiki";
 
 type LibraryGetStartedCalloutProps = {
   heading: string;
@@ -22,15 +26,155 @@ type LibraryGetStartedCalloutProps = {
     width: number;
     height: number;
   };
+  /** Inline text snippet rendered when codeImage is absent. */
+  codeSnippet?: {
+    code: string;
+    language?: string;
+  };
 };
 
-export function LibraryGetStartedCallout({
+// Mirrors Sandpack's atom-one-light CSS variables on velt.dev/libraries/*.
+// Token-color mapping is intentional: function calls render in the
+// "definition" amber, object keys in "property" blue.
+const VELT_LIGHT_THEME: ThemeRegistration = {
+  name: "velt-light",
+  type: "light",
+  colors: {
+    "editor.background": "#fafafa",
+    "editor.foreground": "#383a42",
+  },
+  tokenColors: [
+    {
+      scope: ["comment", "punctuation.definition.comment"],
+      settings: { foreground: "#a0a1a7", fontStyle: "italic" },
+    },
+    // Override before the broader storage.type rule so the arrow operator
+    // stays dark instead of inheriting the keyword purple.
+    {
+      scope: ["storage.type.function.arrow"],
+      settings: { foreground: "#383a42" },
+    },
+    {
+      scope: [
+        "keyword.control",
+        "keyword.control.flow",
+        "keyword.control.import",
+        "keyword.control.export",
+        "keyword.control.from",
+        "keyword.control.conditional",
+        "keyword.control.loop",
+        "keyword.other",
+        "storage.type",
+        "storage.type.class",
+        "storage.modifier",
+        "keyword.operator.new",
+        "keyword.operator.expression.typeof",
+        "keyword.operator.expression.instanceof",
+      ],
+      settings: { foreground: "#a626a4" },
+    },
+    {
+      scope: [
+        "string",
+        "string.quoted",
+        "string.template",
+        "punctuation.definition.string",
+      ],
+      settings: { foreground: "#50a14f" },
+    },
+    {
+      scope: [
+        "constant.numeric",
+        "constant.language",
+        "constant.language.boolean",
+        "support.class",
+        "entity.name.type",
+        "variable.other.constant",
+      ],
+      settings: { foreground: "#986801" },
+    },
+    {
+      scope: [
+        "entity.name.function",
+        "support.function",
+        "meta.function-call entity.name.function",
+        "variable.function",
+        "entity.name.tag",
+      ],
+      settings: { foreground: "#c18401" },
+    },
+    {
+      scope: [
+        "variable.parameter",
+        "variable.other.property",
+        "meta.object-literal.key",
+        "support.type.property-name",
+        "meta.definition.property variable",
+        "string.unquoted.label",
+      ],
+      settings: { foreground: "#4078f2" },
+    },
+    {
+      scope: ["entity.name.tag.html", "entity.name.tag.jsx", "support.class.component"],
+      settings: { foreground: "#c18401" },
+    },
+    {
+      scope: ["entity.other.attribute-name"],
+      settings: { foreground: "#4078f2" },
+    },
+    {
+      scope: [
+        "punctuation",
+        "punctuation.separator",
+        "punctuation.terminator",
+        "punctuation.section",
+        "meta.brace",
+      ],
+      settings: { foreground: "#383a42" },
+    },
+    {
+      scope: ["variable", "variable.other"],
+      settings: { foreground: "#383a42" },
+    },
+  ],
+};
+
+async function highlight(code: string, language: string) {
+  const html = await codeToHtml(code, {
+    lang: language,
+    theme: VELT_LIGHT_THEME,
+    transformers: [
+      {
+        // Strip shiki's default background so our wrapper background shows.
+        pre(node) {
+          const style = node.properties.style;
+          if (typeof style === "string") {
+            node.properties.style = style.replace(
+              /background-color:\s*[^;]+;?/g,
+              "",
+            );
+          }
+          delete node.properties.tabindex;
+        },
+      },
+    ],
+  });
+  return html;
+}
+
+export async function LibraryGetStartedCallout({
   heading,
   body,
   viewDocsHref,
   getApiKeyHref,
   codeImage,
+  codeSnippet,
 }: LibraryGetStartedCalloutProps) {
+  const snippetHtml =
+    !codeImage && codeSnippet?.code
+      ? await highlight(codeSnippet.code, codeSnippet.language || "tsx")
+      : null;
+
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
@@ -151,6 +295,24 @@ export function LibraryGetStartedCallout({
             />
           </div>
         </div>
+      )}
+
+      {snippetHtml && (
+        <div
+          className="library-code-block overflow-hidden"
+          style={{
+            width: "100%",
+            maxWidth: 820,
+            borderRadius: 15,
+            background: "#fafafa",
+            padding: "30px",
+            fontSize: 14,
+            lineHeight: 1.5,
+            fontFamily:
+              '"Fragment Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace',
+          }}
+          dangerouslySetInnerHTML={{ __html: snippetHtml }}
+        />
       )}
     </section>
   );

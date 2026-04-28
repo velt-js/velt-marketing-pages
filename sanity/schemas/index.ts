@@ -3,7 +3,7 @@ import { blogPost } from "./blogPost";
 import { marketingPage } from "./marketingPage";
 import { customer } from "./customer";
 import { integrationPage } from "./integrationPage";
-import { libraryPage } from "./libraryPage";
+import { libraryPage, ctaLink, bentoCard } from "./libraryPage";
 import { sectionFeatureGrid } from "./sections/featureGrid";
 import { sectionDemo } from "./sections/demo";
 import { sectionCodeBlock } from "./sections/codeBlock";
@@ -17,6 +17,10 @@ export const schemaTypes = [
   customer,
   integrationPage,
   libraryPage,
+  // Inline objects used by libraryPage
+  ctaLink,
+  bentoCard,
+  // Generic section blocks (still available to other doc types).
   sectionFeatureGrid,
   sectionDemo,
   sectionCodeBlock,

@@ -186,8 +186,8 @@ export function LibraryBento({
         style={{
           width: 1280,
           background: "#fff",
-          border: "2px solid #111",
-          borderRadius: 24,
+          border: "4px solid #1C1D21",
+          borderRadius: 16,
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gridTemplateRows: ROW_HEIGHTS.map((h) => `${h}px`).join(" "),
@@ -196,15 +196,25 @@ export function LibraryBento({
         {cards.slice(0, 8).map((card, i) => {
           const col = i % 2;
           const row = Math.floor(i / 2);
+          const isTopRow = row === 0;
           const isLastRow = row === ROW_HEIGHTS.length - 1;
+          const isLeftCol = col === 0;
           const isRightCol = col === 1;
+          // Match the parent's inner border-radius (outer 16 − 4 border = 12)
+          // so corner cells' borders follow the outer curve instead of being
+          // clipped by overflow:hidden.
+          const R = 12;
           return (
             <article
               key={card.title}
               className="relative overflow-hidden"
               style={{
-                borderRight: isRightCol ? undefined : "2px solid #111",
-                borderBottom: isLastRow ? undefined : "2px solid #111",
+                background: "#fff",
+                border: "1.5px solid #000",
+                borderTopLeftRadius: isTopRow && isLeftCol ? R : undefined,
+                borderTopRightRadius: isTopRow && isRightCol ? R : undefined,
+                borderBottomLeftRadius: isLastRow && isLeftCol ? R : undefined,
+                borderBottomRightRadius: isLastRow && isRightCol ? R : undefined,
               }}
             >
               {card.illustration}

@@ -1,44 +1,64 @@
 import { defineType, defineField } from "sanity";
+import {
+  ILLUSTRATION_KEYS,
+  ILLUSTRATION_TITLES,
+} from "../../components/library/illustrations/keys";
 
-// Schema for /libraries/[slug] pages. Each of the 11 Velt feature libraries
-// (Comments, Notifications, Huddle, Recording, Presence, Cursors, Activity
-// Logs, Single Editor Mode, Live State Sync, Live Selection, Customization)
-// is one document of this type. Structure and content differ from the blog:
-// richer, order-sensitive sections rendered by components/library/*.
+// Schema for /libraries/[slug] pages. One document per library (Yjs,
+// Tiptap, BlockNote, …). Fields mirror the props of the components in
+// /components/library/* so the dynamic route at app/libraries/[slug]
+// becomes a thin pass-through from CMS to component.
 //
-// Sections live in sanity/schemas/sections/* and are registered alongside
-// this type in sanity/schemas/index.ts.
+// The shared FAQ items, the "All Libraries" grid, and the trusted-logos
+// strip are intentionally NOT stored here — they live in
+// components/library/shared-content.ts and are appended at render time.
+//
+// To populate a new library, run scripts/seed-library-<slug>.mjs.
 export const libraryPage = defineType({
   name: "libraryPage",
   title: "Library Page",
   type: "document",
+  groups: [
+    { name: "identity", title: "Identity", default: true },
+    { name: "hero", title: "Hero" },
+    { name: "demo", title: "Demo" },
+    { name: "bento", title: "Built-for Bento" },
+    { name: "testimonial", title: "Testimonial" },
+    { name: "callout", title: "Get-Started Callout" },
+    { name: "steps", title: "Get Started Steps" },
+    { name: "faq", title: "FAQ" },
+    { name: "seo", title: "SEO" },
+  ],
   fields: [
     // ---- Identity ----
     defineField({
       name: "title",
-      title: "Page Title",
-      description: 'e.g. "Comments". Used in nav/listing and the hero default.',
+      title: "Library Name",
+      description: 'e.g. "Yjs". Used in nav/listing and as the slug source.',
       type: "string",
+      group: "identity",
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "slug",
       title: "Slug",
-      description: "URL segment. e.g. 'comments' → /libraries/comments",
+      description: "URL segment. e.g. 'yjs' → /libraries/yjs",
       type: "slug",
+      group: "identity",
       options: { source: "title", maxLength: 80 },
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "category",
       title: "Category",
-      description: "Grouping for the /libraries listing page.",
+      description: 'Filter chip on /libraries (e.g. "Text Editor", "Charts", "Canvas").',
       type: "string",
+      group: "identity",
       options: {
         list: [
-          { title: "Core", value: "core" },
-          { title: "Collaboration", value: "collaboration" },
-          { title: "Productivity", value: "productivity" },
+          { title: "Text Editor", value: "Text Editor" },
+          { title: "Charts", value: "Charts" },
+          { title: "Canvas", value: "Canvas" },
         ],
       },
     }),
@@ -47,85 +67,342 @@ export const libraryPage = defineType({
       title: "Tagline",
       description: "Short one-liner shown on the /libraries listing card.",
       type: "string",
+      group: "identity",
     }),
     defineField({
       name: "logo",
-      title: "Logo",
+      title: "Listing Logo",
       description: "Icon/logo shown on the /libraries listing card.",
       type: "image",
+      group: "identity",
       options: { hotspot: false },
     }),
 
-    // ---- Hero ----
+    // ---- Hero (PageHero) ----
     defineField({
       name: "hero",
       title: "Hero",
       type: "object",
+      group: "hero",
       options: { collapsible: true, collapsed: false },
       fields: [
-        { name: "eyebrow", title: "Eyebrow / Badge", type: "string" },
-        {
+        defineField({
           name: "heading",
           title: "Heading",
           type: "string",
           validation: (rule) => rule.required(),
-        },
-        { name: "subheading", title: "Subheading", type: "text", rows: 3 },
-        {
-          name: "illustration",
-          title: "Illustration",
-          type: "image",
-          options: { hotspot: true },
-        },
-        {
+        }),
+        defineField({
+          name: "subheading",
+          title: "Subheading",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "decorated",
+          title: "Decorated background",
+          description:
+            "Pixel-grid background + Sean/Emma cursor overlays. Default for per-library pages.",
+          type: "boolean",
+          initialValue: true,
+        }),
+        defineField({
           name: "primaryCta",
           title: "Primary CTA",
-          type: "object",
-          fields: [
-            { name: "label", title: "Label", type: "string" },
-            { name: "href", title: "URL", type: "string" },
-            { name: "newTab", title: "Open in new tab", type: "boolean" },
-          ],
-        },
-        {
+          type: "ctaLink",
+        }),
+        defineField({
           name: "secondaryCta",
           title: "Secondary CTA",
-          type: "object",
-          fields: [
-            { name: "label", title: "Label", type: "string" },
-            { name: "href", title: "URL", type: "string" },
-            { name: "newTab", title: "Open in new tab", type: "boolean" },
-          ],
-        },
+          type: "ctaLink",
+        }),
       ],
     }),
 
-    // ---- Sections (block-based, order-sensitive) ----
+    // ---- Demo Stage (LibraryDemoStage) ----
     defineField({
-      name: "sections",
-      title: "Sections",
+      name: "demoStage",
+      title: "Demo Stage",
+      type: "object",
+      group: "demo",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: "label",
+          title: "Library Label",
+          description: 'Used in alt text and aria, e.g. "Yjs".',
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "demoUrl",
+          title: "Demo URL",
+          description:
+            "URL the iframe loads when the user clicks TRY DEMO.",
+          type: "url",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "githubUrl",
+          title: "GitHub URL",
+          type: "url",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "previewImage",
+          title: "Preview Image",
+          description: "Static screenshot shown before TRY DEMO is clicked.",
+          type: "image",
+          options: { hotspot: true },
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    // ---- Built-for Bento (LibraryBento) ----
+    defineField({
+      name: "bento",
+      title: "Built-for Bento",
+      type: "object",
+      group: "bento",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: "eyebrow",
+          title: "Eyebrow",
+          description: 'Small all-caps purple pill, e.g. "No Custom Logic Required".',
+          type: "string",
+        }),
+        defineField({
+          name: "heading",
+          title: "Heading",
+          description: 'e.g. "Built for Yjs"',
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "subheading",
+          title: "Subheading",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "viewDocsCta",
+          title: "View Docs CTA",
+          type: "ctaLink",
+        }),
+        defineField({
+          name: "primaryCta",
+          title: "Primary CTA",
+          type: "ctaLink",
+        }),
+        defineField({
+          name: "cards",
+          title: "Cards (exactly 8)",
+          description: "Rendered in a 2×4 grid.",
+          type: "array",
+          of: [{ type: "bentoCard" }],
+          validation: (rule) =>
+            rule
+              .required()
+              .length(8)
+              .error("Bento must contain exactly 8 cards (2×4 grid)."),
+        }),
+      ],
+    }),
+
+    // ---- Inline Testimonial (TestimonialStrip in a 824-wide dark card) ----
+    defineField({
+      name: "inlineTestimonial",
+      title: "Inline Testimonial",
       description:
-        "Compose the page body from section blocks. Render order matches this list.",
-      type: "array",
-      of: [
-        { type: "sectionFeatureGrid" },
-        { type: "sectionDemo" },
-        { type: "sectionCodeBlock" },
-        { type: "sectionFaq" },
-        { type: "sectionCta" },
+        "Mid-page testimonial card that sits between the bento and the get-started callout.",
+      type: "object",
+      group: "testimonial",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({ name: "name", title: "Name", type: "string" }),
+        defineField({
+          name: "role",
+          title: "Role",
+          description: 'e.g. "CTO @eqtble"',
+          type: "string",
+        }),
+        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
+        defineField({
+          name: "accentFragment",
+          title: "Accent Fragment",
+          description:
+            "Substring of the quote rendered in accent color. Must appear verbatim in the quote.",
+          type: "string",
+        }),
+        defineField({
+          name: "accentColor",
+          title: "Accent Color",
+          description: "Hex color, e.g. #0085ff",
+          type: "string",
+        }),
+        defineField({
+          name: "avatar",
+          title: "Avatar",
+          type: "image",
+          options: { hotspot: true },
+        }),
+      ],
+    }),
+
+    // ---- Get-Started Callout (LibraryGetStartedCallout) ----
+    defineField({
+      name: "getStartedCallout",
+      title: "Get-Started Callout",
+      type: "object",
+      group: "callout",
+      options: { collapsible: true, collapsed: false },
+      fields: [
+        defineField({
+          name: "heading",
+          title: "Heading",
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "body",
+          title: "Body",
+          type: "text",
+          rows: 2,
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "viewDocsHref",
+          title: "View Docs URL",
+          type: "url",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "getApiKeyHref",
+          title: "Get API Key URL",
+          type: "url",
+          validation: (rule) => rule.required(),
+        }),
+        defineField({
+          name: "codeImage",
+          title: "Code Snippet Image",
+          description:
+            "PNG/SVG render of the setup code. Rendered max-width 1280. Takes precedence over codeSnippet if both are set.",
+          type: "image",
+          options: { hotspot: false },
+        }),
+        defineField({
+          name: "codeImageAlt",
+          title: "Code Image Alt Text",
+          type: "string",
+        }),
+        defineField({
+          name: "codeSnippet",
+          title: "Inline Code Snippet",
+          description:
+            "Renders as a <pre> block when no codeImage is set. Use this when you want the code as text instead of a PNG.",
+          type: "object",
+          fields: [
+            defineField({
+              name: "code",
+              title: "Code",
+              type: "text",
+              rows: 12,
+            }),
+            defineField({
+              name: "language",
+              title: "Language",
+              description:
+                'e.g. "tsx", "ts", "js". Used as a className on the <code> element.',
+              type: "string",
+            }),
+          ],
+        }),
+      ],
+    }),
+
+    // ---- Get Started Steps (GetStartedSteps) ----
+    defineField({
+      name: "getStartedSteps",
+      title: "Get Started Steps",
+      type: "object",
+      group: "steps",
+      fields: [
+        defineField({
+          name: "step1PackageName",
+          title: "Step 1 npm package",
+          description: 'e.g. "@veltdev/tiptap-collab"',
+          type: "string",
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    // ---- Library-specific FAQ (sharedFAQ is appended at render time) ----
+    defineField({
+      name: "faq",
+      title: "FAQ (library-specific)",
+      description:
+        "Library-specific Q&A. Rendered before the 4 shared general Q&A from components/library/shared-content.ts.",
+      type: "object",
+      group: "faq",
+      fields: [
+        defineField({
+          name: "items",
+          title: "Items",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              fields: [
+                defineField({
+                  name: "question",
+                  title: "Question",
+                  type: "string",
+                  validation: (rule) => rule.required(),
+                }),
+                defineField({
+                  name: "answer",
+                  title: "Answer",
+                  type: "text",
+                  rows: 5,
+                  validation: (rule) => rule.required(),
+                }),
+              ],
+              preview: {
+                select: { title: "question" },
+              },
+            },
+          ],
+        }),
       ],
     }),
 
     // ---- SEO ----
     defineField({
-      name: "seo",
+      name: "pageMeta",
       title: "SEO",
       type: "object",
+      group: "seo",
       options: { collapsible: true, collapsed: true },
       fields: [
-        { name: "metaTitle", title: "Meta Title", type: "string" },
-        { name: "metaDescription", title: "Meta Description", type: "text", rows: 2 },
-        { name: "ogImage", title: "OG Image", type: "image" },
+        defineField({
+          name: "metaTitle",
+          title: "Meta Title",
+          type: "string",
+        }),
+        defineField({
+          name: "metaDescription",
+          title: "Meta Description",
+          type: "text",
+          rows: 2,
+        }),
+        defineField({
+          name: "ogImage",
+          title: "OG Image",
+          type: "image",
+        }),
       ],
     }),
   ],
@@ -150,5 +427,61 @@ export const libraryPage = defineType({
       subtitle: "category",
       media: "logo",
     },
+  },
+});
+
+// ---- Reusable inline objects ----
+
+export const ctaLink = defineType({
+  name: "ctaLink",
+  title: "CTA Link",
+  type: "object",
+  fields: [
+    defineField({ name: "label", title: "Label", type: "string" }),
+    defineField({ name: "href", title: "URL", type: "string" }),
+    defineField({
+      name: "newTab",
+      title: "Open in new tab",
+      type: "boolean",
+      initialValue: false,
+    }),
+  ],
+});
+
+export const bentoCard = defineType({
+  name: "bentoCard",
+  title: "Bento Card",
+  type: "object",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 2,
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "illustrationKey",
+      title: "Illustration",
+      description:
+        "Picks a React illustration from components/library/illustrations. To add new options, register them in components/library/illustrations/keys.ts.",
+      type: "string",
+      options: {
+        list: ILLUSTRATION_KEYS.map((key) => ({
+          title: ILLUSTRATION_TITLES[key],
+          value: key,
+        })),
+      },
+      validation: (rule) => rule.required(),
+    }),
+  ],
+  preview: {
+    select: { title: "title", subtitle: "illustrationKey" },
   },
 });
