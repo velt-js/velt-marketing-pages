@@ -63,12 +63,12 @@ export function LibraryDemoStage({
       >
         {header}
 
-        {!showIframe && (
-          <div className="ml-auto relative shrink-0">
+        <div className="ml-auto relative shrink-0">
+          {showIframe ? (
             <button
               type="button"
-              onClick={() => setShowIframe(true)}
-              aria-label={`Try the ${label} demo live`}
+              onClick={() => setShowIframe(false)}
+              aria-label={`Exit the ${label} demo`}
               className="flex items-center gap-2 font-firamono uppercase cursor-pointer"
               style={{
                 padding: "8px 14px",
@@ -81,49 +81,83 @@ export function LibraryDemoStage({
                 lineHeight: 1.2,
               }}
             >
-              <Image
-                src="/images/home/icon-pointer.svg"
-                alt=""
-                width={16}
-                height={16}
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 aria-hidden
-              />
-              Try Demo
+              >
+                <path d="M18 6L6 18M6 6l12 12" />
+              </svg>
+              Exit Demo
             </button>
-            <div
-              className="absolute flex items-end gap-2 pointer-events-none transition-opacity duration-200"
-              style={{
-                top: "calc(100% + 6px)",
-                right: "calc(100% - 48px)",
-                opacity: stageHover ? 1 : 0,
-              }}
-              aria-hidden
-            >
-              <p
-                className="font-urbanist"
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={() => setShowIframe(true)}
+                aria-label={`Try the ${label} demo live`}
+                className="flex items-center gap-2 font-firamono uppercase cursor-pointer"
                 style={{
+                  padding: "8px 14px",
+                  background: "#1c1d21",
+                  border: "1px solid #b4b1fa",
+                  borderRadius: 4,
                   color: "#b4b1fa",
-                  fontSize: 16,
-                  lineHeight: "1.4em",
-                  letterSpacing: "-0.01em",
-                  margin: 0,
-                  textAlign: "center",
-                  whiteSpace: "nowrap",
+                  fontSize: 14,
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.2,
                 }}
               >
-                Not just a picture,
-                <br />
-                Click to try
-              </p>
-              <Image
-                src="/images/home/demos/arrow-try-demo.svg"
-                alt=""
-                width={38}
-                height={50}
-              />
-            </div>
-          </div>
-        )}
+                <Image
+                  src="/images/home/icon-pointer.svg"
+                  alt=""
+                  width={16}
+                  height={16}
+                  aria-hidden
+                />
+                Try Demo
+              </button>
+              <div
+                className="absolute flex items-end gap-2 pointer-events-none transition-opacity duration-200"
+                style={{
+                  top: "calc(100% + 6px)",
+                  right: "calc(100% - 48px)",
+                  opacity: stageHover ? 1 : 0,
+                }}
+                aria-hidden
+              >
+                <p
+                  className="font-urbanist"
+                  style={{
+                    color: "#b4b1fa",
+                    fontSize: 16,
+                    lineHeight: "1.4em",
+                    letterSpacing: "-0.01em",
+                    margin: 0,
+                    textAlign: "center",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Not just a picture,
+                  <br />
+                  Click to try
+                </p>
+                <Image
+                  src="/images/home/demos/arrow-try-demo.svg"
+                  alt=""
+                  width={38}
+                  height={50}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       {/* Stage — preview image by default, iframe once TRY DEMO is clicked. */}

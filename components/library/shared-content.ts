@@ -96,7 +96,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoHeight: 56,
     category: "Canvas",
     docsHref: "https://docs.velt.dev/realtime-collaboration/crdt/setup/reactflow",
-    learnMoreHref: "/libraries/react-flow",
+    learnMoreHref: "/libraries/reactflow",
   },
   {
     name: "BlockNote",

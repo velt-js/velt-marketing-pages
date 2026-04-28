@@ -342,7 +342,7 @@ const useCasesEditors: DropdownItem[] = [
 ];
 
 const useCasesCharts: DropdownItem[] = [
-  { label: "React Flow", href: "/libraries/react-flow", iconSrc: "/images/home/nav-icons/reactflow.svg" },
+  { label: "React Flow", href: "/libraries/reactflow", iconSrc: "/images/home/nav-icons/reactflow.svg" },
   { label: "HighCharts", href: "/libraries/highcharts", iconSrc: "/images/home/nav-icons/highcharts.svg" },
   { label: "NivoCharts", href: "/libraries/nivo", iconSrc: "/images/home/nav-icons/nivocharts.svg" },
   { label: "ChartJS", href: "/libraries/chartjs", iconSrc: "/images/home/nav-icons/chartjs.svg" },
