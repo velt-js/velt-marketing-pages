@@ -274,7 +274,7 @@ const icons = {
 };
 
 const productAsync: DropdownItem[] = [
-  { label: "Comments", href: "/comments", icon: icons.comments, tint: "#ffa3fa" },
+  { label: "Comments", href: "/features/comments", icon: icons.comments, tint: "#ffa3fa" },
   { label: "Notifications", href: "/add-notifications-quick", icon: icons.bell, tint: "#f5d14a" },
   { label: "Recording", href: "/recording", icon: icons.video, tint: "#f47474" },
   { label: "Video Editor", href: "/try-features", icon: icons.movie, tint: "#5ca3ff" },
