@@ -21,6 +21,8 @@ import {
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { CommentsDemoSidebar } from "@/components/feature/CommentsDemoSidebar";
 import { RecordingsDemoSidebar } from "@/components/feature/RecordingsDemoSidebar";
+import { NotificationsDemoSidebar } from "@/components/feature/NotificationsDemoSidebar";
+import { NotificationsHighlights } from "@/components/feature/NotificationsHighlights";
 import {
   getAllFeatureSlugs,
   getFeaturePageBySlug,
@@ -83,10 +85,12 @@ export default async function FeaturePage({
   const { slug } = await params;
   const doc = (await getFeaturePageBySlug(slug)) as FeaturePageDoc | null;
 
-  // 404 on missing/incomplete docs. A featurePage with no hero or no sections
-  // is partial draft state from an editor and should not render — keeps
-  // pre-existing/in-progress docs from blocking the static build.
-  if (!doc || !doc.hero?.heading || !doc.sections || doc.sections.length === 0) {
+  // 404 on missing/incomplete docs. A featurePage with no hero is partial
+  // draft state from an editor and should not render — keeps in-progress
+  // docs from blocking the static build. Empty `sections` is OK: pages
+  // like /features/notifications render their main highlight section as
+  // a hardcoded slug-conditional component below FeatureSections.
+  if (!doc || !doc.hero?.heading || !doc.sections) {
     notFound();
   }
 
@@ -111,10 +115,13 @@ export default async function FeaturePage({
 
         {slug === "comments" ? <CommentsDemoSidebar /> : null}
         {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
+        {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
         <FeatureSections sections={doc.sections} />
+
+        {slug === "notifications" ? <NotificationsHighlights /> : null}
 
         {showCustomerStories ? <CustomerUI /> : null}
 
