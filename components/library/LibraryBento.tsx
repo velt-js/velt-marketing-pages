@@ -39,8 +39,29 @@ export type LibraryBentoTestimonial = {
   name?: string;
   role?: string;
   quote?: string;
+  /** Substring of `quote` to render in `accentColor`. Must appear verbatim. */
+  accentFragment?: string;
+  accentColor?: string;
   avatarSrc?: string;
 };
+
+function renderQuoteWithAccent(
+  quote: string,
+  fragment?: string,
+  color?: string,
+) {
+  if (!fragment || !color || !quote.includes(fragment)) {
+    return quote;
+  }
+  const idx = quote.indexOf(fragment);
+  return (
+    <>
+      {quote.slice(0, idx)}
+      <span style={{ color }}>{fragment}</span>
+      {quote.slice(idx + fragment.length)}
+    </>
+  );
+}
 
 type LibraryBentoProps = {
   heading: string;
@@ -398,7 +419,11 @@ export function LibraryBento({
                 flexShrink: 0,
               }}
             >
-              {testimonial.quote}
+              {renderQuoteWithAccent(
+                testimonial.quote ?? "",
+                testimonial.accentFragment,
+                testimonial.accentColor,
+              )}
             </p>
           </div>
         )}

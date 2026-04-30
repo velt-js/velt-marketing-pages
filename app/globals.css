@@ -5,24 +5,80 @@
    can't live after the Tailwind import, and both orderings hit Turbopack's
    "@import must precede all rules" error. */
 
-/* Figma design tokens — exposed via Tailwind 4's @theme directive so they
-   appear as real utility classes (`bg-velt-purple`, `font-urbanist`, etc.). */
+/* Design tokens — exposed via Tailwind 4's @theme directive so they appear
+   as real utility classes (`bg-velt-purple`, `font-urbanist`, etc.).
+   Sourced from DESIGN.md. */
 @theme {
-  --color-velt-purple: rgb(98, 93, 245);
-  --color-velt-ink: rgb(17, 17, 17);
-  --color-velt-charcoal: rgb(28, 29, 33);
-  --color-velt-midnight: rgb(13, 13, 13);
-  --color-velt-mint: rgb(139, 242, 225);
-  --color-velt-offwhite: rgb(247, 247, 247);
-  --color-velt-mutedgrey: rgb(147, 147, 147);
-  --color-velt-coral: rgb(245, 93, 103);
-  --color-velt-peach: rgb(255, 122, 89);
-  --color-velt-sky: rgb(81, 169, 227);
+  /* Brand */
+  --color-velt-purple:    #625DF5;
+  --color-velt-ink:       #111111;
+  --color-velt-charcoal:  rgb(28, 29, 33);
+  --color-velt-midnight:  rgb(13, 13, 13);
+  --color-velt-offwhite:  #F7F7F7;
+
+  /* Collaboration accents (DESIGN.md §2) */
+  --color-velt-pink:      #E934BF;
+  --color-velt-green:     #0D9A5D;
+  --color-velt-orange:    #FF7162;
+  --color-velt-yellow:    #FFCD2E;
+
+  /* Muted text */
+  --color-velt-muted:       #8E8E8E;
+  --color-velt-link-muted:  #B5B5B5;
+
+  /* Radius scale */
+  --radius-button: 8px;
+  --radius-card:   12px;
+  --radius-pill:   999px;
 
   --font-urbanist: "Urbanist", system-ui, sans-serif;
   --font-firamono: "Fira Mono", ui-monospace, monospace;
   --font-firacode: "Fira Code", ui-monospace, monospace;
-  --font-poppins: "Poppins", system-ui, sans-serif;
+  --font-poppins:  "Poppins", system-ui, sans-serif;
+}
+
+/* Typography scale (DESIGN.md §1). Additive — opt-in per component, does
+   not retrofit the existing inline-styled headings in Hero, Outcomes, etc.
+   Tailwind v4 syntax: one @utility block per class. */
+@utility text-display-h1 {
+  font-family: var(--font-urbanist);
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 125%;
+  letter-spacing: -0.03em;
+}
+@utility text-display-h2 {
+  font-family: var(--font-urbanist);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+}
+@utility text-display-h3 {
+  font-family: var(--font-urbanist);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 130%;
+}
+@utility text-body {
+  font-family: var(--font-urbanist);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 150%;
+}
+@utility text-label {
+  font-family: var(--font-urbanist);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 140%;
+}
+@utility text-tag {
+  font-family: var(--font-urbanist);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 body {

@@ -4,6 +4,18 @@ import { marketingPage } from "./marketingPage";
 import { customer } from "./customer";
 import { integrationPage } from "./integrationPage";
 import { libraryPage, ctaLink, bentoCard } from "./libraryPage";
+import {
+  featurePage,
+  featureBentoCard,
+  featureBentoSection,
+  featurePowerfulBentoSection,
+  featureSidebarShowcaseSection,
+  featureCardRowSection,
+  featureCustomizerSection,
+  featureFlowDiagramSection,
+  featureIntegrationsSection,
+  featureCustomerCarouselSection,
+} from "./featurePage";
 import { sectionFeatureGrid } from "./sections/featureGrid";
 import { sectionDemo } from "./sections/demo";
 import { sectionCodeBlock } from "./sections/codeBlock";
@@ -17,9 +29,19 @@ export const schemaTypes = [
   customer,
   integrationPage,
   libraryPage,
-  // Inline objects used by libraryPage
+  featurePage,
+  // Inline objects used by libraryPage and featurePage
   ctaLink,
   bentoCard,
+  featureBentoCard,
+  featureBentoSection,
+  featurePowerfulBentoSection,
+  featureSidebarShowcaseSection,
+  featureCardRowSection,
+  featureCustomizerSection,
+  featureFlowDiagramSection,
+  featureIntegrationsSection,
+  featureCustomerCarouselSection,
   // Generic section blocks (still available to other doc types).
   sectionFeatureGrid,
   sectionDemo,

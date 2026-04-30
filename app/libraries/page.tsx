@@ -14,6 +14,7 @@ import { PageHero } from "@/components/library/PageHero";
 import { LibraryDemo } from "@/components/library/LibraryDemo";
 import { AllLibraries } from "@/components/library/AllLibraries";
 import { LibraryFAQ } from "@/components/library/LibraryFAQ";
+import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import {
   allLibraryCards,
   libraryTabs,
@@ -73,6 +74,8 @@ export default function LibrariesLandingPage() {
         <InlineTestimonial />
 
         <Security />
+
+        <FeatureCustomerCarousel />
 
         <LibraryFAQ items={sharedFAQ} />
 

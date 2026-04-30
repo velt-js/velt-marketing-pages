@@ -42,7 +42,7 @@ export default async function BlogPostPage({
       <div className="mb-12">
         <Link
           href="/blog"
-          className="text-sm text-purple-400 hover:underline mb-6 inline-block"
+          className="text-sm text-velt-purple hover:underline mb-6 inline-block"
         >
           ← Back to Blog
         </Link>
@@ -84,7 +84,7 @@ export default async function BlogPostPage({
         </p>
         <Link
           href="https://console.velt.dev/"
-          className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-6 py-3 rounded-lg transition-colors inline-block"
+          className="bg-velt-purple hover:bg-velt-purple/90 text-white font-medium px-6 py-3 rounded-lg transition-colors inline-block"
         >
           Get Free API Key
         </Link>

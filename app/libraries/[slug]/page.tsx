@@ -21,6 +21,7 @@ import {
 import { LibraryGetStartedCallout } from "@/components/library/LibraryGetStartedCallout";
 import { AllLibraries } from "@/components/library/AllLibraries";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
+import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import {
   allLibraryCards,
   libraryTabs,
@@ -245,6 +246,8 @@ export default async function LibraryPage({
           items={otherLibraries}
           tabs={libraryTabs}
         />
+
+        <FeatureCustomerCarousel />
 
         <LibraryFAQ items={faqItems} />
 

@@ -29,7 +29,7 @@ export function BlogNav() {
           </Link>
           <Link
             href="/book-demo"
-            className="bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="bg-velt-purple hover:bg-velt-purple/90 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             Book Demo
           </Link>

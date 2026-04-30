@@ -167,7 +167,7 @@ export function Security({
   heading = "Enterprise-Grade Security",
   subheading = "Security and privacy features that enterprise companies need",
   primaryCta = { label: "View Trust Center", href: "https://trust.velt.dev" },
-  secondaryCta = { label: "Book Demo", href: "https://cal.com/velt" },
+  secondaryCta = { label: "Book Demo", href: "/book-demo" },
   cards = DEFAULT_CARDS,
   certification = DEFAULT_CERTIFICATION,
 }: SecurityProps = {}) {

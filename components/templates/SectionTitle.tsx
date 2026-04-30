@@ -32,6 +32,8 @@ export function SectionTitle({
 }: SectionTitleProps) {
   const alignItems = align === "center" ? "center" : "flex-start";
   const textAlign = align === "center" ? "center" : "left";
+  // Black-ish textColor → light surface; otherwise treat as dark.
+  const isLightSurface = /rgb\(\s*0\s*,\s*0\s*,\s*0/.test(textColor) || textColor === "#000" || textColor === "#000000";
   return (
     <div
       className={className}
@@ -96,6 +98,7 @@ export function SectionTitle({
               label={secondary.label}
               href={secondary.href}
               variant="secondary"
+              theme={isLightSurface ? "light" : "dark"}
               newTab={secondary.newTab}
             />
           )}
@@ -104,6 +107,7 @@ export function SectionTitle({
               label={primary.label}
               href={primary.href}
               variant="primary"
+              theme={isLightSurface ? "light" : "dark"}
               newTab={primary.newTab}
             />
           )}

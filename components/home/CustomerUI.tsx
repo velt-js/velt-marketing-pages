@@ -8,7 +8,7 @@
 
 import { useState } from "react";
 
-type Customer = {
+export type Customer = {
   slug: string;
   name: string;
   subtitle: string;
@@ -30,7 +30,7 @@ type Customer = {
 
 // Tab dimensions taken from Framer export CSS (live velt.dev) so each
 // logo renders at its native aspect. Dimensions are in px.
-const CUSTOMERS: Customer[] = [
+export const DEFAULT_CUSTOMERS: Customer[] = [
   {
     slug: "pendo",
     name: "Pendo",
@@ -233,13 +233,16 @@ function renderHighlightedQuote(quote: string, highlight: string) {
   );
 }
 
-export function CustomerUI() {
+export function CustomerUI({
+  customers = DEFAULT_CUSTOMERS,
+}: { customers?: Customer[] } = {}) {
   const [activeIdx, setActiveIdx] = useState(0);
-  const active = CUSTOMERS[activeIdx];
+  const active = customers[activeIdx] ?? customers[0];
+  if (!active) return null;
 
   return (
     <section
-      className="flex flex-col items-center bg-white"
+      className="flex flex-col items-center bg-white full-bleed-bg"
       style={{ padding: "52px 80px 0", gap: 52 }}
     >
       {/* Header */}
@@ -288,13 +291,15 @@ export function CustomerUI() {
           </p>
         </div>
         <div className="flex items-start justify-center" style={{ gap: 12 }}>
-          <button
+          <a
+            href="/book-demo"
             className="flex items-center justify-center rounded-lg"
             style={{
               width: 156,
               height: 44,
               padding: "8px 16px",
               border: "2px solid #625df5",
+              textDecoration: "none",
             }}
           >
             <span
@@ -303,13 +308,17 @@ export function CustomerUI() {
             >
               Book Demo
             </span>
-          </button>
-          <button
+          </a>
+          <a
+            href="https://velt.dev/customers"
+            target="_blank"
+            rel="noopener"
             className="flex items-center justify-center rounded-lg"
             style={{
               padding: "8px 16px",
               background: "#625df5",
               height: 44,
+              textDecoration: "none",
             }}
           >
             <span
@@ -318,7 +327,7 @@ export function CustomerUI() {
             >
               View Customers
             </span>
-          </button>
+          </a>
         </div>
       </div>
 
@@ -343,7 +352,7 @@ export function CustomerUI() {
             className="flex flex-1 items-center justify-center"
             style={{ gap: 22, minWidth: 0 }}
           >
-            {CUSTOMERS.map((c, i) => {
+            {customers.map((c, i) => {
               const isActive = i === activeIdx;
               return (
                 <button

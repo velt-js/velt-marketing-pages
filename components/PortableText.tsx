@@ -19,7 +19,7 @@ const components: PortableTextComponents = {
       <p className="text-white/70 leading-relaxed mb-4">{children}</p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-purple-500 pl-4 my-6 text-white/60 italic">
+      <blockquote className="border-l-4 border-velt-purple pl-4 my-6 text-white/60 italic">
         {children}
       </blockquote>
     ),
@@ -53,7 +53,7 @@ const components: PortableTextComponents = {
     link: ({ children, value }) => (
       <a
         href={value?.href}
-        className="text-purple-400 hover:underline"
+        className="text-velt-purple hover:underline"
         target={value?.href?.startsWith("http") ? "_blank" : undefined}
         rel={value?.href?.startsWith("http") ? "noopener noreferrer" : undefined}
       >

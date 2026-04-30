@@ -99,7 +99,8 @@ function TitleBlock() {
       </div>
       <div className="flex items-start gap-3">
         {/* Secondary — outlined purple, mix-blend-exclusion preserves text over the gradient bg */}
-        <button
+        <a
+          href="/book-demo"
           className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
           style={{
             minWidth: 150,
@@ -108,12 +109,16 @@ function TitleBlock() {
             fontSize: 16,
             letterSpacing: "-0.03em",
             mixBlendMode: "exclusion",
+            textDecoration: "none",
           }}
         >
           Book Demo
-        </button>
+        </a>
         {/* Primary — solid purple */}
-        <button
+        <a
+          href="https://console.velt.dev/"
+          target="_blank"
+          rel="noopener"
           className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
           style={{
             minWidth: 150,
@@ -121,10 +126,11 @@ function TitleBlock() {
             background: "#625df5",
             fontSize: 16,
             letterSpacing: "-0.03em",
+            textDecoration: "none",
           }}
         >
           Get Free API Key
-        </button>
+        </a>
       </div>
     </div>
   );

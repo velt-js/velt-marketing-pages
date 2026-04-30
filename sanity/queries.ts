@@ -172,6 +172,153 @@ export async function getLibraryPageBySlug(slug: string) {
   );
 }
 
+// Feature page queries
+export async function getAllFeaturePages() {
+  return client.fetch(`
+    *[_type == "featurePage"] | order(category asc, title asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      category,
+      tagline,
+      "logo": logo.asset->url
+    }
+  `);
+}
+
+export async function getAllFeatureSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "featurePage" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getFeaturePageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "featurePage" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      category,
+      tagline,
+      "logo": logo.asset->url,
+      hero {
+        heading,
+        subheading,
+        decorated,
+        primaryCta,
+        secondaryCta
+      },
+      sections[] {
+        _type,
+        _key,
+        // Shared header fields
+        eyebrow,
+        heading,
+        subheading,
+        viewDocsCta,
+        primaryCta,
+        secondaryCta,
+        rowHeights,
+        inlineTestimonial {
+          name,
+          role,
+          quote,
+          accentFragment,
+          accentColor,
+          "avatarSrc": avatar.asset->url
+        },
+        // featureIntegrationsSection
+        logos[] {
+          name,
+          href,
+          "logoSrc": logo.asset->url
+        },
+        // featurePowerfulBentoSection — 4 fixed-slot cards
+        mentionsCard { title, description },
+        tasksCard { title, description },
+        recordingsCard { title, description },
+        reactionsCard { title, description },
+        // featureSidebarShowcaseSection
+        "eyebrowIconSrc": eyebrowIcon.asset->url,
+        "defaultScreenshotSrc": defaultScreenshot.asset->url,
+        items[] {
+          label,
+          "screenshotSrc": screenshot.asset->url
+        },
+        // featureFlowDiagramSection
+        stages[] {
+          label,
+          color,
+          labelColor,
+          isCarousel,
+          "logoSrc": logoImage.asset->url,
+          carouselLogos[] {
+            "src": logo.asset->url,
+            alt
+          }
+        },
+        // featureCustomizerSection
+        playground {
+          label,
+          "iconImageSrc": iconImage.asset->url,
+          "previewImageSrc": previewImage.asset->url
+        },
+        examples[] {
+          label,
+          "iconImageSrc": iconImage.asset->url,
+          "previewImageSrc": previewImage.asset->url
+        },
+        controls {
+          colors,
+          onTheEdgeValue,
+          loggedInToggleLabel,
+          parentDefaultLabel
+        },
+        // Shared cards array covers featureBentoSection + featureCardRowSection +
+        // featureCustomerCarouselSection. Each consumer ignores unrelated fields by _type.
+        cards[] {
+          // featureBentoSection (uses featureBentoCard)
+          title,
+          description,
+          uiComponentKey,
+          illustrationKey,
+          "imageSrc": image.asset->url,
+          // featureCardRowSection
+          "iconImageSrc": iconImage.asset->url,
+          viewDocsHref,
+          // featureCustomerCarouselSection
+          "customerLogoSrc": customerLogo.asset->url,
+          pullQuote,
+          body,
+          authorName,
+          authorRole,
+          "authorAvatarSrc": authorAvatar.asset->url
+        }
+      },
+      showSecurity,
+      showTrustedLogos,
+      showCustomerStories,
+      getStartedSteps {
+        step1PackageName
+      },
+      faq {
+        items[] {
+          question,
+          answer
+        }
+      },
+      pageMeta {
+        metaTitle,
+        metaDescription,
+        "ogImage": ogImage.asset->url
+      }
+    }
+  `,
+    { slug }
+  );
+}
+
 // Customer queries
 export async function getFeaturedCustomers() {
   return client.fetch(`

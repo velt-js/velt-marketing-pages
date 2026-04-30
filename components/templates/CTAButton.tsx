@@ -1,16 +1,27 @@
 // Hand-written React template — extracted from the live Framer design
 // (framer-components/2025/button.jsx + /tmp/homepage.xml). No @ts-nocheck,
 // no opaque IDs; readable, typed, reusable across pages.
+//
+// Tokens follow DESIGN.md §10:
+// - primary: bg var(--color-velt-purple) (#625DF5), white text, radius 8px
+// - secondary: transparent, 1px border, text+border color follows theme
+//   (white on dark sections, black on light sections)
+// - sizes: md = ~48px height (hero CTAs), sm = ~36px height (nav/cards)
 
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 
 type Variant = "primary" | "secondary";
+type Size = "sm" | "md";
+type Theme = "dark" | "light";
 
 export type CTAButtonProps = {
   label: string;
   href: string;
   variant?: Variant;
+  size?: Size;
+  /** Surface the button sits on. Drives secondary border + text color. */
+  theme?: Theme;
   /** Right-side trailing icon (e.g. arrow). Defaults to none. */
   trailingIcon?: ReactNode;
   /** Open in new tab. */
@@ -19,39 +30,45 @@ export type CTAButtonProps = {
   style?: CSSProperties;
 };
 
-// Tokens sourced from the Framer design:
-// - primary bg: rgb(38, 34, 145) (indigo), white text
-// - secondary: transparent bg, 1.5px border rgb(38,34,145), white text on dark sections
-// - padding: 12px 16px, radius 6px, Urbanist 600 16px
-const BRAND = "rgb(38, 34, 145)";
-const WHITE = "rgb(255, 255, 255)";
-
 export function CTAButton({
   label,
   href,
   variant = "primary",
+  size = "md",
+  theme = "dark",
   trailingIcon,
   newTab = false,
   className,
   style,
 }: CTAButtonProps) {
   const isPrimary = variant === "primary";
+  const onLight = theme === "light";
+
+  // Sizing — md hits ~48px (hero), sm hits ~36px (nav/cards).
+  const height = size === "md" ? 48 : 36;
+  const paddingX = size === "md" ? 20 : 14;
+  const fontSize = size === "md" ? 16 : 14;
+
+  // Secondary surface color — DESIGN.md §10.
+  const surfaceColor = onLight ? "rgb(0, 0, 0)" : "rgb(255, 255, 255)";
+
   const common: CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    padding: "12px 16px",
-    borderRadius: 6,
+    height,
+    padding: `0 ${paddingX}px`,
+    borderRadius: "var(--radius-button)",
     fontFamily: '"Urbanist", "Urbanist Placeholder", sans-serif',
     fontWeight: 600,
-    fontSize: 16,
-    lineHeight: "120%",
-    letterSpacing: "-0.03em",
-    color: WHITE,
+    fontSize,
+    lineHeight: 1,
+    letterSpacing: "-0.01em",
+    color: isPrimary ? "rgb(255, 255, 255)" : surfaceColor,
     textDecoration: "none",
-    background: isPrimary ? BRAND : "transparent",
-    border: `1.5px solid ${BRAND}`,
+    background: isPrimary ? "var(--color-velt-purple)" : "transparent",
+    border: isPrimary ? "1px solid transparent" : `1px solid ${surfaceColor}`,
     cursor: "pointer",
     transition: "background-color 120ms ease, opacity 120ms ease",
     ...style,

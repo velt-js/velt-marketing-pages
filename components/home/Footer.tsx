@@ -110,7 +110,7 @@ const company: LinkGroup = {
 
 function LinkColumn({ group }: { group: LinkGroup }) {
   const linkColor =
-    group.variant === "library" ? "#939393" : "rgba(255,255,255,0.52)";
+    group.variant === "library" ? "var(--color-velt-link-muted)" : "rgba(255,255,255,0.52)";
   const linkWeight = group.variant === "library" ? 300 : 400;
   return (
     <div className="flex flex-col" style={{ gap: 20, minWidth: 0 }}>
@@ -231,7 +231,7 @@ export function Footer() {
               className="rounded-md font-urbanist font-semibold text-white"
               style={{
                 padding: "12px 16px",
-                border: "1px solid rgb(38,34,145)",
+                border: "1px solid var(--color-velt-purple)",
                 fontSize: 16,
                 width: 160,
                 letterSpacing: "-0.48px",

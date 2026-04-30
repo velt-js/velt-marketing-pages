@@ -37,11 +37,11 @@ export default async function BlogListingPage() {
               className="group bg-white/5 border border-white/10 rounded-xl p-6 hover:border-white/20 transition-colors block"
             >
               {post.category && (
-                <span className="text-xs text-purple-400 font-medium mb-2 block">
+                <span className="text-xs text-velt-purple font-medium mb-2 block">
                   {post.category}
                 </span>
               )}
-              <h2 className="font-semibold text-lg mb-2 group-hover:text-purple-400 transition-colors">
+              <h2 className="font-semibold text-lg mb-2 group-hover:text-velt-purple transition-colors">
                 {post.title}
               </h2>
               {post.description && (
@@ -68,7 +68,7 @@ export default async function BlogListingPage() {
           <p className="text-xl mb-2">No blog posts yet</p>
           <p className="text-sm">
             Add posts in{" "}
-            <Link href="/studio" className="text-purple-400 hover:underline">
+            <Link href="/studio" className="text-velt-purple hover:underline">
               Sanity Studio
             </Link>
           </p>
