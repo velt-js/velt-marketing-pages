@@ -19,6 +19,7 @@ import {
   type FeatureSectionDoc,
 } from "@/components/feature/FeatureSections";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { CommentsDemoSidebar } from "@/components/feature/CommentsDemoSidebar";
 import {
   getAllFeatureSlugs,
   getFeaturePageBySlug,
@@ -110,6 +111,8 @@ export default async function FeaturePage({
           primaryCta={doc.hero.primaryCta}
           secondaryCta={doc.hero.secondaryCta}
         />
+
+        {slug === "comments" ? <CommentsDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
