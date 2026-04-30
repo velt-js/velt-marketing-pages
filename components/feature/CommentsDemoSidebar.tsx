@@ -4,93 +4,156 @@ import { useState } from "react";
 
 type DemoTab = {
   label: string;
-  icon: string;
+  description: string;
   iframe: string;
-  containerBg: string;
+  github?: string;
 };
 
 const TABS: DemoTab[] = [
   {
     label: "Freestyle",
-    icon: "/images/5kWH3XdtLmmy8sAlrXaZQUUI.png",
+    description: "Drop comments anywhere on the page.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/area-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/area-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/area-comments",
   },
   {
     label: "Popover",
-    icon: "/images/LvV1JCkle2GnhxHmcuds6TA3FNY.png",
+    description: "Lightweight popover comments anchored to UI elements.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/popover-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/popover-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/popover-comments",
   },
   {
     label: "Stream",
-    icon: "/images/OodMCaRP53KDyMSWgJNpV2Z95aU.png",
+    description: "A continuous comment stream alongside your content.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/stream-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/stream-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/stream-comments",
   },
   {
     label: "Text",
-    icon: "/images/MKB3SQnzph0Q09CNzo6UbdqTo.png",
+    description: "Inline text annotations and discussions.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/text-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/text-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/text-comments",
   },
   {
-    label: "TipTap",
-    icon: "/images/W2jl41FIbYYVPznSKeAaqt4mAK8.png",
+    label: "Tiptap",
+    description: "Comments inside a Tiptap rich text editor.",
     iframe: "https://documentation-app-demo.vercel.app/?focused=true",
-    containerBg: "#253792",
+    github: "https://github.com/velt-js/documentation-app-demo",
   },
   {
     label: "Inline",
-    icon: "/images/RYpJPS45TXba1vDBJm9cvBR2I.png",
+    description: "Inline comments threaded into the document flow.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/inline-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/inline-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/inline-comments",
   },
   {
     label: "Inbox",
-    icon: "/images/NwJ6Pnj2fTJzw6xK24smXuNHS10.png",
+    description: "Centralized inbox view of every comment thread.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/inbox-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/inbox-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/inbox-comments",
   },
   {
     label: "Chart",
-    icon: "/images/PkFHpoQ3xkRoQ1ZudAuBvDKO6TA.png",
+    description: "Comments pinned to data points on a chart.",
     iframe: "https://analytics-chartjs-demo.vercel.app/?focused=true",
-    containerBg: "#253792",
+    github: "https://github.com/velt-js/analytics-chartjs-demo",
   },
   {
     label: "Page",
-    icon: "/images/gTos6l55MStJWMCTOtAIJin0gg.png",
+    description: "Page-level comments and discussions.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/page-comments?background=253792&theme=dark",
-    containerBg: "#253792",
+      "https://demo-examples.vercel.app/async/comments/page-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/page-comments",
   },
   {
     label: "Video",
-    icon: "/images/AkAAMWdEBlDax8ZDB1zzT9wi5Q.png",
+    description: "Comments at exact timestamps on video.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/video-comments?background=000000&theme=dark",
-    containerBg: "#000000",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/video-comments",
   },
   {
     label: "Lottie",
-    icon: "/images/0S0F9nYwoP5WrPVnVnqOv88oxo.png",
+    description: "Comments on Lottie animation frames.",
     iframe:
-      "https://demo-examples.vercel.app/async/comments/lottie-comments?background=1A1A1A&theme=dark",
-    containerBg: "#1A1A1A",
+      "https://demo-examples.vercel.app/async/comments/lottie-comments?background=000000&theme=dark",
+    github:
+      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/lottie-comments",
   },
 ];
 
-const SIDEBAR_BG = "#182986";
+const CHROME = "#1c1d21";
+const TAB_INACTIVE = "rgba(255, 255, 255, 0.52)";
+const TAB_HOVER = "rgba(255, 255, 255, 0.8)";
+
+function IconExternalLink() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" />
+      <path d="M11 13l9 -9" />
+      <path d="M15 4h5v5" />
+    </svg>
+  );
+}
+
+function IconGithub() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M5.315 2.1c.791 -.113 1.9 .145 3.333 .966l.272 .161l.16 .1l.397 -.083a13.3 13.3 0 0 1 4.59 -.08l.456 .08l.396 .083l.161 -.1c1.385 -.84 2.487 -1.142 3.291 -1.07l.225 .032l.198 .04l.176 .054l.151 .057l.124 .054l.111 .054l.099 .053l.083 .051c.221 .15 .394 .363 .489 .61l.04 .124l.031 .128l.023 .13l.017 .137l.014 .145l.013 .234l.007 .272l-.006 .575a10 10 0 0 1 -.05 .689l-.054 .413l-.07 .417a8.4 8.4 0 0 1 -.17 .733l-.124 .42l.014 .047c.211 .7 .315 1.428 .308 2.16l-.018 .398c-.211 4.207 -2.86 5.94 -6.546 6.122l-.534 .015c-.354 .009 -.677 .015 -1.001 .015a8 8 0 0 0 .04 .375l.072 .47c.137 .897 .192 1.811 .166 2.726l-.013 .31l-.024 .268a3.5 3.5 0 0 1 -.027 .211l-.034 .224a1 1 0 0 1 -1.971 -.219l.002 -.014l.024 -.13l.014 -.107l.029 -.327c.01 -.116 .017 -.255 .021 -.413l.005 -.397c.002 -.617 -.043 -1.236 -.123 -1.853l-.061 -.422a25.4 25.4 0 0 1 -.117 -.857l-.116 -.957l-.013 -.146l-.012 -.226c-.024 -.726 .166 -1.418 .613 -2.001l.135 -.163l-.082 -.001c-3.738 -.066 -6.591 -1.682 -6.819 -6.066l-.018 -.421c-.024 -.793 .08 -1.583 .308 -2.323l.124 -.422l-.123 -.42a8 8 0 0 1 -.169 -.733l-.07 -.417a10 10 0 0 1 -.104 -1.102l-.007 -.575l.004 -.232l.012 -.211l.018 -.18l.025 -.16l.034 -.151l.043 -.146l.045 -.122l.054 -.115l.06 -.107l.067 -.096l.075 -.087l.084 -.077l.094 -.066l.106 -.057l.196 -.077l.171 -.052l.181 -.039l.158 -.024z" />
+    </svg>
+  );
+}
+
+function IconInfo() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden
+    >
+      <path d="M12 2c5.523 0 10 4.477 10 10a10 10 0 0 1 -19.995 .324l-.005 -.324l.004 -.28c.148 -5.393 4.566 -9.72 9.996 -9.72zm0 9h-1l-.117 .007a1 1 0 0 0 0 1.986l.117 .007v3l.007 .117a1 1 0 0 0 .876 .876l.117 .007h1l.117 -.007a1 1 0 0 0 .876 -.876l.007 -.117l-.007 -.117a1 1 0 0 0 -.764 -.857l-.112 -.02l-.117 -.006v-3l-.007 -.117a1 1 0 0 0 -.876 -.876zm.01 -3l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986z" />
+    </svg>
+  );
+}
 
 export function CommentsDemoSidebar() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const [openHover, setOpenHover] = useState(false);
+  const [ghHover, setGhHover] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
   const active = TABS[activeIdx];
 
   return (
@@ -99,88 +162,86 @@ export function CommentsDemoSidebar() {
       style={{ padding: "0 80px 100px" }}
     >
       <div
-        className="grid"
         style={{
           width: 1280,
-          gridTemplateColumns: "200px 1fr",
-          gap: 8,
-          padding: 8,
+          background: CHROME,
+          border: `2px solid ${CHROME}`,
           borderRadius: 12,
-          background: active.containerBg,
-          transition: "background-color 200ms ease",
+          overflow: "hidden",
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        {/* Tab sidebar */}
-        <nav
-          className="flex flex-col"
-          style={{
-            background: SIDEBAR_BG,
-            borderRadius: 12,
-            padding: 12,
-            gap: 8,
-          }}
+        {/* Top tab bar */}
+        <div
+          role="tablist"
           aria-label="Comment mode"
+          style={{
+            background: CHROME,
+            padding: "6px 16px 4px",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            overflowX: "auto",
+          }}
         >
           {TABS.map((tab, i) => {
             const isActive = i === activeIdx;
+            const isHover = hoverIdx === i;
             return (
               <button
                 key={tab.label}
                 type="button"
+                role="tab"
+                aria-selected={isActive}
                 onClick={() => setActiveIdx(i)}
-                className="flex items-center cursor-pointer"
+                onMouseEnter={() => setHoverIdx(i)}
+                onMouseLeave={() => setHoverIdx(null)}
+                className="cursor-pointer"
                 style={{
-                  height: 48,
+                  height: 30,
+                  padding: "8px 12px",
                   borderRadius: 8,
                   border: "none",
                   background: isActive
                     ? "rgba(255, 255, 255, 0.08)"
-                    : SIDEBAR_BG,
-                  opacity: isActive ? 1 : 0.5,
+                    : "transparent",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
                   transition:
-                    "opacity 180ms ease, background-color 180ms ease",
-                  padding: "0 12px",
-                  gap: 10,
+                    "background-color 160ms ease, color 160ms ease",
+                  fontFamily: "'Fira Code', monospace",
+                  fontWeight: 400,
+                  fontSize: 12,
+                  lineHeight: 1.5,
+                  textTransform: "uppercase",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
+                  color: isActive
+                    ? "#fff"
+                    : isHover
+                      ? TAB_HOVER
+                      : TAB_INACTIVE,
                 }}
-                aria-pressed={isActive}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={tab.icon}
-                  alt=""
-                  style={{
-                    width: 28,
-                    height: 28,
-                    objectFit: "contain",
-                    flexShrink: 0,
-                    pointerEvents: "none",
-                  }}
-                />
-                <span
-                  className="font-urbanist"
-                  style={{
-                    color: "#fff",
-                    fontSize: 14,
-                    fontWeight: 600,
-                    lineHeight: 1.2,
-                    textAlign: "left",
-                  }}
-                >
-                  {tab.label}
-                </span>
+                {tab.label}
               </button>
             );
           })}
-        </nav>
+        </div>
 
         {/* Iframe stage */}
         <div
           style={{
-            background: active.containerBg,
+            background: "#000",
+            border: `4px solid ${CHROME}`,
             borderRadius: 12,
-            height: 640,
-            transition: "background-color 200ms ease",
+            height: 620,
             overflow: "hidden",
+            width: "100%",
           }}
         >
           <iframe
@@ -193,10 +254,154 @@ export function CommentsDemoSidebar() {
               width: "100%",
               height: "100%",
               border: "none",
-              borderRadius: 8,
               display: "block",
             }}
           />
+        </div>
+
+        {/* Bottom-right floating module: Open + Github */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: -2,
+            right: -2,
+            background: CHROME,
+            padding: 2,
+            borderTopLeftRadius: 10,
+            borderBottomRightRadius: 10,
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+          }}
+        >
+          <a
+            href={active.iframe}
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setOpenHover(true)}
+            onMouseLeave={() => setOpenHover(false)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 8px",
+              borderRadius: 8,
+              fontFamily: "'Fira Mono', monospace",
+              fontWeight: 500,
+              fontSize: 14,
+              lineHeight: 1.2,
+              letterSpacing: "-0.42px",
+              textTransform: "uppercase",
+              color: openHover ? TAB_HOVER : TAB_INACTIVE,
+              textDecoration: "none",
+              transition: "color 160ms ease",
+            }}
+          >
+            <IconExternalLink />
+            Open
+          </a>
+          {active.github ? (
+            <a
+              href={active.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onMouseEnter={() => setGhHover(true)}
+              onMouseLeave={() => setGhHover(false)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 8px",
+                borderRadius: 8,
+                fontFamily: "'Fira Mono', monospace",
+                fontWeight: 500,
+                fontSize: 14,
+                lineHeight: 1.2,
+                letterSpacing: "-0.42px",
+                textTransform: "uppercase",
+                color: ghHover ? TAB_HOVER : TAB_INACTIVE,
+                textDecoration: "none",
+                transition: "color 160ms ease",
+              }}
+            >
+              <IconGithub />
+              Github
+            </a>
+          ) : null}
+        </div>
+
+        {/* Bottom-left floating info button */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: -2,
+            left: -2,
+            background: CHROME,
+            padding: 2,
+            borderTopRightRadius: 10,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ position: "relative" }}>
+            <button
+              type="button"
+              aria-label={`${active.label}: ${active.description}`}
+              onMouseEnter={() => setInfoOpen(true)}
+              onMouseLeave={() => setInfoOpen(false)}
+              onFocus={() => setInfoOpen(true)}
+              onBlur={() => setInfoOpen(false)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 6,
+                borderRadius: 8,
+                border: "none",
+                background: "transparent",
+                color: infoOpen ? TAB_HOVER : TAB_INACTIVE,
+                cursor: "help",
+                transition: "color 160ms ease",
+              }}
+            >
+              <IconInfo />
+            </button>
+            {infoOpen ? (
+              <div
+                role="tooltip"
+                style={{
+                  position: "absolute",
+                  bottom: "calc(100% + 8px)",
+                  left: 0,
+                  background: "#000",
+                  border: `1px solid rgba(255, 255, 255, 0.12)`,
+                  borderRadius: 8,
+                  padding: "8px 12px",
+                  width: 260,
+                  fontFamily: "Urbanist, sans-serif",
+                  fontSize: 13,
+                  lineHeight: 1.4,
+                  color: "#fff",
+                  pointerEvents: "none",
+                  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
+                  zIndex: 2,
+                }}
+              >
+                <span
+                  style={{
+                    fontWeight: 600,
+                    display: "block",
+                    marginBottom: 2,
+                  }}
+                >
+                  {active.label}
+                </span>
+                <span style={{ color: "rgba(255, 255, 255, 0.72)" }}>
+                  {active.description}
+                </span>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
     </section>

@@ -58,42 +58,8 @@ export function FeatureCardRow({
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px", gap: 52 }}
+      style={{ padding: "100px 80px" }}
     >
-      <div className="flex flex-col items-center" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12, maxWidth: 691 }}>
-          {eyebrow ? (
-            <span
-              className="font-urbanist font-semibold uppercase"
-              style={{ color: "#625df5", fontSize: 14, letterSpacing: "0.6px", lineHeight: 1.2 }}
-            >
-              {eyebrow}
-            </span>
-          ) : null}
-          <h2
-            className="font-urbanist font-bold"
-            style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em", margin: 0 }}
-          >
-            {heading}
-          </h2>
-          {subheading ? (
-            <p className="font-urbanist" style={{ color: "#111", fontSize: 20, lineHeight: 1.2, margin: 0 }}>
-              {subheading}
-            </p>
-          ) : null}
-        </div>
-        {(viewDocsCta || primaryCta) && (
-          <div className="flex items-start" style={{ gap: 12 }}>
-            {viewDocsCta?.label && viewDocsCta.href ? (
-              <RowCta variant="secondary" cta={viewDocsCta} />
-            ) : null}
-            {primaryCta?.label && primaryCta.href ? (
-              <RowCta variant="primary" cta={primaryCta} />
-            ) : null}
-          </div>
-        )}
-      </div>
-
       <div
         className="overflow-hidden"
         style={{
@@ -103,6 +69,40 @@ export function FeatureCardRow({
           borderRadius: 32,
         }}
       >
+        <div className="flex flex-col items-center" style={{ gap: 32, padding: "55px 0 80px 0" }}>
+          <div className="flex flex-col items-center text-center" style={{ gap: 12, maxWidth: 691 }}>
+            {eyebrow ? (
+              <span
+                className="font-urbanist font-semibold uppercase"
+                style={{ color: "#625df5", fontSize: 14, letterSpacing: "0.6px", lineHeight: 1.2 }}
+              >
+                {eyebrow}
+              </span>
+            ) : null}
+            <h2
+              className="font-urbanist font-bold"
+              style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em", margin: 0 }}
+            >
+              {heading}
+            </h2>
+            {subheading ? (
+              <p className="font-urbanist" style={{ color: "#111", fontSize: 20, lineHeight: 1.2, margin: 0 }}>
+                {subheading}
+              </p>
+            ) : null}
+          </div>
+          {(viewDocsCta || primaryCta) && (
+            <div className="flex items-start" style={{ gap: 12 }}>
+              {viewDocsCta?.label && viewDocsCta.href ? (
+                <RowCta variant="secondary" cta={viewDocsCta} />
+              ) : null}
+              {primaryCta?.label && primaryCta.href ? (
+                <RowCta variant="primary" cta={primaryCta} />
+              ) : null}
+            </div>
+          )}
+        </div>
+
         <div
           className="grid"
           style={{
