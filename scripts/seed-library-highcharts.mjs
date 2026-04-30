@@ -101,11 +101,9 @@ async function main() {
     tagline:
       "Add comments, notifications, and review workflows to Highcharts in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for HighCharts | Velt",
-      metaDescription:
-        "Add comments, notifications, and review workflows to Highcharts in minutes",
-    },
+    metaTitle: "Collaboration Toolkit for HighCharts | Velt",
+    metaDescription:
+      "Add comments, notifications, and review workflows to Highcharts in minutes",
     hero: {
       heading: "Collaboration Toolkit for HighCharts",
       subheading:

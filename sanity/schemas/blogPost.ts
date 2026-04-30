@@ -1,5 +1,16 @@
 import { defineType, defineField } from "sanity";
 
+export const blogBodyImage = defineType({
+  name: "blogBodyImage",
+  title: "Body Image",
+  type: "image",
+  options: { hotspot: true },
+  fields: [
+    defineField({ name: "alt", title: "Alt Text", type: "string" }),
+    defineField({ name: "caption", title: "Caption", type: "string" }),
+  ],
+});
+
 export const blogPost = defineType({
   name: "blogPost",
   title: "Blog Post",
@@ -83,55 +94,36 @@ export const blogPost = defineType({
               { title: "Italic", value: "em" },
               { title: "Code", value: "code" },
             ],
-            annotations: [
-              {
-                name: "link",
-                type: "object",
-                title: "Link",
-                fields: [
-                  {
-                    name: "href",
-                    type: "url",
-                    title: "URL",
-                    validation: (rule) =>
-                      rule.uri({ allowRelative: true, scheme: ["http", "https", "mailto"] }),
-                  },
-                ],
-              },
-            ],
+            annotations: [{ type: "link" }],
           },
         },
-        {
-          type: "image",
-          options: { hotspot: true },
-          fields: [
-            {
-              name: "alt",
-              type: "string",
-              title: "Alt Text",
-            },
-            {
-              name: "caption",
-              type: "string",
-              title: "Caption",
-            },
-          ],
-        },
-        {
-          type: "code",
-          title: "Code Block",
-        },
+        { type: "blogBodyImage" },
+        { type: "code" },
       ],
     }),
+    defineField({ name: "metaTitle", title: "Meta Title", type: "string" }),
     defineField({
-      name: "seo",
-      title: "SEO",
-      type: "object",
-      fields: [
-        { name: "metaTitle", title: "Meta Title", type: "string" },
-        { name: "metaDescription", title: "Meta Description", type: "text", rows: 2 },
-        { name: "ogImage", title: "OG Image", type: "image" },
-      ],
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({ name: "ogImage", title: "OG Image", type: "image" }),
+    defineField({
+      name: "faqSchema",
+      title: "FAQ JSON-LD",
+      description:
+        "Raw JSON-LD for the FAQ schema, injected as <script type=\"application/ld+json\"> on the rendered page.",
+      type: "text",
+      rows: 8,
+    }),
+    defineField({
+      name: "blogPostingSchema",
+      title: "BlogPosting JSON-LD",
+      description:
+        "Raw JSON-LD for the BlogPosting/Article schema, injected as <script type=\"application/ld+json\"> on the rendered page.",
+      type: "text",
+      rows: 12,
     }),
   ],
   orderings: [

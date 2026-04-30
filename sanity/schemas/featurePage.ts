@@ -1,9 +1,5 @@
 import { defineType, defineField } from "sanity";
 import {
-  ILLUSTRATION_KEYS,
-  ILLUSTRATION_TITLES,
-} from "../../components/library/illustrations/keys";
-import {
   FEATURE_UI_KEYS,
   FEATURE_UI_TITLES,
 } from "../../components/feature/uis/keys";
@@ -21,6 +17,55 @@ import {
 // or reorder them.
 //
 // To populate a new feature, run scripts/seed-feature-<slug>.mjs.
+
+export const featureHero = defineType({
+  name: "featureHero",
+  title: "Feature Hero",
+  type: "object",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "decorated",
+      title: "Decorated background",
+      description:
+        "Pixel-grid background + Sean/Emma cursor overlays. Default for feature pages.",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
+    defineField({
+      name: "secondaryCta",
+      title: "Secondary CTA",
+      type: "ctaLink",
+    }),
+  ],
+});
+
+export const featureFaq = defineType({
+  name: "featureFaq",
+  title: "Feature FAQ",
+  type: "object",
+  fields: [
+    defineField({
+      name: "items",
+      title: "Items",
+      type: "array",
+      of: [{ type: "faqItem" }],
+    }),
+  ],
+});
+
 export const featurePage = defineType({
   name: "featurePage",
   title: "Feature Page",
@@ -34,11 +79,11 @@ export const featurePage = defineType({
     { name: "seo", title: "SEO" },
   ],
   fields: [
-    // ---- Identity ----
     defineField({
       name: "title",
       title: "Feature Name",
-      description: 'e.g. "Commenting". Used in nav/listing and as the slug source.',
+      description:
+        'e.g. "Commenting". Used in nav/listing and as the slug source.',
       type: "string",
       group: "identity",
       validation: (rule) => rule.required(),
@@ -82,48 +127,14 @@ export const featurePage = defineType({
       options: { hotspot: false },
     }),
 
-    // ---- Hero (PageHero) ----
     defineField({
       name: "hero",
       title: "Hero",
-      type: "object",
+      type: "featureHero",
       group: "hero",
       options: { collapsible: true, collapsed: false },
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Heading",
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "subheading",
-          title: "Subheading",
-          type: "text",
-          rows: 3,
-        }),
-        defineField({
-          name: "decorated",
-          title: "Decorated background",
-          description:
-            "Pixel-grid background + Sean/Emma cursor overlays. Default for feature pages.",
-          type: "boolean",
-          initialValue: true,
-        }),
-        defineField({
-          name: "primaryCta",
-          title: "Primary CTA",
-          type: "ctaLink",
-        }),
-        defineField({
-          name: "secondaryCta",
-          title: "Secondary CTA",
-          type: "ctaLink",
-        }),
-      ],
     }),
 
-    // ---- Sections (polymorphic) ----
     defineField({
       name: "sections",
       title: "Sections",
@@ -145,7 +156,6 @@ export const featurePage = defineType({
       validation: (rule) => rule.required().min(1),
     }),
 
-    // ---- Page Chrome toggles ----
     defineField({
       name: "showSecurity",
       title: "Show Enterprise Security block",
@@ -176,74 +186,37 @@ export const featurePage = defineType({
     defineField({
       name: "getStartedSteps",
       title: "Get Started Steps",
-      type: "object",
+      type: "getStartedSteps",
       group: "chrome",
-      fields: [
-        defineField({
-          name: "step1PackageName",
-          title: "Step 1 npm package",
-          description: 'e.g. "@veltdev/react"',
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-      ],
     }),
 
-    // ---- FAQ ----
     defineField({
       name: "faq",
       title: "FAQ (feature-specific)",
       description:
         "Feature-specific Q&A. Rendered before the 4 shared general Q&A from components/library/shared-content.ts.",
-      type: "object",
+      type: "featureFaq",
       group: "faq",
-      fields: [
-        defineField({
-          name: "items",
-          title: "Items",
-          type: "array",
-          of: [
-            {
-              type: "object",
-              fields: [
-                defineField({
-                  name: "question",
-                  title: "Question",
-                  type: "string",
-                  validation: (rule) => rule.required(),
-                }),
-                defineField({
-                  name: "answer",
-                  title: "Answer",
-                  type: "text",
-                  rows: 5,
-                  validation: (rule) => rule.required(),
-                }),
-              ],
-              preview: { select: { title: "question" } },
-            },
-          ],
-        }),
-      ],
     }),
 
-    // ---- SEO ----
     defineField({
-      name: "pageMeta",
-      title: "SEO",
-      type: "object",
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
       group: "seo",
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "metaTitle", title: "Meta Title", type: "string" }),
-        defineField({
-          name: "metaDescription",
-          title: "Meta Description",
-          type: "text",
-          rows: 2,
-        }),
-        defineField({ name: "ogImage", title: "OG Image", type: "image" }),
-      ],
+    }),
+    defineField({
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "text",
+      rows: 2,
+      group: "seo",
+    }),
+    defineField({
+      name: "ogImage",
+      title: "OG Image",
+      type: "image",
+      group: "seo",
     }),
   ],
   orderings: [
@@ -267,11 +240,6 @@ export const featurePage = defineType({
 });
 
 // ---- Section block: Bento ----
-//
-// Mirrors libraryPage.bento but as a standalone object so multiple can
-// appear in one page. The optional inline testimonial attaches as the
-// dark customer-quote bar at the bottom of the cards grid (same as
-// LibraryBento's `testimonial` prop).
 export const featureBentoSection = defineType({
   name: "featureBentoSection",
   title: "Bento Section",
@@ -296,16 +264,8 @@ export const featureBentoSection = defineType({
       type: "text",
       rows: 3,
     }),
-    defineField({
-      name: "viewDocsCta",
-      title: "View Docs CTA",
-      type: "ctaLink",
-    }),
-    defineField({
-      name: "primaryCta",
-      title: "Primary CTA",
-      type: "ctaLink",
-    }),
+    defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
+    defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
     defineField({
       name: "rowHeights",
       title: "Row Heights (px)",
@@ -334,37 +294,8 @@ export const featureBentoSection = defineType({
       title: "Attached Inline Testimonial",
       description:
         "Optional dark customer-quote bar attached to the bottom of the cards grid.",
-      type: "object",
+      type: "inlineTestimonial",
       options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "name", title: "Name", type: "string" }),
-        defineField({
-          name: "role",
-          title: "Role",
-          description: 'e.g. "CTO @eqtble"',
-          type: "string",
-        }),
-        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
-        defineField({
-          name: "accentFragment",
-          title: "Accent Fragment",
-          description:
-            "Substring of the quote rendered in accent color. Must appear verbatim in the quote.",
-          type: "string",
-        }),
-        defineField({
-          name: "accentColor",
-          title: "Accent Color",
-          description: "Hex color, e.g. #625df5",
-          type: "string",
-        }),
-        defineField({
-          name: "avatar",
-          title: "Avatar",
-          type: "image",
-          options: { hotspot: true },
-        }),
-      ],
     }),
   ],
   preview: {
@@ -376,20 +307,36 @@ export const featureBentoSection = defineType({
   },
 });
 
+export const featureIntegrationLogo = defineType({
+  name: "featureIntegrationLogo",
+  title: "Integration Logo",
+  type: "object",
+  fields: [
+    defineField({
+      name: "name",
+      title: "Name",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "logo",
+      title: "Logo",
+      type: "image",
+      options: { hotspot: false },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({ name: "href", title: "URL", type: "url" }),
+  ],
+  preview: { select: { title: "name", media: "logo" } },
+});
+
 // ---- Section block: Integrations row ----
-//
-// "Now Velt integrates with X, Y, Z" — horizontal logo strip with optional
-// trailing CTA. Rendered as a dark section with cert-style logo cards.
 export const featureIntegrationsSection = defineType({
   name: "featureIntegrationsSection",
   title: "Integrations Row",
   type: "object",
   fields: [
-    defineField({
-      name: "eyebrow",
-      title: "Eyebrow",
-      type: "string",
-    }),
+    defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
     defineField({
       name: "heading",
       title: "Heading",
@@ -407,43 +354,67 @@ export const featureIntegrationsSection = defineType({
       name: "logos",
       title: "Logos",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({
-              name: "name",
-              title: "Name",
-              type: "string",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: "logo",
-              title: "Logo",
-              type: "image",
-              options: { hotspot: false },
-              validation: (rule) => rule.required(),
-            }),
-            defineField({ name: "href", title: "URL", type: "url" }),
-          ],
-          preview: { select: { title: "name", media: "logo" } },
-        },
-      ],
+      of: [{ type: "featureIntegrationLogo" }],
       validation: (rule) => rule.required().min(1),
     }),
   ],
   preview: {
     select: { title: "heading" },
-    prepare: ({ title }) => ({ title: `Integrations: ${title ?? "(untitled)"}` }),
+    prepare: ({ title }) => ({
+      title: `Integrations: ${title ?? "(untitled)"}`,
+    }),
+  },
+});
+
+export const featureCustomerCard = defineType({
+  name: "featureCustomerCard",
+  title: "Customer Card",
+  type: "object",
+  fields: [
+    defineField({
+      name: "customerLogo",
+      title: "Customer Logo",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({
+      name: "pullQuote",
+      title: "Pull Quote",
+      description: "Bold heading-style quote at the top of the card.",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "body",
+      title: "Body",
+      description: "Multi-line supporting paragraph.",
+      type: "text",
+      rows: 6,
+    }),
+    defineField({
+      name: "authorName",
+      title: "Author",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({ name: "authorRole", title: "Author Role", type: "string" }),
+    defineField({
+      name: "authorAvatar",
+      title: "Author Avatar",
+      type: "image",
+      options: { hotspot: true },
+    }),
+  ],
+  preview: {
+    select: {
+      title: "authorName",
+      subtitle: "pullQuote",
+      media: "authorAvatar",
+    },
   },
 });
 
 // ---- Section block: Customer testimonial carousel ----
-//
-// "Our Customers Trust Us" — wide, full-bleed dark section with a
-// horizontal scroller of large quote cards. Each card carries a
-// customer logo, bold pull-quote, multi-line body, and avatar+name+role.
-// Section-level CTAs sit above the carousel.
 export const featureCustomerCarouselSection = defineType({
   name: "featureCustomerCarouselSection",
   title: "Customer Testimonial Carousel",
@@ -456,61 +427,53 @@ export const featureCustomerCarouselSection = defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
-    defineField({ name: "secondaryCta", title: "Secondary CTA", type: "ctaLink" }),
+    defineField({
+      name: "secondaryCta",
+      title: "Secondary CTA",
+      type: "ctaLink",
+    }),
     defineField({
       name: "cards",
       title: "Cards",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "customerLogo", title: "Customer Logo", type: "image", options: { hotspot: false } }),
-            defineField({
-              name: "pullQuote",
-              title: "Pull Quote",
-              description: "Bold heading-style quote at the top of the card.",
-              type: "string",
-              validation: (rule) => rule.required(),
-            }),
-            defineField({
-              name: "body",
-              title: "Body",
-              description: "Multi-line supporting paragraph.",
-              type: "text",
-              rows: 6,
-            }),
-            defineField({ name: "authorName", title: "Author", type: "string", validation: (r) => r.required() }),
-            defineField({ name: "authorRole", title: "Author Role", type: "string" }),
-            defineField({ name: "authorAvatar", title: "Author Avatar", type: "image", options: { hotspot: true } }),
-          ],
-          preview: { select: { title: "authorName", subtitle: "pullQuote", media: "authorAvatar" } },
-        },
-      ],
+      of: [{ type: "featureCustomerCard" }],
       validation: (rule) => rule.required().min(1),
     }),
   ],
   preview: {
     select: { title: "heading" },
-    prepare: ({ title }) => ({ title: `Customer Carousel: ${title ?? "(untitled)"}` }),
+    prepare: ({ title }) => ({
+      title: `Customer Carousel: ${title ?? "(untitled)"}`,
+    }),
   },
 });
 
 // ---- Card type: Feature Bento Card ----
-//
-// Like libraryPage's `bentoCard` (illustration / image overlay) but the
-// illustration source is a key into the FEATURE_UI registry (real product
-// UI components rendered in React/Tailwind to match Figma) instead of the
-// abstract library illustrations.
 export const featureBentoCard = defineType({
   name: "featureBentoCard",
   title: "Feature Bento Card",
   type: "object",
   fields: [
-    defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "description", title: "Description", type: "text", rows: 2, validation: (r) => r.required() }),
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 2,
+      validation: (r) => r.required(),
+    }),
     defineField({
       name: "uiComponentKey",
       title: "UI Component",
@@ -518,7 +481,10 @@ export const featureBentoCard = defineType({
         "Picks a registered React UI component from components/feature/uis. Use this OR Card Image — not both.",
       type: "string",
       options: {
-        list: FEATURE_UI_KEYS.map((key) => ({ title: FEATURE_UI_TITLES[key], value: key })),
+        list: FEATURE_UI_KEYS.map((key) => ({
+          title: FEATURE_UI_TITLES[key],
+          value: key,
+        })),
       },
     }),
     defineField({
@@ -538,112 +504,160 @@ export const featureBentoCard = defineType({
       }
       return true;
     }),
-  preview: { select: { title: "title", subtitle: "uiComponentKey", media: "image" } },
+  preview: {
+    select: { title: "title", subtitle: "uiComponentKey", media: "image" },
+  },
 });
 
-// ---- Section block: Sidebar Showcase ("Little Big Details") ----
-//
-// Left list of items (active = purple fill) + right detail panel showing
-// a screenshot. Per-item screenshots can be added later; today the
-// `defaultScreenshot` is rendered for every selection.
+export const featureSidebarItem = defineType({
+  name: "featureSidebarItem",
+  title: "Sidebar Item",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      title: "Label",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "screenshot",
+      title: "Screenshot (per-item)",
+      description: "Optional. Falls back to defaultScreenshot.",
+      type: "image",
+      options: { hotspot: false },
+    }),
+  ],
+  preview: { select: { title: "label", media: "screenshot" } },
+});
+
+// ---- Section block: Sidebar Showcase ----
 export const featureSidebarShowcaseSection = defineType({
   name: "featureSidebarShowcaseSection",
   title: "Sidebar Showcase",
   type: "object",
   fields: [
-    defineField({ name: "eyebrowIcon", title: "Eyebrow Icon", description: "Optional small purple icon above the heading.", type: "image", options: { hotspot: false } }),
-    defineField({ name: "heading", title: "Heading", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "eyebrowIcon",
+      title: "Eyebrow Icon",
+      description: "Optional small purple icon above the heading.",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({
       name: "items",
       title: "Sidebar Items",
-      description: "Each entry is a clickable row; the active one swaps the right-panel screenshot when one is set.",
+      description:
+        "Each entry is a clickable row; the active one swaps the right-panel screenshot when one is set.",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "label", title: "Label", type: "string", validation: (r) => r.required() }),
-            defineField({ name: "screenshot", title: "Screenshot (per-item)", description: "Optional. Falls back to defaultScreenshot.", type: "image", options: { hotspot: false } }),
-          ],
-          preview: { select: { title: "label", media: "screenshot" } },
-        },
-      ],
+      of: [{ type: "featureSidebarItem" }],
       validation: (rule) => rule.required().min(1),
     }),
-    defineField({ name: "defaultScreenshot", title: "Default Screenshot", description: "Shown when an item has no per-item screenshot of its own.", type: "image", options: { hotspot: false } }),
+    defineField({
+      name: "defaultScreenshot",
+      title: "Default Screenshot",
+      description:
+        "Shown when an item has no per-item screenshot of its own.",
+      type: "image",
+      options: { hotspot: false },
+    }),
     defineField({
       name: "inlineTestimonial",
       title: "Attached Inline Testimonial",
-      type: "object",
+      type: "inlineTestimonial",
       options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "name", title: "Name", type: "string" }),
-        defineField({ name: "role", title: "Role", type: "string" }),
-        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
-        defineField({ name: "accentFragment", title: "Accent Fragment", type: "string" }),
-        defineField({ name: "accentColor", title: "Accent Color", type: "string" }),
-        defineField({ name: "avatar", title: "Avatar", type: "image", options: { hotspot: true } }),
-      ],
     }),
   ],
   preview: {
     select: { title: "heading" },
-    prepare: ({ title }) => ({ title: `Sidebar Showcase: ${title ?? "(untitled)"}` }),
+    prepare: ({ title }) => ({
+      title: `Sidebar Showcase: ${title ?? "(untitled)"}`,
+    }),
   },
 });
 
-// ---- Section block: Feature Card Row ("Extend the Capabilities") ----
-//
-// 3-column row of feature cards. Each card has an icon eyebrow, title,
-// embedded UI demo (via uiComponentKey), and a "View Docs ›" footer link.
+export const featureCardRowCard = defineType({
+  name: "featureCardRowCard",
+  title: "Card Row Card",
+  type: "object",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "iconImage",
+      title: "Icon",
+      description: "Optional small icon left of the title.",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({
+      name: "uiComponentKey",
+      title: "UI Component",
+      description: "Mini UI demo rendered in the card body.",
+      type: "string",
+      options: {
+        list: FEATURE_UI_KEYS.map((key) => ({
+          title: FEATURE_UI_TITLES[key],
+          value: key,
+        })),
+      },
+    }),
+    defineField({ name: "viewDocsHref", title: "View Docs URL", type: "url" }),
+  ],
+  preview: {
+    select: { title: "title", subtitle: "uiComponentKey", media: "iconImage" },
+  },
+});
+
+// ---- Section block: Feature Card Row ----
 export const featureCardRowSection = defineType({
   name: "featureCardRowSection",
   title: "Feature Card Row",
   type: "object",
   fields: [
     defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
-    defineField({ name: "heading", title: "Heading", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
     defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
     defineField({
       name: "cards",
       title: "Cards",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
-            defineField({ name: "iconImage", title: "Icon", description: "Optional small icon left of the title.", type: "image", options: { hotspot: false } }),
-            defineField({
-              name: "uiComponentKey",
-              title: "UI Component",
-              description: "Mini UI demo rendered in the card body.",
-              type: "string",
-              options: { list: FEATURE_UI_KEYS.map((key) => ({ title: FEATURE_UI_TITLES[key], value: key })) },
-            }),
-            defineField({ name: "viewDocsHref", title: "View Docs URL", type: "url" }),
-          ],
-          preview: { select: { title: "title", subtitle: "uiComponentKey", media: "iconImage" } },
-        },
-      ],
+      of: [{ type: "featureCardRowCard" }],
       validation: (rule) => rule.required().min(1).max(4),
     }),
     defineField({
       name: "inlineTestimonial",
       title: "Attached Inline Testimonial",
-      type: "object",
+      type: "inlineTestimonial",
       options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "name", title: "Name", type: "string" }),
-        defineField({ name: "role", title: "Role", type: "string" }),
-        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
-        defineField({ name: "accentFragment", title: "Accent Fragment", type: "string" }),
-        defineField({ name: "accentColor", title: "Accent Color", type: "string" }),
-        defineField({ name: "avatar", title: "Avatar", type: "image", options: { hotspot: true } }),
-      ],
     }),
   ],
   preview: {
@@ -652,135 +666,244 @@ export const featureCardRowSection = defineType({
   },
 });
 
-// ---- Section block: Customizer ("Fully Customizable UI") ----
-//
-// Single big interactive customizer: left sidebar nav (Playground / live
-// example tabs) + center preview + right control panel.
+export const featureCustomizerPlayground = defineType({
+  name: "featureCustomizerPlayground",
+  title: "Customizer Playground Tab",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      title: "Label",
+      type: "string",
+      initialValue: "Playground",
+    }),
+    defineField({
+      name: "iconImage",
+      title: "Icon",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({
+      name: "previewImage",
+      title: "Preview Image",
+      type: "image",
+      options: { hotspot: false },
+    }),
+  ],
+});
+
+export const featureCustomizerExample = defineType({
+  name: "featureCustomizerExample",
+  title: "Customizer Example Tab",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      title: "Label",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "iconImage",
+      title: "Icon",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({
+      name: "previewImage",
+      title: "Preview Image",
+      type: "image",
+      options: { hotspot: false },
+    }),
+  ],
+  preview: { select: { title: "label", media: "iconImage" } },
+});
+
+export const featureCustomizerControls = defineType({
+  name: "featureCustomizerControls",
+  title: "Customizer Right Panel Controls",
+  type: "object",
+  fields: [
+    defineField({
+      name: "colors",
+      title: "Mode Colors",
+      type: "array",
+      of: [{ type: "string" }],
+      description:
+        'Hex strings, e.g. "#FFCD2E", "#3DB7E4", "#625DF5", "#E934BF".',
+    }),
+    defineField({
+      name: "onTheEdgeValue",
+      title: '"On the edge" input value',
+      type: "string",
+      initialValue: "/comments",
+    }),
+    defineField({
+      name: "loggedInToggleLabel",
+      title: "Logged-in toggle label",
+      type: "string",
+      initialValue: "Logged In/Out",
+    }),
+    defineField({
+      name: "parentDefaultLabel",
+      title: "Parent / Default toggle label",
+      type: "string",
+      initialValue: "Parent / Default",
+    }),
+  ],
+});
+
+// ---- Section block: Customizer ----
 export const featureCustomizerSection = defineType({
   name: "featureCustomizerSection",
   title: "UI Customizer",
   type: "object",
   fields: [
     defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
-    defineField({ name: "heading", title: "Heading", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
     defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
     defineField({
       name: "playground",
       title: "Playground tab",
-      type: "object",
-      fields: [
-        defineField({ name: "label", title: "Label", type: "string", initialValue: "Playground" }),
-        defineField({ name: "iconImage", title: "Icon", type: "image", options: { hotspot: false } }),
-        defineField({ name: "previewImage", title: "Preview Image", type: "image", options: { hotspot: false } }),
-      ],
+      type: "featureCustomizerPlayground",
     }),
     defineField({
       name: "examples",
       title: "Live Example tabs",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "label", title: "Label", type: "string", validation: (r) => r.required() }),
-            defineField({ name: "iconImage", title: "Icon", type: "image", options: { hotspot: false } }),
-            defineField({ name: "previewImage", title: "Preview Image", type: "image", options: { hotspot: false } }),
-          ],
-          preview: { select: { title: "label", media: "iconImage" } },
-        },
-      ],
+      of: [{ type: "featureCustomizerExample" }],
     }),
     defineField({
       name: "controls",
       title: "Right Panel Controls",
       description:
         "Color picker, edge input, login toggle, and parent-default toggle. All optional.",
-      type: "object",
-      fields: [
-        defineField({
-          name: "colors",
-          title: "Mode Colors",
-          type: "array",
-          of: [{ type: "string" }],
-          description: 'Hex strings, e.g. "#FFCD2E", "#3DB7E4", "#625DF5", "#E934BF".',
-        }),
-        defineField({ name: "onTheEdgeValue", title: '"On the edge" input value', type: "string", initialValue: "/comments" }),
-        defineField({ name: "loggedInToggleLabel", title: "Logged-in toggle label", type: "string", initialValue: "Logged In/Out" }),
-        defineField({ name: "parentDefaultLabel", title: "Parent / Default toggle label", type: "string", initialValue: "Parent / Default" }),
-      ],
+      type: "featureCustomizerControls",
     }),
   ],
   preview: {
     select: { title: "heading" },
-    prepare: ({ title }) => ({ title: `Customizer: ${title ?? "(untitled)"}` }),
+    prepare: ({ title }) => ({
+      title: `Customizer: ${title ?? "(untitled)"}`,
+    }),
   },
 });
 
-// ---- Section block: Flow Diagram ("REST APIs and Webhooks") ----
-//
-// Single full-width white card with a horizontal sequence of pill stages
-// connected by dotted lines. Each stage is a colored pill with an icon
-// and label.
+export const featureFlowCarouselLogo = defineType({
+  name: "featureFlowCarouselLogo",
+  title: "Flow Carousel Logo",
+  type: "object",
+  fields: [
+    defineField({
+      name: "logo",
+      title: "Logo",
+      type: "image",
+      options: { hotspot: false },
+      validation: (r) => r.required(),
+    }),
+    defineField({ name: "alt", title: "Alt text", type: "string" }),
+  ],
+  preview: { select: { title: "alt", media: "logo" } },
+});
+
+export const featureFlowStage = defineType({
+  name: "featureFlowStage",
+  title: "Flow Stage",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      title: "Label",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "color",
+      title: "Color (hex)",
+      type: "string",
+      description:
+        'e.g. "#ff4f00" (orange), "#ffc12f" (yellow), "#0b353b" (dark green).',
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "labelColor",
+      title: "Label color (hex, optional)",
+      type: "string",
+      description:
+        'Defaults to the pill color. Override when the pill bg is light, e.g. "#111" on the yellow Transform pill.',
+    }),
+    defineField({
+      name: "logoImage",
+      title: "Logo (optional)",
+      type: "image",
+      options: { hotspot: false },
+      description:
+        "Replaces the text label when set, e.g. HubSpot wordmark.",
+    }),
+    defineField({
+      name: "isCarousel",
+      title: "Logo carousel",
+      type: "boolean",
+      description:
+        "When true, the right side of the pill renders a static partner-logo column (top portion visible, bottom faded to white).",
+    }),
+    defineField({
+      name: "carouselLogos",
+      title: "Carousel logos",
+      type: "array",
+      description:
+        "Partner logos rendered in the column when 'Logo carousel' is on. Top of the list shows fully; lower entries are clipped by the bottom fade.",
+      of: [{ type: "featureFlowCarouselLogo" }],
+    }),
+  ],
+  preview: { select: { title: "label", media: "logoImage" } },
+});
+
+// ---- Section block: Flow Diagram ----
 export const featureFlowDiagramSection = defineType({
   name: "featureFlowDiagramSection",
   title: "Flow Diagram",
   type: "object",
   fields: [
     defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
-    defineField({ name: "heading", title: "Heading", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
     defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
     defineField({
       name: "stages",
       title: "Stages",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "label", title: "Label", type: "string", validation: (r) => r.required() }),
-            defineField({ name: "color", title: "Color (hex)", type: "string", description: 'e.g. "#ff4f00" (orange), "#ffc12f" (yellow), "#0b353b" (dark green).', validation: (r) => r.required() }),
-            defineField({ name: "labelColor", title: "Label color (hex, optional)", type: "string", description: 'Defaults to the pill color. Override when the pill bg is light, e.g. "#111" on the yellow Transform pill.' }),
-            defineField({ name: "logoImage", title: "Logo (optional)", type: "image", options: { hotspot: false }, description: "Replaces the text label when set, e.g. HubSpot wordmark." }),
-            defineField({ name: "isCarousel", title: "Logo carousel", type: "boolean", description: "When true, the right side of the pill renders a static partner-logo column (top portion visible, bottom faded to white)." }),
-            defineField({
-              name: "carouselLogos",
-              title: "Carousel logos",
-              type: "array",
-              description: "Partner logos rendered in the column when 'Logo carousel' is on. Top of the list shows fully; lower entries are clipped by the bottom fade.",
-              of: [
-                {
-                  type: "object",
-                  fields: [
-                    defineField({ name: "logo", title: "Logo", type: "image", options: { hotspot: false }, validation: (r) => r.required() }),
-                    defineField({ name: "alt", title: "Alt text", type: "string" }),
-                  ],
-                  preview: { select: { title: "alt", media: "logo" } },
-                },
-              ],
-            }),
-          ],
-          preview: { select: { title: "label", media: "logoImage" } },
-        },
-      ],
+      of: [{ type: "featureFlowStage" }],
       validation: (rule) => rule.required().min(2).max(6),
     }),
     defineField({
       name: "inlineTestimonial",
       title: "Attached Inline Testimonial",
-      type: "object",
+      type: "inlineTestimonial",
       options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "name", title: "Name", type: "string" }),
-        defineField({ name: "role", title: "Role", type: "string" }),
-        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
-        defineField({ name: "accentFragment", title: "Accent Fragment", type: "string" }),
-        defineField({ name: "accentColor", title: "Accent Color", type: "string" }),
-        defineField({ name: "avatar", title: "Avatar", type: "image", options: { hotspot: true } }),
-      ],
     }),
   ],
   preview: {
@@ -789,29 +912,28 @@ export const featureFlowDiagramSection = defineType({
   },
 });
 
-// ---- Section block: Powerful Bento (asymmetric 4-card) ----
-//
-// "Powerful and Beautiful Commenting" (Figma 93:10527). Single-purpose
-// section with 4 fixed slots — each slot is permanently bound to a
-// specific React UI in FeaturePowerfulBento. Editors can only override
-// the title/description text. The testimonial renders as a SEPARATE
-// dark card below the bento.
-const POWERFUL_CARD_FIELDS = [
-  defineField({
-    name: "title",
-    title: "Title",
-    type: "string",
-    validation: (rule) => rule.required(),
-  }),
-  defineField({
-    name: "description",
-    title: "Description",
-    type: "text",
-    rows: 2,
-    validation: (rule) => rule.required(),
-  }),
-];
+export const featurePowerfulCard = defineType({
+  name: "featurePowerfulCard",
+  title: "Powerful Bento Card",
+  type: "object",
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 2,
+      validation: (rule) => rule.required(),
+    }),
+  ],
+});
 
+// ---- Section block: Powerful Bento (asymmetric 4-card) ----
 export const featurePowerfulBentoSection = defineType({
   name: "featurePowerfulBentoSection",
   title: "Powerful Bento (asymmetric 4-card)",
@@ -824,59 +946,49 @@ export const featurePowerfulBentoSection = defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
     defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
     defineField({
       name: "mentionsCard",
       title: "@mentions card",
-      type: "object",
+      type: "featurePowerfulCard",
       options: { collapsible: true, collapsed: false },
-      fields: POWERFUL_CARD_FIELDS,
     }),
     defineField({
       name: "tasksCard",
       title: "Task Management card",
-      type: "object",
+      type: "featurePowerfulCard",
       options: { collapsible: true, collapsed: false },
-      fields: POWERFUL_CARD_FIELDS,
     }),
     defineField({
       name: "recordingsCard",
       title: "Recordings card",
-      type: "object",
+      type: "featurePowerfulCard",
       options: { collapsible: true, collapsed: false },
-      fields: POWERFUL_CARD_FIELDS,
     }),
     defineField({
       name: "reactionsCard",
       title: "Reactions card",
-      type: "object",
+      type: "featurePowerfulCard",
       options: { collapsible: true, collapsed: false },
-      fields: POWERFUL_CARD_FIELDS,
     }),
     defineField({
       name: "inlineTestimonial",
       title: "Detached Testimonial (renders below the bento)",
-      type: "object",
+      type: "inlineTestimonial",
       options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "name", title: "Name", type: "string" }),
-        defineField({ name: "role", title: "Role", type: "string" }),
-        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
-        defineField({ name: "accentFragment", title: "Accent Fragment", type: "string" }),
-        defineField({
-          name: "accentColor",
-          title: "Accent Color",
-          type: "string",
-          description: 'Figma uses #b4b1fa (light purple) for this section.',
-        }),
-        defineField({ name: "avatar", title: "Avatar", type: "image", options: { hotspot: true } }),
-      ],
     }),
   ],
   preview: {
     select: { title: "heading" },
-    prepare: ({ title }) => ({ title: `Powerful Bento: ${title ?? "(untitled)"}` }),
+    prepare: ({ title }) => ({
+      title: `Powerful Bento: ${title ?? "(untitled)"}`,
+    }),
   },
 });

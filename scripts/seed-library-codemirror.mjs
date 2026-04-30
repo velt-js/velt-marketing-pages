@@ -88,11 +88,9 @@ async function main() {
     tagline:
       "Add comments, notifications, cursors, and multiplayer editing to CodeMirror in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for CodeMirror | Velt",
-      metaDescription:
-        "Add comments, notifications, cursors, and multiplayer editing to CodeMirror in minutes.",
-    },
+    metaTitle: "Collaboration Toolkit for CodeMirror | Velt",
+    metaDescription:
+      "Add comments, notifications, cursors, and multiplayer editing to CodeMirror in minutes.",
     hero: {
       heading: "Collaboration Toolkit for CodeMirror",
       subheading:

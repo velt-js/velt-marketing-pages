@@ -80,11 +80,9 @@ async function main() {
     category: "Text Editor",
     tagline: "Add comments, notifications, cursors, and multiplayer editing to Slate in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for SlateJS | Velt",
-      metaDescription:
-        "Add comments, notifications, cursors, and multiplayer editing to Slate in minutes. Velt's SlateJS integration ships as a single plugin.",
-    },
+    metaTitle: "Collaboration Toolkit for SlateJS | Velt",
+    metaDescription:
+      "Add comments, notifications, cursors, and multiplayer editing to Slate in minutes. Velt's SlateJS integration ships as a single plugin.",
     hero: {
       heading: "Collaboration Toolkit for SlateJS",
       subheading:

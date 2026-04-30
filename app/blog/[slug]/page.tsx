@@ -14,8 +14,8 @@ export async function generateMetadata({
   const post = await getBlogPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Velt Blog`,
-    description: post.seo?.metaDescription || post.description,
+    title: post.metaTitle || `${post.title} | Velt Blog`,
+    description: post.metaDescription || post.description,
   };
 }
 
@@ -72,6 +72,20 @@ export default async function BlogPostPage({
         <div className="prose-invert max-w-none">
           <PortableTextRenderer value={post.body} />
         </div>
+      )}
+
+      {/* JSON-LD structured data */}
+      {post.blogPostingSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: post.blogPostingSchema }}
+        />
+      )}
+      {post.faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: post.faqSchema }}
+        />
       )}
 
       {/* Bottom CTA */}

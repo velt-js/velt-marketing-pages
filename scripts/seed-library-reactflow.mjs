@@ -109,11 +109,9 @@ async function main() {
     tagline:
       "Add comments, notifications, cursors, and multiplayer editing to React Flow in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for React Flow | Velt",
-      metaDescription:
-        "Add comments, notifications, cursors, and multiplayer editing to React Flow in minutes",
-    },
+    metaTitle: "Collaboration Toolkit for React Flow | Velt",
+    metaDescription:
+      "Add comments, notifications, cursors, and multiplayer editing to React Flow in minutes",
     hero: {
       heading: "Collaboration Toolkit for React Flow",
       subheading:

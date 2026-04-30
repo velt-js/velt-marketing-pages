@@ -111,11 +111,9 @@ async function main() {
     tagline:
       "Add comments, notifications, and review workflows to Nivo charts in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for Nivo Charts | Velt",
-      metaDescription:
-        "Add comments, notifications, and review workflows to Nivo charts in minutes",
-    },
+    metaTitle: "Collaboration Toolkit for Nivo Charts | Velt",
+    metaDescription:
+      "Add comments, notifications, and review workflows to Nivo charts in minutes",
     hero: {
       heading: "Collaboration Toolkit for Nivo Charts",
       subheading:

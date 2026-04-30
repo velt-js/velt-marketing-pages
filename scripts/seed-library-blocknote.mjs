@@ -85,11 +85,9 @@ async function main() {
     tagline:
       "Add comments, notifications, cursors, and multiplayer editing to BlockNote in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for BlockNote | Velt",
-      metaDescription:
-        "Add comments, notifications, cursors, and multiplayer editing to BlockNote in minutes. Velt's BlockNote integration ships as a single extension.",
-    },
+    metaTitle: "Collaboration Toolkit for BlockNote | Velt",
+    metaDescription:
+      "Add comments, notifications, cursors, and multiplayer editing to BlockNote in minutes. Velt's BlockNote integration ships as a single extension.",
     hero: {
       heading: "Collaboration Toolkit for BlockNote",
       subheading:

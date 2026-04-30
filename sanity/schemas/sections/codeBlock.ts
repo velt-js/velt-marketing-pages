@@ -1,4 +1,35 @@
-import { defineType, defineField, defineArrayMember } from "sanity";
+import { defineType, defineField } from "sanity";
+
+export const codeTab = defineType({
+  name: "codeTab",
+  title: "Code Tab",
+  type: "object",
+  fields: [
+    defineField({ name: "label", title: "Tab Label", type: "string" }),
+    defineField({ name: "filename", title: "Filename", type: "string" }),
+    defineField({
+      name: "code",
+      title: "Code",
+      type: "code",
+      options: {
+        withFilename: false,
+        languageAlternatives: [
+          { title: "TypeScript", value: "typescript" },
+          { title: "JavaScript", value: "javascript" },
+          { title: "TSX", value: "tsx" },
+          { title: "JSX", value: "jsx" },
+          { title: "HTML", value: "html" },
+          { title: "CSS", value: "css" },
+          { title: "JSON", value: "json" },
+          { title: "Bash", value: "bash" },
+        ],
+      },
+    }),
+  ],
+  preview: {
+    select: { title: "label", subtitle: "filename" },
+  },
+});
 
 // Code block section with optional tabs. Each tab uses @sanity/code-input
 // (registered in sanity.config.ts) for language-aware editing.
@@ -8,43 +39,19 @@ export const sectionCodeBlock = defineType({
   type: "object",
   fields: [
     defineField({ name: "heading", title: "Heading", type: "string" }),
-    defineField({ name: "description", title: "Description", type: "text", rows: 2 }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 2,
+    }),
     defineField({
       name: "tabs",
       title: "Tabs",
-      description: "One tab = one code snippet. A single tab renders without tab UI.",
+      description:
+        "One tab = one code snippet. A single tab renders without tab UI.",
       type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          name: "codeTab",
-          fields: [
-            { name: "label", title: "Tab Label", type: "string" },
-            { name: "filename", title: "Filename", type: "string" },
-            {
-              name: "code",
-              title: "Code",
-              type: "code",
-              options: {
-                withFilename: false,
-                languageAlternatives: [
-                  { title: "TypeScript", value: "typescript" },
-                  { title: "JavaScript", value: "javascript" },
-                  { title: "TSX", value: "tsx" },
-                  { title: "JSX", value: "jsx" },
-                  { title: "HTML", value: "html" },
-                  { title: "CSS", value: "css" },
-                  { title: "JSON", value: "json" },
-                  { title: "Bash", value: "bash" },
-                ],
-              },
-            },
-          ],
-          preview: {
-            select: { title: "label", subtitle: "filename" },
-          },
-        }),
-      ],
+      of: [{ type: "codeTab" }],
       validation: (rule) => rule.min(1),
     }),
   ],

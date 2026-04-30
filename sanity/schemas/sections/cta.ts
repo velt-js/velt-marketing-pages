@@ -1,11 +1,5 @@
 import { defineType, defineField } from "sanity";
 
-const ctaFields = [
-  { name: "label", title: "Label", type: "string" },
-  { name: "href", title: "URL", type: "string" },
-  { name: "newTab", title: "Open in new tab", type: "boolean" },
-];
-
 export const sectionCta = defineType({
   name: "sectionCta",
   title: "Call to Action",
@@ -17,18 +11,21 @@ export const sectionCta = defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({ name: "description", title: "Description", type: "text", rows: 2 }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 2,
+    }),
     defineField({
       name: "primaryCta",
       title: "Primary Button",
-      type: "object",
-      fields: ctaFields,
+      type: "ctaLink",
     }),
     defineField({
       name: "secondaryCta",
       title: "Secondary Button",
-      type: "object",
-      fields: ctaFields,
+      type: "ctaLink",
     }),
     defineField({
       name: "background",

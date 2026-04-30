@@ -91,11 +91,9 @@ type LibraryPageDoc = {
   };
   getStartedSteps: { step1PackageName: string };
   faq?: { items?: FaqEntry[] };
-  pageMeta?: {
-    metaTitle?: string;
-    metaDescription?: string;
-    ogImage?: string;
-  };
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: string;
 };
 
 function resolveIllustration(key?: IllustrationKey | null): ReactNode {
@@ -127,12 +125,9 @@ export async function generateMetadata({
   const doc = (await getLibraryPageBySlug(slug)) as LibraryPageDoc | null;
   if (!doc) return {};
   return {
-    title:
-      doc.pageMeta?.metaTitle ?? `${doc.hero.heading} | Velt`,
-    description: doc.pageMeta?.metaDescription ?? doc.hero.subheading,
-    openGraph: doc.pageMeta?.ogImage
-      ? { images: [{ url: doc.pageMeta.ogImage }] }
-      : undefined,
+    title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
+    description: doc.metaDescription ?? doc.hero.subheading,
+    openGraph: doc.ogImage ? { images: [{ url: doc.ogImage }] } : undefined,
   };
 }
 

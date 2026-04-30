@@ -31,7 +31,11 @@ export async function getBlogPostBySlug(slug: string) {
       "author": author->{ name, role, "avatar": avatar.asset->url },
       "featuredImage": featuredImage.asset->url,
       body,
-      seo
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url,
+      faqSchema,
+      blogPostingSchema
     }
   `,
     { slug }
@@ -52,7 +56,9 @@ export async function getMarketingPageBySlug(slug: string) {
       testimonials,
       pricingTiers,
       body,
-      seo
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
     }
   `,
     { slug }
@@ -161,11 +167,9 @@ export async function getLibraryPageBySlug(slug: string) {
           answer
         }
       },
-      pageMeta {
-        metaTitle,
-        metaDescription,
-        "ogImage": ogImage.asset->url
-      }
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
     }
   `,
     { slug }
@@ -308,11 +312,9 @@ export async function getFeaturePageBySlug(slug: string) {
           answer
         }
       },
-      pageMeta {
-        metaTitle,
-        metaDescription,
-        "ogImage": ogImage.asset->url
-      }
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
     }
   `,
     { slug }

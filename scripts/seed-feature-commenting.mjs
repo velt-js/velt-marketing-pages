@@ -125,11 +125,9 @@ async function main() {
     slug: { _type: "slug", current: "comments" },
     category: "Async",
     tagline: "Build commenting into your product.",
-    pageMeta: {
-      metaTitle: "Comments | Velt",
-      metaDescription:
-        "Build commenting into your product. Drop-in mentions, threads, recordings, reactions, notifications, and more — fully customizable.",
-    },
+    metaTitle: "Comments | Velt",
+    metaDescription:
+      "Build commenting into your product. Drop-in mentions, threads, recordings, reactions, notifications, and more — fully customizable.",
     hero: {
       heading: "Build Commenting into your product",
       subheading: "Let users communicate natively in your app",

@@ -102,11 +102,9 @@ async function main() {
     tagline:
       "Add comments, notifications, and review workflows to Chart.js in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for Chart.js | Velt",
-      metaDescription:
-        "Add comments, notifications, and review workflows to Chart.js in minutes.",
-    },
+    metaTitle: "Collaboration Toolkit for Chart.js | Velt",
+    metaDescription:
+      "Add comments, notifications, and review workflows to Chart.js in minutes.",
     hero: {
       heading: "Collaboration Toolkit for Chart.js",
       subheading:

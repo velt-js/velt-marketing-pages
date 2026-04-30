@@ -84,11 +84,9 @@ async function main() {
     category: "Text Editor",
     tagline: "Add comments, notifications, cursors, and multiplayer editing to Tiptap in minutes.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for Tiptap | Velt",
-      metaDescription:
-        "Add comments, notifications, cursors, and multiplayer editing to Tiptap in minutes. Velt's Tiptap integration ships as a single extension.",
-    },
+    metaTitle: "Collaboration Toolkit for Tiptap | Velt",
+    metaDescription:
+      "Add comments, notifications, cursors, and multiplayer editing to Tiptap in minutes. Velt's Tiptap integration ships as a single extension.",
     hero: {
       heading: "Collaboration Toolkit for Tiptap",
       subheading:

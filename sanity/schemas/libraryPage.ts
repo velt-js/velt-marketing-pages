@@ -14,6 +14,215 @@ import {
 // components/library/shared-content.ts and are appended at render time.
 //
 // To populate a new library, run scripts/seed-library-<slug>.mjs.
+
+export const libraryHero = defineType({
+  name: "libraryHero",
+  title: "Library Hero",
+  type: "object",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "decorated",
+      title: "Decorated background",
+      description:
+        "Pixel-grid background + Sean/Emma cursor overlays. Default for per-library pages.",
+      type: "boolean",
+      initialValue: true,
+    }),
+    defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
+    defineField({
+      name: "secondaryCta",
+      title: "Secondary CTA",
+      type: "ctaLink",
+    }),
+  ],
+});
+
+export const libraryDemoStage = defineType({
+  name: "libraryDemoStage",
+  title: "Library Demo Stage",
+  type: "object",
+  fields: [
+    defineField({
+      name: "label",
+      title: "Library Label",
+      description: 'Used in alt text and aria, e.g. "Yjs".',
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "demoUrl",
+      title: "Demo URL",
+      description: "URL the iframe loads when the user clicks TRY DEMO.",
+      type: "url",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "githubUrl",
+      title: "GitHub URL",
+      type: "url",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "previewImage",
+      title: "Preview Image",
+      description: "Static screenshot shown before TRY DEMO is clicked.",
+      type: "image",
+      options: { hotspot: true },
+      validation: (rule) => rule.required(),
+    }),
+  ],
+});
+
+export const libraryBento = defineType({
+  name: "libraryBento",
+  title: "Library Bento",
+  type: "object",
+  fields: [
+    defineField({
+      name: "eyebrow",
+      title: "Eyebrow",
+      description:
+        'Small all-caps purple pill, e.g. "No Custom Logic Required".',
+      type: "string",
+    }),
+    defineField({
+      name: "heading",
+      title: "Heading",
+      description: 'e.g. "Built for Yjs"',
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
+    defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
+    defineField({
+      name: "rowHeights",
+      title: "Row Heights (px)",
+      description:
+        "Explicit row heights for the 2-column grid. Length determines row count and must equal cards.length / 2. Defaults to [493, 429, 424, 424] (tiptap/yjs) when omitted.",
+      type: "array",
+      of: [{ type: "number" }],
+    }),
+    defineField({
+      name: "cards",
+      title: "Cards (paired into 2 columns)",
+      description:
+        "Cards must come in pairs (2 columns). Total cards = rowHeights.length × 2 if rowHeights is set; otherwise must equal 8.",
+      type: "array",
+      of: [{ type: "bentoCard" }],
+      validation: (rule) =>
+        rule
+          .required()
+          .min(2)
+          .custom((cards) =>
+            Array.isArray(cards) && cards.length % 2 === 0
+              ? true
+              : "Bento cards must come in pairs (2 columns).",
+          ),
+    }),
+  ],
+});
+
+export const libraryCodeSnippet = defineType({
+  name: "libraryCodeSnippet",
+  title: "Inline Code Snippet",
+  type: "object",
+  fields: [
+    defineField({ name: "code", title: "Code", type: "text", rows: 12 }),
+    defineField({
+      name: "language",
+      title: "Language",
+      description:
+        'e.g. "tsx", "ts", "js". Used as a className on the <code> element.',
+      type: "string",
+    }),
+  ],
+});
+
+export const libraryGetStartedCallout = defineType({
+  name: "libraryGetStartedCallout",
+  title: "Get-Started Callout",
+  type: "object",
+  fields: [
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "body",
+      title: "Body",
+      type: "text",
+      rows: 2,
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "viewDocsHref",
+      title: "View Docs URL",
+      type: "url",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "getApiKeyHref",
+      title: "Get API Key URL",
+      type: "url",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "codeImage",
+      title: "Code Snippet Image",
+      description:
+        "PNG/SVG render of the setup code. Rendered max-width 1280. Takes precedence over codeSnippet if both are set.",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({
+      name: "codeImageAlt",
+      title: "Code Image Alt Text",
+      type: "string",
+    }),
+    defineField({
+      name: "codeSnippet",
+      title: "Inline Code Snippet",
+      description:
+        "Renders as a <pre> block when no codeImage is set. Use this when you want the code as text instead of a PNG.",
+      type: "libraryCodeSnippet",
+    }),
+  ],
+});
+
+export const libraryFaq = defineType({
+  name: "libraryFaq",
+  title: "Library FAQ",
+  type: "object",
+  fields: [
+    defineField({
+      name: "items",
+      title: "Items",
+      type: "array",
+      of: [{ type: "faqItem" }],
+    }),
+  ],
+});
+
 export const libraryPage = defineType({
   name: "libraryPage",
   title: "Library Page",
@@ -51,7 +260,8 @@ export const libraryPage = defineType({
     defineField({
       name: "category",
       title: "Category",
-      description: 'Filter chip on /libraries (e.g. "Text Editor", "Charts", "Canvas").',
+      description:
+        'Filter chip on /libraries (e.g. "Text Editor", "Charts", "Canvas").',
       type: "string",
       group: "identity",
       options: {
@@ -78,345 +288,82 @@ export const libraryPage = defineType({
       options: { hotspot: false },
     }),
 
-    // ---- Hero (PageHero) ----
     defineField({
       name: "hero",
       title: "Hero",
-      type: "object",
+      type: "libraryHero",
       group: "hero",
       options: { collapsible: true, collapsed: false },
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Heading",
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "subheading",
-          title: "Subheading",
-          type: "text",
-          rows: 3,
-        }),
-        defineField({
-          name: "decorated",
-          title: "Decorated background",
-          description:
-            "Pixel-grid background + Sean/Emma cursor overlays. Default for per-library pages.",
-          type: "boolean",
-          initialValue: true,
-        }),
-        defineField({
-          name: "primaryCta",
-          title: "Primary CTA",
-          type: "ctaLink",
-        }),
-        defineField({
-          name: "secondaryCta",
-          title: "Secondary CTA",
-          type: "ctaLink",
-        }),
-      ],
     }),
 
-    // ---- Demo Stage (LibraryDemoStage) ----
     defineField({
       name: "demoStage",
       title: "Demo Stage",
-      type: "object",
+      type: "libraryDemoStage",
       group: "demo",
       options: { collapsible: true, collapsed: false },
-      fields: [
-        defineField({
-          name: "label",
-          title: "Library Label",
-          description: 'Used in alt text and aria, e.g. "Yjs".',
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "demoUrl",
-          title: "Demo URL",
-          description:
-            "URL the iframe loads when the user clicks TRY DEMO.",
-          type: "url",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "githubUrl",
-          title: "GitHub URL",
-          type: "url",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "previewImage",
-          title: "Preview Image",
-          description: "Static screenshot shown before TRY DEMO is clicked.",
-          type: "image",
-          options: { hotspot: true },
-          validation: (rule) => rule.required(),
-        }),
-      ],
     }),
 
-    // ---- Built-for Bento (LibraryBento) ----
     defineField({
       name: "bento",
       title: "Built-for Bento",
-      type: "object",
+      type: "libraryBento",
       group: "bento",
       options: { collapsible: true, collapsed: false },
-      fields: [
-        defineField({
-          name: "eyebrow",
-          title: "Eyebrow",
-          description: 'Small all-caps purple pill, e.g. "No Custom Logic Required".',
-          type: "string",
-        }),
-        defineField({
-          name: "heading",
-          title: "Heading",
-          description: 'e.g. "Built for Yjs"',
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "subheading",
-          title: "Subheading",
-          type: "text",
-          rows: 3,
-        }),
-        defineField({
-          name: "viewDocsCta",
-          title: "View Docs CTA",
-          type: "ctaLink",
-        }),
-        defineField({
-          name: "primaryCta",
-          title: "Primary CTA",
-          type: "ctaLink",
-        }),
-        defineField({
-          name: "rowHeights",
-          title: "Row Heights (px)",
-          description:
-            "Explicit row heights for the 2-column grid. Length determines row count and must equal cards.length / 2. Defaults to [493, 429, 424, 424] (tiptap/yjs) when omitted.",
-          type: "array",
-          of: [{ type: "number" }],
-        }),
-        defineField({
-          name: "cards",
-          title: "Cards (paired into 2 columns)",
-          description:
-            "Cards must come in pairs (2 columns). Total cards = rowHeights.length × 2 if rowHeights is set; otherwise must equal 8.",
-          type: "array",
-          of: [{ type: "bentoCard" }],
-          validation: (rule) =>
-            rule
-              .required()
-              .min(2)
-              .custom((cards) =>
-                Array.isArray(cards) && cards.length % 2 === 0
-                  ? true
-                  : "Bento cards must come in pairs (2 columns).",
-              ),
-        }),
-      ],
     }),
 
-    // ---- Inline Testimonial (TestimonialStrip in a 824-wide dark card) ----
     defineField({
       name: "inlineTestimonial",
       title: "Inline Testimonial",
       description:
         "Mid-page testimonial card that sits between the bento and the get-started callout.",
-      type: "object",
+      type: "inlineTestimonial",
       group: "testimonial",
       options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({ name: "name", title: "Name", type: "string" }),
-        defineField({
-          name: "role",
-          title: "Role",
-          description: 'e.g. "CTO @eqtble"',
-          type: "string",
-        }),
-        defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
-        defineField({
-          name: "accentFragment",
-          title: "Accent Fragment",
-          description:
-            "Substring of the quote rendered in accent color. Must appear verbatim in the quote.",
-          type: "string",
-        }),
-        defineField({
-          name: "accentColor",
-          title: "Accent Color",
-          description: "Hex color, e.g. #0085ff",
-          type: "string",
-        }),
-        defineField({
-          name: "avatar",
-          title: "Avatar",
-          type: "image",
-          options: { hotspot: true },
-        }),
-      ],
     }),
 
-    // ---- Get-Started Callout (LibraryGetStartedCallout) ----
     defineField({
       name: "getStartedCallout",
       title: "Get-Started Callout",
-      type: "object",
+      type: "libraryGetStartedCallout",
       group: "callout",
       options: { collapsible: true, collapsed: false },
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Heading",
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "body",
-          title: "Body",
-          type: "text",
-          rows: 2,
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "viewDocsHref",
-          title: "View Docs URL",
-          type: "url",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "getApiKeyHref",
-          title: "Get API Key URL",
-          type: "url",
-          validation: (rule) => rule.required(),
-        }),
-        defineField({
-          name: "codeImage",
-          title: "Code Snippet Image",
-          description:
-            "PNG/SVG render of the setup code. Rendered max-width 1280. Takes precedence over codeSnippet if both are set.",
-          type: "image",
-          options: { hotspot: false },
-        }),
-        defineField({
-          name: "codeImageAlt",
-          title: "Code Image Alt Text",
-          type: "string",
-        }),
-        defineField({
-          name: "codeSnippet",
-          title: "Inline Code Snippet",
-          description:
-            "Renders as a <pre> block when no codeImage is set. Use this when you want the code as text instead of a PNG.",
-          type: "object",
-          fields: [
-            defineField({
-              name: "code",
-              title: "Code",
-              type: "text",
-              rows: 12,
-            }),
-            defineField({
-              name: "language",
-              title: "Language",
-              description:
-                'e.g. "tsx", "ts", "js". Used as a className on the <code> element.',
-              type: "string",
-            }),
-          ],
-        }),
-      ],
     }),
 
-    // ---- Get Started Steps (GetStartedSteps) ----
     defineField({
       name: "getStartedSteps",
       title: "Get Started Steps",
-      type: "object",
+      type: "getStartedSteps",
       group: "steps",
-      fields: [
-        defineField({
-          name: "step1PackageName",
-          title: "Step 1 npm package",
-          description: 'e.g. "@veltdev/tiptap-collab"',
-          type: "string",
-          validation: (rule) => rule.required(),
-        }),
-      ],
     }),
 
-    // ---- Library-specific FAQ (sharedFAQ is appended at render time) ----
     defineField({
       name: "faq",
       title: "FAQ (library-specific)",
       description:
         "Library-specific Q&A. Rendered before the 4 shared general Q&A from components/library/shared-content.ts.",
-      type: "object",
+      type: "libraryFaq",
       group: "faq",
-      fields: [
-        defineField({
-          name: "items",
-          title: "Items",
-          type: "array",
-          of: [
-            {
-              type: "object",
-              fields: [
-                defineField({
-                  name: "question",
-                  title: "Question",
-                  type: "string",
-                  validation: (rule) => rule.required(),
-                }),
-                defineField({
-                  name: "answer",
-                  title: "Answer",
-                  type: "text",
-                  rows: 5,
-                  validation: (rule) => rule.required(),
-                }),
-              ],
-              preview: {
-                select: { title: "question" },
-              },
-            },
-          ],
-        }),
-      ],
     }),
 
-    // ---- SEO ----
     defineField({
-      name: "pageMeta",
-      title: "SEO",
-      type: "object",
+      name: "metaTitle",
+      title: "Meta Title",
+      type: "string",
       group: "seo",
-      options: { collapsible: true, collapsed: true },
-      fields: [
-        defineField({
-          name: "metaTitle",
-          title: "Meta Title",
-          type: "string",
-        }),
-        defineField({
-          name: "metaDescription",
-          title: "Meta Description",
-          type: "text",
-          rows: 2,
-        }),
-        defineField({
-          name: "ogImage",
-          title: "OG Image",
-          type: "image",
-        }),
-      ],
+    }),
+    defineField({
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "text",
+      rows: 2,
+      group: "seo",
+    }),
+    defineField({
+      name: "ogImage",
+      title: "OG Image",
+      type: "image",
+      group: "seo",
     }),
   ],
   orderings: [

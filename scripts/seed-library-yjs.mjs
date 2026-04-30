@@ -73,11 +73,9 @@ async function main() {
     category: "Text Editor",
     tagline: "Run Yjs apps without building or operating realtime infrastructure.",
     logo,
-    pageMeta: {
-      metaTitle: "Collaboration Toolkit for YJS | Velt",
-      metaDescription:
-        "Run Yjs apps without building or operating realtime infrastructure.",
-    },
+    metaTitle: "Collaboration Toolkit for YJS | Velt",
+    metaDescription:
+      "Run Yjs apps without building or operating realtime infrastructure.",
     hero: {
       heading: "Collaboration Toolkit for YJS",
       subheading:

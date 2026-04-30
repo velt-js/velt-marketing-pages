@@ -1,4 +1,28 @@
-import { defineType, defineField, defineArrayMember } from "sanity";
+import { defineType, defineField } from "sanity";
+
+export const featureItem = defineType({
+  name: "featureItem",
+  title: "Feature Item",
+  type: "object",
+  fields: [
+    defineField({ name: "title", title: "Title", type: "string" }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "icon",
+      title: "Icon",
+      type: "image",
+      options: { hotspot: false },
+    }),
+  ],
+  preview: {
+    select: { title: "title", subtitle: "description", media: "icon" },
+  },
+});
 
 export const sectionFeatureGrid = defineType({
   name: "sectionFeatureGrid",
@@ -6,25 +30,17 @@ export const sectionFeatureGrid = defineType({
   type: "object",
   fields: [
     defineField({ name: "heading", title: "Heading", type: "string" }),
-    defineField({ name: "subheading", title: "Subheading", type: "text", rows: 2 }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
     defineField({
       name: "items",
       title: "Feature Cards",
       type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          name: "featureItem",
-          fields: [
-            { name: "title", title: "Title", type: "string" },
-            { name: "description", title: "Description", type: "text", rows: 3 },
-            { name: "icon", title: "Icon", type: "image", options: { hotspot: false } },
-          ],
-          preview: {
-            select: { title: "title", subtitle: "description", media: "icon" },
-          },
-        }),
-      ],
+      of: [{ type: "featureItem" }],
       validation: (rule) => rule.min(1).max(6),
     }),
   ],

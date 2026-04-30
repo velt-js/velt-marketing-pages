@@ -1,5 +1,101 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
 
+export const marketingHeroCta = defineType({
+  name: "marketingHeroCta",
+  title: "Hero CTA",
+  type: "object",
+  fields: [
+    defineField({ name: "label", title: "Label", type: "string" }),
+    defineField({ name: "href", title: "URL", type: "string" }),
+    defineField({
+      name: "variant",
+      title: "Variant",
+      type: "string",
+      options: { list: ["primary", "secondary"] },
+    }),
+  ],
+});
+
+export const marketingHero = defineType({
+  name: "marketingHero",
+  title: "Hero",
+  type: "object",
+  fields: [
+    defineField({ name: "subtitle", title: "Subtitle", type: "string" }),
+    defineField({ name: "heading", title: "Heading", type: "string" }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "ctas",
+      title: "CTA Buttons",
+      type: "array",
+      of: [{ type: "marketingHeroCta" }],
+    }),
+  ],
+});
+
+export const marketingFeature = defineType({
+  name: "marketingFeature",
+  title: "Feature",
+  type: "object",
+  fields: [
+    defineField({ name: "title", title: "Title", type: "string" }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({ name: "icon", title: "Icon", type: "image" }),
+  ],
+  preview: {
+    select: { title: "title", subtitle: "description" },
+  },
+});
+
+export const marketingTestimonial = defineType({
+  name: "marketingTestimonial",
+  title: "Testimonial",
+  type: "object",
+  fields: [
+    defineField({ name: "quote", title: "Quote", type: "text", rows: 3 }),
+    defineField({ name: "author", title: "Author Name", type: "string" }),
+    defineField({ name: "role", title: "Role", type: "string" }),
+    defineField({ name: "avatar", title: "Avatar", type: "image" }),
+  ],
+  preview: {
+    select: { title: "author", subtitle: "role" },
+  },
+});
+
+export const marketingPricingTier = defineType({
+  name: "marketingPricingTier",
+  title: "Pricing Tier",
+  type: "object",
+  fields: [
+    defineField({ name: "name", title: "Tier Name", type: "string" }),
+    defineField({ name: "price", title: "Price", type: "string" }),
+    defineField({ name: "period", title: "Period", type: "string" }),
+    defineField({ name: "description", title: "Description", type: "string" }),
+    defineField({ name: "highlighted", title: "Highlighted", type: "boolean" }),
+    defineField({ name: "ctaLabel", title: "CTA Label", type: "string" }),
+    defineField({ name: "ctaHref", title: "CTA URL", type: "string" }),
+    defineField({
+      name: "features",
+      title: "Features",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+  ],
+  preview: {
+    select: { title: "name", subtitle: "price" },
+  },
+});
+
 export const marketingPage = defineType({
   name: "marketingPage",
   title: "Marketing Page",
@@ -39,92 +135,25 @@ export const marketingPage = defineType({
     defineField({
       name: "hero",
       title: "Hero Section",
-      type: "object",
-      fields: [
-        { name: "subtitle", title: "Subtitle", type: "string" },
-        { name: "heading", title: "Heading", type: "string" },
-        { name: "description", title: "Description", type: "text", rows: 3 },
-        {
-          name: "ctas",
-          title: "CTA Buttons",
-          type: "array",
-          of: [
-            {
-              type: "object",
-              fields: [
-                { name: "label", title: "Label", type: "string" },
-                { name: "href", title: "URL", type: "string" },
-                { name: "variant", title: "Variant", type: "string", options: { list: ["primary", "secondary"] } },
-              ],
-            },
-          ],
-        },
-      ],
+      type: "marketingHero",
     }),
     defineField({
       name: "features",
       title: "Features",
       type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          fields: [
-            { name: "title", title: "Title", type: "string" },
-            { name: "description", title: "Description", type: "text", rows: 2 },
-            { name: "icon", title: "Icon", type: "image" },
-          ],
-          preview: {
-            select: { title: "title", subtitle: "description" },
-          },
-        }),
-      ],
+      of: [defineArrayMember({ type: "marketingFeature" })],
     }),
     defineField({
       name: "testimonials",
       title: "Testimonials",
       type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          fields: [
-            { name: "quote", title: "Quote", type: "text", rows: 3 },
-            { name: "author", title: "Author Name", type: "string" },
-            { name: "role", title: "Role", type: "string" },
-            { name: "avatar", title: "Avatar", type: "image" },
-          ],
-          preview: {
-            select: { title: "author", subtitle: "role" },
-          },
-        }),
-      ],
+      of: [defineArrayMember({ type: "marketingTestimonial" })],
     }),
     defineField({
       name: "pricingTiers",
       title: "Pricing Tiers",
       type: "array",
-      of: [
-        defineArrayMember({
-          type: "object",
-          fields: [
-            { name: "name", title: "Tier Name", type: "string" },
-            { name: "price", title: "Price", type: "string" },
-            { name: "period", title: "Period", type: "string" },
-            { name: "description", title: "Description", type: "string" },
-            { name: "highlighted", title: "Highlighted", type: "boolean" },
-            { name: "ctaLabel", title: "CTA Label", type: "string" },
-            { name: "ctaHref", title: "CTA URL", type: "string" },
-            {
-              name: "features",
-              title: "Features",
-              type: "array",
-              of: [{ type: "string" }],
-            },
-          ],
-          preview: {
-            select: { title: "name", subtitle: "price" },
-          },
-        }),
-      ],
+      of: [defineArrayMember({ type: "marketingPricingTier" })],
     }),
     defineField({
       name: "body",
@@ -135,16 +164,14 @@ export const marketingPage = defineType({
         { type: "image", options: { hotspot: true } },
       ],
     }),
+    defineField({ name: "metaTitle", title: "Meta Title", type: "string" }),
     defineField({
-      name: "seo",
-      title: "SEO",
-      type: "object",
-      fields: [
-        { name: "metaTitle", title: "Meta Title", type: "string" },
-        { name: "metaDescription", title: "Meta Description", type: "text", rows: 2 },
-        { name: "ogImage", title: "OG Image", type: "image" },
-      ],
+      name: "metaDescription",
+      title: "Meta Description",
+      type: "text",
+      rows: 2,
     }),
+    defineField({ name: "ogImage", title: "OG Image", type: "image" }),
   ],
   preview: {
     select: { title: "title", subtitle: "pageType" },
