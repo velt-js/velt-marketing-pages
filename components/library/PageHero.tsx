@@ -27,7 +27,7 @@ function CursorSean() {
   return (
     <div
       className="absolute flex flex-col items-end"
-      style={{ top: 235, left: 248 }}
+      style={{ top: 235, left: "calc(50% - 472px)" }}
       aria-hidden="true"
     >
       <div
@@ -61,7 +61,7 @@ function CursorEmma() {
   return (
     <div
       className="absolute flex flex-col items-start"
-      style={{ top: 324, left: 1100 }}
+      style={{ top: 324, left: "calc(50% + 380px)" }}
       aria-hidden="true"
     >
       <div className="relative" style={{ width: 20, height: 20 }}>

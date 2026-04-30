@@ -118,8 +118,8 @@ body {
    width, browser zoom, full-bleed parent already offset, etc.). */
 @media (min-width: 1440px) {
   .hero-grid-full {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    left: calc(50% - 50vw) !important;
+    transform: none !important;
     width: 100vw !important;
   }
 }

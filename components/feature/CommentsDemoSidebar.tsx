@@ -96,7 +96,7 @@ export function CommentsDemoSidebar() {
   return (
     <section
       className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "100px 80px" }}
+      style={{ padding: "0 80px 100px" }}
     >
       <div
         className="grid"
@@ -104,7 +104,7 @@ export function CommentsDemoSidebar() {
           width: 1280,
           gridTemplateColumns: "200px 1fr",
           gap: 8,
-          padding: 16,
+          padding: 8,
           borderRadius: 12,
           background: active.containerBg,
           transition: "background-color 200ms ease",
