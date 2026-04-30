@@ -250,6 +250,12 @@ export async function getFeaturePageBySlug(slug: string) {
           label,
           "screenshotSrc": screenshot.asset->url
         },
+        // featureImageCardSection
+        "imageSrc": image.asset->url,
+        imageAlt,
+        imageWidth,
+        imageHeight,
+        imageBottomOffset,
         // featureFlowDiagramSection
         stages[] {
           label,

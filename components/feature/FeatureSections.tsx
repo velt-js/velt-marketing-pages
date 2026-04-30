@@ -28,6 +28,7 @@ import {
   type FeatureSidebarShowcaseItem,
 } from "./FeatureSidebarShowcase";
 import { FeatureCardRow, type FeatureCardRowCard } from "./FeatureCardRow";
+import { FeatureImageCard } from "./FeatureImageCard";
 import { FeaturePowerfulBento } from "./FeaturePowerfulBento";
 import {
   FeatureCustomizer,
@@ -121,6 +122,22 @@ export type FeatureCardRowSectionDoc = {
   inlineTestimonial?: InlineTestimonialDoc;
 };
 
+export type FeatureImageCardSectionDoc = {
+  _type: "featureImageCardSection";
+  _key?: string;
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+  viewDocsCta?: CtaLink;
+  primaryCta?: CtaLink;
+  imageSrc: string;
+  imageAlt?: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageBottomOffset?: number;
+  inlineTestimonial?: InlineTestimonialDoc;
+};
+
 export type FeatureCustomizerSectionDoc = {
   _type: "featureCustomizerSection";
   _key?: string;
@@ -175,6 +192,7 @@ export type FeatureSectionDoc =
   | FeaturePowerfulBentoSectionDoc
   | FeatureSidebarShowcaseSectionDoc
   | FeatureCardRowSectionDoc
+  | FeatureImageCardSectionDoc
   | FeatureCustomizerSectionDoc
   | FeatureFlowDiagramSectionDoc
   | FeatureIntegrationsSectionDoc
@@ -212,16 +230,21 @@ function toBentoCta(cta?: CtaLink): LibraryBentoCta | undefined {
 }
 
 export function FeatureSections({ sections }: { sections: FeatureSectionDoc[] }) {
-  // The first bento on the page sits directly under the dark hero/trusted
-  // logos strip and needs the rounded top + 80px gap. Subsequent bentos
-  // share the same continuous light surface and skip the accent.
-  let firstBentoIndex = -1;
+  // The first light-bg section on the page sits directly under the dark
+  // hero/trusted-logos strip and needs the rounded top + 80px gap.
+  // Subsequent sections share the same continuous light surface and skip
+  // the accent. Card row + image card mirror the bento topAccent treatment
+  // so any of them can lead the page (e.g. /features/recordings starts
+  // with image cards, no bento).
+  let firstLightIndex = -1;
   sections.forEach((section, i) => {
-    const isBento =
+    const isLight =
       section._type === "featureBentoSection" ||
-      section._type === "featurePowerfulBentoSection";
-    if (isBento && firstBentoIndex === -1) {
-      firstBentoIndex = i;
+      section._type === "featurePowerfulBentoSection" ||
+      section._type === "featureCardRowSection" ||
+      section._type === "featureImageCardSection";
+    if (isLight && firstLightIndex === -1) {
+      firstLightIndex = i;
     }
   });
 
@@ -243,7 +266,7 @@ export function FeatureSections({ sections }: { sections: FeatureSectionDoc[] })
           return (
             <LibraryBento
               key={key}
-              topAccent={i === firstBentoIndex}
+              topAccent={i === firstLightIndex}
               heading={section.heading}
               subheading={section.subheading}
               eyebrow={section.eyebrow}
@@ -259,7 +282,7 @@ export function FeatureSections({ sections }: { sections: FeatureSectionDoc[] })
           return (
             <FeaturePowerfulBento
               key={key}
-              topAccent={i === firstBentoIndex}
+              topAccent={i === firstLightIndex}
               eyebrow={section.eyebrow}
               heading={section.heading}
               subheading={section.subheading}
@@ -304,12 +327,32 @@ export function FeatureSections({ sections }: { sections: FeatureSectionDoc[] })
           return (
             <FeatureCardRow
               key={key}
+              topAccent={i === firstLightIndex}
               eyebrow={section.eyebrow}
               heading={section.heading}
               subheading={section.subheading}
               viewDocsCta={section.viewDocsCta}
               primaryCta={section.primaryCta}
               cards={rowCards}
+              testimonial={toTestimonial(section.inlineTestimonial)}
+            />
+          );
+        }
+        if (section._type === "featureImageCardSection") {
+          return (
+            <FeatureImageCard
+              key={key}
+              topAccent={i === firstLightIndex}
+              eyebrow={section.eyebrow}
+              heading={section.heading}
+              subheading={section.subheading}
+              viewDocsCta={section.viewDocsCta}
+              primaryCta={section.primaryCta}
+              imageSrc={section.imageSrc}
+              imageAlt={section.imageAlt}
+              imageWidth={section.imageWidth}
+              imageHeight={section.imageHeight}
+              imageBottomOffset={section.imageBottomOffset}
               testimonial={toTestimonial(section.inlineTestimonial)}
             />
           );

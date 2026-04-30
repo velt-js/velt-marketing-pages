@@ -20,6 +20,9 @@
 # production
 /build
 
+# Sanity Studio build output (deployed to velt.sanity.studio via `sanity deploy`)
+/dist
+
 # misc
 .DS_Store
 *.pem

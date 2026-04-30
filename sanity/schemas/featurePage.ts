@@ -148,6 +148,7 @@ export const featurePage = defineType({
         { type: "featurePowerfulBentoSection" },
         { type: "featureSidebarShowcaseSection" },
         { type: "featureCardRowSection" },
+        { type: "featureImageCardSection" },
         { type: "featureCustomizerSection" },
         { type: "featureFlowDiagramSection" },
         { type: "featureIntegrationsSection" },
@@ -663,6 +664,78 @@ export const featureCardRowSection = defineType({
   preview: {
     select: { title: "heading" },
     prepare: ({ title }) => ({ title: `Card Row: ${title ?? "(untitled)"}` }),
+  },
+});
+
+// ---- Section block: Feature Image Card ----
+// Same outer chrome as featureCardRowSection (white card · dark border ·
+// centered heading + sub + CTA · attached dark testimonial banner) but
+// the body is a single full-width image. Used on /features/recordings.
+export const featureImageCardSection = defineType({
+  name: "featureImageCardSection",
+  title: "Feature Image Card",
+  type: "object",
+  fields: [
+    defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
+    defineField({
+      name: "heading",
+      title: "Heading",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "subheading",
+      title: "Subheading",
+      type: "text",
+      rows: 2,
+    }),
+    defineField({ name: "viewDocsCta", title: "View Docs CTA", type: "ctaLink" }),
+    defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
+    defineField({
+      name: "image",
+      title: "Image",
+      description: "Full-width mockup rendered inside the white card.",
+      type: "image",
+      options: { hotspot: false },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "imageWidth",
+      title: "Image Width (px)",
+      description:
+        "Display width in design pixels. Cards 1 and 3 from Figma use 1280; card 2 uses 1199.",
+      type: "number",
+      validation: (r) => r.required().positive(),
+    }),
+    defineField({
+      name: "imageHeight",
+      title: "Image Height (px)",
+      description:
+        "Display height in design pixels. Cards 1 and 3 use 467; card 2 uses 297.",
+      type: "number",
+      validation: (r) => r.required().positive(),
+    }),
+    defineField({
+      name: "imageBottomOffset",
+      title: "Image Bottom Offset (px)",
+      description:
+        "Distance from the bottom edge of the white card to the bottom of the image. Negative pulls the image past the card edge. Cards 1/3 use -2.38; card 2 uses 68.62.",
+      type: "number",
+      initialValue: 0,
+    }),
+    defineField({
+      name: "inlineTestimonial",
+      title: "Attached Inline Testimonial",
+      type: "inlineTestimonial",
+      options: { collapsible: true, collapsed: true },
+    }),
+  ],
+  preview: {
+    select: { title: "heading", media: "image" },
+    prepare: ({ title, media }) => ({
+      title: `Image Card: ${title ?? "(untitled)"}`,
+      media,
+    }),
   },
 });
 

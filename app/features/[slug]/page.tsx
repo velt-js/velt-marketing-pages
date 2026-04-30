@@ -20,6 +20,7 @@ import {
 } from "@/components/feature/FeatureSections";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { CommentsDemoSidebar } from "@/components/feature/CommentsDemoSidebar";
+import { RecordingsDemoSidebar } from "@/components/feature/RecordingsDemoSidebar";
 import {
   getAllFeatureSlugs,
   getFeaturePageBySlug,
@@ -109,6 +110,7 @@ export default async function FeaturePage({
         />
 
         {slug === "comments" ? <CommentsDemoSidebar /> : null}
+        {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 

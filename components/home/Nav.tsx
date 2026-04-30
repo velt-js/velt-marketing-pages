@@ -447,10 +447,15 @@ export function Nav() {
         setOverPurple(outcomesTop <= NAV_STRIP && getStartedTop > NAV_STRIP);
         return;
       }
-      // Fallback for pages without homepage markers (e.g. /libraries/*):
-      // flip to solid once the user has scrolled past roughly the dark hero.
-      // One viewport-height is a reasonable heuristic for a full-bleed hero.
-      setOverPurple(window.scrollY > window.innerHeight - NAV_STRIP);
+      // Fallback for pages without homepage markers (e.g. /features/*, /libraries/*):
+      // flip to solid white once scrolled past the dark hero, then flip BACK to
+      // dark/transparent when the [data-getstarted] marker (mounted on
+      // FeatureCustomerCarousel — "Our Customers Trust Us" — and on
+      // LibraryFAQ as a backup) reaches the nav strip. One viewport-height
+      // is a reasonable heuristic for the dark hero exit.
+      const pastHero = window.scrollY > window.innerHeight - NAV_STRIP;
+      const getStartedTop = getStarted?.getBoundingClientRect().top ?? Infinity;
+      setOverPurple(pastHero && getStartedTop > NAV_STRIP);
     };
     check();
     window.addEventListener("scroll", check, { passive: true });
