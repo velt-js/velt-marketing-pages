@@ -10,6 +10,8 @@ import {
 } from "./marketingPage";
 import { customer } from "./customer";
 import { integrationPage } from "./integrationPage";
+import { demoPage } from "./demoPage";
+import { examplePage } from "./examplePage";
 import {
   libraryPage,
   ctaLink,
@@ -66,6 +68,8 @@ export const schemaTypes = [
   marketingPage,
   customer,
   integrationPage,
+  demoPage,
+  examplePage,
   libraryPage,
   featurePage,
 

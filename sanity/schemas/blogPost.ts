@@ -98,6 +98,7 @@ export const blogPost = defineType({
           },
         },
         { type: "blogBodyImage" },
+        { type: "image", options: { hotspot: true } },
         { type: "code" },
       ],
     }),

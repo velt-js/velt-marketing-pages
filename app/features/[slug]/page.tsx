@@ -23,6 +23,9 @@ import { CommentsDemoSidebar } from "@/components/feature/CommentsDemoSidebar";
 import { RecordingsDemoSidebar } from "@/components/feature/RecordingsDemoSidebar";
 import { NotificationsDemoSidebar } from "@/components/feature/NotificationsDemoSidebar";
 import { NotificationsHighlights } from "@/components/feature/NotificationsHighlights";
+import { ActivityLogsHighlights } from "@/components/feature/ActivityLogsHighlights";
+import { AdminConsoleAnalyticsPanel } from "@/components/feature/AdminConsoleAnalyticsPanel";
+import { AdminConsoleHighlights } from "@/components/feature/AdminConsoleHighlights";
 import {
   getAllFeatureSlugs,
   getFeaturePageBySlug,
@@ -116,12 +119,15 @@ export default async function FeaturePage({
         {slug === "comments" ? <CommentsDemoSidebar /> : null}
         {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
         {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
+        {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
         <FeatureSections sections={doc.sections} />
 
         {slug === "notifications" ? <NotificationsHighlights /> : null}
+        {slug === "activity-logs" ? <ActivityLogsHighlights /> : null}
+        {slug === "admin-console" ? <AdminConsoleHighlights /> : null}
 
         {showCustomerStories ? <CustomerUI /> : null}
 

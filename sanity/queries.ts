@@ -327,6 +327,102 @@ export async function getFeaturePageBySlug(slug: string) {
   );
 }
 
+// Demo page queries
+export async function getAllDemoPages() {
+  return client.fetch(`
+    *[_type == "demoPage" && hide != true] | order(title asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      appName,
+      "appLogo": appLogo.asset->url,
+      category,
+      "image": image.asset->url
+    }
+  `);
+}
+
+export async function getAllDemoSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "demoPage" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getDemoPageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "demoPage" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      appName,
+      "appLogo": appLogo.asset->url,
+      appLink,
+      demoLink,
+      category,
+      title1,
+      title2,
+      content,
+      feature1Name,
+      "feature1Image": feature1Image.asset->url,
+      feature2Name,
+      "feature2Image": feature2Image.asset->url,
+      feature3Name,
+      "feature3Image": feature3Image.asset->url,
+      "image": image.asset->url
+    }
+  `,
+    { slug }
+  );
+}
+
+// Example page queries
+export async function getAllExamplePages() {
+  return client.fetch(`
+    *[_type == "examplePage"] | order(title asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      "thumbnail": thumbnail.asset->url,
+      framework,
+      feature
+    }
+  `);
+}
+
+export async function getAllExampleSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "examplePage" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getExamplePageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "examplePage" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      description,
+      "thumbnail": thumbnail.asset->url,
+      "heroImage": heroImage.asset->url,
+      similarApp,
+      "similarAppIcon": similarAppIcon.asset->url,
+      feature,
+      framework,
+      features,
+      githubLink,
+      previewLink,
+      codesandboxLink,
+      vercelLink,
+      metaDescription
+    }
+  `,
+    { slug }
+  );
+}
+
 // Customer queries
 export async function getFeaturedCustomers() {
   return client.fetch(`

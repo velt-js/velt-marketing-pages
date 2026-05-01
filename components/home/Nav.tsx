@@ -60,8 +60,8 @@ type DropdownColumn = {
 function I({ d, children }: { d?: string; children?: ReactNode }) {
   return (
     <svg
-      width="16"
-      height="16"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -82,10 +82,10 @@ const icons = {
       aria-hidden
       style={{
         display: "block",
-        width: 10.67,
-        height: 10.67,
-        border: "1.333px solid currentColor",
-        borderRadius: "8px 8px 8px 1.333px",
+        width: 13.33,
+        height: 13.33,
+        border: "1.667px solid currentColor",
+        borderRadius: "10px 10px 10px 1.667px",
         boxSizing: "border-box",
       }}
     />
@@ -122,7 +122,7 @@ const icons = {
   ),
   // Y.js mark for Multiplayer Editing
   yjs: (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
       <path
         d="M3 3 L8 9 L13 3 M8 9 L8 13"
         stroke="currentColor"
@@ -271,30 +271,39 @@ const icons = {
   transfer: (
     <I d="M4 12h16m-5 -5l5 5l-5 5" />
   ),
+  // Tabler: list-details — used for Activity Logs
+  list: (
+    <I>
+      <path d="M13 5h8 M13 9h5 M13 15h8 M13 19h5" />
+      <rect x="3" y="4" width="6" height="6" rx="1" />
+      <rect x="3" y="14" width="6" height="6" rx="1" />
+    </I>
+  ),
 };
 
 const productAsync: DropdownItem[] = [
   { label: "Comments", href: "/features/comments", icon: icons.comments, tint: "#ffa3fa" },
   { label: "Notifications", href: "/add-notifications-quick", icon: icons.bell, tint: "#f5d14a" },
   { label: "Recording", href: "/recording", icon: icons.video, tint: "#f47474" },
+  { label: "Activity Logs", href: "/features/activity-logs", icon: icons.list, tint: "#5ca3ff" },
   { label: "Video Editor", href: "/try-features", icon: icons.movie, tint: "#5ca3ff" },
   { label: "View Analytics", href: "/try-features", icon: icons.moodSmile, tint: "#b387f7" },
-  { label: "Reaction", href: "/try-features", icon: icons.eye, tint: "#f5a15e" },
+  { label: "Reactions", href: "/try-features", icon: icons.eye, tint: "#f5a15e" },
 ];
 
 const productRealtime: DropdownItem[] = [
   { label: "Multiplayer Editing", href: "/multiplayer-editing", icon: icons.yjs, tint: "#48cfad" },
-  { label: "Single Editor Mode", href: "/multiplayer-editing", icon: icons.pencilStar, tint: "#5ca3ff" },
+  { label: "Single Editor", href: "/multiplayer-editing", icon: icons.pencilStar, tint: "#5ca3ff" },
   { label: "Live State Sync", href: "/try-features", icon: icons.refresh, tint: "#48cfad" },
   { label: "Live Selection", href: "/try-features", icon: icons.click, tint: "#b387f7" },
   { label: "Huddle", href: "/try-features", icon: icons.headphones, tint: "#a4bd52" },
   { label: "Presence", href: "/try-features", icon: icons.usersGroup, tint: "#97e07f" },
-  { label: "Multi Cursor", href: "/try-features", icon: icons.pointer, tint: "#f5a15e" },
-  { label: "Flock Mode", href: "/try-features", icon: icons.pointer, tint: "#5eda7a" },
+  { label: "Cursors", href: "/try-features", icon: icons.pointer, tint: "#f5a15e" },
+  { label: "Follow Mode", href: "/try-features", icon: icons.pointer, tint: "#5eda7a" },
 ];
 
 const productPlatform: DropdownItem[] = [
-  { label: "Admin Console", href: "/enterprise", icon: icons.hexagon, tint: "#b387f7" },
+  { label: "Admin Console", href: "/features/admin-console", icon: icons.hexagon, tint: "#b387f7" },
   { label: "Dev Tools", href: "/devtools", icon: icons.circle, tint: "#f5d14a" },
   { label: "MCP", href: "/platform", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
@@ -302,7 +311,11 @@ const productPlatform: DropdownItem[] = [
 ];
 
 const productColumns: DropdownColumn[] = [
-  { width: 171, sections: [{ heading: "ASYNC", items: productAsync }] },
+  {
+    width: 171,
+    sections: [{ heading: "ASYNC", items: productAsync }],
+    footer: { label: "VIEW ALL FEATURES", href: "/features" },
+  },
   { width: 201, compact: true, sections: [{ heading: "REALTIME", items: productRealtime }] },
   { width: 157, compact: true, sections: [{ heading: "PLATFORM", items: productPlatform }] },
 ];
@@ -318,7 +331,7 @@ function LibraryIcon({ src }: { src: string }) {
     <img
       src={src}
       alt=""
-      style={{ display: "block", width: 16, height: 16, objectFit: "contain" }}
+      style={{ display: "block", width: 20, height: 20, objectFit: "contain" }}
     />
   );
 }
@@ -778,7 +791,7 @@ function GroupHeading({ label, itemHeight }: { label?: string; itemHeight: numbe
 }
 
 function LinkGroup({ column }: { column: DropdownColumn }) {
-  const itemHeight = column.itemHeight ?? 33;
+  const itemHeight = column.itemHeight ?? 40;
   return (
     <div
       className="flex flex-col items-start"
@@ -844,8 +857,8 @@ function DropdownLink({
         <span
           className="shrink-0 flex items-center justify-center"
           style={{
-            minWidth: 16,
-            height: 16,
+            minWidth: 20,
+            height: 20,
             color: item.tint ?? "#fff",
           }}
         >
@@ -960,7 +973,7 @@ function PreviewCard() {
         </div>
         <div
           className="absolute flex flex-col items-start text-white"
-          style={{ left: 16, bottom: 16, width: 218, gap: 8 }}
+          style={{ left: 16, bottom: 16, width: 218, gap: 12 }}
         >
           <p
             className="font-urbanist font-semibold"
@@ -974,9 +987,76 @@ function PreviewCard() {
           >
             Personalize your collaboration experience
           </p>
+          <div className="flex items-center" style={{ gap: 8, marginTop: 4 }}>
+            <PromoCardSecondary href="/customization">Learn More</PromoCardSecondary>
+            <PromoCardPrimary href="https://docs.velt.dev/" external>
+              View Docs
+            </PromoCardPrimary>
+          </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function PromoCardPrimary({
+  href,
+  children,
+  external,
+}: {
+  href: string;
+  children: ReactNode;
+  external?: boolean;
+}) {
+  const props = external
+    ? { target: "_blank" as const, rel: "noopener noreferrer" }
+    : {};
+  return (
+    <a
+      href={href}
+      {...props}
+      className="inline-flex items-center justify-center font-urbanist font-semibold whitespace-nowrap"
+      style={{
+        height: 28,
+        padding: "0 12px",
+        borderRadius: 6,
+        background: "#625df5",
+        color: "#fff",
+        fontSize: 12,
+        letterSpacing: "-0.36px",
+        textDecoration: "none",
+      }}
+    >
+      {children}
+    </a>
+  );
+}
+
+function PromoCardSecondary({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center justify-center font-urbanist font-semibold whitespace-nowrap"
+      style={{
+        height: 28,
+        padding: "0 12px",
+        borderRadius: 6,
+        background: "transparent",
+        border: "1px solid rgba(255,255,255,0.32)",
+        color: "#fff",
+        fontSize: 12,
+        letterSpacing: "-0.36px",
+        textDecoration: "none",
+      }}
+    >
+      {children}
+    </a>
   );
 }
 

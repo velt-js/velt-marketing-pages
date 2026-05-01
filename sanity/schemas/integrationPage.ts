@@ -61,7 +61,8 @@ export const integrationPage = defineType({
       name: "logo",
       title: "Hero Image / Logo",
       description: "Integration brand image displayed in the hero.",
-      type: "url",
+      type: "image",
+      options: { hotspot: false },
     }),
 
     // ---- Links / CTAs ----
@@ -100,7 +101,8 @@ export const integrationPage = defineType({
     defineField({
       name: "connectImage",
       title: "Connect Section Image",
-      type: "url",
+      type: "image",
+      options: { hotspot: false },
     }),
 
     // ---- Section 3: In-built payload transformation ----
@@ -113,7 +115,8 @@ export const integrationPage = defineType({
     defineField({
       name: "payloadImage",
       title: "Payload Section Image",
-      type: "url",
+      type: "image",
+      options: { hotspot: false },
     }),
 
     // ---- Section 4: Provide a unified customer experience ----
@@ -126,7 +129,8 @@ export const integrationPage = defineType({
     defineField({
       name: "unifiedImage",
       title: "Unified Section Image",
-      type: "url",
+      type: "image",
+      options: { hotspot: false },
     }),
   ],
   preview: {

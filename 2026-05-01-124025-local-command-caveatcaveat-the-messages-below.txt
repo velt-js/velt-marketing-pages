@@ -1,0 +1,2835 @@
+╭─── Claude Code v2.1.121 ─────────────────────────────────────────────────────╮
+│                                                    │ What's new              │
+│                 Welcome back Yoen!                 │ Added `alwaysLoad` opt… │
+│                                                    │ Added `claude plugin p… │
+│                       ▐▛███▜▌                      │ Added a type-to-filter… │
+│                      ▝▜█████▛▘                     │ /release-notes for more │
+│                        ▘▘ ▝▝                       │                         │
+│      Opus 4.7 · Claude Max · yoen@velt.dev's       │                         │
+│      Organization                                  │                         │
+│          ~/Downloads/velt-marketing-pages          │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ /clear                                                                        
+  ⎿  (no content)
+
+❯ Great now let's build the features/recordings page. Here is the Figma link,   
+  USE THE FIGMA MCP:                                                            
+  https://www.figma.com/design/HqWIZdR6ISJmaG2n4o3gr8/Velt-Marketing---2026?nod 
+  e-id=219-18857&m=dev                                                          
+                                                                                
+  Most of the components should already exist, everything from "Our customers   
+  trust us" section and below should be already implemented. The remaining      
+  cards shoudl take the same shape as our "Extend the capabilities" section     
+  from features/comments but with different images that you can directly copy   
+  from the figma. Make SURE EVERYTHING MATCHES EXACTLY. I WANT THE EXACT IMAGES 
+   FROM THE FIGMA DESIGN, THE EXACT ICONS, THE EXACT LAYOUT, ETC. EVERYTHING    
+  SHOULD MATCH EXACTLY. The top section can be created by reusing then          
+  modifying existing elements from our hero sections in features/comments as    
+  well.                                                                         
+
+⏺ I'll start by exploring the existing features/comments page structure and
+  getting the Figma design in parallel.
+
+⏺ Explore(Explore features/comments page structure)
+  ⎿  Done (26 tool uses · 92.3k tokens · 1m 40s)
+  (ctrl+o to expand)
+
+  Called plugin:figma:figma (ctrl+o to expand)
+
+⏺ The Figma context is large. Let me get the screenshot and metadata first to
+  understand structure, then read the design context file in chunks.
+
+  Called plugin:figma:figma 2 times (ctrl+o to expand)
+
+⏺ Bash(curl -s -o /tmp/recordings-screenshot.png
+      "https://www.figma.com/api/mcp/asset/09fca73e-458a-43c3-a771-05862aecaa46"
+       && ls -la /tmp/recordings-screenshot.png)
+  ⎿  -rw-r--r--@ 1 yoenzhang  wheel  64314 Apr 30 15:53 /tmp/recordings-scr
+     eenshot.png
+
+  Read 1 file (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Agent(Extract Figma recordings page details)
+  ⎿  Done (14 tool uses · 68.3k tokens · 3m 2s)
+  (ctrl+o to expand)
+⏺ Explore(Inspect FeatureCardRow + comments page)
+  ⎿  Done (25 tool uses · 106.7k tokens · 2m 15s)
+  (ctrl+o to expand)
+
+  Called plugin:figma:figma (ctrl+o to expand)
+
+⏺ I have enough info. Let me read the key components directly and pull the
+  remaining 2 card designs from Figma in parallel.
+
+  Read 2 files, called plugin:figma:figma 2 times (ctrl+o to expand)
+
+⏺ I have enough to plan. Let me also peek at how the comments seed script
+  structures data, then ask the user a couple of clarifying questions before
+  finalizing.
+
+  Searched for 2 patterns, read 3 files, listed 1 directory (ctrl+o to expand)
+
+⏺ I have a complete picture. Before finalizing, I want to pin down two things —
+  the hero copy in the Figma is clearly placeholder ("Build Commenting into your
+   product"), and the dark demo panel could either be static or fully
+  interactive like CommentsDemoSidebar.
+
+⏺ User answered Claude's questions:
+  ⎿  · The Figma hero text is placeholder copy from the comments page ("Build 
+     Commenting into your product" / "Let users communicate natively in your 
+     app"). What should the recordings hero actually say? → Add Recording to 
+     your product
+     · How should the dark video-player block under the hero behave? The Figma 
+     shows tabs (Audio / Video / Screen / All) over a static recording-UI 
+     screenshot. The comments equivalent (CommentsDemoSidebar) is fully 
+     interactive with tab-switching iframes. → Leave it matching the figma for 
+     now, I'll provide you the links and github links later, we will mock it 
+     after our features/comments page
+
+⏺ Updated plan
+  ⎿  /plan to preview
+
+⏺ User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/great-now-let-s-build-memoized-fiddle.md · 
+     /plan to edit
+     Plan: Build features/recordings page
+
+     Context
+
+     Velt's marketing site already has a features/comments page driven by a
+     Sanity featurePage document and rendered by app/features/[slug]/page.tsx.
+     The site is built so that adding a new feature page is mostly a Sanity-data
+      exercise: a new featurePage document + assets is enough to ship a new
+     route. The user wants to add /features/recordings, matching the Figma at
+     node 219:18857 (file HqWIZdR6ISJmaG2n4o3gr8).
+
+     The page bottom (Our Customers Trust Us → FAQ → Get Started → Footer) is
+     already covered by the shared sections in [slug]/page.tsx. The
+     trusted-logos band (TrustedLogos) is also already wired in. What's new:
+
+     1. A hero with the same PageHero chrome as comments but recordings copy.
+     2. A dark video-player demo block under the hero (Audio / Video / Screen /
+     All tabs) — should mirror CommentsDemoSidebar's structure so we can wire
+     real iframes/GitHub links later. For now, the iframe stage shows a static
+     screenshot from Figma.
+     3. Three stacked "section cards", each reusing the outer chrome of
+     FeatureCardRow (white card · dark border · centered heading + subheading +
+     purple CTA · attached dark testimonial banner) but with a single full-width
+      image inside instead of a grid of demo cells.
+
+     The Figma cards' inner content is a single oversized PNG (with floating
+     chips like "Closed Captions", "Feedback Tools", etc. baked into the image).
+      User confirmed: copy the images directly from the Figma file and embed
+     them.
+
+     Approach
+
+     1. New section type: featureImageCardSection
+
+     FeatureCardRow's grid is built around equal-width CardCells with fixed
+     440px height, an icon+title at top:48.5, a right-edge fade gradient, and a
+     "View Docs" footer at top:379.5. None of that fits the Figma cards, which
+     are a single full-width image with no internal text/chrome.
+
+     Rather than overload FeatureCardRow with a "single big image" mode (which
+     would mean three conditional branches inside CardCell), add a new section
+     type that reuses the outer chrome but supplies its own card body:
+
+     - Component: components/feature/FeatureImageCard.tsx
+       - Same outer wrapper as FeatureCardRow: 1280-wide white card, 2px #0e0d36
+      border, 32 radius, header block (eyebrow + heading + subheading + primary
+     CTA), and the TestimonialFooter sub-component. Extract TestimonialFooter
+     and the header block from FeatureCardRow into shared helpers (or re-export
+     and reuse them) to avoid drift — see "Refactor" below.
+       - Body: a single absolute-positioned <img> with configurable
+     width/height/bottom-offset to mirror the Figma exactly. Card 1 and Card 3
+     are 1280×467 with bottom: -2.38px; Card 2 is 1199×297 with bottom: 68.62px.
+     - Schema: add featureImageCardSection in sanity/schemas/featurePage.ts with
+      fields: heading, subheading, primaryCta, image (Sanity image), imageWidth,
+      imageHeight, imageBottomOffset, and inlineTestimonial (reuse the existing
+     inlineTestimonial type used by featureCardRowSection).
+     - Dispatcher: register featureImageCardSection in
+     components/feature/FeatureSections.tsx alongside the existing eight section
+      types.
+     - Sanity index: export the new schema from sanity/schemas/index.ts (the
+     featurePage types are aggregated there).
+
+     Refactor: extract shared chrome
+
+     FeatureCardRow and the new FeatureImageCard share the outer card frame, the
+      centered heading/subheading/CTA stack, and the dark testimonial footer.
+     Extract these into:
+
+     - components/feature/FeatureSectionShell.tsx
+       - <FeatureSectionShell heading subheading eyebrow viewDocsCta primaryCta 
+     testimonial>{children}</FeatureSectionShell>
+       - Renders: outer <section> + 1280×… white bordered card + header block +
+     slot for children + optional <TestimonialFooter>.
+     - Update FeatureCardRow to use FeatureSectionShell and pass its grid of
+     CardCells as children. This is a non-functional refactor; existing behavior
+      is preserved.
+     - FeatureImageCard uses FeatureSectionShell and passes a single <img> block
+      as children.
+
+     2. New RecordingsDemoSidebar
+
+     Mirror CommentsDemoSidebar.tsx 1:1 in structure (CHROME wrapper, tablist,
+     iframe stage, bottom-right Open/GitHub buttons, bottom-left info tooltip).
+     Differences for now:
+
+     - TABS array has four entries: Audio, Video, Screen, All — each with
+     placeholder iframe: "" and placeholder github: ""/description. The user
+     will provide real URLs later.
+     - When iframe is empty, render a static <img> of the Figma recording-UI
+     screenshot (image 36) inside the iframe stage instead of an <iframe>. This
+     keeps the static-vs-interactive switch as a single conditional we'll flip
+     per-tab once real URLs arrive.
+     - Same CHROME color, same tab styling, same Open/GitHub/Info overlay
+     components (lift them from CommentsDemoSidebar if useful, otherwise
+     duplicate in this file — duplication is fine since the components are
+     small).
+
+     3. Wire into [slug]/page.tsx
+
+     Single line addition right where comments has its conditional:
+
+     {slug === "comments" ? <CommentsDemoSidebar /> : null}
+     {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
+
+     Everything else (PageHero, TrustedLogos, FeatureSections, CustomerUI,
+     Security, FeatureCustomerCarousel, LibraryFAQ, GetStartedSteps, Footer)
+     flows from the Sanity doc.
+
+     4. Sanity seed script
+
+     Create scripts/seed-feature-recordings.mjs, modeled on
+     scripts/seed-feature-commenting.mjs. Idempotent (replaces
+     featurePage-recordings), uploads images by SHA-256, sets:
+
+     - title: "Recordings", slug: "recordings", category: "Async"
+     - hero.heading: "Add Recording to your product", hero.subheading: "Capture 
+     audio, video, and screen recordings inside your app", decorated: true,
+     primary Get Free API Key + secondary Book Demo.
+     - showTrustedLogos: true, showSecurity: true, showCustomerStories: true.
+     - sections: [featureImageCardSection × 3]:
+       - Card 1: heading "Recordings enhanced by AI", sub "AI Batteries
+     Included", CTA "Get Your API Key", image card-1-recordings-ai.png, Linda
+     Belcher testimonial.
+       - Card 2: heading "Keep users in your app", sub "Users don't need to
+     leave for recordings", CTA "Get Your API Key", image
+     card-2-keep-users-in-app.png, Linda Belcher testimonial.
+       - Card 3: heading "Customize Everything", sub "Components can match your
+     product's look and feel", CTA "Get Your API Key", image
+     card-3-customize-everything.png, Linda Belcher testimonial.
+     - Reuse the lindaTestimonial literal from seed-feature-commenting.mjs
+     (avatar URL, name, role, quote with boost engagement accent fragment in
+     #b4b1fa).
+     - getStartedSteps.step1PackageName: @veltdev/client (same as comments —
+     confirm with user later if recordings ships separately).
+     - faq.items: empty for now (the page falls back to sharedFAQ
+     automatically).
+
+     5. Asset downloads
+
+     Figma MCP asset URLs expire after 7 days. Download all four recordings
+     images now into public/images/features/recordings/:
+
+     ┌──────────────────────────────────┬──────────────────────────────────────┐
+     │            Local path            │             Figma source             │
+     ├──────────────────────────────────┼──────────────────────────────────────┤
+     │                                  │ node 219:19619 (image 36) — fetch    │
+     │ public/images/features/recording │ via mcp__plugin_figma_figma__get_des │
+     │ s/hero-recording-ui.png          │ ign_context on 219:19595 to get the  │
+     │                                  │ asset URL                            │
+     ├──────────────────────────────────┼──────────────────────────────────────┤
+     │ public/images/features/recording │ https://www.figma.com/api/mcp/asset/ │
+     │ s/card-1-recordings-ai.png       │ bd884cc4-2ecf-4205-b944-fe48c630b873 │
+     │                                  │  (image 3009 from card 1)            │
+     ├──────────────────────────────────┼──────────────────────────────────────┤
+     │                                  │ https://www.figma.com/api/mcp/asset/ │
+     │ public/images/features/recording │ 8af5abf9-8796-4943-af3c-76788fc9e2b5 │
+     │ s/card-2-keep-users-in-app.png   │  (Screenshot 2026-04-27 at 4.53.15   │
+     │                                  │ PM)                                  │
+     ├──────────────────────────────────┼──────────────────────────────────────┤
+     │ public/images/features/recording │ https://www.figma.com/api/mcp/asset/ │
+     │ s/card-3-customize-everything.pn │ d3dbb4a9-2af6-4236-bb7d-0c67d3463e03 │
+     │ g                                │  (image 3009 from card 3)            │
+     └──────────────────────────────────┴──────────────────────────────────────┘
+
+     The Linda Belcher avatar already exists in the comments seed flow — the
+     seed script handles that (lindaTestimonial.avatarSrc), no new download
+     needed.
+
+     Critical files
+
+     Create:
+     - components/feature/FeatureSectionShell.tsx — extracted shared chrome
+     (header + bordered white card + testimonial footer)
+     - components/feature/FeatureImageCard.tsx — new section component
+     - components/feature/RecordingsDemoSidebar.tsx — dark video-player demo
+     block
+     - scripts/seed-feature-recordings.mjs — Sanity seed
+     - public/images/features/recordings/ (directory + 4 PNGs)
+
+     Modify:
+     - components/feature/FeatureCardRow.tsx — refactor to use
+     FeatureSectionShell (no behavior change)
+     - components/feature/FeatureSections.tsx — dispatch new
+     featureImageCardSection type
+     - sanity/schemas/featurePage.ts — add featureImageCardSection schema, add
+     to top-level sections.of[] allowed types
+     - sanity/schemas/index.ts — export new schema
+     - app/features/[slug]/page.tsx — add slug === "recordings" conditional for
+     <RecordingsDemoSidebar />
+
+     Existing utilities to reuse
+
+     - components/library/PageHero.tsx — hero (no changes; Sanity supplies copy
+     + decorated: true)
+     - components/home/TrustedLogos.tsx — trusted-logos band (no per-feature
+     customization)
+     - components/home/CustomerUI.tsx, components/home/Security.tsx,
+     components/home/GetStartedSteps.tsx, components/home/Footer.tsx — page
+     bottom
+     - components/feature/FeatureCustomerCarousel.tsx — customer carousel
+     - components/library/LibraryFAQ.tsx + components/library/shared-content.ts
+     sharedFAQ — FAQ
+     - lindaTestimonial literal in scripts/seed-feature-commenting.mjs — copy
+     verbatim into the recordings seed
+     - inlineTestimonial Sanity type (sanity/schemas/featurePage.ts) — reuse on
+     the new section
+
+     Verification
+
+     1. Asset downloads: confirm 4 PNGs land in
+     public/images/features/recordings/ and open correctly.
+     2. Sanity seed: node --env-file=.env.local 
+     scripts/seed-feature-recordings.mjs runs without errors and creates
+     featurePage-recordings. Re-running is idempotent.
+     3. Schema lint: npx sanity schema validate (or whatever the project uses)
+     passes after adding featureImageCardSection.
+     4. Existing comments page: still renders identically — refactor of
+     FeatureCardRow to use FeatureSectionShell must be visually a no-op. Check
+     /features/comments side-by-side before and after.
+     5. Recordings page: npm run dev, open
+     http://localhost:3000/features/recordings, and verify against the Figma:
+       - Hero copy + decorated background + Sean/Emma cursors match.
+       - Dark video panel renders below hero with 4 tabs (Audio / Video / Screen
+      / All) and the recording-UI screenshot.
+       - Trusted-logos band renders.
+       - 3 stacked white image cards — each with centered heading/sub/CTA at
+     top, big image at bottom, Linda Belcher testimonial banner attached.
+       - Customer carousel, FAQ, Get Started, Footer all render.
+     6. Type check: tsc --noEmit passes.
+     7. Build: npm run build completes — generateStaticParams should now emit
+     /features/recordings alongside /features/comments.
+
+⏺ Now I'll implement the plan. Let me start by gathering the remaining info I
+  need (hero screenshot URL, existing schema patterns, lindaTestimonial
+  reference) and downloading assets in parallel.
+⏺ Bash(mkdir -p /Users/yoenzhang/Downloads/velt-marketing-pages/public/images/fe
+      atures/recordings && curl -sS -o
+      /Users/yoenzhang/Downloads/velt-marketing-pages/public…)
+  ⎿  total 1664
+     drwxr-xr-x@ 5 yoenzhang  staff     160 Apr 30 17:38 .
+     drwxr-xr-x@ 4 yoenzhang  staff     128 Apr 30 17:38 ..
+     … +6 lines (ctrl+o to expand)
+
+  Read 3 files, called plugin:figma:figma (ctrl+o to expand)
+
+⏺ Let me try to fetch the hero panel image from the parent node to get the
+  actual screenshot URL.
+
+  Read 2 files, called plugin:figma:figma (ctrl+o to expand)
+
+⏺ Hero panel is empty in Figma (no actual image content - just chrome tabs). All
+   3 card images downloaded. Now let me start implementing.
+
+  Read 2 files (ctrl+o to expand)
+
+⏺ Now let me create the shared shell component, then refactor FeatureCardRow to
+  use it, then create the new FeatureImageCard.
+
+⏺ Write(components/feature/FeatureSectionShell.tsx)
+  ⎿  Wrote 286 lines to components/feature/FeatureSectionShell.tsx
+         age card" chrome for the "extend the capabilities" / "stacked im
+       2 // section family. Renders a 1280-wide white card with a dark bo
+       3 // centered heading + subheading + CTA stack at top, a slot for 
+         the body,
+         dge.nd an optional dark testimonial bar attached to the bottom e
+       5 //
+         ageCard by FeatureCardRow (grid of 3-4 demo cells) and FeatureIm
+       7 // (single full-width image).
+       9 import Link from "next/link";
+      10 import type { ReactNode } from "react";
+     … +288 lines (ctrl+o to expand)
+
+⏺ Now refactor FeatureCardRow to use the shell.
+
+⏺ Write(components/feature/FeatureCardRow.tsx)
+  ⎿  Added 27 lines, removed 208 lines
+       4  // middle, and a "View Docs ›" link at the bottom. Optional inl
+          ine
+       5  // testimonial bar attaches to the bottom edge of the outer car
+          d.
+       6  //
+       7 +// The outer chrome (white card frame, header block, testimonia
+         +l footer) is                                                   
+       8 +// shared with FeatureImageCard via FeatureSectionShell.       
+       9 +//                                                             
+      10  // Figma node 174:27194.
+      11  
+       9 -import Link from "next/link";                                  
+      12  import type { ReactNode } from "react";
+      13  
+      14  import {
+      15    SECTION_ICONS,
+      16    ChevronRightIcon,
+      15 -  Book2Icon,                                                   
+      17    type SectionIconKey,
+      18  } from "./uis/icons";
+      19 +import {                                                       
+      20 +  FeatureSectionShell,                                         
+      21 +  type FeatureSectionShellTestimonial,                         
+      22 +  type ShellCtaLink,                                           
+      23 +} from "./FeatureSectionShell";                                
+      24  
+      19 -type CtaLink = { label?: string; href?: string; newTab?: boolea
+         -n };                                                           
+      25 +type CtaLink = ShellCtaLink;                                   
+      26  
+      27  export type FeatureCardRowCard = {
+      28    title: string;
+     ...
+      40    viewDocsCta?: CtaLink;
+      41    primaryCta?: CtaLink;
+      42    cards: FeatureCardRowCard[];
+      37 -  testimonial?: {                                              
+      38 -    name?: string;                                             
+      39 -    role?: string;                                             
+      40 -    quote?: string;                                            
+      41 -    accentFragment?: string;                                   
+      42 -    accentColor?: string;                                      
+      43 -    avatarSrc?: string;                                        
+      44 -  };                                                           
+      43 +  testimonial?: FeatureSectionShellTestimonial;                
+      44  };
+      45  
+      46  export function FeatureCardRow({
+     ...
+       52    cards,
+       53    testimonial,
+       54  }: FeatureCardRowProps) {
+       56 -  const hasTestimonial = Boolean(testimonial?.quote);         
+       57 -                                                              
+       55    return (
+       59 -    <section                                                  
+       60 -      className="flex flex-col items-center bg-white full-blee
+          -d-bg"                                                         
+       61 -      style={{ padding: "100px 80px" }}                       
+       56 +    <FeatureSectionShell                                      
+       57 +      eyebrow={eyebrow}                                       
+       58 +      heading={heading}                                       
+       59 +      subheading={subheading}                                 
+       60 +      viewDocsCta={viewDocsCta}                               
+       61 +      primaryCta={primaryCta}                                 
+       62 +      testimonial={testimonial}                               
+       63      >
+       64        <div
+       64 -        className="overflow-hidden"                           
+       65 +        className="grid"                                      
+       66          style={{
+       66 -          width: 1280,                                        
+       67 -          background: "#fff",                                 
+       68 -          border: "2px solid #0e0d36",                        
+       69 -          borderRadius: 32,                                   
+       67 +          gridTemplateColumns: `repeat(${cards.length}, 1fr)`,
+       68          }}
+       69        >
+       72 -        <div className="flex flex-col items-center" style={{ g
+          -ap: 32, padding: "55px 0 80px 0" }}>                          
+       73 -          <div className="flex flex-col items-center text-cent
+          -er" style={{ gap: 12, maxWidth: 691 }}>                       
+       74 -            {eyebrow ? (                                      
+       75 -              <span                                           
+       76 -                className="font-urbanist font-semibold upperca
+          -se"                                                           
+       77 -                style={{ color: "#625df5", fontSize: 14, lette
+          -rSpacing: "0.6px", lineHeight: 1.2 }}                         
+       78 -              >                                               
+       79 -                {eyebrow}                                     
+       80 -              </span>                                         
+       81 -            ) : null}                                         
+       82 -            <h2                                               
+       83 -              className="font-urbanist font-bold"             
+       84 -              style={{ color: "#111", fontSize: 52, lineHeight
+          -: 1.2, letterSpacing: "-0.03em", margin: 0 }}                 
+       85 -            >                                                 
+       86 -              {heading}                                       
+       87 -            </h2>                                             
+       88 -            {subheading ? (                                   
+       89 -              <p className="font-urbanist" style={{ color: "#1
+          -11", fontSize: 20, lineHeight: 1.2, margin: 0 }}>             
+       90 -                {subheading}                                  
+       91 -              </p>                                            
+       92 -            ) : null}                                         
+       93 -          </div>                                              
+       94 -          {(viewDocsCta || primaryCta) && (                   
+       95 -            <div className="flex items-start" style={{ gap: 12
+          - }}>                                                          
+       96 -              {viewDocsCta?.label && viewDocsCta.href ? (     
+       97 -                <RowCta variant="secondary" cta={viewDocsCta} 
+          -/>                                                            
+       98 -              ) : null}                                       
+       99 -              {primaryCta?.label && primaryCta.href ? (       
+      100 -                <RowCta variant="primary" cta={primaryCta} /> 
+      101 -              ) : null}                                       
+      102 -            </div>                                            
+      103 -          )}                                                  
+      104 -        </div>                                                
+      105 -                                                              
+      106 -        <div                                                  
+      107 -          className="grid"                                    
+      108 -          style={{                                            
+      109 -            gridTemplateColumns: `repeat(${cards.length}, 1fr)
+          -`,                                                            
+      110 -          }}                                                  
+      111 -        >                                                     
+      112 -          {cards.map((card, i) => (                           
+      113 -            <CardCell                                         
+      114 -              key={`${card.title}-${i}`}                      
+      115 -              card={card}                                     
+      116 -              isLast={i === cards.length - 1}                 
+      117 -              hasTestimonialBelow={hasTestimonial}            
+      118 -            />                                                
+      119 -          ))}                                                 
+      120 -        </div>                                                
+      121 -                                                              
+      122 -        {hasTestimonial && testimonial ? <TestimonialFooter t=
+          -{testimonial} /> : null}                                      
+       70 +        {cards.map((card, i) => (                             
+       71 +          <CardCell                                           
+       72 +            key={`${card.title}-${i}`}                        
+       73 +            card={card}                                       
+       74 +            isLast={i === cards.length - 1}                   
+       75 +          />                                                  
+       76 +        ))}                                                   
+       77        </div>
+      124 -    </section>                                                
+       78 +    </FeatureSectionShell>                                    
+       79    );
+       80  }
+       81  
+     ...
+       85  }: {
+       86    card: FeatureCardRowCard;
+       87    isLast: boolean;
+      134 -  hasTestimonialBelow: boolean;                               
+       88  }) {
+       89    const Icon = card.iconKey ? SECTION_ICONS[card.iconKey] : nu
+           ll;
+       90    return (
+     ...
+      176      </article>
+      177    );
+      178  }
+      226 -                                                              
+      227 -function RowCta({ variant, cta }: { variant: "primary" | "seco
+          -ndary"; cta: CtaLink }) {                                     
+      228 -  const isPrimary = variant === "primary";                    
+      229 -  // Match the Customizer CTA shape — see FeatureCustomizer.ts
+          -x:CustCta.                                                    
+      230 -  const baseStyle: React.CSSProperties = {                    
+      231 -    display: "inline-flex",                                   
+      232 -    alignItems: "center",                                     
+      233 -    justifyContent: "center",                                 
+      234 -    gap: 4,                                                   
+      235 -    minWidth: 156,                                            
+      236 -    height: 44,                                               
+      237 -    padding: "8px 16px",                                      
+      238 -    borderRadius: 8,                                          
+      239 -    fontFamily: '"Urbanist", sans-serif',                     
+      240 -    fontWeight: 600,                                          
+      241 -    fontSize: 16,                                             
+      242 -    lineHeight: 1.2,                                          
+      243 -    letterSpacing: "-0.03em",                                 
+      244 -    color: "#fff",                                            
+      245 -    textDecoration: "none",                                   
+      246 -    background: isPrimary ? "#615df5" : "transparent",        
+      247 -    border: "2px solid #615df5",                              
+      248 -    cursor: "pointer",                                        
+      249 -    whiteSpace: "nowrap",                                     
+      250 -  };                                                          
+      251 -  const innerStyle: React.CSSProperties = {                   
+      252 -    display: "inline-flex",                                   
+      253 -    alignItems: "center",                                     
+      254 -    gap: 4,                                                   
+      255 -    color: "#fff",                                            
+      256 -    mixBlendMode: isPrimary ? undefined : "exclusion",        
+      257 -  };                                                          
+      258 -  const inner = (                                             
+      259 -    <span style={innerStyle}>                                 
+      260 -      {!isPrimary ? <Book2Icon size={18} stroke="#fff" /> : nu
+          -ll}                                                           
+      261 -      {cta.label}                                             
+      262 -    </span>                                                   
+      263 -  );                                                          
+      264 -  const isExternal = !!cta.href && /^(https?:)?\/\//.test(cta.
+          -href);                                                        
+      265 -  if (isExternal || cta.newTab) {                             
+      266 -    return (                                                  
+      267 -      <a href={cta.href} target="_blank" rel="noopener" style=
+          -{baseStyle}>                                                  
+      268 -        {inner}                                               
+      269 -      </a>                                                    
+      270 -    );                                                        
+      271 -  }                                                           
+      272 -  return (                                                    
+      273 -    <Link href={cta.href ?? "#"} style={baseStyle}>           
+      274 -      {inner}                                                 
+      275 -    </Link>                                                   
+      276 -  );                                                          
+      277 -}                                                             
+      278 -                                                              
+      279 -function TestimonialFooter({ t }: { t: NonNullable<FeatureCard
+          -RowProps["testimonial"]> }) {                                 
+      280 -  const quote = t.quote ?? "";                                
+      281 -  return (                                                    
+      282 -    <div                                                      
+      283 -      style={{                                                
+      284 -        background: "#111",                                   
+      285 -        height: 224,                                          
+      286 -        padding: "0 57px 0 40px",                             
+      287 -        display: "flex",                                      
+      288 -        alignItems: "center",                                 
+      289 -        justifyContent: "space-between",                      
+      290 -        gap: 24,                                              
+      291 -      }}                                                      
+      292 -    >                                                         
+      293 -      <div className="flex items-center" style={{ gap: 16, fle
+          -xShrink: 0 }}>                                                
+      294 -        {t.avatarSrc ? (                                      
+      295 -          <div                                                
+      296 -            style={{                                          
+      297 -              width: 52,                                      
+      298 -              height: 52,                                     
+      299 -              borderRadius: "50%",                            
+      300 -              border: "2px solid #B4B1FA",                    
+      301 -              overflow: "hidden",                             
+      302 -              flexShrink: 0,                                  
+      303 -            }}                                                
+      304 -          >                                                   
+      305 -            {/* eslint-disable-next-line @next/next/no-img-ele
+          -ment */}                                                      
+      306 -            <img                                              
+      307 -              src={t.avatarSrc}                               
+      308 -              alt={t.name ? `${t.name} Profile Photo` : ""}   
+      309 -              style={{ width: "100%", height: "100%", objectFi
+          -t: "cover" }}                                                 
+      310 -            />                                                
+      311 -          </div>                                              
+      312 -        ) : null}                                             
+      313 -        <div className="flex flex-col" style={{ gap: 4 }}>    
+      314 -          {t.name ? (                                         
+      315 -            <p                                                
+      316 -              className="font-urbanist font-semibold"         
+      317 -              style={{ color: "#fff", fontSize: 18, lineHeight
+          -: 1.2, letterSpacing: "-0.03em" }}                            
+      318 -            >                                                 
+      319 -              {t.name}                                        
+      320 -            </p>                                              
+      321 -          ) : null}                                           
+      322 -          {t.role ? (                                         
+      323 -            <p                                                
+      324 -              className="font-urbanist"                       
+      325 -              style={{ color: "#fff", opacity: 0.52, fontSize:
+          - 16, lineHeight: 1.2, letterSpacing: "-0.03em" }}             
+      326 -            >                                                 
+      327 -              {t.role}                                        
+      328 -            </p>                                              
+      329 -          ) : null}                                           
+      330 -        </div>                                                
+      331 -      </div>                                                  
+      332 -      <p                                                      
+      333 -        className="font-urbanist font-semibold"               
+      334 -        style={{                                              
+      335 -          color: "#fff",                                      
+      336 -          fontSize: 24,                                       
+      337 -          lineHeight: 1.2,                                    
+      338 -          letterSpacing: "-0.03em",                           
+      339 -          width: 421,                                         
+      340 -          flexShrink: 0,                                      
+      341 -        }}                                                    
+      342 -      >                                                       
+      343 -        {renderQuoteWithAccent(quote, t.accentFragment, t.acce
+          -ntColor)}                                                     
+      344 -      </p>                                                    
+      345 -    </div>                                                    
+      346 -  );                                                          
+      347 -}                                                             
+      348 -                                                              
+      349 -function renderQuoteWithAccent(quote: string, fragment?: strin
+          -g, color?: string) {                                          
+      350 -  if (!fragment || !color || !quote.includes(fragment)) return
+          - quote;                                                       
+      351 -  const idx = quote.indexOf(fragment);                        
+      352 -  return (                                                    
+      353 -    <>                                                        
+      354 -      {quote.slice(0, idx)}                                   
+      355 -      <span style={{ color }}>{fragment}</span>               
+      356 -      {quote.slice(idx + fragment.length)}                    
+      357 -    </>                                                       
+      358 -  );                                                          
+      359 -}                                                             
+
+⏺ Write(components/feature/FeatureImageCard.tsx)
+  ⎿  Wrote 90 lines to components/feature/FeatureImageCard.tsx
+          Sharesked-image highlight section used on /features/recordings.
+       2 // the FeatureSectionShell chrome (1280-wide white card with dar
+       3 // centered heading + subheading + CTA at top, dark testimonial 
+         banner at
+         l-widthbottom) with FeatureCardRow, but the body is a single ful
+       5 // image instead of a grid of demo cells.
+       7 // Figma nodes 219:22023, 219:22098, 219:22117 in HqWIZdR6ISJmaG
+         2n4o3gr8.
+       9 import {
+      10   FeatureSectionShell,
+     … +90 lines (ctrl+o to expand)
+
+⏺ Write(components/feature/RecordingsDemoSidebar.tsx)  ⎿  Wrote 391 lines to components/feature/RecordingsDemoSidebar.tsx
+      2 "use client";
+      3 // Dark recording-mode demo block that sits directly under the re
+        cordings
+        he staticMirrors CommentsDemoSidebar's structure so we can swap t
+      5 // black panel for tab-switching iframes later. The user will pro
+        vide
+         each tabframe + GitHub URLs once the demo apps exist; until then
+      7 // renders an empty black stage matching Figma 219:19595.
+      8 
+      9 import { useState } from "react";
+     … +413 lines (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Now add the new schema for featureImageCardSection.
+
+⏺ Update(sanity/schemas/featurePage.ts)
+  ⎿  Added 72 lines
+      666    },
+      667  });
+      668  
+      669 +// ---- Section block: Feature Image Card ----                
+      670 +// Same outer chrome as featureCardRowSection (white card · da
+          +rk border ·                                                   
+      671 +// centered heading + sub + CTA · attached dark testimonial ba
+          +nner) but                                                     
+      672 +// the body is a single full-width image. Used on /features/re
+          +cordings.                                                     
+      673 +export const featureImageCardSection = defineType({           
+      674 +  name: "featureImageCardSection",                            
+      675 +  title: "Feature Image Card",                                
+      676 +  type: "object",                                             
+      677 +  fields: [                                                   
+      678 +    defineField({ name: "eyebrow", title: "Eyebrow", type: "st
+          +ring" }),                                                     
+      679 +    defineField({                                             
+      680 +      name: "heading",                                        
+      681 +      title: "Heading",                                       
+      682 +      type: "string",                                         
+      683 +      validation: (r) => r.required(),                        
+      684 +    }),                                                       
+      685 +    defineField({                                             
+      686 +      name: "subheading",                                     
+      687 +      title: "Subheading",                                    
+      688 +      type: "text",                                           
+      689 +      rows: 2,                                                
+      690 +    }),                                                       
+      691 +    defineField({ name: "viewDocsCta", title: "View Docs CTA",
+          + type: "ctaLink" }),                                          
+      692 +    defineField({ name: "primaryCta", title: "Primary CTA", ty
+          +pe: "ctaLink" }),                                             
+      693 +    defineField({                                             
+      694 +      name: "image",                                          
+      695 +      title: "Image",                                         
+      696 +      description: "Full-width mockup rendered inside the whit
+          +e card.",                                                     
+      697 +      type: "image",                                          
+      698 +      options: { hotspot: false },                            
+      699 +      validation: (r) => r.required(),                        
+      700 +    }),                                                       
+      701 +    defineField({                                             
+      702 +      name: "imageWidth",                                     
+      703 +      title: "Image Width (px)",                              
+      704 +      description:                                            
+      705 +        "Display width in design pixels. Cards 1 and 3 from Fi
+          +gma use 1280; card 2 uses 1199.",                             
+      706 +      type: "number",                                         
+      707 +      validation: (r) => r.required().positive(),             
+      708 +    }),                                                       
+      709 +    defineField({                                             
+      710 +      name: "imageHeight",                                    
+      711 +      title: "Image Height (px)",                             
+      712 +      description:                                            
+      713 +        "Display height in design pixels. Cards 1 and 3 use 46
+          +7; card 2 uses 297.",                                         
+      714 +      type: "number",                                         
+      715 +      validation: (r) => r.required().positive(),             
+      716 +    }),                                                       
+      717 +    defineField({                                             
+      718 +      name: "imageBottomOffset",                              
+      719 +      title: "Image Bottom Offset (px)",                      
+      720 +      description:                                            
+      721 +        "Distance from the bottom edge of the white card to th
+          +e bottom of the image. Negative pulls the image past the card 
+          +edge. Cards 1/3 use -2.38; card 2 uses 68.62.",               
+      722 +      type: "number",                                         
+      723 +      initialValue: 0,                                        
+      724 +    }),                                                       
+      725 +    defineField({                                             
+      726 +      name: "inlineTestimonial",                              
+      727 +      title: "Attached Inline Testimonial",                   
+      728 +      type: "inlineTestimonial",                              
+      729 +      options: { collapsible: true, collapsed: true },        
+      730 +    }),                                                       
+      731 +  ],                                                          
+      732 +  preview: {                                                  
+      733 +    select: { title: "heading", media: "image" },             
+      734 +    prepare: ({ title, media }) => ({                         
+      735 +      title: `Image Card: ${title ?? "(untitled)"}`,          
+      736 +      media,                                                  
+      737 +    }),                                                       
+      738 +  },                                                          
+      739 +});                                                           
+      740 +                                                              
+      741  export const featureCustomizerPlayground = defineType({
+      742    name: "featureCustomizerPlayground",
+      743    title: "Customizer Playground Tab",
+
+⏺ Now register the new section type in the top-level sections array.
+
+⏺ Update(sanity/schemas/featurePage.ts)
+  ⎿  Added 1 line
+      148          { type: "featurePowerfulBentoSection" },
+      149          { type: "featureSidebarShowcaseSection" },
+      150          { type: "featureCardRowSection" },
+      151 +        { type: "featureImageCardSection" },                  
+      152          { type: "featureCustomizerSection" },
+      153          { type: "featureFlowDiagramSection" },
+      154          { type: "featureIntegrationsSection" },
+
+⏺ Now register the new schema in the index.
+
+⏺ Update(sanity/schemas/index.ts)
+  ⎿  Error editing file
+
+⏺ Update(sanity/schemas/index.ts)
+  ⎿  Error editing file
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Update(sanity/schemas/index.ts)
+  ⎿  Added 1 line
+      33    featureSidebarItem,
+      34    featureCardRowSection,
+      35    featureCardRowCard,
+      36 +  featureImageCardSection,                                     
+      37    featureCustomizerSection,
+      38    featureCustomizerPlayground,
+      39    featureCustomizerExample,
+
+⏺ Update(sanity/schemas/index.ts)
+  ⎿  Added 1 line
+      108    featureSidebarItem,
+      109    featureCardRowSection,
+      110    featureCardRowCard,
+      111 +  featureImageCardSection,                                    
+      112    featureCustomizerSection,
+      113    featureCustomizerPlayground,
+      114    featureCustomizerExample,
+
+⏺ Now wire the new section into the FeatureSections dispatcher.
+
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 1 line
+      28    type FeatureSidebarShowcaseItem,
+      29  } from "./FeatureSidebarShowcase";
+      30  import { FeatureCardRow, type FeatureCardRowCard } from "./Feat
+          ureCardRow";
+      31 +import { FeatureImageCard } from "./FeatureImageCard";         
+      32  import { FeaturePowerfulBento } from "./FeaturePowerfulBento";
+      33  import {
+      34    FeatureCustomizer,
+
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 16 lines
+      122    inlineTestimonial?: InlineTestimonialDoc;
+      123  };
+      124  
+      125 +export type FeatureImageCardSectionDoc = {                    
+      126 +  _type: "featureImageCardSection";                           
+      127 +  _key?: string;                                              
+      128 +  eyebrow?: string;                                           
+      129 +  heading: string;                                            
+      130 +  subheading?: string;                                        
+      131 +  viewDocsCta?: CtaLink;                                      
+      132 +  primaryCta?: CtaLink;                                       
+      133 +  imageSrc: string;                                           
+      134 +  imageAlt?: string;                                          
+      135 +  imageWidth: number;                                         
+      136 +  imageHeight: number;                                        
+      137 +  imageBottomOffset?: number;                                 
+      138 +  inlineTestimonial?: InlineTestimonialDoc;                   
+      139 +};                                                            
+      140 +                                                              
+      141  export type FeatureCustomizerSectionDoc = {
+      142    _type: "featureCustomizerSection";
+      143    _key?: string;
+
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 1 line
+      192    | FeaturePowerfulBentoSectionDoc
+      193    | FeatureSidebarShowcaseSectionDoc
+      194    | FeatureCardRowSectionDoc
+      195 +  | FeatureImageCardSectionDoc                                
+      196    | FeatureCustomizerSectionDoc
+      197    | FeatureFlowDiagramSectionDoc
+      198    | FeatureIntegrationsSectionDoc
+
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 18 lines
+      332              />
+      333            );
+      334          }
+      335 +        if (section._type === "featureImageCardSection") {    
+      336 +          return (                                            
+      337 +            <FeatureImageCard                                 
+      338 +              key={key}                                       
+      339 +              eyebrow={section.eyebrow}                       
+      340 +              heading={section.heading}                       
+      341 +              subheading={section.subheading}                 
+      342 +              viewDocsCta={section.viewDocsCta}               
+      343 +              primaryCta={section.primaryCta}                 
+      344 +              imageSrc={section.imageSrc}                     
+      345 +              imageAlt={section.imageAlt}                     
+      346 +              imageWidth={section.imageWidth}                 
+      347 +              imageHeight={section.imageHeight}               
+      348 +              imageBottomOffset={section.imageBottomOffset}   
+      349 +              testimonial={toTestimonial(section.inlineTestimo
+          +nial)}                                                        
+      350 +            />                                                
+      351 +          );                                                  
+      352 +        }                                                     
+      353          if (section._type === "featureCustomizerSection") {
+      354            return (
+      355              <FeatureCustomizer
+
+⏺ I need to check how Sanity image references get resolved into URLs in the GROQ
+   query.
+
+  Searched for 2 patterns, read 1 file (ctrl+o to expand)
+
+⏺ I need to add the new image-card fields to the GROQ projection.
+
+⏺ Update(sanity/queries.ts)
+  ⎿  Added 6 lines
+      250            label,
+      251            "screenshotSrc": screenshot.asset->url
+      252          },
+      253 +        // featureImageCardSection                            
+      254 +        "imageSrc": image.asset->url,                         
+      255 +        imageAlt,                                             
+      256 +        imageWidth,                                           
+      257 +        imageHeight,                                          
+      258 +        imageBottomOffset,                                    
+      259          // featureFlowDiagramSection
+      260          stages[] {
+      261            label,
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Error editing file
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Error editing file
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 1 line
+      20  } from "@/components/feature/FeatureSections";
+      21  import { FeatureCustomerCarousel } from "@/components/feature/F
+          eatureCustomerCarousel";
+      22  import { CommentsDemoSidebar } from "@/components/feature/Comme
+          ntsDemoSidebar";
+      23 +import { RecordingsDemoSidebar } from "@/components/feature/Rec
+         +ordingsDemoSidebar";                                           
+      24  import {
+      25    getAllFeatureSlugs,
+      26    getFeaturePageBySlug,
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 1 line
+      110          />
+      111  
+      112          {slug === "comments" ? <CommentsDemoSidebar /> : null}
+      113 +        {slug === "recordings" ? <RecordingsDemoSidebar /> : n
+          +ull}                                                          
+      114  
+      115          {showTrustedLogos ? <TrustedLogos /> : null}
+      116  
+
+  Read 1 file, listed 1 directory (ctrl+o to expand)
+
+⏺ Now let me create the recordings seed script.
+
+⏺ Write(scripts/seed-feature-recordings.mjs)
+  ⎿  Wrote 200 lines to scripts/seed-feature-recordings.mjs
+       2 /**usr/bin/env node
+       3  * Seed the featurePage-recordings document in Sanity.
+       5  * Usage:
+       6  *   node --env-file=.env.local scripts/seed-feature-recordings.
+         mjs
+         cordings.mjsANITY_API_TOKEN=<token> node scripts/seed-feature-re
+       8  *   # preview-only: DRY_RUN=1 node scripts/seed-feature-recordi
+       9  *s.mjs
+      10  * Idempotent: re-runs replace the existing featurePage-recordin
+         gs doc and
+     … +215 lines (ctrl+o to expand)
+
+⏺ Bash(DRY_RUN=1 node --env-file=.env.local scripts/seed-feature-recordings.mjs
+      2>&1 | tail -60)
+  ⎿          }
+           },
+           "imageAlt": "Three category cards — Feedback Tools, Sales Tools,
+     … +25 lines (ctrl+o to expand)
+
+⏺ Dry run succeeded. Let me run the real seed and start the dev server.
+
+⏺ Bash(node --env-file=.env.local scripts/seed-feature-recordings.mjs 2>&1 |
+      tail -10)
+  ⎿  Uploading recordings feature assets...
+       → uploaded.
+
+     Done! Upserted featurePage-recordings
+
+⏺ Seed succeeded. Now let me start the dev server and verify the page renders.
+
+⏺ Bash(npm run dev 2>&1)
+  ⎿  Running in the background (↓ to manage)
+
+⏺ Bash(sleep 8 && cat /private/tmp/claude-501/-Users-yoenzhang-Downloads-velt-ma
+      rketing-pages/8512e715-d335-447c-9c6d-40b2184e4b3c/tasks/bwf7op1fs.output
+      2>&1 | tail -…)
+  ⎿  > velt-react-temp@0.1.0 dev
+     > next dev
+     … +16 lines (ctrl+o to expand)
+
+⏺ Background command "Start dev server" failed with exit code 1
+
+⏺ A dev server is already running on port 3000. Let me curl the recordings page
+  to verify it renders.
+⏺ Bash(curl -s -o /tmp/recordings-page.html -w "HTTP %{http_code}\n"
+      "http://localhost:3000/features/recordings" && grep -c "Recordings
+      enhanced by AI\|Keep users in y…)
+  ⎿  HTTP 200
+     2
+     --- title check ---
+     <title>Recordings | Velt</title>
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Page is rendering with all expected content. Let me verify the images and tabs
+   render correctly.
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" -o
+      /tmp/recordings-after.html -w "HTTP %{http_code}\n" && grep -o "Recording
+      mode\|aria-label=\"Recording mo…)
+  ⎿  HTTP 200
+     aria-label="Recording mode"
+
+⏺ Page renders with all expected content. Let me verify the comments page still
+  renders correctly (refactor sanity check) and run TypeScript check.
+
+⏺ Bash(curl -s -o /tmp/comments-page.html -w "HTTP %{http_code}\n"
+      "http://localhost:3000/features/comments" && grep -o -E "Extend the
+      Capabilities|Custom Data|Custom…)
+  ⎿  HTTP 200
+        2 Build Commenting
+        3 Custom Autocomplete
+     … +3 lines (ctrl+o to expand)
+
+⏺ Bash(npx tsc --noEmit 2>&1 | head -30)
+  ⎿  (No output)
+
+⏺ Both pages render correctly. Let me verify the image-card HTML structure in
+  the rendered page.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ The page is live at http://localhost:3000/features/recordings and renders all
+  three image cards at the correct Figma dimensions (1280×467 with -2.38px
+  offset for cards 1/3; 1199×297 with 68.62px offset for card 2). TypeScript
+  passes; the comments page still renders correctly after the shell refactor.
+
+  What landed
+
+  Created:
+  - components/feature/FeatureSectionShell.tsx — extracted the shared white-card
+   / heading / CTA / dark testimonial chrome (used by both card row and image
+  card).
+  - components/feature/FeatureImageCard.tsx — single full-width image variant.
+  - components/feature/RecordingsDemoSidebar.tsx — mirrors CommentsDemoSidebar
+  with Audio / Video / Screen / All tabs; iframe stage stays empty until you
+  provide URLs.
+  - scripts/seed-feature-recordings.mjs — idempotent Sanity seed for
+  featurePage-recordings.
+  - public/images/features/recordings/ with the 3 card PNGs pulled from Figma.
+
+  Modified:
+  - components/feature/FeatureCardRow.tsx — now consumes the shell (no behavior
+  change).
+  - components/feature/FeatureSections.tsx — dispatches featureImageCardSection.
+  - sanity/schemas/featurePage.ts + sanity/schemas/index.ts + sanity/queries.ts
+  — new section schema, registration, GROQ projection.
+  - app/features/[slug]/page.tsx — adds slug === "recordings" conditional for
+  RecordingsDemoSidebar.
+
+  When you're ready to wire the demo iframes, just fill in iframe + github on
+  the TABS array in RecordingsDemoSidebar.tsx — the chrome already handles the
+  static-vs-iframe switch per tab.
+
+✻ Cooked for 21m 49s
+
+❯ You can remove the "How Pendo integrates velt" and the "Enterprise Level      
+  Security" sections from the recordings page, the rest is spot on, i'll give   
+  you the demo links in the next message after these fixes                      
+
+⏺ Both sections are controlled by toggles on the featurePage doc. I'll flip them
+   off in the seed and re-run.
+
+⏺ Update(scripts/seed-feature-recordings.mjs)
+  ⎿  Added 2 lines, removed 2 lines
+      115        },
+      116      },
+      117      showTrustedLogos: true,
+      118 -    showSecurity: true,                                       
+      119 -    showCustomerStories: true,                                
+      118 +    showSecurity: false,                                      
+      119 +    showCustomerStories: false,                               
+      120      sections: [
+      121        // ---- Image Card 1: Recordings enhanced by AI ----
+      122        {
+
+⏺ Bash(node --env-file=.env.local scripts/seed-feature-recordings.mjs 2>&1 |
+      tail -5)
+  ⎿  Uploading recordings feature assets...
+       → uploaded.
+
+     Done! Upserted featurePage-recordings
+
+⏺ Bash(sleep 2 && curl -s "http://localhost:3000/features/recordings" -o
+      /tmp/recordings-v2.html -w "HTTP %{http_code}\n" && grep -c -E "How .+
+      Leverages Velt|Enterpri…)
+  ⎿  HTTP 200
+     0
+     expected: 0
+
+⏺ Both sections are gone — CustomerUI ("How [Customer] Leverages Velt") and
+  Security no longer render. Page still 200s. Ready for the demo links whenever
+  you are.
+
+✻ Crunched for 27s
+
+❯ the nav bar should transition back to black on every page once it reaches the 
+   "our Customers Trust us" section                                             
+
+⏺ Let me find the Nav component and see how it currently handles the
+  section-based color switching.
+
+  Searched for 3 patterns, read 2 files, listed 1 directory (ctrl+o to expand)
+⏺ The marker already exists on FeatureCustomerCarousel (data-getstarted). The
+  Nav's fallback path just doesn't read it. Let me fix the Nav.
+
+⏺ Update(components/home/Nav.tsx)
+  ⎿  Added 9 lines, removed 4 lines
+      447          setOverPurple(outcomesTop <= NAV_STRIP && getStartedTo
+           p > NAV_STRIP);
+      448          return;
+      449        }
+      450 -      // Fallback for pages without homepage markers (e.g. /li
+          -braries/*):                                                   
+      451 -      // flip to solid once the user has scrolled past roughly
+          - the dark hero.                                               
+      452 -      // One viewport-height is a reasonable heuristic for a f
+          -ull-bleed hero.                                               
+      453 -      setOverPurple(window.scrollY > window.innerHeight - NAV_
+          -STRIP);                                                       
+      450 +      // Fallback for pages without homepage markers (e.g. /fe
+          +atures/*, /libraries/*):                                      
+      451 +      // flip to solid white once scrolled past the dark hero,
+          + then flip BACK to                                            
+      452 +      // dark/transparent when the [data-getstarted] marker (m
+          +ounted on                                                     
+      453 +      // FeatureCustomerCarousel — "Our Customers Trust Us" — 
+          +and on                                                        
+      454 +      // LibraryFAQ as a backup) reaches the nav strip. One vi
+          +ewport-height                                                 
+      455 +      // is a reasonable heuristic for the dark hero exit.    
+      456 +      const pastHero = window.scrollY > window.innerHeight - N
+          +AV_STRIP;                                                     
+      457 +      const getStartedTop = getStarted?.getBoundingClientRect(
+          +).top ?? Infinity;                                            
+      458 +      setOverPurple(pastHero && getStartedTop > NAV_STRIP);   
+      459      };
+      460      check();
+      461      window.addEventListener("scroll", check, { passive: true }
+           );
+
+⏺ Bash(npx tsc --noEmit 2>&1 | head -20)
+  ⎿  (No output)
+
+⏺ Type-check passes. The Nav's fallback path now reads the data-getstarted
+  marker that already lives on FeatureCustomerCarousel's root <section>. The
+  flip logic on feature/library pages is now:
+
+  - Hero (dark) → transparent gradient + white text
+  - After hero scroll → solid translucent-white + dark text (over the image
+  cards)
+  - Reaches "Our Customers Trust Us" → flips back to transparent gradient +
+  white text, and stays that way through FAQ / Get Started / Footer
+
+  Same fix applies to /features/comments and the libraries pages since they all
+  render FeatureCustomerCarousel.
+
+✻ Churned for 1m 45s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_ddIPKU/Screenshot\ 2026-04-30\ at\ 5.54.36 PM.png                    
+                                                                                
+  The spacing for the marketing logo's needs to match features/comments, the    
+  white section should also have the rounded corners                            
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ The user is talking about the rounded curved transition from the dark
+  trusted-logos strip into the white section below. Let me check how the bento
+  sections do this with topAccent.
+
+  Searched for 2 patterns, read 1 file (ctrl+o to expand)
+
+⏺ I see — topAccent gives the white section a 48px top-corner curve + 80px gap.
+  Let me check how the dispatcher currently picks the first light section, and
+  also confirm FeaturePowerfulBento's topAccent behavior.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Now I'll thread topAccent through the shell + image card and have the
+  dispatcher mark the first light section regardless of type.
+
+⏺ Update(components/feature/FeatureSectionShell.tsx)
+  ⎿  Added 16 lines, removed 1 line
+      29    viewDocsCta?: ShellCtaLink;
+      30    primaryCta?: ShellCtaLink;
+      31    testimonial?: FeatureSectionShellTestimonial;
+      32 +  /** When true, gives the section a 48px top corner curve and 
+         +80px top                                                       
+      33 +   *  margin so it can sit immediately under a dark section as 
+         +the first                                                      
+      34 +   *  light block of the page. Mirrors LibraryBento's `topAccen
+         +t`. Also                                                       
+      35 +   *  sets `data-outcomes` so the Nav flips to its light/dark s
+         +cheme. */                                                      
+      36 +  topAccent?: boolean;                                         
+      37    children: ReactNode;
+      38  };
+      39  
+     ...
+      44    viewDocsCta,
+      45    primaryCta,
+      46    testimonial,
+      47 +  topAccent = false,                                           
+      48    children,
+      49  }: FeatureSectionShellProps) {
+      50    const hasTestimonial = Boolean(testimonial?.quote);
+      51  
+      52    return (
+      53      <section
+      54 +      // `data-outcomes` is the Nav's "light-start" marker — fl
+         +ips the nav                                                    
+      55 +      // chrome from transparent-on-dark to solid-on-light. Onl
+         +y set when                                                     
+      56 +      // this section is the first light block on the page (top
+         +Accent).                                                       
+      57 +      data-outcomes={topAccent ? true : undefined}             
+      58        className="flex flex-col items-center bg-white full-bleed
+          -bg"
+      49 -      style={{ padding: "100px 80px" }}                        
+      59 +      style={{                                                 
+      60 +        padding: "100px 80px",                                 
+      61 +        marginTop: topAccent ? 80 : 0,                         
+      62 +        borderTopLeftRadius: topAccent ? 48 : 0,               
+      63 +        borderTopRightRadius: topAccent ? 48 : 0,              
+      64 +      }}                                                       
+      65      >
+      66        <div
+      67          className="overflow-hidden"
+
+⏺ Update(components/feature/FeatureImageCard.tsx)
+  ⎿  Added 4 lines
+      30     */
+      31    imageBottomOffset?: number;
+      32    testimonial?: FeatureSectionShellTestimonial;
+      33 +  /** Mark this as the first light section on the page so the s
+         +hell renders                                                   
+      34 +   *  the 48px rounded top + 80px margin transition from the da
+         +rk hero strip. */                                              
+      35 +  topAccent?: boolean;                                         
+      36  };
+      37  
+      38  export function FeatureImageCard({
+     ...
+      47    imageHeight,
+      48    imageBottomOffset = 0,
+      49    testimonial,
+      50 +  topAccent = false,                                           
+      51  }: FeatureImageCardProps) {
+      52    // The outer body needs enough room for the image *plus* the 
+          centered
+      53    // heading/CTA cluster the shell renders above it. The shell 
+          pads
+
+⏺ Update(components/feature/FeatureImageCard.tsx)
+  ⎿  Added 1 line
+      63        viewDocsCta={viewDocsCta}
+      64        primaryCta={primaryCta}
+      65        testimonial={testimonial}
+      66 +      topAccent={topAccent}                                    
+      67      >
+      68        <div
+      69          className="relative overflow-hidden"
+
+⏺ Update(components/feature/FeatureCardRow.tsx)
+  ⎿  Added 4 lines
+      41    primaryCta?: CtaLink;
+      42    cards: FeatureCardRowCard[];
+      43    testimonial?: FeatureSectionShellTestimonial;
+      44 +  /** First-light-block transition. Forwarded to FeatureSection
+         +Shell. */                                                      
+      45 +  topAccent?: boolean;                                         
+      46  };
+      47  
+      48  export function FeatureCardRow({
+     ...
+      53    primaryCta,
+      54    cards,
+      55    testimonial,
+      56 +  topAccent = false,                                           
+      57  }: FeatureCardRowProps) {
+      58    return (
+      59      <FeatureSectionShell
+     ...
+      63        viewDocsCta={viewDocsCta}
+      64        primaryCta={primaryCta}
+      65        testimonial={testimonial}
+      66 +      topAccent={topAccent}                                    
+      67      >
+      68        <div
+      69          className="grid"
+
+⏺ Now update the dispatcher to mark the first light section regardless of type.
+
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 13 lines, removed 8 lines
+      230  }
+      231  
+      232  export function FeatureSections({ sections }: { sections: Feat
+           ureSectionDoc[] }) {
+      233 -  // The first bento on the page sits directly under the dark 
+          -hero/trusted                                                  
+      234 -  // logos strip and needs the rounded top + 80px gap. Subsequ
+          -ent bentos                                                    
+      235 -  // share the same continuous light surface and skip the acce
+          -nt.                                                           
+      236 -  let firstBentoIndex = -1;                                   
+      233 +  // The first light-bg section on the page sits directly unde
+          +r the dark                                                    
+      234 +  // hero/trusted-logos strip and needs the rounded top + 80px
+          + gap.                                                         
+      235 +  // Subsequent sections share the same continuous light surfa
+          +ce and skip                                                   
+      236 +  // the accent. Card row + image card mirror the bento topAcc
+          +ent treatment                                                 
+      237 +  // so any of them can lead the page (e.g. /features/recordin
+          +gs starts                                                     
+      238 +  // with image cards, no bento).                             
+      239 +  let firstLightIndex = -1;                                   
+      240    sections.forEach((section, i) => {
+      238 -    const isBento =                                           
+      241 +    const isLight =                                           
+      242        section._type === "featureBentoSection" ||
+      240 -      section._type === "featurePowerfulBentoSection";        
+      241 -    if (isBento && firstBentoIndex === -1) {                  
+      242 -      firstBentoIndex = i;                                    
+      243 +      section._type === "featurePowerfulBentoSection" ||      
+      244 +      section._type === "featureCardRowSection" ||            
+      245 +      section._type === "featureImageCardSection";            
+      246 +    if (isLight && firstLightIndex === -1) {                  
+      247 +      firstLightIndex = i;                                    
+      248      }
+      249    });
+      250  
+
+⏺ Now I need to update the actual references to firstBentoIndex in the
+  dispatcher and pass topAccent to card row + image card too.
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 2 lines, removed 2 lines
+      266            return (
+      267              <LibraryBento
+      268                key={key}
+      269 -              topAccent={i === firstBentoIndex}               
+      269 +              topAccent={i === firstLightIndex}               
+      270                heading={section.heading}
+      271                subheading={section.subheading}
+      272                eyebrow={section.eyebrow}
+     ...
+      282            return (
+      283              <FeaturePowerfulBento
+      284                key={key}
+      285 -              topAccent={i === firstBentoIndex}               
+      285 +              topAccent={i === firstLightIndex}               
+      286                eyebrow={section.eyebrow}
+      287                heading={section.heading}
+      288                subheading={section.subheading}
+
+  Read 1 file (ctrl+o to expand)
+⏺ Update(components/feature/FeatureSections.tsx)
+  ⎿  Added 2 lines
+      327            return (
+      328              <FeatureCardRow
+      329                key={key}
+      330 +              topAccent={i === firstLightIndex}               
+      331                eyebrow={section.eyebrow}
+      332                heading={section.heading}
+      333                subheading={section.subheading}
+     ...
+      342            return (
+      343              <FeatureImageCard
+      344                key={key}
+      345 +              topAccent={i === firstLightIndex}               
+      346                eyebrow={section.eyebrow}
+      347                heading={section.heading}
+      348                subheading={section.subheading}
+
+⏺ Bash(npx tsc --noEmit 2>&1 | head -20 && echo "---" && curl -s
+      "http://localhost:3000/features/recordings" -o /tmp/r3.html -w "HTTP
+      %{http_code}\n" && grep -c -E "bo…)
+  ⎿  ---
+     HTTP 200
+     1
+
+⏺ Bash(curl -s "http://localhost:3000/features/comments" -o /tmp/c3.html -w
+      "HTTP %{http_code}\n" && grep -c -E
+      "border-top-left-radius:48|borderTopLeftRadius:48" /tmp…)
+  ⎿  HTTP 200
+     1
+     ---outcomes count:
+     … +2 lines (ctrl+o to expand)
+
+⏺ The topAccent treatment is now applied to the first image card on the
+  recordings page — same 48px corner curve and 80px gap as the comments page.
+  Plus, since data-outcomes is now set on the first light section, the Nav uses
+  the cleaner homepage-style logic (flips between data-outcomes top and
+  data-getstarted top) instead of the scroll-past-hero heuristic. Comments page
+  is unchanged.
+
+✻ Worked for 2m 48s
+
+❯ Here's the demo links:                                                        
+  https://recorder-landing-page-demo.vercel.app/?type=audio&backgroundColor=1A2 
+  A7C                                                                           
+                                                                                
+  https://recorder-landing-page-demo.vercel.app/?type=video&backgroundColor=1A2 
+  A7C                                                                           
+   https://recorder-landing-page-demo.vercel.app/?type=screen&backgroundColor=1 
+  A2A7C  https://recorder-landing-page-demo.vercel.app/?backgroundColor=1A2A7C  
+                                                                                
+  Here's the github link for all the demo's:                                    
+  https://github.com/velt-js/recorder-landing-page-demo                         
+
+⏺ Wiring up the demo URLs and shared GitHub link.
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 15 lines
+      15    github?: string;
+      16  };
+      17  
+      18 +const RECORDER_GITHUB =                                        
+      19 +  "https://github.com/velt-js/recorder-landing-page-demo";     
+      20 +                                                               
+      21  const TABS: DemoTab[] = [
+      22    {
+      23      label: "Audio",
+      24      description: "Record audio messages inside your app.",
+      25 +    iframe:                                                    
+      26 +      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         +o&backgroundColor=1A2A7C",                                     
+      27 +    github: RECORDER_GITHUB,                                   
+      28    },
+      29    {
+      30      label: "Video",
+      31      description: "Capture talking-head video clips.",
+      32 +    iframe:                                                    
+      33 +      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         +o&backgroundColor=1A2A7C",                                     
+      34 +    github: RECORDER_GITHUB,                                   
+      35    },
+      36    {
+      37      label: "Screen",
+      38      description: "Record screen captures with optional audio.",
+      39 +    iframe:                                                    
+      40 +      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         +en&backgroundColor=1A2A7C",                                    
+      41 +    github: RECORDER_GITHUB,                                   
+      42    },
+      43    {
+      44      label: "All",
+      45      description: "All three recording modes available together.
+          ",
+      46 +    iframe:                                                    
+      47 +      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         +dColor=1A2A7C",                                                
+      48 +    github: RECORDER_GITHUB,                                   
+      49    },
+      50  ];
+      51  
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" -o /tmp/r4.html -w
+      "HTTP %{http_code}\n" && grep -c "recorder-landing-page-demo" /tmp/r4.html
+       && echo "expec…)
+  ⎿  HTTP 200
+     1
+     expected 4 iframes + 4 open links + 4 github links roughly
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Audio iframe (rendered as both the <iframe src=> and the bottom-right "Open"
+  link's href) plus the shared GitHub link are all wired correctly. Switching
+  tabs swaps the URL client-side. Demo panel is now live.
+
+✻ Brewed for 30s
+
+❯ can we make the bacgkround color to match the frame instead of whatever it is 
+   right now                                                                    
+
+⏺ The chrome is #1c1d21. Let me swap the backgroundColor query param to match.
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 4 lines
+      23      label: "Audio",
+      24      description: "Record audio messages inside your app.",
+      25      iframe:
+      26 -      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         -o&backgroundColor=1A2A7C",                                     
+      26 +      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         +o&backgroundColor=1c1d21",                                     
+      27      github: RECORDER_GITHUB,
+      28    },
+      29    {
+      30      label: "Video",
+      31      description: "Capture talking-head video clips.",
+      32      iframe:
+      33 -      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         -o&backgroundColor=1A2A7C",                                     
+      33 +      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         +o&backgroundColor=1c1d21",                                     
+      34      github: RECORDER_GITHUB,
+      35    },
+      36    {
+      37      label: "Screen",
+      38      description: "Record screen captures with optional audio.",
+      39      iframe:
+      40 -      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         -en&backgroundColor=1A2A7C",                                    
+      40 +      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         +en&backgroundColor=1c1d21",                                    
+      41      github: RECORDER_GITHUB,
+      42    },
+      43    {
+      44      label: "All",
+      45      description: "All three recording modes available together.
+          ",
+      46      iframe:
+      47 -      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         -dColor=1A2A7C",                                                
+      47 +      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         +dColor=1c1d21",                                                
+      48      github: RECORDER_GITHUB,
+      49    },
+      50  ];
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "recorder-landing-page-demo\.vercel\.app[^\"]*" | sort | uniq -c)
+  ⎿     2 recorder-landing-page-demo.vercel.app/?type=audio&amp;backgroundC
+     olor=1c1d21
+
+⏺ Updated all four tabs (audio, video, screen, all) — iframe background now
+  matches the chrome #1c1d21.
+
+✻ Cooked for 13s
+
+❯ no not the chrome it should be the background of the demo that we had before  
+  we even added the demo links, it was closer to a black, look at what we did   
+  for features/comments                                                         
+
+⏺ Got it — comments uses background=000000 (pure black). Let me match that.
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 4 lines
+      23      label: "Audio",
+      24      description: "Record audio messages inside your app.",
+      25      iframe:
+      26 -      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         -o&backgroundColor=1c1d21",                                     
+      26 +      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         +o&backgroundColor=000000",                                     
+      27      github: RECORDER_GITHUB,
+      28    },
+      29    {
+      30      label: "Video",
+      31      description: "Capture talking-head video clips.",
+      32      iframe:
+      33 -      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         -o&backgroundColor=1c1d21",                                     
+      33 +      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         +o&backgroundColor=000000",                                     
+      34      github: RECORDER_GITHUB,
+      35    },
+      36    {
+      37      label: "Screen",
+      38      description: "Record screen captures with optional audio.",
+      39      iframe:
+      40 -      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         -en&backgroundColor=1c1d21",                                    
+      40 +      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         +en&backgroundColor=000000",                                    
+      41      github: RECORDER_GITHUB,
+      42    },
+      43    {
+      44      label: "All",
+      45      description: "All three recording modes available together.
+          ",
+      46      iframe:
+      47 -      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         -dColor=1c1d21",                                                
+      47 +      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         +dColor=000000",                                                
+      48      github: RECORDER_GITHUB,
+      49    },
+      50  ];
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "recorder-landing-page-demo\.vercel\.app[^\"]*" | head -2)
+  ⎿  recorder-landing-page-demo.vercel.app/?type=audio&amp;backgroundColor=
+     000000
+     recorder-landing-page-demo.vercel.app/?type=audio&amp;backgroundColor=
+     000000
+⏺ All four tabs now request backgroundColor=000000 from the recorder demo,
+  matching the comments page convention and the empty-black stage we had before.
+
+✻ Cogitated for 18s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_6rBALz/Screenshot\ 2026-04-30\ at\ 6.03.18 PM.png background is      
+  still blue                                                                    
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Bash(grep "backgroundColor" /Users/yoenzhang/Downloads/velt-marketing-pages/co
+      mponents/feature/RecordingsDemoSidebar.tsx | head -5; echo "---live page
+      check---"; cur…)
+  ⎿        "https://recorder-landing-page-demo.vercel.app/?type=audio&backg
+     roundColor=000000",
+           "https://recorder-landing-page-demo.vercel.app/?type=video&backg
+     … +10 lines (ctrl+o to expand)
+
+⏺ Our HTML is correct. Let me poke the demo URL itself to see what color it
+  actually honors.
+
+⏺ Bash(curl -sL "https://recorder-landing-page-demo.vercel.app/?type=audio&backg
+      roundColor=000000" -o /tmp/demo.html && grep -oE
+      "1A2A7C|1a2a7c|backgroundColor|backgro…)
+  ⎿  (No output)
+
+⏺ Bash(curl -sL "https://recorder-landing-page-demo.vercel.app/?type=audio&backg
+      roundColor=000000" | grep -oE "background[^\"';]{0,60}" | head -10; echo
+      "---"; wc -c /…)
+  ⎿  ---
+          699 /tmp/demo.html
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ The demo's param parser likely treats 000000 as falsy (parseInt("000000", 16) 
+  === 0) and falls back to the default blue. Let me use a near-black that's
+  visually identical but truthy.
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 4 lines
+      23      label: "Audio",
+      24      description: "Record audio messages inside your app.",
+      25      iframe:
+      26 -      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         -o&backgroundColor=000000",                                     
+      26 +      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         +o&backgroundColor=010101",                                     
+      27      github: RECORDER_GITHUB,
+      28    },
+      29    {
+      30      label: "Video",
+      31      description: "Capture talking-head video clips.",
+      32      iframe:
+      33 -      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         -o&backgroundColor=000000",                                     
+      33 +      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         +o&backgroundColor=010101",                                     
+      34      github: RECORDER_GITHUB,
+      35    },
+      36    {
+      37      label: "Screen",
+      38      description: "Record screen captures with optional audio.",
+      39      iframe:
+      40 -      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         -en&backgroundColor=000000",                                    
+      40 +      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         +en&backgroundColor=010101",                                    
+      41      github: RECORDER_GITHUB,
+      42    },
+      43    {
+      44      label: "All",
+      45      description: "All three recording modes available together.
+          ",
+      46      iframe:
+      47 -      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         -dColor=000000",                                                
+      47 +      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         +dColor=010101",                                                
+      48      github: RECORDER_GITHUB,
+      49    },
+      50  ];
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "recorder-landing-page-demo\.vercel\.app[^\"]*" | head -2)
+  ⎿  recorder-landing-page-demo.vercel.app/?type=audio&amp;backgroundColor=
+     010101
+     recorder-landing-page-demo.vercel.app/?type=audio&amp;backgroundColor=
+     010101
+
+⏺ All four tabs now use backgroundColor=010101 — RGB(1,1,1), visually identical
+  to black but won't be coerced to falsy by the demo's hex parser. Hard-reload
+  the page and the iframe should render black.
+
+✻ Cooked for 1m 23s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_aWbOod/Screenshot\ 2026-04-30\ at\ 6.04.26 PM.png                    
+                                                                                
+  it seems like the demo link does not respect the background, can we also      
+  shrink the width to match the dimensions of the demo?                         
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Let me center the iframe at a narrower max-width inside the full-width black
+  stage. Chrome stays where it is; demo content shrinks.
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 8 lines, removed 1 line
+      186            })}
+      187          </div>
+      188  
+      189 -        {/* Iframe stage — empty black panel until the user su
+          -pplies iframe URLs. */}                                       
+      189 +        {/* Iframe stage — full-width black surround with the 
+          +iframe centered                                               
+      190 +            at a narrower max-width to match the recording dem
+          +o's natural                                                   
+      191 +            content width. The demo's blue background isn't ho
+          +nored by the                                                  
+      192 +            ?backgroundColor= query param, so we rely on the s
+          +urrounding                                                    
+      193 +            #000 stage to absorb everything outside the demo b
+          +ox. */}                                                       
+      194          <div
+      195            style={{
+      196              background: "#000",
+     ...
+      199              height: 620,
+      200              overflow: "hidden",
+      201              width: "100%",
+      202 +            display: "flex",                                  
+      203 +            justifyContent: "center",                         
+      204            }}
+      205          >
+      206            {active.iframe ? (
+     ...
+      212                title={`${active.label} demo`}
+      213                style={{
+      214                  width: "100%",
+      215 +                maxWidth: 720,                                
+      216                  height: "100%",
+      217                  border: "none",
+      218                  display: "block",
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "max-width:[^;\"]*7[0-9]+px|maxWidth.{0,20}" | head -5)
+  ⎿  max-width:720px
+     max-width:720px
+     maxWidth\":651},\"children\"
+     … +2 lines (ctrl+o to expand)
+
+⏺ The iframe is now centered at 720px max-width inside the full-width black
+  stage — blue content shrinks to a centered strip with black flanking the sides
+   on both desktop and any wider viewport. Hard-refresh to clear the iframe
+  cache.
+
+✻ Baked for 1m 50s
+
+❯ no i meant the frame that we have the iframe in, not the iframe itself        
+  /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_90qMjV/Screenshot\ 2026-04-30\ at\ 6.07.09 PM.png                    
+  Read 1 file (ctrl+o to expand)
+
+⏺ Got it — the outer frame (tabs + stage + chrome) should shrink, not just the
+  iframe. Let me revert the iframe centering and shrink the wrapper instead.
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 8 lines
+      186            })}
+      187          </div>
+      188  
+      189 -        {/* Iframe stage — full-width black surround with the 
+          -iframe centered                                               
+      190 -            at a narrower max-width to match the recording dem
+          -o's natural                                                   
+      191 -            content width. The demo's blue background isn't ho
+          -nored by the                                                  
+      192 -            ?backgroundColor= query param, so we rely on the s
+          -urrounding                                                    
+      193 -            #000 stage to absorb everything outside the demo b
+          -ox. */}                                                       
+      189 +        {/* Iframe stage. The whole frame (tabs + stage + open
+          +/github chrome)                                               
+      190 +            is sized to the recording demo's natural width — n
+          +arrower than the                                              
+      191 +            1280px the comments demo uses since the recorder U
+          +I is just a                                                   
+      192 +            small centered "click to start" widget. */}       
+      193          <div
+      194            style={{
+      195              background: "#000",
+     ...
+      198              height: 620,
+      199              overflow: "hidden",
+      200              width: "100%",
+      202 -            display: "flex",                                  
+      203 -            justifyContent: "center",                         
+      201            }}
+      202          >
+      203            {active.iframe ? (
+     ...
+      209                title={`${active.label} demo`}
+      210                style={{
+      211                  width: "100%",
+      215 -                maxWidth: 720,                                
+      212                  height: "100%",
+      213                  border: "none",
+      214                  display: "block",
+
+⏺ Now shrink the outer wrapper from 1280px down to match the demo dimensions.
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 1 line
+      116      >
+      117        <div
+      118          style={{
+      119 -          width: 1280,                                        
+      119 +          // Narrower than the 1280px page rail because the re
+          +corder demo's                                                 
+      120 +          // natural content (centered "click to start" widget
+          +) is small —                                                  
+      121 +          // a full-page-width frame would leave huge empty fl
+          +anks.                                                         
+      122 +          width: 760,                                         
+      123            background: CHROME,
+      124            border: `2px solid ${CHROME}`,
+      125            borderRadius: 12,
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "width:760px|max-width:720px" | sort | uniq -c)
+  ⎿     1 max-width:720px
+        1 width:760px
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Frame is now 760px wide (the tabs, iframe stage, and OPEN/GITHUB chrome all
+  shrink together), centered within the section. The leftover max-width:720px is
+   from another section, not the demo. Hard-refresh to see the new compact
+  frame.
+
+✻ Brewed for 1m 5s
+
+❯ no revert everything to what it was before, i'll show you what i mean         
+
+⏺ Reverting to the state right after I wired up the demo URLs (full 1280 frame,
+  original 1A2A7C background).
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 4 lines
+      116      >
+      117        <div
+      118          style={{
+      119 -          // Narrower than the 1280px page rail because the re
+          -corder demo's                                                 
+      120 -          // natural content (centered "click to start" widget
+          -) is small —                                                  
+      121 -          // a full-page-width frame would leave huge empty fl
+          -anks.                                                         
+      122 -          width: 760,                                         
+      119 +          width: 1280,                                        
+      120            background: CHROME,
+      121            border: `2px solid ${CHROME}`,
+      122            borderRadius: 12,
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 4 lines
+      186            })}
+      187          </div>
+      188  
+      189 -        {/* Iframe stage. The whole frame (tabs + stage + open
+          -/github chrome)                                               
+      190 -            is sized to the recording demo's natural width — n
+          -arrower than the                                              
+      191 -            1280px the comments demo uses since the recorder U
+          -I is just a                                                   
+      192 -            small centered "click to start" widget. */}       
+      189 +        {/* Iframe stage — empty black panel until the user su
+          +pplies iframe URLs. */}                                       
+      190          <div
+      191            style={{
+      192              background: "#000",
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 4 lines
+      23      label: "Audio",
+      24      description: "Record audio messages inside your app.",
+      25      iframe:
+      26 -      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         -o&backgroundColor=010101",                                     
+      26 +      "https://recorder-landing-page-demo.vercel.app/?type=audi
+         +o&backgroundColor=1A2A7C",                                     
+      27      github: RECORDER_GITHUB,
+      28    },
+      29    {
+      30      label: "Video",
+      31      description: "Capture talking-head video clips.",
+      32      iframe:
+      33 -      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         -o&backgroundColor=010101",                                     
+      33 +      "https://recorder-landing-page-demo.vercel.app/?type=vide
+         +o&backgroundColor=1A2A7C",                                     
+      34      github: RECORDER_GITHUB,
+      35    },
+      36    {
+      37      label: "Screen",
+      38      description: "Record screen captures with optional audio.",
+      39      iframe:
+      40 -      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         -en&backgroundColor=010101",                                    
+      40 +      "https://recorder-landing-page-demo.vercel.app/?type=scre
+         +en&backgroundColor=1A2A7C",                                    
+      41      github: RECORDER_GITHUB,
+      42    },
+      43    {
+      44      label: "All",
+      45      description: "All three recording modes available together.
+          ",
+      46      iframe:
+      47 -      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         -dColor=010101",                                                
+      47 +      "https://recorder-landing-page-demo.vercel.app/?backgroun
+         +dColor=1A2A7C",                                                
+      48      github: RECORDER_GITHUB,
+      49    },
+      50  ];
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "width:1280px|backgroundColor=1A2A7C" | sort | uniq -c)
+  ⎿     2 backgroundColor=1A2A7C
+       14 width:1280px
+
+⏺ Reverted. Wrapper back to 1280px, original backgroundColor=1A2A7C query param.
+   Ready for your example.
+
+✻ Cooked for 31s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_gI3fYY/Screenshot\ 2026-04-30\ at\ 6.09.55 PM.png                    
+                                                                                
+  there's only a small offset needed if you see the edge of the iframe compared 
+   to the edge of our container                                                 
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Got it — you want a small inset between the iframe and the CHROME wrapper
+  edges. Let me add horizontal padding so the iframe doesn't sit flush.
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 5 lines, removed 1 line
+      186            })}
+      187          </div>
+      188  
+      189 -        {/* Iframe stage — empty black panel until the user su
+          -pplies iframe URLs. */}                                       
+      189 +        {/* Iframe stage. Small horizontal inset so the iframe
+          + content doesn't                                              
+      190 +            sit flush against the CHROME wrapper edge — matche
+          +s the gap on                                                  
+      191 +            features/comments. */}                            
+      192          <div
+      193            style={{
+      194              background: "#000",
+     ...
+      197              height: 620,
+      198              overflow: "hidden",
+      199              width: "100%",
+      200 +            padding: "0 16px",                                
+      201 +            boxSizing: "border-box",                          
+      202            }}
+      203          >
+      204            {active.iframe ? (
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE "padding:0
+       16px|box-sizing:border-box" | sort | uniq -c)
+  ⎿     2 box-sizing:border-box
+        1 padding:0 16px
+
+⏺ Added a 16px horizontal inset on the iframe stage — the iframe now has a small
+   black gap on each side instead of sitting flush against the chrome border.
+  Reload to see.
+
+✻ Worked for 1m 35s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_mTNXCP/Screenshot\ 2026-04-30\ at\ 6.12.04 PM.png You're not         
+  understanding, i want the grey outer frame that holds the iframe to match the 
+   dimensions of the iframe for width, not adding a border, i want you to       
+  literally shrink the width of the container that holds the iframe with the    
+  open and github and info butons                                               
+
+⏺ Understood — revert the 16px padding and shrink the actual wrapper instead.
+  I'll go with 800px this time (between the 760 you didn't like and the original
+   1280).
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 5 lines
+      186            })}
+      187          </div>
+      188  
+      189 -        {/* Iframe stage. Small horizontal inset so the iframe
+          - content doesn't                                              
+      190 -            sit flush against the CHROME wrapper edge — matche
+          -s the gap on                                                  
+      191 -            features/comments. */}                            
+      189 +        {/* Iframe stage — empty black panel until the user su
+          +pplies iframe URLs. */}                                       
+      190          <div
+      191            style={{
+      192              background: "#000",
+     ...
+      195              height: 620,
+      196              overflow: "hidden",
+      197              width: "100%",
+      200 -            padding: "0 16px",                                
+      201 -            boxSizing: "border-box",                          
+      198            }}
+      199          >
+      200            {active.iframe ? (
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 1 line
+      116      >
+      117        <div
+      118          style={{
+      119 -          width: 1280,                                        
+      119 +          // Narrower than the 1280px page rail because the re
+          +corder demo's                                                 
+      120 +          // natural content (a small centered "click to start
+          +" widget) is                                                  
+      121 +          // narrow — a full-page-width frame leaves huge empt
+          +y flanks.                                                     
+      122 +          width: 800,                                         
+      123            background: CHROME,
+      124            border: `2px solid ${CHROME}`,
+      125            borderRadius: 12,
+
+⏺ Bash(curl -s "http://localhost:3000/features/recordings" | grep -oE
+      "width:800px|width:1280px|padding:0 16px" | sort | uniq -c)
+  ⎿    13 width:1280px
+        1 width:800px
+
+⏺ The CHROME wrapper (tabs + iframe stage + OPEN/GITHUB/INFO buttons) is now
+  800px wide and centers within the section. The 13 other width:1280px are from
+  the rest of the page (image cards, etc.) — only the demo frame shrunk. Reload
+  to see.
+
+✻ Churned for 52s
+
+❯ but now it's too small                                                        
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 1 line
+      119            // Narrower than the 1280px page rail because the re
+           corder demo's
+      120            // natural content (a small centered "click to start
+           " widget) is
+      121            // narrow — a full-page-width frame leaves huge empt
+           y flanks.
+      122 -          width: 800,                                         
+      122 +          width: 1000,                                        
+      123            background: CHROME,
+      124            border: `2px solid ${CHROME}`,
+      125            borderRadius: 12,
+
+⏺ Bumped to 1000px. Let me know if it needs to go bigger or smaller.
+
+✻ Worked for 12s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_HXoOLm/Screenshot\ 2026-04-30\ at\ 6.13.36 PM.png                    
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Width's better. The 620px height is now disproportionate — way more empty blue
+   below the icon than feels right. Let me drop the height too so the iframe is
+  more squared-off.
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 4 lines, removed 2 lines
+      189            })}
+      190          </div>
+      191  
+      192 -        {/* Iframe stage — empty black panel until the user su
+          -pplies iframe URLs. */}                                       
+      192 +        {/* Iframe stage. Shorter than the comments demo (620)
+          + because the                                                  
+      193 +            recorder is just a centered "click to start" widge
+          +t — extra                                                     
+      194 +            vertical space leaves too much empty blue below th
+          +e icon. */}                                                   
+      195          <div
+      196            style={{
+      197              background: "#000",
+      198              border: `4px solid ${CHROME}`,
+      199              borderRadius: 12,
+      198 -            height: 620,                                      
+      200 +            height: 500,                                      
+      201              overflow: "hidden",
+      202              width: "100%",
+      203            }}
+
+⏺ Dropped the iframe stage height to 500px. The whole frame is now ~1000×500 —
+  more proportional. Let me know if it still feels off.
+
+✻ Worked for 43s
+
+❯ increase it more                                                              
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 1 line
+      119            // Narrower than the 1280px page rail because the re
+           corder demo's
+      120            // natural content (a small centered "click to start
+           " widget) is
+      121            // narrow — a full-page-width frame leaves huge empt
+           y flanks.
+      122 -          width: 1000,                                        
+      122 +          width: 1100,                                        
+      123            background: CHROME,
+      124            border: `2px solid ${CHROME}`,
+      125            borderRadius: 12,
+
+⏺ Bumped width to 1100. Say the word if you want it bigger or smaller.
+✻ Cooked for 21s
+
+❯ larger                                                                        
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 1 line
+      119            // Narrower than the 1280px page rail because the re
+           corder demo's
+      120            // natural content (a small centered "click to start
+           " widget) is
+      121            // narrow — a full-page-width frame leaves huge empt
+           y flanks.
+      122 -          width: 1100,                                        
+      122 +          width: 1200,                                        
+      123            background: CHROME,
+      124            border: `2px solid ${CHROME}`,
+      125            borderRadius: 12,
+
+⏺ 1200 now. Keep going?
+
+✻ Crunched for 9s
+
+❯ make the height 800                                                           
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 2 lines, removed 4 lines
+      189            })}
+      190          </div>
+      191  
+      192 -        {/* Iframe stage. Shorter than the comments demo (620)
+          - because the                                                  
+      193 -            recorder is just a centered "click to start" widge
+          -t — extra                                                     
+      194 -            vertical space leaves too much empty blue below th
+          -e icon. */}                                                   
+      192 +        {/* Iframe stage. */}                                 
+      193          <div
+      194            style={{
+      195              background: "#000",
+      196              border: `4px solid ${CHROME}`,
+      197              borderRadius: 12,
+      200 -            height: 500,                                      
+      198 +            height: 800,                                      
+      199              overflow: "hidden",
+      200              width: "100%",
+      201            }}
+
+⏺ Height bumped to 800.
+
+✻ Brewed for 12s
+
+❯ bring it back down to 600                                                     
+
+⏺ Update(components/feature/RecordingsDemoSidebar.tsx)
+  ⎿  Added 1 line, removed 1 line
+      195              background: "#000",
+      196              border: `4px solid ${CHROME}`,
+      197              borderRadius: 12,
+      198 -            height: 800,                                      
+      198 +            height: 600,                                      
+      199              overflow: "hidden",
+      200              width: "100%",
+      201            }}
+
+⏺ Height now 600. Frame is 1200×600.
+
+✻ Worked for 10s
+
+❯ Great this page is complete, now let's move onto the notifications page       
+
+⏺ Recordings page is done. Drop the Figma link for the notifications page (same
+  format as before — figma.com/design/...?node-id=...) and I'll get started.
+
+✻ Sautéed for 15s
+
+❯ Great now let's build the features/notifications page. Here is the Figma      
+  link, USE THE FIGMA MCP:                                                      
+  https://www.figma.com/design/HqWIZdR6ISJmaG2n4o3gr8/Velt-Marketing---2026?nod 
+  e-id=220-22138&m=dev                                                          
+                                                                                
+  Most of the components should already exist, everything from "Our customers   
+  trust us" section and below should be already implemented. The remaining      
+  cards shoudl take the same shape as our "Extend the capabilities" section     
+  from features/comments but with different images that you can directly copy   
+  from the figma. Make SURE EVERYTHING MATCHES EXACTLY. I WANT THE EXACT IMAGES 
+   FROM THE FIGMA DESIGN, THE EXACT ICONS, THE EXACT LAYOUT, ETC. EVERYTHING    
+  SHOULD MATCH EXACTLY. The top section can be created by reusing then          
+  modifying existing elements from our hero sections in features/comments as    
+  well.                                                                         
+                                                                                
+  I want you to make a similar plan to what you did for features/recordings,    
+  that went very smoothly with small minor changes after.                       
+
+⏺ Let me read the existing plan, then pull the Figma design and survey what's
+  already built (to know what's reusable from the recordings work).
+
+  Read 1 file, called plugin:figma:figma 2 times (ctrl+o to expand)
+⏺ Bash(curl -s -o /tmp/notifications-screenshot.png
+      "https://www.figma.com/api/mcp/asset/44727de3-2ad2-4fae-b8eb-84a6149b294a"
+       && ls -la /tmp/notifications-screenshot.…)
+  ⎿  -rw-r--r--@ 1 yoenzhang  wheel  71663 Apr 30 18:18 /tmp/notifications-
+     screenshot.png
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Agent(Extract Figma notifications page details)
+  ⎿  Done (14 tool uses · 69.9k tokens · 2m 7s)
+  (ctrl+o to expand)
+
+⏺ I have the structure. Before finalizing, let me confirm two things — hero copy
+   and demo panel behavior — since the Figma copy has placeholder fragments.
+
+⏺ User answered Claude's questions:
+  ⎿  · The Figma hero says "Add Notifications Before Standup" with subheading 
+     "Add AI powered collaboration features ridiculously fast" — the heading 
+     sounds intentional but the subheading is generic placeholder copy reused 
+     from other pages. What should the hero say? → Use Figma copy verbatim
+     · The Figma demo panel under the hero has tabs "Button" and "Embedded" but 
+     no iframe URLs were provided. How should the panel behave initially? → 
+     Placeholder, awaiting URLs
+
+⏺ Updated plan
+  ⎿  /plan to preview
+
+⏺ User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/great-now-let-s-build-memoized-fiddle.md · 
+     /plan to edit
+     Plan: Build features/notifications page
+
+     Context
+
+     Recordings page is shipped. The user wants /features/notifications next,
+     matching the Figma at node 220:22138 in HqWIZdR6ISJmaG2n4o3gr8. The page
+     bottom (Customer Trust carousel → FAQ → Get Started → Footer) is already
+     covered by [slug]/page.tsx chrome. Trusted-logos band is also already wired
+      in.
+
+     Notifications is structurally simpler than recordings. Where recordings
+     stacked 3 big-image cards, notifications has one white card section ("Why
+     use Velt for Notifications?") containing two side-by-side sub-cards
+     (Prioritized Inbox | Group Notifications). The sub-cards in Figma are built
+      from native frames, but we'll export the whole 2-up row as a single
+     1280×440 PNG and drop it into the existing featureImageCardSection — same
+     scaffolding we used for recordings, no new component types needed.
+
+     User confirmations:
+     - Hero copy: use Figma verbatim — heading "Add Notifications Before
+     Standup", subheading "Add AI powered collaboration features ridiculously
+     fast" (yes, the subheading reads as boilerplate but that's what the Figma
+     says).
+     - Demo panel: placeholder for now. Build NotificationsDemoSidebar with the
+     2 Figma tabs (Button, Embedded) and an empty iframe stage; user will supply
+      real iframe + GitHub URLs later, exactly like the recordings flow.
+
+     Approach
+
+     1. Reuse existing scaffolding (no new component types)
+
+     The recordings work already shipped:
+     - components/feature/FeatureSectionShell.tsx — outer 1280-wide white card +
+      heading/sub/CTA stack + dark testimonial banner.
+     - components/feature/FeatureImageCard.tsx — single full-width image inside
+     the shell. Honors imageWidth, imageHeight, imageBottomOffset, topAccent.
+     - featureImageCardSection Sanity schema (sanity/schemas/featurePage.ts) and
+      dispatcher entry (components/feature/FeatureSections.tsx).
+     - GROQ projection in sanity/queries.ts (imageSrc, imageAlt, imageWidth,
+     imageHeight, imageBottomOffset).
+
+     Notifications uses one featureImageCardSection with the 2-sub-card row
+     baked into a single PNG. No new schema. No new component.
+
+     2. New NotificationsDemoSidebar
+
+     Mirror components/feature/RecordingsDemoSidebar.tsx 1:1:
+     - Same CHROME (#1c1d21), same tablist + iframe stage + bottom-right
+     Open/GitHub + bottom-left Info button structure.
+     - TABS array: two entries — { label: "Button", description: "...", iframe: 
+     "", github: "" } and { label: "Embedded", description: "...", iframe: "", 
+     github: "" }. Empty iframe URLs render as a black empty stage (the same
+     conditional we use in RecordingsDemoSidebar).
+     - Same wrapper width (1200) and stage height (600) as recordings — keeps
+     the vertical rhythm consistent until the user provides real demo URLs and
+     we tune dimensions.
+
+     3. Wire into [slug]/page.tsx
+
+     One-line addition next to the existing recordings conditional:
+
+     {slug === "comments" ? <CommentsDemoSidebar /> : null}
+     {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
+     {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
+
+     Everything else (PageHero, TrustedLogos, FeatureSections,
+     FeatureCustomerCarousel, LibraryFAQ, GetStartedSteps, Footer) flows from
+     the Sanity doc.
+
+     4. Sanity seed script
+
+     Create scripts/seed-feature-notifications.mjs, modeled on
+     scripts/seed-feature-recordings.mjs. Idempotent (replaces
+     featurePage-notifications), uploads images by SHA-256, sets:
+
+     - title: "Notifications", slug: "notifications", category: "Async".
+     - hero.heading: "Add Notifications Before Standup", hero.subheading: "Add 
+     AI powered collaboration features ridiculously fast", decorated: true,
+     primary Get Free API Key + secondary Book Demo.
+     - showTrustedLogos: true, showSecurity: false, showCustomerStories: false
+     (matches the toggles we kept on recordings — the Figma doesn't show "How
+     [Customer] Leverages Velt" or "Enterprise Security" between the cards and
+     the Customer Trust carousel).
+     - sections: a single featureImageCardSection:
+       - heading: "Why use Velt for Notifications?"
+       - subheading: "Velt provides everything you need to easily setup a robust
+      and reliable notification system"
+       - primaryCta: { label: "Request Demo", href: "/book-demo" } (no href in
+     Figma — /book-demo mirrors the recordings secondary CTA)
+       - image: sub-cards.png, imageWidth: 1280, imageHeight: 440,
+     imageBottomOffset: 0
+       - inlineTestimonial: lindaTestimonial (with accentFragment: "boost 
+     engagement", accentColor: "#b4b1fa")
+     - getStartedSteps.step1PackageName: "@veltdev/react"
+     - faq.items: empty (falls back to sharedFAQ).
+
+     5. Asset downloads
+
+     Figma MCP asset URLs expire after 7 days. The 2-sub-card row needs a fresh
+     fetch:
+
+     Local path: public/images/features/notifications/sub-cards.png
+     Figma source: node 220:23134 (Frame 1707481261, 1280×440) — fetch via
+       mcp__plugin_figma_figma__get_design_context to get a raster asset URL,
+     then
+       curl
+
+     If the design context returns separate assets for each 640×440 sub-card
+     instead of one combined PNG, we'll concatenate at the import step or use 2
+     images with imageBottomOffset tuning. Single-image is the preferred
+     outcome.
+
+     The Linda Belcher avatar is already uploaded by the comments seed; the
+     notifications seed re-uploads the same public/images/home/linda-steps.png
+     (Sanity dedupes by SHA-256).
+
+     Critical files
+
+     Create:
+     - components/feature/NotificationsDemoSidebar.tsx — dark demo block, tabs:
+     Button + Embedded, placeholder iframes.
+     - scripts/seed-feature-notifications.mjs — Sanity seed.
+     - public/images/features/notifications/sub-cards.png — 1280×440 PNG of the
+     2 sub-cards baked together.
+
+     Modify:
+     - app/features/[slug]/page.tsx — add slug === "notifications" conditional
+     for <NotificationsDemoSidebar />.
+
+     Touch nothing else. No schema changes, no dispatcher changes, no
+     shell/image-card changes — the recordings work covers it all.
+
+     Existing utilities to reuse
+
+     - components/feature/FeatureSectionShell.tsx +
+     components/feature/FeatureImageCard.tsx — outer chrome and single-image
+     body.
+     - components/feature/RecordingsDemoSidebar.tsx — copy as the structural
+     template for the notifications demo sidebar.
+     - components/library/PageHero.tsx — hero (Sanity supplies copy + decorated:
+      true).
+     - components/home/TrustedLogos.tsx — trusted-logos band.
+     - components/feature/FeatureCustomerCarousel.tsx — customer carousel + nav
+     data-getstarted marker.
+     - components/library/LibraryFAQ.tsx + sharedFAQ — FAQ.
+     - components/home/GetStartedSteps.tsx, components/home/Footer.tsx — page
+     bottom.
+     - lindaTestimonial literal in scripts/seed-feature-commenting.mjs /
+     scripts/seed-feature-recordings.mjs — copy verbatim with accent #b4b1fa.
+
+     Verification
+
+     1. Asset download: confirm
+     public/images/features/notifications/sub-cards.png exists and renders as
+     the two sub-cards side-by-side.
+     2. Sanity seed: node --env-file=.env.local 
+     scripts/seed-feature-notifications.mjs runs cleanly and creates
+     featurePage-notifications. Re-running is idempotent.
+     3. Type check: npx tsc --noEmit passes.
+     4. Recordings + comments sanity: both pages still render correctly — we
+     didn't modify any shared components, so this should be a non-event but
+     worth eyeballing.
+     5. Notifications page: npm run dev, open
+     http://localhost:3000/features/notifications, verify against Figma:
+       - Hero copy + decorated background + Sean/Emma cursors.
+       - Dark Notifications demo panel with 2 tabs (Button, Embedded), empty
+     black stage, OPEN + GITHUB + INFO buttons.
+       - Trusted-logos band.
+       - Single white card "Why use Velt for Notifications?" with 48px rounded
+     top corner (the topAccent treatment kicks in automatically because it's the
+      first light section).
+       - 2 sub-cards baked into the image at the bottom of the white card.
+       - Linda Belcher testimonial banner pinned to the bottom of the white
+     card.
+       - Customer carousel, FAQ, Get Started, Footer.
+       - Nav transitions from transparent (over hero) → white (over the white
+     card) → back to transparent (when "Our Customers Trust Us" reaches the
+     strip).
+
+⏺ Plan approved. Let me execute. First, fetch the asset and read the recordings
+  demo template in parallel.
+  Called plugin:figma:figma (ctrl+o to expand)
+
+⏺ I have the rendered preview. Let me grab a flat PNG export of the row via
+  screenshot.
+
+  Called plugin:figma:figma (ctrl+o to expand)
+
+⏺ Bash(mkdir -p /Users/yoenzhang/Downloads/velt-marketing-pages/public/images/fe
+      atures/notifications && curl -sS -o
+      /Users/yoenzhang/Downloads/velt-marketing-pages/pub…)
+  ⎿  total 112
+     drwxr-xr-x@ 3 yoenzhang  staff     96 Apr 30 18:26 .
+     drwxr-xr-x@ 5 yoenzhang  staff    160 Apr 30 18:26 ..
+     -rw-r--r--@ 1 yoenzhang  staff  54856 Apr 30 18:26 sub-cards.png
+
+  Read 1 file (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ Write(components/feature/NotificationsDemoSidebar.tsx)
+  ⎿  Wrote 385 lines to components/feature/NotificationsDemoSidebar.tsx
+      2 "use client";
+      3 // Dark notifications-mode demo block that sits directly under th
+      4 // notifications hero. Mirrors RecordingsDemoSidebar's structure 
+        so we can
+      5 // swap the static black panel for tab-switching iframes later. T
+      6 // will provide real iframe + GitHub URLs once the demo apps exis
+        t; until
+        23286.n each tab renders an empty black stage matching Figma 220:
+      8 
+      9 import { useState } from "react";
+     … +409 lines (ctrl+o to expand)
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 1 line
+      21  import { FeatureCustomerCarousel } from "@/components/feature/F
+          eatureCustomerCarousel";
+      22  import { CommentsDemoSidebar } from "@/components/feature/Comme
+          ntsDemoSidebar";
+      23  import { RecordingsDemoSidebar } from "@/components/feature/Rec
+          ordingsDemoSidebar";
+      24 +import { NotificationsDemoSidebar } from "@/components/feature/
+         +NotificationsDemoSidebar";                                     
+      25  import {
+      26    getAllFeatureSlugs,
+      27    getFeaturePageBySlug,
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 1 line
+      112  
+      113          {slug === "comments" ? <CommentsDemoSidebar /> : null}
+      114          {slug === "recordings" ? <RecordingsDemoSidebar /> : n
+           ull}
+      115 +        {slug === "notifications" ? <NotificationsDemoSidebar 
+          +/> : null}                                                    
+      116  
+      117          {showTrustedLogos ? <TrustedLogos /> : null}
+      118  
+
+⏺ Write(scripts/seed-feature-notifications.mjs)
+  ⎿  Wrote 150 lines to scripts/seed-feature-notifications.mjs
+       2 /**usr/bin/env node
+       3  * Seed the featurePage-notifications document in Sanity.
+       5  * Usage:
+       6  *   node --env-file=.env.local scripts/seed-feature-notificatio
+         ns.mjs
+         tifications.mjsTY_API_TOKEN=<token> node scripts/seed-feature-no
+       8  *   # preview-only: DRY_RUN=1 node scripts/seed-feature-notific
+       9  *ions.mjs
+      10  * Idempotent: re-runs replace the existing featurePage-notifica
+         tions doc and
+     … +160 lines (ctrl+o to expand)
+⏺ Bash(npx tsc --noEmit 2>&1 | head -10)
+  ⎿  (No output)
+
+⏺ Bash(node --env-file=.env.local scripts/seed-feature-notifications.mjs 2>&1 |
+      tail -5)
+  ⎿  Uploading notifications feature assets...
+       → uploaded.
+
+     Done! Upserted featurePage-notifications
+
+⏺ Type check passes, seed succeeded. Verifying the page renders.
+
+⏺ Bash(curl -s -o /tmp/n.html -w "HTTP %{http_code}\n"
+      "http://localhost:3000/features/notifications" && grep -c -E "Add
+      Notifications Before Standup|Why use Velt for…)
+  ⎿  HTTP 200
+     2
+     ---title---
+     <title>Notifications | Velt</title>
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+⏺ Bash(grep -oE "border-top-left-radius:48px|cdn\.sanity\.io/images/fk9mezqa/pro
+      duction/[^\"]*\.png" /tmp/n.html | sort | uniq -c; echo "---"; curl -s -o
+      /tmp/r.html -…)
+  ⎿     1 border-top-left-radius:48px
+        4 cdn.sanity.io/images/fk9mezqa/production/aad70acfc791711d840b9170
+     437d386807a8b714-1024x353.png
+     … +6 lines (ctrl+o to expand)
+
+⏺ Notifications page is live at /features/notifications. Summary:
+
+  Created:
+  - components/feature/NotificationsDemoSidebar.tsx — dark demo block with
+  Button + Embedded tabs, empty stage waiting for iframe URLs (same pattern as
+  recordings)
+  - scripts/seed-feature-notifications.mjs — Sanity seed for
+  featurePage-notifications
+  - public/images/features/notifications/sub-cards.png — single PNG of both
+  sub-cards (Prioritized Inbox + Group Notifications) baked together, exported
+  from Figma node 220:23134
+
+  Modified:
+  - app/features/[slug]/page.tsx — added slug === "notifications" conditional
+
+  Reused (no changes):
+  - FeatureSectionShell + FeatureImageCard (the recordings work already gave us
+  everything needed)
+  - featureImageCardSection schema, dispatcher, GROQ projection
+  - lindaTestimonial pattern with #b4b1fa accent
+  - TrustedLogos, FeatureCustomerCarousel, LibraryFAQ, GetStartedSteps, Footer,
+  Nav data-getstarted flip
+
+  Verified: type-check passes, all three feature pages return HTTP 200,
+  topAccent rounded corner renders, image is served from Sanity CDN. Drop the
+  demo iframe + GitHub URLs whenever you've got them and I'll wire them in.
+
+✻ Brewed for 10m 34s
+
+❯ /var/folders/r6/x2k79j1j0sbgp1qp4pc8cf500000gn/T/TemporaryItems/NSIRD_screenc 
+  aptureui_hL6Qh6/Screenshot\ 2026-04-30\ at\ 6.30.53 PM.png Why do the images  
+  look blurry?                                                                  
+
+  Read 1 file (ctrl+o to expand)
+
+⏺ The issue is the source PNG is 1024×353 but we're displaying at 1280×440 —
+  ~1.25× upscale, then 2× more on retina. Let me grab each sub-card separately
+  at higher effective resolution.
+
+  Called plugin:figma:figma 2 times (ctrl+o to expand)
+
+⏺ The Figma screenshot tool caps source resolution around 1024px wide, so
+  displaying at 1280px on a retina display stretches it ~2.5× — that's where the
+   blur comes from. Each individual sub-card came back at 641×441 (same
+  problem). The clean fix is to rebuild the two mockups as DOM (sharp at any
+  zoom) using the asset URLs from the design context.
+
+  Let me download the small raster assets (avatars + red dot) and build a real
+  component.
+
+⏺ Bash(mkdir -p /Users/yoenzhang/Downloads/velt-marketing-pages/public/images/fe
+      atures/notifications/mockups && cd
+      /Users/yoenzhang/Downloads/velt-marketing-pages/publ…)
+  ⎿  total 1296
+     drwxr-xr-x@ 6 yoenzhang  staff     192 Apr 30 18:34 .
+     drwxr-xr-x@ 4 yoenzhang  staff     128 Apr 30 18:33 ..
+     … +4 lines (ctrl+o to expand)
+
+⏺ Now let me build the rebuilt component. I'll use FeatureSectionShell as the
+  wrapper.
+
+⏺ Write(components/feature/NotificationsHighlights.tsx)
+  ⎿  Wrote 597 lines to components/feature/NotificationsHighlights.tsx
+        rs theifications "Why use Velt for Notifications?" section. Rende
+      2 // full white-card section (heading + sub + CTA + 2 sub-cards + L
+      3 // testimonial) as DOM instead of a flat PNG so the popover mocku
+        ps stay
+      4 // sharp at any zoom. Mirrors Figma node 220:23113 in HqWIZdR6ISJ
+      5 //G2n4o3gr8.
+      6 // Slug-conditional in app/features/[slug]/page.tsx — only render
+      7 // the slug is "notifications".
+      8 
+      9 import { FeatureSectionShell } from "./FeatureSectionShell";
+     … +629 lines (ctrl+o to expand)
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 1 line
+      22  import { CommentsDemoSidebar } from "@/components/feature/Comme
+          ntsDemoSidebar";
+      23  import { RecordingsDemoSidebar } from "@/components/feature/Rec
+          ordingsDemoSidebar";
+      24  import { NotificationsDemoSidebar } from "@/components/feature/
+          NotificationsDemoSidebar";
+      25 +import { NotificationsHighlights } from "@/components/feature/N
+         +otificationsHighlights";                                       
+      26  import {
+      27    getAllFeatureSlugs,
+      28    getFeaturePageBySlug,
+
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 6 lines, removed 4 lines
+      85    const { slug } = await params;
+      86    const doc = (await getFeaturePageBySlug(slug)) as FeaturePage
+          Doc | null;
+      87  
+      88 -  // 404 on missing/incomplete docs. A featurePage with no hero
+         - or no sections                                                
+      89 -  // is partial draft state from an editor and should not rende
+         -r — keeps                                                      
+      90 -  // pre-existing/in-progress docs from blocking the static bui
+         -ld.                                                            
+      91 -  if (!doc || !doc.hero?.heading || !doc.sections || doc.sectio
+         -ns.length === 0) {                                             
+      88 +  // 404 on missing/incomplete docs. A featurePage with no hero
+         + is partial                                                    
+      89 +  // draft state from an editor and should not render — keeps i
+         +n-progress                                                     
+      90 +  // docs from blocking the static build. Empty `sections` is O
+         +K: pages                                                       
+      91 +  // like /features/notifications render their main highlight s
+         +ection as                                                      
+      92 +  // a hardcoded slug-conditional component below FeatureSectio
+         +ns.                                                            
+      93 +  if (!doc || !doc.hero?.heading || !doc.sections) {           
+      94      notFound();
+      95    }
+      96  
+⏺ Update(app/features/[slug]/page.tsx)
+  ⎿  Added 2 lines
+      121  
+      122          <FeatureSections sections={doc.sections} />
+      123  
+      124 +        {slug === "notifications" ? <NotificationsHighlights /
+          +> : null}                                                     
+      125 +                                                              
+      126          {showCustomerStories ? <CustomerUI /> : null}
+      127  
+      128          {showSecurity ? <Security /> : null}
+
+⏺ Update(scripts/seed-feature-notifications.mjs)
+  ⎿  Added 7 lines, removed 18 lines
+      58  }
+      59  
+      60  async function main() {
+      61 -  console.log("Uploading notifications feature assets...");    
+      62 -  const avatarLinda = await uploadImage("public/images/home/lin
+         -da-steps.png");                                                
+      63 -  const subCardsImage = await uploadImage(                     
+      64 -    "public/images/features/notifications/sub-cards.png",      
+      65 -  );                                                           
+      66 -  console.log("  → uploaded.");                                
+      61 +  // The "Why use Velt for Notifications?" highlight section is
+         + rendered                                                      
+      62 +  // as a hardcoded slug-conditional component (NotificationsHi
+         +ghlights) so                                                   
+      63 +  // the popover mockups stay sharp at any zoom — see          
+      64 +  // components/feature/NotificationsHighlights.tsx and the slu
+         +g check in                                                     
+      65 +  // app/features/[slug]/page.tsx. As a result, Sanity has no b
+         +ody sections                                                   
+      66 +  // for this page; chrome (TrustedLogos, FAQ, GetStarted, Foot
+         +er, etc.)                                                      
+      67 +  // still flows from the doc.                                 
+      68  
+      68 -  // Inline-testimonial bar attached to the bottom of the image
+         - card.                                                         
+      69 -  // Accent color matches Figma (`#b4b1fa`).                   
+      70 -  const lindaTestimonial = {                                   
+      71 -    name: "Linda Belcher",                                     
+      72 -    role: "Product Manager @HeyGen",                           
+      73 -    quote:                                                     
+      74 -      "Velt hosts all collaboration functionalities needed to b
+         -oost engagement at HeyGen",                                    
+      75 -    accentFragment: "boost engagement",                        
+      76 -    accentColor: "#b4b1fa",                                    
+      77 -    avatar: avatarLinda,                                       
+      78 -  };                                                           
+      79 -                                                               
+      69    const doc = {
+      70      _id: "featurePage-notifications",
+      71      _type: "featurePage",
+
+⏺ Update(scripts/seed-feature-notifications.mjs)
+  ⎿  Added 2 lines, removed 22 lines
+       96      showTrustedLogos: true,
+       97      showSecurity: false,
+       98      showCustomerStories: false,
+       99 -    sections: [                                               
+      100 -      // ---- Image Card: Why use Velt for Notifications? ----
+      101 -      {                                                       
+      102 -        _type: "featureImageCardSection",                     
+      103 -        _key: "img-why",                                      
+      104 -        heading: "Why use Velt for Notifications?",           
+      105 -        subheading:                                           
+      106 -          "Velt provides everything you need to easily setup a
+          - robust and reliable notification system",                    
+      107 -        primaryCta: {                                         
+      108 -          _type: "ctaLink",                                   
+      109 -          label: "Request Demo",                              
+      110 -          href: "/book-demo",                                 
+      111 -        },                                                    
+      112 -        image: subCardsImage,                                 
+      113 -        imageAlt:                                             
+      114 -          "Two side-by-side mockups: Prioritized Inbox shows t
+          -he notifications popover with For You / Documents / All tabs a
+          -nd three priority-sorted notification tiles. Group Notificatio
+          -ns shows the same popover collapsed into per-document groups w
+          -ith unread counts.",                                          
+      115 -        imageWidth: 1280,                                     
+      116 -        imageHeight: 440,                                     
+      117 -        imageBottomOffset: 0,                                 
+      118 -        inlineTestimonial: lindaTestimonial,                  
+      119 -      },                                                      
+      120 -    ],                                                        
+       99 +    // No body sections — see NotificationsHighlights componen
+          +t.                                                            
+      100 +    sections: [],                                             
+      101      getStartedSteps: { step1PackageName: "@veltdev/react" },
+      102      // FAQ left empty — page falls back to the 4 sharedFAQ ent
+           ries
+      103      // from components/library/shared-content.ts.
+
+⏺ Bash(npx tsc --noEmit 2>&1 | head -10 && echo "---seed---" && node
+      --env-file=.env.local scripts/seed-feature-notifications.mjs 2>&1 | tail
+      -5)
+  ⎿  ---seed---
+     node: .env.local: not found
+
+⏺ Bash(cd /Users/yoenzhang/Downloads/velt-marketing-pages && node
+      --env-file=.env.local scripts/seed-feature-notifications.mjs 2>&1 | tail
+      -5)
+  ⎿  Done! Upserted featurePage-notifications
+
+⏺ Bash(curl -s -o /tmp/n2.html -w "HTTP %{http_code}\n"
+      "http://localhost:3000/features/notifications" && grep -oE "Why use Velt
+      for Notifications\?|Prioritized Inbox|…)
+  ⎿  HTTP 200
+        4 2 Unread
+        4 Document Name
+     … +8 lines (ctrl+o to expand)
+
+⏺ Bash(curl -s -o /tmp/r2.html -w "rec=%{http_code} "
+      "http://localhost:3000/features/recordings" && curl -s -o /tmp/c2.html -w
+      "com=%{http_code}\n" "http://localhost:…)
+  ⎿  rec=200 com=200
+
+⏺ All three feature pages return 200. Notifications page now renders the
+  highlights section as DOM (sharp at any zoom):
+
+  - 2 popover mockups built from React: notification tiles, tabs, icons,
+  gradient masks
+  - Tabler icons inlined as SVG (sharp regardless of size)
+  - 3 small raster avatars + unread-dot downloaded to
+  public/images/features/notifications/mockups/
+
+  Other changes:
+  - [slug]/page.tsx: relaxed validation to allow empty sections (still 404s if
+  hero.heading is missing); added slug === "notifications" conditional for
+  <NotificationsHighlights /> between FeatureSections and CustomerUI
+  - Seed: dropped the featureImageCardSection, sections: []. The page chrome
+  (TrustedLogos, FAQ, GetStarted, Footer) still flows from Sanity.
+
+  Hard-refresh and the popover mockups should be crisp.
+
+✻ Churned for 6m 1s
