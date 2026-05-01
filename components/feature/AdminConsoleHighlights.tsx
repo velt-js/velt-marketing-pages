@@ -1476,8 +1476,51 @@ function Card4ExtendIntegrations() {
             </p>
           </div>
           <div className="flex items-start" style={{ gap: 12 }}>
-            <SecondaryCta href="https://docs.velt.dev/" label="View Docs" />
-            <PrimaryCta href="https://velt.dev/examples" label="View All Examples" />
+            {/* CTAs match the homepage Connectors block — green-tinted
+                View Docs (purple border + mix-blend-exclusion text) and a
+                solid purple primary button. */}
+            <a
+              href="https://docs.velt.dev/"
+              target="_blank"
+              rel="noopener"
+              className="flex items-center justify-center gap-1 rounded-lg"
+              style={{
+                width: 156,
+                height: 44,
+                padding: "8px 16px",
+                border: "2px solid #3152f5",
+                textDecoration: "none",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/images/home/icon-book-2.svg" alt="" width={18} height={18} />
+              <span
+                className="font-urbanist font-semibold text-white whitespace-nowrap"
+                style={{ fontSize: 16, letterSpacing: "-0.03em", mixBlendMode: "exclusion" }}
+              >
+                View Docs
+              </span>
+            </a>
+            <a
+              href="https://velt.dev/examples"
+              target="_blank"
+              rel="noopener"
+              className="flex items-center justify-center rounded-lg"
+              style={{
+                width: 156,
+                height: 44,
+                padding: "8px 16px",
+                background: "#625cf4",
+                textDecoration: "none",
+              }}
+            >
+              <span
+                className="font-urbanist font-semibold text-white whitespace-nowrap"
+                style={{ fontSize: 16, letterSpacing: "-0.03em" }}
+              >
+                View All Examples
+              </span>
+            </a>
           </div>
         </div>
 
