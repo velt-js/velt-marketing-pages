@@ -12,7 +12,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Fira+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;600&family=Poppins:wght@400;500;600&family=Geist+Mono:wght@400;500;600;700&display=swap"
         />
       </head>
       <body>{children}</body>

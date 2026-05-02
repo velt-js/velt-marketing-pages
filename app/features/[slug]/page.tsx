@@ -26,6 +26,8 @@ import { NotificationsHighlights } from "@/components/feature/NotificationsHighl
 import { ActivityLogsHighlights } from "@/components/feature/ActivityLogsHighlights";
 import { AdminConsoleAnalyticsPanel } from "@/components/feature/AdminConsoleAnalyticsPanel";
 import { AdminConsoleHighlights } from "@/components/feature/AdminConsoleHighlights";
+import { WebhooksAndApiDemoSidebar } from "@/components/feature/WebhooksAndApiDemoSidebar";
+import { WebhooksAndApiHighlights } from "@/components/feature/WebhooksAndApiHighlights";
 import {
   getAllFeatureSlugs,
   getFeaturePageBySlug,
@@ -120,6 +122,7 @@ export default async function FeaturePage({
         {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
         {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
         {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
+        {slug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
@@ -128,6 +131,7 @@ export default async function FeaturePage({
         {slug === "notifications" ? <NotificationsHighlights /> : null}
         {slug === "activity-logs" ? <ActivityLogsHighlights /> : null}
         {slug === "admin-console" ? <AdminConsoleHighlights /> : null}
+        {slug === "webhooks-and-api" ? <WebhooksAndApiHighlights /> : null}
 
         {showCustomerStories ? <CustomerUI /> : null}
 
