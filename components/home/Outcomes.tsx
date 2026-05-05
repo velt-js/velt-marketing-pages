@@ -13,6 +13,10 @@ type TabDef = {
   id: TabId;
   label: string;
   icon: string;
+  headlineBefore: string;
+  gradientText: string;
+  headlineAfter: string;
+  subtitle: string;
   visual: string;
   logo: { src: string; width: number; height: number };
   quote: string;
@@ -24,6 +28,10 @@ const TABS: TabDef[] = [
     id: "engagement",
     label: "Boost Engagement",
     icon: "/images/home/icon-broadcast.svg",
+    headlineBefore: "Drive double-digit ",
+    gradientText: "engagement",
+    headlineAfter: " in your product",
+    subtitle: "Users spend 10+ hours a week communicating on other platforms. Bring those conversations into your product!",
     visual: "/images/home/outcomes-visual.png",
     logo: { src: "/images/home/trumpet-logo.svg", width: 133, height: 23 },
     quote: "Engagement at Trumpet grew by 10%\u201D after adding collaborative features from Velt",
@@ -38,6 +46,10 @@ const TABS: TabDef[] = [
     id: "growth",
     label: "Boost Growth",
     icon: "/images/home/icon-chart-line.svg",
+    headlineBefore: "Go from single player to ",
+    gradientText: "multiplayer",
+    headlineAfter: "",
+    subtitle: "Transform your product into a multiplayer experience that drives organic adoption.",
     visual: "/images/home/outcomes/growth-visual.png",
     logo: { src: "/images/home/outcomes/growth-logo.png", width: 133, height: 18 },
     quote: "With Velt\u2019s collaborative features we boosted our app\u2019s weekly active users by 26%",
@@ -52,9 +64,13 @@ const TABS: TabDef[] = [
     id: "differentiate",
     label: "Differentiate",
     icon: "/images/home/icon-versions.svg",
+    headlineBefore: "Give your product its ",
+    gradientText: "Figma moment",
+    headlineAfter: "",
+    subtitle: "Collaborative features helped products like Google Docs and Figma become iconic.",
     visual: "/images/home/outcomes/differentiate-visual.png",
     logo: { src: "/images/home/outcomes/differentiate-logo.png", width: 140, height: 25 },
-    quote: "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
+    quote: "The Velt Commenting features allow our users to communicate and collaborate in-tool to achieve fast feedback loops",
     person: {
       name: "Fenne Buitenrust",
       title: "Product Lead @CloudFactory",
@@ -66,6 +82,10 @@ const TABS: TabDef[] = [
     id: "savecost",
     label: "Save Cost",
     icon: "/images/home/icon-dollar.svg",
+    headlineBefore: "Unlock $750,000 in ",
+    gradientText: "yearly savings",
+    headlineAfter: "",
+    subtitle: "It takes PMs, Frontend Developer, Backend Developers, Designers, Testers and more to make collaborative features.",
     visual: "/images/home/outcomes/savecost-visual.png",
     logo: { src: "/images/home/outcomes/savecost-logo.png", width: 143, height: 33 },
     quote: "Instead of quarters of work for 3 FTEs, it only took a few weeks with Velt",
@@ -80,6 +100,10 @@ const TABS: TabDef[] = [
     id: "shipfast",
     label: "Ship Fast",
     icon: "/images/home/icon-clock.svg",
+    headlineBefore: "Ship collaboration features ",
+    gradientText: "extremely fast",
+    headlineAfter: "",
+    subtitle: "Building collaborative features from scratch takes months. Building with Velt takes a fraction of the time.",
     visual: "/images/home/outcomes/shipfast-visual.png",
     logo: { src: "/images/home/outcomes/shipfast-logo.png", width: 125, height: 35 },
     quote: "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
@@ -107,7 +131,7 @@ export function Outcomes() {
         borderTopRightRadius: 32,
       }}
     >
-      <div className="flex flex-col w-full" style={{ gap: 45 }}>
+      <div className="flex flex-col w-full" style={{ gap: 45, maxWidth: 1200, margin: "0 auto" }}>
         {/* Tab rail */}
         <div
           className="flex items-center w-full"
@@ -163,7 +187,7 @@ export function Outcomes() {
               width: 1280,
             }}
           >
-            Drive double-digit{" "}
+            {active.headlineBefore}
             <span
               style={{
                 background: "linear-gradient(to right, #5cffce, #dadaff)",
@@ -172,9 +196,9 @@ export function Outcomes() {
                 backgroundClip: "text",
               }}
             >
-              engagement
-            </span>{" "}
-            in your product
+              {active.gradientText}
+            </span>
+            {active.headlineAfter}
           </h2>
           <p
             className="font-urbanist font-semibold text-white"
@@ -186,8 +210,7 @@ export function Outcomes() {
               width: 1280,
             }}
           >
-            Users spend 10+ hours a week communicating on other platforms. Bring
-            those conversations into your product!
+            {active.subtitle}
           </p>
         </div>
 

@@ -1488,7 +1488,7 @@ function Card4ExtendIntegrations() {
                 width: 156,
                 height: 44,
                 padding: "8px 16px",
-                border: "2px solid #3152f5",
+                border: "2px solid #625df5",
                 textDecoration: "none",
               }}
             >
@@ -1510,7 +1510,7 @@ function Card4ExtendIntegrations() {
                 width: 156,
                 height: 44,
                 padding: "8px 16px",
-                background: "#625cf4",
+                background: "#625df5",
                 textDecoration: "none",
               }}
             >

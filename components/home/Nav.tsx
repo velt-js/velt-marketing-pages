@@ -594,7 +594,7 @@ export function Nav() {
         <a
           href="https://console.velt.dev/"
           className="flex items-center rounded-lg"
-          style={{ padding: "8px 12px 8px 8px", gap: 6 }}
+          style={{ padding: "5px 12px 5px 8px", gap: 6 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -611,7 +611,7 @@ export function Nav() {
           target="_blank"
           rel="noreferrer"
           className="flex items-center rounded-lg"
-          style={{ padding: "8px 12px 8px 8px", gap: 6 }}
+          style={{ padding: "5px 12px 5px 8px", gap: 6 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -626,7 +626,7 @@ export function Nav() {
         <a
           href="/book-demo"
           className="rounded-lg"
-          style={{ padding: "8px 12px", background: "#625df5" }}
+          style={{ padding: "5px 12px", background: "#625df5" }}
         >
           <span
             className="font-urbanist font-semibold text-white whitespace-nowrap"
@@ -653,7 +653,7 @@ function NavLabel({
 }) {
   return (
     <span
-      className="font-urbanist font-medium whitespace-nowrap capitalize"
+      className="font-urbanist font-semibold whitespace-nowrap capitalize"
       style={{
         color,
         opacity,

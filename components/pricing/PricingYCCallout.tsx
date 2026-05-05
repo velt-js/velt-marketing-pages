@@ -65,7 +65,7 @@ export function PricingYCCallout() {
             className="flex items-center justify-center font-urbanist"
             style={{
               flexShrink: 0,
-              padding: "12px 16px",
+              padding: "8px 16px",
               border: "1.5px solid #262291",
               borderRadius: 6,
               color: "#fff",

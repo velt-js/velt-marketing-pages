@@ -107,7 +107,7 @@ export function LibrarySupport() {
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "52px 80px 0", gap: 48 }}
+      style={{ padding: "100px 80px 0", gap: 48 }}
     >
       {/* Header — Figma node 1:20819 */}
       <div className="flex flex-col items-center" style={{ gap: 32 }}>
@@ -125,7 +125,7 @@ export function LibrarySupport() {
         <div className="flex items-start" style={{ gap: 12 }}>
           <button
             className="flex items-center justify-center gap-1 rounded-lg"
-            style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #3152f5" }}
+            style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/home/icon-book-2.svg" alt="" width={18} height={18} />
@@ -138,7 +138,7 @@ export function LibrarySupport() {
           </button>
           <button
             className="flex items-center justify-center rounded-lg"
-            style={{ width: 156, height: 44, padding: "8px 16px", background: "#3152f5" }}
+            style={{ width: 156, height: 44, padding: "8px 16px", background: "#625df5" }}
           >
             <span
               className="font-urbanist font-semibold text-white whitespace-nowrap"

@@ -264,7 +264,7 @@ function renderHighlightedQuote(quote: string, highlight: string) {
   return (
     <>
       {quote.slice(0, idx)}
-      <span style={{ color: "#b387f7" }}>{highlight}</span>
+      <span style={{ color: "#b4b1fa" }}>{highlight}</span>
       {quote.slice(idx + highlight.length)}
     </>
   );
@@ -274,7 +274,7 @@ export function Connectors() {
   return (
     <section
       className="flex flex-col items-center bg-white relative"
-      style={{ padding: "52px 80px 0", gap: 32 }}
+      style={{ padding: "100px 80px 0", gap: 32 }}
     >
       {/* Header — max-width 820 per Framer */}
       <div className="flex flex-col items-center" style={{ gap: 32, maxWidth: 820, width: "100%" }}>
@@ -299,7 +299,7 @@ export function Connectors() {
               width: 156,
               height: 44,
               padding: "8px 16px",
-              border: "2px solid #3152f5",
+              border: "2px solid #625df5",
               textDecoration: "none",
             }}
           >
@@ -319,7 +319,7 @@ export function Connectors() {
               width: 156,
               height: 44,
               padding: "8px 16px",
-              background: "#625cf4",
+              background: "#625df5",
               textDecoration: "none",
             }}
           >
@@ -336,7 +336,7 @@ export function Connectors() {
       {/* 2×3 grid — 3 flex rows of 2 cells with gap:16, cells flex:1 0 0 height:365.
           Width 912 matches the admin-console card so the per-logo `calc(X% − Ypx)`
           positions render at the same cell scale (448×365) on both pages. */}
-      <div className="flex flex-col" style={{ width: 912, gap: 16 }}>
+      <div className="flex flex-col" style={{ width: 824, gap: 16 }}>
         {[0, 2, 4].map((rowStart) => (
           <div
             key={rowStart}
@@ -353,7 +353,7 @@ export function Connectors() {
       <div
         className="flex items-center justify-between"
         style={{
-          width: 1280,
+          width: 824,
           background: "#111",
           borderRadius: 24,
           padding: 40,

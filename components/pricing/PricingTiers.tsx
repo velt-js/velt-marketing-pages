@@ -278,7 +278,7 @@ function TierCard({
             className="flex items-center justify-center font-urbanist"
             style={{
               width: "100%",
-              padding: "12px 16px",
+              padding: "8px 16px",
               borderRadius: 6,
               background: highlighted ? PRIMARY : "transparent",
               border: highlighted

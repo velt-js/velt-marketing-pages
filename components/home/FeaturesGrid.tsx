@@ -1164,7 +1164,7 @@ export function FeaturesGrid() {
   const gridHeight = activeTab === "async" ? 1327 : 947;
 
   return (
-    <section className="flex flex-col items-center bg-white" style={{ padding: "52px 80px 0", gap: 52 }}>
+    <section className="flex flex-col items-center bg-white" style={{ padding: "100px 80px 0", gap: 52 }}>
       {/* Header */}
       <div className="flex flex-col items-center" style={{ gap: 32, maxWidth: 800 }}>
         <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>

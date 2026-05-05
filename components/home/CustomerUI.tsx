@@ -227,7 +227,7 @@ function renderHighlightedQuote(quote: string, highlight: string) {
   return (
     <>
       {quote.slice(0, idx)}
-      <span style={{ color: "#b387f7" }}>{highlight}</span>
+      <span style={{ color: "#b4b1fa" }}>{highlight}</span>
       {quote.slice(idx + highlight.length)}
     </>
   );
@@ -243,7 +243,7 @@ export function CustomerUI({
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "52px 80px 0", gap: 52 }}
+      style={{ padding: "150px 80px 0", gap: 52 }}
     >
       {/* Header */}
       <div className="flex flex-col items-center" style={{ gap: 32 }}>
