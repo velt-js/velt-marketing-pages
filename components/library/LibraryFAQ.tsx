@@ -16,11 +16,16 @@
 // - Answer: Urbanist 500, 14px, rgba(255,255,255,0.4), line-height 1.5em,
 //   paragraph spacing 20px
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 export type FaqEntry = {
   question: string;
-  answer: string;
+  /** Plain-text answer; split on blank lines for paragraphs. */
+  answer?: string;
+  /** Rich-content paragraphs. When provided, takes precedence over
+   *  `answer` so individual entries can include inline links / formatting
+   *  (e.g. /pricing FAQs that link to "Apply here", "Contact us"). */
+  paragraphs?: ReactNode[];
 };
 
 type LibraryFAQProps = {
@@ -135,7 +140,10 @@ export function LibraryFAQ({
                     color: "rgba(255, 255, 255, 0.4)",
                   }}
                 >
-                  {item.answer.split(/\n\n+/).map((para, pi) => (
+                  {(
+                    item.paragraphs ??
+                    (item.answer ?? "").split(/\n\n+/)
+                  ).map((para, pi) => (
                     <p key={pi} style={{ marginBottom: 20 }}>
                       {para}
                     </p>

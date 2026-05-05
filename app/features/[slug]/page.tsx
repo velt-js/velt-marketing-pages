@@ -11,6 +11,8 @@ import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
 import { CustomerUI } from "@/components/home/CustomerUI";
+import { StealFeatures } from "@/components/home/StealFeatures";
+import { LibrarySupport } from "@/components/home/LibrarySupport";
 import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
@@ -22,6 +24,8 @@ import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCar
 import { CommentsDemoSidebar } from "@/components/feature/CommentsDemoSidebar";
 import { RecordingsDemoSidebar } from "@/components/feature/RecordingsDemoSidebar";
 import { NotificationsDemoSidebar } from "@/components/feature/NotificationsDemoSidebar";
+import { MultiplayerDemoSidebar } from "@/components/feature/MultiplayerDemoSidebar";
+import { MultiplayerYourDataSection } from "@/components/feature/MultiplayerYourDataSection";
 import { NotificationsHighlights } from "@/components/feature/NotificationsHighlights";
 import { ActivityLogsHighlights } from "@/components/feature/ActivityLogsHighlights";
 import { AdminConsoleAnalyticsPanel } from "@/components/feature/AdminConsoleAnalyticsPanel";
@@ -123,10 +127,59 @@ export default async function FeaturePage({
         {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
         {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
         {slug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
+        {slug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
-        <FeatureSections sections={doc.sections} />
+        {slug === "multiplayer" ? (
+          // Reuses the homepage's "Steal Features" marquee (Figma node
+          // 32:2588). Wrapped in a topAccent shell that mirrors
+          // FeatureSectionShell's first-light treatment (80px margin,
+          // 48px rounded top, full-bleed white) so it sits cleanly under
+          // the dark hero/trusted-logos strip. `disableFirstAccent` on
+          // FeatureSections below stops the next light card from also
+          // applying the transition.
+          <section
+            data-outcomes
+            className="bg-white full-bleed-bg"
+            style={{
+              padding: "100px 80px",
+              marginTop: 80,
+              borderTopLeftRadius: 48,
+              borderTopRightRadius: 48,
+            }}
+          >
+            <StealFeatures />
+          </section>
+        ) : null}
+
+        {slug === "multiplayer" ? (
+          // Section ordering for /features/multiplayer:
+          //   1. doc.sections[0]              — Collaborative Product bento
+          //   2. <CustomerUI />               — "How [X] Leverages Velt"
+          //   3. <MultiplayerYourDataSection /> — 816-wide hosting cards
+          //   4. <LibrarySupport />           — homepage "Works seamlessly
+          //                                     with your libraries" grid
+          //   5. doc.sections[1..]            — Security image card
+          // FeatureSections is called with disableFirstAccent so the
+          // rounded-top transition only fires on the StealFeatures
+          // wrapper that opens the light section above.
+          <>
+            <FeatureSections
+              sections={doc.sections.slice(0, 1)}
+              disableFirstAccent
+            />
+            <CustomerUI />
+            <MultiplayerYourDataSection />
+            <LibrarySupport />
+            <FeatureSections
+              sections={doc.sections.slice(1)}
+              disableFirstAccent
+            />
+          </>
+        ) : (
+          <FeatureSections sections={doc.sections} />
+        )}
 
         {slug === "notifications" ? <NotificationsHighlights /> : null}
         {slug === "activity-logs" ? <ActivityLogsHighlights /> : null}

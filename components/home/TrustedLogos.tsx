@@ -262,7 +262,7 @@ export function TrustedLogos() {
   return (
     <section
       className="flex flex-col items-center justify-center w-full bg-black"
-      style={{ padding: "0 80px" }}
+      style={{ padding: "0 80px 80px" }}
       onMouseEnter={() => setShowCompetitors(true)}
       onMouseLeave={() => setShowCompetitors(false)}
     >

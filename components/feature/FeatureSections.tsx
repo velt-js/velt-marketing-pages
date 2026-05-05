@@ -229,7 +229,17 @@ function toBentoCta(cta?: CtaLink): LibraryBentoCta | undefined {
   return { label: cta.label, href: cta.href, newTab: cta.newTab };
 }
 
-export function FeatureSections({ sections }: { sections: FeatureSectionDoc[] }) {
+export function FeatureSections({
+  sections,
+  disableFirstAccent = false,
+}: {
+  sections: FeatureSectionDoc[];
+  /** When true, suppress the auto-topAccent on the first light section.
+   *  Used by feature pages that render their own slug-conditional first
+   *  light block (e.g. /features/multiplayer renders <StealFeatures /> with
+   *  its own topAccent wrapper before this dispatcher). */
+  disableFirstAccent?: boolean;
+}) {
   // The first light-bg section on the page sits directly under the dark
   // hero/trusted-logos strip and needs the rounded top + 80px gap.
   // Subsequent sections share the same continuous light surface and skip
@@ -237,16 +247,18 @@ export function FeatureSections({ sections }: { sections: FeatureSectionDoc[] })
   // so any of them can lead the page (e.g. /features/recordings starts
   // with image cards, no bento).
   let firstLightIndex = -1;
-  sections.forEach((section, i) => {
-    const isLight =
-      section._type === "featureBentoSection" ||
-      section._type === "featurePowerfulBentoSection" ||
-      section._type === "featureCardRowSection" ||
-      section._type === "featureImageCardSection";
-    if (isLight && firstLightIndex === -1) {
-      firstLightIndex = i;
-    }
-  });
+  if (!disableFirstAccent) {
+    sections.forEach((section, i) => {
+      const isLight =
+        section._type === "featureBentoSection" ||
+        section._type === "featurePowerfulBentoSection" ||
+        section._type === "featureCardRowSection" ||
+        section._type === "featureImageCardSection";
+      if (isLight && firstLightIndex === -1) {
+        firstLightIndex = i;
+      }
+    });
+  }
 
   return (
     <>

@@ -106,7 +106,7 @@ function CellTextBlock({ title, subtitle }: { title: string; subtitle: string })
 export function LibrarySupport() {
   return (
     <section
-      className="flex flex-col items-center bg-white"
+      className="flex flex-col items-center bg-white full-bleed-bg"
       style={{ padding: "52px 80px 0", gap: 48 }}
     >
       {/* Header — Figma node 1:20819 */}

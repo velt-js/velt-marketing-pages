@@ -47,12 +47,20 @@ export function ScaleWrapper({ children }: { children: React.ReactNode }) {
 
   const outerHeight = innerHeight != null ? innerHeight * scale : undefined;
 
+  // `overflow: hidden` establishes a scroll-containing block — that
+  // breaks `position: sticky` on every descendant. At full design width
+  // (scale === 1) the inner content fits the outer's height exactly so
+  // there is nothing to clip — drop the clipping in that case so sticky
+  // headers in /pricing's comparison table actually pin. At smaller
+  // viewports we still need the clip because the inner's layout box is
+  // 1440px regardless of the transform.
+  const needsClip = scale < 1;
   return (
     <div
       style={{
         width: "100%",
         height: outerHeight,
-        overflow: "hidden",
+        overflow: needsClip ? "hidden" : "visible",
         display: "flex",
         justifyContent: "center",
       }}
