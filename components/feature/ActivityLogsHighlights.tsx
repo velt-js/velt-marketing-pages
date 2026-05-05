@@ -16,7 +16,8 @@
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 
-import { FeatureSectionShell } from "./FeatureSectionShell";
+import { FeatureSectionShell, TestimonialFooter } from "./FeatureSectionShell";
+import { InlineTestimonialCard } from "@/components/home/InlineTestimonialCard";
 import { Book2Icon } from "./uis/icons";
 
 const PURPLE = "#615df5";
@@ -24,14 +25,19 @@ const ACCENT = "#b4b1fa";
 const TEXT_HEADING = "#111";
 const TEXT_BODY = "#111";
 
-const lindaTestimonial = {
-  name: "Linda Belcher",
-  role: "Product Manager @HeyGen",
+const ethanTestimonial = {
+  name: "Ethan Veres",
+  role: "CTO @eqtble",
+  quote: "Commenting is something we wanted in our app, Velt made it possible",
+  avatarSrc: "/images/features/comments/trust-us/avatar-ethan.png",
+};
+
+const yuriTestimonial = {
+  name: "Yuri Kleban",
+  role: "Senior PM @Google",
   quote:
-    "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
-  accentFragment: "boost engagement",
-  accentColor: ACCENT,
-  avatarSrc: "/images/home/linda-steps.png",
+    "Velt gave great 1 on 1 support, added features fast, and offered highly customizable components.",
+  avatarSrc: "/images/features/comments/trust-us/avatar-yuri.png",
 };
 
 export function ActivityLogsHighlights() {
@@ -106,7 +112,7 @@ function SectionTitle() {
 // One rounded outer container with three stacked layers:
 //   1. Dark CHROME tab strip (Automatic active, Custom inactive)
 //   2. White content area (heading + sub + code chip + event log)
-//   3. Dark Linda testimonial banner
+//   3. Dark Ethan testimonial banner (compact, attached to bottom)
 
 function Card1AutomaticEvents() {
   const [tab, setTab] = useState<"automatic" | "custom">("automatic");
@@ -225,21 +231,8 @@ function Card1AutomaticEvents() {
           )}
         </div>
 
-        {/* Linda banner attached to bottom of dark border */}
-        <div
-          style={{
-            background: "#111",
-            height: 224,
-            padding: "0 57px 0 40px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 24,
-          }}
-        >
-          <TestimonialAvatar />
-          <TestimonialQuote width={421} />
-        </div>
+        {/* Compact Ethan testimonial banner attached to the bottom */}
+        <TestimonialFooter t={ethanTestimonial} />
       </div>
     </section>
   );
@@ -679,7 +672,7 @@ function Card2SameRecordFormat() {
       subheading="AI agent writes a comment, flags an issue, suggests an edit. Same structured record as a human action. Same schema. Same attribution."
       viewDocsCta={{ label: "Get Started", href: "https://console.velt.dev/", newTab: true }}
       primaryCta={{ label: "Book Demo", href: "/book-demo" }}
-      testimonial={lindaTestimonial}
+      testimonial={ethanTestimonial}
     >
       <TimelineMockup />
     </FeatureSectionShell>
@@ -1031,8 +1024,13 @@ function BentoCard({
           <BentoWideTileBox tile={wideTile} />
         </div>
 
-        {/* Linda testimonial banner (standalone rounded rect) */}
-        <StandaloneTestimonialBanner width={800} />
+        {/* Yuri testimonial — same shared component as the Security section */}
+        <InlineTestimonialCard
+          name={yuriTestimonial.name}
+          role={yuriTestimonial.role}
+          quote={yuriTestimonial.quote}
+          avatarSrc={yuriTestimonial.avatarSrc}
+        />
       </div>
     </section>
   );
@@ -1508,167 +1506,6 @@ function SecondaryCta({ href, label }: { href: string; label: string }) {
   );
 }
 
-function StandaloneTestimonialBanner({ width }: { width: number }) {
-  return (
-    <div
-      className="relative overflow-hidden"
-      style={{
-        width,
-        height: 132,
-        background: "#111",
-        borderRadius: 24,
-      }}
-    >
-      <div
-        className="absolute flex items-center"
-        style={{ top: 40, left: 28.78, gap: 16, width: 281 }}
-      >
-        <TestimonialAvatarOnly />
-      </div>
-      <p
-        className="font-urbanist font-semibold absolute"
-        style={{
-          top: 42,
-          left: 396,
-          width: 364,
-          color: "#fff",
-          fontSize: 20,
-          lineHeight: 1.2,
-          letterSpacing: "-0.03em",
-          margin: 0,
-        }}
-      >
-        Velt hosts all collaboration functionalities needed to{" "}
-        <span style={{ color: ACCENT }}>boost engagement</span> at HeyGen
-      </p>
-    </div>
-  );
-}
-
-function TestimonialAvatar() {
-  // Avatar + name/role for the dark Card-1 banner (which uses
-  // FeatureSectionShell-style spacing / 224px tall).
-  return (
-    <div className="flex items-center" style={{ gap: 16, flexShrink: 0 }}>
-      <div
-        style={{
-          width: 52,
-          height: 52,
-          borderRadius: "50%",
-          border: "2px solid #B4B1FA",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={lindaTestimonial.avatarSrc}
-          alt={`${lindaTestimonial.name} Profile Photo`}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-      </div>
-      <div className="flex flex-col" style={{ gap: 4 }}>
-        <p
-          className="font-urbanist font-semibold"
-          style={{
-            color: "#fff",
-            fontSize: 18,
-            lineHeight: 1.2,
-            letterSpacing: "-0.03em",
-            margin: 0,
-          }}
-        >
-          {lindaTestimonial.name}
-        </p>
-        <p
-          className="font-urbanist"
-          style={{
-            color: "#fff",
-            opacity: 0.52,
-            fontSize: 16,
-            lineHeight: 1.2,
-            letterSpacing: "-0.03em",
-            margin: 0,
-          }}
-        >
-          {lindaTestimonial.role}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function TestimonialAvatarOnly() {
-  // Avatar + name/role used inside the standalone 132-tall rounded banner
-  return (
-    <>
-      <div
-        style={{
-          width: 52,
-          height: 52,
-          borderRadius: "50%",
-          border: "2px solid #B4B1FA",
-          overflow: "hidden",
-          flexShrink: 0,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={lindaTestimonial.avatarSrc}
-          alt={`${lindaTestimonial.name} Profile Photo`}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-      </div>
-      <div className="flex flex-col" style={{ gap: 4 }}>
-        <p
-          className="font-urbanist font-semibold"
-          style={{
-            color: "#fff",
-            fontSize: 18,
-            lineHeight: 1.2,
-            letterSpacing: "-0.03em",
-            margin: 0,
-          }}
-        >
-          {lindaTestimonial.name}
-        </p>
-        <p
-          className="font-urbanist"
-          style={{
-            color: "#fff",
-            opacity: 0.52,
-            fontSize: 16,
-            lineHeight: 1.2,
-            letterSpacing: "-0.03em",
-            margin: 0,
-          }}
-        >
-          {lindaTestimonial.role}
-        </p>
-      </div>
-    </>
-  );
-}
-
-function TestimonialQuote({ width }: { width: number }) {
-  return (
-    <p
-      className="font-urbanist font-semibold"
-      style={{
-        color: "#fff",
-        fontSize: 24,
-        lineHeight: 1.2,
-        letterSpacing: "-0.03em",
-        width,
-        flexShrink: 0,
-        margin: 0,
-      }}
-    >
-      Velt hosts all collaboration functionalities needed to{" "}
-      <span style={{ color: ACCENT }}>boost engagement</span> at HeyGen
-    </p>
-  );
-}
 
 // --------------------------------------------------- Inline Tabler-style icons
 

@@ -80,6 +80,14 @@ type LibraryPageDoc = {
     accentColor?: string;
     avatarSrc?: string;
   };
+  securityTestimonial?: {
+    name?: string;
+    role?: string;
+    quote?: string;
+    accentFragment?: string;
+    accentColor?: string;
+    avatarSrc?: string;
+  };
   getStartedCallout: {
     heading: string;
     body: string;

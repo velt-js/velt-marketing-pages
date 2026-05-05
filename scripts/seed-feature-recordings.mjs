@@ -15,9 +15,9 @@
  *   1. Hero (chrome)
  *   2. RecordingsDemoSidebar (chrome — slug-conditional in [slug]/page.tsx)
  *   3. TrustedLogos (chrome)
- *   4. Image Card "Recordings enhanced by AI" + Linda testimonial
- *   5. Image Card "Keep users in your app" + Linda testimonial
- *   6. Image Card "Customize Everything" + Linda testimonial
+ *   4. Image Card "Recordings enhanced by AI" + Hope Callaway testimonial
+ *   5. Image Card "Keep users in your app" + Fenne Buitenrust Hettema testimonial
+ *   6. Image Card "Customize Everything" + Chris Bakke testimonial
  *   7. Customer Stories carousel ("How X Leverages Velt") (chrome toggle)
  *   8. Security (chrome)
  *   9. Customer Testimonial Carousel "Our Customers Trust Us"
@@ -62,7 +62,9 @@ async function uploadImage(relPath) {
 
 async function main() {
   console.log("Uploading recordings feature assets...");
-  const avatarLinda = await uploadImage("public/images/home/linda-steps.png");
+  const avatarHope = await uploadImage("public/images/features/comments/trust-us/avatar-hope.png");
+  const avatarFenne = await uploadImage("public/images/features/comments/trust-us/avatar-fenne.png");
+  const avatarChris = await uploadImage("public/images/features/comments/trust-us/avatar-chris-bakke.png");
   const card1Image = await uploadImage(
     "public/images/features/recordings/card-1-recordings-ai.png",
   );
@@ -74,17 +76,29 @@ async function main() {
   );
   console.log("  → uploaded.");
 
-  // Inline-testimonial bar that appears at the bottom of each image card.
-  // Accent color matches Figma (`#b4b1fa`, the same purple highlight the
-  // commenting bento sections use).
-  const lindaTestimonial = {
-    name: "Linda Belcher",
-    role: "Product Manager @HeyGen",
+  // Inline-testimonial bars that appear at the bottom of each image card.
+  // Three distinct speakers, mirroring live velt.dev/recording. No accent
+  // colors per the global "no testimonial coloring" directive.
+  const hopeTestimonial = {
+    name: "Hope Callaway",
+    role: "Senior PM @Leadpages",
     quote:
-      "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
-    accentFragment: "boost engagement",
-    accentColor: "#b4b1fa",
-    avatar: avatarLinda,
+      "With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
+    avatar: avatarHope,
+  };
+  const fenneTestimonial = {
+    name: "Fenne Buitenrust Hettema",
+    role: "Product Lead @Cloudfactory",
+    quote:
+      "Velt provides the critical commenting functionality our customers rely on, saving us massive development effort. Velt made migrating our commenting data from our previous vendor seamless. After evaluating other options, Velt stood out as the most compelling choice. They not only met our core requirements but also offered a wealth of additional features for future implementation.",
+    avatar: avatarFenne,
+  };
+  const chrisTestimonial = {
+    name: "Chris Bakke",
+    role: "Head of Product @X",
+    quote:
+      "Velt had everything we needed for comments and notifications. We shipped in a week, no reinventing the wheel",
+    avatar: avatarChris,
   };
 
   const doc = {
@@ -136,7 +150,7 @@ async function main() {
         imageWidth: 1280,
         imageHeight: 467,
         imageBottomOffset: -2.38,
-        inlineTestimonial: lindaTestimonial,
+        inlineTestimonial: hopeTestimonial,
       },
       // ---- Image Card 2: Keep users in your app ----
       {
@@ -156,7 +170,7 @@ async function main() {
         imageWidth: 1199,
         imageHeight: 297,
         imageBottomOffset: 68.62,
-        inlineTestimonial: lindaTestimonial,
+        inlineTestimonial: fenneTestimonial,
       },
       // ---- Image Card 3: Customize Everything ----
       {
@@ -176,7 +190,7 @@ async function main() {
         imageWidth: 1280,
         imageHeight: 467,
         imageBottomOffset: -2.38,
-        inlineTestimonial: lindaTestimonial,
+        inlineTestimonial: chrisTestimonial,
       },
     ],
     getStartedSteps: { step1PackageName: "@veltdev/react" },

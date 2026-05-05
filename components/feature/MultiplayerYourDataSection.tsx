@@ -2,30 +2,22 @@
 // Narrower (816 wide) layout than the standard 1280 feature sections —
 // centered header (heading + subheading + single Book Demo CTA), a body
 // image showing the two hosting options ("Custom Data Encryption" with
-// Your Server / Your DB illustrations), and a compact 132-tall dark
-// testimonial bar attached at the bottom with rounded corners on all
-// four sides (vs the usual flush-attached 224-tall bar).
+// Your Server / Your DB illustrations), and a free-standing testimonial
+// card (Ethan Veres) at the bottom — rendered via the shared
+// InlineTestimonialCard so it matches the Security/standalone-card spec.
 //
 // Slug-conditional in app/features/[slug]/page.tsx — only rendered for
 // slug === "multiplayer", slotted between the CustomerUI carousel and
 // the remaining image cards.
 
-const ACCENT_FRAGMENT = "boost engagement";
-const ACCENT_COLOR = "#b4b1fa";
-const QUOTE =
-  "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen";
+import { InlineTestimonialCard } from "@/components/home/InlineTestimonialCard";
 
-function QuoteWithAccent() {
-  const idx = QUOTE.indexOf(ACCENT_FRAGMENT);
-  if (idx < 0) return <>{QUOTE}</>;
-  return (
-    <>
-      {QUOTE.slice(0, idx)}
-      <span style={{ color: ACCENT_COLOR }}>{ACCENT_FRAGMENT}</span>
-      {QUOTE.slice(idx + ACCENT_FRAGMENT.length)}
-    </>
-  );
-}
+const ethanTestimonial = {
+  name: "Ethan Veres",
+  role: "CTO @eqtble",
+  quote: "Commenting is something we wanted in our app, Velt made it possible",
+  avatarSrc: "/images/features/comments/trust-us/avatar-ethan.png",
+};
 
 export function MultiplayerYourDataSection() {
   return (
@@ -104,88 +96,14 @@ export function MultiplayerYourDataSection() {
           <EightGbCard />
         </div>
 
-        {/* Compact testimonial bar — 816×132, dark #111 with rounded
-            corners on all four sides (standalone, not attached to a
-            parent rounded card like the usual 224-tall flush bars). */}
-        <div
-          className="flex items-center justify-between"
-          style={{
-            width: 816,
-            height: 132,
-            background: "#111",
-            borderRadius: 24,
-            padding: "0 40px 0 26px",
-            gap: 24,
-            marginTop: 40,
-          }}
-        >
-          <div
-            className="flex items-center"
-            style={{ gap: 16, flexShrink: 0 }}
-          >
-            <div
-              style={{
-                width: 52,
-                height: 52,
-                borderRadius: "50%",
-                border: "2px solid #B4B1FA",
-                overflow: "hidden",
-                flexShrink: 0,
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/linda-steps.png"
-                alt="Linda Belcher profile photo"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
-              />
-            </div>
-            <div className="flex flex-col" style={{ gap: 4 }}>
-              <p
-                className="font-urbanist font-semibold"
-                style={{
-                  color: "#fff",
-                  fontSize: 18,
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.03em",
-                  margin: 0,
-                }}
-              >
-                Linda Belcher
-              </p>
-              <p
-                className="font-urbanist"
-                style={{
-                  color: "#fff",
-                  opacity: 0.52,
-                  fontSize: 16,
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.03em",
-                  margin: 0,
-                }}
-              >
-                Product Manager @HeyGen
-              </p>
-            </div>
-          </div>
-          <p
-            className="font-urbanist font-semibold"
-            style={{
-              color: "#fff",
-              fontSize: 24,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-              width: 417,
-              flexShrink: 0,
-              margin: 0,
-            }}
-          >
-            <QuoteWithAccent />
-          </p>
+        {/* Free-standing Ethan testimonial — same shared component as Security */}
+        <div style={{ marginTop: 40, width: "100%" }}>
+          <InlineTestimonialCard
+            name={ethanTestimonial.name}
+            role={ethanTestimonial.role}
+            quote={ethanTestimonial.quote}
+            avatarSrc={ethanTestimonial.avatarSrc}
+          />
         </div>
       </div>
     </section>

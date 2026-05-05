@@ -247,9 +247,8 @@ function AttachedTestimonialBar({ t }: { t: FeatureSectionTestimonialProps }) {
       className="flex items-center justify-between"
       style={{
         width: "100%",
-        height: 224,
-        background: "#111",
-        padding: "0 57px 0 40px",
+        background: "#1c1d21",
+        padding: "40px 52px",
         gap: 24,
         flexShrink: 0,
       }}

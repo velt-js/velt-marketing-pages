@@ -220,19 +220,6 @@ export const DEFAULT_CUSTOMERS: Customer[] = [
   },
 ];
 
-function renderHighlightedQuote(quote: string, highlight: string) {
-  if (!highlight) return <>{quote}</>;
-  const idx = quote.indexOf(highlight);
-  if (idx === -1) return <>{quote}</>;
-  return (
-    <>
-      {quote.slice(0, idx)}
-      <span style={{ color: "#b387f7" }}>{highlight}</span>
-      {quote.slice(idx + highlight.length)}
-    </>
-  );
-}
-
 export function CustomerUI({
   customers = DEFAULT_CUSTOMERS,
 }: { customers?: Customer[] } = {}) {
@@ -454,9 +441,9 @@ export function CustomerUI({
           </div>
           <p
             className="font-urbanist font-semibold text-white"
-            style={{ fontSize: 22, maxWidth: 540, lineHeight: 1.3, letterSpacing: "-0.03em", textAlign: "right" }}
+            style={{ fontSize: 22, maxWidth: 380, lineHeight: 1.2, letterSpacing: "-0.03em" }}
           >
-            {renderHighlightedQuote(active.testimonialQuote, active.testimonialHighlight)}
+            {active.testimonialQuote}
           </p>
         </div>
       </div>

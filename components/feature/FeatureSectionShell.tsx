@@ -208,9 +208,8 @@ export function TestimonialFooter({
   return (
     <div
       style={{
-        background: "#111",
-        height: 224,
-        padding: "0 57px 0 40px",
+        background: "#1c1d21",
+        padding: "40px 52px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",

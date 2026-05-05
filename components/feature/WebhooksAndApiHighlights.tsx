@@ -2,20 +2,34 @@
 // 177:33608 in HqWIZdR6ISJmaG2n4o3gr8 (specifically 177:34699 and
 // 177:34732). Mirrors the AdminConsoleHighlights pattern: a full-bleed
 // white section per card, a 1280-wide white outer card with 2px border,
-// hardcoded Figma copy/CTAs, and a Linda testimonial banner attached
-// to the bottom of each outer card.
+// hardcoded Figma copy/CTAs, and a testimonial bar at the bottom (Ethan
+// attached to Card 1, free-standing Yuri after Card 2).
 //
 // Slug-conditional in app/features/[slug]/page.tsx — only rendered
 // when the slug is "webhooks-and-api".
 
-const lindaTestimonial = {
-  name: "Linda Belcher",
-  role: "Product Manager @HeyGen",
+import { InlineTestimonialCard } from "@/components/home/InlineTestimonialCard";
+
+type Testimonial = {
+  name: string;
+  role: string;
+  quote: string;
+  avatarSrc: string;
+};
+
+const ethanTestimonial: Testimonial = {
+  name: "Ethan Veres",
+  role: "CTO @eqtble",
+  quote: "Commenting is something we wanted in our app, Velt made it possible",
+  avatarSrc: "/images/features/comments/trust-us/avatar-ethan.png",
+};
+
+const yuriTestimonial: Testimonial = {
+  name: "Yuri Kleban",
+  role: "Senior PM @Google",
   quote:
-    "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
-  accentFragment: "boost engagement",
-  accentColor: "#b4b1fa",
-  avatarSrc: "/images/home/linda-steps.png",
+    "Velt gave great 1 on 1 support, added features fast, and offered highly customizable components.",
+  avatarSrc: "/images/features/comments/trust-us/avatar-yuri.png",
 };
 
 const ASSET_DIR = "/images/features/webhooks-and-api";
@@ -104,7 +118,7 @@ function Card1ExtensiveApiCoverage() {
           <ApiEndpointPill />
         </div>
 
-        <TestimonialBannerAttached />
+        <TestimonialBannerAttached t={ethanTestimonial} />
       </div>
     </section>
   );
@@ -368,8 +382,15 @@ function Card2WebhookFeaturesGrid() {
           ))}
         </div>
 
-        {/* Linda banner — 824×132 dark, attached visually under the grid */}
-        <Card2LindaBanner />
+        {/* Free-standing Yuri testimonial — same component as Security */}
+        <div style={{ width: 824 }}>
+          <InlineTestimonialCard
+            name={yuriTestimonial.name}
+            role={yuriTestimonial.role}
+            quote={yuriTestimonial.quote}
+            avatarSrc={yuriTestimonial.avatarSrc}
+          />
+        </div>
       </div>
     </section>
   );
@@ -497,82 +518,16 @@ function FeatureCard({ title, icon, alt }: { title: string; icon: string; alt: s
   );
 }
 
-// 824×132 dark Linda banner — Linda avatar + name + role on the left,
-// quote on the right. Mirrors Figma node 177:34782.
-function Card2LindaBanner() {
-  return (
-    <div
-      className="flex items-center justify-between"
-      style={{
-        width: 824,
-        height: 132,
-        padding: "0 32px 0 26px",
-        background: "#111",
-        borderRadius: 24,
-        gap: 24,
-      }}
-    >
-      <div className="flex items-center" style={{ gap: 16, flexShrink: 0 }}>
-        <Avatar />
-        <div className="flex flex-col" style={{ gap: 4 }}>
-          <p
-            className="font-urbanist font-semibold"
-            style={{
-              color: "#fff",
-              fontSize: 18,
-              lineHeight: 1.2,
-              letterSpacing: "-0.54px",
-              margin: 0,
-            }}
-          >
-            {lindaTestimonial.name}
-          </p>
-          <p
-            className="font-urbanist"
-            style={{
-              color: "#fff",
-              opacity: 0.52,
-              fontSize: 16,
-              lineHeight: 1.2,
-              letterSpacing: "-0.48px",
-              margin: 0,
-            }}
-          >
-            {lindaTestimonial.role}
-          </p>
-        </div>
-      </div>
-      <p
-        className="font-urbanist font-semibold"
-        style={{
-          color: "#fff",
-          fontSize: 24,
-          lineHeight: 1.2,
-          letterSpacing: "-0.72px",
-          width: 421,
-          flexShrink: 0,
-          margin: 0,
-        }}
-      >
-        Velt hosts all collaboration functionalities needed to{" "}
-        <span style={{ color: lindaTestimonial.accentColor }}>
-          {lindaTestimonial.accentFragment}
-        </span>{" "}
-        at HeyGen
-      </p>
-    </div>
-  );
-}
-
 // ---------- Shared helpers (mirrors AdminConsoleHighlights) ----------
 
-function TestimonialBannerAttached() {
+function TestimonialBannerAttached({ t }: { t: Testimonial }) {
+  // Compact attached spec from Phase 4.1: bg #1c1d21, padding 40v / 52h,
+  // height driven by avatar + padding (~132 total).
   return (
     <div
       style={{
-        background: "#111",
-        height: 224,
-        padding: "0 57px 0 40px",
+        background: "#1c1d21",
+        padding: "40px 52px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -580,7 +535,7 @@ function TestimonialBannerAttached() {
       }}
     >
       <div className="flex items-center" style={{ gap: 16, flexShrink: 0 }}>
-        <Avatar />
+        <Avatar src={t.avatarSrc} alt={t.name} />
         <div className="flex flex-col" style={{ gap: 4 }}>
           <p
             className="font-urbanist font-semibold"
@@ -592,7 +547,7 @@ function TestimonialBannerAttached() {
               margin: 0,
             }}
           >
-            {lindaTestimonial.name}
+            {t.name}
           </p>
           <p
             className="font-urbanist"
@@ -605,7 +560,7 @@ function TestimonialBannerAttached() {
               margin: 0,
             }}
           >
-            {lindaTestimonial.role}
+            {t.role}
           </p>
         </div>
       </div>
@@ -621,17 +576,13 @@ function TestimonialBannerAttached() {
           margin: 0,
         }}
       >
-        Velt hosts all collaboration functionalities needed to{" "}
-        <span style={{ color: lindaTestimonial.accentColor }}>
-          {lindaTestimonial.accentFragment}
-        </span>{" "}
-        at HeyGen
+        {t.quote}
       </p>
     </div>
   );
 }
 
-function Avatar() {
+function Avatar({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       style={{
@@ -645,8 +596,8 @@ function Avatar() {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={lindaTestimonial.avatarSrc}
-        alt={`${lindaTestimonial.name} Profile Photo`}
+        src={src}
+        alt={alt}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
     </div>
