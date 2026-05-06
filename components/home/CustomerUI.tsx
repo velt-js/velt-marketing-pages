@@ -220,17 +220,49 @@ export const DEFAULT_CUSTOMERS: Customer[] = [
   },
 ];
 
+function renderHighlightedQuote(quote: string, highlight: string) {
+  if (!highlight) return <>{quote}</>;
+  const idx = quote.indexOf(highlight);
+  if (idx === -1) return <>{quote}</>;
+  return (
+    <>
+      {quote.slice(0, idx)}
+      <span style={{ color: "#b4b1fa" }}>{highlight}</span>
+      {quote.slice(idx + highlight.length)}
+    </>
+  );
+}
+
 export function CustomerUI({
   customers = DEFAULT_CUSTOMERS,
 }: { customers?: Customer[] } = {}) {
   const [activeIdx, setActiveIdx] = useState(0);
+  const VISIBLE_COUNT = 8;
+  const [scrollOffset, setScrollOffset] = useState(0);
+  const maxOffset = Math.max(0, customers.length - VISIBLE_COUNT);
+  const visibleCustomers = customers.slice(scrollOffset, scrollOffset + VISIBLE_COUNT);
+
+  /**
+   * Scrolls the logo strip left by one position
+   */
+  function handleScrollLeft() {
+    setScrollOffset((prev) => Math.max(0, prev - 1));
+  }
+
+  /**
+   * Scrolls the logo strip right by one position
+   */
+  function handleScrollRight() {
+    setScrollOffset((prev) => Math.min(maxOffset, prev + 1));
+  }
+
   const active = customers[activeIdx] ?? customers[0];
   if (!active) return null;
 
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "52px 80px 0", gap: 52 }}
+      style={{ padding: "150px 80px 0", gap: 52 }}
     >
       {/* Header */}
       <div className="flex flex-col items-center" style={{ gap: 32 }}>
@@ -325,29 +357,48 @@ export function CustomerUI({
           width: 1280,
           background: "#111",
           borderRadius: 24,
+          border: "2px solid rgba(255,255,255,0.1)",
         }}
       >
-        {/* Tab row: per-brand natural widths, centered, minimal gap.
-            No pill on active — differentiation is opacity only,
-            matching the live velt.dev look. Click a logo to swap the
-            featured customer; no chevrons (live site has none). */}
+        {/* Tab row: paginated logo strip with left/right arrows */}
         <div
           className="flex items-center w-full"
-          style={{ height: 44, padding: "0 16px", background: "#111" }}
+          style={{ height: 52, padding: "0 12px", background: "#111" }}
         >
-          <div
-            className="flex flex-1 items-center justify-center"
-            style={{ gap: 22, minWidth: 0 }}
+          <button
+            type="button"
+            aria-label="Scroll logos left"
+            onClick={handleScrollLeft}
+            className="flex items-center justify-center shrink-0 cursor-pointer"
+            style={{
+              width: 32,
+              height: 32,
+              background: "transparent",
+              border: "none",
+              opacity: scrollOffset > 0 ? 0.7 : 0.2,
+              transition: "opacity 150ms",
+              pointerEvents: scrollOffset > 0 ? "auto" : "none",
+            }}
           >
-            {customers.map((c, i) => {
-              const isActive = i === activeIdx;
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div
+            className="flex flex-1 items-center justify-between overflow-hidden"
+            style={{ padding: "0 16px", minWidth: 0 }}
+          >
+            {visibleCustomers.map((c) => {
+              const realIdx = customers.indexOf(c);
+              const isActive = realIdx === activeIdx;
               return (
                 <button
                   key={c.slug}
                   type="button"
                   aria-label={`Show ${c.name}`}
                   aria-pressed={isActive}
-                  onClick={() => setActiveIdx(i)}
+                  onClick={() => setActiveIdx(realIdx)}
                   className="flex items-center justify-center cursor-pointer shrink-0"
                   style={{
                     width: c.stripLogoWidthPx,
@@ -380,6 +431,26 @@ export function CustomerUI({
               );
             })}
           </div>
+
+          <button
+            type="button"
+            aria-label="Scroll logos right"
+            onClick={handleScrollRight}
+            className="flex items-center justify-center shrink-0 cursor-pointer"
+            style={{
+              width: 32,
+              height: 32,
+              background: "transparent",
+              border: "none",
+              opacity: scrollOffset < maxOffset ? 0.7 : 0.2,
+              transition: "opacity 150ms",
+              pointerEvents: scrollOffset < maxOffset ? "auto" : "none",
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
 
         {/* Product screenshot — fills edge-to-edge, 24px radius, object-cover */}
@@ -403,7 +474,7 @@ export function CustomerUI({
         {/* Testimonial — swaps per customer */}
         <div
           className="flex items-center justify-between w-full"
-          style={{ padding: 40, background: "#111" }}
+          style={{ padding: 32, background: "#111" }}
         >
           <div className="flex items-center shrink-0" style={{ gap: 16 }}>
             <div

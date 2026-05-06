@@ -207,7 +207,7 @@ export function LibraryBento({
               height="18"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#625cf4"
+              stroke="#625df5"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -220,7 +220,7 @@ export function LibraryBento({
             <span
               className="font-urbanist font-semibold uppercase"
               style={{
-                color: "#625cf4",
+                color: "#625df5",
                 fontSize: 14,
                 letterSpacing: "0.6px",
                 lineHeight: 1.2,

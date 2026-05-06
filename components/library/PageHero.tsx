@@ -213,7 +213,7 @@ export function PageHero({
                 className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
                 style={{
                   minWidth: 150,
-                  padding: "12px 16px",
+                  padding: "8px 16px",
                   border: "1.002px solid #625df5",
                   fontSize: 16,
                   letterSpacing: "-0.03em",
@@ -231,7 +231,7 @@ export function PageHero({
                 className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
                 style={{
                   minWidth: 150,
-                  padding: "12px 16px",
+                  padding: "8px 16px",
                   background: "#625df5",
                   fontSize: 16,
                   letterSpacing: "-0.03em",

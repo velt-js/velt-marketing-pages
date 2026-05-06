@@ -264,7 +264,7 @@ export function Connectors() {
   return (
     <section
       className="flex flex-col items-center bg-white relative"
-      style={{ padding: "52px 80px 0", gap: 32 }}
+      style={{ padding: "150px 80px 0", gap: 52 }}
     >
       {/* Header — max-width 820 per Framer */}
       <div className="flex flex-col items-center" style={{ gap: 32, maxWidth: 820, width: "100%" }}>
@@ -289,7 +289,7 @@ export function Connectors() {
               width: 156,
               height: 44,
               padding: "8px 16px",
-              border: "2px solid #3152f5",
+              border: "2px solid #625df5",
               textDecoration: "none",
             }}
           >
@@ -309,7 +309,7 @@ export function Connectors() {
               width: 156,
               height: 44,
               padding: "8px 16px",
-              background: "#625cf4",
+              background: "#625df5",
               textDecoration: "none",
             }}
           >
@@ -326,7 +326,7 @@ export function Connectors() {
       {/* 2×3 grid — 3 flex rows of 2 cells with gap:16, cells flex:1 0 0 height:365.
           Width 912 matches the admin-console card so the per-logo `calc(X% − Ypx)`
           positions render at the same cell scale (448×365) on both pages. */}
-      <div className="flex flex-col" style={{ width: 912, gap: 16 }}>
+      <div className="flex flex-col" style={{ width: 824, gap: 16 }}>
         {[0, 2, 4].map((rowStart) => (
           <div
             key={rowStart}
@@ -341,7 +341,7 @@ export function Connectors() {
 
       {/* Testimonial card — Hope Callaway @Leadpages. 912-wide wrapper
           matches the category grid above so the card aligns with the section. */}
-      <div style={{ width: 912 }}>
+      <div style={{ width: 824 }}>
         <InlineTestimonialCard
           name="Hope Callaway"
           role="Senior PM @Leadpages"

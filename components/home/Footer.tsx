@@ -230,7 +230,7 @@ export function Footer() {
             <button
               className="rounded-md font-urbanist font-semibold text-white"
               style={{
-                padding: "12px 16px",
+                padding: "8px 16px",
                 border: "1px solid var(--color-velt-purple)",
                 fontSize: 16,
                 width: 160,

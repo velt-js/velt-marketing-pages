@@ -19,16 +19,9 @@ import { InlineTestimonialCard } from "./InlineTestimonialCard";
 
 function ShieldIcon() {
   return (
-    <svg width="32" height="38" viewBox="0 0 40 48" fill="none" aria-hidden="true">
-      <path
-        d="M20 2 L36 8 V22 C36 33 28 42 20 46 C12 42 4 33 4 22 V8 L20 2 Z"
-        stroke="#625df5"
-        strokeWidth="2"
-        fill="none"
-      />
-      <line x1="20" y1="14" x2="20" y2="30" stroke="#625df5" strokeWidth="2" />
-      <line x1="12" y1="22" x2="28" y2="22" stroke="#625df5" strokeWidth="2" />
-    </svg>
+      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M29.9996 7.5C35.8392 12.6664 43.4608 15.3564 51.2496 15C52.3836 18.8575 52.7305 22.9037 52.2699 26.898C51.8093 30.8922 50.5504 34.7532 48.5681 38.2513C46.5858 41.7495 43.9206 44.8135 40.7307 47.2612C37.5409 49.7089 33.8916 51.4905 29.9996 52.5M29.9996 7.5C24.16 12.6664 16.5384 15.3564 8.74959 15C7.6156 18.8575 7.26863 22.9037 7.72927 26.898C8.18992 30.8922 9.44879 34.7532 11.4311 38.2513C13.4134 41.7495 16.0786 44.8135 19.2684 47.2612C22.4583 49.7089 26.1076 51.4905 29.9996 52.5M29.9996 7.5V52.5M8.75 30H51.25" stroke="#625CF4" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
   );
 }
 
@@ -83,22 +76,22 @@ const DEFAULT_CARDS: SecurityCardData[] = [
   {
     title: "Self-Hosting of Data",
     subtitle: "Own and control your customer data",
-    visual: <CardVisual src="/images/security/visual-self-hosting.png" />,
+    visual: <CardVisual src="/images/security/Bring%20your%20own%20database.png" />,
   },
   {
     title: "Multi-Region Hosting",
     subtitle: "Host your data where you need it",
-    visual: <CardVisual src="/images/security/visual-multi-region.png" />,
+    visual: <CardVisual src="/images/security/Mutli%20Region%20Hosting.png" />,
   },
   {
     title: "Isolated Server and Data Storage",
     subtitle: "Our customer data is logically isolated and never co-mingled",
-    visual: <CardVisual src="/images/security/visual-isolated-storage.png" />,
+    visual: <CardVisual src="/images/security/Isolated%20Data.png" />,
   },
   {
     title: "Custom Data Encryption",
     subtitle: "Encrypt with your own keys, so even we can't read your data",
-    visual: <CardVisual src="/images/security/visual-encryption.png" />,
+    visual: <CardVisual src="/images/security/Custom%20Data%20Encryption.png" />,
   },
 ];
 
@@ -193,7 +186,7 @@ export function Security({
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "52px 80px 100px", gap: 40 }}
+      style={{ padding: "150px 80px 100px", gap: 40 }}
     >
       <div className="flex flex-col items-center" style={{ gap: 24, maxWidth: 820 }}>
         <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>
@@ -216,12 +209,12 @@ export function Security({
             href={primaryCta.href}
             className="flex items-center justify-center rounded-lg font-urbanist font-semibold whitespace-nowrap"
             style={{
-              height: 40,
+              height: 44,
               padding: "8px 16px",
-              border: "1.5px solid #000",
+              border: "2px solid #625df5",
               color: "#000",
-              fontSize: 14,
-              letterSpacing: "-0.02em",
+              fontSize: 16,
+              letterSpacing: "-0.03em",
               textDecoration: "none",
             }}
           >
@@ -231,12 +224,12 @@ export function Security({
             href={secondaryCta.href}
             className="flex items-center justify-center rounded-lg font-urbanist font-semibold whitespace-nowrap"
             style={{
-              height: 40,
+              height: 44,
               padding: "8px 16px",
               background: "#625df5",
               color: "#fff",
-              fontSize: 14,
-              letterSpacing: "-0.02em",
+              fontSize: 16,
+              letterSpacing: "-0.03em",
               textDecoration: "none",
             }}
           >

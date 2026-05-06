@@ -203,7 +203,7 @@ export function UseCaseDemo() {
     <div
       className="absolute flex flex-col items-start"
       style={{
-        top: 514,
+        top: 570,
         left: 80,
         width: 1280,
         background: "#1c1d21",
