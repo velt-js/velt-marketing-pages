@@ -210,7 +210,7 @@ export function PageHero({
                 href={secondaryCta.href}
                 target={secondaryCta.newTab ? "_blank" : undefined}
                 rel={secondaryCta.newTab ? "noopener" : undefined}
-                className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
+                className="flex items-center justify-center gap-2 rounded-lg font-urbanist font-bold text-white"
                 style={{
                   minWidth: 150,
                   padding: "8px 16px",
@@ -220,6 +220,7 @@ export function PageHero({
                   mixBlendMode: "exclusion",
                 }}
               >
+                {secondaryCta.leadingIcon}
                 {secondaryCta.label}
               </a>
             )}
@@ -228,7 +229,7 @@ export function PageHero({
                 href={primaryCta.href}
                 target={primaryCta.newTab ? "_blank" : undefined}
                 rel={primaryCta.newTab ? "noopener" : undefined}
-                className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
+                className="flex items-center justify-center gap-2 rounded-lg font-urbanist font-bold text-white"
                 style={{
                   minWidth: 150,
                   padding: "8px 16px",
@@ -237,6 +238,7 @@ export function PageHero({
                   letterSpacing: "-0.03em",
                 }}
               >
+                {primaryCta.leadingIcon}
                 {primaryCta.label}
               </a>
             )}

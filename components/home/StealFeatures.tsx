@@ -30,12 +30,20 @@ const HOVER_FACTOR = 0.1;
 // Title block starts around y=287 on the Figma frames.
 const ILLUSTRATION_H = 264;
 
-type CardDef = {
+export type StealFeaturesCard = {
   title: string;
   subtitle: string;
   illustration: ReactNode;
   icon: ReactNode;
 };
+
+// Re-export the marquee dimensions so other components (e.g.
+// `ExamplesCarousel` on /customization) can reuse the same scroll
+// math when they render the same card set.
+export const STEAL_FEATURES_CARD_W = CARD_W;
+export const STEAL_FEATURES_CARD_H = CARD_H;
+export const STEAL_FEATURES_CARD_GAP = CARD_GAP;
+export const STEAL_FEATURES_ILLUSTRATION_H = ILLUSTRATION_H;
 
 // ---- Inline illustrations (cards 4–7) --------------------------------------
 
@@ -486,7 +494,7 @@ function LogoKnock() {
 
 // ---- Card definitions ------------------------------------------------------
 
-const cards: CardDef[] = [
+export const stealFeaturesCards: StealFeaturesCard[] = [
   {
     title: "Canvas Comments",
     subtitle: "like in Figma",
@@ -559,7 +567,7 @@ const cards: CardDef[] = [
 ];
 
 // Marquee translates by one full set (cards + their gaps) for a seamless loop.
-const TRACK_SHIFT = cards.length * (CARD_W + CARD_GAP);
+const TRACK_SHIFT = stealFeaturesCards.length * (CARD_W + CARD_GAP);
 const MARQUEE_DURATION_S = TRACK_SHIFT / SCROLL_SPEED;
 
 // ---- Component --------------------------------------------------------------
@@ -664,10 +672,10 @@ export function StealFeatures() {
           className="steal-marquee-track flex items-center"
           style={{ gap: CARD_GAP, height: CARD_H, width: "max-content" }}
         >
-          {[...cards, ...cards].map((card, i) => (
+          {[...stealFeaturesCards, ...stealFeaturesCards].map((card, i) => (
             <article
               key={`${card.title}-${i}`}
-              aria-hidden={i >= cards.length}
+              aria-hidden={i >= stealFeaturesCards.length}
               className="relative shrink-0 overflow-hidden"
               style={{
                 width: CARD_W,

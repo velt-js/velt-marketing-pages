@@ -1,0 +1,10 @@
+<svg style="display: block;" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="tabler-icon-components">
+<g id="Vector">
+<path d="M4 16.0001L8 20.0001L12 16.0001L8 12.0001L4 16.0001Z" stroke="var(--stroke-0, #739DFF)" stroke-width="1.53846" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20 16.0001L24 20.0001L28 16.0001L24 12.0001L20 16.0001Z" stroke="var(--stroke-0, #739DFF)" stroke-width="1.53846" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 8.0001L16 12.0001L20 8.0001L16 4.0001L12 8.0001Z" stroke="var(--stroke-0, #739DFF)" stroke-width="1.53846" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 24.0001L16 28.0001L20 24.0001L16 20.0001L12 24.0001Z" stroke="var(--stroke-0, #739DFF)" stroke-width="1.53846" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>
