@@ -345,7 +345,7 @@ export function PricingTiers() {
     <section
       ref={sectionRef}
       className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "80px 80px 16px" }}
+      style={{ padding: "20px 80px 16px" }}
     >
       <style>{`
         .tier-bullet .tier-bullet-tooltip {
