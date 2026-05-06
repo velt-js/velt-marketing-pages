@@ -24,8 +24,8 @@ export function Scalability() {
       <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
         <ComparisonSubCard
           variant="velt"
-          title="Engineered for scalable products"
-          subtitle="Enhanced by 1000+ little features innovated over three years of development"
+          title="2000 GB Base Plan"
+          subtitle="Never worry about hitting the upper limit"
           mediaHeight={266}
         >
           <Media
@@ -36,8 +36,8 @@ export function Scalability() {
         </ComparisonSubCard>
         <ComparisonSubCard
           variant="other"
-          title="Made for side projects"
-          subtitle="Bare bones functionality created over the past 6 months"
+          title="8 GB Base Plan"
+          subtitle="Quickly exhaust the usage limit as you grow"
           mediaHeight={266}
         >
           <Media

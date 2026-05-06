@@ -146,10 +146,7 @@ function PriceCard({
         position: "relative",
         background: "#f7f7f7",
         borderRadius: 32,
-        boxShadow:
-          accent === "velt"
-            ? "0 0 0 4px rgba(255,205,46,0.12)"
-            : "0 0 0 2px rgba(255,255,255,0.12)",
+        boxShadow: "none",
         overflow: "hidden",
       }}
     >

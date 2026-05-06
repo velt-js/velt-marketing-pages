@@ -2,8 +2,7 @@
 // dimensions ripped from the Figma node: 2 cards (400×493) on row 1,
 // then a 824×228 Canvas card below.
 
-const ICON_PATH = "/images/home/libraries/icons";
-const LOGO_SIZE = 120;
+const ICON_PATH = "/images/home/libraries";
 
 interface LibLogo {
   alt: string;
@@ -15,6 +14,7 @@ const textEditorLogos: LibLogo[] = [
   { alt: "CodeMirror", src: `${ICON_PATH}/codemirror.png` },
   { alt: "Lexical", src: `${ICON_PATH}/lexical.png` },
   { alt: "BlockNote", src: `${ICON_PATH}/blocknote.png` },
+  { alt: "Slate", src: `${ICON_PATH}/slatejs.png` },
   { alt: "Tiptap", src: `${ICON_PATH}/tiptap.png` },
 ];
 
@@ -24,14 +24,14 @@ const chartLogos: LibLogo[] = [
   { alt: "Nivo Charts", src: `${ICON_PATH}/nivo-charts.png` },
 ];
 
-function LogoCell({ logo }: { logo: LibLogo }) {
+function LogoCell({ logo, maxWidth }: { logo: LibLogo; maxWidth?: number }) {
   return (
-    <div className="shrink-0 flex items-center justify-center" style={{ width: LOGO_SIZE, height: LOGO_SIZE }}>
+    <div className="flex items-center justify-center" style={{ height: 30 }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logo.src}
         alt={logo.alt}
-        style={{ display: "block", width: LOGO_SIZE, height: LOGO_SIZE, objectFit: "contain" }}
+        style={{ display: "block", maxHeight: 30, maxWidth, objectFit: "contain" }}
       />
     </div>
   );
@@ -122,14 +122,17 @@ export function LibrarySupport() {
             }}
           >
             <div
-              className="absolute flex flex-wrap items-center justify-center content-center"
+              className="absolute grid items-center justify-items-center"
               style={{
-                left: 15,
-                top: 20,
-                width: 370,
-                padding: "20px 0",
-                rowGap: 16,
-                columnGap: 16,
+                left: 0,
+                right: 0,
+                top: 40,
+                bottom: 120,
+                padding: "0 40px",
+                gridTemplateColumns: "1fr 1fr",
+                rowGap: 40,
+                columnGap: 24,
+                alignContent: "center",
               }}
             >
               {textEditorLogos.map((logo) => (
@@ -151,19 +154,31 @@ export function LibrarySupport() {
             }}
           >
             <div
-              className="absolute flex flex-wrap items-center justify-center content-center"
+              className="absolute grid items-center justify-items-center"
               style={{
-                left: 15,
-                top: 20,
-                width: 370,
-                padding: "40px 0",
-                rowGap: 16,
-                columnGap: 16,
+                left: 0,
+                right: 0,
+                top: 40,
+                bottom: 120,
+                padding: "0 40px",
+                gridTemplateColumns: "1fr 1fr",
+                rowGap: 40,
+                columnGap: 24,
+                alignContent: "center",
               }}
             >
-              {chartLogos.map((logo) => (
-                <LogoCell key={logo.alt} logo={logo} />
-              ))}
+              {chartLogos.map((logo, index) => {
+                const isLastOdd = index === chartLogos.length - 1 && chartLogos.length % 2 === 1;
+                return (
+                  <div
+                    key={logo.alt}
+                    className="flex items-center justify-center"
+                    style={isLastOdd ? { gridColumn: "1 / -1" } : undefined}
+                  >
+                    <LogoCell logo={logo} maxWidth={isLastOdd ? 140 : undefined} />
+                  </div>
+                );
+              })}
             </div>
             <CellTextBlock title="Chart Libraries" subtitle="View Docs" />
           </article>
@@ -216,7 +231,7 @@ export function LibrarySupport() {
             <img
               src={`${ICON_PATH}/react-flow.png`}
               alt="React Flow"
-              style={{ display: "block", width: LOGO_SIZE, height: LOGO_SIZE, objectFit: "contain" }}
+              style={{ display: "block", maxHeight: 40, objectFit: "contain" }}
             />
           </div>
         </article>
