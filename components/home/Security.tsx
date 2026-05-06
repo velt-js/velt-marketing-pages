@@ -15,6 +15,7 @@
 // card's #f7f7f7 background and matching rounded corners.
 
 import type { ReactNode } from "react";
+import { InlineTestimonialCard } from "./InlineTestimonialCard";
 
 function ShieldIcon() {
   return (
@@ -56,6 +57,13 @@ export type SecurityBadge = {
   height?: number;
 };
 
+export type SecurityTestimonialData = {
+  name: string;
+  role: string;
+  quote: string;
+  avatarSrc: string;
+};
+
 export type SecurityProps = {
   heading?: string;
   subheading?: string;
@@ -67,6 +75,8 @@ export type SecurityProps = {
     subtitle: string;
     badges: SecurityBadge[];
   };
+  /** Trailing testimonial below the certification card. Pass `null` to hide. */
+  testimonial?: SecurityTestimonialData | null;
 };
 
 const DEFAULT_CARDS: SecurityCardData[] = [
@@ -91,6 +101,14 @@ const DEFAULT_CARDS: SecurityCardData[] = [
     visual: <CardVisual src="/images/security/visual-encryption.png" />,
   },
 ];
+
+const DEFAULT_TESTIMONIAL: SecurityTestimonialData = {
+  name: "Yuri Kleban",
+  role: "Senior PM @Google",
+  quote:
+    "Velt gave great 1 on 1 support, added features fast, and offered highly customizable components.",
+  avatarSrc: "/images/features/comments/trust-us/avatar-yuri.png",
+};
 
 const DEFAULT_CERTIFICATION = {
   title: "Trust & Compliance",
@@ -170,6 +188,7 @@ export function Security({
   secondaryCta = { label: "Book Demo", href: "/book-demo" },
   cards = DEFAULT_CARDS,
   certification = DEFAULT_CERTIFICATION,
+  testimonial = DEFAULT_TESTIMONIAL,
 }: SecurityProps = {}) {
   return (
     <section
@@ -277,6 +296,15 @@ export function Security({
               ))}
             </div>
           </article>
+        )}
+
+        {testimonial && (
+          <InlineTestimonialCard
+            name={testimonial.name}
+            role={testimonial.role}
+            quote={testimonial.quote}
+            avatarSrc={testimonial.avatarSrc}
+          />
         )}
       </div>
     </section>

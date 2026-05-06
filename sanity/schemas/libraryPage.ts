@@ -323,6 +323,16 @@ export const libraryPage = defineType({
     }),
 
     defineField({
+      name: "securityTestimonial",
+      title: "Security Testimonial",
+      description:
+        "End-of-section testimonial rendered after the Enterprise-Grade Security section.",
+      type: "inlineTestimonial",
+      group: "testimonial",
+      options: { collapsible: true, collapsed: true },
+    }),
+
+    defineField({
       name: "getStartedCallout",
       title: "Get-Started Callout",
       type: "libraryGetStartedCallout",

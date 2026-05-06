@@ -283,8 +283,8 @@ const icons = {
 
 const productAsync: DropdownItem[] = [
   { label: "Comments", href: "/features/comments", icon: icons.comments, tint: "#ffa3fa" },
-  { label: "Notifications", href: "/add-notifications-quick", icon: icons.bell, tint: "#f5d14a" },
-  { label: "Recording", href: "/recording", icon: icons.video, tint: "#f47474" },
+  { label: "Notifications", href: "/features/notifications", icon: icons.bell, tint: "#f5d14a" },
+  { label: "Recording", href: "/features/recordings", icon: icons.video, tint: "#f47474" },
   { label: "Activity Logs", href: "/features/activity-logs", icon: icons.list, tint: "#5ca3ff" },
   { label: "Video Editor", href: "/try-features", icon: icons.movie, tint: "#5ca3ff" },
   { label: "View Analytics", href: "/try-features", icon: icons.moodSmile, tint: "#b387f7" },
@@ -292,8 +292,8 @@ const productAsync: DropdownItem[] = [
 ];
 
 const productRealtime: DropdownItem[] = [
-  { label: "Multiplayer Editing", href: "/multiplayer-editing", icon: icons.yjs, tint: "#48cfad" },
-  { label: "Single Editor", href: "/multiplayer-editing", icon: icons.pencilStar, tint: "#5ca3ff" },
+  { label: "Multiplayer Editing", href: "/features/multiplayer", icon: icons.yjs, tint: "#48cfad" },
+  { label: "Single Editor", href: "/features/multiplayer", icon: icons.pencilStar, tint: "#5ca3ff" },
   { label: "Live State Sync", href: "/try-features", icon: icons.refresh, tint: "#48cfad" },
   { label: "Live Selection", href: "/try-features", icon: icons.click, tint: "#b387f7" },
   { label: "Huddle", href: "/try-features", icon: icons.headphones, tint: "#a4bd52" },
@@ -304,10 +304,10 @@ const productRealtime: DropdownItem[] = [
 
 const productPlatform: DropdownItem[] = [
   { label: "Admin Console", href: "/features/admin-console", icon: icons.hexagon, tint: "#b387f7" },
-  { label: "Dev Tools", href: "/devtools", icon: icons.circle, tint: "#f5d14a" },
-  { label: "MCP", href: "/platform", icon: icons.server, tint: "#ffa3fa" },
-  { label: "Webhooks & API", href: "/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
-  { label: "Integrations", href: "/integrations", icon: icons.plug, tint: "#ffa3fa" },
+  { label: "Dev Tools", href: "/features/devtools", icon: icons.circle, tint: "#f5d14a" },
+  { label: "MCP", href: "/features/mcp", icon: icons.server, tint: "#ffa3fa" },
+  { label: "Webhooks & API", href: "/features/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
+  { label: "Integrations", href: "/features/integrations", icon: icons.plug, tint: "#ffa3fa" },
 ];
 
 const productColumns: DropdownColumn[] = [
@@ -347,7 +347,7 @@ const useCasesAppTypes: DropdownItem[] = [
 
 const useCasesEditors: DropdownItem[] = [
   { label: "Lexical", href: "/libraries/lexical", iconSrc: "/images/home/nav-icons/lexical.svg" },
-  { label: "SlateJS", href: "/libraries/slate", iconSrc: "/images/home/nav-icons/slatejs.png" },
+  { label: "SlateJS", href: "/libraries/slatejs", iconSrc: "/images/home/nav-icons/slatejs.png" },
   { label: "Tiptap", href: "/libraries/tiptap", iconSrc: "/images/home/nav-icons/tiptap.svg" },
   { label: "YJS", href: "/libraries/yjs", iconSrc: "/images/home/nav-icons/yjs.svg" },
   { label: "BlockNote", href: "/libraries/blocknote", iconSrc: "/images/home/nav-icons/blocknote.svg" },

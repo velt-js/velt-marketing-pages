@@ -16,6 +16,7 @@
 import { useState } from "react";
 import { FeatureSectionShell } from "./FeatureSectionShell";
 import { FeatureFlowDiagram, type FeatureFlowStage } from "./FeatureFlowDiagram";
+import { InlineTestimonialCard } from "@/components/home/InlineTestimonialCard";
 import {
   ChevronRightIcon,
   DownloadIcon,
@@ -26,14 +27,26 @@ import {
 } from "./AdminConsoleAnalyticsPanel";
 import { Book2Icon } from "./uis/icons";
 
-const lindaTestimonial = {
-  name: "Linda Belcher",
-  role: "Product Manager @HeyGen",
+type Testimonial = {
+  name: string;
+  role: string;
+  quote: string;
+  avatarSrc: string;
+};
+
+const ethanTestimonial: Testimonial = {
+  name: "Ethan Veres",
+  role: "CTO @eqtble",
+  quote: "Commenting is something we wanted in our app, Velt made it possible",
+  avatarSrc: "/images/features/comments/trust-us/avatar-ethan.png",
+};
+
+const yuriTestimonial: Testimonial = {
+  name: "Yuri Kleban",
+  role: "Senior PM @Google",
   quote:
-    "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
-  accentFragment: "boost engagement",
-  accentColor: "#b4b1fa",
-  avatarSrc: "/images/home/linda-steps.png",
+    "Velt gave great 1 on 1 support, added features fast, and offered highly customizable components.",
+  avatarSrc: "/images/features/comments/trust-us/avatar-yuri.png",
 };
 
 export function AdminConsoleHighlights() {
@@ -75,7 +88,7 @@ function Card1DebugDevTools() {
         }}
       >
         <DebugLocallyCard />
-        <TestimonialBannerAttached />
+        <TestimonialBannerAttached t={ethanTestimonial} />
       </div>
     </section>
   );
@@ -856,7 +869,7 @@ function Card2NavigateData() {
         }}
       >
         <NavigateDataCard />
-        <TestimonialBannerAttached />
+        <TestimonialBannerAttached t={ethanTestimonial} />
       </div>
     </section>
   );
@@ -1273,7 +1286,7 @@ function Card3ConfigureWebhooks() {
       viewDocsCta={{ label: "View Docs", href: "https://docs.velt.dev/", newTab: true }}
       primaryCta={{ label: "View All Examples", href: "https://velt.dev/examples", newTab: true }}
       stages={WEBHOOK_FLOW_STAGES}
-      testimonial={lindaTestimonial}
+      testimonial={ethanTestimonial}
     />
   );
 }
@@ -1538,8 +1551,13 @@ function Card4ExtendIntegrations() {
           ))}
         </div>
 
-        {/* Standalone testimonial banner (132 tall) */}
-        <StandaloneTestimonial width="100%" />
+        {/* Free-standing Yuri testimonial — same component as Security */}
+        <InlineTestimonialCard
+          name={yuriTestimonial.name}
+          role={yuriTestimonial.role}
+          quote={yuriTestimonial.quote}
+          avatarSrc={yuriTestimonial.avatarSrc}
+        />
       </div>
     </section>
   );
@@ -1680,15 +1698,16 @@ function SecondaryCta({ href, label }: { href: string; label: string }) {
   );
 }
 
-function TestimonialBannerAttached() {
+function TestimonialBannerAttached({ t }: { t: Testimonial }) {
   // Attached to the bottom edge of the white outer card (Card 1 only —
-  // the shell does this for cards 2/3 automatically).
+  // the shell does this for cards 2/3 automatically). Compact spec from
+  // Phase 4.1: bg #1c1d21, padding 40 vertical / 52 horizontal, no fixed
+  // height (driven by avatar + padding ≈ 132).
   return (
     <div
       style={{
-        background: "#111",
-        height: 224,
-        padding: "0 57px 0 40px",
+        background: "#1c1d21",
+        padding: "40px 52px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -1696,7 +1715,7 @@ function TestimonialBannerAttached() {
       }}
     >
       <div className="flex items-center" style={{ gap: 16, flexShrink: 0 }}>
-        <Avatar />
+        <Avatar src={t.avatarSrc} alt={t.name} />
         <div className="flex flex-col" style={{ gap: 4 }}>
           <p
             className="font-urbanist font-semibold"
@@ -1708,7 +1727,7 @@ function TestimonialBannerAttached() {
               margin: 0,
             }}
           >
-            {lindaTestimonial.name}
+            {t.name}
           </p>
           <p
             className="font-urbanist"
@@ -1721,7 +1740,7 @@ function TestimonialBannerAttached() {
               margin: 0,
             }}
           >
-            {lindaTestimonial.role}
+            {t.role}
           </p>
         </div>
       </div>
@@ -1737,78 +1756,13 @@ function TestimonialBannerAttached() {
           margin: 0,
         }}
       >
-        Velt hosts all collaboration functionalities needed to{" "}
-        <span style={{ color: "#b4b1fa" }}>boost engagement</span> at HeyGen
+        {t.quote}
       </p>
     </div>
   );
 }
 
-function StandaloneTestimonial({ width }: { width: number | string }) {
-  return (
-    <div
-      className="relative overflow-hidden"
-      style={{
-        width,
-        height: 132,
-        background: "#111",
-        borderRadius: 24,
-      }}
-    >
-      <div
-        className="absolute flex items-center"
-        style={{ top: 40, left: 28.78, gap: 16 }}
-      >
-        <Avatar />
-        <div className="flex flex-col" style={{ gap: 4 }}>
-          <p
-            className="font-urbanist font-semibold"
-            style={{
-              color: "#fff",
-              fontSize: 18,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-              margin: 0,
-            }}
-          >
-            {lindaTestimonial.name}
-          </p>
-          <p
-            className="font-urbanist"
-            style={{
-              color: "#fff",
-              opacity: 0.52,
-              fontSize: 16,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-              margin: 0,
-            }}
-          >
-            {lindaTestimonial.role}
-          </p>
-        </div>
-      </div>
-      <p
-        className="font-urbanist font-semibold absolute"
-        style={{
-          top: 37,
-          right: "3%",
-          width: "51%",
-          color: "#fff",
-          fontSize: 20,
-          lineHeight: 1.2,
-          letterSpacing: "-0.03em",
-          margin: 0,
-        }}
-      >
-        Velt hosts all collaboration functionalities needed to{" "}
-        <span style={{ color: "#b4b1fa" }}>boost engagement</span> at HeyGen
-      </p>
-    </div>
-  );
-}
-
-function Avatar() {
+function Avatar({ src, alt }: { src: string; alt: string }) {
   return (
     <div
       style={{
@@ -1822,8 +1776,8 @@ function Avatar() {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={lindaTestimonial.avatarSrc}
-        alt={`${lindaTestimonial.name} Profile Photo`}
+        src={src}
+        alt={alt}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
     </div>

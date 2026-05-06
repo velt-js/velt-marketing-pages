@@ -1,9 +1,21 @@
 // GetStartedSteps — Figma node 8506:97727 (1280×811). Gradient headline
 // "Get Started in 3 Steps" + sub + two CTAs, then a 1280-wide dark rounded
 // card split into 3 columns (Initialize / Add Component / Style Your
-// Components), capped by a #1a1a1a testimonial strip (Linda Belcher).
+// Components), capped by a #1a1a1a testimonial strip.
 
-import { TestimonialStrip } from "./TestimonialStrip";
+import { TestimonialStrip, type TestimonialStripProps } from "./TestimonialStrip";
+
+// Default testimonial rendered at the bottom of the Get-Started card
+// across library and feature pages. Live site shows Hope Callaway here;
+// individual callers can override via the `testimonial` prop.
+const HOPE_CALLAWAY: TestimonialStripProps = {
+  name: "Hope Callaway",
+  role: "Senior PM @Leadpages",
+  avatarSrc: "/images/features/comments/trust-us/avatar-hope.png",
+  quote:
+    "With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
+  accentFragment: "",
+};
 
 function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string }) {
   return (
@@ -280,9 +292,15 @@ export type GetStartedStepsProps = {
   /** Package name shown in Step 1's `npm i ...` line. Defaults to `@veltdev/client`
    *  for the homepage; per-library pages pass their own (e.g. `@veltdev/tiptap-collab`). */
   step1PackageName?: string;
+  /** Override the testimonial strip rendered at the bottom of the card.
+   *  Defaults to Hope Callaway (live site default across library/feature pages). */
+  testimonial?: TestimonialStripProps;
 };
 
-export function GetStartedSteps({ step1PackageName }: GetStartedStepsProps = {}) {
+export function GetStartedSteps({
+  step1PackageName,
+  testimonial = HOPE_CALLAWAY,
+}: GetStartedStepsProps = {}) {
   return (
     <section
       data-getstarted
@@ -367,7 +385,7 @@ export function GetStartedSteps({ step1PackageName }: GetStartedStepsProps = {})
           <Step3Column />
         </div>
 
-        <TestimonialStrip />
+        <TestimonialStrip {...testimonial} />
       </div>
     </section>
   );

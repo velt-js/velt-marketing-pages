@@ -145,6 +145,14 @@ export async function getLibraryPageBySlug(slug: string) {
         accentColor,
         "avatarSrc": avatar.asset->url
       },
+      securityTestimonial {
+        name,
+        role,
+        quote,
+        accentFragment,
+        accentColor,
+        "avatarSrc": avatar.asset->url
+      },
       getStartedCallout {
         heading,
         body,

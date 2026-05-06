@@ -4,6 +4,8 @@
 // cell height 365px, text block absolute at bottom:30/left:30/right:30,
 // each logo placed with Framer's own calc(XX% − Ypx) coordinates.
 
+import { InlineTestimonialCard } from "./InlineTestimonialCard";
+
 type Logo = {
   src: string;
   alt: string;
@@ -258,18 +260,6 @@ function CategoryCell({ cat }: { cat: Category }) {
   );
 }
 
-function renderHighlightedQuote(quote: string, highlight: string) {
-  const idx = quote.indexOf(highlight);
-  if (idx === -1) return <>{quote}</>;
-  return (
-    <>
-      {quote.slice(0, idx)}
-      <span style={{ color: "#b4b1fa" }}>{highlight}</span>
-      {quote.slice(idx + highlight.length)}
-    </>
-  );
-}
-
 export function Connectors() {
   return (
     <section
@@ -349,64 +339,15 @@ export function Connectors() {
         ))}
       </div>
 
-      {/* Testimonial card — Hope Callaway @Leadpages */}
-      <div
-        className="flex items-center justify-between"
-        style={{
-          width: 824,
-          background: "#111",
-          borderRadius: 24,
-          padding: 40,
-        }}
-      >
-        <div className="flex items-center shrink-0" style={{ gap: 16 }}>
-          <div
-            className="relative overflow-hidden shrink-0"
-            style={{
-              width: 52,
-              height: 52,
-              borderRadius: "50%",
-              background: "#b387f7",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/home/avatar-leadpages.png"
-              alt="Hope Callaway profile photo"
-              className="absolute inset-0 w-full h-full"
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-          <div className="flex flex-col" style={{ gap: 4 }}>
-            <span
-              className="font-urbanist font-semibold text-white"
-              style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}
-            >
-              Hope Callaway
-            </span>
-            <span
-              className="font-urbanist text-white"
-              style={{ fontSize: 16, lineHeight: 1.2, opacity: 0.52, letterSpacing: "-0.03em" }}
-            >
-              Senior PM @Leadpages
-            </span>
-          </div>
-        </div>
-        <p
-          className="font-urbanist font-semibold text-white"
-          style={{
-            fontSize: 22,
-            maxWidth: 540,
-            lineHeight: 1.3,
-            letterSpacing: "-0.03em",
-            textAlign: "right",
-          }}
-        >
-          {renderHighlightedQuote(
-            "With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
-            "weeks, instead of the quarters"
-          )}
-        </p>
+      {/* Testimonial card — Hope Callaway @Leadpages. 912-wide wrapper
+          matches the category grid above so the card aligns with the section. */}
+      <div style={{ width: 912 }}>
+        <InlineTestimonialCard
+          name="Hope Callaway"
+          role="Senior PM @Leadpages"
+          quote="With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs"
+          avatarSrc="/images/home/avatar-leadpages.png"
+        />
       </div>
     </section>
   );

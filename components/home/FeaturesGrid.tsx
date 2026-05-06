@@ -1145,14 +1145,14 @@ function TestimonialStrip() {
     >
       <div className="flex items-center" style={{ gap: 16 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/home/linda-belcher.png" alt="Linda Belcher" className="rounded-full object-cover" style={{ width: 52, height: 52 }} />
+        <img src="/images/features/comments/trust-us/avatar-ethan.png" alt="Ethan Veres" className="rounded-full object-cover" style={{ width: 52, height: 52 }} />
         <div className="flex flex-col" style={{ gap: 4 }}>
-          <span className="font-urbanist font-semibold text-white" style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}>Linda Belcher</span>
-          <span className="font-urbanist text-white" style={{ fontSize: 16, lineHeight: 1.2, opacity: 0.52, letterSpacing: "-0.03em" }}>Product Manager @HeyGen</span>
+          <span className="font-urbanist font-semibold text-white" style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}>Ethan Veres</span>
+          <span className="font-urbanist text-white" style={{ fontSize: 16, lineHeight: 1.2, opacity: 0.52, letterSpacing: "-0.03em" }}>CTO @eqtble</span>
         </div>
       </div>
-      <p className="font-urbanist font-semibold text-white" style={{ fontSize: 20, maxWidth: 520, lineHeight: 1.2, letterSpacing: "-0.03em" }}>
-        Velt hosts all collaboration functionalities needed to <span style={{ color: "#b4b1fa" }}>boost engagement</span> at HeyGen
+      <p className="font-urbanist font-semibold text-white" style={{ fontSize: 20, maxWidth: 380, lineHeight: 1.2, letterSpacing: "-0.03em" }}>
+        Commenting is something we wanted in our app, Velt made it possible
       </p>
     </div>
   );

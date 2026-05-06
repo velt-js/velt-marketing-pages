@@ -454,9 +454,9 @@ export function CustomerUI({
           </div>
           <p
             className="font-urbanist font-semibold text-white"
-            style={{ fontSize: 22, maxWidth: 540, lineHeight: 1.3, letterSpacing: "-0.03em", textAlign: "right" }}
+            style={{ fontSize: 22, maxWidth: 380, lineHeight: 1.2, letterSpacing: "-0.03em" }}
           >
-            {renderHighlightedQuote(active.testimonialQuote, active.testimonialHighlight)}
+            {active.testimonialQuote}
           </p>
         </div>
       </div>
