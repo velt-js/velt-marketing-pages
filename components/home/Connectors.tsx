@@ -264,7 +264,7 @@ export function Connectors() {
   return (
     <section
       className="flex flex-col items-center bg-white relative"
-      style={{ padding: "100px 80px 0", gap: 32 }}
+      style={{ padding: "150px 80px 0", gap: 52 }}
     >
       {/* Header — max-width 820 per Framer */}
       <div className="flex flex-col items-center" style={{ gap: 32, maxWidth: 820, width: "100%" }}>
@@ -341,7 +341,7 @@ export function Connectors() {
 
       {/* Testimonial card — Hope Callaway @Leadpages. 912-wide wrapper
           matches the category grid above so the card aligns with the section. */}
-      <div style={{ width: 912 }}>
+      <div style={{ width: 824 }}>
         <InlineTestimonialCard
           name="Hope Callaway"
           role="Senior PM @Leadpages"

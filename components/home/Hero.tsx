@@ -92,7 +92,7 @@ function NpxSnippet() {
         <button
             type="button"
             onClick={handleCopy}
-            className="flex items-center justify-center gap-3 cursor-pointer w-full"
+            className="flex items-center justify-center gap-3 cursor-pointer"
             style={{
                 background: "rgba(255,255,255,0.08)",
                 border: "1px solid rgba(255,255,255,0.12)",
@@ -193,7 +193,7 @@ function TitleBlock() {
                     Get Free API Key
                 </a>
             </div>
-            <div className="w-full" style={{ marginTop: 20, maxWidth: 480 }}>
+            <div className="flex justify-center w-full" style={{ marginTop: 20 }}>
                 <NpxSnippet />
             </div>
         </div>

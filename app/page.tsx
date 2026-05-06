@@ -63,7 +63,7 @@ export default function Home() {
             marginTop: -72,
             borderRadius: 52,
             paddingTop: 100,
-            paddingBottom: 100,
+            paddingBottom: 40,
           }}
         >
           <StealFeatures />
@@ -74,7 +74,7 @@ export default function Home() {
           <Security />
         </div>
 
-        <div style={{ marginTop: 87 }}>
+        <div style={{ marginTop: 40 }}>
           <GetStartedSteps />
         </div>
 
