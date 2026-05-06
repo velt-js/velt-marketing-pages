@@ -1,5 +1,30 @@
 import { PortableText as SanityPortableText } from "@portabletext/react";
 import type { PortableTextComponents, PortableTextBlock } from "@portabletext/react";
+import { urlFor } from "@/sanity/imageUrl";
+
+type SanityImageValue = {
+  asset?: { _ref?: string; url?: string };
+  alt?: string;
+  caption?: string;
+};
+
+function renderBodyImage({ value }: { value: SanityImageValue }) {
+  const src = value?.asset?._ref
+    ? urlFor(value).width(1200).fit("max").auto("format").url()
+    : value?.asset?.url || "";
+  if (!src) return null;
+  return (
+    <figure className="my-8">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt={value.alt || ""} className="rounded-lg w-full" />
+      {value.caption && (
+        <figcaption className="text-sm text-white/40 mt-2 text-center">
+          {value.caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
 
 const components: PortableTextComponents = {
   block: {
@@ -67,21 +92,13 @@ const components: PortableTextComponents = {
         <code className="text-sm font-mono text-white/80">{value.code}</code>
       </pre>
     ),
-    image: ({ value }) => (
-      <figure className="my-8">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={value.asset?.url || ""}
-          alt={value.alt || ""}
-          className="rounded-lg w-full"
-        />
-        {value.caption && (
-          <figcaption className="text-sm text-white/40 mt-2 text-center">
-            {value.caption}
-          </figcaption>
-        )}
-      </figure>
-    ),
+    // Both `image` (raw Sanity image type) and `blogBodyImage` (our
+    // custom image type with alt+caption) flow through the same
+    // renderer. Body images come back from GROQ as raw asset
+    // references ({ _ref, _type: "reference" }) rather than expanded
+    // URLs, so build the CDN URL on the fly via @sanity/image-url.
+    image: renderBodyImage,
+    blogBodyImage: renderBodyImage,
     table: ({ value }) => {
       const rows = (value?.rows ?? []) as Array<{ _key?: string; cells?: string[] }>;
       if (rows.length === 0) return null;
