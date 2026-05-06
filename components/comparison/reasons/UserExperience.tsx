@@ -1,0 +1,52 @@
+// Reason 4 — Figma node 180:79592. Comment thread polish comparison:
+//   Velt:  rounded marker + reply card / "Magical Delight for each pixel"
+//   Other: same layout but bug-styled outline / "Primitive Experience"
+
+import { ReasonShell } from "./ReasonShell";
+import { ComparisonSubCard } from "./ComparisonSubCard";
+import { Media } from "../Media";
+
+const VIDEO_STYLE = {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  display: "block",
+} as const;
+
+export function UserExperience() {
+  return (
+    <ReasonShell
+      num={4}
+      iconSrc="/images/comparison/tabs/click.svg"
+      heading="User Experience"
+      subheading="How refined, robust & complete is the SDK?"
+    >
+      <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <ComparisonSubCard
+          variant="velt"
+          title="Magical Delight for each pixel"
+          subtitle="Smooth experience through and through"
+          mediaHeight={266}
+        >
+          <Media
+            kind="video"
+            src="/videos/comparison/experience-velt.mp4"
+            style={VIDEO_STYLE}
+          />
+        </ComparisonSubCard>
+        <ComparisonSubCard
+          variant="other"
+          title="Primitive Experience"
+          subtitle="Resize Buggy for Liveblock"
+          mediaHeight={266}
+        >
+          <Media
+            kind="video"
+            src="/videos/comparison/experience-competitor.mp4"
+            style={VIDEO_STYLE}
+          />
+        </ComparisonSubCard>
+      </div>
+    </ReasonShell>
+  );
+}
