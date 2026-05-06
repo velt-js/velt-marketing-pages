@@ -442,3 +442,84 @@ export async function getFeaturedCustomers() {
     }
   `);
 }
+
+// ---- Use Case page queries ------------------------------------------------
+
+export async function getAllUseCasePages() {
+  return client.fetch(`
+    *[_type == "useCasePage"] | order(title asc) {
+      _id,
+      title,
+      "slug": slug.current,
+      tagline,
+      "thumbnail": thumbnail.asset->url
+    }
+  `);
+}
+
+export async function getAllUseCaseSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "useCasePage" && defined(slug.current)].slug.current`,
+  );
+}
+
+export async function getUseCasePageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "useCasePage" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      tagline,
+      "thumbnail": thumbnail.asset->url,
+      hero {
+        heading,
+        subheading,
+        decorated,
+        primaryCta,
+        secondaryCta
+      },
+      sections[] {
+        _type,
+        _key,
+
+        // useCaseBentoSection
+        eyebrow,
+        heading,
+        subheading,
+        variant,
+        cards[] {
+          _key,
+          title,
+          description,
+          accentColor,
+          "image": image.asset->url
+        },
+
+        // librarySupportSection (heading/subheading shared above)
+        logos[] {
+          _key,
+          name,
+          href,
+          "logo": logo.asset->url
+        }
+      },
+      showCustomerUI,
+      showSecurity,
+      showCustomerCarousel,
+      getStartedSteps,
+      faq {
+        items[] {
+          _key,
+          question,
+          answer
+        }
+      },
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
+    }
+  `,
+    { slug },
+  );
+}

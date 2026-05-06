@@ -24,6 +24,15 @@ import {
   libraryFaq,
 } from "./libraryPage";
 import {
+  useCasePage,
+  useCaseHero,
+  useCaseFaq,
+  useCaseBentoSection,
+  useCaseBentoCard,
+  librarySupportSection,
+  librarySupportLogo,
+} from "./useCasePage";
+import {
   featurePage,
   featureHero,
   featureFaq,
@@ -72,6 +81,7 @@ export const schemaTypes = [
   examplePage,
   libraryPage,
   featurePage,
+  useCasePage,
 
   // Shared (cross-schema)
   inlineTestimonial,
@@ -124,6 +134,14 @@ export const schemaTypes = [
   featureIntegrationLogo,
   featureCustomerCarouselSection,
   featureCustomerCard,
+
+  // useCasePage sub-types
+  useCaseHero,
+  useCaseFaq,
+  useCaseBentoSection,
+  useCaseBentoCard,
+  librarySupportSection,
+  librarySupportLogo,
 
   // Generic section blocks
   sectionFeatureGrid,
