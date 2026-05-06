@@ -14,59 +14,120 @@
 import { ReasonShell } from "./ReasonShell";
 import { ComparisonSubCard } from "./ComparisonSubCard";
 
-const VELT_SURFACES = [
-  "Comments",
-  "Area Comments",
-  "Text Comments",
-  "Stream Comments",
-  "Popover Comments",
-  "Page Comments",
-];
-const OTHER_SURFACES = ["Comments", "Notifications", "Text Editors", "Realtime APIs"];
-
-const VELT_FRAMEWORKS = [
-  "React",
-  "Next.js",
-  "Vue",
-  "Svelte",
-  "Angular",
-  "JavaScript",
-  "HTML",
-  "TypeScript",
-];
-
-function ChipRow({
-  items,
-  color,
-}: {
-  items: string[];
-  color: string;
-}) {
+function CompetitorFeaturesMarquee() {
+  const src = "/images/comparison/sections/features-competitor.svg";
+  const imgStyle = { height: 56, flexShrink: 0, marginRight: 56 } as const;
   return (
     <div
-      className="flex flex-wrap items-center justify-center w-full h-full"
-      style={{ gap: 14, padding: "20px 8px" }}
+      className="flex items-center w-full h-full"
+      style={{ overflow: "hidden", position: "relative", transform: "scale(1.5)" }}
     >
-      {items.map((label) => (
-        <span
-          key={label}
-          className="font-urbanist font-medium"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            padding: "6px 12px",
-            borderRadius: 999,
-            border: `1px solid ${color}`,
-            color,
-            fontSize: 16,
-            lineHeight: 1.2,
-            background: "rgba(255,255,255,0.6)",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {label}
-        </span>
-      ))}
+      <style>{`
+        @keyframes comparison-competitor-features-marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-25%); }
+        }
+      `}</style>
+      <div
+        style={{
+          display: "flex",
+          animation: "comparison-competitor-features-marquee 12s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+      </div>
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(to right, #fff6f5 0%, transparent 12%, transparent 88%, #fff6f5 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
+function FeaturesMarquee() {
+  const src = "/images/comparison/sections/features-velt.svg";
+  const imgStyle = { height: 56, flexShrink: 0, marginRight: 56 } as const;
+  return (
+    <div
+      className="flex items-center w-full h-full"
+      style={{ overflow: "hidden", position: "relative", transform: "scale(8)" }}
+    >
+      <style>{`
+        @keyframes comparison-features-marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+      `}</style>
+      <div
+        style={{
+          display: "flex",
+          animation: "comparison-features-marquee 30s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+      </div>
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(to right, #f5faff 0%, transparent 12%, transparent 88%, #f5faff 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
+function FrameworkMarquee() {
+  const src = "/images/comparison/sections/frameworks.svg";
+  const imgStyle = { height: 56, flexShrink: 0, marginRight: 56 } as const;
+  return (
+    <div
+      className="flex items-center w-full h-full"
+      style={{ overflow: "hidden", position: "relative" }}
+    >
+      <style>{`
+        @keyframes comparison-marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-25%); }
+        }
+      `}</style>
+      <div
+        style={{
+          display: "flex",
+          animation: "comparison-marquee 12s linear infinite",
+          willChange: "transform",
+        }}
+      >
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+        <img src={src} alt="" style={imgStyle} />
+      </div>
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background:
+            "linear-gradient(to right, #f5faff 0%, transparent 12%, transparent 88%, #f5faff 100%)",
+        }}
+      />
     </div>
   );
 }
@@ -77,7 +138,7 @@ function ReactOnlyMark() {
       className="flex items-center justify-center w-full h-full"
       style={{ gap: 8 }}
     >
-      <svg width="64" height="56" viewBox="0 0 64 56" fill="none" aria-hidden>
+      <svg style={{ transform: "scale(1.5)" }} width="64" height="56" viewBox="0 0 64 56" fill="none" aria-hidden>
         <circle cx="32" cy="28" r="3.5" fill="#df7347" />
         <ellipse cx="32" cy="28" rx="22" ry="9" stroke="#df7347" strokeWidth="2" opacity="0.6" />
         <ellipse cx="32" cy="28" rx="22" ry="9" stroke="#df7347" strokeWidth="2" opacity="0.6" transform="rotate(60 32 28)" />
@@ -87,7 +148,6 @@ function ReactOnlyMark() {
         className="font-urbanist font-bold"
         style={{ color: "#df7347", fontSize: 32, letterSpacing: "-0.02em" }}
       >
-        React
       </span>
     </div>
   );
@@ -107,14 +167,14 @@ export function ProductMaturity() {
           title="25+ Functional Features"
           subtitle="Enhanced by 1000+ little features innovated over three years of development"
         >
-          <ChipRow items={VELT_SURFACES} color="#5693d0" />
+          <FeaturesMarquee />
         </ComparisonSubCard>
         <ComparisonSubCard
           variant="other"
           title="3 Basic Feature + API"
           subtitle="Bare bones functionality created over the past 6 months"
         >
-          <ChipRow items={OTHER_SURFACES} color="#df7347" />
+          <CompetitorFeaturesMarquee />
         </ComparisonSubCard>
 
         <ComparisonSubCard
@@ -122,7 +182,7 @@ export function ProductMaturity() {
           title="All Frameworks"
           subtitle="Enhanced by 1000+ little features innovated over three years of development"
         >
-          <ChipRow items={VELT_FRAMEWORKS} color="#5693d0" />
+          <FrameworkMarquee />
         </ComparisonSubCard>
         <ComparisonSubCard
           variant="other"

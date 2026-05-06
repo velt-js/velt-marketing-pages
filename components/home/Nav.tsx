@@ -520,7 +520,7 @@ export function Nav() {
       }}
     >
       <div className="flex-1 flex items-center" style={{ gap: 16 }}>
-        <a href="/" aria-label="Velt home" className="flex items-center shrink-0">
+        <a href="/" aria-label="Velt home" className="flex items-center shrink-0" style={{ gap: 8 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/home/velt-logo.svg"
@@ -529,6 +529,17 @@ export function Nav() {
             height={24}
             style={{ filter: iconFilter, transition: "filter 180ms ease" }}
           />
+          <span
+            className="font-urbanist font-bold"
+            style={{
+              fontSize: 14,
+              lineHeight: 1.2,
+              color: textColor,
+              transition: "color 180ms ease",
+            }}
+          >
+            Velt
+          </span>
         </a>
         <ul className="flex items-start" style={{ gap: 12 }}>
           {topLinks.map((link) => {
