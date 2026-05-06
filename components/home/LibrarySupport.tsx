@@ -2,80 +2,36 @@
 // dimensions ripped from the Figma node: 2 cards (400×493) on row 1,
 // then a 824×228 Canvas card below.
 
-type LogoSlot =
-  | { kind: "image"; alt: string; w: number; h: number; src: string }
-  | {
-      kind: "composite";
-      alt: string;
-      w: number;
-      h: number;
-      parts: { src: string; w: number; h: number; left: number; top: number }[];
-    }
-  | { kind: "slate"; w: number; h: number };
+const ICON_PATH = "/images/home/libraries/icons";
+const LOGO_SIZE = 120;
 
-// Text Editors flex-wrap items — order matches Figma children 1:20837 → 1:20879.
-const textEditorLogos: LogoSlot[] = [
-  { kind: "image", alt: "YJS", w: 27.972, h: 33.058, src: "/images/home/logo-yjs.svg" },
-  {
-    kind: "composite",
-    alt: "CodeMirror",
-    w: 143.675,
-    h: 33.019,
-    parts: [
-      { src: "/images/home/logo-codemirror-icon.svg", w: 33.019, h: 33.019, left: 0, top: 0 },
-      { src: "/images/home/logo-codemirror-text.svg", w: 99.056, h: 15.617, left: 44.62, top: 8.70 },
-    ],
-  },
-  { kind: "image", alt: "Lexical", w: 105.35, h: 23.613, src: "/images/home/logo-lexical.svg" },
-  { kind: "image", alt: "BlockNote", w: 176.098, h: 33.058, src: "/images/home/logo-blocknote.svg" },
-  { kind: "slate", w: 57, h: 36 },
-  { kind: "image", alt: "Tiptap", w: 108.892, h: 25.974, src: "/images/home/logo-tiptap-wordmark.svg" },
+interface LibLogo {
+  alt: string;
+  src: string;
+}
+
+const textEditorLogos: LibLogo[] = [
+  { alt: "YJS", src: `${ICON_PATH}/yjs.png` },
+  { alt: "CodeMirror", src: `${ICON_PATH}/codemirror.png` },
+  { alt: "Lexical", src: `${ICON_PATH}/lexical.png` },
+  { alt: "BlockNote", src: `${ICON_PATH}/blocknote.png` },
+  { alt: "Tiptap", src: `${ICON_PATH}/tiptap.png` },
 ];
 
-function LogoCell({ slot }: { slot: LogoSlot }) {
-  if (slot.kind === "slate") {
-    return (
-      <div
-        className="relative shrink-0 flex items-center justify-center font-urbanist"
-        style={{
-          width: slot.w,
-          height: slot.h,
-          background: "#e5e5e5",
-          color: "#666",
-          fontSize: 16,
-          lineHeight: 1,
-        }}
-      >
-        Slate
-      </div>
-    );
-  }
-  if (slot.kind === "composite") {
-    return (
-      <div className="relative shrink-0" style={{ width: slot.w, height: slot.h }}>
-        {slot.parts.map((p) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={p.src}
-            src={p.src}
-            alt=""
-            width={p.w}
-            height={p.h}
-            style={{ position: "absolute", left: p.left, top: p.top, display: "block" }}
-          />
-        ))}
-      </div>
-    );
-  }
+const chartLogos: LibLogo[] = [
+  { alt: "Chart.js", src: `${ICON_PATH}/chartjs.png` },
+  { alt: "Highcharts", src: `${ICON_PATH}/highcharts.png` },
+  { alt: "Nivo Charts", src: `${ICON_PATH}/nivo-charts.png` },
+];
+
+function LogoCell({ logo }: { logo: LibLogo }) {
   return (
-    <div className="relative shrink-0" style={{ width: slot.w, height: slot.h }}>
+    <div className="shrink-0 flex items-center justify-center" style={{ width: LOGO_SIZE, height: LOGO_SIZE }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={slot.src}
-        alt={slot.alt}
-        width={slot.w}
-        height={slot.h}
-        style={{ display: "block" }}
+        src={logo.src}
+        alt={logo.alt}
+        style={{ display: "block", width: LOGO_SIZE, height: LOGO_SIZE, objectFit: "contain" }}
       />
     </div>
   );
@@ -165,22 +121,19 @@ export function LibrarySupport() {
               borderRadius: 24,
             }}
           >
-            {/* Logos container — Figma node 1:20836: absolute left:15 top:30.87 w:366,
-                py:51.948, flex-wrap gap:61.394 × 61.394, items-center, justify-center,
-                content-center */}
             <div
               className="absolute flex flex-wrap items-center justify-center content-center"
               style={{
                 left: 15,
-                top: 30.87,
-                width: 366,
-                padding: "51.948px 0",
-                rowGap: 61.394,
-                columnGap: 61.394,
+                top: 20,
+                width: 370,
+                padding: "20px 0",
+                rowGap: 16,
+                columnGap: 16,
               }}
             >
-              {textEditorLogos.map((slot, i) => (
-                <LogoCell key={i} slot={slot} />
+              {textEditorLogos.map((logo) => (
+                <LogoCell key={logo.alt} logo={logo} />
               ))}
             </div>
             <CellTextBlock title="Text Editors" subtitle="View Docs" />
@@ -197,99 +150,22 @@ export function LibrarySupport() {
               borderRadius: 24,
             }}
           >
-            {/* Chart.js (Layer_1) — Figma node 1:20893: 43.84×43.84 at left:47.3 top:112.87 */}
-            <div className="absolute" style={{ left: 47.3, top: 112.87 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/logo-chartjs.svg"
-                alt="Chart.js"
-                width={43.84}
-                height={43.84}
-                style={{ display: "block" }}
-              />
-            </div>
-
-            {/* Highcharts (symbol + text) — Figma node 1:20898:
-                210.43×35.62 at left:151.57 top:116.98. Symbol inset right 82.29%
-                (width 37.26). Text inset top 32.76% left 25.52%
-                (left 53.70, top 11.67, width 156.98, height 14.50). */}
             <div
-              className="absolute"
-              style={{ left: 151.57, top: 116.98, width: 210.43, height: 35.62 }}
+              className="absolute flex flex-wrap items-center justify-center content-center"
+              style={{
+                left: 15,
+                top: 20,
+                width: 370,
+                padding: "40px 0",
+                rowGap: 16,
+                columnGap: 16,
+              }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/logo-highcharts-symbol.svg"
-                alt=""
-                width={37.26}
-                height={35.62}
-                style={{ position: "absolute", left: 0, top: 0, display: "block" }}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/logo-highcharts-text.svg"
-                alt="Highcharts"
-                width={156.98}
-                height={14.5}
-                style={{ position: "absolute", left: 53.70, top: 11.67, display: "block" }}
-              />
+              {chartLogos.map((logo) => (
+                <LogoCell key={logo.alt} logo={logo} />
+              ))}
             </div>
-
-            {/* Nivo Charts — Figma node 1:20921:
-                105.314×32.825 at left:146.59 top:227.94.
-                Two PNGs share the same source canvas: wordmark "nivo"
-                (with a plain blue/red "o") + colored ring. Overlaying the
-                ring on top of the wordmark at matching coordinates replaces
-                the plain "o" with the colorful ring. */}
-            <div
-              className="absolute"
-              style={{ left: 146.59, top: 227.94, width: 105.314, height: 32.825 }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/logo-nivo-bot.png"
-                alt="Nivo Charts"
-                width={105.314}
-                height={32.825}
-                style={{ position: "absolute", left: 0, top: 0, display: "block" }}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/home/logo-nivo-top.png"
-                alt=""
-                width={104.847}
-                height={32.825}
-                style={{ position: "absolute", left: 0.47, top: 0, display: "block" }}
-              />
-            </div>
-
-            {/* Text block — Figma node 1:20925: bottom-left at top:396.87 left:30 */}
-            <div className="absolute" style={{ left: 30, top: 398.87, width: 218 }}>
-              <h3
-                className="font-urbanist font-bold"
-                style={{
-                  color: "#111",
-                  fontSize: 28,
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.03em",
-                }}
-              >
-                Chart Libraries
-              </h3>
-            </div>
-            <div className="absolute" style={{ left: 30, top: 440.87, width: 329 }}>
-              <p
-                className="font-urbanist"
-                style={{
-                  color: "#111",
-                  fontSize: 18,
-                  lineHeight: 1.2,
-                  opacity: 0.52,
-                }}
-              >
-                View Docs
-              </p>
-            </div>
+            <CellTextBlock title="Chart Libraries" subtitle="View Docs" />
           </article>
         </div>
 
@@ -332,30 +208,16 @@ export function LibrarySupport() {
             View Docs
           </p>
 
-          {/* React Flow cluster — left:542 top:102.87, gap:18.812, icon 31.353×31.353 */}
           <div
-            className="absolute flex items-center"
-            style={{ left: 542, top: 102.87, gap: 18.812 }}
+            className="absolute flex items-center justify-center"
+            style={{ right: 40, top: 0, bottom: 0 }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/images/home/logo-reactflow.svg"
-              alt=""
-              width={31.353}
-              height={31.353}
-              style={{ display: "block" }}
+              src={`${ICON_PATH}/react-flow.png`}
+              alt="React Flow"
+              style={{ display: "block", width: LOGO_SIZE, height: LOGO_SIZE, objectFit: "contain" }}
             />
-            <span
-              className="font-urbanist font-semibold whitespace-nowrap"
-              style={{
-                color: "#111",
-                fontSize: 31.353,
-                lineHeight: 1.2,
-                letterSpacing: "-0.03em",
-              }}
-            >
-              React Flow
-            </span>
           </div>
         </article>
       </div>

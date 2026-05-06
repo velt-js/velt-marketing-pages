@@ -137,7 +137,7 @@ export function MultiplayerDemoSidebar() {
             and styles ported verbatim from LibraryDemoStage. */}
         <div
           className="flex items-center gap-4 w-full relative"
-          style={{ background: CHROME, padding: "6px 16px 4px", zIndex: 2 }}
+                  style={{ background: CHROME, padding: "6px 16px 4px", zIndex: 2, borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
         >
           <div
             role="tablist"
@@ -301,7 +301,8 @@ export function MultiplayerDemoSidebar() {
             height: 620,
             background: "#000",
             border: `4px solid ${CHROME}`,
-            borderRadius: 12,
+            borderBottomLeftRadius: 12,
+            borderBottomRightRadius: 12,
           }}
         >
           {showIframe ? (
@@ -346,8 +347,8 @@ export function MultiplayerDemoSidebar() {
           <div
             className="absolute flex items-center gap-3"
             style={{
-              right: -2,
-              bottom: -2,
+              right: 0,
+              bottom: 0,
               background: CHROME,
               padding: 2,
               borderBottomRightRadius: 10,

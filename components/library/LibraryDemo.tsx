@@ -39,7 +39,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-general-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-general-crdt-demo",
     previewSrc: "/images/home/libraries/demos/yjs.png",
-    iconSrc: "/images/home/libraries/icons/yjs.svg",
+    iconSrc: "/images/home/libraries/icons/yjs.png",
     iconWidth: 19,
     iconHeight: 22,
   },
@@ -49,7 +49,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-codemirror-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-codemirror-crdt-demo",
     previewSrc: "/images/home/libraries/demos/codemirror.png",
-    iconSrc: "/images/home/libraries/icons/codemirror.svg",
+    iconSrc: "/images/home/libraries/icons/codemirror.png",
     iconWidth: 95,
     iconHeight: 22,
   },
@@ -59,7 +59,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://lexical-velt-comments-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/lexical-velt-comments-demo",
     previewSrc: "/images/home/libraries/demos/lexical.png",
-    iconSrc: "/images/home/libraries/icons/lexical.svg",
+    iconSrc: "/images/home/libraries/icons/lexical.png",
     iconWidth: 101,
     iconHeight: 22,
   },
@@ -69,7 +69,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-blocknote-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-blocknote-crdt-demo",
     previewSrc: "/images/home/libraries/demos/blocknote.png",
-    iconSrc: "/images/home/libraries/icons/blocknote.svg",
+    iconSrc: "/images/home/libraries/icons/blocknote.png",
     iconWidth: 122,
     iconHeight: 22,
   },
@@ -79,7 +79,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-tiptap-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-tiptap-crdt-demo",
     previewSrc: "/images/home/libraries/demos/tiptap.png",
-    iconSrc: "/images/home/libraries/icons/tiptap.svg",
+    iconSrc: "/images/home/libraries/icons/tiptap.png",
     iconWidth: 92,
     iconHeight: 22,
   },
@@ -89,7 +89,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-reactflow-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-reactflow-crdt-demo",
     previewSrc: "/images/home/libraries/demos/react-flow.png",
-    iconSrc: "/images/home/libraries/react-flow.png",
+    iconSrc: "/images/home/libraries/icons/react-flow.png",
     iconWidth: 119,
     iconHeight: 22,
   },
@@ -99,7 +99,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-reactflow-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-reactflow-crdt-demo",
     previewSrc: "/images/home/libraries/demos/highcharts.png",
-    iconSrc: "/images/home/libraries/icons/highcharts.svg",
+    iconSrc: "/images/home/libraries/icons/highcharts.png",
     iconWidth: 125,
     iconHeight: 22,
   },
@@ -109,7 +109,7 @@ const TABS: LibraryDemoTab[] = [
     demoUrl: "https://velt-reactflow-crdt-demo.vercel.app/",
     githubUrl: "https://github.com/velt-js/velt-reactflow-crdt-demo",
     previewSrc: "/images/home/libraries/demos/nivo.png",
-    iconSrc: "/images/home/libraries/icons/nivo.png",
+    iconSrc: "/images/home/libraries/icons/nivo-charts.png",
     iconWidth: 71,
     iconHeight: 22,
   },
@@ -131,7 +131,7 @@ function TabRail({
             key={tab.id}
             type="button"
             onClick={() => onSelect(tab.id)}
-            className="rounded-lg px-2.5 py-2 flex items-center cursor-pointer shrink-0"
+            className="rounded-lg px-2.5 py-0 flex items-center cursor-pointer shrink-0"
             style={{
               background: active ? "rgba(255,255,255,0.08)" : "transparent",
               opacity: active ? 1 : 0.5,
@@ -149,7 +149,7 @@ function TabRail({
               width={tab.iconWidth}
               height={tab.iconHeight}
               style={{
-                height: 22,
+                height: 32,
                 width: "auto",
                 objectFit: "contain",
                 filter: "brightness(0) invert(1)",
@@ -167,7 +167,7 @@ export function LibraryDemo() {
   const activeTab = TABS.find((t) => t.id === activeId) ?? TABS[0];
 
   return (
-    <section className="flex justify-center w-full bg-black full-bleed-bg" style={{ padding: "0 80px 100px" }}>
+    <section className="flex justify-center w-full bg-black full-bleed-bg" style={{ padding: "0 80px" }}>
       {/* `key={activeId}` resets LibraryDemoStage's internal showIframe /
           stageHover state when the user switches tabs, so every library
           starts on its preview image. */}

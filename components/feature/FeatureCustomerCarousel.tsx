@@ -219,7 +219,7 @@ export function FeatureCustomerCarousel({
       // to dark/transparent at the top of the carousel, not the FAQ.
       data-getstarted
       className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "100px 0", gap: 40 }}
+      style={{ padding: "120px 0 60px", gap: 40 }}
     >
       <div
         className="flex flex-col items-center text-center"
@@ -311,14 +311,14 @@ export function FeatureCustomerCarousel({
               }}
             >
               {card.customerLogoSrc ? (
-                <div style={{ height: 32 }}>
+                <div style={{ height: 22 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={card.customerLogoSrc}
                     alt=""
                     style={{
-                      height: 32,
-                      maxWidth: 180,
+                      height: 22,
+                      maxWidth: 140,
                       objectFit: "contain",
                       objectPosition: "left center",
                       display: "block",

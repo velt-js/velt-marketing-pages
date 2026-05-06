@@ -184,17 +184,22 @@ export default async function LibraryPage({
 
         <section
           className="flex justify-center w-full bg-black full-bleed-bg"
-          style={{ padding: "0 80px 100px" }}
+          style={{ padding: "0 80px" }}
         >
           <LibraryDemoStage
             demoUrl={doc.demoStage.demoUrl}
             githubUrl={doc.demoStage.githubUrl}
             previewSrc={doc.demoStage.previewSrc}
             label={doc.demoStage.label}
+            iconSrc={`/images/home/libraries/icons/${
+              ({ reactflow: "react-flow" } as Record<string, string>)[slug] ?? slug
+            }.png`}
           />
         </section>
 
-        <TrustedLogos />
+        <div style={{ marginTop: 80 }}>
+          <TrustedLogos />
+        </div>
 
         <LibraryBento
           topAccent

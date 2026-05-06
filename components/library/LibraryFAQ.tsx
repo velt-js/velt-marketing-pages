@@ -76,7 +76,7 @@ export function LibraryFAQ({
       // wins; querySelector returns the first DOM match either way.
       data-getstarted
       className="flex flex-col items-center bg-black"
-      style={{ padding: "100px 80px", gap: 52 }}
+      style={{ padding: "60px 80px", gap: 52 }}
     >
       <h2
         className="font-urbanist font-bold text-white text-center"

@@ -117,7 +117,7 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
             height: 33,
             padding: "8px 12px",
             background: "rgb(237, 237, 237)",
-            border: "1.5px solid var(--color-velt-purple)",
+            border: "1.5px solid rgb(237, 237, 237)",
             color: "rgb(105, 105, 105)",
             fontSize: 14,
             letterSpacing: "-0.02em",
@@ -134,7 +134,7 @@ function LibraryLogoCard({ data }: { data: LibraryCardData }) {
             height: 33,
             padding: "8px 12px",
             background: "rgb(0, 0, 0)",
-            border: "1.5px solid var(--color-velt-purple)",
+            border: "1.5px solid rgb(0, 0, 0)",
             color: "rgb(255, 255, 255)",
             fontSize: 14,
             letterSpacing: "-0.02em",
@@ -175,7 +175,7 @@ export function AllLibraries({
       data-outcomes
       className="flex flex-col items-center bg-white full-bleed-bg"
       style={{
-        padding: topAccent ? "100px 80px" : "52px 80px 100px",
+        padding: topAccent ? "60px 80px" : "52px 80px 60px",
         marginTop: topAccent ? 80 : 0,
         borderTopLeftRadius: topAccent ? 48 : 0,
         borderTopRightRadius: topAccent ? 48 : 0,
@@ -215,12 +215,14 @@ export function AllLibraries({
         </div>
 
         {tabs && tabs.length > 0 && (
-          <LibraryTabs
-            tabs={tabs}
-            variant="inline"
-            active={active}
-            onChange={setActive}
-          />
+          <div className="flex justify-center" style={{ marginTop: 20, maxWidth: 520, width: "100%", borderBottom: "1px solid #e0e0e0" }}>
+            <LibraryTabs
+              tabs={tabs}
+              variant="inline"
+              active={active}
+              onChange={setActive}
+            />
+          </div>
         )}
 
         <div

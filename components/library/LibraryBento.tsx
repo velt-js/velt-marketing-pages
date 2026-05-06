@@ -112,7 +112,7 @@ export function LibraryBento({
       data-outcomes={topAccent ? true : undefined}
       className="flex flex-col items-center bg-white full-bleed-bg"
       style={{
-        padding: "100px 80px",
+        padding: "60px 80px 40px",
         gap: 52,
         marginTop: topAccent ? 80 : 0,
         borderTopLeftRadius: topAccent ? 48 : 0,
@@ -342,7 +342,7 @@ export function LibraryBento({
           <div
             style={{
               background: "#111",
-              height: 224,
+              height: 160,
               padding: "0 57px 0 40px",
               display: "flex",
               alignItems: "center",
