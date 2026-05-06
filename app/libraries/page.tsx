@@ -47,7 +47,9 @@ export default function LibrariesLandingPage() {
 
         <LibraryDemo />
 
-        <TrustedLogos />
+        <div style={{ marginTop: 80 }}>
+          <TrustedLogos />
+        </div>
 
         <AllLibraries items={allLibraryCards} tabs={libraryTabs} topAccent />
 

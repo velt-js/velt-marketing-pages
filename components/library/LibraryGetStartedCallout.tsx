@@ -178,7 +178,7 @@ export async function LibraryGetStartedCallout({
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "0 80px 100px", gap: 40 }}
+          style={{ padding: "150px 80px 60px", gap: 40 }}
     >
       <div className="flex flex-col items-center" style={{ gap: 32 }}>
         <div

@@ -17,6 +17,8 @@ export type LibraryDemoStageProps = {
   githubUrl: string;
   previewSrc: string;
   label: string;
+  /** Optional icon shown in the header when no tab rail is provided. */
+  iconSrc?: string;
   /** Optional content rendered in the header row to the left of the
    *  TRY DEMO button (e.g. the multi-tab rail on /libraries). */
   header?: ReactNode;
@@ -27,6 +29,7 @@ export function LibraryDemoStage({
   githubUrl,
   previewSrc,
   label,
+  iconSrc,
   header,
 }: LibraryDemoStageProps) {
   const [showIframe, setShowIframe] = useState(false);
@@ -59,9 +62,23 @@ export function LibraryDemoStage({
       {/* Header row: optional tab rail (left) + Try Demo button (right). */}
       <div
         className="flex items-center gap-4 w-full relative"
-        style={{ background: "#1c1d21", padding: "6px 16px 4px", zIndex: 2 }}
+        style={{ background: "#1c1d21", padding: "6px", zIndex: 2, borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
       >
-        {header}
+        {header ?? (iconSrc ? (
+          <div className="flex items-center gap-2 px-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={iconSrc}
+              alt={label}
+              style={{
+                height: 32,
+                width: "auto",
+                objectFit: "contain",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+          </div>
+        ) : null)}
 
         <div className="ml-auto relative shrink-0">
           {showIframe ? (
@@ -169,7 +186,8 @@ export function LibraryDemoStage({
           height: 640,
           background: "#000",
           border: "4px solid #1c1d21",
-          borderRadius: 12,
+          borderBottomLeftRadius: 12,
+          borderBottomRightRadius: 12,
         }}
       >
         {showIframe ? (
@@ -210,8 +228,8 @@ export function LibraryDemoStage({
       <div
         className="absolute flex items-center gap-3"
         style={{
-          right: -2,
-          bottom: -2,
+          right: 0,
+          bottom: 0,
           background: "#1c1d21",
           padding: 2,
           borderBottomRightRadius: 10,
