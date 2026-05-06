@@ -67,8 +67,8 @@ function Cell({ value }: { value: CellValue }) {
   return (
     <div className="flex flex-col items-center text-center" style={{ gap: 2 }}>
       <span
-        className="font-urbanist"
-        style={{ color: "#1f2937", fontSize: 16, lineHeight: 1.4 }}
+        className="font-urbanist font-medium"
+        style={{ color: "#1f2937", fontSize: 18, lineHeight: 1.4 }}
       >
         {value.value}
       </span>
@@ -349,10 +349,10 @@ export function PricingComparisonTable() {
                   }}
                 >
                   <span
-                    className="font-urbanist font-semibold"
+                    className="font-urbanist font-bold"
                     style={{
                       color: section.accent,
-                      fontSize: 20,
+                      fontSize: 22,
                       letterSpacing: "-0.01em",
                     }}
                   >
@@ -380,14 +380,14 @@ export function PricingComparisonTable() {
                   >
                     <div className="flex flex-col" style={{ gap: 2 }}>
                       <span
-                        className="row-label-wrap font-urbanist"
+                        className="row-label-wrap font-urbanist font-medium"
                         style={{
                           position: "relative",
                           display: "inline-flex",
                           alignItems: "center",
                           gap: 6,
                           color: "#111",
-                          fontSize: 16,
+                          fontSize: 18,
                           lineHeight: 1.4,
                           width: "fit-content",
                         }}
@@ -407,10 +407,10 @@ export function PricingComparisonTable() {
                       </span>
                       {row.sublabel ? (
                         <span
-                          className="font-urbanist"
+                          className="font-urbanist font-medium"
                           style={{
                             color: "#9ca3af",
-                            fontSize: 13,
+                            fontSize: 15,
                             lineHeight: 1.3,
                           }}
                         >
