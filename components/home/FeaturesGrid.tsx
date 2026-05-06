@@ -75,9 +75,9 @@ const ASYNC_CARDS: AsyncCardDef[] = [
   { src: `${FEATURE_GRID_PATH}/Comment.png`, title: "Comments", desc: "Leave precise feedback with contextual comments on any element", top: 47, left: 0, width: 640, height: 493, borderRight: true, borderBottom: true },
   { src: `${FEATURE_GRID_PATH}/AI%20Review.png`, title: "Automated AI Reviews", desc: "Help your users review their first drafts automatically", top: 47, left: 640, width: 640, height: 326, borderBottom: true },
   { src: `${FEATURE_GRID_PATH}/Annotation%20Mode.png`, title: "Annotation Mode", desc: "Mark and highlight sections", top: 540, left: 0, width: 640, height: 461, borderRight: true, borderBottom: true },
-  { src: `${FEATURE_GRID_PATH}/Notifications.png`, title: "Notifications", desc: "Get collaboration notifications or push your own", top: 373, left: 640, width: 640, height: 608, borderBottom: true },
+  { src: `${FEATURE_GRID_PATH}/Notifications.png`, title: "Notifications", desc: "Get collaboration notifications or push your own", top: 373, left: 640, width: 640, height: 530, borderBottom: true },
   { src: `${FEATURE_GRID_PATH}/View%20Analytics.png`, title: "View Analytics", desc: "Track users view activity", top: 1001, left: 0, width: 640, height: 326, borderRight: true },
-  { src: `${FEATURE_GRID_PATH}/Recording.png`, title: "Recordings", desc: "Share clearer messages and feedback with audio, video, & contextual screen recordings", top: 981, left: 640, width: 640, height: 346 },
+  { src: `${FEATURE_GRID_PATH}/Recording.png`, title: "Recordings", desc: "Share clearer messages and feedback with audio, video, & contextual screen recordings", top: 903, left: 640, width: 640, height: 424 },
 ];
 
 function AsyncGrid() {

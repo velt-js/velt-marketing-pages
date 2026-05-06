@@ -21,7 +21,7 @@ export default function RootLayout({
           src="https://cdn.velt.dev/lib/superflow.js?apiKey=aU1MxKP0rca2UXwKi8bl&projectId=620866069199868"
         />
       </head>
-      <body>{children}</body>
+      <body style={{ overflowX: "hidden" }}>{children}</body>
     </html>
   );
 }
