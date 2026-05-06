@@ -100,6 +100,7 @@ export const blogPost = defineType({
         { type: "blogBodyImage" },
         { type: "image", options: { hotspot: true } },
         { type: "code" },
+        { type: "table" },
       ],
     }),
     defineField({ name: "metaTitle", title: "Meta Title", type: "string" }),

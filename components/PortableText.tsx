@@ -82,6 +82,45 @@ const components: PortableTextComponents = {
         )}
       </figure>
     ),
+    table: ({ value }) => {
+      const rows = (value?.rows ?? []) as Array<{ _key?: string; cells?: string[] }>;
+      if (rows.length === 0) return null;
+      const [headerRow, ...bodyRows] = rows;
+      return (
+        <div className="my-8 overflow-x-auto">
+          <table className="w-full border-collapse text-sm text-white/70">
+            {headerRow?.cells && (
+              <thead>
+                <tr>
+                  {headerRow.cells.map((cell, i) => (
+                    <th
+                      key={i}
+                      className="border-b border-white/20 px-4 py-2 text-left font-semibold text-white"
+                    >
+                      {cell}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody>
+              {bodyRows.map((row, rowIdx) => (
+                <tr key={row._key ?? rowIdx}>
+                  {(row.cells ?? []).map((cell, cellIdx) => (
+                    <td
+                      key={cellIdx}
+                      className="border-b border-white/10 px-4 py-2 align-top"
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
   },
 };
 

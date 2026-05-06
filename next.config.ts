@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { buildBlogRedirectEntries } from "./lib/blog-redirects";
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
@@ -10,6 +11,9 @@ const nextConfig: NextConfig = {
         pathname: "/images/**",
       },
     ],
+  },
+  async redirects() {
+    return buildBlogRedirectEntries();
   },
   async rewrites() {
     return {
