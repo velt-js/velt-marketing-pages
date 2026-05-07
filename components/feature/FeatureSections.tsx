@@ -135,6 +135,9 @@ export type FeatureImageCardSectionDoc = {
   imageWidth: number;
   imageHeight: number;
   imageBottomOffset?: number;
+  marquee?: boolean;
+  marqueeSvgSrc?: string;
+  videoSrc?: string;
   inlineTestimonial?: InlineTestimonialDoc;
 };
 
@@ -365,6 +368,9 @@ export function FeatureSections({
               imageWidth={section.imageWidth}
               imageHeight={section.imageHeight}
               imageBottomOffset={section.imageBottomOffset}
+              marquee={section.marquee}
+              marqueeSvgSrc={section.marqueeSvgSrc}
+              videoSrc={section.videoSrc}
               testimonial={toTestimonial(section.inlineTestimonial)}
             />
           );

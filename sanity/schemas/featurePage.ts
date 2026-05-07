@@ -724,6 +724,29 @@ export const featureImageCardSection = defineType({
       initialValue: 0,
     }),
     defineField({
+      name: "videoSrc",
+      title: "Video Source",
+      description:
+        "Local path to a video file rendered instead of the image (e.g. /images/features/recordings/recording-customization.mp4).",
+      type: "string",
+    }),
+    defineField({
+      name: "marquee",
+      title: "Marquee",
+      description:
+        "When enabled, the image scrolls horizontally in an infinite marquee loop.",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
+      name: "marqueeSvgSrc",
+      title: "Marquee SVG Source",
+      description:
+        "Local path to an SVG file used instead of the Sanity image when marquee is enabled (e.g. /images/features/recordings/card-2-keep-users-in-app.svg).",
+      type: "string",
+      hidden: ({ parent }) => !parent?.marquee,
+    }),
+    defineField({
       name: "inlineTestimonial",
       title: "Attached Inline Testimonial",
       type: "inlineTestimonial",

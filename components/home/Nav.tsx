@@ -364,21 +364,19 @@ const useCasesCharts: DropdownItem[] = [
 const useCasesColumns: DropdownColumn[] = [
   {
     width: 171,
-    itemHeight: 48,
+    itemHeight: 36,
     sections: [{ heading: "APP TYPES", items: useCasesAppTypes }],
     footer: { label: "ALL APP TYPES", href: "/use-cases" },
   },
   {
     width: 201,
-    itemHeight: 48,
+    itemHeight: 36,
     sections: [{ heading: "LIBRARIES", items: useCasesEditors }],
     footer: { label: "ALL LIBRARIES", href: "/libraries" },
   },
   {
     width: 201,
-    itemHeight: 48,
-    // Empty-heading spacer keeps this column's first row aligned with the
-    // "LIBRARIES" heading in column 2.
+    itemHeight: 36,
     sections: [{ items: useCasesCharts }],
   },
 ];
@@ -574,13 +572,13 @@ export function Nav() {
                       onLeave={requestClose}
                     >
                       {link.dropdown === "product" ? (
-                        <ProductDropdown />
+                        <ProductDropdown light={overPurple} />
                       ) : link.dropdown === "useCases" ? (
-                        <MultiColumnDropdown columns={useCasesColumns} />
+                        <MultiColumnDropdown columns={useCasesColumns} light={overPurple} />
                       ) : link.dropdown === "enterprise" ? (
-                        <MultiColumnDropdown columns={enterpriseColumns} />
+                        <MultiColumnDropdown columns={enterpriseColumns} light={overPurple} />
                       ) : (
-                        <MultiColumnDropdown columns={resourcesColumns} />
+                        <MultiColumnDropdown columns={resourcesColumns} light={overPurple} />
                       )}
                     </DropdownPanel>
                   </>
@@ -736,49 +734,52 @@ function DropdownPanel({
 
 // ---------- Product dropdown content ----------
 
-function ProductDropdown() {
+function ProductDropdown({ light }: { light?: boolean }) {
   return (
     <div
       className="flex items-start"
       style={{
-        background: "#0c0c0d",
-        border: "1px solid #171617",
+        background: light ? "#fff" : "#0c0c0d",
+        border: `1px solid ${light ? "#e5e5e5" : "#171617"}`,
         borderRadius: 22,
         padding: 4,
         gap: 5,
-        boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
+        boxShadow: light
+          ? "0 12px 40px rgba(0,0,0,0.1)"
+          : "0 12px 40px rgba(0,0,0,0.4)",
       }}
     >
       {productColumns.map((col, i) => (
-        <LinkGroup key={i} column={col} />
+        <LinkGroup key={i} column={col} light={light} />
       ))}
       <PreviewCard />
     </div>
   );
 }
 
-// Generic shell used by Use Cases / Enterprise / Resources.
-function MultiColumnDropdown({ columns }: { columns: DropdownColumn[] }) {
+function MultiColumnDropdown({ columns, light }: { columns: DropdownColumn[]; light?: boolean }) {
   return (
     <div
       className="flex items-start"
       style={{
-        background: "#0c0c0d",
-        border: "1px solid #171617",
+        background: light ? "#fff" : "#0c0c0d",
+        border: `1px solid ${light ? "#e5e5e5" : "#171617"}`,
         borderRadius: 22,
         padding: 4,
         gap: 5,
-        boxShadow: "0 12px 40px rgba(0,0,0,0.4)",
+        boxShadow: light
+          ? "0 12px 40px rgba(0,0,0,0.1)"
+          : "0 12px 40px rgba(0,0,0,0.4)",
       }}
     >
       {columns.map((col, i) => (
-        <LinkGroup key={i} column={col} />
+        <LinkGroup key={i} column={col} light={light} />
       ))}
     </div>
   );
 }
 
-function GroupHeading({ label, itemHeight }: { label?: string; itemHeight: number }) {
+function GroupHeading({ label, itemHeight, light }: { label?: string; itemHeight: number; light?: boolean }) {
   return (
     <div
       className="flex items-center w-full"
@@ -786,10 +787,11 @@ function GroupHeading({ label, itemHeight }: { label?: string; itemHeight: numbe
     >
       {label ? (
         <span
-          className="font-mono text-white whitespace-nowrap"
+          className="font-mono whitespace-nowrap"
           style={{
             fontSize: 10,
-            opacity: 0.32,
+            opacity: light ? 0.5 : 0.32,
+            color: light ? "#111" : "#fff",
             fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
             fontWeight: 500,
           }}
@@ -801,13 +803,13 @@ function GroupHeading({ label, itemHeight }: { label?: string; itemHeight: numbe
   );
 }
 
-function LinkGroup({ column }: { column: DropdownColumn }) {
+function LinkGroup({ column, light }: { column: DropdownColumn; light?: boolean }) {
   const itemHeight = column.itemHeight ?? 40;
   return (
     <div
       className="flex flex-col items-start"
       style={{
-        background: "#0c0c0d",
+        background: light ? "#fff" : "#0c0c0d",
         borderRadius: 16,
         padding: 4,
         gap: 4,
@@ -816,22 +818,20 @@ function LinkGroup({ column }: { column: DropdownColumn }) {
     >
       {column.sections.map((section, si) => (
         <Fragment key={si}>
-          {/* Render heading (or empty spacer) for every section so that
-              stacked multi-section columns and empty-header columns keep
-              their rows aligned. */}
-          <GroupHeading label={section.heading} itemHeight={itemHeight} />
+          <GroupHeading label={section.heading} itemHeight={itemHeight} light={light} />
           {section.items.map((item) => (
             <DropdownLink
               key={item.label}
               item={item}
               compact={!!column.compact}
               itemHeight={itemHeight}
+              light={light}
             />
           ))}
         </Fragment>
       ))}
       {column.footer ? (
-        <DropdownFooterLink footer={column.footer} itemHeight={itemHeight} />
+        <DropdownFooterLink footer={column.footer} itemHeight={itemHeight} light={light} />
       ) : null}
     </div>
   );
@@ -841,10 +841,12 @@ function DropdownLink({
   item,
   compact,
   itemHeight,
+  light,
 }: {
   item: DropdownItem;
   compact: boolean;
   itemHeight: number;
+  light?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   const hasIcon = item.icon !== undefined || item.iconSrc !== undefined;
@@ -855,12 +857,14 @@ function DropdownLink({
       onMouseLeave={() => setHover(false)}
       className="flex items-center w-full"
       style={{
-        padding: 10,
+        padding: "6px 10px",
         borderRadius: 12,
         gap: 12,
         height: itemHeight,
-        color: "#fff",
-        background: hover ? "#1b1a1a" : "transparent",
+        color: light ? "#111" : "#fff",
+        background: hover
+          ? (light ? "#f5f5f5" : "#1b1a1a")
+          : "transparent",
         transition: "background 140ms ease",
       }}
     >
@@ -870,7 +874,7 @@ function DropdownLink({
           style={{
             minWidth: 20,
             height: 20,
-            color: item.tint ?? "#fff",
+            color: item.tint ?? (light ? "#111" : "#fff"),
           }}
         >
           {item.iconSrc ? <LibraryIcon src={item.iconSrc} /> : item.icon}
@@ -882,7 +886,7 @@ function DropdownLink({
           fontSize: compact ? 11.2 : 14,
           lineHeight: 1.2,
           letterSpacing: compact ? "0" : "-0.42px",
-          color: "#fff",
+          color: light ? "#111" : "#fff",
         }}
       >
         {item.label}
@@ -894,9 +898,11 @@ function DropdownLink({
 function DropdownFooterLink({
   footer,
   itemHeight,
+  light,
 }: {
   footer: { label: string; href: string };
   itemHeight: number;
+  light?: boolean;
 }) {
   const [hover, setHover] = useState(false);
   return (
@@ -910,7 +916,9 @@ function DropdownFooterLink({
         borderRadius: 12,
         gap: 8,
         height: itemHeight,
-        background: hover ? "#1b1a1a" : "transparent",
+        background: hover
+          ? (light ? "#f5f5f5" : "#1b1a1a")
+          : "transparent",
         transition: "background 140ms ease",
       }}
     >
@@ -918,8 +926,8 @@ function DropdownFooterLink({
         className="font-mono whitespace-nowrap"
         style={{
           fontSize: 10,
-          opacity: 0.32,
-          color: "#fff",
+          opacity: light ? 0.5 : 0.32,
+          color: light ? "#111" : "#fff",
           fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
           fontWeight: 500,
         }}
@@ -931,8 +939,8 @@ function DropdownFooterLink({
         height="12"
         viewBox="0 0 24 24"
         fill="none"
-        stroke="#fff"
-        strokeOpacity="0.32"
+        stroke={light ? "#111" : "#fff"}
+        strokeOpacity={light ? "0.5" : "0.32"}
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"

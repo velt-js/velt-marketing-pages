@@ -264,6 +264,9 @@ export async function getFeaturePageBySlug(slug: string) {
         imageWidth,
         imageHeight,
         imageBottomOffset,
+        marquee,
+        marqueeSvgSrc,
+        videoSrc,
         // featureFlowDiagramSection
         stages[] {
           label,

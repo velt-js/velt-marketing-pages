@@ -42,7 +42,7 @@ export function FeatureSidebarShowcase({
 }: FeatureSidebarShowcaseProps) {
   const initialActive = Math.max(
     0,
-    items.findIndex((i) => i.label.toLowerCase() === "multi thread"),
+    items.findIndex((i) => i.label.toLowerCase() === "chart comments"),
   );
   const [activeIdx, setActiveIdx] = useState(initialActive >= 0 ? initialActive : 0);
   const active = items[activeIdx];
@@ -54,6 +54,7 @@ export function FeatureSidebarShowcase({
       className="flex flex-col items-center bg-white full-bleed-bg"
       style={{ padding: "100px 80px", gap: 52 }}
     >
+      <style>{`.showcase-sidebar-nav::-webkit-scrollbar { display: none; }`}</style>
       <div className="flex flex-col items-center" style={{ gap: 24, maxWidth: 691 }}>
         {eyebrowIconSrc ? (
           /* eslint-disable-next-line @next/next/no-img-element */
@@ -93,13 +94,16 @@ export function FeatureSidebarShowcase({
         >
           {/* Sidebar */}
           <nav
-            className="flex flex-col"
+            className="flex flex-col overflow-y-auto showcase-sidebar-nav"
             style={{
               width: 280,
-              padding: "32px 16px",
+              padding: "8px",
               gap: 4,
               background: "#fff",
               borderRight: "1px solid rgba(17,17,17,0.06)",
+              maxHeight: 540,
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
             }}
             aria-label="Detail items"
           >
@@ -109,23 +113,17 @@ export function FeatureSidebarShowcase({
                 <button
                   key={`${item.label}-${i}`}
                   type="button"
-                  onClick={() => setActiveIdx(i)}
                   className="flex items-center text-left cursor-pointer"
                   style={{
-                    height: 40,
-                    padding: "0 16px",
+                    minHeight: 40,
+                    padding: "8px 16px",
                     borderRadius: 8,
-                    background: isActive ? "var(--color-velt-purple)" : "transparent",
+                    background: isActive ? "#625DF5" : "transparent",
                     border: "none",
                     color: isActive ? "#fff" : "#111",
                     transition: "background-color 150ms ease, color 150ms ease",
                   }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) e.currentTarget.style.background = "rgba(98,93,245,0.06)";
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) e.currentTarget.style.background = "transparent";
-                  }}
+                  onMouseEnter={() => setActiveIdx(i)}
                 >
                   <span
                     className="font-urbanist"
@@ -147,9 +145,9 @@ export function FeatureSidebarShowcase({
           <div
             className="flex-1 flex items-center justify-center relative"
             style={{
-              padding: 40,
-              background: "rgba(247,247,247,0.4)",
-              minHeight: 540,
+              padding: 12,
+              background: "#FCFCFD",
+              height: 540,
             }}
           >
             <div
@@ -178,20 +176,18 @@ export function FeatureSidebarShowcase({
                 src={screenshotSrc}
                 alt={active?.label ?? heading}
                 style={{
-                  maxWidth: "100%",
-                  maxHeight: 480,
+                  width: "100%",
+                  height: "100%",
                   objectFit: "contain",
                   borderRadius: 12,
-                  boxShadow: "0px 4px 24px rgba(17,17,17,0.08)",
                 }}
               />
             ) : (
-              // Placeholder when no screenshot has been uploaded yet.
               <div
                 className="flex items-center justify-center"
                 style={{
-                  width: 540,
-                  height: 360,
+                  width: "100%",
+                  height: "100%",
                   borderRadius: 12,
                   border: "2px dashed rgba(17,17,17,0.12)",
                   color: "#8E8E8E",

@@ -22,27 +22,29 @@ export function WebhooksAndApiDemoSidebar() {
 
   return (
     <section
-      className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "0 80px 100px", background: "#000" }}
+      style={{
+        width: "100vw",
+        marginLeft: "calc(-50vw + 50%)",
+        background: "rgb(6, 5, 26)",
+        borderTopLeftRadius: 40,
+        borderTopRightRadius: 40,
+        padding: "36px 0 0",
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: 1280,
-          height: 879,
-          borderRadius: 40,
-          border: "2px solid rgba(255,255,255,0.6)",
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.32) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(20, 17, 88) 55%, rgb(33, 28, 138) 100%)",
-          boxShadow: "0 0 80px 4px rgba(0,0,0,0.32)",
-        }}
-      >
-        <DotGrid />
-        <TabStrip current={tab} onChange={setTab} />
-        {tab === "slack" ? <SlackSyncBody /> : null}
-        {tab === "email" ? <EmailNotificationsBody /> : null}
-        {tab === "tasks" ? <TaskManagementBody /> : null}
-        {tab === "zapier" ? <ZapierBody /> : null}
+      <div style={{ width: "100%", background: "rgb(10, 9, 42)", borderTopLeftRadius: 32, borderTopRightRadius: 32, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "100%", background: "rgb(14, 12, 56)", borderTopLeftRadius: 26, borderTopRightRadius: 26, padding: "40px 36px 160px", display: "flex", justifyContent: "center" }}>
+          <div className="relative overflow-hidden" style={{ width: "100%", maxWidth: 1280, height: 879, borderRadius: 22, border: "1.5px solid rgba(255,255,255,0.24)", background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.32) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(20, 17, 88) 55%, rgb(33, 28, 138) 100%)", boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.25)" }}>
+            <DotGrid />
+            <TabStrip current={tab} onChange={setTab} />
+            {tab === "slack" ? <SlackSyncBody /> : null}
+            {tab === "email" ? <EmailNotificationsBody /> : null}
+            {tab === "tasks" ? <TaskManagementBody /> : null}
+            {tab === "zapier" ? <ZapierBody /> : null}
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 180, background: "linear-gradient(to top, rgb(14, 12, 56) 0%, transparent 100%)", pointerEvents: "none", borderBottomLeftRadius: 22, borderBottomRightRadius: 22 }} />
+          </div>
+        </div>
       </div>
     </section>
   );

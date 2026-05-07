@@ -125,11 +125,12 @@ export default async function FeaturePage({
         {slug === "comments" ? <CommentsDemoSidebar /> : null}
         {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
         {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
-        {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
-        {slug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
         {slug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
+
+        {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
+        {slug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
 
         {slug === "multiplayer" ? (
           // Reuses the homepage's "Steal Features" marquee (Figma node
@@ -177,6 +178,10 @@ export default async function FeaturePage({
               disableFirstAccent
             />
           </>
+        ) : slug === "admin-console" || slug === "webhooks-and-api" ? (
+          <div style={{ marginTop: -120, position: "relative", zIndex: 1, borderTopLeftRadius: 48, borderTopRightRadius: 48, overflow: "hidden" }}>
+            <FeatureSections sections={doc.sections} disableFirstAccent />
+          </div>
         ) : (
           <FeatureSections sections={doc.sections} />
         )}
