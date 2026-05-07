@@ -102,7 +102,7 @@ const company: LinkGroup = {
     "For Enterprise",
     "For YC",
     "Pricing",
-    "Customers",
+    { label: "Customers", href: "/customers" },
     "Status",
     "Careers",
     "Security",
