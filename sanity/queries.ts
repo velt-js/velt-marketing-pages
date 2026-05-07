@@ -473,6 +473,7 @@ export async function getUseCasePageBySlug(slug: string) {
       tagline,
       "thumbnail": thumbnail.asset->url,
       hero {
+        eyebrow,
         heading,
         subheading,
         decorated,
@@ -480,30 +481,19 @@ export async function getUseCasePageBySlug(slug: string) {
         secondaryCta
       },
       sections[] {
-        _type,
         _key,
-
-        // useCaseBentoSection
         eyebrow,
         heading,
-        subheading,
-        variant,
-        cards[] {
+        description,
+        imagePosition,
+        "image": image.asset->url,
+        features[] {
           _key,
-          title,
-          description,
-          accentColor,
-          "image": image.asset->url
-        },
-
-        // librarySupportSection (heading/subheading shared above)
-        logos[] {
-          _key,
-          name,
-          href,
-          "logo": logo.asset->url
+          label,
+          href
         }
       },
+      showLibrarySection,
       showCustomerUI,
       showSecurity,
       showCustomerCarousel,

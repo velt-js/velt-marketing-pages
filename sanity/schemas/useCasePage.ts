@@ -1,23 +1,34 @@
 import { defineType, defineField } from "sanity";
 
 // Schema for /use-case/[slug] pages — one document per use-case
-// (e.g. "Video Editor", "Form Builder"). Mirrors `featurePage.ts`
-// architecture: hero + polymorphic `sections[]` + chrome toggles +
-// faq + seo. The polymorphic sections render between TrustedLogos
-// and the standard chrome (Customer UI, Security, Customer Carousel,
-// FAQ, GetStartedSteps, Footer).
+// (e.g. "Video Editor", "Form Builder"). Mirrors the Figma 2026
+// template (HqWIZdR6ISJmaG2n4o3gr8 node 177:55703):
+//   1. Hero — eyebrow + heading + subheading + CTAs (decorated bg)
+//   2. TrustedLogos (chrome)
+//   3. sections[] — N×useCaseFeatureRow (alternating 2-col text+image)
+//   4. CustomerUI — "How [Customer] Uses Velt" carousel (toggle:
+//      `showCustomerUI`).
+//   5. Library showcase — fixed `AllLibraries` block (data sourced from
+//      components/library/shared-content.ts, NOT this schema). Toggle
+//      with `showLibrarySection`.
+//   6. Security / Customer Carousel / FAQ / GetStartedSteps / Footer —
+//      toggleable chrome.
 //
-// Section types (registered in sanity/schemas/index.ts):
-//   - useCaseBentoSection      — 1- or 2-card bento with image visuals
-//   - librarySupportSection    — "Works seamlessly with your libraries"
-//
-// To populate a new use case run scripts/seed-use-case-<slug>.mjs.
+// To populate / migrate a use case, edit + re-run scripts/seed-use-case-<slug>.mjs
+// (idempotent — uses createOrReplace).
 
 export const useCaseHero = defineType({
   name: "useCaseHero",
   title: "Use Case Hero",
   type: "object",
   fields: [
+    defineField({
+      name: "eyebrow",
+      title: "Eyebrow",
+      description:
+        'Small all-caps label above the heading, e.g. "Video Editor".',
+      type: "string",
+    }),
     defineField({
       name: "heading",
       title: "Heading",
@@ -120,15 +131,12 @@ export const useCasePage = defineType({
 
     defineField({
       name: "sections",
-      title: "Sections",
+      title: "Feature rows",
       description:
-        "Ordered list of content blocks rendered between the trusted-logos strip and the standard chrome (Customer UI / Security / etc.). Drag to reorder.",
+        "Ordered list of 2-column feature rows (Build / Review / Approve in the reference Figma). Image alternates left/right per row. Drag to reorder.",
       type: "array",
       group: "sections",
-      of: [
-        { type: "useCaseBentoSection" },
-        { type: "librarySupportSection" },
-      ],
+      of: [{ type: "useCaseFeatureRow" }],
       validation: (rule) => rule.required().min(1),
     }),
 
@@ -136,7 +144,16 @@ export const useCasePage = defineType({
       name: "showCustomerUI",
       title: 'Show "How [Customer] Uses Velt" carousel',
       description:
-        "Renders the homepage CustomerUI carousel between the polymorphic sections and Security. Defaults to true.",
+        "Renders the homepage CustomerUI carousel between the feature rows and the libraries section. Defaults to true.",
+      type: "boolean",
+      group: "chrome",
+      initialValue: true,
+    }),
+    defineField({
+      name: "showLibrarySection",
+      title: 'Show "Works seamlessly with your libraries" section',
+      description:
+        "Renders the categorised libraries grid (same 10-library data as /libraries) immediately after the CustomerUI carousel. Defaults to true.",
       type: "boolean",
       group: "chrome",
       initialValue: true,
@@ -205,16 +222,48 @@ export const useCasePage = defineType({
   },
 });
 
-// ---- Section block: Use-Case Bento ----------------------------------------
+// ---- Section block: Use-Case Feature Row ----------------------------------
 
-export const useCaseBentoCard = defineType({
-  name: "useCaseBentoCard",
-  title: "Use Case Bento Card",
+export const useCaseFeatureChip = defineType({
+  name: "useCaseFeatureChip",
+  title: "Feature Chip",
   type: "object",
   fields: [
     defineField({
-      name: "title",
-      title: "Title",
+      name: "label",
+      title: "Label",
+      description:
+        'Pill text under the row body, e.g. "Live State Sync", "Single Editor Mode".',
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "href",
+      title: "URL (optional)",
+      description: "If set, the chip becomes a link.",
+      type: "url",
+      validation: (r) =>
+        r.uri({ allowRelative: true, scheme: ["http", "https"] }),
+    }),
+  ],
+  preview: { select: { title: "label", subtitle: "href" } },
+});
+
+export const useCaseFeatureRow = defineType({
+  name: "useCaseFeatureRow",
+  title: "Use Case Feature Row",
+  type: "object",
+  fields: [
+    defineField({
+      name: "eyebrow",
+      title: "Eyebrow",
+      description: 'Pill above the heading, e.g. "Build" / "Review" / "Approve".',
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "heading",
+      title: "Heading",
       type: "string",
       validation: (r) => r.required(),
     }),
@@ -222,150 +271,51 @@ export const useCaseBentoCard = defineType({
       name: "description",
       title: "Description",
       type: "text",
-      rows: 2,
+      rows: 3,
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "features",
+      title: "Feature chips",
+      description:
+        "Up to 3 small pills under the body, typically the Velt features this row demonstrates.",
+      type: "array",
+      of: [{ type: "useCaseFeatureChip" }],
+      validation: (r) => r.max(3),
     }),
     defineField({
       name: "image",
       title: "Visual",
       description:
-        "Card visual (image today, video later via static asset). Falls back to a soft-purple placeholder if omitted.",
+        "Right- or left-side screenshot/illustration. Falls back to a soft placeholder if omitted.",
       type: "image",
       options: { hotspot: false },
     }),
     defineField({
-      name: "accentColor",
-      title: "Accent color (hex)",
-      description:
-        'Optional background tint for the card body, e.g. "#EFEEFD" for a soft purple.',
+      name: "imagePosition",
+      title: "Image position",
       type: "string",
-    }),
-  ],
-  preview: {
-    select: { title: "title", subtitle: "description", media: "image" },
-  },
-});
-
-export const useCaseBentoSection = defineType({
-  name: "useCaseBentoSection",
-  title: "Use Case Bento Section",
-  type: "object",
-  fields: [
-    defineField({ name: "eyebrow", title: "Eyebrow", type: "string" }),
-    defineField({
-      name: "heading",
-      title: "Heading (optional)",
-      description: "Section heading rendered above the cards. Optional.",
-      type: "string",
-    }),
-    defineField({
-      name: "subheading",
-      title: "Subheading",
-      type: "text",
-      rows: 2,
-    }),
-    defineField({
-      name: "variant",
-      title: "Variant",
-      type: "string",
-      initialValue: "twoCol",
+      initialValue: "right",
       options: {
         list: [
-          { title: "Two-column (50/50)", value: "twoCol" },
-          { title: "One-column (full width)", value: "oneCol" },
+          { title: "Right (text on left)", value: "right" },
+          { title: "Left (text on right)", value: "left" },
         ],
+        layout: "radio",
       },
       validation: (r) => r.required(),
     }),
-    defineField({
-      name: "cards",
-      title: "Cards",
-      description:
-        "Two cards for twoCol variant; one card for oneCol variant.",
-      type: "array",
-      of: [{ type: "useCaseBentoCard" }],
-      validation: (rule) =>
-        rule
-          .required()
-          .min(1)
-          .max(2)
-          .custom((cards, ctx) => {
-            const variant = (ctx.parent as { variant?: string } | undefined)
-              ?.variant;
-            if (!Array.isArray(cards)) return true;
-            if (variant === "twoCol" && cards.length !== 2) {
-              return "Two-column variant requires exactly 2 cards.";
-            }
-            if (variant === "oneCol" && cards.length !== 1) {
-              return "One-column variant requires exactly 1 card.";
-            }
-            return true;
-          }),
-    }),
   ],
   preview: {
-    select: { title: "heading", subtitle: "variant" },
-    prepare: ({ title, subtitle }) => ({
-      title: `Bento: ${title ?? "(untitled)"}`,
-      subtitle,
-    }),
-  },
-});
-
-// ---- Section block: Library Support ---------------------------------------
-
-export const librarySupportLogo = defineType({
-  name: "librarySupportLogo",
-  title: "Library Logo",
-  type: "object",
-  fields: [
-    defineField({
-      name: "name",
-      title: "Name",
-      type: "string",
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "logo",
-      title: "Logo",
-      type: "image",
-      options: { hotspot: false },
-      validation: (r) => r.required(),
-    }),
-    defineField({ name: "href", title: "URL (optional)", type: "url" }),
-  ],
-  preview: { select: { title: "name", media: "logo" } },
-});
-
-export const librarySupportSection = defineType({
-  name: "librarySupportSection",
-  title: "Library Support Section",
-  type: "object",
-  fields: [
-    defineField({
-      name: "heading",
-      title: "Heading",
-      description: 'e.g. "Works seamlessly with your libraries"',
-      type: "string",
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "subheading",
-      title: "Subheading",
-      type: "text",
-      rows: 2,
-    }),
-    defineField({
-      name: "logos",
-      title: "Library Logos",
-      type: "array",
-      of: [{ type: "librarySupportLogo" }],
-      validation: (r) => r.required().min(1),
-    }),
-  ],
-  preview: {
-    select: { title: "heading" },
-    prepare: ({ title }) => ({
-      title: `Library Support: ${title ?? "(untitled)"}`,
+    select: {
+      title: "heading",
+      subtitle: "eyebrow",
+      media: "image",
+    },
+    prepare: ({ title, subtitle, media }) => ({
+      title: title ?? "(untitled row)",
+      subtitle: subtitle ? `Eyebrow: ${subtitle}` : undefined,
+      media,
     }),
   },
 });

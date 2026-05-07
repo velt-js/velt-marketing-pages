@@ -27,10 +27,8 @@ import {
   useCasePage,
   useCaseHero,
   useCaseFaq,
-  useCaseBentoSection,
-  useCaseBentoCard,
-  librarySupportSection,
-  librarySupportLogo,
+  useCaseFeatureRow,
+  useCaseFeatureChip,
 } from "./useCasePage";
 import {
   featurePage,
@@ -138,10 +136,8 @@ export const schemaTypes = [
   // useCasePage sub-types
   useCaseHero,
   useCaseFaq,
-  useCaseBentoSection,
-  useCaseBentoCard,
-  librarySupportSection,
-  librarySupportLogo,
+  useCaseFeatureRow,
+  useCaseFeatureChip,
 
   // Generic section blocks
   sectionFeatureGrid,

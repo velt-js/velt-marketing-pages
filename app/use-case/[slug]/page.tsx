@@ -1,8 +1,9 @@
 // Dynamic per-use-case detail page driven by Sanity. One useCasePage
-// document per route. Composition mirrors /features/[slug] — the
-// middle of the page is a polymorphic `sections[]` array (use-case
-// bentos + library support) rendered in document order via
-// UseCaseSections. Standard chrome (CustomerUI / Security /
+// document per route. Composition mirrors the Figma 2026 template —
+// middle of the page is a stack of 2-column feature rows (Build /
+// Review / Approve), followed by a fixed `AllLibraries` block (data
+// from components/library/shared-content.ts, gated on
+// `showLibrarySection`). Standard chrome (CustomerUI / Security /
 // CustomerCarousel / FAQ / GetStartedSteps / Footer) lives outside
 // the array as toggleable fixed blocks.
 
@@ -17,6 +18,11 @@ import { CustomerUI } from "@/components/home/CustomerUI";
 import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { AllLibraries } from "@/components/library/AllLibraries";
+import {
+  allLibraryCards,
+  libraryTabs,
+} from "@/components/library/shared-content";
 
 import {
   UseCaseSections,
@@ -39,6 +45,7 @@ type UseCasePageDoc = {
   title: string;
   slug: string;
   hero: {
+    eyebrow?: string;
     heading: string;
     subheading?: string;
     decorated?: boolean;
@@ -46,6 +53,7 @@ type UseCasePageDoc = {
     secondaryCta?: CtaLink;
   };
   sections: UseCaseSectionDoc[];
+  showLibrarySection?: boolean;
   showCustomerUI?: boolean;
   showSecurity?: boolean;
   showCustomerCarousel?: boolean;
@@ -85,6 +93,7 @@ export default async function UseCaseSlugPage({
 
   if (!doc?.hero?.heading) notFound();
 
+  const showLibrarySection = doc.showLibrarySection !== false;
   const showCustomerUI = doc.showCustomerUI !== false;
   const showSecurity = doc.showSecurity !== false;
   const showCustomerCarousel = doc.showCustomerCarousel !== false;
@@ -97,6 +106,9 @@ export default async function UseCaseSlugPage({
       >
         <PageHero
           decorated={doc.hero.decorated !== false}
+          eyebrow={
+            doc.hero.eyebrow ? { label: doc.hero.eyebrow } : undefined
+          }
           heading={doc.hero.heading}
           subheading={doc.hero.subheading}
           primaryCta={doc.hero.primaryCta}
@@ -108,6 +120,16 @@ export default async function UseCaseSlugPage({
         <UseCaseSections sections={doc.sections ?? []} />
 
         {showCustomerUI ? <CustomerUI /> : null}
+
+        {showLibrarySection ? (
+          <AllLibraries
+            heading="Works seamlessly with your libraries"
+            subheading="Use 8+ purpose-built libraries — or integrate it yourself."
+            items={allLibraryCards}
+            tabs={libraryTabs}
+          />
+        ) : null}
+
         {showSecurity ? <Security /> : null}
 
         <section data-getstarted>
