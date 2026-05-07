@@ -5,6 +5,7 @@
 // bottom regardless of body length. `imagePosition` flips the column
 // order so consecutive rows can alternate.
 
+import type { ReactNode } from "react";
 import { Media } from "../comparison/Media";
 
 export type UseCaseFeatureChipData = {
@@ -21,9 +22,17 @@ export type UseCaseFeatureRowData = {
   /** Resolved Sanity image URL (from `image.asset->url`). Optional. */
   image?: string | null;
   imagePosition?: "left" | "right";
+  /** Render-time override: when set, replaces the default image-with-border
+   *  visual entirely. Used by /migrate pages to inject hand-built mocks
+   *  (e.g. the Extensive Features comment-thread) that can't be captured
+   *  cleanly as a flat PNG. */
+  customVisual?: ReactNode;
+  /** Override the visual column height. Defaults to 420 (use-case spec).
+   *  Migration page uses 480 to match its Figma. */
+  columnHeight?: number;
 };
 
-const COLUMN_HEIGHT = 420;
+const DEFAULT_COLUMN_HEIGHT = 420;
 const VISUAL_RADIUS = 12;
 
 export function UseCaseFeatureRow({
@@ -33,14 +42,17 @@ export function UseCaseFeatureRow({
   features,
   image,
   imagePosition = "right",
+  customVisual,
+  columnHeight,
 }: UseCaseFeatureRowData) {
+  const height = columnHeight ?? DEFAULT_COLUMN_HEIGHT;
   const text = (
     <div
       className="flex flex-col items-start"
       style={{
         flex: 1,
         minWidth: 0,
-        height: COLUMN_HEIGHT,
+        height,
         justifyContent: "space-between",
       }}
     >
@@ -119,13 +131,20 @@ export function UseCaseFeatureRow({
     </div>
   );
 
-  const visual = (
+  const visual = customVisual ? (
+    <div
+      className="relative"
+      style={{ flex: 1, minWidth: 0, height }}
+    >
+      {customVisual}
+    </div>
+  ) : (
     <div
       className="relative overflow-hidden"
       style={{
         flex: 1,
         minWidth: 0,
-        height: COLUMN_HEIGHT,
+        height,
         border: "1px solid #d9d9d9",
         borderRadius: VISUAL_RADIUS,
         background: "#ffffff",

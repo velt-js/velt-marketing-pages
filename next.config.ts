@@ -13,7 +13,20 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    return buildBlogRedirectEntries();
+    return [
+      ...buildBlogRedirectEntries(),
+      // Legacy migration URLs → new /migrate/[slug] template.
+      {
+        source: "/migrate-from-liveblocks-to-velt",
+        destination: "/migrate/liveblocks",
+        permanent: true,
+      },
+      {
+        source: "/migrate-from-cord-to-velt",
+        destination: "/migrate/cord",
+        permanent: true,
+      },
+    ];
   },
   async rewrites() {
     return {

@@ -39,6 +39,13 @@ import {
   useCaseBenefitSubCase,
 } from "./useCasePage";
 import {
+  migrationPage,
+  migrationStep,
+  migrationStepsTestimonial,
+  migrationStepsPanel,
+  migrationCarouselSettings,
+} from "./migrationPage";
+import {
   featurePage,
   featureHero,
   featureFaq,
@@ -88,6 +95,7 @@ export const schemaTypes = [
   libraryPage,
   featurePage,
   useCasePage,
+  migrationPage,
 
   // Shared (cross-schema)
   inlineTestimonial,
@@ -154,6 +162,12 @@ export const schemaTypes = [
   useCaseActionCallout,
   useCaseBenefit,
   useCaseBenefitSubCase,
+
+  // migrationPage sub-types
+  migrationStep,
+  migrationStepsTestimonial,
+  migrationStepsPanel,
+  migrationCarouselSettings,
 
   // Generic section blocks
   sectionFeatureGrid,
