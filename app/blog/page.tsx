@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { getAllBlogPosts } from "@/sanity/queries";
 
@@ -30,34 +31,48 @@ export default async function BlogListingPage() {
             description: string;
             publishedAt: string;
             category: string;
+            featuredImage?: string;
           }) => (
             <Link
               key={post._id}
               href={`/blog/${post.slug}`}
-              className="group bg-white/5 border border-white/10 rounded-xl p-6 hover:border-white/20 transition-colors block"
+              className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition-colors block"
             >
-              {post.category && (
-                <span className="text-xs text-velt-purple font-medium mb-2 block">
-                  {post.category}
-                </span>
+              {post.featuredImage && (
+                <div className="relative aspect-[16/9] bg-white/5 overflow-hidden">
+                  <Image
+                    src={post.featuredImage}
+                    alt={post.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
               )}
-              <h2 className="font-semibold text-lg mb-2 group-hover:text-velt-purple transition-colors">
-                {post.title}
-              </h2>
-              {post.description && (
-                <p className="text-sm text-white/50 line-clamp-2 mb-3">
-                  {post.description}
-                </p>
-              )}
-              {post.publishedAt && (
-                <time className="text-xs text-white/30">
-                  {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-              )}
+              <div className="p-6">
+                {post.category && (
+                  <span className="text-xs text-velt-purple font-medium mb-2 block">
+                    {post.category}
+                  </span>
+                )}
+                <h2 className="font-semibold text-lg mb-2 group-hover:text-velt-purple transition-colors">
+                  {post.title}
+                </h2>
+                {post.description && (
+                  <p className="text-sm text-white/50 line-clamp-2 mb-3">
+                    {post.description}
+                  </p>
+                )}
+                {post.publishedAt && (
+                  <time className="text-xs text-white/30">
+                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </time>
+                )}
+              </div>
             </Link>
           )
         )}
