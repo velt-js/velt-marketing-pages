@@ -68,9 +68,8 @@ async function main() {
   const card1Image = await uploadImage(
     "public/images/features/recordings/card-1-recordings-ai.png",
   );
-  const card2Image = await uploadImage(
-    "public/images/features/recordings/card-2-keep-users-in-app.png",
-  );
+  // card-2 PNG was replaced by an SVG marquee; reuse card-1 as Sanity placeholder
+  const card2Image = card1Image;
   const card3Image = await uploadImage(
     "public/images/features/recordings/card-3-customize-everything.png",
   );
@@ -152,7 +151,7 @@ async function main() {
         imageBottomOffset: -2.38,
         inlineTestimonial: hopeTestimonial,
       },
-      // ---- Image Card 2: Keep users in your app ----
+      // ---- Image Card 2: Keep users in your app (marquee SVG) ----
       {
         _type: "featureImageCardSection",
         _key: "img-inapp",
@@ -166,13 +165,15 @@ async function main() {
         },
         image: card2Image,
         imageAlt:
-          "Three category cards — Feedback Tools, Sales Tools, Ticketing Systems — illustrating where embedded recording can replace external workflows",
-        imageWidth: 1199,
-        imageHeight: 297,
+          "Salesforce, Email Marketing Tool, Ticketing Systems, Feedback Tools — illustrating where embedded recording can replace external workflows",
+        imageWidth: 1716,
+        imageHeight: 246,
         imageBottomOffset: 68.62,
+        marquee: true,
+        marqueeSvgSrc: "/images/features/recordings/card-2-keep-users-in-app.svg",
         inlineTestimonial: fenneTestimonial,
       },
-      // ---- Image Card 3: Customize Everything ----
+      // ---- Image Card 3: Customize Everything (video) ----
       {
         _type: "featureImageCardSection",
         _key: "img-customize",
@@ -186,10 +187,11 @@ async function main() {
         },
         image: card3Image,
         imageAlt:
-          "Audio recording control row with pause button, timer, waveform, and Tim's Recording chip alongside CC and shareable link icons",
+          "Recording customization demo showing how components match your product's look and feel",
         imageWidth: 1280,
         imageHeight: 467,
         imageBottomOffset: -2.38,
+        videoSrc: "/images/features/recordings/recording-customization.mp4",
         inlineTestimonial: chrisTestimonial,
       },
     ],

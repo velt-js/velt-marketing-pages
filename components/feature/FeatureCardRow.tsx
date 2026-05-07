@@ -24,6 +24,12 @@ import {
 
 type CtaLink = ShellCtaLink;
 
+const ICON_COLORS: Record<SectionIconKey, string> = {
+  braces: "#625DF5",
+  select: "#E04ECF",
+  hash: "#625DF5",
+};
+
 export type FeatureCardRowCard = {
   title: string;
   iconImageSrc?: string;
@@ -111,7 +117,7 @@ function CardCell({
           color: "#111",
         }}
       >
-        {Icon ? <Icon size={card.iconKey === "braces" ? 30 : 32} stroke="#111" strokeWidth={1.6} /> : null}
+        {Icon ? <Icon size={card.iconKey === "braces" ? 30 : 32} stroke={ICON_COLORS[card.iconKey ?? "braces"]} strokeWidth={1.6} /> : null}
         <h3
           className="font-urbanist font-semibold"
           style={{

@@ -68,7 +68,7 @@ export function FeatureCustomizer({
   const colors = controls?.colors && controls.colors.length > 0 ? controls.colors : DEFAULT_COLORS;
   const [activeTab, setActiveTab] = useState<"playground" | string>("playground");
   const [activeColor, setActiveColor] = useState(colors[2] ?? colors[0]);
-  const [loginState, setLoginState] = useState<"show" | "hide">("hide");
+  const [showCustomTag, setShowCustomTag] = useState<"show" | "hide">("hide");
   const [variant, setVariant] = useState<"default" | "bubble">("default");
 
   return (
@@ -188,17 +188,36 @@ export function FeatureCustomizer({
           </a>
         </aside>
 
-        {/* Middle: light-gray placeholder */}
+        {/* Middle: preview area */}
         <div
-          className="flex-1"
+          className="flex-1 flex items-center justify-center relative overflow-hidden"
           style={{
-            background: "#f7f7f7",
+            background: activeTab === "playground" ? "#F7F7F7" : "transparent",
             borderRadius: 24,
             height: 480,
             minWidth: 0,
           }}
-          aria-hidden
-        />
+        >
+          {activeTab === "playground" ? (
+            <CommentPreview
+              accentColor={activeColor}
+              showTag={showCustomTag === "show"}
+              variant={variant}
+            />
+          ) : (
+            <iframe
+              src={getExampleUrl(activeTab)}
+              title={`${activeTab} demo`}
+              style={{
+                width: "100%",
+                height: "100%",
+                border: "none",
+                borderRadius: 24,
+              }}
+              allow="clipboard-read; clipboard-write"
+            />
+          )}
+        </div>
 
         {/* Right control panel */}
         <aside
@@ -260,35 +279,13 @@ export function FeatureCustomizer({
             </div>
           </ControlGroup>
 
-          {/* CUSTOM DATA */}
-          <ControlGroup label="Custom Data">
-            <div
-              className="flex items-center"
-              style={{
-                padding: 4,
-                border: "1px solid rgba(17,17,17,0.08)",
-                borderRadius: 32,
-                width: "100%",
-              }}
-            >
-              <div className="flex items-center" style={{ flex: 1, padding: 8 }}>
-                <span
-                  className="font-urbanist"
-                  style={{ color: "#111", fontSize: 14, lineHeight: 1.2 }}
-                >
-                  {controls?.onTheEdgeValue ?? "/comments"}
-                </span>
-              </div>
-            </div>
-          </ControlGroup>
-
-          {/* LOGIN BUTTON */}
-          <ControlGroup label="login Button">
+          {/* CUSTOM TAG */}
+          <ControlGroup label="Custom Tag">
             <SegmentedToggle
               options={["show", "hide"] as const}
               labels={["Show", "Hide"]}
-              value={loginState}
-              onChange={setLoginState}
+              value={showCustomTag}
+              onChange={setShowCustomTag}
             />
           </ControlGroup>
 
@@ -305,6 +302,318 @@ export function FeatureCustomizer({
       </div>
     </section>
   );
+}
+
+/**
+ * Renders an interactive comment card inspired by the Velt comment widget.
+ * Reacts to accent color, tag visibility, and variant selections.
+ */
+function CommentPreview({
+  accentColor,
+  showTag,
+  variant,
+}: {
+  accentColor: string;
+  showTag: boolean;
+  variant: "default" | "bubble";
+}) {
+  try {
+    const isBubble = variant === "bubble";
+    const avatarSrc = "/images/features/comments/avatar-robert.jpg";
+    const pillBg = `color-mix(in srgb, ${accentColor} 12%, #F3F3F3)`;
+
+    return (
+      <div className="flex items-start" style={{ gap: 14, zIndex: 1 }}>
+        {/* Comment pin */}
+        <div
+          style={{
+            width: 52,
+            height: 52,
+            borderRadius: "50%",
+            border: `3px solid ${accentColor}`,
+            overflow: "hidden",
+            flexShrink: 0,
+            background: "#E8E8E8",
+            boxShadow: `0 2px 12px color-mix(in srgb, ${accentColor} 30%, transparent)`,
+            marginTop: 28,
+          }}
+        >
+          <img
+            src={avatarSrc}
+            alt="Me"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            onError={(e) => { e.currentTarget.style.display = "none"; }}
+          />
+        </div>
+
+        {/* Comment card */}
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: 20,
+            padding: isBubble ? "14px 20px" : 0,
+            width: isBubble ? undefined : 380,
+            minWidth: isBubble ? 360 : undefined,
+            maxWidth: 420,
+            boxShadow: "0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)",
+            transition: "all 300ms ease",
+          }}
+        >
+        {isBubble ? (
+          /* ── Bubble variant ── */
+          <div className="flex flex-col" style={{ gap: 10 }}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center" style={{ gap: 10 }}>
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    background: "#E8E8E8",
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src={avatarSrc}
+                    alt="Me"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                </div>
+                <span
+                  className="font-urbanist font-bold"
+                  style={{ color: "#111", fontSize: 15 }}
+                >
+                  Me
+                </span>
+                <span
+                  className="font-urbanist"
+                  style={{ color: "rgba(17,17,17,0.35)", fontSize: 13 }}
+                >
+                  7m
+                </span>
+              </div>
+              <div className="flex items-center" style={{ gap: 8 }}>
+                {showTag ? (
+                  <span
+                    className="font-urbanist"
+                    style={{
+                      color: accentColor,
+                      fontSize: 12,
+                      background: pillBg,
+                      padding: "3px 10px",
+                      borderRadius: 8,
+                      fontWeight: 500,
+                    }}
+                  >
+                    #team-design
+                  </span>
+                ) : null}
+                <ThreeDotsHorizontal />
+              </div>
+            </div>
+            <span
+              className="font-urbanist"
+              style={{ color: "#333", fontSize: 15, lineHeight: 1.5 }}
+            >
+              Fix the logo
+            </span>
+          </div>
+        ) : (
+          /* ── Default variant ── */
+          <div className="flex flex-col">
+            {/* Toolbar */}
+            <div
+              className="flex items-center justify-between"
+              style={{ padding: "16px 20px 12px" }}
+            >
+              <div className="flex items-center" style={{ gap: 8 }}>
+                {/* Open status pill */}
+                <div
+                  className="flex items-center"
+                  style={{
+                    gap: 6,
+                    background: pillBg,
+                    padding: "6px 14px",
+                    borderRadius: 20,
+                  }}
+                >
+                  <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke={accentColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <circle cx="12" cy="12" r="10" />
+                  </svg>
+                  <span
+                    className="font-urbanist font-semibold"
+                    style={{ color: accentColor, fontSize: 14 }}
+                  >
+                    Open
+                  </span>
+                  <ChevronDownSmall color={accentColor} />
+                </div>
+                {/* Tag pill */}
+                {showTag ? (
+                  <div
+                    className="flex items-center"
+                    style={{
+                      gap: 6,
+                      background: pillBg,
+                      padding: "6px 14px",
+                      borderRadius: 20,
+                    }}
+                  >
+                    <span
+                      className="font-urbanist font-medium"
+                      style={{ color: accentColor, fontSize: 14 }}
+                    >
+                      #team-design
+                    </span>
+                    <ChevronDownSmall color={accentColor} />
+                  </div>
+                ) : null}
+              </div>
+              <div className="flex items-center" style={{ gap: 12 }}>
+                <ThreeDotsHorizontal />
+                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="rgba(17,17,17,0.35)" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M10 14a5 5 0 0 0 7.07 0l3.07-3.07a5 5 0 0 0-7.07-7.07l-1.5 1.5" />
+                  <path d="M14 10a5 5 0 0 0-7.07 0l-3.07 3.07a5 5 0 0 0 7.07 7.07l1.5-1.5" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div style={{ height: 1, background: "rgba(17,17,17,0.06)", margin: "0 20px" }} />
+
+            {/* Content area */}
+            <div className="flex flex-col" style={{ padding: "16px 20px 20px", gap: 14 }}>
+              {/* Author */}
+              <div className="flex items-center" style={{ gap: 12 }}>
+                <div
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    background: "#E8E8E8",
+                    flexShrink: 0,
+                    border: `2px solid ${pillBg}`,
+                  }}
+                >
+                  <img
+                    src={avatarSrc}
+                    alt="Me"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    onError={(e) => { e.currentTarget.style.display = "none"; }}
+                  />
+                </div>
+                <span
+                  className="font-urbanist font-bold"
+                  style={{ color: "#111", fontSize: 16 }}
+                >
+                  Me
+                </span>
+              </div>
+
+              {/* Message */}
+              <span
+                className="font-urbanist"
+                style={{ color: "#333", fontSize: 15, lineHeight: 1.5 }}
+              >
+                Fix the logo
+              </span>
+
+              {/* File attachment */}
+              <div
+                className="flex items-center"
+                style={{
+                  gap: 12,
+                  background: "#F5F5F5",
+                  borderRadius: 12,
+                  padding: "10px 14px",
+                }}
+              >
+                <div
+                  className="flex items-center justify-center"
+                  style={{
+                    width: 36,
+                    height: 40,
+                    borderRadius: 6,
+                    background: "#fff",
+                    border: "1px solid rgba(17,17,17,0.06)",
+                    flexShrink: 0,
+                    position: "relative",
+                  }}
+                >
+                  <span style={{ fontSize: 8, fontWeight: 700, color: "#E74C3C", letterSpacing: "0.02em", fontFamily: "Urbanist, sans-serif" }}>PDF</span>
+                </div>
+                <div className="flex flex-col" style={{ flex: 1, gap: 2, minWidth: 0 }}>
+                  <span
+                    className="font-urbanist font-medium"
+                    style={{ color: "#111", fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}
+                  >
+                    Ernest Hemmingway.pdf
+                  </span>
+                  <span
+                    className="font-urbanist"
+                    style={{ color: "rgba(17,17,17,0.4)", fontSize: 12 }}
+                  >
+                    12MB
+                  </span>
+                </div>
+                <div className="flex items-center" style={{ gap: 8, flexShrink: 0 }}>
+                  <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={accentColor} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#E74C3C" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <polyline points="3 6 5 6 21 6" />
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        </div>
+      </div>
+    );
+  } catch {
+    return null;
+  }
+}
+
+function ThreeDotsHorizontal() {
+  return (
+    <svg width={20} height={20} viewBox="0 0 24 24" fill="rgba(17,17,17,0.35)" aria-hidden>
+      <circle cx="5" cy="12" r="1.5" />
+      <circle cx="12" cy="12" r="1.5" />
+      <circle cx="19" cy="12" r="1.5" />
+    </svg>
+  );
+}
+
+function ChevronDownSmall({ color = "rgba(17,17,17,0.4)" }: { color?: string }) {
+  return (
+    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
+const EXAMPLE_URLS: Record<string, string> = {
+  windowsxp: "https://customized-angular-windows-demo.vercel.app/",
+  figma: "https://customized-angular-figma-demo.vercel.app/",
+};
+
+/**
+ * Maps a sidebar example label to its demo URL.
+ */
+function getExampleUrl(label: string): string {
+  try {
+    return EXAMPLE_URLS[label.toLowerCase()] ?? `https://velt.dev/examples`;
+  } catch {
+    return "https://velt.dev/examples";
+  }
 }
 
 function renderExampleIcon(label: string, isActive: boolean) {

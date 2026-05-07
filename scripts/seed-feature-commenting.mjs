@@ -63,6 +63,119 @@ async function uploadImage(relPath) {
   };
 }
 
+const LITTLE_BIG_DETAILS_DIR = "public/images/features/comments/little-big-details";
+
+/**
+ * Maps each "Little Big Details" label to its screenshot filename inside
+ * LITTLE_BIG_DETAILS_DIR. Null means no screenshot available yet.
+ */
+const LITTLE_BIG_DETAILS = [
+  { label: "Permission Controls", file: "Document Access.png" },
+  { label: "Conditional @ Mentions List", file: "Conditionally control @mention list.png" },
+  { label: "Dynamic Sign-in", file: "Dynamic Sign In.png" },
+  { label: "Guest Mode", file: "Guest Mode.png" },
+  { label: "Private Mode", file: "Private.png" },
+  { label: "Frontend APIs", file: "Frontend APIs and callbacks to extend into other apps.png" },
+  { label: "Programmatic Commenting", file: "Programamtcially add comments.png" },
+  { label: "Backend APIs", file: "REST APIs to extend the feature into other systems.png" },
+  { label: "Webhooks", file: "Webhooks.png" },
+  { label: "Cell Comments", file: "Cell.png" },
+  { label: "Chart Comments", file: "Charts.png" },
+  { label: "Comments on Right", file: "Website.png" },
+  { label: "Inline Comments", file: "blog inline.png" },
+  { label: "Pinned Element Comments", file: "Comment bubble on elements.png" },
+  { label: "Moderator mode", file: "Moderator mode.png" },
+  { label: "Text Rewrite Suggestions", file: "Suggestion.png" },
+  { label: "Text comments", file: "google doc.png" },
+  { label: "Frame by frame Video Comments", file: "Video.png" },
+  { label: "Authentication", file: "Authentication.png" },
+  { label: "Prebuilt Data Structure", file: "Data structure.png" },
+  { label: "Managed File Storage", file: "File storage.png" },
+  { label: "Realtime Resource Management", file: "Realtime database and server.png" },
+  { label: "Individual @ Mentions", file: "@mentions individual.png" },
+  { label: "Here @ Mentions", file: "@mention.png" },
+  { label: "User Group @ Mentions", file: "User Group.png" },
+  { label: "Assign Comments", file: "Group 1707479583.png" },
+  { label: "Email Notifications", file: "Control what triggers a notifications.png" },
+  { label: "In-app Notifications", file: "Control what triggers a notifications-1.png" },
+  { label: "Seen by Status", file: "Seen by Status.png" },
+  { label: "Sidebar Pagination", file: "Pagination.png" },
+  { label: "Auto Categorization", file: "AI Tagging.png" },
+  { label: "Comment Indicies", file: "Comment Index.png" },
+  { label: "Sidebar Comments Search", file: "Search.png" },
+  { label: "Sidebar Custom Filtering", file: "Filter.png" },
+  { label: "Sidebar Custom Grouping", file: "Custom Grouping Sidebar.png" },
+  { label: "Sidebar Custom Sorting", file: "Sort.png" },
+  { label: "Navigate on Click", file: "navigate on click.png" },
+  { label: "Programmatic Comment Selection", file: "Programatically select.png" },
+  { label: "Scroll to Comment", file: "Scroll.png" },
+  { label: "Sidebar Comment Viewing", file: "Sidebar to show all comments.png" },
+  { label: "Read and Unread Indicators", file: "Unread.png" },
+  { label: "Audio Recording", file: "Audio Recording.png" },
+  { label: "Custom Dropdowns", file: "Custom Dropdown.png" },
+  { label: "Multi-Threaded Comments", file: "Thread.png" },
+  { label: "Reactions", file: "Reactions.png" },
+  { label: "Player for Recordings", file: "Video Player.png" },
+  { label: "Recording Transcripts and summaries", file: "Transcripts & Summary.png" },
+  { label: "Screen Recording", file: "Screen Recording.png" },
+  { label: "Video Recording", file: "Video Attachment.png" },
+  { label: "Comment Anchoring Logic", file: "Comment Anchoring Logic.png" },
+  { label: "Comment Data Binding Logic", file: "Comment data binding logic (Needs Animation).png" },
+  { label: "Cross Browser Compatibility", file: "Cross browser compatibility for comments, recording etc.png" },
+  { label: "DOM Change Awareness", file: "DOM Change Awareness.png" },
+  { label: "Ghost Comments", file: "Ghost.png" },
+  { label: "Robust Comment Placement", file: "Comment Anchoring Logic.png" },
+  { label: "Offline Support", file: null },
+  { label: "Component Overlay Logic", file: "Overlay Components.png" },
+  { label: "Page Scroll Awareness", file: "Scroll Awareness.png" },
+  { label: "Screen Edge Awareness", file: "Screen edge awareness.png" },
+  { label: "Screen Size Awareness", file: "Mobile compatibility.png" },
+  { label: "Pirority", file: "Pirority.png" },
+  { label: "Quick Resolve", file: "Quick ResolveQuick Resolve.png" },
+  { label: "Task Status", file: "Status.png" },
+  { label: "Custom Metadata", file: "Custom metadata.png" },
+  { label: "Device Info", file: "Device Info.png" },
+  { label: "File Attachments", file: "File Attachments.png" },
+  { label: "Collapseable Threads", file: "Thread.png" },
+  { label: "Comment Indicator Bubbles", file: "Comment bubble on elements.png" },
+  { label: "Notification Trigger Controls", file: "Control what triggers a notifications.png" },
+  { label: "Dark Mode", file: "Dark Mode.png" },
+  { label: "Deeplinking Comments", file: "Deep link.png" },
+  { label: "Confirm on Delete", file: "Delete Confirmation.png" },
+  { label: "Draft Comments", file: null },
+  { label: "Editable Comments", file: "Edit.png" },
+  { label: "Edited Comment indicator", file: "Edited.png" },
+  { label: "Granular Control Area Control", file: "Restricted.png" },
+  { label: "Group Notifications", file: "Group Notifications.png" },
+  { label: "Commenting Hotkey", file: "Hotkey to turn on commenting.png" },
+  { label: "Minimap", file: "Minimap.png" },
+  { label: "Show/Hide Comments", file: "show or hide comments.png" },
+  { label: "Message Truncation", file: "Truncate.png" },
+  { label: "Highlighted Mentions", file: "@mention.png" },
+  { label: "Attachment Previews", file: "File Attachment.png" },
+  { label: "Persistent Filter Choices", file: "Filter.png" },
+  { label: "Focused Threads in Sidebar", file: "All Comments.png" },
+];
+
+async function buildLittleBigDetailsItems() {
+  console.log(`  Uploading ${LITTLE_BIG_DETAILS.length} Little Big Details screenshots...`);
+  const items = [];
+  for (const { label, file } of LITTLE_BIG_DETAILS) {
+    const key = `li-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "")}`;
+    const item = { _key: key, label };
+    if (file) {
+      try {
+        item.screenshot = await uploadImage(`${LITTLE_BIG_DETAILS_DIR}/${file}`);
+      } catch (err) {
+        console.warn(`    ⚠ Could not upload "${file}" for "${label}": ${err.message}`);
+      }
+    }
+    items.push(item);
+  }
+  console.log(`  → ${items.length} items ready.`);
+  return items;
+}
+
 async function main() {
   console.log("Uploading commenting feature assets...");
   const avatarLinda = await uploadImage("public/images/home/linda-steps.png");
@@ -195,23 +308,7 @@ async function main() {
         _key: "sidebar-details",
         heading: "Little Big Details",
         subheading: "Everything that goes into building the best commenting experience",
-        items: [
-          { _key: "li-views", label: "Views" },
-          { _key: "li-ai-tag", label: "AI Tagging" },
-          { _key: "li-multi", label: "Multi Thread" },
-          { _key: "li-attach", label: "File Attachments" },
-          { _key: "li-guest", label: "Guest Mode" },
-          { _key: "li-groups", label: "User Groups" },
-          { _key: "li-rewrite", label: "AI Rewrite" },
-          { _key: "li-nav-click", label: "Navigate on Click" },
-          { _key: "li-nono", label: "No-No Zone / Restricted Areas" },
-          { _key: "li-ghost", label: "Ghost Comments" },
-          { _key: "li-jump", label: "Jump to All Comments" },
-          { _key: "li-hotkey", label: "Hotkey / Shortcut" },
-        ],
-        // defaultScreenshot is intentionally left blank for now — assets
-        // arriving tomorrow per the user. Component renders a placeholder
-        // panel until then.
+        items: await buildLittleBigDetailsItems(),
       },
       // ---- Card Row: Extend the Capabilities ----
       {
@@ -303,30 +400,34 @@ async function main() {
         },
         rowHeights: [493, 493],
         cards: [
-          featureBentoCard(
-            "card-inapp",
-            "In-App Notifications",
-            "See what changes have been made to a shared document with timestamps",
-            "inAppNotificationsPanel",
-          ),
-          featureBentoCard(
-            "card-email",
-            "Email Notifications",
-            "Enable users to get notifications off app via email",
-            "emailNotificationCard",
-          ),
-          featureBentoCard(
-            "card-sidebar",
-            "Sidebar",
-            "All comments are viewable in one easy to access place",
-            "commentsSidebar",
-          ),
-          featureBentoCard(
-            "card-minimap",
-            "Mini map",
-            "Identifying and navigating to comments on a page is a delightful experience",
-            "miniMap",
-          ),
+          {
+            _type: "featureBentoCard",
+            _key: "card-inapp",
+            title: "In-App Notifications",
+            description: "See what changes have been made to a shared document with timestamps",
+            image: await uploadImage("public/images/features/comments/extra-features/in-app-notification.png"),
+          },
+          {
+            _type: "featureBentoCard",
+            _key: "card-email",
+            title: "Email Notifications",
+            description: "Enable users to get notifications off app via email",
+            image: await uploadImage("public/images/features/comments/extra-features/email-notifications.png"),
+          },
+          {
+            _type: "featureBentoCard",
+            _key: "card-sidebar",
+            title: "Sidebar",
+            description: "All comments are viewable in one easy to access place",
+            image: await uploadImage("public/images/features/comments/extra-features/sidebar.png"),
+          },
+          {
+            _type: "featureBentoCard",
+            _key: "card-minimap",
+            title: "Mini map",
+            description: "Identifying and navigating to comments on a page is a delightful experience",
+            image: await uploadImage("public/images/features/comments/extra-features/minimap.png"),
+          },
         ],
         inlineTestimonial: lindaTestimonial,
       },

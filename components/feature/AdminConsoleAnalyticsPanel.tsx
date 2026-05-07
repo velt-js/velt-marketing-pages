@@ -33,102 +33,45 @@ const HEADING_GRADIENT = {
 // four tabs share. Analytics (Figma 176:29310) sits on a deep navy/purple
 // gradient; AI Chat (Figma 177:33299), Debugger (Figma 177:33375), and
 // Data (Figma 177:33498) all sit on near-black.
-const PANEL_SURFACE: Record<TabKey, string> = {
+const PANEL_SURFACE: Record<TabKey, string> =  {
   analytics:
     "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(28, 25, 118) 55%, rgb(44, 39, 180) 100%)",
   aiChat:
-    "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), #050505",
+    "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(28, 25, 118) 55%, rgb(44, 39, 180) 100%)",
   debugger:
-    "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), #050505",
+    "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(28, 25, 118) 55%, rgb(44, 39, 180) 100%)",
   data:
-    "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), #050505",
+    "linear-gradient(180deg, rgba(0,0,0,0.14) 0%, rgba(0,0,0,0.26) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(28, 25, 118) 55%, rgb(44, 39, 180) 100%)",
 };
 
 export function AdminConsoleAnalyticsPanel() {
   const [tab, setTab] = useState<TabKey>("analytics");
 
   return (
-    <section
-      className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{
-        padding: "0 80px 100px",
-        background: "#000",
-      }}
-    >
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: 1280,
-          height: 879,
-          borderRadius: 40,
-          border: "2px solid rgba(255,255,255,0.6)",
-          background: PANEL_SURFACE[tab],
-          boxShadow: "0 0 80px 4px rgba(0,0,0,0.32)",
-          transition: "background 200ms ease",
-        }}
-      >
-        {/* Tab strip */}
-        <div
-          role="tablist"
-          aria-label="Admin Console capability"
-          className="absolute flex items-center"
-          style={{
-            top: 28,
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: 1220,
-            padding: 8,
-            gap: 2,
-            border: "2px solid rgba(255,255,255,0.12)",
-            borderRadius: 18,
-          }}
-        >
-          {TAB_DEFS.map((t) => {
-            const isActive = t.key === tab;
-            return (
-              <button
-                key={t.key}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setTab(t.key)}
-                className="cursor-pointer"
-                style={{
-                  flex: t.key === "analytics" ? "0 0 291.5px" : "1 0 0",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 12,
-                  padding: "12px 20px",
-                  borderRadius: 12,
-                  border: "none",
-                  background: isActive ? "#fff" : "transparent",
-                  transition: "background 160ms ease, color 160ms ease",
-                }}
-              >
-                <TabIcon kind={t.key} active={isActive} />
-                <span
-                  className="font-urbanist whitespace-nowrap"
-                  style={{
-                    fontWeight: isActive ? 700 : 500,
-                    fontSize: 18,
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.54px",
-                    color: isActive ? "#0d0b2c" : "rgba(255,255,255,0.52)",
-                  }}
-                >
-                  {t.label}
-                </span>
-              </button>
-            );
-          })}
+    <section style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)", background: "rgb(6, 5, 26)", borderTopLeftRadius: 40, borderTopRightRadius: 40, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
+      <div style={{ width: "100%", background: "rgb(10, 9, 42)", borderTopLeftRadius: 32, borderTopRightRadius: 32, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "100%", background: "rgb(14, 12, 56)", borderTopLeftRadius: 26, borderTopRightRadius: 26, padding: "40px 36px 80px", display: "flex", justifyContent: "center" }}>
+          <div className="relative overflow-hidden" style={{ width: "100%", maxWidth: 1280, height: 879, borderRadius: 22, border: "1.5px solid rgba(255,255,255,0.24)", background: PANEL_SURFACE[tab], boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.25)", transition: "background 200ms ease" }}>
+            <div role="tablist" aria-label="Admin Console capability" className="absolute flex items-center" style={{ top: 28, left: "50%", transform: "translateX(-50%)", width: 1220, padding: 8, gap: 2, border: "2px solid rgba(255,255,255,0.12)", borderRadius: 18 }}>
+              {TAB_DEFS.map((t) => {
+                const isActive = t.key === tab;
+                return (
+                  <button key={t.key} type="button" role="tab" aria-selected={isActive} onClick={() => setTab(t.key)} className="cursor-pointer" style={{ flex: t.key === "analytics" ? "0 0 291.5px" : "1 0 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, padding: "12px 20px", borderRadius: 12, border: "none", background: isActive ? "#fff" : "transparent", transition: "background 160ms ease, color 160ms ease" }}>
+                    <TabIcon kind={t.key} active={isActive} />
+                    <span className="font-urbanist whitespace-nowrap" style={{ fontWeight: isActive ? 700 : 500, fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.54px", color: isActive ? "#0d0b2c" : "rgba(255,255,255,0.52)" }}>
+                      {t.label}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {tab === "analytics" ? <AnalyticsBody /> : null}
+            {tab === "aiChat" ? <AIChatBody /> : null}
+            {tab === "debugger" ? <DebuggerBody /> : null}
+            {tab === "data" ? <DataBody /> : null}
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 180, background: "linear-gradient(to top, rgb(14, 12, 56) 0%, transparent 100%)", pointerEvents: "none", borderBottomLeftRadius: 22, borderBottomRightRadius: 22 }} />
+          </div>
         </div>
-
-        {/* Tab body */}
-        {tab === "analytics" ? <AnalyticsBody /> : null}
-        {tab === "aiChat" ? <AIChatBody /> : null}
-        {tab === "debugger" ? <DebuggerBody /> : null}
-        {tab === "data" ? <DataBody /> : null}
       </div>
     </section>
   );
@@ -169,7 +112,7 @@ function AnalyticsBody() {
   return (
     <>
       <PanelHeading>
-        Analyze new engagement added to your product.
+        Track usage and engagement added to your product
       </PanelHeading>
 
       {/* Chart wrapper */}
@@ -413,7 +356,7 @@ function AIChatBody() {
           border: "3.16px solid transparent",
           borderRadius: 38,
           background:
-            "linear-gradient(#050505, #050505) padding-box, linear-gradient(135deg, #e854a2 0%, #e8a75b 100%) border-box",
+            "linear-gradient(rgb(16, 14, 52), rgb(16, 14, 52)) padding-box, linear-gradient(135deg, #e854a2 0%, #e8a75b 100%) border-box",
         }}
       >
         <BulbIcon size={44} />
@@ -535,7 +478,7 @@ function DebuggerBody() {
   return (
     <>
       <PanelHeading whiteFill>
-        Discover new insights by asking the right questions
+        Fastest way to debug Velt services and components
       </PanelHeading>
 
       {/* Sean (teal) selection box — Figma 177:33482, position+size from spec */}
@@ -907,7 +850,7 @@ function DataBody() {
   return (
     <>
       <PanelHeading whiteFill>
-        Discover new insights by asking the right questions
+        Explore collaboration data and export
       </PanelHeading>
 
       {/* File browser container. Figma sets its width to 1526 — wider than
@@ -1189,39 +1132,40 @@ function FileRow({ item }: { item: FileItem }) {
 // ----- Inline icons -----
 
 function TabIcon({ kind, active }: { kind: TabKey; active: boolean }) {
-  const color = active ? "#0d0b2c" : "rgba(255,255,255,0.52)";
+  const inactiveOpacity = active ? 1 : 0.52;
+
   if (kind === "analytics") {
     return (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M12 3v18 M5 11l3 3l3 -3 M19 5l-3 3l-3 -3" />
-        <rect x="4" y="13" width="4" height="8" rx="1" />
-        <rect x="10" y="9" width="4" height="12" rx="1" />
-        <rect x="16" y="13" width="4" height="8" rx="1" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <path d="M8.33333 8.42083C8.33333 8.29991 8.35715 8.18017 8.40343 8.06845C8.4497 7.95672 8.51753 7.85521 8.60304 7.76971C8.68855 7.6842 8.79006 7.61637 8.90178 7.57009C9.0135 7.52382 9.13324 7.5 9.25417 7.5H10.7458C10.8668 7.5 10.9865 7.52382 11.0982 7.57009C11.2099 7.61637 11.3115 7.6842 11.397 7.76971C11.4825 7.85521 11.5503 7.95672 11.5966 8.06845C11.6428 8.18017 11.6667 8.29991 11.6667 8.42083V16.5792C11.6667 16.8234 11.5697 17.0576 11.397 17.2303C11.2243 17.403 10.9901 17.5 10.7458 17.5H9.25417C9.00995 17.5 8.77573 17.403 8.60304 17.2303C8.43035 17.0576 8.33333 16.8234 8.33333 16.5792V8.42083Z" fill={active ? "#0D0B2C" : "rgba(255,255,255,0.52)"} />
+        <path d="M14.1667 3.42083C14.1667 3.17661 14.2637 2.9424 14.4364 2.76971C14.6091 2.59702 14.8433 2.5 15.0875 2.5H16.5792C16.8234 2.5 17.0576 2.59702 17.2303 2.76971C17.403 2.9424 17.5 3.17661 17.5 3.42083V16.5792C17.5 16.8234 17.403 17.0576 17.2303 17.2303C17.0576 17.403 16.8234 17.5 16.5792 17.5H15.0875C14.8433 17.5 14.6091 17.403 14.4364 17.2303C14.2637 17.0576 14.1667 16.8234 14.1667 16.5792V3.42083Z" fill={active ? "#0D0B2C" : "rgba(255,255,255,0.52)"} />
+        <path d="M2.5 15.8333C2.5 16.2754 2.67559 16.6993 2.98816 17.0118C3.30072 17.3244 3.72464 17.5 4.16667 17.5C4.60869 17.5 5.03262 17.3244 5.34518 17.0118C5.65774 16.6993 5.83333 16.2754 5.83333 15.8333C5.83333 15.3913 5.65774 14.9674 5.34518 14.6548C5.03262 14.3423 4.60869 14.1667 4.16667 14.1667C3.72464 14.1667 3.30072 14.3423 2.98816 14.6548C2.67559 14.9674 2.5 15.3913 2.5 15.8333Z" fill={active ? "#0D0B2C" : "rgba(255,255,255,0.52)"} />
       </svg>
     );
   }
   if (kind === "aiChat") {
     return (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5L12 3z" />
-        <path d="M19 14l.7 2.1l2.1.7l-2.1.7l-.7 2.1l-.7-2.1l-2.1-.7l2.1-.7z" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden style={{ opacity: active ? 1 : undefined }}>
+        <g opacity={inactiveOpacity}>
+          <path d="M13.3334 14.9997C13.7754 14.9997 14.1992 15.1752 14.5119 15.4878C14.8244 15.8003 15 16.2243 15 16.6663C15 16.2243 15.1756 15.8003 15.4881 15.4878C15.8008 15.1752 16.2246 14.9997 16.6666 14.9997C16.2246 14.9997 15.8008 14.8241 15.4881 14.5115C15.1756 14.199 15 13.775 15 13.333C15 13.775 14.8244 14.199 14.5119 14.5115C14.1992 14.8241 13.7754 14.9997 13.3334 14.9997ZM13.3334 4.99967C13.7754 4.99967 14.1992 5.17527 14.5119 5.48782C14.8244 5.80038 15 6.22431 15 6.66633C15 6.22431 15.1756 5.80038 15.4881 5.48782C15.8008 5.17527 16.2246 4.99967 16.6666 4.99967C16.2246 4.99967 15.8008 4.82407 15.4881 4.51152C15.1756 4.19896 15 3.77503 15 3.33301C15 3.77503 14.8244 4.19896 14.5119 4.51152C14.1992 4.82407 13.7754 4.99967 13.3334 4.99967ZM7.5 14.9997C7.5 13.6736 8.02679 12.4018 8.96446 11.4641C9.90215 10.5265 11.1739 9.99967 12.5 9.99967C11.1739 9.99967 9.90215 9.47288 8.96446 8.53521C8.02679 7.59752 7.5 6.32576 7.5 4.99967C7.5 6.32576 6.97321 7.59752 6.03554 8.53521C5.09785 9.47288 3.82609 9.99967 2.5 9.99967C3.82609 9.99967 5.09785 10.5265 6.03554 11.4641C6.97321 12.4018 7.5 13.6736 7.5 14.9997Z" stroke={active ? "#0D0B2C" : "white"} strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
       </svg>
     );
   }
   if (kind === "debugger") {
     return (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-        <path d="M12 3a9 9 0 0 1 9 9 M3 12a9 9 0 0 1 6 -8.5 M12 21a9 9 0 0 1 -9 -9" />
-        <circle cx="12" cy="12" r="2" />
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+        <g opacity={inactiveOpacity}>
+          <path d="M8.33937 17.3139C7.61404 17.1494 6.91744 16.8771 6.2727 16.5064M11.6727 2.68555C13.3295 3.06393 14.8087 3.99362 15.8682 5.32238C16.9277 6.65115 17.5047 8.30026 17.5047 9.99971C17.5047 11.6992 16.9277 13.3482 15.8682 14.677C14.8087 16.0057 13.3295 16.9355 11.6727 17.3139M3.8219 14.2439C3.36731 13.5834 3.02206 12.8541 2.7994 12.0838M2.60938 8.74971C2.7427 7.95805 2.99938 7.20805 3.35938 6.52055L3.5002 6.26637M5.76204 3.81555C6.54175 3.2788 7.41648 2.89531 8.33954 2.68555" stroke={active ? "#0D0B2C" : "white"} strokeWidth="1.5625" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
       </svg>
     );
   }
-  // data
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <ellipse cx="12" cy="6" rx="8" ry="3" />
-      <path d="M4 6v6c0 1.7 3.6 3 8 3s8 -1.3 8 -3v-6" />
-      <path d="M4 12v6c0 1.7 3.6 3 8 3s8 -1.3 8 -3v-6" />
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <g opacity={inactiveOpacity}>
+        <path d="M3.32812 5C3.32812 5.66304 4.03051 6.29892 5.28075 6.76776C6.53099 7.23661 8.22669 7.5 9.9948 7.5C11.7629 7.5 13.4586 7.23661 14.7089 6.76776C15.9591 6.29892 16.6615 5.66304 16.6615 5M3.32812 5C3.32812 4.33696 4.03051 3.70107 5.28075 3.23224C6.53099 2.76339 8.22669 2.5 9.9948 2.5C11.7629 2.5 13.4586 2.76339 14.7089 3.23224C15.9591 3.70107 16.6615 4.33696 16.6615 5M3.32812 5V10M16.6615 5V10M3.32812 10C3.32812 10.663 4.03051 11.2989 5.28075 11.7678C6.53099 12.2366 8.22669 12.5 9.9948 12.5C11.7629 12.5 13.4586 12.2366 14.7089 11.7678C15.9591 11.2989 16.6615 10.663 16.6615 10M3.32812 10V15C3.32812 15.663 4.03051 16.2989 5.28075 16.7677C6.53099 17.2366 8.22669 17.5 9.9948 17.5C11.7629 17.5 13.4586 17.2366 14.7089 16.7677C15.9591 16.2989 16.6615 15.663 16.6615 15V10" stroke={active ? "#0D0B2C" : "white"} strokeWidth="1.5625" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
     </svg>
   );
 }

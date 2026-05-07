@@ -89,6 +89,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+img {
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 /* Full-bleed utility for section-scoped colored backgrounds (purple Outcomes,
    white content container) — below 1440 ScaleWrapper scales the 1440 design
    to fit the viewport so default `width: 100%` already fills. Above 1440 the

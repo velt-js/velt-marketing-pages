@@ -1,95 +1,152 @@
-// Stacked-image highlight section used on /features/recordings. Shares
-// the FeatureSectionShell chrome (1280-wide white card with dark border,
-// centered heading + subheading + CTA at top, dark testimonial banner at
-// the bottom) with FeatureCardRow, but the body is a single full-width
-// image instead of a grid of demo cells.
-//
-// Figma nodes 219:22023, 219:22098, 219:22117 in HqWIZdR6ISJmaG2n4o3gr8.
-
 import {
-  FeatureSectionShell,
-  type FeatureSectionShellTestimonial,
-  type ShellCtaLink,
+    FeatureSectionShell,
+    type FeatureSectionShellTestimonial,
+    type ShellCtaLink,
 } from "./FeatureSectionShell";
 
 export type FeatureImageCardProps = {
-  eyebrow?: string;
-  heading: string;
-  subheading?: string;
-  viewDocsCta?: ShellCtaLink;
-  primaryCta?: ShellCtaLink;
-  imageSrc: string;
-  imageAlt?: string;
-  /** Image dimensions in design pixels. Card 1/3 are 1280×467; card 2 is 1199×297. */
-  imageWidth: number;
-  imageHeight: number;
-  /**
-   * Distance from the bottom edge of the white outer card to the bottom of
-   * the image. Negative pulls the image past the bottom edge of the card.
-   * Card 1/3 use -2.38; card 2 uses 68.62.
-   */
-  imageBottomOffset?: number;
-  testimonial?: FeatureSectionShellTestimonial;
-  /** Mark this as the first light section on the page so the shell renders
-   *  the 48px rounded top + 80px margin transition from the dark hero strip. */
-  topAccent?: boolean;
+    eyebrow?: string;
+    heading: string;
+    subheading?: string;
+    viewDocsCta?: ShellCtaLink;
+    primaryCta?: ShellCtaLink;
+    imageSrc: string;
+    imageAlt?: string;
+    imageWidth: number;
+    imageHeight: number;
+    imageBottomOffset?: number;
+    /** When true, the image scrolls horizontally in an infinite marquee. */
+    marquee?: boolean;
+    /** Local SVG path used instead of imageSrc when marquee is enabled. */
+    marqueeSvgSrc?: string;
+    /** Local video path; when set, renders a looping video instead of an image. */
+    videoSrc?: string;
+    testimonial?: FeatureSectionShellTestimonial;
+    topAccent?: boolean;
 };
 
-export function FeatureImageCard({
-  eyebrow,
-  heading,
-  subheading,
-  viewDocsCta,
-  primaryCta,
-  imageSrc,
-  imageAlt = "",
-  imageWidth,
-  imageHeight,
-  imageBottomOffset = 0,
-  testimonial,
-  topAccent = false,
-}: FeatureImageCardProps) {
-  // The outer body needs enough room for the image *plus* the centered
-  // heading/CTA cluster the shell renders above it. The shell pads
-  // 55+80=135px above the body and the heading cluster is ~150px tall, so
-  // we just need the image height plus a small breathing buffer.
-  const bodyHeight = imageHeight + Math.max(0, -imageBottomOffset);
+const MARQUEE_DURATION = "30s";
 
-  return (
-    <FeatureSectionShell
-      eyebrow={eyebrow}
-      heading={heading}
-      subheading={subheading}
-      viewDocsCta={viewDocsCta}
-      primaryCta={primaryCta}
-      testimonial={testimonial}
-      topAccent={topAccent}
-    >
-      <div
-        className="relative overflow-hidden"
-        style={{
-          width: "100%",
-          height: bodyHeight,
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={imageSrc}
-          alt={imageAlt}
-          width={imageWidth}
-          height={imageHeight}
-          className="absolute pointer-events-none select-none"
-          style={{
-            left: "50%",
-            transform: "translateX(-50%)",
-            bottom: imageBottomOffset,
-            width: imageWidth,
-            height: imageHeight,
-            maxWidth: "none",
-            objectFit: "cover",
-          }}
-        />
-      </div>
-    </FeatureSectionShell>
-  );
+export function FeatureImageCard({
+    eyebrow,
+    heading,
+    subheading,
+    viewDocsCta,
+    primaryCta,
+    imageSrc,
+    imageAlt = "",
+    imageWidth,
+    imageHeight,
+    imageBottomOffset = 0,
+    marquee = false,
+    marqueeSvgSrc,
+    videoSrc,
+    testimonial,
+    topAccent = false,
+}: FeatureImageCardProps) {
+    const bodyHeight = imageHeight + Math.max(0, -imageBottomOffset);
+    const effectiveSrc = marquee && marqueeSvgSrc ? marqueeSvgSrc : imageSrc;
+
+    return (
+        <FeatureSectionShell
+            eyebrow={eyebrow}
+            heading={heading}
+            subheading={subheading}
+            viewDocsCta={viewDocsCta}
+            primaryCta={primaryCta}
+            testimonial={testimonial}
+            topAccent={topAccent}
+        >
+        {videoSrc ? (
+          <div
+            className="overflow-hidden"
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+                    <video
+                        src={videoSrc}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="pointer-events-none select-none"
+              style={{
+                width: "80%",
+                height: "auto",
+                objectFit: "contain",
+                borderRadius: 12,
+              }}
+                    />
+                </div>
+        ) : marquee ? (
+          <div className="overflow-hidden" style={{ width: "100%" }}>
+            <div
+              style={{
+                width: "100%",
+                paddingTop: 24,
+                paddingBottom: 60,
+                transform: "scale(1.25)",
+                transformOrigin: "center",
+              }}
+            >
+                    <style>{`
+              @keyframes marquee-scroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+              }
+            `}</style>
+                    <div
+                        className="pointer-events-none select-none flex items-center"
+                        style={{
+                            gap: 48,
+                            animation: `marquee-scroll ${MARQUEE_DURATION} linear infinite`,
+                            willChange: "transform",
+                        }}
+                    >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={effectiveSrc}
+                            alt={imageAlt}
+                            style={{ height: "auto", width: "auto", flexShrink: 0 }}
+                        />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={effectiveSrc}
+                            alt=""
+                            aria-hidden
+                            style={{ height: "auto", width: "auto", flexShrink: 0 }}
+                        />
+              </div>
+            </div>
+          </div>
+        ) : (
+                <div
+                    className="relative overflow-hidden"
+                    style={{ width: "100%", height: bodyHeight }}
+                >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src={imageSrc}
+                        alt={imageAlt}
+                        width={imageWidth}
+                        height={imageHeight}
+                        className="absolute pointer-events-none select-none"
+                        style={{
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            bottom: imageBottomOffset,
+                            width: imageWidth,
+                            height: imageHeight,
+                            maxWidth: "none",
+                            objectFit: "cover",
+                        }}
+                    />
+                </div>
+            )}
+        </FeatureSectionShell>
+    );
 }

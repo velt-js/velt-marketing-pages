@@ -224,7 +224,12 @@ function Card1AutomaticEvents() {
                   batches keystrokes into meaningful records.
                 </span>
               </div>
-              <EventLogMockup />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/features/activity-logs/automatic-logging.png"
+                alt="Event log showing Who, What, When, Where columns with a sample record"
+                style={{ width: "100%", height: "auto", maxWidth: 850 }}
+              />
             </>
           ) : (
             <CustomLoggingMockup />
@@ -272,136 +277,6 @@ function Card1Tab({
     >
       {label}
     </button>
-  );
-}
-
-function EventLogMockup() {
-  // 4-column event log: Who / What / When / Where with one highlighted
-  // event row in the middle. Color-coded column headers with backing
-  // mix-blend-color-dodge highlight rectangles on the event row.
-  return (
-    <div
-      className="relative"
-      style={{ width: 850, height: 335, background: "#fff" }}
-    >
-      {/* Column labels */}
-      <ColumnLabel left={187} top={218} color="#ad3c19" big="Who" small="User / Agent" />
-      <ColumnLabel left={378} top={57} color="#0168f2" big="What" small="Action / Agent" reverse />
-      <ColumnLabel left={703} top={57} color="#9200f3" big="When" small="Timestamp" reverse />
-      <ColumnLabel left={517} top={218} color="#177941" big="Where" small="Document/ Location" />
-
-      {/* The event row card sits centered around y=128 */}
-      <div
-        style={{
-          position: "absolute",
-          left: "50%",
-          top: 128,
-          transform: "translateX(-50%)",
-        }}
-      >
-        {/* Highlight chips (mix-blend-color-dodge so they tint the row text) */}
-        <div
-          style={{
-            position: "absolute",
-            left: 119,
-            top: 21,
-            width: 251,
-            height: 41,
-            background: "#e09423",
-            opacity: 0.12,
-            borderRadius: 10,
-            zIndex: 1,
-          }}
-          aria-hidden
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: 372,
-            top: 21,
-            width: 146,
-            height: 41,
-            background: "#0168f2",
-            opacity: 0.12,
-            borderRadius: 10,
-            zIndex: 1,
-          }}
-          aria-hidden
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: 544,
-            top: 21,
-            width: 115,
-            height: 41,
-            background: "#13d09d",
-            opacity: 0.12,
-            borderRadius: 10,
-            zIndex: 1,
-          }}
-          aria-hidden
-        />
-        <div
-          style={{
-            position: "absolute",
-            left: 721,
-            top: 21,
-            width: 59,
-            height: 39,
-            background: "#9200f3",
-            opacity: 0.08,
-            borderRadius: 12,
-            zIndex: 1,
-          }}
-          aria-hidden
-        />
-
-        {/* The event row */}
-        <div
-          className="flex items-center justify-between"
-          style={{
-            width: 742,
-            background: "#fff",
-            border: "2px solid rgba(0,0,0,0.08)",
-            borderRadius: 24,
-            padding: 24,
-            boxShadow: "0 0 12px rgba(0,0,0,0.08)",
-            position: "relative",
-            zIndex: 2,
-          }}
-        >
-          <div className="flex items-center" style={{ gap: 16 }}>
-            <ChecksIcon size={32} color="#16a34a" />
-            <p
-              style={{
-                fontFamily: "Poppins, sans-serif",
-                fontSize: 28,
-                color: "#141414",
-                letterSpacing: "0.28px",
-                margin: 0,
-              }}
-            >
-              <span style={{ color: "#ad3c19" }}>Reconciler Agent</span>{" "}
-              <span style={{ color: "#0168f2" }}>approved</span> a{" "}
-              <span style={{ color: "#177941", fontWeight: 600 }}>Invoice</span>
-            </p>
-          </div>
-          <p
-            style={{
-              fontFamily: "Poppins, sans-serif",
-              fontSize: 28,
-              color: "#9200f3",
-              letterSpacing: "0.28px",
-              margin: 0,
-              whiteSpace: "nowrap",
-            }}
-          >
-            12h
-          </p>
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -597,68 +472,6 @@ function CustomActivityRow({
       >
         12h
       </span>
-    </div>
-  );
-}
-
-function ColumnLabel({
-  left,
-  top,
-  color,
-  big,
-  small,
-  reverse = false,
-}: {
-  left: number;
-  top: number;
-  color: string;
-  big: string;
-  small: string;
-  reverse?: boolean;
-}) {
-  // reverse=true puts the small chip ABOVE the big label (used for top
-  // headers), reverse=false puts the big label above the small chip
-  // (used for bottom headers).
-  const items = [
-    <p
-      key="big"
-      style={{
-        fontFamily: "'IBM Plex Mono', monospace",
-        fontWeight: 600,
-        fontSize: 24,
-        color,
-        letterSpacing: "0.24px",
-        textTransform: "uppercase",
-        margin: 0,
-        opacity: 0.9,
-        textAlign: "center",
-      }}
-    >
-      {big}
-    </p>,
-    <span
-      key="small"
-      style={{
-        background: "#f3f3f3",
-        padding: "6px 8px",
-        borderRadius: 8,
-        fontFamily: "'IBM Plex Mono', monospace",
-        fontSize: 14,
-        color: "#000",
-        letterSpacing: "0.14px",
-        textTransform: "uppercase",
-        whiteSpace: "nowrap",
-      }}
-    >
-      {small}
-    </span>,
-  ];
-  return (
-    <div
-      className="flex flex-col items-center"
-      style={{ position: "absolute", left, top, gap: 10 }}
-    >
-      {reverse ? items.reverse() : items}
     </div>
   );
 }
