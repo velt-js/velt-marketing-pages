@@ -29,6 +29,14 @@ import {
   useCaseFaq,
   useCaseFeatureRow,
   useCaseFeatureChip,
+  useCasePreviewBanner,
+  useCaseProblemSection,
+  useCaseProblemItem,
+  useCaseExampleSection,
+  useCaseTestimonial,
+  useCaseActionCallout,
+  useCaseBenefit,
+  useCaseBenefitSubCase,
 } from "./useCasePage";
 import {
   featurePage,
@@ -138,6 +146,14 @@ export const schemaTypes = [
   useCaseFaq,
   useCaseFeatureRow,
   useCaseFeatureChip,
+  useCasePreviewBanner,
+  useCaseProblemSection,
+  useCaseProblemItem,
+  useCaseExampleSection,
+  useCaseTestimonial,
+  useCaseActionCallout,
+  useCaseBenefit,
+  useCaseBenefitSubCase,
 
   // Generic section blocks
   sectionFeatureGrid,

@@ -455,7 +455,8 @@ export async function getAllUseCasePages() {
       title,
       "slug": slug.current,
       tagline,
-      "thumbnail": thumbnail.asset->url
+      "thumbnail": thumbnail.asset->url,
+      "icon": icon.asset->url
     }
   `);
 }
@@ -475,6 +476,7 @@ export async function getUseCasePageBySlug(slug: string) {
       "slug": slug.current,
       tagline,
       "thumbnail": thumbnail.asset->url,
+      "icon": icon.asset->url,
       hero {
         eyebrow,
         heading,
@@ -483,6 +485,7 @@ export async function getUseCasePageBySlug(slug: string) {
         primaryCta,
         secondaryCta
       },
+      previewBanner { title1, title2 },
       sections[] {
         _key,
         eyebrow,
@@ -496,6 +499,45 @@ export async function getUseCasePageBySlug(slug: string) {
           href
         }
       },
+      problemSection {
+        title1,
+        title2,
+        items[] {
+          _key,
+          "imageSrc": image.asset->url,
+          text
+        }
+      },
+      exampleSection {
+        "videoSrc": video.asset->url,
+        "imageSrc": image.asset->url,
+        exampleUrl,
+        sandboxLink,
+        docsLink,
+        featureCountText,
+        features
+      },
+      testimonial {
+        quote,
+        name,
+        roleAndCompany,
+        "logoSrc": logo.asset->url
+      },
+      benefits[] {
+        _key,
+        tag,
+        title,
+        description,
+        "imageSrc": image.asset->url,
+        useCases[] {
+          _key,
+          "imageSrc": image.asset->url,
+          name,
+          link
+        }
+      },
+      codeSnippet { code, language },
+      actionCallout { text1, text2, text3 },
       showLibrarySection,
       showCustomerUI,
       showSecurity,

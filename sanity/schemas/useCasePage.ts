@@ -120,6 +120,14 @@ export const useCasePage = defineType({
       group: "identity",
       options: { hotspot: false },
     }),
+    defineField({
+      name: "icon",
+      title: "Icon",
+      description: "Mirrors Framer Icon. Used as the listing card icon.",
+      type: "image",
+      group: "identity",
+      options: { hotspot: false },
+    }),
 
     defineField({
       name: "hero",
@@ -127,6 +135,14 @@ export const useCasePage = defineType({
       type: "useCaseHero",
       group: "hero",
       options: { collapsible: true, collapsed: false },
+    }),
+    defineField({
+      name: "previewBanner",
+      title: "Preview Banner",
+      description:
+        "Two-line banner above the hero. Mirrors Framer preview_title_1/2.",
+      type: "useCasePreviewBanner",
+      group: "hero",
     }),
 
     defineField({
@@ -138,6 +154,53 @@ export const useCasePage = defineType({
       group: "sections",
       of: [{ type: "useCaseFeatureRow" }],
       validation: (rule) => rule.required().min(1),
+    }),
+    defineField({
+      name: "problemSection",
+      title: "Problem Section",
+      description: "Mirrors Framer problem__* (3 image+text cards under two title lines).",
+      type: "useCaseProblemSection",
+      group: "sections",
+    }),
+    defineField({
+      name: "exampleSection",
+      title: "Example Section",
+      description:
+        "Mirrors Framer example__* (video + image + 4 feature texts + sandbox/docs links).",
+      type: "useCaseExampleSection",
+      group: "sections",
+    }),
+    defineField({
+      name: "testimonial",
+      title: "Testimonial",
+      description: "Mirrors Framer testimonial__* (per-page testimonial block).",
+      type: "useCaseTestimonial",
+      group: "sections",
+    }),
+    defineField({
+      name: "benefits",
+      title: "Benefits",
+      description:
+        "Up to 4 benefit blocks. Mirrors Framer benefit__1..4__* (each with 4 sub-use-cases).",
+      type: "array",
+      group: "sections",
+      of: [{ type: "useCaseBenefit" }],
+      validation: (rule) => rule.max(4),
+    }),
+    defineField({
+      name: "codeSnippet",
+      title: "Code Snippet",
+      description: "Mirrors Framer code field. Uses @sanity/code-input.",
+      type: "code",
+      group: "sections",
+    }),
+    defineField({
+      name: "actionCallout",
+      title: "Action Callout",
+      description:
+        "Closing CTA text. Mirrors Framer action__text_1/2/3 (3 lines, no link).",
+      type: "useCaseActionCallout",
+      group: "sections",
     }),
 
     defineField({
@@ -318,4 +381,185 @@ export const useCaseFeatureRow = defineType({
       media,
     }),
   },
+});
+
+// ---- Framer-shaped sub-types ----------------------------------------------
+// These mirror Framer's `Use Case` collection (twoGcl0mT) so MT (or a manual
+// port) can faithfully populate every Framer slot. All optional on the parent
+// doc — Video Editor (seeded against the legacy `sections[]`) keeps rendering
+// unchanged. Render wiring for these new fields is a follow-up tied to Figma.
+
+export const useCasePreviewBanner = defineType({
+  name: "useCasePreviewBanner",
+  title: "Preview Banner",
+  type: "object",
+  fields: [
+    defineField({ name: "title1", title: "Line 1", type: "string" }),
+    defineField({ name: "title2", title: "Line 2", type: "string" }),
+  ],
+});
+
+export const useCaseProblemItem = defineType({
+  name: "useCaseProblemItem",
+  title: "Problem Item",
+  type: "object",
+  fields: [
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({ name: "text", title: "Text", type: "text", rows: 2 }),
+  ],
+  preview: { select: { title: "text", media: "image" } },
+});
+
+export const useCaseProblemSection = defineType({
+  name: "useCaseProblemSection",
+  title: "Problem Section",
+  type: "object",
+  fields: [
+    defineField({ name: "title1", title: "Title Line 1", type: "string" }),
+    defineField({ name: "title2", title: "Title Line 2", type: "string" }),
+    defineField({
+      name: "items",
+      title: "Items",
+      description:
+        "Up to 3 problem cards (image + text). Mirrors Framer's problem__1/2/3 fields.",
+      type: "array",
+      of: [{ type: "useCaseProblemItem" }],
+      validation: (r) => r.max(3),
+    }),
+  ],
+});
+
+export const useCaseExampleSection = defineType({
+  name: "useCaseExampleSection",
+  title: "Example Section",
+  type: "object",
+  fields: [
+    defineField({ name: "video", title: "Video", type: "file" }),
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "exampleUrl",
+      title: "Example URL (text)",
+      description:
+        "Plain string per Framer (`example_URL`). Use `Sandbox Link` / `Docs Link` for navigable links.",
+      type: "string",
+    }),
+    defineField({ name: "sandboxLink", title: "Sandbox Link", type: "url" }),
+    defineField({ name: "docsLink", title: "Docs Link", type: "url" }),
+    defineField({
+      name: "featureCountText",
+      title: "Feature Count Caption",
+      description: 'e.g. "4 collaboration features".',
+      type: "string",
+    }),
+    defineField({
+      name: "features",
+      title: "Feature Texts",
+      description:
+        "Up to 4 feature labels. Mirrors Framer's example__feature_1..4__text.",
+      type: "array",
+      of: [{ type: "string" }],
+      validation: (r) => r.max(4),
+    }),
+  ],
+});
+
+export const useCaseTestimonial = defineType({
+  name: "useCaseTestimonial",
+  title: "Use Case Testimonial",
+  type: "object",
+  fields: [
+    defineField({
+      name: "quote",
+      title: "Quote",
+      description: "Maps to Framer `testimonial__title`.",
+      type: "text",
+      rows: 4,
+    }),
+    defineField({ name: "name", title: "Name", type: "string" }),
+    defineField({
+      name: "roleAndCompany",
+      title: "Role & Company",
+      description: 'Single field per Framer (`testimonial__role_&_company`).',
+      type: "string",
+    }),
+    defineField({
+      name: "logo",
+      title: "Logo",
+      type: "image",
+      options: { hotspot: false },
+    }),
+  ],
+  preview: { select: { title: "name", subtitle: "roleAndCompany", media: "logo" } },
+});
+
+export const useCaseActionCallout = defineType({
+  name: "useCaseActionCallout",
+  title: "Action Callout",
+  type: "object",
+  fields: [
+    defineField({ name: "text1", title: "Line 1", type: "string" }),
+    defineField({ name: "text2", title: "Line 2", type: "string" }),
+    defineField({ name: "text3", title: "Line 3", type: "string" }),
+  ],
+});
+
+export const useCaseBenefitSubCase = defineType({
+  name: "useCaseBenefitSubCase",
+  title: "Benefit Sub-Use-Case",
+  type: "object",
+  fields: [
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: false },
+    }),
+    defineField({ name: "name", title: "Name", type: "string" }),
+    defineField({ name: "link", title: "Link", type: "url" }),
+  ],
+  preview: { select: { title: "name", media: "image" } },
+});
+
+export const useCaseBenefit = defineType({
+  name: "useCaseBenefit",
+  title: "Benefit Block",
+  type: "object",
+  fields: [
+    defineField({ name: "tag", title: "Tag", type: "string" }),
+    defineField({ name: "title", title: "Title", type: "string" }),
+    defineField({
+      name: "description",
+      title: "Description",
+      description:
+        "Plain text. Framer used formattedText; we degrade to plain rows pending portable-text upgrade.",
+      type: "text",
+      rows: 4,
+    }),
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "useCases",
+      title: "Sub-Use-Cases",
+      description:
+        "Up to 4 cards. Mirrors Framer's benefit__N__use_case_1..4__* slots.",
+      type: "array",
+      of: [{ type: "useCaseBenefitSubCase" }],
+      validation: (r) => r.max(4),
+    }),
+  ],
+  preview: { select: { title: "title", subtitle: "tag", media: "image" } },
 });
