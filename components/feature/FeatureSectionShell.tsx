@@ -64,7 +64,7 @@ export function FeatureSectionShell({
       }}
     >
       <div
-        className="overflow-hidden"
+        className="overflow-hidden flex flex-col"
         style={{
           width: 1280,
           background: "#fff",
@@ -74,7 +74,7 @@ export function FeatureSectionShell({
       >
         <div
           className="flex flex-col items-center"
-          style={{ gap: 32, padding: "55px 0 80px 0" }}
+          style={{ gap: 32, padding: "55px 0 0 0" }}
         >
           <div
             className="flex flex-col items-center text-center"
@@ -131,7 +131,17 @@ export function FeatureSectionShell({
           )}
         </div>
 
-        {children}
+        {/* Visual area — flex-grows to fill the card and vertically
+         *  centers `children` in the slack between heading and testimonial.
+         *  Without this, the heading block's old 80px bottom padding
+         *  pushed the children block visually low, especially when paired
+         *  with a testimonial bar that anchored everything to the bottom. */}
+        <div
+          className="flex-1 flex items-center justify-center w-full"
+          style={{ paddingTop: 56, paddingBottom: 56 }}
+        >
+          {children}
+        </div>
 
         {hasTestimonial && testimonial ? (
           <TestimonialFooter t={testimonial} />

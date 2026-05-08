@@ -142,6 +142,7 @@ async function main() {
         subheading: "See key details about your Velt installation",
         primaryCta: getExtensionCta,
         ...sharedImageProps,
+        videoSrc: "/videos/features/dev-tools/get-the-overview.mp4",
         inlineTestimonial: lindaTestimonial,
       },
       {
@@ -151,6 +152,7 @@ async function main() {
         subheading: "View all the Velt data surfaced in your product",
         primaryCta: getExtensionCta,
         ...sharedImageProps,
+        videoSrc: "/videos/features/dev-tools/access-data.mp4",
         inlineTestimonial: lindaTestimonial,
       },
       {
@@ -160,6 +162,7 @@ async function main() {
         subheading: "Monitor Velt Events in real time",
         primaryCta: getExtensionCta,
         ...sharedImageProps,
+        videoSrc: "/videos/features/dev-tools/observe-event-stream.mp4",
         inlineTestimonial: lindaTestimonial,
       },
       {
@@ -170,6 +173,7 @@ async function main() {
           "Find and interact with Velt components in your product",
         primaryCta: getExtensionCta,
         ...sharedImageProps,
+        videoSrc: "/videos/features/dev-tools/inspect-components.mp4",
         inlineTestimonial: lindaTestimonial,
       },
       {
@@ -179,6 +183,7 @@ async function main() {
         subheading: "Quickly switch between different versions of Velt SDK",
         primaryCta: getExtensionCta,
         ...sharedImageProps,
+        videoSrc: "/videos/features/dev-tools/test-with-any-sdk-version.mp4",
         inlineTestimonial: lindaTestimonial,
       },
     ],
