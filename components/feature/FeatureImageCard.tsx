@@ -59,8 +59,13 @@ export function FeatureImageCard({
         >
         {videoSrc ? (
           <div
-            className="relative overflow-hidden"
-            style={{ width: "100%", height: bodyHeight, borderRadius: 12 }}
+            className="overflow-hidden"
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
                     <video
                         src={videoSrc}
@@ -70,12 +75,10 @@ export function FeatureImageCard({
                         playsInline
                         className="pointer-events-none select-none"
               style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
+                width: "80%",
+                height: "auto",
+                objectFit: "contain",
+                borderRadius: 12,
               }}
                     />
                 </div>
@@ -139,7 +142,7 @@ export function FeatureImageCard({
                             width: imageWidth,
                             height: imageHeight,
                             maxWidth: "none",
-                            objectFit: "cover",
+                            objectFit: "contain",
                         }}
                     />
                 </div>

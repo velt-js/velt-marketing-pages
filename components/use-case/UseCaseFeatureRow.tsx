@@ -46,6 +46,7 @@ export function UseCaseFeatureRow({
   columnHeight,
 }: UseCaseFeatureRowData) {
   const height = columnHeight ?? DEFAULT_COLUMN_HEIGHT;
+  const hasFeatures = features && features.length > 0;
   const text = (
     <div
       className="flex flex-col items-start"
@@ -53,7 +54,7 @@ export function UseCaseFeatureRow({
         flex: 1,
         minWidth: 0,
         height,
-        justifyContent: "space-between",
+        justifyContent: hasFeatures ? "space-between" : "center",
       }}
     >
       <div className="flex flex-col items-start" style={{ gap: 12 }}>

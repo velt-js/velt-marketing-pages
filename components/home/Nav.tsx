@@ -304,7 +304,7 @@ const productRealtime: DropdownItem[] = [
 
 const productPlatform: DropdownItem[] = [
   { label: "Admin Console", href: "/features/admin-console", icon: icons.hexagon, tint: "#b387f7" },
-  { label: "Dev Tools", href: "/features/devtools", icon: icons.circle, tint: "#f5d14a" },
+  { label: "Dev Tools", href: "/features/dev-tools", icon: icons.circle, tint: "#f5d14a" },
   { label: "MCP", href: "/features/mcp", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/features/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
   { label: "Integrations", href: "/features/integrations", icon: icons.plug, tint: "#ffa3fa" },
@@ -366,7 +366,7 @@ const useCasesColumns: DropdownColumn[] = [
     width: 171,
     itemHeight: 36,
     sections: [{ heading: "APP TYPES", items: useCasesAppTypes }],
-    footer: { label: "ALL APP TYPES", href: "/use-cases" },
+    footer: { label: "ALL APP TYPES", href: "/use-case" },
   },
   {
     width: 201,
@@ -399,9 +399,9 @@ const enterpriseColumns: DropdownColumn[] = [
 // ---------- Resources dropdown — Figma 88:1113 ----------
 
 const resourcesLearn: DropdownItem[] = [
-  { label: "Docs", href: "/docs", icon: icons.book, tint: "#5ca3ff" },
+  { label: "Docs", href: "https://docs.velt.dev/", icon: icons.book, tint: "#5ca3ff" },
   { label: "Comparison", href: "/comparison", icon: icons.scale, tint: "#f5a15e" },
-  { label: "Examples", href: "/examples", icon: icons.sparkles, tint: "#f5d14a" },
+  { label: "Examples", href: "https://samples.velt.dev/", icon: icons.sparkles, tint: "#f5d14a" },
 ];
 
 const resourcesTools: DropdownItem[] = [
@@ -415,11 +415,11 @@ const resourcesMigrate: DropdownItem[] = [
   { label: "Migrate from Cord", href: "/migrate/cord", icon: icons.transfer, tint: "#5eda7a" },
 ];
 
-const resourcesRealtime: DropdownItem[] = [
-  { label: "Live State Sync", href: "/live-state-sync", icon: icons.refresh, tint: "#48cfad" },
-  { label: "Live Selection", href: "/live-selection", icon: icons.click, tint: "#b387f7" },
-  { label: "Huddle", href: "/huddle", icon: icons.headphones, tint: "#a4bd52" },
-  { label: "Presence", href: "/presence", icon: icons.usersGroup, tint: "#97e07f" },
+const resourcesOthers: DropdownItem[] = [
+  { label: "Customers", href: "/customers", icon: icons.usersGroup, tint: "#97e07f" },
+  { label: "Security", href: "https://trust.velt.dev/", icon: icons.shield, tint: "#f47474" },
+  { label: "Release Notes", href: "https://docs.velt.dev/release-notes", icon: icons.list, tint: "#5ca3ff" },
+  { label: "Blog", href: "/blog", icon: icons.book, tint: "#48cfad" },
 ];
 
 const resourcesColumns: DropdownColumn[] = [
@@ -434,7 +434,7 @@ const resourcesColumns: DropdownColumn[] = [
     width: 201,
     sections: [
       { heading: "MIGRATE", items: resourcesMigrate },
-      { heading: "REALTIME", items: resourcesRealtime },
+      { heading: "OTHERS", items: resourcesOthers },
     ],
   },
 ];
@@ -443,6 +443,7 @@ const resourcesColumns: DropdownColumn[] = [
 
 export function Nav() {
   const [overPurple, setOverPurple] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState<DropdownId | null>(null);
   const closeTimer = useRef<number | null>(null);
 
@@ -490,14 +491,15 @@ export function Nav() {
     closeTimer.current = window.setTimeout(() => setOpen(null), 120);
   };
 
+  const isSolid = overPurple || hovered;
   const textColor = overPurple ? "#0f0f11" : "#fff";
-  const textOpacity = overPurple ? 0.9 : 0.75;
+  const textOpacity = isSolid ? 0.9 : 0.75;
   const iconFilter = overPurple ? "invert(1) brightness(0.2)" : "none";
-  // Over white content we flip to a solid white panel so scrolling rows
-  // (e.g. /pricing comparison table) cannot bleed through.
   const bg = overPurple
     ? "#fff"
-    : "linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 100%)";
+    : hovered
+      ? "rgba(0,0,0,0.85)"
+      : "linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 100%)";
 
   return (
     <nav
@@ -506,7 +508,8 @@ export function Nav() {
         background: bg,
         transition: "background 180ms ease",
       }}
-      onMouseLeave={requestClose}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { setHovered(false); requestClose(); }}
     >
     <div
       className="flex items-center gap-6 relative"
@@ -852,6 +855,7 @@ function DropdownLink({
   return (
     <a
       href={item.href}
+      {...(item.href?.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="flex items-center w-full"

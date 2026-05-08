@@ -63,7 +63,12 @@ const canvasLibraries: LinkGroup = {
 
 const platform: LinkGroup = {
   heading: "Platform",
-  links: ["Admin Console", "Dev Tools", "MCP", "Webhooks & API"],
+  links: [
+    { label: "Admin Console", href: "/features/admin-console" },
+    { label: "Dev Tools", href: "/features/dev-tools" },
+    "MCP",
+    { label: "Webhooks & API", href: "/features/webhooks-and-api" },
+  ],
 };
 
 const resources: LinkGroup = {
@@ -77,7 +82,7 @@ const resources: LinkGroup = {
     "Launch Kit",
     "Themes Playground",
     "Figma UI Kit",
-    "Examples",
+    { label: "Examples", href: "https://samples.velt.dev/", newTab: true },
     "Compare Velt",
     "Compare Velt Implementation",
   ],

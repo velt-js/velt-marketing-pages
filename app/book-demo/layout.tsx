@@ -1,6 +1,6 @@
 import { Nav } from "@/components/home/Nav";
 
-export default function BlogLayout({
+export default function BookDemoLayout({
   children,
 }: {
   children: React.ReactNode;
