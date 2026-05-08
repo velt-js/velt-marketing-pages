@@ -304,7 +304,7 @@ const productRealtime: DropdownItem[] = [
 
 const productPlatform: DropdownItem[] = [
   { label: "Admin Console", href: "/features/admin-console", icon: icons.hexagon, tint: "#b387f7" },
-  { label: "Dev Tools", href: "/features/devtools", icon: icons.circle, tint: "#f5d14a" },
+  { label: "Dev Tools", href: "/features/dev-tools", icon: icons.circle, tint: "#f5d14a" },
   { label: "MCP", href: "/features/mcp", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/features/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
   { label: "Integrations", href: "/features/integrations", icon: icons.plug, tint: "#ffa3fa" },

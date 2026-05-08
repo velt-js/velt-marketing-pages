@@ -63,7 +63,12 @@ const canvasLibraries: LinkGroup = {
 
 const platform: LinkGroup = {
   heading: "Platform",
-  links: ["Admin Console", "Dev Tools", "MCP", "Webhooks & API"],
+  links: [
+    { label: "Admin Console", href: "/features/admin-console" },
+    { label: "Dev Tools", href: "/features/dev-tools" },
+    "MCP",
+    { label: "Webhooks & API", href: "/features/webhooks-and-api" },
+  ],
 };
 
 const resources: LinkGroup = {
