@@ -49,11 +49,24 @@ export const useCaseHero = defineType({
       type: "boolean",
       initialValue: true,
     }),
-    defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
+    defineField({
+      name: "primaryCta",
+      title: "Primary CTA",
+      type: "ctaLink",
+      initialValue: {
+        label: "Get Free API Key",
+        href: "https://console.velt.dev/",
+        newTab: true,
+      },
+    }),
     defineField({
       name: "secondaryCta",
       title: "Secondary CTA",
       type: "ctaLink",
+      initialValue: {
+        label: "Book Demo",
+        href: "/book-demo",
+      },
     }),
   ],
 });
@@ -149,11 +162,67 @@ export const useCasePage = defineType({
       name: "sections",
       title: "Feature rows",
       description:
-        "Ordered list of 2-column feature rows (Build / Review / Approve in the reference Figma). Image alternates left/right per row. Drag to reorder.",
+        "Ordered list of 2-column feature rows (Build / Review / Approve in the reference Figma). Image alternates left/right per row. Drag to reorder. New docs are pre-populated with the Build / Review / Approve scaffold; fill in heading + description per page.",
       type: "array",
       group: "sections",
       of: [{ type: "useCaseFeatureRow" }],
       validation: (rule) => rule.required().min(1),
+      initialValue: [
+        {
+          _key: "row-build",
+          _type: "useCaseFeatureRow",
+          eyebrow: "Build",
+          imagePosition: "right",
+          features: [
+            {
+              _key: "build-live-state-sync",
+              _type: "useCaseFeatureChip",
+              label: "Live State Sync",
+            },
+            {
+              _key: "build-single-editor-mode",
+              _type: "useCaseFeatureChip",
+              label: "Single Editor Mode",
+            },
+          ],
+        },
+        {
+          _key: "row-review",
+          _type: "useCaseFeatureRow",
+          eyebrow: "Review",
+          imagePosition: "left",
+          features: [
+            {
+              _key: "review-live-state-sync",
+              _type: "useCaseFeatureChip",
+              label: "Live State Sync",
+            },
+            {
+              _key: "review-single-editor-mode",
+              _type: "useCaseFeatureChip",
+              label: "Single Editor Mode",
+            },
+          ],
+        },
+        {
+          _key: "row-approve",
+          _type: "useCaseFeatureRow",
+          eyebrow: "Approve",
+          imagePosition: "right",
+          features: [
+            {
+              _key: "approve-live-state-sync",
+              _type: "useCaseFeatureChip",
+              label: "Live State Sync",
+            },
+            {
+              _key: "approve-single-editor-mode",
+              _type: "useCaseFeatureChip",
+              label: "Single Editor Mode",
+            },
+          ],
+        },
+      ],
     }),
     defineField({
       name: "problemSection",
