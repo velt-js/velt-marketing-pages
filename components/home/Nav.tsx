@@ -366,7 +366,7 @@ const useCasesColumns: DropdownColumn[] = [
     width: 171,
     itemHeight: 36,
     sections: [{ heading: "APP TYPES", items: useCasesAppTypes }],
-    footer: { label: "ALL APP TYPES", href: "/use-cases" },
+    footer: { label: "ALL APP TYPES", href: "/use-case" },
   },
   {
     width: 201,
@@ -399,7 +399,7 @@ const enterpriseColumns: DropdownColumn[] = [
 // ---------- Resources dropdown — Figma 88:1113 ----------
 
 const resourcesLearn: DropdownItem[] = [
-  { label: "Docs", href: "/docs", icon: icons.book, tint: "#5ca3ff" },
+  { label: "Docs", href: "https://docs.velt.dev/", icon: icons.book, tint: "#5ca3ff" },
   { label: "Comparison", href: "/comparison", icon: icons.scale, tint: "#f5a15e" },
   { label: "Examples", href: "https://samples.velt.dev/", icon: icons.sparkles, tint: "#f5d14a" },
 ];
@@ -415,11 +415,11 @@ const resourcesMigrate: DropdownItem[] = [
   { label: "Migrate from Cord", href: "/migrate/cord", icon: icons.transfer, tint: "#5eda7a" },
 ];
 
-const resourcesRealtime: DropdownItem[] = [
-  { label: "Live State Sync", href: "/live-state-sync", icon: icons.refresh, tint: "#48cfad" },
-  { label: "Live Selection", href: "/live-selection", icon: icons.click, tint: "#b387f7" },
-  { label: "Huddle", href: "/huddle", icon: icons.headphones, tint: "#a4bd52" },
-  { label: "Presence", href: "/presence", icon: icons.usersGroup, tint: "#97e07f" },
+const resourcesOthers: DropdownItem[] = [
+  { label: "Customers", href: "/customers", icon: icons.usersGroup, tint: "#97e07f" },
+  { label: "Security", href: "https://trust.velt.dev/", icon: icons.shield, tint: "#f47474" },
+  { label: "Release Notes", href: "https://docs.velt.dev/release-notes", icon: icons.list, tint: "#5ca3ff" },
+  { label: "Blog", href: "/blog", icon: icons.book, tint: "#48cfad" },
 ];
 
 const resourcesColumns: DropdownColumn[] = [
@@ -434,7 +434,7 @@ const resourcesColumns: DropdownColumn[] = [
     width: 201,
     sections: [
       { heading: "MIGRATE", items: resourcesMigrate },
-      { heading: "REALTIME", items: resourcesRealtime },
+      { heading: "OTHERS", items: resourcesOthers },
     ],
   },
 ];
