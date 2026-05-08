@@ -455,7 +455,8 @@ export async function getAllUseCasePages() {
       title,
       "slug": slug.current,
       tagline,
-      "thumbnail": thumbnail.asset->url
+      "thumbnail": thumbnail.asset->url,
+      "icon": icon.asset->url
     }
   `);
 }
@@ -475,42 +476,153 @@ export async function getUseCasePageBySlug(slug: string) {
       "slug": slug.current,
       tagline,
       "thumbnail": thumbnail.asset->url,
+      "icon": icon.asset->url,
       hero {
+        eyebrow,
         heading,
         subheading,
         decorated,
         primaryCta,
         secondaryCta
       },
+      previewBanner { title1, title2 },
       sections[] {
-        _type,
         _key,
-
-        // useCaseBentoSection
         eyebrow,
         heading,
-        subheading,
-        variant,
-        cards[] {
+        description,
+        imagePosition,
+        "image": image.asset->url,
+        features[] {
           _key,
-          title,
-          description,
-          accentColor,
-          "image": image.asset->url
-        },
-
-        // librarySupportSection (heading/subheading shared above)
-        logos[] {
-          _key,
-          name,
-          href,
-          "logo": logo.asset->url
+          label,
+          href
         }
       },
+      problemSection {
+        title1,
+        title2,
+        items[] {
+          _key,
+          "imageSrc": image.asset->url,
+          text
+        }
+      },
+      exampleSection {
+        "videoSrc": video.asset->url,
+        "imageSrc": image.asset->url,
+        exampleUrl,
+        sandboxLink,
+        docsLink,
+        featureCountText,
+        features
+      },
+      testimonial {
+        quote,
+        name,
+        roleAndCompany,
+        "logoSrc": logo.asset->url
+      },
+      benefits[] {
+        _key,
+        tag,
+        title,
+        description,
+        "imageSrc": image.asset->url,
+        useCases[] {
+          _key,
+          "imageSrc": image.asset->url,
+          name,
+          link
+        }
+      },
+      codeSnippet { code, language },
+      actionCallout { text1, text2, text3 },
+      showLibrarySection,
       showCustomerUI,
       showSecurity,
       showCustomerCarousel,
       getStartedSteps,
+      faq {
+        items[] {
+          _key,
+          question,
+          answer
+        }
+      },
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
+    }
+  `,
+    { slug },
+  );
+}
+
+// Migration queries
+
+export async function getAllMigrationSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "migrationPage" && defined(slug.current)].slug.current`,
+  );
+}
+
+export async function getMigrationPageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "migrationPage" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      tagline,
+      "competitorLogo": competitorLogo.asset->url,
+      "thumbnail": thumbnail.asset->url,
+      hero {
+        eyebrow,
+        heading,
+        subheading,
+        decorated,
+        primaryCta,
+        secondaryCta
+      },
+      migrationSteps {
+        headingPrefix,
+        headingHighlight,
+        subtitle,
+        primaryCta,
+        secondaryCta,
+        step1 { title, description },
+        step2 { title, description },
+        step3 { title, description },
+        testimonial {
+          name,
+          role,
+          "avatar": avatar.asset->url,
+          quotePrefix,
+          quoteHighlight,
+          quoteSuffix
+        }
+      },
+      featureRows[] {
+        _key,
+        eyebrow,
+        heading,
+        description,
+        imagePosition,
+        "image": image.asset->url,
+        features[] {
+          _key,
+          label,
+          href
+        }
+      },
+      carousel {
+        heading,
+        subheading
+      },
+      showTrustedLogos,
+      showCustomerCarousel,
+      showFaq,
       faq {
         items[] {
           _key,

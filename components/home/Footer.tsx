@@ -3,9 +3,13 @@
 // groups that flex-wrap into 4 × 2. Chart and Canvas Libraries stack
 // inside the same column. Divider + 3-column bottom row below.
 
+type LinkRef = { label: string; href: string; newTab?: boolean };
+
 type LinkGroup = {
   heading: string;
-  links: string[];
+  /** Plain strings render as dead `href="#"` placeholders (legacy default).
+   *  Pass a `LinkRef` object for any link that should actually route. */
+  links: (string | LinkRef)[];
   variant?: "default" | "library";
 };
 
@@ -68,12 +72,12 @@ const resources: LinkGroup = {
     "Blog",
     "Docs",
     "Release Notes",
-    "Migrate from Liveblocks",
-    "Migrate from Cord",
+    { label: "Migrate from Liveblocks", href: "/migrate/liveblocks" },
+    { label: "Migrate from Cord", href: "/migrate/cord" },
     "Launch Kit",
     "Themes Playground",
     "Figma UI Kit",
-    "Examples",
+    { label: "Examples", href: "https://samples.velt.dev/", newTab: true },
     "Compare Velt",
     "Compare Velt Implementation",
   ],
@@ -98,7 +102,7 @@ const company: LinkGroup = {
     "For Enterprise",
     "For YC",
     "Pricing",
-    "Customers",
+    { label: "Customers", href: "/customers" },
     "Status",
     "Careers",
     "Security",
@@ -121,26 +125,32 @@ function LinkColumn({ group }: { group: LinkGroup }) {
         {group.heading}
       </h3>
       <ul className="flex flex-col" style={{ gap: 20 }}>
-        {group.links.map((link) => (
-          <li
-            key={link}
-            className="font-urbanist"
-            style={{
-              fontSize: 14,
-              lineHeight: "15.4px",
-              color: linkColor,
-              fontWeight: linkWeight,
-            }}
-          >
-            <a
-              href={link === "Examples" ? "https://samples.velt.dev/" : "#"}
-              {...(link === "Examples" ? { target: "_blank", rel: "noopener" } : {})}
-              className="hover:text-white whitespace-nowrap"
+        {group.links.map((link) => {
+          const label = typeof link === "string" ? link : link.label;
+          const href = typeof link === "string" ? "#" : link.href;
+          const newTab = typeof link === "string" ? false : link.newTab;
+          return (
+            <li
+              key={label}
+              className="font-urbanist"
+              style={{
+                fontSize: 14,
+                lineHeight: "15.4px",
+                color: linkColor,
+                fontWeight: linkWeight,
+              }}
             >
-              {link}
-            </a>
-          </li>
-        ))}
+              <a
+                href={href}
+                target={newTab ? "_blank" : undefined}
+                rel={newTab ? "noopener" : undefined}
+                className="hover:text-white whitespace-nowrap"
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

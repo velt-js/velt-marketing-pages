@@ -329,9 +329,7 @@ export function CustomerUI({
             </span>
           </a>
           <a
-            href="https://velt.dev/customers"
-            target="_blank"
-            rel="noopener"
+            href="/customers"
             className="flex items-center justify-center rounded-lg"
             style={{
               padding: "8px 16px",

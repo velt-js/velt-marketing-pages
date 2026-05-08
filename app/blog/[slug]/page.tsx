@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/sanity/queries";
@@ -66,6 +67,20 @@ export default async function BlogPostPage({
           )}
         </div>
       </div>
+
+      {/* Featured image */}
+      {post.featuredImage && (
+        <div className="relative aspect-[16/9] mb-12 overflow-hidden rounded-xl bg-white/5">
+          <Image
+            src={post.featuredImage}
+            alt={post.title}
+            fill
+            sizes="(min-width: 768px) 768px, 100vw"
+            priority
+            className="object-cover"
+          />
+        </div>
+      )}
 
       {/* Body */}
       {post.body && (

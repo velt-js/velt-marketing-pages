@@ -13,13 +13,14 @@
  * Reference: Figma node 177:55703 in HqWIZdR6ISJmaG2n4o3gr8 (Velt Marketing
  * 2026 — Use Case template, instantiated as the Video Editor page). Sections
  * in document order:
- *   1. Hero (chrome) — "Make your Video Editor Collaborative"
+ *   1. Hero (chrome)        — eyebrow "Video Editor"
  *   2. TrustedLogos (chrome)
- *   3. Bento twoCol — storyboards + frame-by-frame feedback
- *   4. Bento oneCol — "Users can iterate and approve changes fast"
- *   5. Bento oneCol — "Get Velt — Integrate Velt"
- *   6. Library Support — Tiptap, Lexical, Slate, CodeMirror, BlockNote, …
- *   7. CustomerUI (chrome)
+ *   3. Feature row — Build   (text left, image right)
+ *   4. Feature row — Review  (image left, text right)
+ *   5. Feature row — Approve (text left, image right)
+ *   6. CustomerUI (chrome) — "How [Customer] Uses Velt"
+ *   7. AllLibraries (chrome) — sourced from components/library/shared-content.ts,
+ *                              gated on `showLibrarySection` (no CMS data)
  *   8. Security (chrome)
  *   9. FeatureCustomerCarousel (chrome)
  *  10. FAQ + GetStartedSteps + Footer (chrome)
@@ -67,33 +68,20 @@ async function uploadImage(relPath) {
 async function main() {
   console.log("Uploading video-editor use-case assets…");
 
-  // Re-use the listing thumbnail as the bento visual until per-bento
-  // mp4s are produced. The 3 bento blocks share the same image for
-  // now — flip individual `image` fields in the studio when bespoke
-  // visuals (or videos) are ready.
-  const cardImage = await uploadImage(
+  // All three feature rows reuse the listing thumbnail until per-row
+  // mp4s/screenshots are produced. Flip individual `image` fields in the
+  // studio when bespoke visuals are ready.
+  const rowImage = await uploadImage(
     "public/images/use-case/cards/video-editor.png",
   );
 
-  const libraryLogo = async (relPath, name) => ({
-    _type: "librarySupportLogo",
-    _key: name.toLowerCase().replace(/[^a-z0-9]/g, "-"),
-    name,
-    logo: await uploadImage(relPath),
-  });
-
-  const libraryLogos = [
-    await libraryLogo("public/images/home/logo-tiptap.svg", "Tiptap"),
-    await libraryLogo("public/images/home/logo-lexical.svg", "Lexical"),
-    await libraryLogo("public/images/home/logo-slate.svg", "Slate"),
-    await libraryLogo("public/images/home/logo-codemirror.svg", "CodeMirror"),
-    await libraryLogo("public/images/home/logo-blocknote.svg", "BlockNote"),
-    await libraryLogo("public/images/home/logo-reactflow.svg", "React Flow"),
-    await libraryLogo("public/images/home/logo-highcharts-text.svg", "Highcharts"),
-    await libraryLogo("public/images/home/logo-chartjs.svg", "Chart.js"),
-  ];
-
   console.log("  → uploaded.");
+
+  const featureChip = (label) => ({ _type: "useCaseFeatureChip", label });
+  const sharedFeatures = [
+    { ...featureChip("Live State Sync"), _key: "live-state-sync" },
+    { ...featureChip("Single Editor Mode"), _key: "single-editor-mode" },
+  ];
 
   const doc = {
     _id: "useCasePage-video-editor",
@@ -106,6 +94,7 @@ async function main() {
       "Add multiplayer commenting, presence, and approvals to your video editor — without rebuilding the collaboration stack.",
     hero: {
       _type: "useCaseHero",
+      eyebrow: "Video Editor",
       heading: "Make your Video Editor Collaborative",
       subheading:
         "Add real-time presence, frame-accurate comments, and approval flows in days — not quarters.",
@@ -122,78 +111,43 @@ async function main() {
         href: "/book-demo",
       },
     },
+    showLibrarySection: true,
     showCustomerUI: true,
     showSecurity: true,
     showCustomerCarousel: true,
     sections: [
-      // --- Bento 1: two-col — storyboards + frame-by-frame feedback ---
       {
-        _type: "useCaseBentoSection",
-        _key: "bento-storyboards",
-        variant: "twoCol",
-        cards: [
-          {
-            _type: "useCaseBentoCard",
-            _key: "storyboards",
-            title: "Your users can create storyboards together",
-            description:
-              "Multiplayer storyboarding so editors and producers can iterate side-by-side.",
-            image: cardImage,
-            accentColor: "#EFEEFD",
-          },
-          {
-            _type: "useCaseBentoCard",
-            _key: "frame-feedback",
-            title: "Frame by frame feedback and everything in between",
-            description:
-              "Comments, reactions, and assignments pinned to the exact timeline frame.",
-            image: cardImage,
-            accentColor: "#EFEEFD",
-          },
-        ],
+        _type: "useCaseFeatureRow",
+        _key: "row-build",
+        eyebrow: "Build",
+        heading: "Your users can create storyboards together",
+        description:
+          "Users can co-create storyboards collaboratively without ever leaving your video editor.",
+        features: sharedFeatures,
+        image: rowImage,
+        imagePosition: "right",
       },
-      // --- Bento 2: one-col — iterate and approve ---
       {
-        _type: "useCaseBentoSection",
-        _key: "bento-iterate",
-        variant: "oneCol",
-        cards: [
-          {
-            _type: "useCaseBentoCard",
-            _key: "iterate",
-            title: "Users can iterate and approve changes fast",
-            description:
-              "Stakeholders see edits and sign off without leaving the editor — no Loom round-trips, no Slack threads.",
-            image: cardImage,
-            accentColor: "#EFEEFD",
-          },
-        ],
+        _type: "useCaseFeatureRow",
+        _key: "row-review",
+        eyebrow: "Review",
+        heading: "Frame by frame feedback and everything in between",
+        description:
+          "Users can directly comment on individual frames or on segments of the media timeline.",
+        features: sharedFeatures,
+        image: rowImage,
+        imagePosition: "left",
       },
-      // --- Bento 3: one-col — Integrate Velt ---
       {
-        _type: "useCaseBentoSection",
-        _key: "bento-integrate",
-        variant: "oneCol",
-        cards: [
-          {
-            _type: "useCaseBentoCard",
-            _key: "integrate",
-            title: "Integrate Velt in days, not quarters",
-            description:
-              "Drop-in components plus a powerful API surface. An intern can wire it up; senior engineers customise behaviour.",
-            image: cardImage,
-            accentColor: "#EFEEFD",
-          },
-        ],
-      },
-      // --- Library Support ---
-      {
-        _type: "librarySupportSection",
-        _key: "library-support",
-        heading: "Works seamlessly with your libraries",
-        subheading:
-          "First-class adapters for the editor, chart, and canvas libraries you already use.",
-        logos: libraryLogos,
+        _type: "useCaseFeatureRow",
+        _key: "row-approve",
+        eyebrow: "Approve",
+        heading: "Users can iterate and approve changes fast",
+        description:
+          "Build approval flows directly into your video editor.",
+        features: sharedFeatures,
+        image: rowImage,
+        imagePosition: "right",
       },
     ],
     faq: {

@@ -27,11 +27,24 @@ import {
   useCasePage,
   useCaseHero,
   useCaseFaq,
-  useCaseBentoSection,
-  useCaseBentoCard,
-  librarySupportSection,
-  librarySupportLogo,
+  useCaseFeatureRow,
+  useCaseFeatureChip,
+  useCasePreviewBanner,
+  useCaseProblemSection,
+  useCaseProblemItem,
+  useCaseExampleSection,
+  useCaseTestimonial,
+  useCaseActionCallout,
+  useCaseBenefit,
+  useCaseBenefitSubCase,
 } from "./useCasePage";
+import {
+  migrationPage,
+  migrationStep,
+  migrationStepsTestimonial,
+  migrationStepsPanel,
+  migrationCarouselSettings,
+} from "./migrationPage";
 import {
   featurePage,
   featureHero,
@@ -82,6 +95,7 @@ export const schemaTypes = [
   libraryPage,
   featurePage,
   useCasePage,
+  migrationPage,
 
   // Shared (cross-schema)
   inlineTestimonial,
@@ -138,10 +152,22 @@ export const schemaTypes = [
   // useCasePage sub-types
   useCaseHero,
   useCaseFaq,
-  useCaseBentoSection,
-  useCaseBentoCard,
-  librarySupportSection,
-  librarySupportLogo,
+  useCaseFeatureRow,
+  useCaseFeatureChip,
+  useCasePreviewBanner,
+  useCaseProblemSection,
+  useCaseProblemItem,
+  useCaseExampleSection,
+  useCaseTestimonial,
+  useCaseActionCallout,
+  useCaseBenefit,
+  useCaseBenefitSubCase,
+
+  // migrationPage sub-types
+  migrationStep,
+  migrationStepsTestimonial,
+  migrationStepsPanel,
+  migrationCarouselSettings,
 
   // Generic section blocks
   sectionFeatureGrid,
