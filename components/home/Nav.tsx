@@ -401,7 +401,7 @@ const enterpriseColumns: DropdownColumn[] = [
 const resourcesLearn: DropdownItem[] = [
   { label: "Docs", href: "/docs", icon: icons.book, tint: "#5ca3ff" },
   { label: "Comparison", href: "/comparison", icon: icons.scale, tint: "#f5a15e" },
-  { label: "Examples", href: "/examples", icon: icons.sparkles, tint: "#f5d14a" },
+  { label: "Examples", href: "https://samples.velt.dev/", icon: icons.sparkles, tint: "#f5d14a" },
 ];
 
 const resourcesTools: DropdownItem[] = [
@@ -853,6 +853,7 @@ function DropdownLink({
   return (
     <a
       href={item.href}
+      {...(item.href?.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="flex items-center w-full"

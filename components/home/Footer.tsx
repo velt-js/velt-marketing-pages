@@ -132,7 +132,11 @@ function LinkColumn({ group }: { group: LinkGroup }) {
               fontWeight: linkWeight,
             }}
           >
-            <a href="#" className="hover:text-white whitespace-nowrap">
+            <a
+              href={link === "Examples" ? "https://samples.velt.dev/" : "#"}
+              {...(link === "Examples" ? { target: "_blank", rel: "noopener" } : {})}
+              className="hover:text-white whitespace-nowrap"
+            >
               {link}
             </a>
           </li>
