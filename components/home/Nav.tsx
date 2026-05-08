@@ -493,11 +493,10 @@ export function Nav() {
   const textColor = overPurple ? "#0f0f11" : "#fff";
   const textOpacity = overPurple ? 0.9 : 0.75;
   const iconFilter = overPurple ? "invert(1) brightness(0.2)" : "none";
-  // Framer nav uses a dark-to-transparent gradient (linear-gradient 180deg,
-  // rgba(0,0,0,0.52) → transparent). Over white content we flip to a solid
-  // translucent-white panel.
+  // Over white content we flip to a solid white panel so scrolling rows
+  // (e.g. /pricing comparison table) cannot bleed through.
   const bg = overPurple
-    ? "rgba(255,255,255,0.92)"
+    ? "#fff"
     : "linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 100%)";
 
   return (

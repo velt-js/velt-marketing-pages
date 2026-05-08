@@ -353,6 +353,7 @@ export function PricingComparisonTable() {
                     style={{
                       color: section.accent,
                       fontSize: 22,
+                      lineHeight: 1.2,
                       letterSpacing: "-0.01em",
                     }}
                   >
