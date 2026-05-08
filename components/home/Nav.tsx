@@ -443,6 +443,7 @@ const resourcesColumns: DropdownColumn[] = [
 
 export function Nav() {
   const [overPurple, setOverPurple] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState<DropdownId | null>(null);
   const closeTimer = useRef<number | null>(null);
 
@@ -490,15 +491,15 @@ export function Nav() {
     closeTimer.current = window.setTimeout(() => setOpen(null), 120);
   };
 
+  const isSolid = overPurple || hovered;
   const textColor = overPurple ? "#0f0f11" : "#fff";
-  const textOpacity = overPurple ? 0.9 : 0.75;
+  const textOpacity = isSolid ? 0.9 : 0.75;
   const iconFilter = overPurple ? "invert(1) brightness(0.2)" : "none";
-  // Framer nav uses a dark-to-transparent gradient (linear-gradient 180deg,
-  // rgba(0,0,0,0.52) → transparent). Over white content we flip to a solid
-  // translucent-white panel.
   const bg = overPurple
     ? "rgba(255,255,255,0.92)"
-    : "linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 100%)";
+    : hovered
+      ? "rgba(0,0,0,0.85)"
+      : "linear-gradient(180deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0) 100%)";
 
   return (
     <nav
@@ -507,7 +508,8 @@ export function Nav() {
         background: bg,
         transition: "background 180ms ease",
       }}
-      onMouseLeave={requestClose}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => { setHovered(false); requestClose(); }}
     >
     <div
       className="flex items-center gap-6 relative"

@@ -1,5 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+
+import { ScaleWrapper } from "@/components/home/ScaleWrapper";
+import { Footer } from "@/components/home/Footer";
+import { PageHero } from "@/components/library/PageHero";
 import { getAllBlogPosts } from "@/sanity/queries";
 
 export const revalidate = 60;
@@ -10,61 +14,125 @@ export const metadata = {
     "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
 };
 
+type BlogPost = {
+  _id: string;
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+  category: string;
+  featuredImage?: string;
+};
+
 export default async function BlogListingPage() {
-  const posts = await getAllBlogPosts();
+  const posts = (await getAllBlogPosts()) as BlogPost[];
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
-      <div className="mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">Blog</h1>
-        <p className="text-lg text-white/60">
-          Guides, comparisons, and insights on collaboration SDKs
-        </p>
-      </div>
+    <ScaleWrapper>
+      <div
+        className="relative bg-black text-white font-urbanist"
+        style={{ width: 1440 }}
+      >
+        <PageHero
+          decorated
+          heading="Blog"
+          subheading="Guides, comparisons, and insights on collaboration SDKs"
+        />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map(
-          (post: {
-            _id: string;
-            slug: string;
-            title: string;
-            description: string;
-            publishedAt: string;
-            category: string;
-            featuredImage?: string;
-          }) => (
+        <BlogGrid posts={posts} />
+
+        <Footer />
+      </div>
+    </ScaleWrapper>
+  );
+}
+
+function BlogGrid({ posts }: { posts: BlogPost[] }) {
+  return (
+    <section
+      data-outcomes
+      className="flex flex-col items-center bg-white full-bleed-bg"
+      style={{
+        padding: "100px 80px",
+        gap: 52,
+        marginTop: 80,
+        borderTopLeftRadius: 48,
+        borderTopRightRadius: 48,
+      }}
+    >
+      {posts.length === 0 ? (
+        <p
+          className="font-urbanist"
+          style={{ fontSize: 16, color: "rgb(0, 0, 0)", opacity: 0.6 }}
+        >
+          No blog posts yet. Add one in{" "}
+          <Link
+            href="/studio"
+            className="text-velt-purple hover:underline"
+          >
+            Sanity Studio
+          </Link>
+          .
+        </p>
+      ) : (
+        <div
+          className="grid"
+          style={{
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "48px 32px",
+            width: "100%",
+            maxWidth: 1280,
+          }}
+        >
+          {posts.map((post) => (
             <Link
               key={post._id}
               href={`/blog/${post.slug}`}
-              className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition-colors block"
+              className="group flex flex-col"
+              style={{
+                gap: 16,
+                textDecoration: "none",
+              }}
             >
               {post.featuredImage && (
-                <div className="relative aspect-[16/9] bg-white/5 overflow-hidden">
+                <div
+                  className="relative overflow-hidden"
+                  style={{
+                    width: "100%",
+                    aspectRatio: "16/9",
+                    borderRadius: 12,
+                    background: "rgb(247, 247, 247)",
+                  }}
+                >
                   <Image
                     src={post.featuredImage}
                     alt={post.title}
                     fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 400px, 50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
               )}
-              <div className="p-6">
-                {post.category && (
-                  <span className="text-xs text-velt-purple font-medium mb-2 block">
-                    {post.category}
-                  </span>
-                )}
-                <h2 className="font-semibold text-lg mb-2 group-hover:text-velt-purple transition-colors">
+              <div className="flex flex-col" style={{ gap: 6 }}>
+                <h2
+                  className="font-urbanist font-semibold"
+                  style={{
+                    fontSize: 20,
+                    lineHeight: 1.3,
+                    color: "#111",
+                    margin: 0,
+                  }}
+                >
                   {post.title}
                 </h2>
-                {post.description && (
-                  <p className="text-sm text-white/50 line-clamp-2 mb-3">
-                    {post.description}
-                  </p>
-                )}
                 {post.publishedAt && (
-                  <time className="text-xs text-white/30">
+                  <time
+                    className="font-urbanist"
+                    style={{
+                      fontSize: 14,
+                      color: "rgba(0,0,0,0.45)",
+                    }}
+                  >
                     {new Date(post.publishedAt).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
@@ -74,21 +142,9 @@ export default async function BlogListingPage() {
                 )}
               </div>
             </Link>
-          )
-        )}
-      </div>
-
-      {posts.length === 0 && (
-        <div className="text-center py-24 text-white/40">
-          <p className="text-xl mb-2">No blog posts yet</p>
-          <p className="text-sm">
-            Add posts in{" "}
-            <Link href="/studio" className="text-velt-purple hover:underline">
-              Sanity Studio
-            </Link>
-          </p>
+          ))}
         </div>
       )}
-    </div>
+    </section>
   );
 }

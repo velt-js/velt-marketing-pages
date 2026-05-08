@@ -1,5 +1,4 @@
-import { BlogNav } from "@/components/BlogNav";
-import { BlogFooter } from "@/components/BlogFooter";
+import { Nav } from "@/components/home/Nav";
 
 export default function BlogLayout({
   children,
@@ -7,10 +6,19 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-black text-white font-sans">
-      <BlogNav />
-      <main>{children}</main>
-      <BlogFooter />
-    </div>
+    <>
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+        }}
+      >
+        <Nav />
+      </div>
+      {children}
+    </>
   );
 }
