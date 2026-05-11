@@ -16,6 +16,25 @@ import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { getAllFeaturePages } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const FEATURES_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Features", url: `${SITE_URL}/features` },
+]);
+
+const FEATURES_WEBPAGE = buildWebPageSchema({
+  name: "Features | Velt",
+  description:
+    "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+  url: `${SITE_URL}/features`,
+  breadcrumb: FEATURES_BREADCRUMB,
+});
 
 export const revalidate = 60;
 
@@ -23,6 +42,15 @@ export const metadata = {
   title: "Features | Velt",
   description:
     "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+  alternates: {
+    canonical: "/features",
+  },
+  openGraph: {
+    url: "https://velt.dev/features",
+    title: "Features | Velt",
+    description:
+      "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+  },
 };
 
 type FeatureListItem = {
@@ -39,6 +67,8 @@ export default async function FeaturesLandingPage() {
 
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-features-webpage" data={FEATURES_WEBPAGE} />
+      <JsonLd id="ld-features-breadcrumb" data={FEATURES_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

@@ -5,6 +5,25 @@ import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { PageHero } from "@/components/library/PageHero";
 import { getAllBlogPosts } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const BLOG_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Blog", url: `${SITE_URL}/blog` },
+]);
+
+const BLOG_WEBPAGE = buildWebPageSchema({
+  name: "Blog | Velt",
+  description:
+    "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
+  url: `${SITE_URL}/blog`,
+  breadcrumb: BLOG_BREADCRUMB,
+});
 
 export const revalidate = 60;
 
@@ -12,6 +31,15 @@ export const metadata = {
   title: "Blog | Velt",
   description:
     "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    url: "https://velt.dev/blog",
+    title: "Blog | Velt",
+    description:
+      "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
+  },
 };
 
 type BlogPost = {
@@ -29,6 +57,8 @@ export default async function BlogListingPage() {
 
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-blog-webpage" data={BLOG_WEBPAGE} />
+      <JsonLd id="ld-blog-breadcrumb" data={BLOG_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

@@ -32,6 +32,12 @@ import {
   getAllUseCaseSlugs,
   getUseCasePageBySlug,
 } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 export const revalidate = 60;
 
@@ -76,10 +82,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getUseCasePageBySlug(slug)) as UseCasePageDoc | null;
   if (!doc) return {};
+  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const description = doc.metaDescription ?? doc.hero.subheading;
   return {
-    title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-    description: doc.metaDescription ?? doc.hero.subheading,
-    openGraph: doc.ogImage ? { images: [{ url: doc.ogImage }] } : undefined,
+    title,
+    description,
+    alternates: { canonical: `/use-case/${slug}` },
+    openGraph: {
+      url: `https://velt.dev/use-case/${slug}`,
+      title,
+      description,
+      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
+    },
   };
 }
 
@@ -98,8 +112,23 @@ export default async function UseCaseSlugPage({
   const showSecurity = doc.showSecurity !== false;
   const showCustomerCarousel = doc.showCustomerCarousel !== false;
 
+  const pageUrl = `${SITE_URL}/use-case/${slug}`;
+  const breadcrumb = buildBreadcrumbList([
+    { name: "Home", url: SITE_URL },
+    { name: "Use Cases", url: `${SITE_URL}/use-case` },
+    { name: doc.title ?? doc.hero.heading, url: pageUrl },
+  ]);
+  const webpage = buildWebPageSchema({
+    name: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
+    description: doc.metaDescription ?? doc.hero.subheading,
+    url: pageUrl,
+    breadcrumb,
+  });
+
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-use-case-slug-webpage" data={webpage} />
+      <JsonLd id="ld-use-case-slug-breadcrumb" data={breadcrumb} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

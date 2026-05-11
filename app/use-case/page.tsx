@@ -18,16 +18,46 @@ import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 
 import { UseCaseGrid } from "@/components/use-case/UseCaseGrid";
 import { useCaseFaq } from "@/components/use-case/use-case-faq";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const USE_CASE_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Use Cases", url: `${SITE_URL}/use-case` },
+]);
+
+const USE_CASE_WEBPAGE = buildWebPageSchema({
+  name: "Velt Use Cases: Where Will You Integrate Velt?",
+  description:
+    "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.",
+  url: `${SITE_URL}/use-case`,
+  breadcrumb: USE_CASE_BREADCRUMB,
+});
 
 export const metadata = {
   title: "Velt Use Cases: Where Will You Integrate Velt? | Velt",
   description:
     "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.",
+  alternates: {
+    canonical: "/use-case",
+  },
+  openGraph: {
+    url: "https://velt.dev/use-case",
+    title: "Velt Use Cases: Where Will You Integrate Velt? | Velt",
+    description:
+      "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.",
+  },
 };
 
 export default function UseCasePage() {
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-use-case-webpage" data={USE_CASE_WEBPAGE} />
+      <JsonLd id="ld-use-case-breadcrumb" data={USE_CASE_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

@@ -4,6 +4,12 @@ import {
   getAllExampleSlugs,
   getExamplePageBySlug,
 } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 export const revalidate = 60;
 
@@ -39,9 +45,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getExamplePageBySlug(slug)) as ExampleDoc | null;
   if (!doc) return {};
+  const title = `${doc.title} | Velt Examples`;
+  const description = doc.metaDescription || doc.description;
   return {
-    title: `${doc.title} | Velt Examples`,
-    description: doc.metaDescription || doc.description,
+    title,
+    description,
+    alternates: { canonical: `/examples/${slug}` },
+    openGraph: {
+      url: `https://velt.dev/examples/${slug}`,
+      title,
+      description,
+    },
   };
 }
 
@@ -61,8 +75,23 @@ export default async function ExamplePage({
     { href: doc.vercelLink, label: "Vercel" },
   ].filter((l) => l.href);
 
+  const pageUrl = `${SITE_URL}/examples/${slug}`;
+  const breadcrumb = buildBreadcrumbList([
+    { name: "Home", url: SITE_URL },
+    { name: "Examples", url: `${SITE_URL}/examples` },
+    { name: doc.title ?? slug, url: pageUrl },
+  ]);
+  const webpage = buildWebPageSchema({
+    name: `${doc.title} | Velt Examples`,
+    description: doc.metaDescription ?? doc.description,
+    url: pageUrl,
+    breadcrumb,
+  });
+
   return (
     <article className="max-w-4xl mx-auto px-6 py-16">
+      <JsonLd id="ld-example-webpage" data={webpage} />
+      <JsonLd id="ld-example-breadcrumb" data={breadcrumb} />
       <Link
         href="/examples"
         className="text-sm text-velt-purple hover:underline mb-6 inline-block"

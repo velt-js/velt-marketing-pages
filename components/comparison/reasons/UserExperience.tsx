@@ -13,7 +13,17 @@ const VIDEO_STYLE = {
   display: "block",
 } as const;
 
-export function UserExperience() {
+export type UserExperienceProps = {
+  /** Override the orange "COMPETITOR" badge label (e.g. "LIVEBLOCKS"). */
+  competitorLabel?: string;
+  /** Override the competitor subtitle copy. */
+  competitorSubtitle?: string;
+};
+
+export function UserExperience({
+  competitorLabel,
+  competitorSubtitle = "Resize Buggy for Liveblock",
+}: UserExperienceProps = {}) {
   return (
     <ReasonShell
       num={4}
@@ -37,8 +47,9 @@ export function UserExperience() {
         <ComparisonSubCard
           variant="other"
           title="Primitive Experience"
-          subtitle="Resize Buggy for Liveblock"
+          subtitle={competitorSubtitle}
           mediaHeight={266}
+          badgeLabel={competitorLabel}
         >
           <Media
             kind="video"

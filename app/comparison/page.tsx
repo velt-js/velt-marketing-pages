@@ -24,16 +24,46 @@ import { Scalability } from "@/components/comparison/reasons/Scalability";
 import { UserExperience } from "@/components/comparison/reasons/UserExperience";
 import { Security } from "@/components/comparison/reasons/Security";
 import { Support } from "@/components/comparison/reasons/Support";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const COMPARISON_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Comparison", url: `${SITE_URL}/comparison` },
+]);
+
+const COMPARISON_WEBPAGE = buildWebPageSchema({
+  name: "Velt vs Competitors: 6 Reasons Velt Outperforms",
+  description:
+    "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
+  url: `${SITE_URL}/comparison`,
+  breadcrumb: COMPARISON_BREADCRUMB,
+});
 
 export const metadata = {
   title: "Velt vs Competitors: 6 Reasons Velt Outperforms | Velt",
   description:
     "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
+  alternates: {
+    canonical: "/comparison",
+  },
+  openGraph: {
+    url: "https://velt.dev/comparison",
+    title: "Velt vs Competitors: 6 Reasons Velt Outperforms | Velt",
+    description:
+      "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
+  },
 };
 
 export default function ComparisonPage() {
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-comparison-webpage" data={COMPARISON_WEBPAGE} />
+      <JsonLd id="ld-comparison-breadcrumb" data={COMPARISON_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

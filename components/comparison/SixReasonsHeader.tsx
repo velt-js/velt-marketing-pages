@@ -59,7 +59,16 @@ function TabCard({
   );
 }
 
-export function SixReasonsHeader() {
+export type SixReasonsHeaderProps = {
+  /** Name of the competitor to render in the headline. Defaults to "Others"
+   *  on the generic /comparison page; override (e.g. "Liveblocks") on a
+   *  competitor-specific landing page. */
+  competitor?: string;
+};
+
+export function SixReasonsHeader({
+  competitor = "Others",
+}: SixReasonsHeaderProps = {}) {
   return (
     <section
       className="relative bg-black flex flex-col items-center full-bleed-bg"
@@ -71,7 +80,7 @@ export function SixReasonsHeader() {
       >
         6 Reasons Why
         <br />
-        Velt Outperforms Others
+        Velt Outperforms {competitor}
       </h2>
 
       <div

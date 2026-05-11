@@ -4,6 +4,12 @@ import {
   getAllDemoSlugs,
   getDemoPageBySlug,
 } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 export const revalidate = 60;
 
@@ -41,9 +47,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getDemoPageBySlug(slug)) as DemoDoc | null;
   if (!doc) return {};
+  const title = `${doc.title} | Velt Demos`;
+  const description = doc.content;
   return {
-    title: `${doc.title} | Velt Demos`,
-    description: doc.content,
+    title,
+    description,
+    alternates: { canonical: `/demos/${slug}` },
+    openGraph: {
+      url: `https://velt.dev/demos/${slug}`,
+      title,
+      description,
+    },
   };
 }
 
@@ -62,8 +76,23 @@ export default async function DemoPage({
     { name: doc.feature3Name, image: doc.feature3Image },
   ].filter((f) => f.name || f.image);
 
+  const pageUrl = `${SITE_URL}/demos/${slug}`;
+  const breadcrumb = buildBreadcrumbList([
+    { name: "Home", url: SITE_URL },
+    { name: "Demos", url: `${SITE_URL}/demos` },
+    { name: doc.title ?? slug, url: pageUrl },
+  ]);
+  const webpage = buildWebPageSchema({
+    name: `${doc.title} | Velt Demos`,
+    description: doc.content,
+    url: pageUrl,
+    breadcrumb,
+  });
+
   return (
     <article className="max-w-4xl mx-auto px-6 py-16">
+      <JsonLd id="ld-demo-webpage" data={webpage} />
+      <JsonLd id="ld-demo-breadcrumb" data={breadcrumb} />
       <Link
         href="/demos"
         className="text-sm text-velt-purple hover:underline mb-6 inline-block"

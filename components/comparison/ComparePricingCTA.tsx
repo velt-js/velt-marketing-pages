@@ -5,7 +5,18 @@
 
 import Link from "next/link";
 
-export function ComparePricingCTA() {
+export type ComparePricingCTAProps = {
+  /** Override the "Others" eyebrow on the right-hand price card.
+   *  e.g. pass "Liveblocks" on /liveblocks-alternative. */
+  competitorLabel?: string;
+  /** Override the descriptor under the heading. */
+  subheading?: string;
+};
+
+export function ComparePricingCTA({
+  competitorLabel = "Others",
+  subheading = "Consider Velt for serious production app or others for basic collaboration",
+}: ComparePricingCTAProps = {}) {
   return (
     <section
       className="flex flex-col items-center"
@@ -31,7 +42,7 @@ export function ComparePricingCTA() {
             margin: 0,
           }}
         >
-          Consider Velt for serious production app or others for basic collaboration
+          {subheading}
         </p>
       </div>
 
@@ -82,7 +93,7 @@ export function ComparePricingCTA() {
                 opacity: 0.5,
               }}
             >
-              Others
+              {competitorLabel}
             </span>
           }
           price={{ amount: "~$1,150", suffix: "/mo" }}

@@ -13,7 +13,12 @@ const VIDEO_STYLE = {
   display: "block",
 } as const;
 
-export function Scalability() {
+export type ScalabilityProps = {
+  /** Override the orange "COMPETITOR" badge label (e.g. "LIVEBLOCKS"). */
+  competitorLabel?: string;
+};
+
+export function Scalability({ competitorLabel }: ScalabilityProps = {}) {
   return (
     <ReasonShell
       num={3}
@@ -39,6 +44,7 @@ export function Scalability() {
           title="8 GB Base Plan"
           subtitle="Quickly exhaust the usage limit as you grow"
           mediaHeight={266}
+          badgeLabel={competitorLabel}
         >
           <Media
             kind="video"

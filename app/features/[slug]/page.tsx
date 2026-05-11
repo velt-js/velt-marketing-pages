@@ -36,6 +36,12 @@ import {
   getAllFeatureSlugs,
   getFeaturePageBySlug,
 } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 export const revalidate = 60;
 
@@ -79,10 +85,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getFeaturePageBySlug(slug)) as FeaturePageDoc | null;
   if (!doc) return {};
+  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const description = doc.metaDescription ?? doc.hero.subheading;
   return {
-    title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-    description: doc.metaDescription ?? doc.hero.subheading,
-    openGraph: doc.ogImage ? { images: [{ url: doc.ogImage }] } : undefined,
+    title,
+    description,
+    alternates: { canonical: `/features/${slug}` },
+    openGraph: {
+      url: `https://velt.dev/features/${slug}`,
+      title,
+      description,
+      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
+    },
   };
 }
 
@@ -108,8 +122,23 @@ export default async function FeaturePage({
   const showCustomerStories = doc.showCustomerStories ?? true;
   const faqItems: FaqEntry[] = [...(doc.faq?.items ?? []), ...sharedFAQ];
 
+  const pageUrl = `${SITE_URL}/features/${slug}`;
+  const breadcrumb = buildBreadcrumbList([
+    { name: "Home", url: SITE_URL },
+    { name: "Features", url: `${SITE_URL}/features` },
+    { name: doc.title ?? doc.hero.heading, url: pageUrl },
+  ]);
+  const webpage = buildWebPageSchema({
+    name: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
+    description: doc.metaDescription ?? doc.hero.subheading,
+    url: pageUrl,
+    breadcrumb,
+  });
+
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-feature-webpage" data={webpage} />
+      <JsonLd id="ld-feature-breadcrumb" data={breadcrumb} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

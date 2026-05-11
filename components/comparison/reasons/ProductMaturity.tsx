@@ -153,7 +153,21 @@ function ReactOnlyMark() {
   );
 }
 
-export function ProductMaturity() {
+export type ProductMaturityProps = {
+  /** Override the orange "COMPETITOR" badge label on the right-hand cards
+   *  (e.g. pass "LIVEBLOCKS" on /liveblocks-alternative). */
+  competitorLabel?: string;
+  /** Override the bare-bones-functionality subtitle on competitor cards. */
+  competitorBareBonesSubtitle?: string;
+  /** Override the "Just React" framework competitor subtitle. */
+  competitorJustReactSubtitle?: string;
+};
+
+export function ProductMaturity({
+  competitorLabel,
+  competitorBareBonesSubtitle = "Bare bones functionality created over the past 6 months",
+  competitorJustReactSubtitle = "Bare bones functionality created over the past 6 months",
+}: ProductMaturityProps = {}) {
   return (
     <ReasonShell
       num={1}
@@ -172,7 +186,8 @@ export function ProductMaturity() {
         <ComparisonSubCard
           variant="other"
           title="3 Basic Feature + API"
-          subtitle="Bare bones functionality created over the past 6 months"
+          subtitle={competitorBareBonesSubtitle}
+          badgeLabel={competitorLabel}
         >
           <CompetitorFeaturesMarquee />
         </ComparisonSubCard>
@@ -187,7 +202,8 @@ export function ProductMaturity() {
         <ComparisonSubCard
           variant="other"
           title="Just React"
-          subtitle="Bare bones functionality created over the past 6 months"
+          subtitle={competitorJustReactSubtitle}
+          badgeLabel={competitorLabel}
         >
           <ReactOnlyMark />
         </ComparisonSubCard>

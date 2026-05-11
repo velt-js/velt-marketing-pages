@@ -13,6 +13,7 @@
 // GetStartedSteps markers.
 
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
+import Link from "next/link";
 
 type DropdownId = "product" | "useCases" | "enterprise" | "resources";
 
@@ -521,7 +522,7 @@ export function Nav() {
       }}
     >
       <div className="flex-1 flex items-center" style={{ gap: 16 }}>
-        <a href="/" aria-label="Velt home" className="flex items-center shrink-0" style={{ gap: 8 }}>
+        <Link href="/" aria-label="Velt home" className="flex items-center shrink-0" style={{ gap: 8 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/home/velt-logo.svg"
@@ -541,7 +542,7 @@ export function Nav() {
           >
             Velt
           </span>
-        </a>
+        </Link>
         <ul className="flex items-start" style={{ gap: 12 }}>
           {topLinks.map((link) => {
             const isDropdown = "dropdown" in link;
@@ -586,7 +587,7 @@ export function Nav() {
                     </DropdownPanel>
                   </>
                 ) : (
-                  <a
+                  <Link
                     href={link.href}
                     className="flex items-center rounded-[4px]"
                     style={{ padding: "4px 8px" }}
@@ -594,7 +595,7 @@ export function Nav() {
                     <NavLabel color={textColor} opacity={textOpacity}>
                       {link.label}
                     </NavLabel>
-                  </a>
+                  </Link>
                 )}
               </li>
             );
@@ -605,6 +606,8 @@ export function Nav() {
       <div className="flex items-center" style={{ gap: 8 }}>
         <a
           href="https://console.velt.dev/"
+          target="_blank"
+          rel="noopener"
           className="flex items-center rounded-lg"
           style={{ padding: "5px 12px 5px 8px", gap: 6 }}
         >
@@ -635,7 +638,7 @@ export function Nav() {
           />
           <NavLabel color={textColor} opacity={textOpacity}>Read Docs</NavLabel>
         </a>
-        <a
+        <Link
           href="/book-demo"
           className="rounded-lg"
           style={{ padding: "5px 12px", background: "#625df5" }}
@@ -646,7 +649,7 @@ export function Nav() {
           >
             Book Demo
           </span>
-        </a>
+        </Link>
       </div>
 
     </div>
@@ -853,10 +856,12 @@ function DropdownLink({
 }) {
   const [hover, setHover] = useState(false);
   const hasIcon = item.icon !== undefined || item.iconSrc !== undefined;
+  const isExternal = item.href?.startsWith("http") ?? false;
+  const Tag = isExternal ? "a" : Link;
   return (
-    <a
+    <Tag
       href={item.href}
-      {...(item.href?.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}
+      {...(isExternal ? { target: "_blank", rel: "noopener" } : {})}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="flex items-center w-full"
@@ -895,7 +900,7 @@ function DropdownLink({
       >
         {item.label}
       </span>
-    </a>
+    </Tag>
   );
 }
 
@@ -910,7 +915,7 @@ function DropdownFooterLink({
 }) {
   const [hover, setHover] = useState(false);
   return (
-    <a
+    <Link
       href={footer.href}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -952,7 +957,7 @@ function DropdownFooterLink({
       >
         <path d="M9 6l6 6l-6 6" />
       </svg>
-    </a>
+    </Link>
   );
 }
 
@@ -1031,11 +1036,12 @@ function PromoCardPrimary({
   children: ReactNode;
   external?: boolean;
 }) {
+  const Tag = external ? "a" : Link;
   const props = external
     ? { target: "_blank" as const, rel: "noopener noreferrer" }
     : {};
   return (
-    <a
+    <Tag
       href={href}
       {...props}
       className="inline-flex items-center justify-center font-urbanist font-semibold whitespace-nowrap"
@@ -1051,7 +1057,7 @@ function PromoCardPrimary({
       }}
     >
       {children}
-    </a>
+    </Tag>
   );
 }
 
@@ -1063,7 +1069,7 @@ function PromoCardSecondary({
   children: ReactNode;
 }) {
   return (
-    <a
+    <Link
       href={href}
       className="inline-flex items-center justify-center font-urbanist font-semibold whitespace-nowrap"
       style={{
@@ -1079,7 +1085,7 @@ function PromoCardSecondary({
       }}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 

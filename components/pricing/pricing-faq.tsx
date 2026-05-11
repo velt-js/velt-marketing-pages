@@ -6,6 +6,7 @@
 // text.
 
 import { Fragment } from "react";
+import Link from "next/link";
 
 import type { FaqEntry } from "@/components/library/LibraryFAQ";
 
@@ -62,9 +63,9 @@ export const pricingFAQ: FaqEntry[] = [
     paragraphs: [
       <Fragment key="volume">
         Yes, we offer volume discounts.{" "}
-        <a href="/book-demo" style={linkStyle}>
+        <Link href="/book-demo" style={linkStyle}>
           Contact us
-        </a>{" "}
+        </Link>{" "}
         to discuss.
       </Fragment>,
     ],
