@@ -268,14 +268,14 @@ function TabContent({
             minWidth: 0,
             background: "#fff",
             borderRadius: 28,
-            padding: 40,
-            minHeight: 540,
+            padding: 32,
+            minHeight: 432,
             overflow: "hidden",
           }}
         >
           <div
             className="relative w-full h-full"
-            style={{ minHeight: 460 }}
+            style={{ minHeight: 368 }}
           >
             <Image
               key={tab.id}
@@ -414,10 +414,10 @@ export function EnterpriseTabsSection() {
     <section
       data-outcomes
       data-enterprise-tabs
-      className="full-bleed-bg relative py-20 lg:py-[80px] px-6 lg:px-20"
+      className="full-bleed-bg relative py-16 lg:py-[64px] px-6 lg:px-20"
       style={{
         background: "#625df5",
-        paddingBottom: 120,
+        paddingBottom: 96,
       }}
     >
       {/* All 4 tab anchor targets land at the top of the band — each is a
