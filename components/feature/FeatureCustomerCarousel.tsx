@@ -274,10 +274,13 @@ export function FeatureCustomerCarousel({
         className="trust-marquee-viewport w-full overflow-hidden"
         style={{
           padding: 10,
+          // On mobile the left fade at 12.5% (~49px) overlaps the 40px card
+          // padding and clips the first character of each text line. Use a
+          // narrower stop on mobile (3%) and keep 12.5% only on lg+.
           maskImage:
-            "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 87.5%, rgba(0,0,0,0) 100%)",
+            "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 3%, rgba(0,0,0,1) 97%, rgba(0,0,0,0) 100%)",
           WebkitMaskImage:
-            "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 87.5%, rgba(0,0,0,0) 100%)",
+            "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 3%, rgba(0,0,0,1) 97%, rgba(0,0,0,0) 100%)",
         }}
       >
         <div
