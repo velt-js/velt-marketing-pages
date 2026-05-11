@@ -75,7 +75,7 @@ export const pricingFAQ: FaqEntry[] = [
       <Fragment key="security">
         Velt provides enterprise grade security. Our products are SOC 2 Type II
         and HIPAA Compliant.{" "}
-        <a href="/security" style={linkStyle}>
+        <a href="https://trust.velt.dev/" target="_blank" rel="noopener noreferrer" style={linkStyle}>
           Learn More
         </a>
       </Fragment>,

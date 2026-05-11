@@ -212,7 +212,7 @@ function CompetitorsGrid() {
       {/* Row 3 — Compare Velt / Migration Guide CTAs */}
       <div className="flex" style={{ width: 1280 }}>
         <a
-          href="#"
+          href="/comparison"
           className="group flex items-center justify-center gap-2 font-urbanist whitespace-nowrap"
           style={{
             width: 640,
@@ -232,7 +232,7 @@ function CompetitorsGrid() {
           </span>
         </a>
         <a
-          href="#"
+          href="/migrate/liveblocks"
           className="group flex items-center justify-center gap-2 font-urbanist whitespace-nowrap"
           style={{
             width: 640,
