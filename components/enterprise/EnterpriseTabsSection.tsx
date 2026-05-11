@@ -268,25 +268,19 @@ function TabContent({
             minWidth: 0,
             background: "#fff",
             borderRadius: 28,
-            padding: 32,
             minHeight: 432,
             overflow: "hidden",
           }}
         >
-          <div
-            className="relative w-full h-full"
-            style={{ minHeight: 368 }}
-          >
-            <Image
-              key={tab.id}
-              src={tab.imageSrc}
-              alt={tab.imageAlt}
-              fill
-              sizes="(min-width: 1200px) 720px, 100vw"
-              style={{ objectFit: "contain" }}
-              priority={tab.id === "self-hosting"}
-            />
-          </div>
+          <Image
+            key={tab.id}
+            src={tab.imageSrc}
+            alt={tab.imageAlt}
+            fill
+            sizes="(min-width: 1200px) 800px, 100vw"
+            style={{ objectFit: "cover" }}
+            priority={tab.id === "self-hosting"}
+          />
         </div>
 
         <div
