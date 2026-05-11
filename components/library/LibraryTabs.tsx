@@ -21,6 +21,10 @@ type LibraryTabsProps = {
   variant?: "section" | "inline";
   active?: number;
   onChange?: (index: number) => void;
+  /** Cap on the tab row's width. Default 520 (sized for ~4 tabs). Pass a
+   *  larger value when there are more tabs (e.g. /integrations has 7) to
+   *  keep them on a single row. */
+  maxWidth?: number;
 };
 
 export function LibraryTabs({
@@ -29,6 +33,7 @@ export function LibraryTabs({
   variant = "section",
   active: controlledActive,
   onChange,
+  maxWidth = 520,
 }: LibraryTabsProps) {
   const safeInitial = Math.min(Math.max(initial, 0), Math.max(tabs.length - 1, 0));
   const [uncontrolledActive, setUncontrolledActive] = useState(safeInitial);
@@ -42,7 +47,7 @@ export function LibraryTabs({
   const row = (
     <div
       className="flex items-center justify-center flex-wrap"
-      style={{ maxWidth: 520, width: "100%" }}
+      style={{ maxWidth, width: "100%" }}
     >
       {tabs.map((tab, i) => {
         const isActive = i === active;
