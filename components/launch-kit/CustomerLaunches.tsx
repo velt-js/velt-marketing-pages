@@ -53,10 +53,6 @@ const CUSTOMER_CARDS: CustomerCard[] = [
         label: "Marketing Site",
         href: "https://www.sendtrumpet.com/product/collaboration-suite?ref=velt.dev",
       },
-      {
-        label: "Blog Post",
-        href: "https://www.pendo.io/pendo-blog/introducing-team-management/",
-      },
     ],
   },
   {
