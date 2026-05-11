@@ -222,9 +222,11 @@ function Step3Column() {
         </div>
       </div>
 
-      {/* Styling tokens (overlay pills) */}
+      {/* Styling tokens (overlay pills) — hidden on mobile, shown lg+ only.
+          On narrow viewports right:288 / right:238 push these past the left
+          edge of the column, clipping the "16px" label. */}
       <div
-        className="absolute flex items-center rounded-lg border"
+        className="hidden lg:flex absolute items-center rounded-lg border"
         style={{
           right: 288,
           top: 350,
@@ -243,7 +245,7 @@ function Step3Column() {
         <span className="font-urbanist font-bold text-white" style={{ fontSize: 14 }}>16px</span>
       </div>
       <div
-        className="absolute flex items-center rounded-lg border"
+        className="hidden lg:flex absolute items-center rounded-lg border"
         style={{
           right: -84,
           top: 231,
@@ -260,7 +262,7 @@ function Step3Column() {
         <span className="font-urbanist font-bold" style={{ color: "#4b4b4b", fontSize: 12 }}>Poppins</span>
       </div>
       <div
-        className="absolute flex items-center rounded-lg border"
+        className="hidden lg:flex absolute items-center rounded-lg border"
         style={{
           right: 238,
           top: 228,
