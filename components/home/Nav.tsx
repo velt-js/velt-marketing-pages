@@ -525,7 +525,13 @@ export function Nav() {
       return false;
     };
 
-    const check = () => {
+    // rAF-throttled wrapper so a burst of scroll events collapses into one
+    // probe per frame. Without this, elementsFromPoint (×3) +
+    // getComputedStyle (n elements per probe) ran on every scroll tick,
+    // which adds up fast at 120Hz on a long page.
+    let frameId: number | null = null;
+    const runCheck = () => {
+      frameId = null;
       try {
         // While still in the first NAV_STRIP px the hero owns the area and
         // the nav should be fully transparent — skip the probe entirely so
@@ -539,13 +545,18 @@ export function Nav() {
         setOverPurple(false);
       }
     };
+    const schedule = () => {
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(runCheck);
+    };
 
-    check();
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check);
+    runCheck();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     return () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
     };
   }, []);
 
