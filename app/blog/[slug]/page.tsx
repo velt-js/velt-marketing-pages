@@ -77,15 +77,15 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getBlogPostBySlug(slug);
   if (!post) return {};
-  const title = post.metaTitle || `${post.title} | Velt Blog`;
+  const rawTitle = post.metaTitle || `${post.title} | Velt Blog`;
   const description = post.metaDescription || post.description;
   return {
-    title,
+    title: { absolute: rawTitle },
     description,
     alternates: { canonical: `/blog/${slug}` },
     openGraph: {
       url: `https://velt.dev/blog/${slug}`,
-      title,
+      title: rawTitle,
       description,
       ...(post.ogImage ? { images: [{ url: post.ogImage }] } : {}),
     },

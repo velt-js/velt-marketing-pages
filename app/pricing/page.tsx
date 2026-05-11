@@ -127,7 +127,7 @@ const PRICING_BREADCRUMB = buildBreadcrumbList([
 const PRICING_FAQ_SCHEMA = buildFaqPageSchema(PRICING_FAQ_FOR_SCHEMA);
 
 export const metadata = {
-  title: "Velt Pricing: Collaboration SDK Plans | Velt",
+  title: "Velt Pricing: Collaboration SDK Plans",
   description:
     "Pay only for meaningful collaboration usage. Hacker (free), Growth, and Enterprise plans for Velt's collaboration SDK.",
   alternates: {

@@ -17,16 +17,46 @@ import {
   allIntegrationCards,
   integrationTabs,
 } from "@/components/integration/shared-content";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
-export const metadata = {
-  title: "Integrations | Velt",
+const INTEGRATIONS_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Integrations", url: `${SITE_URL}/integrations` },
+]);
+
+const INTEGRATIONS_WEBPAGE = buildWebPageSchema({
+  name: "Integrations | Velt",
   description:
     "Connect Velt with the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.",
+  url: `${SITE_URL}/integrations`,
+  breadcrumb: INTEGRATIONS_BREADCRUMB,
+});
+
+export const metadata = {
+  title: "Integrations",
+  description:
+    "Connect Velt with the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.",
+  alternates: {
+    canonical: "/integrations",
+  },
+  openGraph: {
+    url: "https://velt.dev/integrations",
+    title: "Integrations | Velt",
+    description:
+      "Connect Velt with the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.",
+  },
 };
 
 export default function IntegrationsLandingPage() {
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-integrations-webpage" data={INTEGRATIONS_WEBPAGE} />
+      <JsonLd id="ld-integrations-breadcrumb" data={INTEGRATIONS_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

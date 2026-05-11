@@ -28,7 +28,7 @@ const BLOG_WEBPAGE = buildWebPageSchema({
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Blog | Velt",
+  title: "Blog",
   description:
     "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
   alternates: {

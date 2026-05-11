@@ -82,7 +82,8 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getUseCasePageBySlug(slug)) as UseCasePageDoc | null;
   if (!doc) return {};
-  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
+  const title = cleanMetaTitle ?? doc.hero.heading;
   const description = doc.metaDescription ?? doc.hero.subheading;
   return {
     title,
@@ -90,7 +91,7 @@ export async function generateMetadata({
     alternates: { canonical: `/use-case/${slug}` },
     openGraph: {
       url: `https://velt.dev/use-case/${slug}`,
-      title,
+      title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
       description,
       ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
     },

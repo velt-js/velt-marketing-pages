@@ -39,7 +39,7 @@ const FEATURES_WEBPAGE = buildWebPageSchema({
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Features | Velt",
+  title: "Features",
   description:
     "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
   alternates: {

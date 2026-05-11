@@ -40,7 +40,7 @@ const LIBRARIES_WEBPAGE = buildWebPageSchema({
 });
 
 export const metadata = {
-  title: "Libraries | Velt",
+  title: "Libraries",
   description:
     "Deep integrations with popular libraries — drop-in collaboration for Tiptap, Lexical, BlockNote, CodeMirror, SlateJS and more.",
   alternates: {

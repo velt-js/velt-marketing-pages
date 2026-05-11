@@ -98,7 +98,8 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getMigrationPageBySlug(slug)) as MigrationPageDoc | null;
   if (!doc) return {};
-  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
+  const title = cleanMetaTitle ?? doc.hero.heading;
   const description = doc.metaDescription ?? doc.hero.subheading;
   return {
     title,
@@ -106,7 +107,7 @@ export async function generateMetadata({
     alternates: { canonical: `/migrate/${slug}` },
     openGraph: {
       url: `https://velt.dev/migrate/${slug}`,
-      title,
+      title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
       description,
       ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
     },

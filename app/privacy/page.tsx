@@ -2,7 +2,7 @@ import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 
 export const metadata = {
-  title: "Privacy Policy — Velt",
+  title: "Privacy Policy",
   description:
     "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.",
   alternates: {

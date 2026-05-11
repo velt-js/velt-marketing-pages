@@ -45,7 +45,7 @@ const COMPARISON_WEBPAGE = buildWebPageSchema({
 });
 
 export const metadata = {
-  title: "Velt vs Competitors: 6 Reasons Velt Outperforms | Velt",
+  title: "Velt vs Competitors: 6 Reasons Velt Outperforms",
   description:
     "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
   alternates: {

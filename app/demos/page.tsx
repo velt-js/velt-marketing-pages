@@ -22,7 +22,7 @@ const DEMOS_WEBPAGE = buildWebPageSchema({
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Demos | Velt",
+  title: "Demos",
   description: "Live product demos showcasing Velt collaboration features.",
   alternates: {
     canonical: "/demos",

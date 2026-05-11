@@ -21,6 +21,7 @@ import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { PageHero } from "@/components/library/PageHero";
 import { FeatureImageCard } from "@/components/feature/FeatureImageCard";
+import { CustomerLaunches } from "@/components/launch-kit/CustomerLaunches";
 import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 
@@ -124,17 +125,9 @@ export default function LaunchKitPage() {
           imageHeight={600}
         />
 
-        <FeatureImageCard
-          heading="Check out assets from our customer launches"
-          viewDocsCta={{
-            label: "View all assets",
-            href: FIGMA_KIT_URL,
-            newTab: true,
-          }}
-          imageSrc="/images/launch-kit/customer-launches.svg"
-          imageAlt="Customer launches"
-          imageWidth={1100}
-          imageHeight={380}
+        <CustomerLaunches
+          ctaLabel="View all assets"
+          ctaHref={FIGMA_KIT_URL}
         />
 
         <LibraryFAQ items={sharedFAQ} />
