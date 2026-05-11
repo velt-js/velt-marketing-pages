@@ -24,7 +24,7 @@ export type CustomizationCardTabs = {
 
 export type CustomizationCardProps = {
   num: 1 | 2 | 3 | 4 | 5 | 6;
-  /** Card height in px. */
+  /** Card height in px — used as minHeight on desktop; ignored on mobile. */
   height: number;
   heading: string;
   /** Single-line or multi-line subheading. */
@@ -57,17 +57,13 @@ export function CustomizationCard({
   return (
     <section
       id={`way-${num}`}
-      className="relative bg-white flex flex-col items-center"
+      className="relative bg-white flex flex-col items-center px-6 lg:px-20 pt-10 lg:pt-[72px] pb-10 lg:pb-14"
       style={{
         scrollMarginTop: 80,
         border: "1px solid #0e0d36",
         borderRadius: 56,
-        height,
+        minHeight: height,
         width: "100%",
-        paddingTop: 72,
-        paddingBottom: 56,
-        paddingLeft: 80,
-        paddingRight: 80,
         gap: 32,
         overflow: "hidden",
       }}
@@ -76,12 +72,11 @@ export function CustomizationCard({
         <h3
           className="font-urbanist font-bold"
           style={{
-            fontSize: 40,
-            lineHeight: 1.1,
+            fontSize: "clamp(20px, 2.4vw, 40px)",
+            lineHeight: 1.2,
             letterSpacing: "-0.01em",
             color: "#111",
             margin: 0,
-            whiteSpace: "nowrap",
           }}
         >
           {heading}
@@ -90,7 +85,7 @@ export function CustomizationCard({
           <p
             className="font-urbanist"
             style={{
-              fontSize: 24,
+              fontSize: "clamp(16px, 1.8vw, 24px)",
               lineHeight: 1.2,
               letterSpacing: "-0.01em",
               color: "#111",
@@ -98,8 +93,8 @@ export function CustomizationCard({
               margin: 0,
             }}
           >
-            {subLines.map((line, i) => (
-              <span key={i} style={{ display: "block" }}>
+            {subLines.map((line, idx) => (
+              <span key={idx} style={{ display: "block" }}>
                 {line}
               </span>
             ))}
@@ -109,7 +104,7 @@ export function CustomizationCard({
 
       {tabs ? (
         <div
-          className="flex items-center"
+          className="flex flex-wrap items-center justify-center"
           style={{
             gap: 4,
             padding: 4,
@@ -117,13 +112,13 @@ export function CustomizationCard({
             borderRadius: 8,
           }}
         >
-          {tabs.labels.map((label, i) => {
-            const isActive = i === active;
+          {tabs.labels.map((label, idx) => {
+            const isActive = idx === active;
             return (
               <button
                 key={label}
                 type="button"
-                onClick={() => setActive(i)}
+                onClick={() => setActive(idx)}
                 className="font-urbanist font-semibold"
                 style={{
                   padding: "8px 16px",
@@ -147,16 +142,18 @@ export function CustomizationCard({
       ) : null}
 
       {/* Visual area — fills remaining height, centered, full-rounded,
-       *  bordered. Width capped at 1000 to keep proportions readable. */}
+       *  bordered. Width capped at 1000 to keep proportions readable.
+       *  minHeight 260px ensures the box has size on mobile where flex-grow
+       *  has nothing to expand into. */}
       <div
         className="flex items-center justify-center w-full"
         style={{ flex: 1, minHeight: 0 }}
       >
         <div
-          className="relative bg-white"
+          className="relative bg-white w-full"
           style={{
-            width: "100%",
             maxWidth: 1000,
+            minHeight: 260,
             height: "100%",
             border: "4px solid #eef0ff",
             borderRadius: 24,

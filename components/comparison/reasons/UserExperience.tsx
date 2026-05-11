@@ -31,7 +31,7 @@ export function UserExperience({
       heading="User Experience"
       subheading="How refined, robust & complete is the SDK?"
     >
-      <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
         <ComparisonSubCard
           variant="velt"
           title="Magical Delight for each pixel"

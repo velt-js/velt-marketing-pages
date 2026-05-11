@@ -39,8 +39,8 @@ export function ExamplesCarousel() {
     if (!viewport || !track) return;
 
     const setRate = (rate: number) => {
-      for (const a of track.getAnimations()) {
-        a.playbackRate = rate;
+      for (const anim of track.getAnimations()) {
+        anim.playbackRate = rate;
       }
     };
     const onEnter = () => setRate(HOVER_FACTOR);
@@ -55,23 +55,21 @@ export function ExamplesCarousel() {
 
   return (
     <section
-      className="flex flex-col items-center full-bleed-bg"
+      className="flex flex-col items-center full-bleed-bg py-16 lg:py-[100px] px-6 lg:px-0"
       style={{
         background: "#fff",
-        paddingTop: 100,
-        paddingBottom: 100,
         gap: 52,
         borderBottomLeftRadius: 52,
         borderBottomRightRadius: 52,
       }}
     >
       {/* Header */}
-      <div className="flex flex-col items-center" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12, maxWidth: 850 }}>
+      <div className="flex flex-col items-center w-full max-w-[850px]" style={{ gap: 32 }}>
+        <div className="flex flex-col items-center text-center w-full" style={{ gap: 12 }}>
           <h2
             className="font-urbanist font-bold"
             style={{
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
               color: "#111",
@@ -83,8 +81,8 @@ export function ExamplesCarousel() {
           <p
             className="font-urbanist"
             style={{
-              fontSize: 20,
-              lineHeight: 1.2,
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
               color: "#111",
               margin: 0,
             }}
@@ -172,10 +170,10 @@ export function ExamplesCarousel() {
           className="examples-marquee-track flex items-center"
           style={{ gap: CARD_GAP, height: CARD_H, width: "max-content" }}
         >
-          {[...stealFeaturesCards, ...stealFeaturesCards].map((card, i) => (
+          {[...stealFeaturesCards, ...stealFeaturesCards].map((card, idx) => (
             <article
-              key={`${card.title}-${i}`}
-              aria-hidden={i >= stealFeaturesCards.length}
+              key={`${card.title}-${idx}`}
+              aria-hidden={idx >= stealFeaturesCards.length}
               className="relative shrink-0 overflow-hidden"
               style={{
                 width: CARD_W,

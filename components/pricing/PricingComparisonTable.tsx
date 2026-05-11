@@ -7,6 +7,10 @@
 // whole table via `position: sticky`. Each section label is itself
 // sticky (offset = nav + tier-header height) AND clickable to collapse
 // its rows. Mirrors the live velt.dev/pricing interaction.
+//
+// Mobile (<lg): renders a vertical accordion — one <details> per tier
+// listing its feature values. This avoids overflow-x-auto + sticky
+// conflicts and gives a readable single-column layout.
 
 import { Fragment, useEffect, useRef, useState } from "react";
 
@@ -129,7 +133,7 @@ function RowInfoGlyph() {
   );
 }
 
-// --- Header -----------------------------------------------------------------
+// --- Desktop header ---------------------------------------------------------
 //
 // Per Figma 217:9637 (Hacker) / 9642 (Growth) / 9647 (Enterprise):
 //   stack of [tier name, price, button], gap 12, items centered.
@@ -221,6 +225,155 @@ function TierHeaderRow() {
   );
 }
 
+// --- Mobile accordion -------------------------------------------------------
+//
+// One <details> per tier. Inside each tier: every section heading followed
+// by its rows as label + value pairs stacked vertically. First tier open by
+// default so crawlers see content without JS.
+
+function MobileAccordion() {
+  return (
+    <div className="flex flex-col gap-3 w-full">
+      {TIERS.map((tier, tierIdx) => {
+        const cta = HEADER_CTA[tier.id];
+        const external = cta.href.startsWith("http");
+        return (
+          <details
+            key={tier.id}
+            open={tierIdx === 0}
+            className="group"
+            style={{
+              border: "1px solid #e5e7eb",
+              borderRadius: 16,
+              overflow: "hidden",
+              background: "#fff",
+            }}
+          >
+            <summary
+              className="flex items-center justify-between cursor-pointer list-none"
+              style={{ padding: "16px 20px", gap: 12 }}
+            >
+              <div className="flex flex-col" style={{ gap: 2 }}>
+                <span
+                  className="font-urbanist font-semibold"
+                  style={{ color: "#000", fontSize: 18, lineHeight: 1.2 }}
+                >
+                  {tier.name}
+                </span>
+                <span
+                  className="font-urbanist font-bold"
+                  style={{ color: "#000", fontSize: 20, lineHeight: 1.2 }}
+                >
+                  {tier.price}
+                </span>
+              </div>
+              <div className="flex items-center gap-3">
+                <a
+                  href={cta.href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener" : undefined}
+                  className="font-urbanist flex items-center justify-center"
+                  style={{
+                    padding: "6px 14px",
+                    border: "1px solid rgba(0,0,0,0.12)",
+                    borderRadius: 8,
+                    background: "#fff",
+                    color: "#000",
+                    fontSize: 14,
+                    fontWeight: 400,
+                    lineHeight: 1.2,
+                    textDecoration: "none",
+                    whiteSpace: "nowrap",
+                  }}
+                  onClick={(evt) => evt.stopPropagation()}
+                >
+                  {cta.label}
+                </a>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden
+                  className="transition-transform duration-200 group-open:rotate-180 shrink-0"
+                >
+                  <path d="M6 9l6 6l6 -6" stroke="#111" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </div>
+            </summary>
+
+            <div style={{ borderTop: "1px solid #e5e7eb" }}>
+              {SECTIONS.map((section) => (
+                <div key={section.title}>
+                  <div
+                    style={{
+                      padding: "12px 20px 8px",
+                      borderTop: `2px solid ${section.accent}`,
+                    }}
+                  >
+                    <span
+                      className="font-urbanist font-bold"
+                      style={{
+                        color: section.accent,
+                        fontSize: 14,
+                        lineHeight: 1.2,
+                        letterSpacing: "-0.01em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {section.title}
+                    </span>
+                  </div>
+                  {section.rows.map((row, rowIdx) => (
+                    <div
+                      key={`${section.title}-${rowIdx}`}
+                      className="flex items-center justify-between"
+                      style={{
+                        padding: "10px 20px",
+                        borderBottom: rowIdx === section.rows.length - 1 ? "none" : DIVIDER,
+                        gap: 12,
+                        minHeight: 44,
+                      }}
+                    >
+                      <div className="flex flex-col" style={{ gap: 2, flex: 1 }}>
+                        <span
+                          className="font-urbanist font-medium"
+                          style={{ color: "#111", fontSize: 14, lineHeight: 1.4 }}
+                        >
+                          {row.label}
+                          {row.tooltip ? (
+                            <span
+                              className="font-urbanist"
+                              style={{ color: "#9ca3af", fontSize: 12, display: "block", lineHeight: 1.3 }}
+                            >
+                              {row.tooltip}
+                            </span>
+                          ) : null}
+                        </span>
+                        {row.sublabel ? (
+                          <span
+                            className="font-urbanist font-medium"
+                            style={{ color: "#9ca3af", fontSize: 12, lineHeight: 1.3 }}
+                          >
+                            {row.sublabel}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className="flex items-center justify-end shrink-0">
+                        <Cell value={row.values[tierIdx]} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </details>
+        );
+      })}
+    </div>
+  );
+}
+
 // --- Body -------------------------------------------------------------------
 
 export function PricingComparisonTable() {
@@ -258,8 +411,8 @@ export function PricingComparisonTable() {
       // strip, then it flips back to dark again at the "Our Customers
       // Trust Us" carousel ([data-getstarted]).
       data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "60px 80px 100px", borderRadius: 52 }}
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 py-16 lg:py-[100px]"
+      style={{ borderRadius: 52 }}
     >
       <style>{`
         .row-label-wrap .row-tooltip {
@@ -289,13 +442,19 @@ export function PricingComparisonTable() {
           transform: translateY(0);
         }
       `}</style>
+
+      {/* Mobile: per-tier accordion */}
+      <div className="lg:hidden w-full max-w-[600px]">
+        <MobileAccordion />
+      </div>
+
+      {/* Desktop: full comparison table */}
       <div
         // No `overflow: hidden` or `border-radius` here — both would
         // break `position: sticky` for descendants and / or visually
         // box the table. Live velt.dev/pricing renders the table flat
         // on the page background, no card chrome.
-        className="relative"
-        style={{ width: 1280 }}
+        className="relative hidden lg:block w-full max-w-[1280px]"
       >
         {/* Sticky tier header — pins under the Nav for the whole table. */}
         <div
@@ -310,7 +469,7 @@ export function PricingComparisonTable() {
           <TierHeaderRow />
         </div>
 
-        {SECTIONS.map((section, sIdx) => {
+        {SECTIONS.map((section) => {
           const open = !collapsed.has(section.title);
           return (
             <Fragment key={section.title}>

@@ -55,18 +55,16 @@ export function FeatureSectionShell({
       // chrome from transparent-on-dark to solid-on-light. Only set when
       // this section is the first light block on the page (topAccent).
       data-outcomes={topAccent ? true : undefined}
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
       style={{
-        padding: "100px 80px",
         marginTop: topAccent ? 80 : 0,
         borderTopLeftRadius: topAccent ? 48 : 0,
         borderTopRightRadius: topAccent ? 48 : 0,
       }}
     >
       <div
-        className="overflow-hidden flex flex-col"
+        className="overflow-hidden flex flex-col w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #0e0d36",
           borderRadius: 32,
@@ -97,7 +95,7 @@ export function FeatureSectionShell({
               className="font-urbanist font-bold"
               style={{
                 color: "#111",
-                fontSize: 52,
+                fontSize: "clamp(28px, 4.2vw, 52px)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
                 margin: 0,
@@ -217,12 +215,10 @@ export function TestimonialFooter({
   const quote = t.quote ?? "";
   return (
     <div
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
       style={{
         background: "#1c1d21",
         padding: "40px 52px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
         gap: 24,
       }}
     >
@@ -255,6 +251,7 @@ export function TestimonialFooter({
                 fontSize: 18,
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
+                margin: 0,
               }}
             >
               {t.name}
@@ -269,6 +266,7 @@ export function TestimonialFooter({
                 fontSize: 16,
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
+                margin: 0,
               }}
             >
               {t.role}
@@ -277,14 +275,13 @@ export function TestimonialFooter({
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
+          margin: 0,
         }}
       >
         {renderQuoteWithAccent(quote, t.accentFragment, t.accentColor)}

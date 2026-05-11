@@ -49,11 +49,9 @@ export function UseCaseFeatureRow({
   const hasFeatures = features && features.length > 0;
   const text = (
     <div
-      className="flex flex-col items-start"
+      className="flex flex-col items-start w-full lg:flex-1 lg:min-w-0"
       style={{
-        flex: 1,
-        minWidth: 0,
-        height,
+        gap: 12,
         justifyContent: hasFeatures ? "space-between" : "center",
       }}
     >
@@ -81,7 +79,7 @@ export function UseCaseFeatureRow({
           <h2
             className="font-urbanist font-bold"
             style={{
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-1.56px",
               color: "#111",
@@ -95,8 +93,8 @@ export function UseCaseFeatureRow({
           <p
             className="font-urbanist"
             style={{
-              fontSize: 20,
-              lineHeight: 1.2,
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
               color: "#111",
               margin: 0,
             }}
@@ -119,7 +117,7 @@ export function UseCaseFeatureRow({
           >
             Features Used
           </span>
-          <div className="flex" style={{ gap: 12 }}>
+          <div className="flex flex-wrap" style={{ gap: 12 }}>
             {features.map((chip, i) => (
               <FeatureChip
                 key={chip._key ?? `${chip.label}-${i}`}
@@ -134,18 +132,16 @@ export function UseCaseFeatureRow({
 
   const visual = customVisual ? (
     <div
-      className="relative"
-      style={{ flex: 1, minWidth: 0, height }}
+      className="relative w-full lg:flex-1 lg:min-w-0"
+      style={{ minHeight: 240 }}
     >
       {customVisual}
     </div>
   ) : (
     <div
-      className="relative overflow-hidden"
+      className="relative overflow-hidden w-full lg:flex-1 lg:min-w-0"
       style={{
-        flex: 1,
-        minWidth: 0,
-        height,
+        minHeight: 240,
         border: "1px solid #d9d9d9",
         borderRadius: VISUAL_RADIUS,
         background: "#ffffff",
@@ -169,18 +165,24 @@ export function UseCaseFeatureRow({
 
   return (
     <section
-      className="w-full"
+      className="w-full flex flex-col lg:flex-row items-start lg:items-stretch"
       style={{
         padding: 20,
-        display: "flex",
-        gap: 150,
-        alignItems: "stretch",
+        gap: 40,
         justifyContent: "center",
-        flexDirection: imagePosition === "left" ? "row-reverse" : "row",
       }}
     >
-      {text}
-      {visual}
+      {imagePosition === "left" ? (
+        <>
+          {visual}
+          {text}
+        </>
+      ) : (
+        <>
+          {text}
+          {visual}
+        </>
+      )}
     </section>
   );
 }

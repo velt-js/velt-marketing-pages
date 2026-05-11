@@ -186,11 +186,11 @@ function SecurityCardBox({
 }
 
 // WideBottomCardBox — full-width variant of SecurityCardBox.
-// Same #f7f7f7 chrome and rounded-24 corners, but the visual sits in the
-// right half of the card (top-aligned) while the title/subtitle anchor to
-// the bottom-left. Used by Security's `wideBottomCard` prop for cases like
-// the Support section's "Priority Support SLAs" timeline and the Security
-// section's "Security Certification" badge row.
+// Same #f7f7f7 chrome and rounded-24 corners. Title/subtitle sit at the
+// top-left, with the visual centered horizontally below them so the asset
+// renders at its natural size on any viewport (the previous side-by-side
+// layout clipped the SLA timeline on narrow widths). Used by Security's
+// `wideBottomCard` prop.
 function WideBottomCardBox({
   title,
   subtitle,
@@ -202,24 +202,16 @@ function WideBottomCardBox({
 }) {
   return (
     <article
-      className="relative overflow-hidden"
+      className="flex flex-col overflow-hidden"
       style={{
         width: "100%",
-        height: 280,
         background: "#f7f7f7",
         borderRadius: 24,
+        padding: "32px 32px 36px",
+        gap: 28,
       }}
     >
-      <div
-        className="absolute"
-        style={{ top: 0, right: 0, bottom: 0, width: "50%" }}
-      >
-        {children}
-      </div>
-      <div
-        className="absolute flex flex-col items-start"
-        style={{ bottom: 28, left: 28, right: "52%", gap: 8 }}
-      >
+      <div className="flex flex-col items-start" style={{ gap: 8 }}>
         <h3
           className="font-urbanist font-bold"
           style={{ color: "#111", fontSize: 28, lineHeight: 1.2, letterSpacing: "-0.03em" }}
@@ -232,6 +224,12 @@ function WideBottomCardBox({
         >
           {subtitle}
         </p>
+      </div>
+      <div
+        className="flex items-center justify-center"
+        style={{ width: "100%", minHeight: 220 }}
+      >
+        {children}
       </div>
     </article>
   );

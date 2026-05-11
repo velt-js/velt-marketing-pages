@@ -105,9 +105,9 @@ export function RecordingsDemoSidebar() {
 
   return (
     <section
-      className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "0 80px 100px" }}
+      className="flex flex-col items-center bg-black full-bleed-bg px-6 pb-16 lg:px-20 lg:pb-[100px]"
     >
+      <div className="w-full overflow-x-auto">
       <div
         style={{
           // Narrower than the 1280px page rail because the recorder demo's
@@ -397,6 +397,7 @@ export function RecordingsDemoSidebar() {
             ) : null}
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -13,14 +13,12 @@ type DemoPlayerProps = {
 export function DemoPlayer({ videoSrc, poster, label }: DemoPlayerProps) {
   return (
     <section
-      className="flex justify-center w-full bg-black"
-      style={{ padding: "0 80px 100px" }}
+      className="flex justify-center w-full bg-black px-4 lg:px-20 pb-20 lg:pb-[100px]"
     >
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
-          height: 648,
+          aspectRatio: "1280 / 648",
           background: "#0d0d0d",
           borderRadius: 24,
           border: "1px solid rgba(255,255,255,0.06)",

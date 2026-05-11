@@ -73,8 +73,8 @@ export function FeatureCustomizer({
 
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px", gap: 40 }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
+      style={{ gap: 40 }}
     >
       {/* Header */}
       <div className="flex flex-col items-center" style={{ gap: 32 }}>
@@ -86,11 +86,10 @@ export function FeatureCustomizer({
             className="font-urbanist font-bold"
             style={{
               color: "#111",
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
               margin: 0,
-              whiteSpace: "nowrap",
             }}
           >
             {heading}
@@ -123,18 +122,18 @@ export function FeatureCustomizer({
 
       {/* 3-column body */}
       <div
-        className="flex items-stretch"
-        style={{ gap: 12, width: 1280 }}
+        className="flex flex-col lg:flex-row items-stretch w-full max-w-[1280px]"
+        style={{ gap: 12 }}
       >
         {/* Left sidebar */}
         <aside
-          className="flex flex-col justify-between"
+          className="flex flex-col justify-between w-full lg:w-[230px]"
           style={{
-            width: 230,
             background: "#fff",
             border: "1px solid rgba(24,42,133,0.12)",
             borderRadius: 24,
             padding: 12,
+            flexShrink: 0,
           }}
         >
           <div className="flex flex-col" style={{ gap: 16, width: "100%" }}>
@@ -221,14 +220,14 @@ export function FeatureCustomizer({
 
         {/* Right control panel */}
         <aside
-          className="flex flex-col"
+          className="flex flex-col w-full lg:w-[230px]"
           style={{
-            width: 230,
             background: "#fff",
             border: "1px solid rgba(24,42,133,0.12)",
             borderRadius: 24,
             padding: 12,
             gap: 20,
+            flexShrink: 0,
           }}
         >
           {/* COLOR */}

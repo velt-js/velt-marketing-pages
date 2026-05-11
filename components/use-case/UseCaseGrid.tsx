@@ -16,11 +16,9 @@ export function UseCaseGrid() {
   return (
     <section
       data-outcomes
-      className="relative flex flex-col items-center full-bleed-bg"
+      className="relative flex flex-col items-center full-bleed-bg px-6 lg:px-20 py-16 lg:py-[100px]"
       style={{
         background: "#FFFFFF",
-        paddingTop: 100,
-        paddingBottom: 100,
         gap: 44,
         borderTopLeftRadius: 52,
         borderTopRightRadius: 52,
@@ -28,14 +26,14 @@ export function UseCaseGrid() {
     >
       {/* Header — Figma 178:64413 (centered, max-width 720) */}
       <div
-        className="flex flex-col items-center text-center"
-        style={{ width: 720, gap: 32 }}
+        className="flex flex-col items-center text-center w-full"
+        style={{ maxWidth: 720, gap: 32 }}
       >
         <div className="flex flex-col items-center" style={{ gap: 14 }}>
           <h2
             className="font-urbanist font-bold"
             style={{
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
               color: "#111",
@@ -47,8 +45,8 @@ export function UseCaseGrid() {
           <p
             className="font-urbanist"
             style={{
-              fontSize: 20,
-              lineHeight: 1.2,
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
               color: "#111",
               opacity: 0.75,
               margin: 0,
@@ -95,14 +93,10 @@ export function UseCaseGrid() {
         </div>
       </div>
 
-      {/* 2 × 5 grid */}
+      {/* 2-col grid at lg+, 1-col on mobile */}
       <div
-        className="grid"
-        style={{
-          gridTemplateColumns: "repeat(2, 594px)",
-          gridTemplateRows: "repeat(5, 404px)",
-          gap: 12,
-        }}
+        className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-[1200px]"
+        style={{ gap: 12 }}
       >
         {USE_CASE_CARDS.map((card) => (
           <UseCaseCard key={card.title} {...card} />

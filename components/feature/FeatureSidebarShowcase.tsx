@@ -51,8 +51,8 @@ export function FeatureSidebarShowcase({
 
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px", gap: 52 }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
+      style={{ gap: 52 }}
     >
       <style>{`.showcase-sidebar-nav::-webkit-scrollbar { display: none; }`}</style>
       <div className="flex flex-col items-center" style={{ gap: 24, maxWidth: 691 }}>
@@ -63,7 +63,7 @@ export function FeatureSidebarShowcase({
         <div className="flex flex-col items-center text-center" style={{ gap: 16 }}>
           <h2
             className="font-urbanist font-bold"
-            style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em", margin: 0 }}
+            style={{ color: "#111", fontSize: "clamp(28px, 4.2vw, 52px)", lineHeight: 1.2, letterSpacing: "-0.03em", margin: 0 }}
           >
             {heading}
           </h2>
@@ -77,16 +77,15 @@ export function FeatureSidebarShowcase({
 
       {/* Showcase card */}
       <div
-        className="overflow-hidden flex flex-col"
+        className="overflow-hidden flex flex-col w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "4px solid #1C1D21",
           borderRadius: 16,
         }}
       >
         <div
-          className="flex"
+          className="flex flex-col lg:flex-row"
           style={{
             background: "#fff",
             minHeight: 540,
@@ -96,7 +95,8 @@ export function FeatureSidebarShowcase({
           <nav
             className="flex flex-col overflow-y-auto showcase-sidebar-nav"
             style={{
-              width: 280,
+              width: "100%",
+              maxWidth: 280,
               padding: "8px",
               gap: 4,
               background: "#fff",
@@ -211,13 +211,10 @@ function TestimonialFooter({ t }: { t: NonNullable<FeatureSidebarShowcaseProps["
   const quote = t.quote ?? "";
   return (
     <div
-      style={{
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
+    style={{
         background: "#111",
-        height: 224,
-        padding: "0 57px 0 40px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        padding: "40px 40px",
         gap: 24,
       }}
     >
@@ -261,14 +258,13 @@ function TestimonialFooter({ t }: { t: NonNullable<FeatureSidebarShowcaseProps["
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
+          margin: 0,
         }}
       >
         {renderQuoteWithAccent(quote, t.accentFragment, t.accentColor)}

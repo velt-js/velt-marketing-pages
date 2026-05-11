@@ -110,9 +110,8 @@ export function LibraryBento({
       // chrome from transparent-on-dark to solid-on-light. Only set when
       // this section is the first light block on the page (topAccent).
       data-outcomes={topAccent ? true : undefined}
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 py-10 lg:py-[60px]"
       style={{
-        padding: "60px 80px 40px",
         gap: 52,
         marginTop: topAccent ? 80 : 0,
         borderTopLeftRadius: topAccent ? 48 : 0,
@@ -129,14 +128,14 @@ export function LibraryBento({
         >
           <h2
             className="font-urbanist font-bold"
-            style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            style={{ color: "#111", fontSize: "clamp(28px, 4.2vw, 52px)", lineHeight: 1.2, letterSpacing: "-0.03em" }}
           >
             {heading}
           </h2>
           {subheading && (
             <p
               className="font-urbanist"
-              style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}
+              style={{ color: "#111", fontSize: "clamp(16px, 1.5vw, 20px)", lineHeight: 1.3 }}
             >
               {subheading}
             </p>
@@ -235,20 +234,15 @@ export function LibraryBento({
       {/* Outer container — wraps the cards grid and (optionally) a
           testimonial footer in one bordered, rounded box. */}
       <div
-        className="overflow-hidden"
+        className="overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "4px solid #1C1D21",
           borderRadius: 16,
         }}
       >
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gridTemplateRows: rows.map((h) => `${h}px`).join(" "),
-        }}
+        className="grid grid-cols-1 lg:grid-cols-2"
       >
         {cardsForGrid.map((card, i) => {
           const col = i % 2;
@@ -265,11 +259,14 @@ export function LibraryBento({
           // so corner cells' borders follow the outer curve instead of being
           // clipped by overflow:hidden.
           const R = 12;
+          const rowHeight = rows[row] ?? 400;
           return (
             <article
               key={card.title}
               className="relative overflow-hidden"
               style={{
+                minHeight: 320,
+                height: rowHeight,
                 background: "#fff",
                 border: "1.5px solid #000",
                 borderTopLeftRadius: isTopRow && isLeftCol ? R : undefined,
@@ -312,7 +309,7 @@ export function LibraryBento({
                 <h3
                   className="font-urbanist font-bold"
                   style={{
-                    fontSize: 28,
+                    fontSize: "clamp(20px, 2.4vw, 28px)",
                     lineHeight: 1.2,
                     letterSpacing: "-0.03em",
                   }}
@@ -336,17 +333,13 @@ export function LibraryBento({
       </div>
 
         {hasTestimonial && testimonial && (
-          // Layout matches Figma node 1:5574 — 224px tall #111 bar with
-          // avatar + name/role anchored to the left and the quote
-          // pinned to the right at a fixed 421px column.
+          // Layout matches Figma node 1:5574 — #111 bar with avatar + name/role
+          // anchored to the left and the quote on the right. Stacks on mobile.
           <div
+            className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
             style={{
               background: "#111",
-              height: 160,
-              padding: "0 57px 0 40px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              padding: "28px 40px",
               gap: 24,
             }}
           >
@@ -412,11 +405,10 @@ export function LibraryBento({
               className="font-urbanist font-semibold"
               style={{
                 color: "#fff",
-                fontSize: 24,
+                fontSize: "clamp(16px, 1.8vw, 24px)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
-                width: 421,
-                flexShrink: 0,
+                maxWidth: 421,
               }}
             >
               {renderQuoteWithAccent(

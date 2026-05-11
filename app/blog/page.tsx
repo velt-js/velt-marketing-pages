@@ -79,13 +79,9 @@ function BlogGrid({ posts }: { posts: BlogPost[] }) {
   return (
     <section
       data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg py-16 lg:py-[100px] px-6 lg:px-20 rounded-t-[28px] lg:rounded-t-[48px] mt-12 lg:mt-20"
       style={{
-        padding: "100px 80px",
         gap: 52,
-        marginTop: 80,
-        borderTopLeftRadius: 48,
-        borderTopRightRadius: 48,
       }}
     >
       {posts.length === 0 ? (
@@ -104,9 +100,8 @@ function BlogGrid({ posts }: { posts: BlogPost[] }) {
         </p>
       ) : (
         <div
-          className="grid"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           style={{
-            gridTemplateColumns: "repeat(3, 1fr)",
             gap: "48px 32px",
             width: "100%",
             maxWidth: 1280,

@@ -50,15 +50,15 @@ export function AdminConsoleAnalyticsPanel() {
   return (
     <section style={{ width: "100vw", marginLeft: "calc(-50vw + 50%)", background: "rgb(6, 5, 26)", borderTopLeftRadius: 40, borderTopRightRadius: 40, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
       <div style={{ width: "100%", background: "rgb(10, 9, 42)", borderTopLeftRadius: 32, borderTopRightRadius: 32, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
-        <div style={{ width: "100%", background: "rgb(14, 12, 56)", borderTopLeftRadius: 26, borderTopRightRadius: 26, padding: "40px 36px 80px", display: "flex", justifyContent: "center" }}>
+        <div style={{ width: "100%", background: "rgb(14, 12, 56)", borderTopLeftRadius: 26, borderTopRightRadius: 26, padding: "40px 16px 80px", display: "flex", justifyContent: "center" }}>
           <div className="relative overflow-hidden" style={{ width: "100%", maxWidth: 1280, height: 879, borderRadius: 22, border: "1.5px solid rgba(255,255,255,0.24)", background: PANEL_SURFACE[tab], boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.25)", transition: "background 200ms ease" }}>
-            <div role="tablist" aria-label="Admin Console capability" className="absolute flex items-center" style={{ top: 28, left: "50%", transform: "translateX(-50%)", width: 1220, padding: 8, gap: 2, border: "2px solid rgba(255,255,255,0.12)", borderRadius: 18 }}>
+            <div role="tablist" aria-label="Admin Console capability" className="absolute flex items-center" style={{ top: 28, left: "50%", transform: "translateX(-50%)", width: "calc(100% - 60px)", maxWidth: 1220, padding: 8, gap: 2, border: "2px solid rgba(255,255,255,0.12)", borderRadius: 18 }}>
               {TAB_DEFS.map((t) => {
                 const isActive = t.key === tab;
                 return (
-                  <button key={t.key} type="button" role="tab" aria-selected={isActive} onClick={() => setTab(t.key)} className="cursor-pointer" style={{ flex: t.key === "analytics" ? "0 0 291.5px" : "1 0 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, padding: "12px 20px", borderRadius: 12, border: "none", background: isActive ? "#fff" : "transparent", transition: "background 160ms ease, color 160ms ease" }}>
+                  <button key={t.key} type="button" role="tab" aria-selected={isActive} onClick={() => setTab(t.key)} className="cursor-pointer" style={{ flex: "1 0 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, padding: "12px 8px", borderRadius: 12, border: "none", background: isActive ? "#fff" : "transparent", transition: "background 160ms ease, color 160ms ease" }}>
                     <TabIcon kind={t.key} active={isActive} />
-                    <span className="font-urbanist whitespace-nowrap" style={{ fontWeight: isActive ? 700 : 500, fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.54px", color: isActive ? "#0d0b2c" : "rgba(255,255,255,0.52)" }}>
+                    <span className="font-urbanist whitespace-nowrap hidden lg:inline" style={{ fontWeight: isActive ? 700 : 500, fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.54px", color: isActive ? "#0d0b2c" : "rgba(255,255,255,0.52)" }}>
                       {t.label}
                     </span>
                   </button>

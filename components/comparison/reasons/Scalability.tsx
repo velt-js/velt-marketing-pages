@@ -26,7 +26,7 @@ export function Scalability({ competitorLabel }: ScalabilityProps = {}) {
       heading="Scalability"
       subheading="How the SDK handles growth in usage?"
     >
-      <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
         <ComparisonSubCard
           variant="velt"
           title="2000 GB Base Plan"

@@ -123,7 +123,7 @@ function TabRail({
   onSelect: (id: string) => void;
 }) {
   return (
-    <div className="flex items-center gap-1 overflow-hidden">
+    <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
       {TABS.map((tab) => {
         const active = tab.id === activeId;
         return (
@@ -167,7 +167,7 @@ export function LibraryDemo() {
   const activeTab = TABS.find((t) => t.id === activeId) ?? TABS[0];
 
   return (
-    <section className="flex justify-center w-full bg-black full-bleed-bg" style={{ padding: "0 80px" }}>
+    <section className="flex justify-center w-full bg-black full-bleed-bg px-4 lg:px-20">
       {/* `key={activeId}` resets LibraryDemoStage's internal showIframe /
           stageHover state when the user switches tabs, so every library
           starts on its preview image. */}

@@ -111,7 +111,20 @@ export default function EnterprisePage() {
               title: "Priority Support SLAs",
               subtitle:
                 "Guaranteed response times so your team is never blocked",
-              visual: <CardVisual src="/images/enterprise/support/slas.png" />,
+              visual: (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src="/images/enterprise/support/slas.png"
+                  alt=""
+                  aria-hidden="true"
+                  style={{
+                    width: "100%",
+                    maxWidth: 540,
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              ),
             }}
             certification={null}
             testimonial={null}

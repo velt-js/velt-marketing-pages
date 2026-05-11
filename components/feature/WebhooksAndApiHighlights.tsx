@@ -51,26 +51,24 @@ function Card1ExtensiveApiCoverage() {
   return (
     <section
       data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
       style={{
-        padding: "100px 80px",
         marginTop: 80,
         borderTopLeftRadius: 48,
         borderTopRightRadius: 48,
       }}
     >
       <div
-        className="overflow-hidden"
+        className="overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #0e0d36",
           borderRadius: 32,
         }}
       >
         <div
-          className="relative"
-          style={{ width: 1280, height: 528, overflow: "hidden" }}
+          className="relative hidden lg:block"
+          style={{ width: "100%", maxWidth: 1280, height: 528, overflow: "hidden" }}
         >
           {/* Heading + subhead + View Docs CTA, centered at top:55 (Figma 177:34709) */}
           <div
@@ -325,26 +323,25 @@ const FEATURE_CARDS: { title: string; icon: string; alt: string }[] = [
 function Card2WebhookFeaturesGrid() {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "60px 80px 120px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
+      style={{ paddingBottom: 120 }}
     >
-      <div className="flex flex-col items-center" style={{ width: 824, gap: 52 }}>
+      <div className="flex flex-col items-center w-full max-w-[824px]" style={{ gap: 52 }}>
         {/* Heading + 2 CTAs centered (Figma 177:34733) */}
         <div
-          className="flex flex-col items-center"
-          style={{ gap: 32, width: 691, textAlign: "center" }}
+          className="flex flex-col items-center w-full"
+          style={{ gap: 32, textAlign: "center" }}
         >
           <div className="flex flex-col items-center" style={{ gap: 12, width: "100%" }}>
             <h2
               className="font-urbanist font-bold"
               style={{
-                fontSize: 52,
+                fontSize: "clamp(28px, 4.2vw, 52px)",
                 lineHeight: 1.2,
                 letterSpacing: "-1.56px",
                 color: "#111",
                 textTransform: "capitalize",
                 margin: 0,
-                whiteSpace: "nowrap",
               }}
             >
               advanced Webhooks
@@ -368,14 +365,10 @@ function Card2WebhookFeaturesGrid() {
           </div>
         </div>
 
-        {/* 3×2 grid of 264×260 feature cards. Total: 824×536, gap 16. */}
+        {/* 3×2 grid of feature cards — 1 col mobile, 3 cols desktop */}
         <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "repeat(3, 264px)",
-            gridTemplateRows: "repeat(2, 260px)",
-            gap: 16,
-          }}
+          className="grid grid-cols-1 lg:grid-cols-3 w-full"
+          style={{ gap: 16 }}
         >
           {FEATURE_CARDS.map((card) => (
             <FeatureCard key={card.title} {...card} />
@@ -383,7 +376,7 @@ function Card2WebhookFeaturesGrid() {
         </div>
 
         {/* Free-standing Yuri testimonial — same component as Security */}
-        <div style={{ width: 824 }}>
+        <div className="w-full">
           <InlineTestimonialCard
             name={yuriTestimonial.name}
             role={yuriTestimonial.role}
@@ -471,8 +464,7 @@ function FeatureCard({ title, icon, alt }: { title: string; icon: string; alt: s
     <div
       className="flex flex-col"
       style={{
-        width: 264,
-        height: 260,
+        minHeight: 200,
         padding: 32,
         background: "#f5f5f5",
         borderRadius: 24,
@@ -525,12 +517,10 @@ function TestimonialBannerAttached({ t }: { t: Testimonial }) {
   // height driven by avatar + padding (~132 total).
   return (
     <div
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
       style={{
         background: "#1c1d21",
         padding: "40px 52px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
         gap: 24,
       }}
     >
@@ -565,14 +555,12 @@ function TestimonialBannerAttached({ t }: { t: Testimonial }) {
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
           margin: 0,
         }}
       >

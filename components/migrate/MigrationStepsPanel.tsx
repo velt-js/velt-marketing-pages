@@ -67,22 +67,19 @@ export function MigrationStepsPanel({
 }: MigrationStepsPanelProps) {
   return (
     <section
-      className="relative w-full bg-black full-bleed-bg flex flex-col items-center"
-      style={{ paddingTop: 100, paddingBottom: 100, gap: 50 }}
+      className="relative w-full bg-black full-bleed-bg flex flex-col items-center py-16 lg:py-[100px] gap-10 lg:gap-[50px] px-6 lg:px-20"
     >
       <div
-        className="flex flex-col items-center text-center text-white"
-        style={{ gap: 32 }}
+        className="flex flex-col items-center text-center text-white gap-6 lg:gap-8"
       >
-        <div className="flex flex-col items-center" style={{ gap: 12 }}>
+        <div className="flex flex-col items-center gap-3">
           <h2
             className="font-urbanist font-bold"
             style={{
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
-              letterSpacing: "-1.56px",
+              letterSpacing: "-0.03em",
               margin: 0,
-              whiteSpace: "nowrap",
             }}
           >
             {headingPrefix}{" "}

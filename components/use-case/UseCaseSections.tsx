@@ -16,18 +16,16 @@ export function UseCaseSections({ sections }: { sections: UseCaseSectionDoc[] })
   return (
     <section
       data-outcomes
-      className="relative flex flex-col items-center full-bleed-bg"
+      className="relative flex flex-col items-center full-bleed-bg px-6 lg:px-20 py-16 lg:py-[100px]"
       style={{
         background: "#FFFFFF",
-        paddingTop: 100,
-        paddingBottom: 120,
         borderTopLeftRadius: 52,
         borderTopRightRadius: 52,
       }}
     >
       <div
-        className="flex flex-col items-stretch"
-        style={{ width: 1280, gap: 136 }}
+        className="flex flex-col items-stretch w-full max-w-[1280px]"
+        style={{ gap: 80 }}
       >
         {sections.map((section, i) => (
           <UseCaseFeatureRow

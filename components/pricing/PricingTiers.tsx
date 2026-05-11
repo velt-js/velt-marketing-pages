@@ -201,9 +201,8 @@ function TierCard({
 
   return (
     <div
-      className="relative flex"
+      className="relative flex w-full"
       style={{
-        flex: "1 0 0",
         minWidth: 0,
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(24px)",
@@ -245,7 +244,7 @@ function TierCard({
                 className="font-urbanist"
                 style={{
                   color: "#fff",
-                  fontSize: 32,
+                  fontSize: "clamp(22px, 2.6vw, 32px)",
                   fontWeight: 600,
                   lineHeight: 1.2,
                   textTransform: "capitalize",
@@ -344,8 +343,7 @@ export function PricingTiers() {
   return (
     <section
       ref={sectionRef}
-      className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "20px 80px 16px" }}
+      className="flex flex-col items-center bg-black full-bleed-bg px-6 lg:px-20 pt-5 pb-4"
     >
       <style>{`
         .tier-bullet .tier-bullet-tooltip {
@@ -378,7 +376,7 @@ export function PricingTiers() {
         }
       `}</style>
       <div
-        className="flex w-full"
+        className="grid grid-cols-1 lg:grid-cols-3 w-full"
         style={{
           maxWidth: 1280,
           gap: 10,

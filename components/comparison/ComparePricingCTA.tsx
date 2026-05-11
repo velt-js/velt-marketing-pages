@@ -19,8 +19,8 @@ export function ComparePricingCTA({
 }: ComparePricingCTAProps = {}) {
   return (
     <section
-      className="flex flex-col items-center"
-      style={{ width: 800, margin: "0 auto", gap: 40 }}
+      className="flex flex-col items-center w-full max-w-[800px] mx-auto"
+      style={{ gap: 40 }}
     >
       <div
         className="flex flex-col items-center text-center"
@@ -28,7 +28,12 @@ export function ComparePricingCTA({
       >
         <h3
           className="font-urbanist font-bold"
-          style={{ fontSize: 48, lineHeight: 1.1, color: "#111", margin: 0 }}
+          style={{
+            fontSize: "clamp(28px, 4vw, 48px)",
+            lineHeight: 1.1,
+            color: "#111",
+            margin: 0,
+          }}
         >
           Compare Pricing
         </h3>
@@ -46,7 +51,7 @@ export function ComparePricingCTA({
         </p>
       </div>
 
-      <div className="flex items-stretch w-full" style={{ gap: 24 }}>
+      <div className="flex flex-col lg:flex-row items-stretch w-full" style={{ gap: 24 }}>
         <PriceCard
           accent="velt"
           headerLabel="Document activity based pricing"
@@ -150,39 +155,33 @@ function PriceCard({
 }) {
   return (
     <div
+      className="flex flex-col items-start w-full"
       style={{
         flex: "1 0 0",
         minWidth: 0,
-        height: 384,
-        position: "relative",
         background: "#f7f7f7",
         borderRadius: 32,
-        boxShadow: "none",
-        overflow: "hidden",
+        padding: "24px 28px",
+        gap: 24,
       }}
     >
       <div
-        className="flex items-center justify-center"
+        className="flex items-center"
         style={{
-          position: "absolute",
-          top: 24,
-          left: 10,
-          width: 368,
-          height: 56,
           gap: 8,
-          padding: "16px 12px",
+          padding: "12px 16px",
           border: "1px solid #010001",
           borderRadius: 32,
+          alignSelf: "stretch",
         }}
       >
         <img src={headerIcon} alt="" width={20} height={20} />
         <span
           className="font-urbanist"
           style={{
-            fontSize: 18,
+            fontSize: 16,
             lineHeight: 1.2,
             color: "#111",
-            whiteSpace: "nowrap",
           }}
         >
           {headerLabel}
@@ -192,12 +191,7 @@ function PriceCard({
       <div
         className="flex flex-col items-start"
         style={{
-          position: "absolute",
-          left: 52,
-          top: accent === "velt" ? 119 : 124,
-          width: 284,
-          gap: 24,
-          textAlign: accent === "velt" ? "left" : "center",
+          gap: 16,
         }}
       >
         {eyebrow}
@@ -212,16 +206,10 @@ function PriceCard({
 
       <div
         className="flex flex-col items-start"
-        style={{
-          position: "absolute",
-          left: 52,
-          top: accent === "velt" ? 261 : 262,
-          width: 214,
-          gap: 32,
-        }}
+        style={{ gap: 16 }}
       >
         {rows.map((row, i) => (
-          <div key={i} className="flex items-center w-full" style={{ gap: 24 }}>
+          <div key={i} className="flex items-center w-full" style={{ gap: 16 }}>
             <img
               src={
                 row.kind === "check"
@@ -239,10 +227,9 @@ function PriceCard({
               <span
                 className="font-urbanist"
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   lineHeight: 1.2,
                   color: row.kind === "x" ? "#ff3131" : "#111",
-                  whiteSpace: "nowrap",
                 }}
               >
                 {row.label}

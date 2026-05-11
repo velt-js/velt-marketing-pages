@@ -22,12 +22,10 @@ const ethanTestimonial = {
 export function MultiplayerYourDataSection() {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
     >
       <div
-        className="flex flex-col items-center"
-        style={{ width: 816 }}
+        className="flex flex-col items-center w-full max-w-[816px]"
       >
         {/* Header — heading + subheading, centered, max 579 wide */}
         <div
@@ -38,7 +36,7 @@ export function MultiplayerYourDataSection() {
             className="font-urbanist font-bold"
             style={{
               color: "#111",
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
               margin: 0,
@@ -89,7 +87,7 @@ export function MultiplayerYourDataSection() {
             React/CSS so the binary row, Your DB box, cylinder icon, and
             8GB strikethrough all stay vector-sharp at any DPR. */}
         <div
-          className="flex items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 w-full"
           style={{ gap: 16, marginTop: 40 }}
         >
           <CustomEncryptionCard />
@@ -343,13 +341,12 @@ function CustomEncryptionCard() {
     <div
       style={{
         position: "relative",
-        width: 400,
+        width: "100%",
         height: 493,
         background: "#f7f7f7",
         border: "2px solid #f7f7f7",
         borderRadius: 24,
         overflow: "hidden",
-        flexShrink: 0,
       }}
     >
       <BinaryRow />
@@ -381,13 +378,12 @@ function EightGbCard() {
     <div
       style={{
         position: "relative",
-        width: 400,
+        width: "100%",
         height: 493,
         background: "#f7f7f7",
         border: "2px solid #f7f7f7",
         borderRadius: 24,
         overflow: "hidden",
-        flexShrink: 0,
       }}
     >
       {/* "8" — Figma 219:18774. Center-anchored at x=144 (calc(50% − 56)),

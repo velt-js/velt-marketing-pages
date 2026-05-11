@@ -70,18 +70,16 @@ function Card1DebugDevTools() {
   return (
     <section
       data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
       style={{
-        padding: "100px 80px",
         marginTop: 80,
         borderTopLeftRadius: 48,
         borderTopRightRadius: 48,
       }}
     >
       <div
-        className="overflow-hidden"
+        className="overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #0e0d36",
           borderRadius: 32,
@@ -124,8 +122,8 @@ function DebugLocallyCard() {
 
   return (
     <div
-      className="relative"
-      style={{ width: 1280, height: 729, overflow: "hidden" }}
+      className="relative hidden lg:block"
+      style={{ width: "100%", maxWidth: 1280, height: 729, overflow: "hidden" }}
     >
       {/* Sub-tab strip pinned at the top center */}
       <div
@@ -856,13 +854,11 @@ function DebugDevToolsPanel() {
 function Card2NavigateData() {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
     >
       <div
-        className="overflow-hidden"
+        className="overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #0e0d36",
           borderRadius: 32,
@@ -878,8 +874,8 @@ function Card2NavigateData() {
 function NavigateDataCard() {
   return (
     <div
-      className="relative"
-      style={{ width: 1280, height: 711, overflow: "hidden" }}
+      className="relative hidden lg:block"
+      style={{ width: "100%", maxWidth: 1280, height: 711, overflow: "hidden" }}
     >
       {/* Heading + subhead + dual CTAs centred at top:55 */}
       <div
@@ -1455,28 +1451,27 @@ const INTEGRATION_CATEGORIES: IntegrationCategory[] = [
 function Card4ExtendIntegrations() {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "60px 80px 120px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
+      style={{ paddingBottom: 120 }}
     >
       <div
-        className="flex flex-col items-center"
-        style={{ width: 912, gap: 40 }}
+        className="flex flex-col items-center w-full max-w-[912px]"
+        style={{ gap: 40 }}
       >
         {/* Header */}
         <div
-          className="flex flex-col items-center"
-          style={{ gap: 32, width: 691, textAlign: "center" }}
+          className="flex flex-col items-center w-full"
+          style={{ gap: 32, textAlign: "center" }}
         >
           <div className="flex flex-col items-center" style={{ gap: 12 }}>
             <h3
               className="font-urbanist font-bold"
               style={{
-                fontSize: 48,
+                fontSize: "clamp(28px, 4vw, 48px)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
                 color: "#111",
                 margin: 0,
-                whiteSpace: "nowrap",
               }}
             >
               Extend Velt with pre-built Integrations
@@ -1538,11 +1533,11 @@ function Card4ExtendIntegrations() {
         </div>
 
         {/* 2×3 bento — 3 flex rows of 2 cells, each 448×365 (912 width) */}
-        <div className="flex flex-col" style={{ width: 912, gap: 16 }}>
+        <div className="flex flex-col w-full" style={{ gap: 16 }}>
           {[0, 2, 4].map((rowStart) => (
             <div
               key={rowStart}
-              className="flex"
+              className="grid grid-cols-1 lg:grid-cols-2"
               style={{ gap: 16, width: "100%" }}
             >
               <IntegrationCell cat={INTEGRATION_CATEGORIES[rowStart]} />
@@ -1705,12 +1700,10 @@ function TestimonialBannerAttached({ t }: { t: Testimonial }) {
   // height (driven by avatar + padding ≈ 132).
   return (
     <div
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
       style={{
         background: "#1c1d21",
         padding: "40px 52px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
         gap: 24,
       }}
     >
@@ -1745,14 +1738,12 @@ function TestimonialBannerAttached({ t }: { t: Testimonial }) {
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
           margin: 0,
         }}
       >

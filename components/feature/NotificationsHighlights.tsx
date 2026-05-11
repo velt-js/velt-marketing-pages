@@ -22,8 +22,8 @@ export function NotificationsHighlights() {
       topAccent
     >
       <div
-        className="flex items-stretch"
-        style={{ width: "100%", height: 440 }}
+        className="grid grid-cols-1 lg:grid-cols-2 w-full"
+        style={{ minHeight: 440 }}
       >
         <SubCard
           title="Prioritized Inbox"
@@ -57,9 +57,8 @@ function SubCard({
       <article
         className="relative overflow-hidden"
         style={{
-          flex: "1 0 0",
           minWidth: 0,
-          height: 440,
+          minHeight: 440,
           border: "1px solid #f6f6f6",
         }}
       >

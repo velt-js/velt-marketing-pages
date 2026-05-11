@@ -22,6 +22,7 @@ export function WebhooksAndApiDemoSidebar() {
 
   return (
     <section
+      className="overflow-x-auto"
       style={{
         width: "100vw",
         marginLeft: "calc(-50vw + 50%)",
@@ -33,7 +34,7 @@ export function WebhooksAndApiDemoSidebar() {
         justifyContent: "center",
       }}
     >
-      <div style={{ width: "100%", background: "rgb(10, 9, 42)", borderTopLeftRadius: 32, borderTopRightRadius: 32, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
+      <div style={{ minWidth: 1280, width: "100%", background: "rgb(10, 9, 42)", borderTopLeftRadius: 32, borderTopRightRadius: 32, padding: "36px 0 0", display: "flex", justifyContent: "center" }}>
         <div style={{ width: "100%", background: "rgb(14, 12, 56)", borderTopLeftRadius: 26, borderTopRightRadius: 26, padding: "40px 36px 160px", display: "flex", justifyContent: "center" }}>
           <div className="relative overflow-hidden" style={{ width: "100%", maxWidth: 1280, height: 879, borderRadius: 22, border: "1.5px solid rgba(255,255,255,0.24)", background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.32) 100%), linear-gradient(180deg, rgb(13, 11, 56) 0%, rgb(20, 17, 88) 55%, rgb(33, 28, 138) 100%)", boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.25)" }}>
             <DotGrid />

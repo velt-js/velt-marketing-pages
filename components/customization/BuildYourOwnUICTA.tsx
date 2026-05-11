@@ -28,28 +28,27 @@ export function BuildYourOwnUICTA() {
         borderRadius: 32,
       }}
     >
-      {/* White inner area — 528 tall */}
-      <div className="relative" style={{ height: 528 }}>
-        {/* Heading + subhead + View Docs CTA, centered at top:55 */}
+      {/* White inner area — 528px tall on desktop, flow on mobile */}
+      <div className="flex flex-col items-center gap-10 py-12 px-6 lg:relative lg:h-[528px] lg:gap-0 lg:py-0 lg:px-0">
+        {/* Heading + subhead + View Docs CTA */}
         <div
-          className="absolute flex flex-col items-center"
+          className="flex flex-col items-center lg:absolute"
           style={{
             top: 55,
             left: "50%",
-            transform: "translateX(-50%)",
             gap: 32,
           }}
         >
           <div
             className="flex flex-col items-center text-center"
-            style={{ gap: 12, width: 691, whiteSpace: "nowrap" }}
+            style={{ gap: 12 }}
           >
             <h2
               className="font-urbanist font-bold"
               style={{
-                fontSize: 52,
+                fontSize: "clamp(28px, 4.2vw, 52px)",
                 lineHeight: 1.2,
-                letterSpacing: "-1.56px",
+                letterSpacing: "-0.03em",
                 color: "#111",
                 margin: 0,
               }}
@@ -59,9 +58,9 @@ export function BuildYourOwnUICTA() {
             <p
               className="font-urbanist"
               style={{
-                fontSize: 20,
+                fontSize: "clamp(16px, 1.5vw, 20px)",
                 fontWeight: 400,
-                lineHeight: 1.2,
+                lineHeight: 1.3,
                 color: "#111",
                 margin: 0,
               }}
@@ -72,22 +71,19 @@ export function BuildYourOwnUICTA() {
           <ViewDocsButton />
         </div>
 
-        {/* API endpoint pill at top:305 */}
-        <ApiEndpointPill />
+        {/* API endpoint pill — mobile: flow; desktop: absolute at top:305 */}
+        <div className="w-full overflow-x-auto lg:hidden">
+          <ApiEndpointPillMobile />
+        </div>
+        <div className="hidden lg:block">
+          <ApiEndpointPill />
+        </div>
       </div>
 
-      {/* Dark testimonial banner attached at the bottom — same spec as
-       *  components/feature/AdminConsoleHighlights.tsx#TestimonialBannerAttached
-       *  (#1c1d21 bg, 40/52 padding, 421-wide quote, 52px avatar). */}
+      {/* Dark testimonial banner attached at the bottom */}
       <div
-        style={{
-          background: "#1c1d21",
-          padding: "40px 52px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 24,
-        }}
+        className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 px-6 lg:px-[52px] py-8 lg:py-[40px]"
+        style={{ background: "#1c1d21" }}
       >
         <div className="flex items-center" style={{ gap: 16, flexShrink: 0 }}>
           <div
@@ -140,11 +136,10 @@ export function BuildYourOwnUICTA() {
           className="font-urbanist font-semibold"
           style={{
             color: "#fff",
-            fontSize: 24,
+            fontSize: "clamp(16px, 1.8vw, 24px)",
             lineHeight: 1.2,
             letterSpacing: "-0.03em",
-            width: 421,
-            flexShrink: 0,
+            maxWidth: 421,
             margin: 0,
           }}
         >
@@ -197,26 +192,10 @@ function ViewDocsButton() {
   );
 }
 
-// API endpoint pill — 856-wide white container with faint border + drop
-// shadow, light-gray inner pill (POST tag + URL segments) on the left,
-// blue "Try It ▶" button on the right. URL uses Geist Mono.
-function ApiEndpointPill() {
+// Shared inner content for both pill variants.
+function ApiEndpointPillContent() {
   return (
-    <div
-      className="absolute flex items-center"
-      style={{
-        top: 305,
-        left: "calc(50% - 15px)",
-        transform: "translateX(-50%)",
-        width: 856,
-        gap: 8,
-        padding: 8,
-        background: "#fff",
-        border: "2px solid rgba(0,0,0,0.04)",
-        borderRadius: 24,
-        filter: "drop-shadow(0 12px 12px rgba(0,0,0,0.08))",
-      }}
-    >
+    <>
       <div
         className="flex items-center"
         style={{
@@ -226,6 +205,7 @@ function ApiEndpointPill() {
           padding: 8,
           background: "#f3f3f3",
           borderRadius: 16,
+          overflow: "hidden",
         }}
       >
         <span
@@ -305,6 +285,50 @@ function ApiEndpointPill() {
           />
         </span>
       </a>
+    </>
+  );
+}
+
+// Desktop: absolutely positioned at top:305 within the 528px container.
+function ApiEndpointPill() {
+  return (
+    <div
+      className="absolute flex items-center"
+      style={{
+        top: 305,
+        left: "calc(50% - 15px)",
+        transform: "translateX(-50%)",
+        width: 856,
+        gap: 8,
+        padding: 8,
+        background: "#fff",
+        border: "2px solid rgba(0,0,0,0.04)",
+        borderRadius: 24,
+        filter: "drop-shadow(0 12px 12px rgba(0,0,0,0.08))",
+      }}
+    >
+      <ApiEndpointPillContent />
+    </div>
+  );
+}
+
+// Mobile: flow-positioned, full width.
+function ApiEndpointPillMobile() {
+  return (
+    <div
+      className="flex items-center"
+      style={{
+        width: "100%",
+        minWidth: 320,
+        gap: 8,
+        padding: 8,
+        background: "#fff",
+        border: "2px solid rgba(0,0,0,0.04)",
+        borderRadius: 24,
+        filter: "drop-shadow(0 12px 12px rgba(0,0,0,0.08))",
+      }}
+    >
+      <ApiEndpointPillContent />
     </div>
   );
 }

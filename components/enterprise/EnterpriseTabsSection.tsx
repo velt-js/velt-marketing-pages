@@ -187,6 +187,197 @@ function isValidTabId(value: string): value is TabId {
   return (VALID_IDS as string[]).includes(value);
 }
 
+function TabContent({
+  tab,
+  handleTabClick: _handleTabClick,
+}: {
+  tab: TabDef;
+  handleTabClick: (id: TabId) => void;
+}) {
+  return (
+    <div className="flex flex-col w-full gap-8">
+      {/* Header row — heading + Learn More */}
+      <div
+        className="flex flex-col lg:flex-row items-start justify-between w-full"
+        style={{ gap: 32 }}
+      >
+        <div className="flex flex-col" style={{ gap: 16, maxWidth: 900 }}>
+          <h2
+            className="font-urbanist font-bold"
+            style={{
+              fontSize: "clamp(28px, 4.2vw, 52px)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+              color: "#fff",
+              margin: 0,
+            }}
+          >
+            <span style={{ color: MINT }}>{tab.headingMint}</span>
+            <span>{tab.headingWhite}</span>
+          </h2>
+          <p
+            className="font-urbanist"
+            style={{
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.4,
+              color: "rgba(255,255,255,0.85)",
+              margin: 0,
+            }}
+          >
+            {tab.subheading}
+          </p>
+        </div>
+        <a
+          href="/book-demo"
+          className="font-urbanist font-semibold inline-flex items-center shrink-0"
+          style={{
+            gap: 6,
+            fontSize: 16,
+            color: "#fff",
+            textDecoration: "none",
+            marginTop: 8,
+            letterSpacing: "-0.02em",
+          }}
+        >
+          Learn More
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+          >
+            <path d="M7 17L17 7" />
+            <path d="M8 7h9v9" />
+          </svg>
+        </a>
+      </div>
+
+      {/* Image card + testimonial card */}
+      <div className="flex flex-col lg:flex-row items-stretch w-full" style={{ gap: 24 }}>
+        <div
+          className="flex items-center justify-center relative"
+          style={{
+            flex: 2,
+            minWidth: 0,
+            background: "#fff",
+            borderRadius: 28,
+            padding: 32,
+            minHeight: 300,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            className="relative w-full h-full"
+            style={{ minHeight: 260 }}
+          >
+            <Image
+              key={tab.id}
+              src={tab.imageSrc}
+              alt={tab.imageAlt}
+              fill
+              sizes="(min-width: 1200px) 720px, 100vw"
+              style={{ objectFit: "contain" }}
+              priority={tab.id === "self-hosting"}
+            />
+          </div>
+        </div>
+
+        <div
+          className="flex flex-col shrink-0"
+          style={{
+            flex: 1,
+            minWidth: 0,
+            background: "#1f1e4f",
+            borderRadius: 28,
+            padding: "36px 36px 40px",
+            gap: 24,
+            justifyContent: "space-between",
+          }}
+        >
+          {tab.testimonial.brandLogoSrc ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={tab.testimonial.brandLogoSrc}
+              alt={tab.testimonial.brandLogoAlt ?? ""}
+              width={tab.testimonial.brandLogoWidth ?? 120}
+              height={tab.testimonial.brandLogoHeight ?? 28}
+              style={{
+                width: tab.testimonial.brandLogoWidth ?? 120,
+                height: tab.testimonial.brandLogoHeight ?? 28,
+                objectFit: "contain",
+                filter: "brightness(0) invert(1)",
+              }}
+            />
+          ) : null}
+
+          <div className="flex flex-col" style={{ gap: 24 }}>
+            <p
+              className="font-urbanist font-bold"
+              style={{
+                color: "#fff",
+                fontSize: "clamp(20px, 2.4vw, 28px)",
+                lineHeight: 1.25,
+                letterSpacing: "-0.02em",
+                margin: 0,
+              }}
+            >
+              {tab.testimonial.quote}
+            </p>
+            <div className="flex items-center" style={{ gap: 14 }}>
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  border: "2px solid #B4B1FA",
+                  flexShrink: 0,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tab.testimonial.avatarSrc}
+                  alt={`${tab.testimonial.name} profile photo`}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
+              <div className="flex flex-col" style={{ gap: 2 }}>
+                <span
+                  className="font-urbanist font-semibold"
+                  style={{
+                    color: "#fff",
+                    fontSize: 16,
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {tab.testimonial.name}
+                </span>
+                <span
+                  className="font-urbanist"
+                  style={{
+                    color: "rgba(255,255,255,0.7)",
+                    fontSize: 14,
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {tab.testimonial.role}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function EnterpriseTabsSection() {
   const [activeId, setActiveId] = useState<TabId>("self-hosting");
 
@@ -221,10 +412,10 @@ export function EnterpriseTabsSection() {
     <section
       data-outcomes
       data-enterprise-tabs
-      className="full-bleed-bg relative"
+      className="full-bleed-bg relative py-20 lg:py-[80px] px-6 lg:px-20"
       style={{
         background: "#625df5",
-        padding: "80px 80px 120px",
+        paddingBottom: 120,
       }}
     >
       {/* All 4 tab anchor targets land at the top of the band — each is a
@@ -252,9 +443,9 @@ export function EnterpriseTabsSection() {
         className="flex flex-col"
         style={{ maxWidth: 1200, margin: "0 auto", gap: 48 }}
       >
-        {/* Tab rail */}
+        {/* Desktop tab rail — hidden below lg, accordion takes over there. */}
         <div
-          className="flex items-stretch w-full"
+          className="hidden lg:flex items-stretch w-full"
           style={{
             borderBottom: "1px solid rgba(255,255,255,0.25)",
           }}
@@ -301,189 +492,55 @@ export function EnterpriseTabsSection() {
           })}
         </div>
 
-        {/* Header row — heading + Learn More */}
-        <div
-          className="flex items-start justify-between w-full"
-          style={{ gap: 32 }}
-        >
-          <div className="flex flex-col" style={{ gap: 16, maxWidth: 900 }}>
-            <h2
-              className="font-urbanist font-bold"
-              style={{
-                fontSize: 60,
-                lineHeight: 1.1,
-                letterSpacing: "-0.03em",
-                color: "#fff",
-                margin: 0,
-              }}
-            >
-              <span style={{ color: MINT }}>{active.headingMint}</span>
-              <span>{active.headingWhite}</span>
-            </h2>
-            <p
-              className="font-urbanist"
-              style={{
-                fontSize: 20,
-                lineHeight: 1.4,
-                color: "rgba(255,255,255,0.85)",
-                margin: 0,
-              }}
-            >
-              {active.subheading}
-            </p>
-          </div>
-          <a
-            href="/book-demo"
-            className="font-urbanist font-semibold inline-flex items-center shrink-0"
-            style={{
-              gap: 6,
-              fontSize: 16,
-              color: "#fff",
-              textDecoration: "none",
-              marginTop: 8,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            Learn More
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="M7 17L17 7" />
-              <path d="M8 7h9v9" />
-            </svg>
-          </a>
+        {/* Desktop content — single active tab. */}
+        <div className="hidden lg:flex flex-col gap-8">
+          <TabContent tab={active} handleTabClick={handleTabClick} />
         </div>
 
-        {/* Image card + testimonial card */}
-        <div className="flex items-stretch w-full" style={{ gap: 24 }}>
-          <div
-            className="flex items-center justify-center relative"
-            style={{
-              flex: 2,
-              minWidth: 0,
-              background: "#fff",
-              borderRadius: 28,
-              padding: 32,
-              minHeight: 460,
-              overflow: "hidden",
-            }}
-          >
-            {/* next/image with fill keeps the JPG illustrations sharp at
-             *  whatever width the flex slot resolves to (~720px at 1200
-             *  content width). */}
-            <div
-              className="relative w-full h-full"
-              style={{ minHeight: 396 }}
+        {/* Mobile accordion — all four tabs as <details>. First one open
+            so the section never starts collapsed (crawlers see the
+            primary headline immediately in the static markup). */}
+        <div className="lg:hidden flex flex-col w-full gap-3">
+          {TABS.map((tab, idx) => (
+            <details
+              key={tab.id}
+              open={idx === 0}
+              className="group"
+              style={{
+                background: "rgba(0,0,0,0.18)",
+                borderRadius: 20,
+                border: "1px solid rgba(255,255,255,0.12)",
+              }}
             >
-              <Image
-                key={active.id}
-                src={active.imageSrc}
-                alt={active.imageAlt}
-                fill
-                sizes="(min-width: 1200px) 720px, 100vw"
-                style={{ objectFit: "contain" }}
-                priority={active.id === "self-hosting"}
-              />
-            </div>
-          </div>
-
-          <div
-            className="flex flex-col shrink-0"
-            style={{
-              flex: 1,
-              minWidth: 320,
-              background: "#1f1e4f",
-              borderRadius: 28,
-              padding: "36px 36px 40px",
-              gap: 24,
-              justifyContent: "space-between",
-            }}
-          >
-            {active.testimonial.brandLogoSrc ? (
-              // Brand logo uses a plain img so we can render SVG and PNG
-              // without juggling next/image static dimensions for each
-              // tab. Fixed pixel sizing per testimonial keeps aspect.
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={active.testimonial.brandLogoSrc}
-                alt={active.testimonial.brandLogoAlt ?? ""}
-                width={active.testimonial.brandLogoWidth ?? 120}
-                height={active.testimonial.brandLogoHeight ?? 28}
-                style={{
-                  width: active.testimonial.brandLogoWidth ?? 120,
-                  height: active.testimonial.brandLogoHeight ?? 28,
-                  objectFit: "contain",
-                  filter: "brightness(0) invert(1)",
-                }}
-              />
-            ) : null}
-
-            <div className="flex flex-col" style={{ gap: 24 }}>
-              <p
-                className="font-urbanist font-bold"
-                style={{
-                  color: "#fff",
-                  fontSize: 28,
-                  lineHeight: 1.25,
-                  letterSpacing: "-0.02em",
-                  margin: 0,
-                }}
+              <summary
+                className="flex items-center justify-between cursor-pointer list-none"
+                style={{ padding: "14px 18px", gap: 12 }}
               >
-                {active.testimonial.quote}
-              </p>
-              <div className="flex items-center" style={{ gap: 14 }}>
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: "50%",
-                    overflow: "hidden",
-                    border: "2px solid #B4B1FA",
-                    flexShrink: 0,
-                  }}
+                <div className="flex items-center gap-3">
+                  <span style={{ display: "inline-flex", color: "#fff" }}>{tab.icon}</span>
+                  <span
+                    className="font-urbanist font-bold text-white"
+                    style={{ fontSize: 16, lineHeight: 1.2, letterSpacing: "-0.02em" }}
+                  >
+                    {tab.label}
+                  </span>
+                </div>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-open:rotate-180 shrink-0"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={active.testimonial.avatarSrc}
-                    alt={`${active.testimonial.name} profile photo`}
-                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                </div>
-                <div className="flex flex-col" style={{ gap: 2 }}>
-                  <span
-                    className="font-urbanist font-semibold"
-                    style={{
-                      color: "#fff",
-                      fontSize: 16,
-                      lineHeight: 1.2,
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    {active.testimonial.name}
-                  </span>
-                  <span
-                    className="font-urbanist"
-                    style={{
-                      color: "rgba(255,255,255,0.7)",
-                      fontSize: 14,
-                      lineHeight: 1.2,
-                      letterSpacing: "-0.02em",
-                    }}
-                  >
-                    {active.testimonial.role}
-                  </span>
-                </div>
+                  <path d="M6 9l6 6l6 -6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </summary>
+              <div style={{ padding: "8px 18px 20px" }}>
+                <TabContent tab={tab} handleTabClick={handleTabClick} />
               </div>
-            </div>
-          </div>
+            </details>
+          ))}
         </div>
       </div>
     </section>

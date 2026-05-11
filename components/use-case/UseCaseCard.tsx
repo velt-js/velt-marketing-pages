@@ -19,10 +19,8 @@ export function UseCaseCard({ title, href, media }: UseCaseCardProps) {
   return (
     <Link
       href={href}
-      className="use-case-card flex flex-col items-center justify-center overflow-hidden"
+      className="use-case-card flex flex-col items-center justify-center overflow-hidden w-full"
       style={{
-        width: 594,
-        height: 404,
         gap: 12,
         padding: 12,
         background: "#f7f7f7",
@@ -32,6 +30,7 @@ export function UseCaseCard({ title, href, media }: UseCaseCardProps) {
           "transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 220ms ease-out",
         willChange: "transform",
         transformOrigin: "center",
+        aspectRatio: "594 / 404",
       }}
     >
       <div

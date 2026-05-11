@@ -70,38 +70,33 @@ export function FeatureFlowDiagram({
 
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px", gap: 52 }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
+      style={{ gap: 52 }}
     >
       {/* Outer card wraps heading area, flow row, and the optional testimonial */}
       <div
-        className="overflow-hidden flex flex-col"
+        className="overflow-hidden flex flex-col w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #0e0d36",
           borderRadius: 32,
         }}
       >
-        {/* Top region — 591 tall in Figma; we let it auto-size to its content
-            since the flow row + header pack to roughly that height naturally. */}
-        <div
-          className="relative"
-          style={{ width: "100%", height: 591, flexShrink: 0 }}
-        >
+        {/* Top region — heading + flow diagram. Desktop: 591px tall fixed.
+            Mobile: auto height, flow row hidden. */}
+        <div className="relative" style={{ width: "100%", flexShrink: 0 }}>
           {/* Header: heading + subheading + dual CTAs centered at top:55 */}
           <div
-            className="absolute flex flex-col items-center"
+            className="flex flex-col items-center px-6 lg:px-0"
             style={{
-              left: "50%",
-              top: 55,
-              transform: "translateX(-50%)",
+              paddingTop: 55,
+              paddingBottom: 0,
               gap: 32,
             }}
           >
             <div
               className="flex flex-col items-center text-center"
-              style={{ gap: 12, width: 691 }}
+              style={{ gap: 12, width: "100%", maxWidth: 691 }}
             >
               {eyebrow ? (
                 <span
@@ -115,11 +110,10 @@ export function FeatureFlowDiagram({
                 className="font-urbanist font-bold"
                 style={{
                   color: "#111",
-                  fontSize: 52,
+                  fontSize: "clamp(28px, 4.2vw, 52px)",
                   lineHeight: 1.2,
                   letterSpacing: "-0.03em",
                   margin: 0,
-                  whiteSpace: "nowrap",
                 }}
               >
                 {heading}
@@ -145,10 +139,10 @@ export function FeatureFlowDiagram({
             )}
           </div>
 
-          {/* Flow row at top:249, full bleed (left:-2) */}
+          {/* Flow row — desktop only (hidden on mobile as it requires fixed width) */}
           <div
-            className="absolute flex items-center"
-            style={{ left: -2, top: 249, right: -2, justifyContent: "space-between" }}
+            className="hidden lg:flex items-center"
+            style={{ left: -2, top: 249, right: -2, position: "absolute", justifyContent: "space-between" }}
           >
             {/* Left trail */}
             <div
@@ -179,6 +173,11 @@ export function FeatureFlowDiagram({
               <img src={TRAIL_RIGHT} alt="" style={{ width: "100%", height: "100%", display: "block" }} />
             </div>
           </div>
+
+          {/* Spacer so the absolute flow row has room on desktop */}
+          <div className="hidden lg:block" style={{ height: 342 }} aria-hidden />
+          {/* Small bottom gap on mobile so the card doesn't feel cramped */}
+          <div className="lg:hidden" style={{ height: 40 }} aria-hidden />
         </div>
 
         {hasTestimonial && testimonial ? (
@@ -397,12 +396,10 @@ function TestimonialFooter({
   const quote = t.quote ?? "";
   return (
     <div
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
       style={{
         background: "#1c1d21",
         padding: "40px 52px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
         gap: 24,
         flexShrink: 0,
       }}
@@ -447,14 +444,12 @@ function TestimonialFooter({
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
           margin: 0,
         }}
       >

@@ -125,8 +125,8 @@ export function FeatureImageCard({
           </div>
         ) : (
                 <div
-                    className="relative overflow-hidden"
-                    style={{ width: "100%", height: bodyHeight }}
+                    className="relative overflow-hidden w-full"
+                    style={{ height: bodyHeight }}
                 >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -139,9 +139,9 @@ export function FeatureImageCard({
                             left: "50%",
                             transform: "translateX(-50%)",
                             bottom: imageBottomOffset,
-                            width: imageWidth,
-                            height: imageHeight,
-                            maxWidth: "none",
+                            width: "100%",
+                            maxWidth: imageWidth,
+                            height: "auto",
                             objectFit: "contain",
                         }}
                     />

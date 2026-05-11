@@ -62,9 +62,8 @@ export function FeaturePowerfulBento({
   return (
     <section
       data-outcomes={topAccent ? true : undefined}
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
       style={{
-        padding: "100px 80px",
         gap: 52,
         marginTop: topAccent ? 80 : 0,
         borderTopLeftRadius: topAccent ? 48 : 0,
@@ -94,7 +93,7 @@ export function FeaturePowerfulBento({
             className="font-urbanist font-bold"
             style={{
               color: "#111",
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
               margin: 0,
@@ -137,17 +136,16 @@ export function FeaturePowerfulBento({
           Cells themselves have NO borders — internal seams are drawn as
           separate 2px divider lines so they render as single 2px lines. */}
       <div
-        className="overflow-hidden flex flex-col"
+        className="overflow-hidden flex flex-col w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #111",
           borderRadius: 24,
         }}
       >
-      {/* Bento grid region — 859 tall, white. */}
+      {/* Bento grid region — 859 tall on desktop (hidden lg:block), stacked on mobile. */}
       <div
-        className="relative"
+        className="hidden lg:block relative"
         style={{
           width: "100%",
           height: 859,
@@ -229,6 +227,26 @@ export function FeaturePowerfulBento({
         </div>
       </div>
 
+      {/* Mobile stacked bento cells */}
+      <div className="lg:hidden flex flex-col" style={{ background: "#fff" }}>
+        <div className="relative overflow-hidden" style={{ borderBottom: "2px solid #111" }}>
+          <MentionsComposerStack />
+          <CardOverlay title={mentionsCard?.title} description={mentionsCard?.description} width={305} />
+        </div>
+        <div className="relative overflow-hidden" style={{ borderBottom: "2px solid #111" }}>
+          <TaskPillsLarge />
+          <CardOverlay title={tasksCard?.title} description={tasksCard?.description} width={305} />
+        </div>
+        <div className="relative overflow-hidden" style={{ borderBottom: "2px solid #111" }}>
+          <RecordingsBlock />
+          <CardOverlay title={recordingsCard?.title} description={recordingsCard?.description} width={305} />
+        </div>
+        <div className="relative overflow-hidden">
+          <ReactionsCluster />
+          <CardOverlay title={reactionsCard?.title} description={reactionsCard?.description} width={305} />
+        </div>
+      </div>
+
       {/* Attached testimonial bar — inline at the bottom of the same outer
           rounded card, sharing the bottom 2px border + 24px corner radii via
           the wrapper's overflow:hidden + border + rounded. */}
@@ -244,7 +262,7 @@ function AttachedTestimonialBar({ t }: { t: FeatureSectionTestimonialProps }) {
   const quote = t.quote ?? "";
   return (
     <div
-      className="flex items-center justify-between"
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between"
       style={{
         width: "100%",
         background: "#1c1d21",
@@ -306,14 +324,12 @@ function AttachedTestimonialBar({ t }: { t: FeatureSectionTestimonialProps }) {
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
           margin: 0,
         }}
       >

@@ -64,9 +64,8 @@ function SectionTitle() {
       // the first card; here we apply it to a plain heading block so
       // every card below can sit on a continuous white plate.
       data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
+      className="flex flex-col items-center bg-white full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
       style={{
-        padding: "100px 80px 60px",
         marginTop: 80,
         borderTopLeftRadius: 48,
         borderTopRightRadius: 48,
@@ -80,7 +79,7 @@ function SectionTitle() {
           className="font-urbanist font-bold"
           style={{
             color: TEXT_HEADING,
-            fontSize: 52,
+            fontSize: "clamp(28px, 4.2vw, 52px)",
             lineHeight: 1.2,
             letterSpacing: "-0.03em",
             margin: 0,
@@ -119,13 +118,11 @@ function Card1AutomaticEvents() {
   const isAutomatic = tab === "automatic";
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "60px 80px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
     >
       <div
-        className="overflow-hidden"
+        className="overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#fff",
           border: "2px solid #111",
           borderRadius: 32,
@@ -151,8 +148,8 @@ function Card1AutomaticEvents() {
 
         {/* White content */}
         <div
-          className="flex flex-col items-center"
-          style={{ background: "#fff", padding: "83px 80px 90px", gap: 24 }}
+          className="flex flex-col items-center py-16 lg:py-[83px] px-6 lg:px-20"
+          style={{ background: "#fff", gap: 24 }}
         >
           <div
             className="flex flex-col items-center text-center"
@@ -162,7 +159,7 @@ function Card1AutomaticEvents() {
               className="font-urbanist font-bold"
               style={{
                 color: "#000",
-                fontSize: 52,
+                fontSize: "clamp(28px, 4.2vw, 52px)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
                 margin: 0,
@@ -285,7 +282,7 @@ function Card1Tab({
 // rows overlapping the right edge. Matches Figma node 259:26585.
 function CustomLoggingMockup() {
   return (
-    <div className="relative" style={{ width: 930, height: 386 }}>
+    <div className="hidden lg:block relative" style={{ width: 930, height: 386 }}>
       {/* Light grey rounded code panel */}
       <div
         className="absolute"
@@ -779,17 +776,16 @@ function BentoCard({
 }) {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "60px 80px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
     >
       <div
-        className="flex flex-col items-center"
-        style={{ width: 800, gap: 40 }}
+        className="flex flex-col items-center w-full max-w-[800px]"
+        style={{ gap: 40 }}
       >
         {/* Header (heading + sub + dual CTA) */}
         <div
-          className="flex flex-col items-center"
-          style={{ gap: 24, width: 691, textAlign: "center" }}
+          className="flex flex-col items-center w-full"
+          style={{ gap: 24, textAlign: "center" }}
         >
           <div
             className="flex flex-col items-center"
@@ -798,7 +794,7 @@ function BentoCard({
             <h3
               className="font-urbanist font-bold"
               style={{
-                fontSize: 52,
+                fontSize: "clamp(28px, 4.2vw, 52px)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
                 margin: 0,
@@ -827,8 +823,8 @@ function BentoCard({
           style={{ width: "100%", gap: 16 }}
         >
           <div
-            className="flex items-center"
-            style={{ width: "100%", gap: 16, height: 400 }}
+            className="grid grid-cols-1 lg:grid-cols-2 w-full"
+            style={{ gap: 16 }}
           >
             {tiles.map((tile, i) => (
               <BentoTileBox key={i} tile={tile} />
@@ -854,7 +850,6 @@ function BentoTileBox({ tile }: { tile: BentoTile }) {
     <div
       className="relative overflow-hidden"
       style={{
-        flex: "1 0 0",
         minWidth: 0,
         height: 400,
         background: "#f7f7f7",
@@ -969,17 +964,17 @@ function BentoTileImage({ tile }: { tile: BentoTile }) {
 function Card5PRD() {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "60px 80px 120px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
+      style={{ paddingBottom: 120 }}
     >
       <div
-        className="flex flex-col items-center relative"
-        style={{ width: 800, gap: 40 }}
+        className="flex flex-col items-center relative w-full max-w-[800px]"
+        style={{ gap: 40 }}
       >
         {/* Header */}
         <div
-          className="flex flex-col items-center"
-          style={{ gap: 24, width: 552, textAlign: "center" }}
+          className="flex flex-col items-center w-full"
+          style={{ gap: 24, maxWidth: 552, textAlign: "center" }}
         >
           <div
             className="flex flex-col items-center"
@@ -988,7 +983,7 @@ function Card5PRD() {
             <h3
               className="font-urbanist font-bold"
               style={{
-                fontSize: 52,
+                fontSize: "clamp(28px, 4.2vw, 52px)",
                 lineHeight: 1.2,
                 letterSpacing: "-0.03em",
                 margin: 0,
@@ -1013,16 +1008,18 @@ function Card5PRD() {
         {/* PRD checklist mockup */}
         <PRDMockup />
 
-        {/* Decorative cursors flanking the mockup */}
+        {/* Decorative cursors flanking the mockup — desktop only */}
         <CursorPin
           color="#ff74f6"
           name="Emma"
+          className="hidden lg:flex"
           style={{ position: "absolute", right: -30, top: "calc(50% + 169.5px)", transform: "translateY(-50%)" }}
           variant="left"
         />
         <CursorPin
           color="#8bf2e1"
           name="Sean"
+          className="hidden lg:flex"
           style={{ position: "absolute", left: -80, top: 647 }}
           variant="right"
         />
@@ -1191,11 +1188,13 @@ function CursorPin({
   name,
   style,
   variant,
+  className,
 }: {
   color: string;
   name: string;
   style: React.CSSProperties;
   variant: "left" | "right";
+  className?: string;
 }) {
   // variant=left → cursor pointer on the left edge of the pill
   // variant=right → cursor pointer on the right edge (mirrored)
@@ -1219,7 +1218,7 @@ function CursorPin({
   );
   return (
     <div
-      className="flex flex-col"
+      className={`flex flex-col${className ? ` ${className}` : ""}`}
       style={{
         ...style,
         alignItems: variant === "left" ? "flex-start" : "flex-end",

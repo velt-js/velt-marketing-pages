@@ -37,9 +37,8 @@ export function LibraryDemoStage({
 
   return (
     <div
-      className="relative flex flex-col items-start"
+      className="relative flex flex-col items-start w-full max-w-[1280px]"
       style={{
-        width: 1280,
         background: "#1c1d21",
         border: "2px solid #1c1d21",
         borderRadius: 12,
@@ -47,11 +46,10 @@ export function LibraryDemoStage({
     >
       {/* Blurred gradient accent bar */}
       <div
-        className="absolute"
+        className="absolute w-full"
         style={{
           top: 26,
           left: -2,
-          width: 1280,
           height: 26,
           filter: "blur(60px)",
           backgroundImage:
@@ -183,7 +181,7 @@ export function LibraryDemoStage({
         onMouseEnter={() => setStageHover(true)}
         onMouseLeave={() => setStageHover(false)}
         style={{
-          height: 640,
+          aspectRatio: "1280 / 640",
           background: "#000",
           border: "4px solid #1c1d21",
           borderBottomLeftRadius: 12,
@@ -208,7 +206,7 @@ export function LibraryDemoStage({
               src={previewSrc}
               alt={`${label} demo preview`}
               fill
-              sizes="1280px"
+              sizes="(max-width: 1024px) 100vw, 1280px"
               style={{ objectFit: "cover", objectPosition: "top left" }}
               priority
             />

@@ -29,13 +29,11 @@ export function FeatureSectionTestimonial({
   if (!quote) return null;
   return (
     <div
-      className="flex items-center justify-between"
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full max-w-[1280px]"
       style={{
-        width: 1280,
-        height: 224,
         background: "#111",
         borderRadius: 24,
-        padding: "0 57px 0 40px",
+        padding: "40px 40px",
         gap: 24,
         marginTop,
       }}
@@ -93,14 +91,12 @@ export function FeatureSectionTestimonial({
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold"
+        className="font-urbanist font-semibold w-full lg:w-[421px] lg:flex-shrink-0"
         style={{
           color: "#fff",
           fontSize: 24,
           lineHeight: 1.2,
           letterSpacing: "-0.03em",
-          width: 421,
-          flexShrink: 0,
           margin: 0,
         }}
       >

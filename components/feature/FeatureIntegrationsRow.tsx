@@ -26,11 +26,11 @@ export function FeatureIntegrationsRow({
 }: FeatureIntegrationsRowProps) {
   return (
     <section
-      className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "100px 80px", gap: 40 }}
+      className="flex flex-col items-center bg-black full-bleed-bg py-20 lg:py-[100px] px-6 lg:px-20"
+      style={{ gap: 40 }}
     >
       <div
-        className="flex flex-col items-center text-center"
+        className="flex flex-col items-center text-center w-full"
         style={{ gap: 16, maxWidth: 820 }}
       >
         {eyebrow ? (
@@ -49,7 +49,7 @@ export function FeatureIntegrationsRow({
         <h2
           className="font-urbanist font-bold text-white"
           style={{
-            fontSize: 52,
+            fontSize: "clamp(28px, 4.2vw, 52px)",
             lineHeight: "120%",
             letterSpacing: "-0.03em",
             margin: 0,
@@ -74,11 +74,13 @@ export function FeatureIntegrationsRow({
       </div>
 
       <div
-        className="grid"
+        className={`grid grid-cols-2 w-full ${
+          Math.min(logos.length, 4) === 4 ? "lg:grid-cols-4" :
+          Math.min(logos.length, 4) === 3 ? "lg:grid-cols-3" :
+          Math.min(logos.length, 4) === 2 ? "lg:grid-cols-2" : "lg:grid-cols-1"
+        }`}
         style={{
-          gridTemplateColumns: `repeat(${Math.min(logos.length, 4)}, 1fr)`,
           gap: 24,
-          width: "100%",
           maxWidth: 1280,
         }}
       >

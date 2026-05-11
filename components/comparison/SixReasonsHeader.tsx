@@ -30,12 +30,11 @@ function TabCard({
   return (
     <a
       href={`#reason-${num}`}
-      className="flex flex-col items-center justify-center"
+      className="flex flex-col items-center justify-center w-full"
       style={{
-        width: CARD_W,
-        height: CARD_H,
-        padding: 24,
-        gap: 18,
+        minHeight: 140,
+        padding: 16,
+        gap: 12,
         background: "#101010",
         borderRadius: 24,
         textDecoration: "none",
@@ -43,14 +42,13 @@ function TabCard({
       }}
       data-tab-num={num}
     >
-      <img src={icon} alt="" width={32} height={32} style={{ display: "block" }} />
+      <img src={icon} alt="" width={28} height={28} style={{ display: "block" }} />
       <span
-        className="font-urbanist font-medium text-white"
+        className="font-urbanist font-medium text-white text-center"
         style={{
-          fontSize: 21,
-          lineHeight: 1.1,
+          fontSize: "clamp(13px, 1.4vw, 18px)",
+          lineHeight: 1.2,
           letterSpacing: "-0.01em",
-          whiteSpace: "nowrap",
         }}
       >
         {label}
@@ -71,12 +69,17 @@ export function SixReasonsHeader({
 }: SixReasonsHeaderProps = {}) {
   return (
     <section
-      className="relative bg-black flex flex-col items-center full-bleed-bg"
-      style={{ paddingTop: 80, paddingBottom: 100, gap: 52 }}
+      className="relative bg-black flex flex-col items-center full-bleed-bg px-6 lg:px-20 pt-16 lg:pt-20 pb-16 lg:pb-[100px]"
+      style={{ gap: 40 }}
     >
       <h2
         className="font-urbanist font-bold text-white text-center"
-        style={{ fontSize: 52, lineHeight: 1.1, letterSpacing: "-0.01em", margin: 0 }}
+        style={{
+          fontSize: "clamp(28px, 4.2vw, 52px)",
+          lineHeight: 1.2,
+          letterSpacing: "-0.03em",
+          margin: 0,
+        }}
       >
         6 Reasons Why
         <br />
@@ -84,12 +87,8 @@ export function SixReasonsHeader({
       </h2>
 
       <div
-        className="grid"
-        style={{
-          gridTemplateColumns: `repeat(3, ${CARD_W}px)`,
-          gridTemplateRows: `repeat(2, ${CARD_H}px)`,
-          gap: GAP,
-        }}
+        className="grid grid-cols-2 lg:grid-cols-3 w-full max-w-[894px]"
+        style={{ gap: GAP }}
       >
         {TABS.map((t) => (
           <TabCard key={t.num} {...t} />

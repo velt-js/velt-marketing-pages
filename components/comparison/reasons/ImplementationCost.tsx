@@ -31,7 +31,7 @@ export function ImplementationCost({
       subheading="Everything involved in integration"
     >
       <div className="flex flex-col" style={{ gap: 22 }}>
-        <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
             title="Complete Architecture"
@@ -60,7 +60,7 @@ export function ImplementationCost({
             />
           </ComparisonSubCard>
         </div>
-        <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
             title="Requires a day to complete"
@@ -87,7 +87,7 @@ export function ImplementationCost({
             />
           </ComparisonSubCard>
         </div>
-        <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
             title="Simple integration"

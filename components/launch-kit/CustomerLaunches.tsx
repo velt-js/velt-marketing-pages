@@ -128,28 +128,25 @@ export function CustomerLaunches({
 
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px" }}
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 py-20 lg:py-[100px]"
     >
       <div
-        className="overflow-hidden flex flex-col items-center"
+        className="overflow-hidden flex flex-col items-center w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#f7f7f7",
           borderRadius: 32,
-          padding: "80px 0",
+          padding: "60px 0",
           gap: 48,
         }}
       >
         <h2
-          className="font-urbanist font-bold text-center"
+          className="font-urbanist font-bold text-center px-6 lg:px-20"
           style={{
             color: "#111",
-            fontSize: 52,
+            fontSize: "clamp(28px, 4.2vw, 52px)",
             lineHeight: 1.2,
             letterSpacing: "-0.03em",
             margin: 0,
-            padding: "0 80px",
             maxWidth: 900,
           }}
         >

@@ -28,7 +28,7 @@ export function Security({ competitorLabel }: SecurityProps = {}) {
       subheading="How refined, robust & complete is the SDK?"
     >
       <div className="flex flex-col" style={{ gap: 22 }}>
-        <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
             title="Option To Self-Host Data"
@@ -55,7 +55,7 @@ export function Security({ competitorLabel }: SecurityProps = {}) {
             />
           </ComparisonSubCard>
         </div>
-        <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
             title="GDPR APIs"
@@ -82,7 +82,7 @@ export function Security({ competitorLabel }: SecurityProps = {}) {
             />
           </ComparisonSubCard>
         </div>
-        <div className="grid" style={{ gridTemplateColumns: "454px 454px", gap: 22 }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
             title="SOC II & HIPAA Compliance ++"

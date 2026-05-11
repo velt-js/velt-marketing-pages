@@ -14,19 +14,14 @@ export function CustomizationStack({ children }: { children: ReactNode }) {
   return (
     <section
       data-outcomes
-      className="relative flex flex-col items-center full-bleed-bg"
+      className="relative flex flex-col items-center full-bleed-bg pt-16 pb-20 lg:pt-[100px] lg:pb-[120px] px-4 lg:px-10 gap-16 lg:gap-[100px] rounded-t-[28px] lg:rounded-t-[52px]"
       style={{
         background: "#FFFFFF",
-        paddingTop: 100,
-        paddingBottom: 120,
-        gap: 100,
-        borderTopLeftRadius: 52,
-        borderTopRightRadius: 52,
       }}
     >
       <div
-        className="flex flex-col items-stretch"
-        style={{ width: 1198, gap: 20 }}
+        className="flex flex-col items-stretch w-full max-w-[1198px]"
+        style={{ gap: 20 }}
       >
         {children}
       </div>

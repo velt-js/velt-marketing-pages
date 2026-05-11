@@ -46,7 +46,7 @@ export function LibraryTabs({
 
   const row = (
     <div
-      className="flex items-center justify-center flex-wrap"
+      className="flex items-center overflow-x-auto no-scrollbar"
       style={{ maxWidth, width: "100%" }}
     >
       {tabs.map((tab, i) => {
@@ -94,8 +94,7 @@ export function LibraryTabs({
 
   return (
     <section
-      className="flex justify-center w-full bg-white"
-      style={{ padding: "52px 80px 0" }}
+      className="flex justify-center w-full bg-white px-6 lg:px-20 pt-10 lg:pt-[52px]"
     >
       {row}
     </section>

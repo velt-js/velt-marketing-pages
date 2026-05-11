@@ -23,23 +23,23 @@ export function LibraryFeatures({ heading, subheading, cards }: LibraryFeaturesP
 
   return (
     <section
-      className="flex flex-col items-center bg-white"
-      style={{ padding: "52px 80px 100px", gap: 52 }}
+      className="flex flex-col items-center bg-white px-6 lg:px-20 pt-10 lg:pt-[52px] pb-20 lg:pb-[100px]"
+      style={{ gap: 52 }}
     >
       <div
-        className="flex flex-col items-center text-center"
+        className="flex flex-col items-center text-center w-full"
         style={{ gap: 12, maxWidth: 820 }}
       >
         <h2
           className="font-urbanist font-bold"
-          style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+          style={{ color: "#111", fontSize: "clamp(28px, 4.2vw, 52px)", lineHeight: 1.2, letterSpacing: "-0.03em" }}
         >
           {heading}
         </h2>
         {subheading && (
           <p
             className="font-urbanist"
-            style={{ color: "#111", fontSize: 20, lineHeight: 1.2, opacity: 0.72 }}
+            style={{ color: "#111", fontSize: "clamp(16px, 1.5vw, 20px)", lineHeight: 1.3, opacity: 0.72 }}
           >
             {subheading}
           </p>
@@ -47,19 +47,15 @@ export function LibraryFeatures({ heading, subheading, cards }: LibraryFeaturesP
       </div>
 
       <div
-        className="grid"
-        style={{
-          gridTemplateColumns: "repeat(2, 400px)",
-          gap: 16,
-        }}
+        className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-[820px]"
+        style={{ gap: 16 }}
       >
         {cards.map((card) => (
           <article
             key={card.title}
             className="relative overflow-hidden"
             style={{
-              width: 400,
-              height: 493,
+              minHeight: 320,
               background: "#f7f7f7",
               borderRadius: 24,
             }}
@@ -74,13 +70,13 @@ export function LibraryFeatures({ heading, subheading, cards }: LibraryFeaturesP
             )}
             <div
               className="absolute flex flex-col items-start"
-              style={{ bottom: 28, left: 30, width: 340, gap: 8 }}
+              style={{ bottom: 28, left: 30, right: 30, gap: 8 }}
             >
               <h3
                 className="font-urbanist font-bold"
                 style={{
                   color: "#111",
-                  fontSize: 28,
+                  fontSize: "clamp(20px, 2.4vw, 28px)",
                   lineHeight: 1.2,
                   letterSpacing: "-0.03em",
                 }}
@@ -89,7 +85,7 @@ export function LibraryFeatures({ heading, subheading, cards }: LibraryFeaturesP
               </h3>
               <p
                 className="font-urbanist"
-                style={{ color: "#111", fontSize: 18, lineHeight: 1.2, opacity: 0.52 }}
+                style={{ color: "#111", fontSize: 16, lineHeight: 1.2, opacity: 0.52 }}
               >
                 {card.description}
               </p>

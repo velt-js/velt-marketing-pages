@@ -55,10 +55,9 @@ export function ComparisonSubCard({
   const label = badgeLabel ?? v.label;
   return (
     <div
-      className="relative flex flex-col items-start"
+      className="relative flex flex-col items-start w-full"
       style={{
-        width: 454,
-        padding: 40,
+        padding: "clamp(20px, 3vw, 40px)",
         gap: 24,
         background: v.bg,
         borderRadius: 52,

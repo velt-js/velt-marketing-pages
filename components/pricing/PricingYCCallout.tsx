@@ -13,8 +13,7 @@ const GRADIENT =
 export function PricingYCCallout() {
   return (
     <section
-      className="flex justify-center bg-black full-bleed-bg"
-      style={{ padding: "0 32px 72px" }}
+      className="flex justify-center bg-black full-bleed-bg px-6 lg:px-8 pb-[72px]"
     >
       <div
         style={{
@@ -26,7 +25,7 @@ export function PricingYCCallout() {
         }}
       >
         <div
-          className="flex items-center"
+          className="flex flex-col lg:flex-row lg:items-center"
           style={{
             background: "#000",
             border: "1px solid #222",
@@ -48,7 +47,7 @@ export function PricingYCCallout() {
               className="font-urbanist"
               style={{
                 color: "#fff",
-                fontSize: 24,
+                fontSize: "clamp(16px, 1.5vw, 24px)",
                 fontWeight: 400,
                 letterSpacing: "-0.01em",
                 lineHeight: 1.2,
@@ -62,7 +61,7 @@ export function PricingYCCallout() {
 
           <Link
             href="/book-demo"
-            className="flex items-center justify-center font-urbanist"
+            className="flex items-center justify-center font-urbanist self-start lg:self-auto"
             style={{
               flexShrink: 0,
               padding: "8px 16px",

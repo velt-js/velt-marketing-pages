@@ -15,7 +15,6 @@
 
 import type { CustomerLogoEntry } from "./customer-logos";
 
-const COLS = 3;
 const ROW_HEIGHT = 136;
 const CELL_RADIUS = 24;
 // Inner padding around each logo. Larger padding = smaller rendered logo,
@@ -36,11 +35,9 @@ export function CustomersLogoGrid({
   return (
     <section
       data-outcomes
-      className="relative flex flex-col items-center full-bleed-bg"
+      className="relative flex flex-col items-center full-bleed-bg px-6 lg:px-20 py-16 lg:py-[100px]"
       style={{
         background: "#FFFFFF",
-        paddingTop: SECTION_PAD_TOP,
-        paddingBottom: SECTION_PAD_BOTTOM,
         // Rounded BOTTOM corners — the curve sits at the white→dark
         // boundary into FeatureCustomerCarousel below, not at the
         // white-on-white seam with CustomerUI above.
@@ -49,12 +46,8 @@ export function CustomersLogoGrid({
       }}
     >
       <div
-        className="grid"
-        style={{
-          width: 1280,
-          gap: GAP,
-          gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))`,
-        }}
+        className="grid grid-cols-2 lg:grid-cols-3 w-full max-w-[1280px]"
+        style={{ gap: GAP }}
       >
         {entries.map((entry) => (
           <LogoCell key={entry.name} entry={entry} />
@@ -139,4 +132,3 @@ function LogoCell({ entry }: { entry: CustomerLogoEntry }) {
     </a>
   );
 }
-

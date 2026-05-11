@@ -26,16 +26,12 @@ export function ReasonShell({
   return (
     <section
       id={`reason-${num}`}
-      className="bg-white flex flex-col items-center"
+      className="bg-white flex flex-col items-center py-10 px-5 lg:py-[72px] lg:px-[133px]"
       style={{
         scrollMarginTop: 80,
         border: "1px solid #0e0d36",
         borderRadius: 56,
-        paddingTop: 72,
-        paddingBottom: 76,
-        paddingLeft: 133,
-        paddingRight: 134,
-        gap: 54,
+        gap: 40,
         width: "100%",
       }}
     >
@@ -54,12 +50,11 @@ export function ReasonShell({
           <h3
             className="font-urbanist font-bold"
             style={{
-              fontSize: 40,
-              lineHeight: 1.1,
+              fontSize: "clamp(20px, 2.4vw, 28px)",
+              lineHeight: 1.2,
               letterSpacing: "-0.01em",
               color: "#111",
               margin: 0,
-              whiteSpace: "nowrap",
             }}
           >
             {heading}
@@ -68,13 +63,12 @@ export function ReasonShell({
             <p
               className="font-urbanist"
               style={{
-                fontSize: 24,
-                lineHeight: 1.2,
+                fontSize: "clamp(16px, 1.5vw, 20px)",
+                lineHeight: 1.3,
                 letterSpacing: "-0.01em",
                 color: "#111",
                 opacity: 0.75,
                 margin: 0,
-                whiteSpace: "nowrap",
               }}
             >
               {subheading}

@@ -177,19 +177,19 @@ export async function LibraryGetStartedCallout({
 
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-          style={{ padding: "150px 80px 60px", gap: 40 }}
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 py-20 lg:py-[150px]"
+      style={{ gap: 40 }}
     >
       <div className="flex flex-col items-center" style={{ gap: 32 }}>
         <div
-          className="flex flex-col items-center text-center"
+          className="flex flex-col items-center text-center w-full"
           style={{ gap: 12, maxWidth: 820 }}
         >
           <h2
             className="font-urbanist font-bold capitalize"
             style={{
               color: "#111",
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
             }}
@@ -198,7 +198,7 @@ export async function LibraryGetStartedCallout({
           </h2>
           <p
             className="font-urbanist"
-            style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}
+            style={{ color: "#111", fontSize: "clamp(16px, 1.5vw, 20px)", lineHeight: 1.3 }}
           >
             {body}
           </p>

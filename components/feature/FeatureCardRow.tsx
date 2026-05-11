@@ -72,10 +72,11 @@ export function FeatureCardRow({
       topAccent={topAccent}
     >
       <div
-        className="grid"
-        style={{
-          gridTemplateColumns: `repeat(${cards.length}, 1fr)`,
-        }}
+        className={`grid grid-cols-1 w-full ${
+          cards.length === 4 ? "lg:grid-cols-4" :
+          cards.length === 3 ? "lg:grid-cols-3" :
+          cards.length === 2 ? "lg:grid-cols-2" : "lg:grid-cols-1"
+        }`}
       >
         {cards.map((card, i) => (
           <CardCell
@@ -102,7 +103,7 @@ function CardCell({
       className="relative overflow-hidden"
       style={{
         background: "#fff",
-        height: 440,
+        minHeight: 440,
         borderRight: isLast ? "none" : "1px solid #f6f6f6",
       }}
     >
