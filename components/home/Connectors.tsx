@@ -181,9 +181,8 @@ const categories: Category[] = [messaging, storage, crm, analytics, workflow, em
 function CategoryCell({ cat }: { cat: Category }) {
   return (
     <div
-      className="relative overflow-hidden"
+      className="relative overflow-hidden w-full"
       style={{
-        flex: "1 0 0",
         height: 365,
         background: "#f4f4f5",
         borderRadius: 24,
@@ -263,23 +262,34 @@ function CategoryCell({ cat }: { cat: Category }) {
 export function Connectors() {
   return (
     <section
-      className="flex flex-col items-center bg-white relative"
-      style={{ padding: "150px 80px 0", gap: 52 }}
+      className="flex flex-col items-center bg-white relative px-6 lg:px-20 pt-20 lg:pt-[150px] gap-10 lg:gap-13"
     >
       {/* Header — max-width 820 per Framer */}
-      <div className="flex flex-col items-center" style={{ gap: 32, maxWidth: 820, width: "100%" }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12, width: "100%" }}>
+      <div className="flex flex-col items-center gap-6 lg:gap-8 max-w-[820px] w-full">
+        <div className="flex flex-col items-center text-center gap-3 w-full">
           <h2
             className="font-urbanist font-bold"
-            style={{ color: "#111", fontSize: 48, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            style={{
+              color: "#111",
+              fontSize: "clamp(28px, 4vw, 48px)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+            }}
           >
             Connect Velt with 3rd Party Apps
           </h2>
-          <p className="font-urbanist" style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}>
+          <p
+            className="font-urbanist"
+            style={{
+              color: "#111",
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
+            }}
+          >
             Velt connects with other services in your product workflow
           </p>
         </div>
-        <div className="flex items-start" style={{ gap: 12 }}>
+        <div className="flex items-start gap-3">
           <a
             href="https://docs.velt.dev/integrations"
             target="_blank"
@@ -323,25 +333,16 @@ export function Connectors() {
         </div>
       </div>
 
-      {/* 2×3 grid — 3 flex rows of 2 cells with gap:16, cells flex:1 0 0 height:365.
-          Width 912 matches the admin-console card so the per-logo `calc(X% − Ypx)`
-          positions render at the same cell scale (448×365) on both pages. */}
-      <div className="flex flex-col" style={{ width: 824, gap: 16 }}>
-        {[0, 2, 4].map((rowStart) => (
-          <div
-            key={rowStart}
-            className="flex"
-            style={{ gap: 16, width: "100%" }}
-          >
-            <CategoryCell cat={categories[rowStart]} />
-            <CategoryCell cat={categories[rowStart + 1]} />
-          </div>
+      {/* Category grid — 1 col below lg, 2 cols at lg+. Each cell holds
+          logos positioned via calc(X% − Ypx) so they re-center inside
+          whatever the cell width ends up being on each breakpoint. */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full max-w-[824px]">
+        {categories.map((cat) => (
+          <CategoryCell key={cat.title} cat={cat} />
         ))}
       </div>
 
-      {/* Testimonial card — Hope Callaway @Leadpages. 912-wide wrapper
-          matches the category grid above so the card aligns with the section. */}
-      <div style={{ width: 824 }}>
+      <div className="w-full max-w-[824px]">
         <InlineTestimonialCard
           name="Hope Callaway"
           role="Senior PM @Leadpages"

@@ -218,40 +218,33 @@ export function FeatureCustomerCarousel({
       // over LibraryFAQ's same-named marker — making the nav flip back
       // to dark/transparent at the top of the carousel, not the FAQ.
       data-getstarted
-      className="flex flex-col items-center bg-black full-bleed-bg"
-      style={{ padding: "120px 0 60px", gap: 40 }}
+      className="flex flex-col items-center bg-black w-full pt-20 lg:pt-[120px] pb-12 lg:pb-[60px] gap-8 lg:gap-10"
     >
-      <div
-        className="flex flex-col items-center text-center"
-        style={{ gap: 24, maxWidth: 820, padding: "0 80px" }}
-      >
+      <div className="flex flex-col items-center text-center gap-6 max-w-[820px] w-full px-6 lg:px-20">
         <h2
-          className="font-urbanist font-bold text-white"
+          className="font-urbanist font-bold text-white m-0"
           style={{
-            fontSize: 52,
-            lineHeight: "120%",
+            fontSize: "clamp(28px, 4.2vw, 52px)",
+            lineHeight: 1.2,
             letterSpacing: "-0.03em",
-            margin: 0,
           }}
         >
           {heading}
         </h2>
         {subheading ? (
           <p
-            className="font-urbanist text-white"
+            className="font-urbanist text-white m-0 max-w-[720px]"
             style={{
-              fontSize: 18,
+              fontSize: "clamp(15px, 1.4vw, 18px)",
               lineHeight: 1.4,
               opacity: 0.6,
-              margin: 0,
-              maxWidth: 720,
             }}
           >
             {subheading}
           </p>
         ) : null}
         {(primaryCta?.label || secondaryCta?.label) && (
-          <div className="flex items-center" style={{ gap: 12 }}>
+          <div className="flex items-center gap-3 flex-wrap justify-center">
             {secondaryCta?.label && secondaryCta.href ? (
               <CtaButton variant="secondary" cta={secondaryCta} />
             ) : null}

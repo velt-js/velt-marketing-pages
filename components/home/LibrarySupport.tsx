@@ -41,7 +41,7 @@ function CellTextBlock({ title, subtitle }: { title: string; subtitle: string })
   return (
     <div
       className="absolute flex flex-col items-start"
-      style={{ bottom: 28, left: 28, width: 305, gap: 8 }}
+      style={{ bottom: 28, left: 28, right: 28, gap: 8 }}
     >
       <h3
         className="font-urbanist font-bold"
@@ -62,23 +62,34 @@ function CellTextBlock({ title, subtitle }: { title: string; subtitle: string })
 export function LibrarySupport() {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "100px 80px 0", gap: 48 }}
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 pt-16 lg:pt-[100px] gap-10 lg:gap-12"
     >
       {/* Header — Figma node 1:20819 */}
-      <div className="flex flex-col items-center" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>
+      <div className="flex flex-col items-center gap-6 lg:gap-8">
+        <div className="flex flex-col items-center text-center gap-3">
           <h2
-            className="font-urbanist font-bold whitespace-nowrap"
-            style={{ color: "#111", fontSize: 48, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            className="font-urbanist font-bold"
+            style={{
+              color: "#111",
+              fontSize: "clamp(28px, 4vw, 48px)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+            }}
           >
             Works seamlessly with your libraries
           </h2>
-          <p className="font-urbanist" style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}>
+          <p
+            className="font-urbanist"
+            style={{
+              color: "#111",
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
+            }}
+          >
             Use 8+ Purpose-built Library or Integrate it yourself
           </p>
         </div>
-        <div className="flex items-start" style={{ gap: 12 }}>
+        <div className="flex items-start gap-3">
           <button
             className="flex items-center justify-center gap-1 rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}
@@ -106,15 +117,14 @@ export function LibrarySupport() {
         </div>
       </div>
 
-      {/* Library Grid — Figma node 1:20830 */}
-      <div style={{ width: 824 }}>
-        {/* Row 1 — Figma node 1:20831: 2 cards of 400×493, gap:16, ml:4 */}
-        <div className="flex items-center" style={{ gap: 16, marginLeft: 4 }}>
+      {/* Library Grid — Figma node 1:20830. Cards stack on mobile, two-up
+          at lg+. The Canvas card always spans full width below. */}
+      <div className="w-full max-w-[824px] flex flex-col gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Text Editor Libraries — Figma node 1:20832 */}
           <article
-            className="relative overflow-hidden"
+            className="relative overflow-hidden w-full"
             style={{
-              width: 400,
               height: 493,
               background: "#f7f7f7",
               border: "2px solid #f7f7f7",
@@ -144,9 +154,8 @@ export function LibrarySupport() {
 
           {/* Chart Libraries — Figma node 1:20891 */}
           <article
-            className="relative overflow-hidden"
+            className="relative overflow-hidden w-full"
             style={{
-              width: 400,
               height: 493,
               background: "#f7f7f7",
               border: "2px solid #f7f7f7",
@@ -184,13 +193,11 @@ export function LibrarySupport() {
           </article>
         </div>
 
-        {/* Canvas App — Figma node 1:20928: 824×228, mt:509 */}
+        {/* Canvas App — full-width below the row pair. */}
         <article
-          className="relative overflow-hidden"
+          className="relative overflow-hidden w-full"
           style={{
-            width: 824,
             height: 228,
-            marginTop: 16,
             background: "#f7f7f7",
             borderRadius: 24,
           }}

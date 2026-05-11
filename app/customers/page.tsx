@@ -6,7 +6,6 @@
 //   4. FeatureCustomerCarousel ("Our Customers Trust Us")
 //   5. GetStartedSteps + Footer
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { CustomerUI } from "@/components/home/CustomerUI";
@@ -52,12 +51,11 @@ export const metadata = {
 
 export default function CustomersPage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-customers-webpage" data={CUSTOMERS_WEBPAGE} />
       <JsonLd id="ld-customers-breadcrumb" data={CUSTOMERS_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -102,6 +100,6 @@ export default function CustomersPage() {
           <Footer />
         </section>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

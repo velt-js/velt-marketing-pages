@@ -11,7 +11,6 @@
 
 import { notFound } from "next/navigation";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
@@ -142,12 +141,11 @@ export default async function MigrateSlugPage({
   });
 
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-migrate-webpage" data={webpage} />
       <JsonLd id="ld-migrate-breadcrumb" data={breadcrumb} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated={doc.hero.decorated !== false}
@@ -200,6 +198,6 @@ export default async function MigrateSlugPage({
           <Footer />
         </section>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

@@ -3,7 +3,6 @@
 // page. Tier copy + comparison-table content live in
 // components/pricing/pricing-data.ts.
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
 import { PageHero } from "@/components/library/PageHero";
@@ -143,13 +142,12 @@ export const metadata = {
 
 export default function PricingPage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-pricing-product" data={PRICING_PRODUCT_SCHEMA} />
       <JsonLd id="ld-pricing-faq" data={PRICING_FAQ_SCHEMA} />
       <JsonLd id="ld-pricing-breadcrumb" data={PRICING_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -177,6 +175,6 @@ export default function PricingPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

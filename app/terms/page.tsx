@@ -1,4 +1,3 @@
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 
 export const metadata = {
@@ -18,10 +17,9 @@ export const metadata = {
 
 export default function TermsPage() {
   return (
-    <ScaleWrapper>
+    <>
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         {/* Hero — dark background, mirrors privacy page hero */}
         <section
@@ -100,6 +98,6 @@ export default function TermsPage() {
           <Footer />
         </div>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

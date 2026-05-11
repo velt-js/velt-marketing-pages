@@ -17,7 +17,6 @@
 // certification pill; Security renders the cert pill as the wide bottom
 // card placement. Card visuals are PNGs under public/images/enterprise/.
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { PageHero } from "@/components/library/PageHero";
@@ -63,12 +62,11 @@ export const metadata = {
 
 export default function EnterprisePage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-enterprise-webpage" data={ENTERPRISE_WEBPAGE} />
       <JsonLd id="ld-enterprise-breadcrumb" data={ENTERPRISE_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -183,6 +181,6 @@ export default function EnterprisePage() {
           <Footer />
         </section>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

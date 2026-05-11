@@ -5,7 +5,6 @@ import {
   ORG_OG_IMAGE,
   SITE_URL,
 } from "./_seo/schema";
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Nav } from "@/components/home/Nav";
 import { Hero } from "@/components/home/Hero";
 import { Outcomes } from "@/components/home/Outcomes";
@@ -33,17 +32,11 @@ export const metadata: Metadata = {
   },
 };
 
-// Figma y-positions for top-level sections (8506:97015, 1440×11703):
-//   Nav          y=0    h=57    (floats over Hero top)
-//   Hero         y=0    h=1174
-//   TrustedLogos y=1251 h=216   → 77 gap from Hero end
-//   Outcomes     y=1544 h=1032  → 77 gap from TrustedLogos end
-//   Content     y=2504 h=7014  → starts BEFORE Outcomes ends (-72 overlap)
-//   GetStarted   y=9604 h=811   → 87 gap from Content Container end
-//   Footer       y=10502 h=1200 → 87 gap from GetStarted end
-//
-// Everything inside ScaleWrapper sits at a 1440 design width that scales
-// proportionally below 1440 and centers above.
+// Section rhythm follows Figma's 1440 design but is now responsive —
+// each section owns its own horizontal max-width (container-page) and
+// vertical padding (section-pad-y). The marginTops below are interim
+// gaps between sections; per-component refactors will replace them
+// with section-pad-y once each section is converted.
 
 // SoftwareApplication schema for the homepage. `applicationCategory:
 // DeveloperApplication` signals this is a developer tool (vs SaaS app),
@@ -73,10 +66,8 @@ const HOME_SOFTWARE_APPLICATION = {
 export default function Home() {
   return (
     <>
-      {/* Fixed nav — lives OUTSIDE ScaleWrapper so its position is relative to
-          the viewport, not the scale-transformed inner div. Flips to white bg
-          when Outcomes scrolls under it. Nav handles its own full-width bg
-          with a 1440-centered inner content row. */}
+      {/* Fixed nav — viewport-relative; flips to white bg when Outcomes
+          scrolls under it. */}
       <div
         style={{
           position: "fixed",
@@ -90,28 +81,22 @@ export default function Home() {
       </div>
       <JsonLd id="ld-home-software" data={HOME_SOFTWARE_APPLICATION} />
 
-      <ScaleWrapper>
-        <div className="relative bg-black text-white font-urbanist" style={{ width: 1440 }}>
-          <Hero />
+      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
+        <Hero />
 
-        <div style={{ marginTop: 77 }}>
+        <div className="mt-10 lg:mt-[77px]">
           <TrustedLogos />
         </div>
 
-        <div style={{ marginTop: 77 }}>
+        <div className="mt-10 lg:mt-[77px]">
           <Outcomes />
         </div>
 
         {/* White rounded content container — overlaps Outcomes' bottom padding
-            by 72 px so its top-rounded corners sit inside the purple band. */}
+            by 72 px so its top-rounded corners sit inside the purple band.
+            Smaller radius/overlap on mobile to match the compressed rhythm. */}
         <div
-          className="bg-white relative full-bleed-bg"
-          style={{
-            marginTop: -72,
-            borderRadius: 52,
-            paddingTop: 100,
-            paddingBottom: 40,
-          }}
+          className="bg-white relative -mt-10 lg:-mt-[72px] rounded-t-[28px] lg:rounded-[52px] pt-12 lg:pt-[100px] pb-8 lg:pb-10"
         >
           <StealFeatures />
           <FeaturesGrid />
@@ -121,15 +106,14 @@ export default function Home() {
           <Security />
         </div>
 
-        <div style={{ marginTop: 40 }}>
+        <div className="mt-6 lg:mt-10">
           <GetStartedSteps />
         </div>
 
-          <div style={{ marginTop: 87 }}>
-            <Footer />
-          </div>
+        <div className="mt-12 lg:mt-[87px]">
+          <Footer />
         </div>
-      </ScaleWrapper>
+      </div>
     </>
   );
 }

@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { PageHero } from "@/components/library/PageHero";
 import { getAllBlogPosts } from "@/sanity/queries";
@@ -56,12 +55,11 @@ export default async function BlogListingPage() {
   const posts = (await getAllBlogPosts()) as BlogPost[];
 
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-blog-webpage" data={BLOG_WEBPAGE} />
       <JsonLd id="ld-blog-breadcrumb" data={BLOG_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -73,7 +71,7 @@ export default async function BlogListingPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }
 

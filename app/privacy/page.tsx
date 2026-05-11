@@ -1,4 +1,3 @@
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 
 export const metadata = {
@@ -18,10 +17,9 @@ export const metadata = {
 
 export default function PrivacyPage() {
   return (
-    <ScaleWrapper>
+    <>
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         {/* Hero — dark background, mirrors PageHero without the animated grid */}
         <section
@@ -100,7 +98,7 @@ export default function PrivacyPage() {
           <Footer />
         </div>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }
 

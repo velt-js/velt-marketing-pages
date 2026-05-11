@@ -6,7 +6,6 @@
 
 import Link from "next/link";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -66,12 +65,11 @@ export default async function FeaturesLandingPage() {
   const items = ((await getAllFeaturePages()) ?? []) as FeatureListItem[];
 
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-features-webpage" data={FEATURES_WEBPAGE} />
       <JsonLd id="ld-features-breadcrumb" data={FEATURES_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -99,7 +97,7 @@ export default async function FeaturesLandingPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }
 

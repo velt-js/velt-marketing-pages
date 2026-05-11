@@ -16,7 +16,6 @@
 
 import type { Metadata } from "next";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { PageHero } from "@/components/library/PageHero";
@@ -47,10 +46,9 @@ export const metadata: Metadata = {
 
 export default function LaunchKitPage() {
   return (
-    <ScaleWrapper>
+    <>
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -136,6 +134,6 @@ export default function LaunchKitPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

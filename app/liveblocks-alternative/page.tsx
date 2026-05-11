@@ -7,7 +7,6 @@
 // is unchanged because every new prop carries a default that preserves
 // the original copy.
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
@@ -43,10 +42,9 @@ export const metadata = {
 
 export default function LiveblocksAlternativePage() {
   return (
-    <ScaleWrapper>
+    <>
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -93,6 +91,6 @@ export default function LiveblocksAlternativePage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

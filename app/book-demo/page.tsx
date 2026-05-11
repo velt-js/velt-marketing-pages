@@ -1,6 +1,5 @@
 "use client";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { PageHero } from "@/components/library/PageHero";
@@ -14,10 +13,9 @@ const CALENDLY_URL = "https://calendly.com/goyalrakesh/30min?embed_domain=velt.d
  */
 export default function BookDemoPage() {
   return (
-    <ScaleWrapper>
+    <>
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -71,6 +69,6 @@ export default function BookDemoPage() {
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="lazyOnload"
       />
-    </ScaleWrapper>
+    </>
   );
 }

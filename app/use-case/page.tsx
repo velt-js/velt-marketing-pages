@@ -8,7 +8,6 @@
 // section[data-getstarted] around the dark tail (FAQ + GetStarted +
 // Footer) so the Nav flips back to dark at the FAQ.
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
@@ -55,12 +54,11 @@ export const metadata = {
 
 export default function UseCasePage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-use-case-webpage" data={USE_CASE_WEBPAGE} />
       <JsonLd id="ld-use-case-breadcrumb" data={USE_CASE_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -86,6 +84,6 @@ export default function UseCasePage() {
           <Footer />
         </section>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

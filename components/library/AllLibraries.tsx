@@ -182,27 +182,17 @@ export function AllLibraries({
       // viewports ≥ 1440 so the white background matches the body edge —
       // same trick the homepage uses on its white content container.
       data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{
-        padding: topAccent ? "60px 80px" : "52px 80px 60px",
-        marginTop: topAccent ? 80 : 0,
-        borderTopLeftRadius: topAccent ? 48 : 0,
-        borderTopRightRadius: topAccent ? 48 : 0,
-      }}
+      className={`flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 ${
+        topAccent ? "py-12 lg:py-[60px] mt-12 lg:mt-20 rounded-t-[28px] lg:rounded-t-[48px]" : "pt-10 lg:pt-[52px] pb-12 lg:pb-[60px]"
+      }`}
     >
-      <div
-        className="flex flex-col items-center"
-        style={{ width: 820, maxWidth: 1280, gap: 24 }}
-      >
-        <div
-          className="flex flex-col items-center text-center"
-          style={{ gap: 12, maxWidth: 820 }}
-        >
+      <div className="flex flex-col items-center w-full max-w-[820px] gap-6">
+        <div className="flex flex-col items-center text-center gap-3 max-w-[820px]">
           <h2
             className="font-urbanist font-bold"
             style={{
               color: "#111",
-              fontSize: 52,
+              fontSize: "clamp(28px, 4.2vw, 52px)",
               lineHeight: 1.2,
               letterSpacing: "-0.03em",
             }}
@@ -214,8 +204,8 @@ export function AllLibraries({
               className="font-urbanist"
               style={{
                 color: "#000",
-                fontSize: 20,
-                lineHeight: 1.2,
+                fontSize: "clamp(16px, 1.5vw, 20px)",
+                lineHeight: 1.3,
               }}
             >
               {subheading}
@@ -224,12 +214,12 @@ export function AllLibraries({
         </div>
 
         {tabs && tabs.length > 0 && (() => {
-          // Tab row width scales with tab count: ~130 px per tab, with a 520
-          // floor (so the original 4-tab Libraries layout is unchanged) and an
-          // 820 ceiling (the inner content stage width).
           const tabsMaxWidth = Math.max(520, Math.min(tabs.length * 130, 820));
           return (
-            <div className="flex justify-center" style={{ marginTop: 20, maxWidth: tabsMaxWidth, width: "100%", borderBottom: "1px solid #e0e0e0" }}>
+            // On mobile the tab row scrolls horizontally; at lg+ it pins to
+            // the computed `tabsMaxWidth` so the original 4-tab Libraries
+            // layout is unchanged.
+            <div className="flex justify-center w-full overflow-x-auto no-scrollbar mt-5" style={{ borderBottom: "1px solid #e0e0e0", maxWidth: tabsMaxWidth }}>
               <LibraryTabs
                 tabs={tabs}
                 variant="inline"
@@ -241,14 +231,7 @@ export function AllLibraries({
           );
         })()}
 
-        <div
-          className="grid"
-          style={{
-            width: "100%",
-            gridTemplateColumns: "repeat(3, minmax(50px, 1fr))",
-            gap: 20,
-          }}
-        >
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 w-full">
           {filtered.map((item) => (
             <LibraryLogoCard key={item.name} data={item} hideLearnMore={hideLearnMore} />
           ))}

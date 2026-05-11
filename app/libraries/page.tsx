@@ -4,7 +4,6 @@
 //   → Enterprise Security (2×2 + cert + Yuri testimonial).
 // Dark tail: FAQ → GetStartedSteps (closes with Hope testimonial) → Footer.
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -56,12 +55,11 @@ export const metadata = {
 
 export default function LibrariesLandingPage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-libraries-webpage" data={LIBRARIES_WEBPAGE} />
       <JsonLd id="ld-libraries-breadcrumb" data={LIBRARIES_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -93,6 +91,6 @@ export default function LibrariesLandingPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

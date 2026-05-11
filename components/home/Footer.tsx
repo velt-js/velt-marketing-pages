@@ -187,19 +187,17 @@ function SocialIcon({ label, src, href }: { label: string; src: string; href: st
 export function Footer() {
   return (
     <footer
-      className="w-full flex flex-col items-center bg-black"
-      style={{ padding: "80px 80px 0" }}
+      className="w-full flex flex-col items-center bg-black px-6 lg:px-20 pt-16 lg:pt-20"
     >
       <div
-        className="flex flex-col"
-        style={{ width: 1280, padding: "64px 0", gap: 64 }}
+        className="flex flex-col w-full max-w-[1280px] gap-12 lg:gap-16"
+        style={{ padding: "48px 0 32px" }}
       >
-        {/* Main content row: info column + link grid */}
-        <div className="flex items-start justify-between">
+        {/* Main content row: info column + link grid. Stacks on mobile. */}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 lg:gap-0">
           {/* Left info column — Figma 1:20071 (340×280) */}
           <div
-            className="flex flex-col"
-            style={{ width: 340, gap: 64 }}
+            className="flex flex-col w-full lg:w-[340px] gap-8 lg:gap-16"
           >
             <div className="flex flex-col" style={{ gap: 24 }}>
               <div className="flex flex-col" style={{ gap: 16 }}>
@@ -350,11 +348,10 @@ export function Footer() {
           }}
         />
 
-        {/* Bottom row — Figma 1:20344. 3 equal columns, 24px tall. */}
-        <div className="flex items-center" style={{ height: 24, gap: 10 }}>
+        {/* Bottom row — stacks centered on mobile, 3 equal cols at lg. */}
+        <div className="flex flex-col items-center lg:flex-row lg:items-center gap-6 lg:gap-2">
           <div
-            className="flex items-center"
-            style={{ flex: "1 0 0", minWidth: 0, gap: 32 }}
+            className="flex items-center gap-8 lg:flex-1 lg:min-w-0"
           >
             <SocialIcon
               label="LinkedIn"
@@ -368,8 +365,8 @@ export function Footer() {
             />
           </div>
           <div
-            className="flex justify-center"
-            style={{ flex: "1 0 0", minWidth: 0, opacity: 0.4 }}
+            className="flex lg:justify-center lg:flex-1 lg:min-w-0"
+            style={{ opacity: 0.4 }}
           >
             <p
               className="font-urbanist font-medium text-white text-center whitespace-nowrap"
@@ -379,8 +376,7 @@ export function Footer() {
             </p>
           </div>
           <div
-            className="flex items-center justify-end"
-            style={{ flex: "1 0 0", minWidth: 0 }}
+            className="flex items-center lg:justify-end lg:flex-1 lg:min-w-0"
           >
             <a
               href="https://www.ycombinator.com/companies/velt"

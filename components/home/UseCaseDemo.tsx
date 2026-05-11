@@ -3,8 +3,12 @@
 // UseCaseDemo — 5-tab product demo panel. Default state shows a static preview
 // image with a "TRY DEMO" button overlay and a hand-drawn arrow annotation.
 // Clicking TRY DEMO swaps the image for an <iframe> of the live demo in place.
-// Switching tabs resets back to the image view. Ported from the Framer export
-// at /Users/yoenzhang/Downloads/velt-marketing-imported-html/page.html.
+// Switching tabs resets back to the image view.
+//
+// Responsive rewrite: relative w-full instead of absolute-positioned 1280px.
+// Tab rail wraps to two rows on mobile (label + Try Demo on top, tabs in a
+// horizontal scroll below). Stage uses aspect-ratio instead of fixed height
+// so it scales with viewport.
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -77,19 +81,53 @@ function UseCaseTabRail({
 }) {
   return (
     <div
-      className="flex items-center gap-6 w-full relative"
+      // Stacks vertically on mobile (label+CTA on top, scrollable tabs below);
+      // single row on lg+.
+      className="flex flex-col lg:flex-row lg:items-center gap-2 lg:gap-6 w-full relative"
       style={{ background: "#1c1d21", padding: "6px 16px 4px", zIndex: 2 }}
     >
-      <div className="flex items-center gap-2">
-        <Image src="/images/home/icon-pointer.svg" alt="" width={16} height={16} aria-hidden="true" />
-        <span
-          className="font-firamono uppercase whitespace-nowrap"
-          style={{ fontSize: 14, letterSpacing: "-0.03em", color: "#b4b1fa", lineHeight: 1.2 }}
-        >
-          Use Cases
-        </span>
+      <div className="flex items-center gap-2 justify-between lg:justify-start">
+        <div className="flex items-center gap-2">
+          <Image src="/images/home/icon-pointer.svg" alt="" width={16} height={16} aria-hidden="true" />
+          <span
+            className="font-firamono uppercase whitespace-nowrap"
+            style={{ fontSize: 14, letterSpacing: "-0.03em", color: "#b4b1fa", lineHeight: 1.2 }}
+          >
+            Use Cases
+          </span>
+        </div>
+        {/* On mobile only: Try Demo button next to label so it stays visible
+            without the user having to scroll the tab strip horizontally. */}
+        {showTryDemo && (
+          <button
+            type="button"
+            onClick={onTryDemo}
+            aria-label={`Try ${activeLabel} demo`}
+            className="lg:hidden flex items-center gap-2 font-firamono uppercase cursor-pointer"
+            style={{
+              padding: "6px 10px",
+              background: "#1c1d21",
+              border: "1px solid #b4b1fa",
+              borderRadius: 4,
+              color: "#b4b1fa",
+              fontSize: 12,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.2,
+            }}
+          >
+            <Image
+              src="/images/home/icon-pointer.svg"
+              alt=""
+              width={14}
+              height={14}
+              aria-hidden="true"
+            />
+            Try Demo
+          </button>
+        )}
       </div>
-      <div className="flex items-start gap-2">
+      {/* Tab strip — scrolls horizontally on mobile when content overflows. */}
+      <div className="flex items-start gap-2 overflow-x-auto lg:overflow-visible -mx-2 px-2 lg:mx-0 lg:px-0 no-scrollbar">
         {DEMO_TABS.map((tab) => {
           const active = tab.id === activeId;
           return (
@@ -97,7 +135,7 @@ function UseCaseTabRail({
               key={tab.id}
               type="button"
               onClick={() => onSelect(tab.id)}
-              className="rounded-lg px-3 py-2 flex items-center font-firamono uppercase whitespace-nowrap cursor-pointer"
+              className="rounded-lg px-3 py-2 flex items-center font-firamono uppercase whitespace-nowrap cursor-pointer flex-shrink-0"
               style={{
                 background: active ? "rgba(255,255,255,0.08)" : "transparent",
                 color: active ? "#fff" : "rgba(255,255,255,0.52)",
@@ -113,14 +151,11 @@ function UseCaseTabRail({
         })}
       </div>
 
-      {/* TRY DEMO button sits at the right end of the header row. Hovering or
-          focusing the button reveals the "Not just a picture, Click to try"
-          annotation below-left, with the arrow (natural up-right orientation)
-          pointing back at the button. */}
+      {/* Desktop-only TRY DEMO at the right end of the header row, with the
+          "Not just a picture, Click to try" annotation that arrows back at
+          the button on hover. */}
       {showTryDemo && (
-        // Button styling lifted from velt.dev's Framer export — 1px purple
-        // border, 4px radius, Fira Mono 14px with -0.03em tracking.
-        <div className="ml-auto relative">
+        <div className="hidden lg:block ml-auto relative">
           <button
             type="button"
             onClick={onTryDemo}
@@ -146,10 +181,6 @@ function UseCaseTabRail({
             />
             Try Demo
           </button>
-          {/* "Not just a picture, Click to try" — Urbanist centered, 1.4em
-              line height, -0.01em tracking, arrow in natural up-right
-              orientation pointing back at the button. Visibility is driven
-              by `annotationVisible`, which is wired to hover on the stage. */}
           <div
             className="absolute flex items-end gap-2 pointer-events-none transition-opacity duration-200"
             style={{
@@ -201,23 +232,20 @@ export function UseCaseDemo() {
 
   return (
     <div
-      className="absolute flex flex-col items-start"
+      className="relative w-full flex flex-col items-start"
       style={{
-        top: 570,
-        left: 80,
-        width: 1280,
         background: "#1c1d21",
         border: "2px solid #1c1d21",
         borderRadius: 12,
       }}
     >
-      {/* Blurred gradient accent bar */}
+      {/* Blurred gradient accent bar — tracks container width. */}
       <div
-        className="absolute"
+        className="absolute pointer-events-none"
         style={{
           top: 26,
-          left: -2,
-          width: 1280,
+          left: 0,
+          right: 0,
           height: 26,
           filter: "blur(60px)",
           backgroundImage:
@@ -234,16 +262,14 @@ export function UseCaseDemo() {
         annotationVisible={!showIframe && stageHover}
       />
 
-      {/* Screenshot stage — renders either the preview image or the live
-          iframe, keyed on activeTab so React remounts when tabs switch.
-          Hover on the stage reveals the "Not just a picture" annotation
-          that's anchored to the TRY DEMO button above. */}
+      {/* Screenshot stage — aspect-ratio derives height from width so it
+          scales smoothly across viewports. 1280:620 matches the Figma. */}
       <div
         className="relative w-full overflow-hidden"
         onMouseEnter={() => setStageHover(true)}
         onMouseLeave={() => setStageHover(false)}
         style={{
-          height: 620,
+          aspectRatio: "1280 / 620",
           background: "#000",
           border: "4px solid #1c1d21",
           borderRadius: 12,
@@ -273,13 +299,10 @@ export function UseCaseDemo() {
               src={activeTab.image}
               alt={`${activeTab.label} demo`}
               fill
-              sizes="1280px"
+              sizes="(max-width: 1280px) 100vw, 1280px"
               style={{ objectFit: "cover", objectPosition: "top left" }}
               priority={activeId === "dashboard"}
             />
-            {/* Hover dimmer — fades a 60% black overlay over the preview
-                when the stage is hovered so the TRY DEMO CTA and arrow
-                annotation pop. Mirrors the live velt.dev treatment. */}
             <div
               className="absolute inset-0 pointer-events-none transition-opacity duration-200"
               style={{
@@ -292,8 +315,7 @@ export function UseCaseDemo() {
         )}
       </div>
 
-      {/* Bottom-right Github pill — real link now (Live Demo pill removed;
-          its affordance is replaced by TRY DEMO on the stage). */}
+      {/* Bottom-right Github pill */}
       <div
         className="absolute flex items-center gap-3"
         style={{
@@ -321,7 +343,7 @@ export function UseCaseDemo() {
         </a>
       </div>
 
-      {/* Bottom-left info icon — unchanged */}
+      {/* Bottom-left info icon */}
       <div
         className="absolute flex items-center"
         style={{

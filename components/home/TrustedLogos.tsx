@@ -115,58 +115,140 @@ const competitorLogos: CompetitorLogo[] = [
   },
 ];
 
+// Logos-only list, used both in the desktop grid (as the non-label tiles)
+// and in the mobile marquee below. Keeping a single source so the two
+// layouts can't drift apart.
+const logoTiles = defaultTiles.filter(
+  (t): t is Extract<Tile, { kind: "logo" }> => t.kind === "logo",
+);
+
+// Mobile marquee math — 160px tiles, same shift logic as StealFeatures.
+const MOBILE_TILE_W = 160;
+const MOBILE_TRACK_SHIFT = logoTiles.length * MOBILE_TILE_W;
+const MOBILE_DURATION_S = MOBILE_TRACK_SHIFT / 60; // 60 px/s, slower than steal features
+
 function DefaultGrid() {
   return (
-    <div
-      className="flex flex-wrap items-center justify-center content-center"
-      style={{ width: 1280 }}
-    >
-      {defaultTiles.map((tile, i) =>
-        tile.kind === "label" ? (
-          <div
-            key={`label-${i}`}
-            className="flex items-center justify-center shrink-0 font-urbanist font-bold uppercase whitespace-nowrap"
-            style={{
-              width: 320,
-              height: 72,
-              padding: 21.6,
-              border: "0.9px solid #171717",
-              fontSize: 12.6,
-              letterSpacing: "1.89px",
-              lineHeight: 1.2,
-              color: "#fff",
-            }}
-          >
-            Trusted By&nbsp;
-            <span style={{ color: "#b3b0fb" }}>Top Teams</span>
-          </div>
-        ) : (
-          <div
-            key={`${tile.alt}-${i}`}
-            className="relative shrink-0 flex items-center justify-center"
-            style={{
-              width: 160,
-              height: 72,
-              border: "0.9px solid #171717",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={tile.src}
-              alt={tile.alt}
-              width={tile.w}
-              height={tile.h}
+    <>
+      {/* Desktop grid — full 8/7/8 layout with the "Trusted By Top Teams"
+          label tile in row 2. Visible at lg+ only. */}
+      <div
+        className="hidden lg:flex flex-wrap items-center justify-center content-center w-full"
+      >
+        {defaultTiles.map((tile, i) =>
+          tile.kind === "label" ? (
+            <div
+              key={`label-${i}`}
+              className="flex items-center justify-center shrink-0 font-urbanist font-bold uppercase whitespace-nowrap"
               style={{
-                width: tile.w,
-                height: tile.h,
-                opacity: tile.opacity ?? 1,
-                objectFit: "contain",
+                width: 320,
+                height: 72,
+                padding: 21.6,
+                border: "0.9px solid #171717",
+                fontSize: 12.6,
+                letterSpacing: "1.89px",
+                lineHeight: 1.2,
+                color: "#fff",
               }}
-            />
+            >
+              Trusted By&nbsp;
+              <span style={{ color: "#b3b0fb" }}>Top Teams</span>
+            </div>
+          ) : (
+            <div
+              key={`${tile.alt}-${i}`}
+              className="relative shrink-0 flex items-center justify-center"
+              style={{
+                width: 160,
+                height: 72,
+                border: "0.9px solid #171717",
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={tile.src}
+                alt={tile.alt}
+                width={tile.w}
+                height={tile.h}
+                style={{
+                  width: tile.w,
+                  height: tile.h,
+                  opacity: tile.opacity ?? 1,
+                  objectFit: "contain",
+                }}
+              />
+            </div>
+          ),
+        )}
+      </div>
+
+      {/* Mobile marquee — single horizontal scroll of all logos, looping
+          via CSS keyframes. 25% edge fade matches the live site pattern. */}
+      <div className="lg:hidden flex flex-col w-full gap-6">
+        <div
+          className="font-urbanist font-bold uppercase text-center"
+          style={{
+            fontSize: 12.6,
+            letterSpacing: "1.89px",
+            lineHeight: 1.2,
+            color: "#fff",
+          }}
+        >
+          Trusted By&nbsp;
+          <span style={{ color: "#b3b0fb" }}>Top Teams</span>
+        </div>
+        <style>{`
+          @keyframes trusted-marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-${MOBILE_TRACK_SHIFT}px); }
+          }
+          .trusted-marquee-track {
+            animation: trusted-marquee ${MOBILE_DURATION_S}s linear infinite;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            .trusted-marquee-track { animation: none; }
+            .trusted-marquee-viewport { overflow-x: auto; }
+          }
+        `}</style>
+        <div
+          className="trusted-marquee-viewport w-full overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 87.5%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 87.5%, rgba(0,0,0,0) 100%)",
+          }}
+        >
+          <div
+            className="trusted-marquee-track flex items-center"
+            style={{ height: 72, width: "max-content" }}
+          >
+            {[...logoTiles, ...logoTiles].map((tile, i) => (
+              <div
+                key={`${tile.alt}-${i}`}
+                aria-hidden={i >= logoTiles.length}
+                className="shrink-0 flex items-center justify-center"
+                style={{ width: MOBILE_TILE_W, height: 72 }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tile.src}
+                  alt={tile.alt}
+                  width={tile.w}
+                  height={tile.h}
+                  style={{
+                    width: tile.w,
+                    height: tile.h,
+                    opacity: tile.opacity ?? 1,
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+            ))}
           </div>
-        ),
-      )}
-    </div>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -261,22 +343,21 @@ export function TrustedLogos() {
 
   return (
     <section
-      className="flex flex-col items-center justify-center w-full bg-black"
-      style={{ padding: "0 80px 80px" }}
+      className="flex flex-col items-center justify-center w-full bg-black px-6 lg:px-20 pb-16 lg:pb-20"
       onMouseEnter={() => setShowCompetitors(true)}
       onMouseLeave={() => setShowCompetitors(false)}
     >
-      {/* Inner stage locked to 1280px. Both layouts share the same 216 px
-          height so the cross-fade doesn't shift anything below. */}
-      <div className="relative" style={{ width: 1280, height: 216 }}>
+      {/* Inner stage. Below lg the default grid renders alone and wraps
+          naturally; the hover competitor flip is a desktop affordance only. */}
+      <div className="relative w-full max-w-[1280px] lg:h-[216px]">
         <div
-          className="absolute inset-0 transition-opacity duration-300"
+          className="lg:absolute lg:inset-0 transition-opacity duration-300"
           style={{ opacity: showCompetitors ? 0 : 1, pointerEvents: showCompetitors ? "none" : "auto" }}
         >
           <DefaultGrid />
         </div>
         <div
-          className="absolute inset-0 transition-opacity duration-300"
+          className="hidden lg:block absolute inset-0 transition-opacity duration-300"
           style={{ opacity: showCompetitors ? 1 : 0, pointerEvents: showCompetitors ? "auto" : "none" }}
         >
           <CompetitorsGrid />

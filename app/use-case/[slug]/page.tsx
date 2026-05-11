@@ -9,7 +9,6 @@
 
 import { notFound } from "next/navigation";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -127,12 +126,11 @@ export default async function UseCaseSlugPage({
   });
 
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-use-case-slug-webpage" data={webpage} />
       <JsonLd id="ld-use-case-slug-breadcrumb" data={breadcrumb} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated={doc.hero.decorated !== false}
@@ -169,6 +167,6 @@ export default async function UseCaseSlugPage({
           <Footer />
         </section>
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

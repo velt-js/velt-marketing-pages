@@ -261,24 +261,29 @@ export function CustomerUI({
 
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "150px 80px 0", gap: 52 }}
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20 pt-20 lg:pt-[150px] gap-10 lg:gap-13"
     >
       {/* Header */}
-      <div className="flex flex-col items-center" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center" style={{ gap: 16, width: 721 }}>
-          <div className="flex items-center justify-center w-full" style={{ gap: 12 }}>
+      <div className="flex flex-col items-center gap-6 lg:gap-8 w-full">
+        <div className="flex flex-col items-center gap-4 max-w-[721px] w-full">
+          <div className="flex items-center justify-center w-full gap-3 flex-wrap">
             <span
               className="font-urbanist font-bold whitespace-nowrap"
-              style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+              style={{
+                color: "#111",
+                fontSize: "clamp(28px, 4.2vw, 52px)",
+                lineHeight: 1.2,
+                letterSpacing: "-0.03em",
+              }}
             >
               How
             </span>
             <div
               className="relative flex items-center justify-center shrink-0"
               style={{
-                width: active.pillLogoWidthPx + 26,
-                height: 57.2,
+                paddingLeft: 13,
+                paddingRight: 13,
+                height: "clamp(40px, 4.6vw, 57.2px)",
                 background: "rgba(98,93,245,0.08)",
                 borderRadius: 16.3,
                 transition: "width 200ms ease",
@@ -289,7 +294,7 @@ export function CustomerUI({
                 src={active.pillLogoSrc ?? active.stripLogoSrc}
                 alt={active.name}
                 style={{
-                  height: active.pillLogoHeightPx,
+                  height: "clamp(22px, 3vw, 40px)",
                   width: "auto",
                   display: "block",
                 }}
@@ -297,19 +302,28 @@ export function CustomerUI({
             </div>
             <span
               className="font-urbanist font-bold whitespace-nowrap"
-              style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+              style={{
+                color: "#111",
+                fontSize: "clamp(28px, 4.2vw, 52px)",
+                lineHeight: 1.2,
+                letterSpacing: "-0.03em",
+              }}
             >
               Leverages Velt
             </span>
           </div>
           <p
             className="font-urbanist text-center w-full"
-            style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}
+            style={{
+              color: "#111",
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
+            }}
           >
             {active.subtitle}
           </p>
         </div>
-        <div className="flex items-start justify-center" style={{ gap: 12 }}>
+        <div className="flex items-start justify-center gap-3">
           <a
             href="/book-demo"
             className="flex items-center justify-center rounded-lg"
@@ -350,15 +364,16 @@ export function CustomerUI({
 
       {/* Dark rounded carousel */}
       <div
-        className="flex flex-col overflow-hidden"
+        className="flex flex-col overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#111",
           borderRadius: 24,
           border: "2px solid rgba(255,255,255,0.1)",
         }}
       >
-        {/* Tab row: paginated logo strip with left/right arrows */}
+        {/* Tab row: paginated logo strip. Arrow controls show on lg+; below
+            lg the strip becomes a native horizontal scroller so touch users
+            can swipe through logos. */}
         <div
           className="flex items-center w-full"
           style={{ height: 52, padding: "0 12px", background: "#111" }}
@@ -367,7 +382,7 @@ export function CustomerUI({
             type="button"
             aria-label="Scroll logos left"
             onClick={handleScrollLeft}
-            className="flex items-center justify-center shrink-0 cursor-pointer"
+            className="hidden lg:flex items-center justify-center shrink-0 cursor-pointer"
             style={{
               width: 32,
               height: 32,
@@ -383,8 +398,52 @@ export function CustomerUI({
             </svg>
           </button>
 
+          {/* Mobile strip: full list, horizontally scrollable. Renders
+              below lg only. */}
           <div
-            className="flex flex-1 items-center justify-between overflow-hidden"
+            className="lg:hidden flex flex-1 items-center overflow-x-auto no-scrollbar gap-6"
+            style={{ padding: "0 16px", minWidth: 0 }}
+          >
+            {customers.map((c) => {
+              const realIdx = customers.indexOf(c);
+              const isActive = realIdx === activeIdx;
+              return (
+                <button
+                  key={c.slug}
+                  type="button"
+                  aria-label={`Show ${c.name}`}
+                  aria-pressed={isActive}
+                  onClick={() => setActiveIdx(realIdx)}
+                  className="flex items-center justify-center cursor-pointer shrink-0"
+                  style={{
+                    width: c.stripLogoWidthPx,
+                    height: 28,
+                    padding: 0,
+                    background: "transparent",
+                    border: "none",
+                    opacity: isActive ? 1 : 0.45,
+                    transition: "opacity 150ms",
+                  }}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.stripLogoSrc}
+                    alt={c.name}
+                    style={{
+                      width: c.stripLogoWidthPx,
+                      height: c.stripLogoHeightPx,
+                      objectFit: "contain",
+                      filter: "brightness(0) invert(1)",
+                    }}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Desktop strip: paginated VISIBLE_COUNT window. */}
+          <div
+            className="hidden lg:flex flex-1 items-center justify-between overflow-hidden"
             style={{ padding: "0 16px", minWidth: 0 }}
           >
             {visibleCustomers.map((c) => {
@@ -434,7 +493,7 @@ export function CustomerUI({
             type="button"
             aria-label="Scroll logos right"
             onClick={handleScrollRight}
-            className="flex items-center justify-center shrink-0 cursor-pointer"
+            className="hidden lg:flex items-center justify-center shrink-0 cursor-pointer"
             style={{
               width: 32,
               height: 32,
@@ -469,12 +528,12 @@ export function CustomerUI({
           />
         </div>
 
-        {/* Testimonial — swaps per customer */}
+        {/* Testimonial — swaps per customer. Stacks vertically on mobile. */}
         <div
-          className="flex items-center justify-between w-full"
-          style={{ padding: 32, background: "#111" }}
+          className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full gap-5 lg:gap-0"
+          style={{ padding: "24px 24px 28px", background: "#111" }}
         >
-          <div className="flex items-center shrink-0" style={{ gap: 16 }}>
+          <div className="flex items-center shrink-0 gap-4">
             <div
               className="relative overflow-hidden shrink-0"
               style={{
@@ -493,7 +552,7 @@ export function CustomerUI({
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className="flex flex-col" style={{ gap: 4 }}>
+            <div className="flex flex-col gap-1">
               <span
                 className="font-urbanist font-semibold text-white"
                 style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}
@@ -509,8 +568,12 @@ export function CustomerUI({
             </div>
           </div>
           <p
-            className="font-urbanist font-semibold text-white"
-            style={{ fontSize: 22, maxWidth: 380, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            className="font-urbanist font-semibold text-white lg:max-w-[380px]"
+            style={{
+              fontSize: "clamp(16px, 1.8vw, 22px)",
+              lineHeight: 1.3,
+              letterSpacing: "-0.03em",
+            }}
           >
             {active.testimonialQuote}
           </p>

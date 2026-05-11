@@ -11,7 +11,6 @@
 // FeatureCustomerCarousel already carries data-getstarted (flips back
 // to dark).
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
@@ -66,12 +65,11 @@ export const metadata = {
 
 export default function CustomizationPage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-customization-webpage" data={CUSTOMIZATION_WEBPAGE} />
       <JsonLd id="ld-customization-breadcrumb" data={CUSTOMIZATION_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -129,6 +127,6 @@ export default function CustomizationPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

@@ -6,7 +6,6 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -197,12 +196,11 @@ export default async function LibraryPage({
   });
 
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-library-webpage" data={webpage} />
       <JsonLd id="ld-library-breadcrumb" data={breadcrumb} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated={doc.hero.decorated ?? true}
@@ -295,6 +293,6 @@ export default async function LibraryPage({
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

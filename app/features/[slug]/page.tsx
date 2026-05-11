@@ -5,7 +5,6 @@
 
 import { notFound } from "next/navigation";
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -137,12 +136,11 @@ export default async function FeaturePage({
   });
 
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-feature-webpage" data={webpage} />
       <JsonLd id="ld-feature-breadcrumb" data={breadcrumb} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated={doc.hero.decorated ?? true}
@@ -233,6 +231,6 @@ export default async function FeaturePage({
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

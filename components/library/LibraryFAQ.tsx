@@ -75,19 +75,22 @@ export function LibraryFAQ({
       // there's no LibraryFAQ, so GetStartedSteps' own data-getstarted still
       // wins; querySelector returns the first DOM match either way.
       data-getstarted
-      className="flex flex-col items-center bg-black"
-      style={{ padding: "60px 80px", gap: 52 }}
+      className="flex flex-col items-center bg-black px-6 lg:px-20 py-12 lg:py-[60px] gap-10 lg:gap-13"
     >
       <h2
         className="font-urbanist font-bold text-white text-center"
-        style={{ fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+        style={{
+          fontSize: "clamp(28px, 4.2vw, 52px)",
+          lineHeight: 1.2,
+          letterSpacing: "-0.03em",
+        }}
       >
         {heading}
       </h2>
 
       <ul
-        className="flex flex-col"
-        style={{ width: 957, gap: 16, margin: 0, padding: 0, listStyle: "none" }}
+        className="flex flex-col w-full max-w-[957px] gap-4"
+        style={{ margin: 0, padding: 0, listStyle: "none" }}
       >
         {items.map((item, i) => {
           const isOpen = openIndex === i;
@@ -106,23 +109,20 @@ export function LibraryFAQ({
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 aria-expanded={isOpen}
-                className="flex items-center justify-between w-full text-left"
+                className="flex items-center justify-between w-full text-left p-6 lg:p-8 gap-3"
                 style={{
-                  padding: 32,
-                  gap: 10,
                   background: "transparent",
                   border: 0,
                   cursor: "pointer",
                 }}
               >
                 <span
-                  className="font-urbanist font-bold"
+                  className="font-urbanist font-bold flex-1"
                   style={{
-                    fontSize: 32,
-                    lineHeight: 1.2,
+                    fontSize: "clamp(18px, 2.4vw, 32px)",
+                    lineHeight: 1.3,
                     letterSpacing: "-0.02em",
                     color: "rgb(255, 255, 255)",
-                    flex: 1,
                   }}
                 >
                   {item.question}
@@ -131,9 +131,8 @@ export function LibraryFAQ({
               </button>
               {isOpen && (
                 <div
-                  className="font-urbanist"
+                  className="font-urbanist px-6 pb-6 lg:px-8 lg:pb-8"
                   style={{
-                    padding: "0 32px 32px 32px",
                     fontSize: 14,
                     fontWeight: 500,
                     lineHeight: "1.5em",

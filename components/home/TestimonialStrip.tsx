@@ -59,12 +59,13 @@ export function TestimonialStrip({
 }: TestimonialStripProps = {}) {
   const content = (
     <div
-      className="flex items-center justify-between w-full"
-      style={{ padding: 40, background: "#1a1a1a" }}
+      // Quote stacks above author on mobile (same pattern as InlineTestimonialCard).
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full gap-5 lg:gap-0"
+      style={{ padding: "24px 24px 28px", background: "#1a1a1a" }}
     >
-      <div className="flex items-center" style={{ gap: 16 }}>
+      <div className="flex items-center gap-4 order-2 lg:order-1">
         <div
-          className="relative overflow-hidden"
+          className="relative overflow-hidden shrink-0"
           style={{ width: 52, height: 52, borderRadius: "50%" }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -74,7 +75,7 @@ export function TestimonialStrip({
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
-        <div className="flex flex-col" style={{ gap: 4 }}>
+        <div className="flex flex-col gap-1">
           <span
             className="font-urbanist font-semibold text-white"
             style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}
@@ -90,8 +91,12 @@ export function TestimonialStrip({
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold text-white"
-        style={{ fontSize: 24, width: 421, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+        className="font-urbanist font-semibold text-white order-1 lg:order-2 lg:max-w-[421px]"
+        style={{
+          fontSize: "clamp(18px, 2.2vw, 24px)",
+          lineHeight: 1.3,
+          letterSpacing: "-0.03em",
+        }}
       >
         <QuoteWithAccent quote={quote} fragment={accentFragment} color={accentColor} />
       </p>
@@ -100,14 +105,13 @@ export function TestimonialStrip({
 
   if (!standalone) return content;
 
-  // Standalone wrapper — 1280-wide rounded card to sit between sections
-  // on a black page background, matching the GetStartedSteps card proportions.
+  // Standalone wrapper — full-width up to 1280, rounded card sitting on
+  // a black page background.
   return (
-    <section className="flex justify-center bg-black w-full" style={{ padding: "0 80px" }}>
+    <section className="flex justify-center bg-black w-full px-6 lg:px-20">
       <div
-        className="overflow-hidden"
+        className="overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#111",
           border: "2px solid #1a1a1a",
           borderRadius: 24,

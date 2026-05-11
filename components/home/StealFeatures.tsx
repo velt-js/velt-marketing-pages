@@ -602,20 +602,32 @@ export function StealFeatures() {
   }, []);
 
   return (
-    <section className="flex flex-col items-center w-full" style={{ gap: 52 }}>
-      <div className="flex flex-col items-center w-full" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12, maxWidth: 850 }}>
+    <section className="flex flex-col items-center w-full gap-10 lg:gap-13">
+      <div className="container-page flex flex-col items-center w-full gap-6 lg:gap-8">
+        <div className="flex flex-col items-center text-center gap-3 max-w-[850px]">
           <h2
             className="font-urbanist font-bold"
-            style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            style={{
+              color: "#111",
+              fontSize: "clamp(28px, 4.2vw, 52px)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+            }}
           >
             Steal Features from Popular Products
           </h2>
-          <p className="font-urbanist" style={{ color: "#111", fontSize: 20, lineHeight: 1.2 }}>
+          <p
+            className="font-urbanist"
+            style={{
+              color: "#111",
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
+            }}
+          >
             Our components have different modes to match your product needs
           </p>
         </div>
-        <div className="flex items-start" style={{ gap: 12 }}>
+        <div className="flex items-start gap-3">
           <button
             className="flex items-center justify-center gap-1 rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}

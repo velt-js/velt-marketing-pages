@@ -251,26 +251,39 @@ export function Security({
 }: SecurityProps = {}) {
   return (
     <section
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: `${paddingTop}px 80px ${paddingBottom}px`, gap: 40 }}
+      className="flex flex-col items-center bg-white full-bleed-bg px-6 lg:px-20"
+      style={{
+        paddingTop: `clamp(80px, 12vw, ${paddingTop}px)`,
+        paddingBottom: `clamp(60px, 9vw, ${paddingBottom}px)`,
+        gap: 40,
+      }}
     >
-      <div className="flex flex-col items-center" style={{ gap: 24, maxWidth: 820 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>
+      <div className="flex flex-col items-center gap-6 max-w-[820px] w-full">
+        <div className="flex flex-col items-center text-center gap-3">
           <ShieldIcon />
           <h2
             className="font-urbanist font-bold"
-            style={{ color: "#111", fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            style={{
+              color: "#111",
+              fontSize: "clamp(28px, 4.2vw, 52px)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+            }}
           >
             {heading}
           </h2>
           <p
             className="font-urbanist"
-            style={{ color: "#000", fontSize: 20, lineHeight: 1.3 }}
+            style={{
+              color: "#000",
+              fontSize: "clamp(16px, 1.5vw, 20px)",
+              lineHeight: 1.3,
+            }}
           >
             {subheading}
           </p>
         </div>
-        <div className="flex items-center" style={{ gap: 12 }}>
+        <div className="flex items-center gap-3">
           <a
             href={primaryCta.href}
             className="flex items-center justify-center rounded-lg font-urbanist font-semibold whitespace-nowrap"
@@ -304,11 +317,8 @@ export function Security({
         </div>
       </div>
 
-      <div className="flex flex-col" style={{ gap: 16, width: 820 }}>
-        <div
-          className="grid"
-          style={{ gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 16 }}
-        >
+      <div className="flex flex-col w-full max-w-[820px] gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {cards.map((card) => (
             <SecurityCardBox key={card.title} title={card.title} subtitle={card.subtitle}>
               {card.visual}
@@ -327,16 +337,15 @@ export function Security({
 
         {certification && (
           <article
-            className="relative flex items-center justify-between overflow-hidden"
+            className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between overflow-hidden gap-6 lg:gap-0"
             style={{
               width: "100%",
-              height: 170,
               background: "#f7f7f7",
               borderRadius: 24,
-              padding: "0 61px 0 30px",
+              padding: "28px 30px",
             }}
           >
-            <div className="flex flex-col items-start" style={{ gap: 8 }}>
+            <div className="flex flex-col items-start gap-2">
               <h3
                 className="font-urbanist font-bold"
                 style={{ color: "#111", fontSize: 28, lineHeight: 1.2, letterSpacing: "-0.03em" }}
@@ -350,7 +359,7 @@ export function Security({
                 {certification.subtitle}
               </p>
             </div>
-            <div className="flex items-center" style={{ gap: 32 }}>
+            <div className="flex items-center gap-6 lg:gap-8">
               {certification.badges.map((b) => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

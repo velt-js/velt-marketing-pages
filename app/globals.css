@@ -37,28 +37,37 @@
   --font-poppins:  "Poppins", system-ui, sans-serif;
 }
 
-/* Typography scale (DESIGN.md §1). Additive — opt-in per component, does
-   not retrofit the existing inline-styled headings in Hero, Outcomes, etc.
-   Tailwind v4 syntax: one @utility block per class. */
+/* Typography scale (DESIGN.md §1). Fluid via clamp() — scales smoothly
+   from 375px viewport (mobile floor) to 1440px (desktop ceiling).
+   Tailwind v4 syntax: one @utility block per class.
+   clamp(min, preferred, max): preferred uses vw so the type scales with
+   viewport between the bounds. Tuned so h1 hits 72px at 1440 viewport
+   and floors at 40px on a 375 phone — readable but impactful. */
 @utility text-display-h1 {
   font-family: var(--font-urbanist);
-  font-size: 72px;
+  font-size: clamp(40px, 5vw, 72px);
   font-weight: 700;
-  line-height: 125%;
+  line-height: 110%;
   letter-spacing: -0.03em;
 }
 @utility text-display-h2 {
   font-family: var(--font-urbanist);
-  font-size: 40px;
+  font-size: clamp(28px, 2.8vw, 40px);
   font-weight: 700;
   line-height: 120%;
   letter-spacing: -0.02em;
 }
 @utility text-display-h3 {
   font-family: var(--font-urbanist);
-  font-size: 24px;
+  font-size: clamp(20px, 1.7vw, 24px);
   font-weight: 600;
   line-height: 130%;
+}
+@utility text-body-lg {
+  font-family: var(--font-urbanist);
+  font-size: clamp(16px, 1.6vw, 24px);
+  font-weight: 400;
+  line-height: 140%;
 }
 @utility text-body {
   font-family: var(--font-urbanist);
@@ -89,44 +98,59 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Section container — single source of truth for content max-width and
+   horizontal gutters. Used by every responsive home component. Gutter
+   widens from 24px on phones to 40px on desktop. */
+@utility container-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+@media (min-width: 1024px) {
+  .container-page {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+/* Section vertical rhythm — mobile compresses the 120/80px Figma rhythm
+   to keep scroll-depth reasonable. */
+@utility section-pad-y {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+@media (min-width: 1024px) {
+  .section-pad-y {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+}
+
+/* Hide native scrollbar on horizontal scroll containers (mobile tab
+   strips, marquees). The element still scrolls; only the chrome is
+   suppressed for a cleaner edge-to-edge look. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 img {
   image-rendering: -webkit-optimize-contrast;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-/* Full-bleed utility for section-scoped colored backgrounds (purple Outcomes,
-   white content container) — below 1440 ScaleWrapper scales the 1440 design
-   to fit the viewport so default `width: 100%` already fills. Above 1440 the
-   design pins at 1440 centered, so we break the section's bg out to viewport
-   width. Element-qualified + !important to beat Tailwind's `.w-full`.
-   NOTE: plain-CSS rule (not a Tailwind `@utility`) so Tailwind's purger can't
-   drop it when the class temporarily has no uses during HMR. */
+/* Full-bleed utility — kept as a legacy no-op so existing class references
+   compile (used to break sections out of the old 1440 ScaleWrapper). After
+   the responsive refactor every page already renders 100vw wide, so the
+   rule body is intentionally empty. Safe to delete the class from call
+   sites in a follow-up. */
 .full-bleed-bg {
-  /* placeholder so Tailwind's JIT always emits the rule; actual break-out
-     happens in the media query below. */
-}
-@media (min-width: 1440px) {
-  section.full-bleed-bg,
-  div.full-bleed-bg {
-    width: 100vw !important;
-    margin-left: calc(50% - 50vw) !important;
-  }
-}
-
-/* Hero pixel-grid background — tiles as a CSS background so it can extend
-   past the 1440 design width on ultrawide viewports without scaling the
-   rest of the Hero. Below 1440 the inline `left:0; width:1440` wins and
-   ScaleWrapper scales the whole thing to fit; at ≥1440 we break out to
-   viewport width and the repeat-x tiling fills the extra space.
-   Using left:50% + translateX(-50%) instead of calc(50% - 50vw) keeps
-   the grid centered regardless of parent positioning quirks (scrollbar
-   width, browser zoom, full-bleed parent already offset, etc.). */
-@media (min-width: 1440px) {
-  .hero-grid-full {
-    left: calc(50% - 50vw) !important;
-    transform: none !important;
-    width: 100vw !important;
-  }
 }
 

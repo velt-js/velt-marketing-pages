@@ -60,15 +60,17 @@ export function InlineTestimonialCard({
 }: InlineTestimonialCardProps) {
   return (
     <article
-      className="flex items-center justify-between"
+      // Mobile: stack with quote on top, author info on the bottom-left.
+      // Desktop (lg+): single row, author left + quote right via flex order.
+      className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-0"
       style={{
         width: "100%",
         background: "#1c1d21",
         borderRadius: 24,
-        padding: 32,
+        padding: 28,
       }}
     >
-      <div className="flex items-center shrink-0" style={{ gap: 16 }}>
+      <div className="flex items-center shrink-0 order-2 lg:order-1 gap-4">
         <div
           className="relative overflow-hidden shrink-0"
           style={{
@@ -86,7 +88,7 @@ export function InlineTestimonialCard({
             style={{ objectFit: "cover" }}
           />
         </div>
-        <div className="flex flex-col" style={{ gap: 4 }}>
+        <div className="flex flex-col gap-1">
           <span
             className="font-urbanist font-semibold text-white"
             style={{ fontSize: 18, lineHeight: 1.2, letterSpacing: "-0.03em" }}
@@ -107,11 +109,10 @@ export function InlineTestimonialCard({
         </div>
       </div>
       <p
-        className="font-urbanist font-semibold text-white"
+        className="font-urbanist font-semibold text-white order-1 lg:order-2 lg:max-w-[420px]"
         style={{
-          fontSize: 24,
-          maxWidth: 420,
-          lineHeight: 1.2,
+          fontSize: "clamp(18px, 2.2vw, 24px)",
+          lineHeight: 1.3,
           letterSpacing: "-0.03em",
         }}
       >

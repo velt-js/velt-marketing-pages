@@ -3,7 +3,6 @@
 // FAQ → GetStartedSteps → Footer). Reuses the AllLibraries grid with
 // `hideLearnMore` since integration cards only link to docs.
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -54,12 +53,11 @@ export const metadata = {
 
 export default function IntegrationsLandingPage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-integrations-webpage" data={INTEGRATIONS_WEBPAGE} />
       <JsonLd id="ld-integrations-breadcrumb" data={INTEGRATIONS_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -96,6 +94,6 @@ export default function IntegrationsLandingPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

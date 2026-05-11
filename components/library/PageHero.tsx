@@ -21,12 +21,13 @@ export type PageHeroProps = {
   decorated?: boolean;
 };
 
-// Cursor name-tags lifted from components/home/Hero.tsx:16-70. Positions
-// match the homepage so the visual rhythm carries over.
+// Cursor name-tags lifted from components/home/Hero.tsx:16-70. Decorative
+// only — hidden below lg where the title block doesn't have horizontal
+// room for them.
 function CursorSean() {
   return (
     <div
-      className="absolute flex flex-col items-end"
+      className="hidden lg:flex absolute flex-col items-end pointer-events-none"
       style={{ top: 235, left: "calc(50% - 472px)" }}
       aria-hidden="true"
     >
@@ -60,7 +61,7 @@ function CursorSean() {
 function CursorEmma() {
   return (
     <div
-      className="absolute flex flex-col items-start"
+      className="hidden lg:flex absolute flex-col items-start pointer-events-none"
       style={{ top: 324, left: "calc(50% + 380px)" }}
       aria-hidden="true"
     >
@@ -98,20 +99,17 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      className="relative w-full bg-black overflow-hidden full-bleed-bg"
-      style={{ paddingTop: 140, paddingBottom: 100 }}
+      className="relative w-full bg-black overflow-hidden pt-24 pb-16 lg:pt-[140px] lg:pb-[100px]"
     >
       {decorated ? (
         <>
-          {/* Pixel-grid GIF — copied from components/home/Hero.tsx:144-156.
-              The .hero-grid-full class (app/globals.css:60-65) extends this
-              full-bleed at viewports ≥1440px. */}
+          {/* Pixel-grid GIF — hidden below md (crowds the title on phones). */}
           <div
-            className="hero-grid-full absolute overflow-hidden"
+            className="hidden md:block absolute overflow-hidden"
             style={{
               top: 0,
               left: 0,
-              width: 1440,
+              width: "100%",
               height: 534,
               backgroundImage: "url('/images/home/grid-animation.gif')",
               backgroundRepeat: "repeat-x",
@@ -119,14 +117,13 @@ export function PageHero({
               backgroundPosition: "top center",
             }}
           />
-          {/* Radial vignette fading the grid into solid black. */}
           <div
             aria-hidden="true"
-            className="hero-grid-full absolute"
+            className="hidden md:block absolute"
             style={{
               top: 0,
               left: 0,
-              width: 1440,
+              width: "100%",
               height: 534,
               background:
                 "radial-gradient(ellipse 100% 534px at 50% 0%, rgba(0,0,0,0.7) 0%, #000 100%)",
@@ -136,8 +133,6 @@ export function PageHero({
           <CursorEmma />
         </>
       ) : (
-        // Soft radial purple glow centered at top — used by per-library
-        // detail pages that don't opt into the full Hero treatment.
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
@@ -148,11 +143,8 @@ export function PageHero({
         />
       )}
 
-      <div
-        className="relative flex flex-col items-center"
-        style={{ gap: 40, width: 851, margin: "0 auto" }}
-      >
-        <div className="flex flex-col items-center" style={{ gap: 20 }}>
+      <div className="container-page relative flex flex-col items-center gap-8 lg:gap-10 max-w-[851px]">
+        <div className="flex flex-col items-center gap-5 w-full">
           {eyebrow && (
             <span
               className="inline-flex items-center font-urbanist font-semibold text-white"
@@ -183,19 +175,22 @@ export function PageHero({
 
           <h1
             className="font-urbanist font-bold text-white text-center"
-            style={{ fontSize: 72, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+            style={{
+              fontSize: "clamp(36px, 5vw, 72px)",
+              lineHeight: 1.15,
+              letterSpacing: "-0.03em",
+            }}
           >
             {heading}
           </h1>
 
           {subheading && (
             <p
-              className="font-urbanist font-medium text-center"
+              className="font-urbanist font-medium text-center max-w-[651px]"
               style={{
-                fontSize: 24,
-                lineHeight: 1.1,
+                fontSize: "clamp(16px, 1.7vw, 24px)",
+                lineHeight: 1.3,
                 color: "rgba(255,255,255,0.8)",
-                maxWidth: 651,
               }}
             >
               {subheading}
@@ -204,7 +199,7 @@ export function PageHero({
         </div>
 
         {(primaryCta?.label || secondaryCta?.label) && (
-          <div className="flex items-start" style={{ gap: 12 }}>
+          <div className="flex items-start gap-3 flex-wrap justify-center">
             {secondaryCta?.label && secondaryCta.href && (
               <a
                 href={secondaryCta.href}
@@ -213,7 +208,7 @@ export function PageHero({
                 className="flex items-center justify-center gap-2 rounded-lg font-urbanist font-bold text-white"
                 style={{
                   minWidth: 150,
-                  padding: "8px 16px",
+                  padding: "12px 16px",
                   border: "1.002px solid #625df5",
                   fontSize: 16,
                   letterSpacing: "-0.03em",
@@ -232,7 +227,7 @@ export function PageHero({
                 className="flex items-center justify-center gap-2 rounded-lg font-urbanist font-bold text-white"
                 style={{
                   minWidth: 150,
-                  padding: "8px 16px",
+                  padding: "12px 16px",
                   background: "#625df5",
                   fontSize: 16,
                   letterSpacing: "-0.03em",

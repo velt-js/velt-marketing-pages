@@ -447,7 +447,29 @@ export function Nav() {
   const [overPurple, setOverPurple] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState<DropdownId | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const closeTimer = useRef<number | null>(null);
+
+  // Body scroll-lock + escape-to-close while the mobile drawer is open.
+  // Also closes the drawer when the viewport crosses into lg+ so the
+  // desktop nav doesn't render while the body is still locked.
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setDrawerOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [drawerOpen]);
 
   useEffect(() => {
     const NAV_STRIP = 80;
@@ -513,8 +535,58 @@ export function Nav() {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); requestClose(); }}
     >
+    {/* Mobile bar — logo + hamburger only. Visible below lg. */}
+    <div className="lg:hidden flex items-center justify-between px-6 py-3">
+      <Link href="/" aria-label="Velt home" className="flex items-center gap-2">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/home/velt-logo.svg"
+          alt="Velt"
+          width={24}
+          height={24}
+          style={{ filter: iconFilter, transition: "filter 180ms ease" }}
+        />
+        <span
+          className="font-urbanist font-bold"
+          style={{
+            fontSize: 14,
+            lineHeight: 1.2,
+            color: textColor,
+            transition: "color 180ms ease",
+          }}
+        >
+          Velt
+        </span>
+      </Link>
+      <button
+        type="button"
+        onClick={() => setDrawerOpen(true)}
+        aria-label="Open menu"
+        aria-expanded={drawerOpen}
+        className="flex items-center justify-center"
+        style={{
+          width: 40,
+          height: 40,
+          background: "transparent",
+          border: 0,
+          cursor: "pointer",
+        }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M4 7h16M4 12h16M4 17h16"
+            stroke={textColor}
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            style={{ transition: "stroke 180ms ease" }}
+          />
+        </svg>
+      </button>
+    </div>
+
+    {/* Desktop nav — visible lg+. */}
     <div
-      className="flex items-center gap-6 relative"
+      className="hidden lg:flex items-center gap-6 relative"
       style={{
         padding: "12px 80px",
         maxWidth: 1440,
@@ -653,6 +725,8 @@ export function Nav() {
       </div>
 
     </div>
+
+    <MobileNavDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </nav>
   );
 }
@@ -1086,6 +1160,250 @@ function PromoCardSecondary({
     >
       {children}
     </Link>
+  );
+}
+
+// ---------- Mobile drawer ----------
+//
+// Full-screen overlay below lg. Surfaces all top-level links with each
+// dropdown flattened into an inline accordion (single column, all sections
+// stacked vertically). Closes on link click, escape, or viewport >= lg.
+
+const dropdownColumnsByDropdown: Record<DropdownId, DropdownColumn[]> = {
+  product: productColumns,
+  useCases: useCasesColumns,
+  enterprise: enterpriseColumns,
+  resources: resourcesColumns,
+};
+
+function MobileNavDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [expanded, setExpanded] = useState<DropdownId | null>(null);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-hidden={!open}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "#0a0a0b",
+        zIndex: 60,
+        pointerEvents: open ? "auto" : "none",
+        opacity: open ? 1 : 0,
+        transition: "opacity 200ms ease",
+        overflowY: "auto",
+        WebkitOverflowScrolling: "touch",
+      }}
+    >
+      {/* Sticky header — logo + close. Matches mobile bar height so it
+          feels like the same surface zooming out. */}
+      <div
+        className="sticky top-0 flex items-center justify-between px-6 py-3"
+        style={{ background: "#0a0a0b", borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+      >
+        <Link href="/" aria-label="Velt home" className="flex items-center gap-2" onClick={onClose}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/home/velt-logo.svg" alt="Velt" width={24} height={24} />
+          <span
+            className="font-urbanist font-bold text-white"
+            style={{ fontSize: 14, lineHeight: 1.2 }}
+          >
+            Velt
+          </span>
+        </Link>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close menu"
+          className="flex items-center justify-center"
+          style={{ width: 40, height: 40, background: "transparent", border: 0, cursor: "pointer" }}
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6 6l12 12M18 6l-12 12"
+              stroke="#fff"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div className="flex flex-col px-6 py-4 gap-1">
+        {topLinks.map((link) => {
+          if (!("dropdown" in link)) {
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={onClose}
+                className="flex items-center font-urbanist font-semibold text-white"
+                style={{ fontSize: 18, padding: "14px 4px", letterSpacing: "-0.03em" }}
+              >
+                {link.label}
+              </Link>
+            );
+          }
+          const isExpanded = expanded === link.dropdown;
+          return (
+            <div key={link.label} className="flex flex-col">
+              <button
+                type="button"
+                onClick={() => setExpanded(isExpanded ? null : link.dropdown)}
+                aria-expanded={isExpanded}
+                className="flex items-center justify-between font-urbanist font-semibold text-white w-full"
+                style={{
+                  fontSize: 18,
+                  padding: "14px 4px",
+                  letterSpacing: "-0.03em",
+                  background: "transparent",
+                  border: 0,
+                  cursor: "pointer",
+                  textAlign: "left",
+                }}
+              >
+                <span>{link.label}</span>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  style={{
+                    transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                    transition: "transform 180ms ease",
+                  }}
+                >
+                  <path d="M6 9l6 6l6 -6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </button>
+              {isExpanded && (
+                <div className="flex flex-col pl-2 pb-3 gap-3">
+                  {dropdownColumnsByDropdown[link.dropdown].map((col, ci) => (
+                    <Fragment key={ci}>
+                      {col.sections.map((section, si) => (
+                        <div key={si} className="flex flex-col gap-1">
+                          {section.heading ? (
+                            <p
+                              className="font-mono uppercase"
+                              style={{
+                                fontSize: 10,
+                                color: "rgba(255,255,255,0.4)",
+                                letterSpacing: "0.06em",
+                                margin: "8px 4px 4px",
+                                fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+                              }}
+                            >
+                              {section.heading}
+                            </p>
+                          ) : null}
+                          {section.items.map((item) => (
+                            <DrawerLink key={item.label} item={item} onClose={onClose} />
+                          ))}
+                        </div>
+                      ))}
+                      {col.footer ? (
+                        <Link
+                          key={`footer-${ci}`}
+                          href={col.footer.href}
+                          onClick={onClose}
+                          className="flex items-center font-mono"
+                          style={{
+                            fontSize: 11,
+                            padding: "10px 4px",
+                            color: "rgba(255,255,255,0.5)",
+                            letterSpacing: "0.06em",
+                            fontFamily: '"IBM Plex Mono", ui-monospace, monospace',
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          {col.footer.label} →
+                        </Link>
+                      ) : null}
+                    </Fragment>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Footer — utility links + primary CTA pinned at the end of the
+          scrollable surface (not fixed, so it doesn't cover content on
+          very short viewports). */}
+      <div
+        className="flex flex-col gap-3 px-6 py-6"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.08)", marginTop: 16 }}
+      >
+        <div className="flex items-center gap-4">
+          <a
+            href="https://console.velt.dev/"
+            target="_blank"
+            rel="noopener"
+            onClick={onClose}
+            className="font-urbanist font-medium text-white/80"
+            style={{ fontSize: 15 }}
+          >
+            Sign In
+          </a>
+          <a
+            href="https://docs.velt.dev/"
+            target="_blank"
+            rel="noreferrer"
+            onClick={onClose}
+            className="font-urbanist font-medium text-white/80"
+            style={{ fontSize: 15 }}
+          >
+            Read Docs
+          </a>
+        </div>
+        <Link
+          href="/book-demo"
+          onClick={onClose}
+          className="flex items-center justify-center rounded-lg font-urbanist font-bold text-white"
+          style={{
+            padding: "14px 16px",
+            background: "#625df5",
+            fontSize: 16,
+            letterSpacing: "-0.03em",
+            textDecoration: "none",
+          }}
+        >
+          Book Demo
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function DrawerLink({ item, onClose }: { item: DropdownItem; onClose: () => void }) {
+  const isExternal = item.href?.startsWith("http") ?? false;
+  const Tag = isExternal ? "a" : Link;
+  const tagProps = isExternal ? { target: "_blank" as const, rel: "noopener" } : {};
+  return (
+    <Tag
+      href={item.href}
+      {...tagProps}
+      onClick={onClose}
+      className="flex items-center gap-3 font-urbanist font-medium text-white"
+      style={{ padding: "10px 4px", fontSize: 15 }}
+    >
+      {item.iconSrc ? (
+        <span className="shrink-0 flex items-center justify-center" style={{ width: 20, height: 20 }}>
+          <LibraryIcon src={item.iconSrc} />
+        </span>
+      ) : item.icon ? (
+        <span
+          className="shrink-0 flex items-center justify-center"
+          style={{ width: 20, height: 20, color: item.tint ?? "#fff" }}
+        >
+          {item.icon}
+        </span>
+      ) : null}
+      <span>{item.label}</span>
+    </Tag>
   );
 }
 

@@ -8,7 +8,6 @@
 // the peach card hits the strip); FeatureCustomerCarousel already carries
 // data-getstarted (flips Nav back to dark).
 
-import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
@@ -61,12 +60,11 @@ export const metadata = {
 
 export default function ComparisonPage() {
   return (
-    <ScaleWrapper>
+    <>
       <JsonLd id="ld-comparison-webpage" data={COMPARISON_WEBPAGE} />
       <JsonLd id="ld-comparison-breadcrumb" data={COMPARISON_BREADCRUMB} />
       <div
-        className="relative bg-black text-white font-urbanist"
-        style={{ width: 1440 }}
+        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
         <PageHero
           decorated
@@ -100,6 +98,6 @@ export default function ComparisonPage() {
 
         <Footer />
       </div>
-    </ScaleWrapper>
+    </>
   );
 }

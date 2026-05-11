@@ -1,9 +1,17 @@
 "use client";
 
-// Outcomes — Figma node 8506:97016 + tab variants 8576:6259 / 8576:6298 /
-// 8576:6337 / 8576:6376 / 8576:6415. Purple rounded-top band with a 5-tab
-// rail, a big gradient-word headline, and a side-by-side visual + testimonial
-// card that both swap per-tab.
+// Outcomes — purple-band section. Responsive rewrite:
+//
+//  • lg+: tab rail across the top, single active tab's content below
+//    (headline + visual on the left, testimonial card on the right).
+//  • <lg: tab rail hidden; each tab renders as a `<details>` accordion
+//    with its full content inline. Mobile-first indexing means all five
+//    tabs end up in the crawled DOM, which is the SEO reason we picked
+//    accordion over a horizontal swipe carousel.
+//
+// All content (headline, visual, testimonial) is rendered through a
+// single <TabContent> component so the desktop and mobile paths share
+// markup; only the wrapper changes.
 
 import { useState } from "react";
 
@@ -34,7 +42,7 @@ const TABS: TabDef[] = [
     subtitle: "Users spend 10+ hours a week communicating on other platforms. Bring those conversations into your product!",
     visual: "/images/home/outcomes-visual.png",
     logo: { src: "/images/home/trumpet-logo.svg", width: 133, height: 23 },
-    quote: "Engagement at Trumpet grew by 10%\u201D after adding collaborative features from Velt",
+    quote: "Engagement at Trumpet grew by 10%” after adding collaborative features from Velt",
     person: {
       name: "William Angle",
       title: "Lead PM, Trumpet",
@@ -52,7 +60,7 @@ const TABS: TabDef[] = [
     subtitle: "Transform your product into a multiplayer experience that drives organic adoption.",
     visual: "/images/home/outcomes/growth-visual.png",
     logo: { src: "/images/home/outcomes/growth-logo.png", width: 133, height: 18 },
-    quote: "With Velt\u2019s collaborative features we boosted our app\u2019s weekly active users by 26%",
+    quote: "With Velt’s collaborative features we boosted our app’s weekly active users by 26%",
     person: {
       name: "Jeff Cunning",
       title: "CPO @MetaImpact",
@@ -116,6 +124,124 @@ const TABS: TabDef[] = [
   },
 ];
 
+function TabContent({ tab }: { tab: TabDef }) {
+  return (
+    <div className="flex flex-col w-full gap-8 lg:gap-11">
+      <div className="flex flex-col items-start w-full gap-4">
+        <h2
+          className="font-urbanist font-bold text-white w-full"
+          style={{
+            fontSize: "clamp(28px, 4.2vw, 52px)",
+            lineHeight: 1.2,
+            letterSpacing: "-0.03em",
+          }}
+        >
+          {tab.headlineBefore}
+          <span
+            style={{
+              background: "linear-gradient(to right, #5cffce, #dadaff)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {tab.gradientText}
+          </span>
+          {tab.headlineAfter}
+        </h2>
+        <p
+          className="font-urbanist font-semibold text-white w-full"
+          style={{
+            fontSize: "clamp(16px, 1.7vw, 24px)",
+            lineHeight: 1.3,
+            letterSpacing: "-0.03em",
+            opacity: 0.75,
+          }}
+        >
+          {tab.subtitle}
+        </p>
+      </div>
+
+      {/* Visual + testimonial: side-by-side at lg, stacked below. */}
+      <div className="flex flex-col lg:flex-row items-stretch w-full gap-3">
+        <div
+          className="flex-1 relative overflow-hidden"
+          style={{ aspectRatio: "766 / 513", borderRadius: 32 }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={tab.visual}
+            alt={`${tab.label} visual`}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              borderRadius: 32,
+              boxShadow:
+                "inset -8px -8px 32px 0px rgba(99,132,235,0.32), inset 0px 0px 32px 0px rgba(99,132,235,0.52)",
+            }}
+          />
+        </div>
+
+        <div
+          className="flex flex-col justify-between shrink-0 w-full lg:w-[400px]"
+          style={{
+            background: "rgba(0,0,0,0.6)",
+            borderRadius: 32,
+            padding: "36px 36px 43px",
+            gap: 32,
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={tab.logo.src}
+            alt={tab.person.title}
+            width={tab.logo.width}
+            height={tab.logo.height}
+            style={{ width: tab.logo.width, height: tab.logo.height, objectFit: "contain" }}
+          />
+
+          <div className="flex flex-col w-full gap-8">
+            <p
+              className="font-urbanist font-bold text-white"
+              style={{ fontSize: "clamp(20px, 2.3vw, 32px)", lineHeight: 1.2 }}
+            >
+              {tab.quote}
+            </p>
+            <div className="flex items-center w-full gap-4">
+              <div
+                className="shrink-0 relative overflow-hidden"
+                style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: "50%",
+                  border: `1.887px solid ${tab.person.avatarBorder}`,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={tab.person.avatar}
+                  alt={tab.person.name}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1 flex flex-col text-white gap-1">
+                <p className="font-urbanist font-bold" style={{ fontSize: 16, lineHeight: 1.2 }}>
+                  {tab.person.name}
+                </p>
+                <p className="font-urbanist" style={{ fontSize: 16, lineHeight: 1.2 }}>
+                  {tab.person.title}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Outcomes() {
   const [activeId, setActiveId] = useState<TabId>("engagement");
   const active = TABS.find((t) => t.id === activeId) ?? TABS[0];
@@ -126,15 +252,14 @@ export function Outcomes() {
       className="flex flex-col items-start w-full relative full-bleed-bg"
       style={{
         background: "#625df5",
-        padding: "48px 80px 220px",
         borderTopLeftRadius: 32,
         borderTopRightRadius: 32,
       }}
     >
-      <div className="flex flex-col w-full" style={{ gap: 45, maxWidth: 1200, margin: "0 auto" }}>
-        {/* Tab rail */}
+      <div className="container-page flex flex-col w-full gap-8 lg:gap-11 pt-10 lg:pt-12 pb-32 lg:pb-56">
+        {/* Desktop tab rail — hidden below lg, accordion takes over there. */}
         <div
-          className="flex items-center w-full"
+          className="hidden lg:flex items-center w-full"
           style={{ gap: 2, borderBottom: "2px solid rgba(255,255,255,0.12)" }}
         >
           {TABS.map((tab) => {
@@ -176,119 +301,56 @@ export function Outcomes() {
           })}
         </div>
 
-        {/* Headline + sub */}
-        <div className="flex flex-col items-start w-full" style={{ gap: 16 }}>
-          <h2
-            className="font-urbanist font-bold text-white"
-            style={{
-              fontSize: 52,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-              width: 1280,
-            }}
-          >
-            {active.headlineBefore}
-            <span
-              style={{
-                background: "linear-gradient(to right, #5cffce, #dadaff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              {active.gradientText}
-            </span>
-            {active.headlineAfter}
-          </h2>
-          <p
-            className="font-urbanist font-semibold text-white"
-            style={{
-              fontSize: 24,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-              opacity: 0.75,
-              width: 1280,
-            }}
-          >
-            {active.subtitle}
-          </p>
+        {/* Desktop content — single active tab. */}
+        <div className="hidden lg:block">
+          <TabContent tab={active} />
         </div>
 
-        {/* Visual + testimonial card */}
-        <div className="flex items-center w-full" style={{ gap: 12 }}>
-          <div className="flex-1 relative" style={{ height: 513 }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              key={active.id}
-              src={active.visual}
-              alt={`${active.label} visual`}
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ borderRadius: 32 }}
-            />
-            <div
-              className="absolute inset-0 pointer-events-none"
+        {/* Mobile accordion — all five tabs as <details>. First one open
+            so the section never starts collapsed (and crawlers see the
+            primary headline immediately in the static markup). */}
+        <div className="lg:hidden flex flex-col w-full gap-3">
+          {TABS.map((tab, idx) => (
+            <details
+              key={tab.id}
+              open={idx === 0}
+              className="group"
               style={{
-                borderRadius: 32,
-                boxShadow:
-                  "inset -8px -8px 32px 0px rgba(99,132,235,0.32), inset 0px 0px 32px 0px rgba(99,132,235,0.52)",
+                background: "rgba(0,0,0,0.18)",
+                borderRadius: 20,
+                border: "1px solid rgba(255,255,255,0.12)",
               }}
-            />
-          </div>
-
-          <div
-            className="flex flex-col justify-between shrink-0"
-            style={{
-              width: 400,
-              height: 513,
-              background: "rgba(0,0,0,0.6)",
-              borderRadius: 32,
-              padding: "36px 36px 43px",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={active.logo.src}
-              alt={active.person.title}
-              width={active.logo.width}
-              height={active.logo.height}
-              style={{ width: active.logo.width, height: active.logo.height, objectFit: "contain" }}
-            />
-
-            <div className="flex flex-col w-full" style={{ gap: 32 }}>
-              <p
-                className="font-urbanist font-bold text-white"
-                style={{ fontSize: 32, lineHeight: 1.2 }}
+            >
+              <summary
+                className="flex items-center justify-between cursor-pointer list-none"
+                style={{ padding: "14px 18px", gap: 12 }}
               >
-                {active.quote}
-              </p>
-              <div className="flex items-center w-full" style={{ gap: 16 }}>
-                <div
-                  className="shrink-0 relative overflow-hidden"
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: "50%",
-                    border: `1.887px solid ${active.person.avatarBorder}`,
-                  }}
-                >
+                <div className="flex items-center gap-3">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={active.person.avatar}
-                    alt={active.person.name}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  <img src={tab.icon} alt="" width={20} height={20} />
+                  <span
+                    className="font-urbanist font-bold text-white"
+                    style={{ fontSize: 16, lineHeight: 1.2, letterSpacing: "-0.02em" }}
+                  >
+                    {tab.label}
+                  </span>
                 </div>
-                <div className="flex-1 flex flex-col text-white" style={{ gap: 4 }}>
-                  <p className="font-urbanist font-bold" style={{ fontSize: 16, lineHeight: 1.2 }}>
-                    {active.person.name}
-                  </p>
-                  <p className="font-urbanist" style={{ fontSize: 16, lineHeight: 1.2 }}>
-                    {active.person.title}
-                  </p>
-                </div>
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  className="transition-transform duration-200 group-open:rotate-180 shrink-0"
+                >
+                  <path d="M6 9l6 6l6 -6" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+                </svg>
+              </summary>
+              <div style={{ padding: "8px 18px 20px" }}>
+                <TabContent tab={tab} />
               </div>
-            </div>
-          </div>
+            </details>
+          ))}
         </div>
       </div>
     </section>

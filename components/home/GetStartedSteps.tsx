@@ -20,8 +20,8 @@ const HOPE_CALLAWAY: TestimonialStripProps = {
 function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string }) {
   return (
     <div
-      className="relative overflow-hidden shrink-0"
-      style={{ width: 424, height: 445, background: "#0d0d0d" }}
+      className="relative overflow-hidden shrink-0 w-full lg:w-[424px]"
+      style={{ height: 445, background: "#0d0d0d" }}
     >
       <div
         className="absolute flex flex-col items-start"
@@ -80,7 +80,7 @@ function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string
 
 function Step2Column() {
   return (
-    <div className="relative flex-1 overflow-hidden min-w-0" style={{ height: 445, background: "#0d0d0d" }}>
+    <div className="relative w-full lg:flex-1 overflow-hidden min-w-0" style={{ height: 445, background: "#0d0d0d" }}>
       <div className="absolute flex flex-col items-start" style={{ left: 30, top: 30, gap: 12 }}>
         <h3 className="font-urbanist font-bold text-white" style={{ fontSize: 20, lineHeight: 1.2, letterSpacing: "-0.03em" }}>
           2. Add Component
@@ -157,7 +157,7 @@ function Step2Column() {
 
 function Step3Column() {
   return (
-    <div className="relative flex-1 overflow-hidden min-w-0" style={{ height: 445, background: "#0d0d0d" }}>
+    <div className="relative w-full lg:flex-1 overflow-hidden min-w-0" style={{ height: 445, background: "#0d0d0d" }}>
       <div className="absolute flex flex-col items-start" style={{ left: 30, top: 30, gap: 12 }}>
         <h3 className="font-urbanist font-bold text-white" style={{ fontSize: 20, lineHeight: 1.2, letterSpacing: "-0.03em", maxWidth: 230 }}>
           3. Style Your Components
@@ -304,15 +304,19 @@ export function GetStartedSteps({
   return (
     <section
       data-getstarted
-      className="flex flex-col items-center bg-black w-full"
-      style={{ padding: "100px 80px", gap: 50 }}
+      className="flex flex-col items-center bg-black w-full px-6 lg:px-20 py-16 lg:py-[100px] gap-10 lg:gap-12"
     >
       {/* Header */}
-      <div className="flex flex-col items-center" style={{ gap: 32 }}>
-        <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>
+      <div className="flex flex-col items-center gap-6 lg:gap-8">
+        <div className="flex flex-col items-center text-center gap-3">
           <h2
-            className="font-urbanist font-bold whitespace-nowrap"
-            style={{ fontSize: 52, lineHeight: 1.2, letterSpacing: "-0.03em", color: "#fff" }}
+            className="font-urbanist font-bold text-center"
+            style={{
+              fontSize: "clamp(28px, 4.2vw, 52px)",
+              lineHeight: 1.2,
+              letterSpacing: "-0.03em",
+              color: "#fff",
+            }}
           >
             Get Started in{" "}
             <span
@@ -326,11 +330,14 @@ export function GetStartedSteps({
               3 Steps
             </span>
           </h2>
-          <p className="font-urbanist text-white" style={{ fontSize: 20, lineHeight: 1.2 }}>
+          <p
+            className="font-urbanist text-white"
+            style={{ fontSize: "clamp(16px, 1.5vw, 20px)", lineHeight: 1.3 }}
+          >
             All features take less than 5 minutes to get started
           </p>
         </div>
-        <div className="flex items-start" style={{ gap: 12 }}>
+        <div className="flex items-start gap-3">
           <button
             className="flex items-center justify-center gap-1 rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}
@@ -366,19 +373,18 @@ export function GetStartedSteps({
         </div>
       </div>
 
-      {/* Dark 3-column card */}
+      {/* Dark 3-column card — stacks vertically below lg */}
       <div
-        className="flex flex-col overflow-hidden"
+        className="flex flex-col overflow-hidden w-full max-w-[1280px]"
         style={{
-          width: 1280,
           background: "#111",
           border: "2px solid #1a1a1a",
           borderRadius: 24,
         }}
       >
         <div
-          className="flex items-center overflow-hidden w-full"
-          style={{ gap: 6, padding: 2, background: "#111" }}
+          className="flex flex-col lg:flex-row lg:items-center overflow-hidden w-full gap-1.5"
+          style={{ padding: 2, background: "#111" }}
         >
           <Step1Column packageName={step1PackageName} />
           <Step2Column />
