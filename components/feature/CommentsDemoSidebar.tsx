@@ -154,10 +154,13 @@ export function CommentsDemoSidebar() {
     <section
       className="flex flex-col items-center bg-black full-bleed-bg px-6 pb-16 lg:px-20 lg:pb-[100px]"
     >
-      <div className="w-full overflow-x-auto">
+      <div className="w-full">
       <div
         style={{
-          width: 1280,
+          width: "100%",
+          maxWidth: 1280,
+          marginLeft: "auto",
+          marginRight: "auto",
           background: CHROME,
           border: `2px solid ${CHROME}`,
           borderRadius: 12,
@@ -171,6 +174,7 @@ export function CommentsDemoSidebar() {
         <div
           role="tablist"
           aria-label="Comment mode"
+          className="no-scrollbar"
           style={{
             background: CHROME,
             padding: "6px 16px 4px",
@@ -178,6 +182,7 @@ export function CommentsDemoSidebar() {
             alignItems: "center",
             gap: 8,
             overflowX: "auto",
+            scrollSnapType: "x mandatory",
           }}
         >
           {TABS.map((tab, i) => {

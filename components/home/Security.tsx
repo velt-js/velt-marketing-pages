@@ -357,7 +357,7 @@ export function Security({
                 {certification.subtitle}
               </p>
             </div>
-            <div className="flex items-center gap-6 lg:gap-8">
+            <div className="flex flex-wrap items-center gap-4 lg:gap-8">
               {certification.badges.map((b) => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

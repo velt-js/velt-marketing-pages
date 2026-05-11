@@ -126,8 +126,12 @@ function UseCaseTabRail({
           </button>
         )}
       </div>
-      {/* Tab strip — scrolls horizontally on mobile when content overflows. */}
-      <div className="flex items-start gap-2 overflow-x-auto lg:overflow-visible -mx-2 px-2 lg:mx-0 lg:px-0 no-scrollbar">
+      {/* Tab strip — scrolls horizontally on mobile when content overflows.
+          The right-edge fade mask cues the user that more tabs sit beyond
+          the visible area. Mask is cleared at lg+ where no scroll is needed. */}
+      <div
+        className="use-case-tab-strip flex items-start gap-2 overflow-x-auto lg:overflow-visible -mx-2 px-2 lg:mx-0 lg:px-0 no-scrollbar w-full lg:w-auto"
+      >
         {DEMO_TABS.map((tab) => {
           const active = tab.id === activeId;
           return (

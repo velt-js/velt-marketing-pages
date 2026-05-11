@@ -193,45 +193,64 @@ export function LibrarySupport() {
           </article>
         </div>
 
-        {/* Canvas App — full-width below the row pair. */}
+        {/* Canvas App — full-width below the row pair. Switches from
+            absolute-positioned (desktop) to a flex column with image-on-top
+            (mobile) so the "Canvas" label and React Flow logo never collide
+            below the 1024px breakpoint. */}
         <article
-          className="relative overflow-hidden w-full"
+          className="relative overflow-hidden w-full flex flex-col items-stretch lg:block"
           style={{
-            height: 228,
+            minHeight: 228,
             background: "#f7f7f7",
             borderRadius: 24,
+            padding: "24px 30px",
           }}
         >
-          <p
-            className="absolute font-urbanist font-bold whitespace-nowrap"
-            style={{
-              left: 30,
-              top: 114,
-              color: "#111",
-              fontSize: 28,
-              lineHeight: 1.2,
-              letterSpacing: "-0.03em",
-            }}
-          >
-            Canvas
-          </p>
-          <p
-            className="absolute font-urbanist"
-            style={{
-              left: 30,
-              top: 156,
-              width: 305,
-              color: "#111",
-              fontSize: 18,
-              lineHeight: 1.2,
-              opacity: 0.52,
-            }}
-          >
-            View Docs
-          </p>
-
+          {/* Mobile-only: React Flow logo at the top, centered. */}
           <div
-            className="absolute flex items-center justify-center"
+            className="flex lg:hidden items-center justify-center"
+            style={{ marginBottom: 16, minHeight: 56 }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${ICON_PATH}/react-flow.png`}
+              alt="React Flow"
+              style={{ display: "block", maxHeight: 40, objectFit: "contain" }}
+            />
+          </div>
+
+          {/* Title + subtitle — relative on mobile (top of card), absolute on
+              desktop (left-aligned, vertically centered as per Figma). */}
+          <div className="lg:absolute" style={{ left: 30, top: 114 }}>
+            <p
+              className="font-urbanist font-bold whitespace-nowrap"
+              style={{
+                color: "#111",
+                fontSize: 28,
+                lineHeight: 1.2,
+                letterSpacing: "-0.03em",
+                margin: 0,
+              }}
+            >
+              Canvas
+            </p>
+            <p
+              className="font-urbanist"
+              style={{
+                marginTop: 8,
+                color: "#111",
+                fontSize: 18,
+                lineHeight: 1.2,
+                opacity: 0.52,
+              }}
+            >
+              View Docs
+            </p>
+          </div>
+
+          {/* Desktop-only: React Flow logo anchored to the right of the card. */}
+          <div
+            className="hidden lg:flex absolute items-center justify-center"
             style={{ right: 40, top: 0, bottom: 0 }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

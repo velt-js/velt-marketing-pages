@@ -117,11 +117,14 @@ export function MultiplayerDemoSidebar() {
     <section
       className="flex flex-col items-center bg-black full-bleed-bg px-6 pb-16 lg:px-20 lg:pb-[100px]"
     >
-      <div className="w-full overflow-x-auto">
+      <div className="w-full">
       <div
         className="relative flex flex-col items-start"
         style={{
-          width: 1280,
+          width: "100%",
+          maxWidth: 1280,
+          marginLeft: "auto",
+          marginRight: "auto",
           background: CHROME,
           border: `2px solid ${CHROME}`,
           borderRadius: 12,
@@ -136,7 +139,7 @@ export function MultiplayerDemoSidebar() {
           <div
             role="tablist"
             aria-label="Multiplayer library"
-            className="flex items-center gap-2 overflow-x-auto"
+            className="flex items-center gap-2 overflow-x-auto no-scrollbar min-w-0 flex-1"
           >
             {TABS.map((tab, i) => {
               const isActive = i === activeIdx;

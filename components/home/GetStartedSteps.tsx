@@ -41,23 +41,25 @@ function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string
         style={{
           top: 137,
           left: 57,
-          width: 378,
+          right: 0,
           height: 270,
           background: "linear-gradient(to bottom, #1e1e1e, rgba(20,20,20,0))",
           borderTopLeftRadius: 24,
         }}
       >
+        {/* Traffic lights */}
         <div className="absolute flex items-center" style={{ top: 21, left: 21, gap: 10 }}>
           <span className="inline-block rounded-full" style={{ width: 12, height: 12, background: "#ff4e54" }} />
           <span className="inline-block rounded-full" style={{ width: 12, height: 12, background: "#e7bc00" }} />
           <span className="inline-block rounded-full" style={{ width: 12, height: 12, background: "#00c500" }} />
         </div>
-        <p className="absolute font-firacode font-medium whitespace-nowrap" style={{ left: 21, top: 72, fontSize: 20, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
+        {/* Code lines: 14px on mobile, 20px on lg+ so text fits within narrow viewports */}
+        <p className="absolute font-firacode font-medium whitespace-nowrap text-sm lg:text-[20px]" style={{ left: 21, top: 72, lineHeight: 1.2, letterSpacing: "-0.02em" }}>
           <span style={{ color: "rgba(255,255,255,0.32)" }}>app &gt;</span>
           <span style={{ color: "#fff" }}> npm i </span>
           <span style={{ color: "#b387f7" }}>{packageName}</span>
         </p>
-        <p className="absolute font-firacode font-medium whitespace-nowrap" style={{ left: 21, top: 125, fontSize: 20, lineHeight: 1.2, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.32)" }}>
+        <p className="absolute font-firacode font-medium whitespace-nowrap text-sm lg:text-[20px]" style={{ left: 21, top: 125, lineHeight: 1.2, letterSpacing: "-0.02em", color: "rgba(255,255,255,0.32)" }}>
           app &gt; <span style={{ color: "#fff" }}>Enter your API Key:</span>
         </p>
       </div>

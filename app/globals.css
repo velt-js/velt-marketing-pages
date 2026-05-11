@@ -154,3 +154,17 @@ img {
 .full-bleed-bg {
 }
 
+/* Right-edge fade for horizontally-scrolling mobile tab strips. Cues the
+   user that more tabs exist beyond the visible viewport. Mask is cleared
+   at lg+ where the strip fits inline without scrolling. */
+.use-case-tab-strip {
+  mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 24px), transparent 100%);
+}
+@media (min-width: 1024px) {
+  .use-case-tab-strip {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+

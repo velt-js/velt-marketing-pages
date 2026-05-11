@@ -164,7 +164,7 @@ async function main() {
         eyebrow: "02",
         heading: "Full Customization",
         description:
-          "Bring in your design system or cusotmize CSS directly",
+          "Bring in your design system or customize CSS directly",
         image: featureCustomizationImage,
         imagePosition: "left",
       },
