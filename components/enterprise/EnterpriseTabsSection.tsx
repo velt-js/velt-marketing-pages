@@ -257,7 +257,9 @@ function TabContent({
         </a>
       </div>
 
-      {/* Image card + testimonial card */}
+      {/* Image card + testimonial card. The image card matches the source
+          asset aspect (~1.7:1) so the diagram renders at its native scale
+          on desktop; the testimonial card stretches to match height. */}
       <div className="flex flex-col lg:flex-row items-stretch w-full" style={{ gap: 24 }}>
         <div
           className="flex items-center justify-center relative"
@@ -266,14 +268,14 @@ function TabContent({
             minWidth: 0,
             background: "#fff",
             borderRadius: 28,
-            padding: 32,
-            minHeight: 300,
+            padding: 40,
+            minHeight: 540,
             overflow: "hidden",
           }}
         >
           <div
             className="relative w-full h-full"
-            style={{ minHeight: 260 }}
+            style={{ minHeight: 460 }}
           >
             <Image
               key={tab.id}
