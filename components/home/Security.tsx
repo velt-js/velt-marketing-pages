@@ -25,7 +25,7 @@ function ShieldIcon() {
   );
 }
 
-function CardVisual({ src }: { src: string }) {
+export function CardVisual({ src }: { src: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
@@ -67,9 +67,20 @@ export type SecurityProps = {
     title: string;
     subtitle: string;
     badges: SecurityBadge[];
-  };
+  } | null;
   /** Trailing testimonial below the certification card. Pass `null` to hide. */
   testimonial?: SecurityTestimonialData | null;
+  /**
+   * Optional full-width card rendered below the card grid and above the
+   * certification pill. Matches SecurityCardBox chrome (#f7f7f7, rounded 24)
+   * but spans the full 820px column. Visual is anchored to the right half
+   * with title/subtitle on the left. Pass `null` (or omit) to hide.
+   */
+  wideBottomCard?: SecurityCardData | null;
+  /** Override default section top padding (150). */
+  paddingTop?: number;
+  /** Override default section bottom padding (100). */
+  paddingBottom?: number;
 };
 
 const DEFAULT_CARDS: SecurityCardData[] = [
@@ -174,6 +185,58 @@ function SecurityCardBox({
   );
 }
 
+// WideBottomCardBox — full-width variant of SecurityCardBox.
+// Same #f7f7f7 chrome and rounded-24 corners, but the visual sits in the
+// right half of the card (top-aligned) while the title/subtitle anchor to
+// the bottom-left. Used by Security's `wideBottomCard` prop for cases like
+// the Support section's "Priority Support SLAs" timeline and the Security
+// section's "Security Certification" badge row.
+function WideBottomCardBox({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  children: ReactNode;
+}) {
+  return (
+    <article
+      className="relative overflow-hidden"
+      style={{
+        width: "100%",
+        height: 280,
+        background: "#f7f7f7",
+        borderRadius: 24,
+      }}
+    >
+      <div
+        className="absolute"
+        style={{ top: 0, right: 0, bottom: 0, width: "50%" }}
+      >
+        {children}
+      </div>
+      <div
+        className="absolute flex flex-col items-start"
+        style={{ bottom: 28, left: 28, right: "52%", gap: 8 }}
+      >
+        <h3
+          className="font-urbanist font-bold"
+          style={{ color: "#111", fontSize: 28, lineHeight: 1.2, letterSpacing: "-0.03em" }}
+        >
+          {title}
+        </h3>
+        <p
+          className="font-urbanist"
+          style={{ color: "#111", fontSize: 18, lineHeight: 1.2, opacity: 0.52 }}
+        >
+          {subtitle}
+        </p>
+      </div>
+    </article>
+  );
+}
+
 export function Security({
   heading = "Enterprise-Grade Security",
   subheading = "Security and privacy features that enterprise companies need",
@@ -182,11 +245,14 @@ export function Security({
   cards = DEFAULT_CARDS,
   certification = DEFAULT_CERTIFICATION,
   testimonial = DEFAULT_TESTIMONIAL,
+  wideBottomCard = null,
+  paddingTop = 150,
+  paddingBottom = 100,
 }: SecurityProps = {}) {
   return (
     <section
       className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{ padding: "150px 80px 100px", gap: 40 }}
+      style={{ padding: `${paddingTop}px 80px ${paddingBottom}px`, gap: 40 }}
     >
       <div className="flex flex-col items-center" style={{ gap: 24, maxWidth: 820 }}>
         <div className="flex flex-col items-center text-center" style={{ gap: 12 }}>
@@ -249,6 +315,15 @@ export function Security({
             </SecurityCardBox>
           ))}
         </div>
+
+        {wideBottomCard && (
+          <WideBottomCardBox
+            title={wideBottomCard.title}
+            subtitle={wideBottomCard.subtitle}
+          >
+            {wideBottomCard.visual}
+          </WideBottomCardBox>
+        )}
 
         {certification && (
           <article

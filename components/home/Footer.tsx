@@ -7,57 +7,66 @@ type LinkRef = { label: string; href: string; newTab?: boolean };
 
 type LinkGroup = {
   heading: string;
-  /** Plain strings render as dead `href="#"` placeholders (legacy default).
-   *  Pass a `LinkRef` object for any link that should actually route. */
-  links: (string | LinkRef)[];
+  links: LinkRef[];
   variant?: "default" | "library";
 };
 
 const asyncFeatures: LinkGroup = {
   heading: "Async Features",
   links: [
-    "Comments",
-    "Notifications",
-    "Recording",
-    "Video Editor",
-    "VIew Analytics",
-    "Reactions",
-    "Customization",
-    "Try Features",
+    { label: "Comments", href: "/features/comments" },
+    { label: "Notifications", href: "/features/notifications" },
+    { label: "Recording", href: "/features/recordings" },
+    { label: "Video Editor", href: "https://docs.velt.dev/async-collaboration/recorder/setup", newTab: true },
+    { label: "View Analytics", href: "https://docs.velt.dev/async-collaboration/view-analytics/overview", newTab: true },
+    { label: "Reactions", href: "https://docs.velt.dev/async-collaboration/reactions/overview", newTab: true },
+    { label: "Customization", href: "/customization" },
+    { label: "Try Features", href: "https://velt.dev/try-features", newTab: true },
   ],
 };
 
 const editorLibraries: LinkGroup = {
   heading: "Editor Libraries",
-  links: ["YJS", "Tiptap", "BlockNote", "CodeMirror", "Lexical", "SlateJS"],
+  links: [
+    { label: "YJS", href: "/libraries/yjs" },
+    { label: "Tiptap", href: "/libraries/tiptap" },
+    { label: "BlockNote", href: "/libraries/blocknote" },
+    { label: "CodeMirror", href: "/libraries/codemirror" },
+    { label: "Lexical", href: "/libraries/lexical" },
+    { label: "SlateJS", href: "/libraries/slatejs" },
+  ],
   variant: "library",
 };
 
 const realtimeFeatures: LinkGroup = {
   heading: "Realtime Features",
   links: [
-    "Multiplayer Editing",
-    "Single Editor",
-    "Live State Sync",
-    "Live Selection",
-    "Huddle",
-    "Presence",
-    "Cursors",
-    "Follow Mode",
-    "Customization",
-    "Try Features",
+    { label: "Multiplayer Editing", href: "https://docs.velt.dev/realtime-collaboration/crdt/overview", newTab: true },
+    { label: "Single Editor", href: "https://docs.velt.dev/realtime-collaboration/single-editor-mode/overview", newTab: true },
+    { label: "Live State Sync", href: "https://docs.velt.dev/realtime-collaboration/live-state-sync/overview", newTab: true },
+    { label: "Live Selection", href: "https://docs.velt.dev/realtime-collaboration/live-selection/overview", newTab: true },
+    { label: "Huddle", href: "https://docs.velt.dev/realtime-collaboration/huddle/overview", newTab: true },
+    { label: "Presence", href: "https://docs.velt.dev/realtime-collaboration/presence/overview", newTab: true },
+    { label: "Cursors", href: "https://docs.velt.dev/realtime-collaboration/cursors/overview", newTab: true },
+    { label: "Follow Mode", href: "https://docs.velt.dev/realtime-collaboration/flock-mode/overview", newTab: true },
+    { label: "Customization", href: "/customization" },
+    { label: "Try Features", href: "https://velt.dev/try-features", newTab: true },
   ],
 };
 
 const chartLibraries: LinkGroup = {
   heading: "Chart Libraries",
-  links: ["ChartJS", "Nivo Charts", "HighCharts"],
+  links: [
+    { label: "ChartJS", href: "/libraries/chartjs" },
+    { label: "Nivo Charts", href: "/libraries/nivo-charts" },
+    { label: "HighCharts", href: "/libraries/highcharts" },
+  ],
   variant: "library",
 };
 
 const canvasLibraries: LinkGroup = {
   heading: "Canvas Libraries",
-  links: ["React Flow"],
+  links: [{ label: "React Flow", href: "/libraries/reactflow" }],
   variant: "library",
 };
 
@@ -66,7 +75,7 @@ const platform: LinkGroup = {
   links: [
     { label: "Admin Console", href: "/features/admin-console" },
     { label: "Dev Tools", href: "/features/dev-tools" },
-    "MCP",
+    { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", newTab: true },
     { label: "Webhooks & API", href: "/features/webhooks-and-api" },
   ],
 };
@@ -74,46 +83,46 @@ const platform: LinkGroup = {
 const resources: LinkGroup = {
   heading: "Resources",
   links: [
-    "Blog",
-    "Docs",
-    "Release Notes",
+    { label: "Blog", href: "/blog" },
+    { label: "Docs", href: "https://docs.velt.dev/", newTab: true },
+    { label: "Release Notes", href: "https://docs.velt.dev/release-notes/version-4/sdk-changelog", newTab: true },
     { label: "Migrate from Liveblocks", href: "/migrate/liveblocks" },
     { label: "Migrate from Cord", href: "/migrate/cord" },
-    "Launch Kit",
-    "Themes Playground",
-    "Figma UI Kit",
+    { label: "Launch Kit", href: "https://velt.dev/launch-kit", newTab: true },
+    { label: "Themes Playground", href: "https://playground.velt.dev/themes", newTab: true },
+    { label: "Figma UI Kit", href: "https://www.figma.com/community/file/1402312407969730816/velt-collaboration-kit", newTab: true },
     { label: "Examples", href: "https://samples.velt.dev/", newTab: true },
-    "Compare Velt",
-    "Compare Velt Implementation",
+    { label: "Compare Velt", href: "/comparison" },
+    { label: "Compare Velt Implementation", href: "https://velt.dev/implementation-comparison", newTab: true },
   ],
 };
 
+// "CRM Product" intentionally omitted — no /use-case/crm internal page.
 const useCases: LinkGroup = {
   heading: "Use Cases",
   links: [
-    "Video Editor",
-    "Form Builder",
-    "Analytics Product",
-    "Task Manager",
-    "Sheets Product",
-    "Session Replay Tool",
-    "CRM Product",
+    { label: "Video Editor", href: "/use-case/video-editor" },
+    { label: "Form Builder", href: "/use-case/form-builder" },
+    { label: "Analytics Product", href: "/use-case/analytics" },
+    { label: "Task Manager", href: "/use-case/task-manager" },
+    { label: "Sheets Product", href: "/use-case/sheets" },
+    { label: "Session Replay Tool", href: "/use-case/session-replay" },
   ],
 };
 
 const company: LinkGroup = {
   heading: "Company",
   links: [
-    "For Enterprise",
-    "For YC",
-    "Pricing",
+    { label: "For Enterprise", href: "/enterprise" },
+    { label: "For YC", href: "https://velt.dev/yc", newTab: true },
+    { label: "Pricing", href: "/pricing" },
     { label: "Customers", href: "/customers" },
-    "Status",
-    "Careers",
-    "Security",
-    "Trust Center",
-    "Privacy Policy",
-    "Terms",
+    { label: "Status", href: "https://status.velt.dev/", newTab: true },
+    { label: "Careers", href: "https://www.ycombinator.com/companies/velt/jobs", newTab: true },
+    { label: "Security", href: "https://trust.velt.dev/", newTab: true },
+    { label: "Trust Center", href: "https://trust.velt.dev/", newTab: true },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
   ],
 };
 
@@ -131,9 +140,7 @@ function LinkColumn({ group }: { group: LinkGroup }) {
       </h3>
       <ul className="flex flex-col" style={{ gap: 20 }}>
         {group.links.map((link) => {
-          const label = typeof link === "string" ? link : link.label;
-          const href = typeof link === "string" ? "#" : link.href;
-          const newTab = typeof link === "string" ? false : link.newTab;
+          const { label, href, newTab } = link;
           return (
             <li
               key={label}
@@ -246,18 +253,23 @@ export function Footer() {
               </div>
             </div>
             {/* Button */}
-            <button
-              className="rounded-md font-urbanist font-semibold text-white"
+            <a
+              href="https://console.velt.dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center rounded-md font-urbanist font-semibold text-white"
               style={{
                 padding: "8px 16px",
                 border: "1px solid var(--color-velt-purple)",
                 fontSize: 16,
                 width: 160,
+                height: 40,
                 letterSpacing: "-0.48px",
+                textDecoration: "none",
               }}
             >
               Get Free API Key
-            </button>
+            </a>
           </div>
 
           {/* Link grid — Figma 1:20109 (940 wide, flex-wrap 4 × 2) */}
@@ -295,7 +307,7 @@ export function Footer() {
             >
               <LinkColumn group={useCases} />
               <a
-                href="#"
+                href="/use-case"
                 className="mt-5 inline-flex items-center gap-[10px] font-urbanist whitespace-nowrap"
                 style={{
                   fontSize: 14,

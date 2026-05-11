@@ -286,28 +286,28 @@ const productAsync: DropdownItem[] = [
   { label: "Notifications", href: "/features/notifications", icon: icons.bell, tint: "#f5d14a" },
   { label: "Recording", href: "/features/recordings", icon: icons.video, tint: "#f47474" },
   { label: "Activity Logs", href: "/features/activity-logs", icon: icons.list, tint: "#5ca3ff" },
-  { label: "Video Editor", href: "/try-features", icon: icons.movie, tint: "#5ca3ff" },
-  { label: "View Analytics", href: "/try-features", icon: icons.moodSmile, tint: "#b387f7" },
-  { label: "Reactions", href: "/try-features", icon: icons.eye, tint: "#f5a15e" },
+  { label: "Video Editor", href: "https://docs.velt.dev/async-collaboration/recorder/setup", icon: icons.movie, tint: "#5ca3ff" },
+  { label: "View Analytics", href: "https://docs.velt.dev/async-collaboration/view-analytics/overview", icon: icons.moodSmile, tint: "#b387f7" },
+  { label: "Reactions", href: "https://docs.velt.dev/async-collaboration/reactions/overview", icon: icons.eye, tint: "#f5a15e" },
 ];
 
 const productRealtime: DropdownItem[] = [
   { label: "Multiplayer Editing", href: "/features/multiplayer", icon: icons.yjs, tint: "#48cfad" },
   { label: "Single Editor", href: "/features/multiplayer", icon: icons.pencilStar, tint: "#5ca3ff" },
-  { label: "Live State Sync", href: "/try-features", icon: icons.refresh, tint: "#48cfad" },
-  { label: "Live Selection", href: "/try-features", icon: icons.click, tint: "#b387f7" },
-  { label: "Huddle", href: "/try-features", icon: icons.headphones, tint: "#a4bd52" },
-  { label: "Presence", href: "/try-features", icon: icons.usersGroup, tint: "#97e07f" },
-  { label: "Cursors", href: "/try-features", icon: icons.pointer, tint: "#f5a15e" },
-  { label: "Follow Mode", href: "/try-features", icon: icons.pointer, tint: "#5eda7a" },
+  { label: "Live State Sync", href: "https://docs.velt.dev/realtime-collaboration/live-state-sync/overview", icon: icons.refresh, tint: "#48cfad" },
+  { label: "Live Selection", href: "https://docs.velt.dev/realtime-collaboration/live-selection/overview", icon: icons.click, tint: "#b387f7" },
+  { label: "Huddle", href: "https://docs.velt.dev/realtime-collaboration/huddle/overview", icon: icons.headphones, tint: "#a4bd52" },
+  { label: "Presence", href: "https://docs.velt.dev/realtime-collaboration/presence/overview", icon: icons.usersGroup, tint: "#97e07f" },
+  { label: "Cursors", href: "https://docs.velt.dev/realtime-collaboration/cursors/overview", icon: icons.pointer, tint: "#f5a15e" },
+  { label: "Follow Mode", href: "https://docs.velt.dev/realtime-collaboration/flock-mode/overview", icon: icons.pointer, tint: "#5eda7a" },
 ];
 
 const productPlatform: DropdownItem[] = [
   { label: "Admin Console", href: "/features/admin-console", icon: icons.hexagon, tint: "#b387f7" },
   { label: "Dev Tools", href: "/features/dev-tools", icon: icons.circle, tint: "#f5d14a" },
-  { label: "MCP", href: "/features/mcp", icon: icons.server, tint: "#ffa3fa" },
+  { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/features/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
-  { label: "Integrations", href: "/features/integrations", icon: icons.plug, tint: "#ffa3fa" },
+  { label: "Integrations", href: "https://docs.velt.dev/integrations", icon: icons.plug, tint: "#ffa3fa" },
 ];
 
 const productColumns: DropdownColumn[] = [
@@ -336,13 +336,14 @@ function LibraryIcon({ src }: { src: string }) {
   );
 }
 
+// TODO: add CRM Product when /use-case/crm page exists
 const useCasesAppTypes: DropdownItem[] = [
-  { label: "Dashboard", href: "/use-cases/dashboard" },
-  { label: "Tables", href: "/use-cases/tables" },
-  { label: "Documents", href: "/use-cases/documents" },
-  { label: "Video Player", href: "/use-cases/video-player" },
-  { label: "Presentation", href: "/use-cases/presentation" },
-  { label: "No Code Tools", href: "/use-cases/no-code" },
+  { label: "Video Editor", href: "/use-case/video-editor", icon: icons.movie, tint: "#f47474" },
+  { label: "Form Builder", href: "/use-case/form-builder", icon: icons.list, tint: "#5ca3ff" },
+  { label: "Analytics Product", href: "/use-case/analytics", icon: icons.eye, tint: "#b387f7" },
+  { label: "Task Manager", href: "/use-case/task-manager", icon: icons.click, tint: "#f5d14a" },
+  { label: "Sheets Product", href: "/use-case/sheets", icon: icons.grid, tint: "#48cfad" },
+  { label: "Session Replay Tool", href: "/use-case/session-replay", icon: icons.refresh, tint: "#ffa3fa" },
 ];
 
 const useCasesEditors: DropdownItem[] = [
@@ -357,7 +358,7 @@ const useCasesEditors: DropdownItem[] = [
 const useCasesCharts: DropdownItem[] = [
   { label: "React Flow", href: "/libraries/reactflow", iconSrc: "/images/home/nav-icons/reactflow.svg" },
   { label: "HighCharts", href: "/libraries/highcharts", iconSrc: "/images/home/nav-icons/highcharts.svg" },
-  { label: "NivoCharts", href: "/libraries/nivo", iconSrc: "/images/home/nav-icons/nivocharts.svg" },
+  { label: "NivoCharts", href: "/libraries/nivo-charts", iconSrc: "/images/home/nav-icons/nivocharts.svg" },
   { label: "ChartJS", href: "/libraries/chartjs", iconSrc: "/images/home/nav-icons/chartjs.svg" },
 ];
 
@@ -384,12 +385,12 @@ const useCasesColumns: DropdownColumn[] = [
 // ---------- Enterprise dropdown — Figma 89:1230 ----------
 
 const enterpriseItems: DropdownItem[] = [
-  { label: "Self Hosting", href: "/enterprise/self-hosting", icon: icons.server, tint: "#5ca3ff" },
-  { label: "Compliance Tools", href: "/enterprise/compliance", icon: icons.shieldCheck, tint: "#5eda7a" },
-  { label: "Advanced Encryption", href: "/enterprise/encryption", icon: icons.lock, tint: "#b387f7" },
-  { label: "Access Controls", href: "/enterprise/access-controls", icon: icons.key, tint: "#f5d14a" },
-  { label: "Security", href: "/enterprise/security", icon: icons.shield, tint: "#f47474" },
-  { label: "Support", href: "/enterprise/support", icon: icons.lifebuoy, tint: "#48cfad" },
+  { label: "Self Hosting", href: "/enterprise#self-hosting", icon: icons.server, tint: "#5ca3ff" },
+  { label: "Compliance Tools", href: "/enterprise#compliance-tools", icon: icons.shieldCheck, tint: "#5eda7a" },
+  { label: "Advanced Encryption", href: "/enterprise#advanced-encryption", icon: icons.lock, tint: "#b387f7" },
+  { label: "Access Controls", href: "/enterprise#access-controls", icon: icons.key, tint: "#f5d14a" },
+  { label: "Security", href: "/enterprise#security", icon: icons.shield, tint: "#f47474" },
+  { label: "Support", href: "/enterprise#support", icon: icons.lifebuoy, tint: "#48cfad" },
 ];
 
 const enterpriseColumns: DropdownColumn[] = [
@@ -405,9 +406,9 @@ const resourcesLearn: DropdownItem[] = [
 ];
 
 const resourcesTools: DropdownItem[] = [
-  { label: "Launch Kit", href: "/launch-kit", icon: icons.rocket, tint: "#ffa3fa" },
-  { label: "Themes Playground", href: "/themes-playground", icon: icons.palette, tint: "#b387f7" },
-  { label: "Figma UI Kit", href: "/figma-ui-kit", icon: icons.grid, tint: "#48cfad" },
+  { label: "Launch Kit", href: "https://velt.dev/launch-kit", icon: icons.rocket, tint: "#ffa3fa" },
+  { label: "Themes Playground", href: "https://playground.velt.dev/themes", icon: icons.palette, tint: "#b387f7" },
+  { label: "Figma UI Kit", href: "https://www.figma.com/community/file/1402312407969730816/velt-collaboration-kit", icon: icons.grid, tint: "#48cfad" },
 ];
 
 const resourcesMigrate: DropdownItem[] = [
