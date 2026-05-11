@@ -2,7 +2,7 @@ import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Footer } from "@/components/home/Footer";
 
 export const metadata = {
-  title: "Terms of Service — Velt",
+  title: "Terms of Service",
   description:
     "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.",
   alternates: {

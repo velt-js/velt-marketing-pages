@@ -22,7 +22,7 @@ const EXAMPLES_WEBPAGE = buildWebPageSchema({
 export const revalidate = 60;
 
 export const metadata = {
-  title: "Examples | Velt",
+  title: "Examples",
   description: "Open-source example apps using Velt.",
   alternates: {
     canonical: "/examples",

@@ -39,7 +39,7 @@ const USE_CASE_WEBPAGE = buildWebPageSchema({
 });
 
 export const metadata = {
-  title: "Velt Use Cases: Where Will You Integrate Velt? | Velt",
+  title: "Velt Use Cases: Where Will You Integrate Velt?",
   description:
     "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.",
   alternates: {

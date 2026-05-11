@@ -50,7 +50,7 @@ const CUSTOMIZATION_WEBPAGE = buildWebPageSchema({
 });
 
 export const metadata = {
-  title: "Velt Customization: Themes, Components, APIs | Velt",
+  title: "Velt Customization: Themes, Components, APIs",
   description:
     "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
   alternates: {
