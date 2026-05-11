@@ -25,7 +25,6 @@ import { CustomerUI } from "@/components/home/CustomerUI";
 import { Security, CardVisual } from "@/components/home/Security";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { EnterpriseTabsSection } from "@/components/enterprise/EnterpriseTabsSection";
-import { SLATimeline } from "@/components/enterprise/SLATimeline";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -112,7 +111,20 @@ export default function EnterprisePage() {
               title: "Priority Support SLAs",
               subtitle:
                 "Guaranteed response times so your team is never blocked",
-              visual: <SLATimeline />,
+              visual: (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src="/images/enterprise/support/slas.png"
+                  alt=""
+                  aria-hidden="true"
+                  style={{
+                    width: "100%",
+                    maxWidth: 540,
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              ),
             }}
             certification={null}
             testimonial={null}
