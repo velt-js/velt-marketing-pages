@@ -23,6 +23,12 @@ import { FeatureImageCard } from "@/components/feature/FeatureImageCard";
 import { CustomerLaunches } from "@/components/launch-kit/CustomerLaunches";
 import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 const FIGMA_KIT_URL =
   "https://www.figma.com/community/file/1402312407969730816";
@@ -30,6 +36,18 @@ const CONSOLE_URL = "https://console.velt.dev/";
 
 const LAUNCH_KIT_DESCRIPTION =
   "Get pre-built launch assets for your collaboration features. Includes email templates, social media graphics, website designs and more.";
+
+const LAUNCH_KIT_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Launch Kit", url: `${SITE_URL}/launch-kit` },
+]);
+
+const LAUNCH_KIT_WEBPAGE = buildWebPageSchema({
+  name: "Launch Kit | Velt",
+  description: LAUNCH_KIT_DESCRIPTION,
+  url: `${SITE_URL}/launch-kit`,
+  breadcrumb: LAUNCH_KIT_BREADCRUMB,
+});
 
 export const metadata: Metadata = {
   title: "Launch Kit",
@@ -47,6 +65,8 @@ export const metadata: Metadata = {
 export default function LaunchKitPage() {
   return (
     <>
+      <JsonLd id="ld-launch-kit-webpage" data={LAUNCH_KIT_WEBPAGE} />
+      <JsonLd id="ld-launch-kit-breadcrumb" data={LAUNCH_KIT_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
