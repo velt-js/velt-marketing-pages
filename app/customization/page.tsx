@@ -29,16 +29,46 @@ import { TemplateVariables } from "@/components/customization/ways/TemplateVaria
 import { ConditionalRendering } from "@/components/customization/ways/ConditionalRendering";
 import { CustomFunctionality } from "@/components/customization/ways/CustomFunctionality";
 import { ComponentVariants } from "@/components/customization/ways/ComponentVariants";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const CUSTOMIZATION_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Customization", url: `${SITE_URL}/customization` },
+]);
+
+const CUSTOMIZATION_WEBPAGE = buildWebPageSchema({
+  name: "Velt Customization: Themes, Components, APIs",
+  description:
+    "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
+  url: `${SITE_URL}/customization`,
+  breadcrumb: CUSTOMIZATION_BREADCRUMB,
+});
 
 export const metadata = {
   title: "Velt Customization: Themes, Components, APIs | Velt",
   description:
     "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
+  alternates: {
+    canonical: "/customization",
+  },
+  openGraph: {
+    url: "https://velt.dev/customization",
+    title: "Velt Customization: Themes, Components, APIs | Velt",
+    description:
+      "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
+  },
 };
 
 export default function CustomizationPage() {
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-customization-webpage" data={CUSTOMIZATION_WEBPAGE} />
+      <JsonLd id="ld-customization-breadcrumb" data={CUSTOMIZATION_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

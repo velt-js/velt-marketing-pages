@@ -14,7 +14,12 @@ const VIDEO_STYLE = {
   display: "block",
 } as const;
 
-export function Security() {
+export type SecurityProps = {
+  /** Override the orange "COMPETITOR" badge label (e.g. "LIVEBLOCKS"). */
+  competitorLabel?: string;
+};
+
+export function Security({ competitorLabel }: SecurityProps = {}) {
   return (
     <ReasonShell
       num={5}
@@ -41,6 +46,7 @@ export function Security() {
             title="No Self-Hosting Option"
             subtitle="Sensitive data must reside in their system"
             mediaHeight={266}
+            badgeLabel={competitorLabel}
           >
             <Media
               kind="video"
@@ -67,6 +73,7 @@ export function Security() {
             title="No GDPR APIs"
             subtitle="Simple UI templates with no logic"
             mediaHeight={266}
+            badgeLabel={competitorLabel}
           >
             <Media
               kind="video"
@@ -94,6 +101,7 @@ export function Security() {
             title="SOC II & HIPAA Compliant"
             subtitle="Meets base compliance requirements"
             mediaHeight={266}
+            badgeLabel={competitorLabel}
           >
             <Media
               kind="image"

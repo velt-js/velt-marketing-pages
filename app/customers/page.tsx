@@ -15,16 +15,46 @@ import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCar
 
 import { CustomersLogoGrid } from "@/components/customers/CustomersLogoGrid";
 import { customerLogos } from "@/components/customers/customer-logos";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const CUSTOMERS_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Customers", url: `${SITE_URL}/customers` },
+]);
+
+const CUSTOMERS_WEBPAGE = buildWebPageSchema({
+  name: "Velt Customers: Trusted by Google, Pendo & More",
+  description:
+    "See how Google, Pendo, Runway, and 50+ companies use Velt to add collaboration features. Increased engagement by 26%, saved 3 FTEs, and shipped 5x faster.",
+  url: `${SITE_URL}/customers`,
+  breadcrumb: CUSTOMERS_BREADCRUMB,
+});
 
 export const metadata = {
   title: "Velt Customers: Trusted by Google, Pendo & More",
   description:
     "See how Google, Pendo, Runway, and 50+ companies use Velt to add collaboration features. Increased engagement by 26%, saved 3 FTEs, and shipped 5x faster.",
+  alternates: {
+    canonical: "/customers",
+  },
+  openGraph: {
+    url: "https://velt.dev/customers",
+    title: "Velt Customers: Trusted by Google, Pendo & More",
+    description:
+      "See how Google, Pendo, Runway, and 50+ companies use Velt to add collaboration features. Increased engagement by 26%, saved 3 FTEs, and shipped 5x faster.",
+  },
 };
 
 export default function CustomersPage() {
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-customers-webpage" data={CUSTOMERS_WEBPAGE} />
+      <JsonLd id="ld-customers-breadcrumb" data={CUSTOMERS_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}

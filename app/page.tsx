@@ -1,3 +1,10 @@
+import type { Metadata } from "next";
+import { JsonLd } from "./_seo/JsonLd";
+import {
+  ORG_ID,
+  ORG_OG_IMAGE,
+  SITE_URL,
+} from "./_seo/schema";
 import { ScaleWrapper } from "@/components/home/ScaleWrapper";
 import { Nav } from "@/components/home/Nav";
 import { Hero } from "@/components/home/Hero";
@@ -12,6 +19,20 @@ import { LibrarySupport } from "@/components/home/LibrarySupport";
 import { Security } from "@/components/home/Security";
 import { Footer } from "@/components/home/Footer";
 
+export const metadata: Metadata = {
+  title: {
+    absolute: "The Collaboration Stack for B2B | Velt",
+  },
+  description:
+    "Add powerful real-time and multiplayer features to your product with Velt's easy-to-use collaboration SDK. Integrate comments, live cursors, and more in minutes.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    url: "https://velt.dev/",
+  },
+};
+
 // Figma y-positions for top-level sections (8506:97015, 1440×11703):
 //   Nav          y=0    h=57    (floats over Hero top)
 //   Hero         y=0    h=1174
@@ -23,6 +44,31 @@ import { Footer } from "@/components/home/Footer";
 //
 // Everything inside ScaleWrapper sits at a 1440 design width that scales
 // proportionally below 1440 and centers above.
+
+// SoftwareApplication schema for the homepage. `applicationCategory:
+// DeveloperApplication` signals this is a developer tool (vs SaaS app),
+// and `offers` points at the public pricing page so Google can surface
+// the free tier in result snippets.
+const HOME_SOFTWARE_APPLICATION = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "Velt",
+  url: SITE_URL,
+  applicationCategory: "DeveloperApplication",
+  operatingSystem: "Web",
+  description:
+    "Velt is a collaboration SDK that lets B2B SaaS teams add real-time multiplayer features — comments, live cursors, presence, notifications — to their product in minutes.",
+  image: ORG_OG_IMAGE,
+  publisher: { "@id": ORG_ID },
+  offers: {
+    "@type": "Offer",
+    url: `${SITE_URL}/pricing`,
+    price: "0",
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    description: "Free Hacker plan with 100 Monthly Active Documents",
+  },
+};
 
 export default function Home() {
   return (
@@ -42,6 +88,7 @@ export default function Home() {
       >
         <Nav />
       </div>
+      <JsonLd id="ld-home-software" data={HOME_SOFTWARE_APPLICATION} />
 
       <ScaleWrapper>
         <div className="relative bg-black text-white font-urbanist" style={{ width: 1440 }}>

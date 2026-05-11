@@ -1,11 +1,37 @@
 import Link from "next/link";
 import { getAllExamplePages } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const EXAMPLES_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Examples", url: `${SITE_URL}/examples` },
+]);
+
+const EXAMPLES_WEBPAGE = buildWebPageSchema({
+  name: "Examples | Velt",
+  description: "Open-source example apps using Velt.",
+  url: `${SITE_URL}/examples`,
+  breadcrumb: EXAMPLES_BREADCRUMB,
+});
 
 export const revalidate = 60;
 
 export const metadata = {
   title: "Examples | Velt",
   description: "Open-source example apps using Velt.",
+  alternates: {
+    canonical: "/examples",
+  },
+  openGraph: {
+    url: "https://velt.dev/examples",
+    title: "Examples | Velt",
+    description: "Open-source example apps using Velt.",
+  },
 };
 
 type ExampleCard = {
@@ -23,6 +49,8 @@ export default async function ExamplesListingPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-16">
+      <JsonLd id="ld-examples-webpage" data={EXAMPLES_WEBPAGE} />
+      <JsonLd id="ld-examples-breadcrumb" data={EXAMPLES_BREADCRUMB} />
       <h1 className="text-4xl md:text-5xl font-bold mb-6">Examples</h1>
       <p className="text-lg text-white/60 mb-12 max-w-2xl">
         Open-source example apps demonstrating Velt collaboration features

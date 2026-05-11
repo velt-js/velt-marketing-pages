@@ -6,7 +6,12 @@ import { ReasonShell } from "./ReasonShell";
 import { ComparisonSubCard } from "./ComparisonSubCard";
 import { Media } from "../Media";
 
-export function Support() {
+export type SupportProps = {
+  /** Override the orange "COMPETITOR" badge label (e.g. "LIVEBLOCKS"). */
+  competitorLabel?: string;
+};
+
+export function Support({ competitorLabel }: SupportProps = {}) {
   return (
     <ReasonShell
       num={6}
@@ -33,6 +38,7 @@ export function Support() {
           title="Email Support"
           subtitle="Email support with no certainty"
           mediaHeight={266}
+          badgeLabel={competitorLabel}
         >
           <Media
             kind="image"

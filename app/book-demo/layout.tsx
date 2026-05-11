@@ -1,4 +1,43 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/home/Nav";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const BOOK_DEMO_DESCRIPTION =
+  "See Velt in action. Get a personalized walkthrough of our collaboration SDK — comments, cursors, notifications, and more.";
+
+export const metadata: Metadata = {
+  title: "Book a demo",
+  description: BOOK_DEMO_DESCRIPTION,
+  alternates: {
+    canonical: "/book-demo",
+  },
+  openGraph: {
+    url: "https://velt.dev/book-demo",
+    title: "Book a demo | Velt",
+    description: BOOK_DEMO_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const BOOK_DEMO_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Book a demo", url: `${SITE_URL}/book-demo` },
+]);
+
+const BOOK_DEMO_WEBPAGE = buildWebPageSchema({
+  name: "Book a demo | Velt",
+  description: BOOK_DEMO_DESCRIPTION,
+  url: `${SITE_URL}/book-demo`,
+  breadcrumb: BOOK_DEMO_BREADCRUMB,
+});
 
 export default function BookDemoLayout({
   children,
@@ -18,6 +57,8 @@ export default function BookDemoLayout({
       >
         <Nav />
       </div>
+      <JsonLd id="ld-book-demo-webpage" data={BOOK_DEMO_WEBPAGE} />
+      <JsonLd id="ld-book-demo-breadcrumb" data={BOOK_DEMO_BREADCRUMB} />
       {children}
     </>
   );

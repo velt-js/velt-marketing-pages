@@ -1,11 +1,37 @@
 import Link from "next/link";
 import { getAllDemoPages } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const DEMOS_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Demos", url: `${SITE_URL}/demos` },
+]);
+
+const DEMOS_WEBPAGE = buildWebPageSchema({
+  name: "Demos | Velt",
+  description: "Live product demos showcasing Velt collaboration features.",
+  url: `${SITE_URL}/demos`,
+  breadcrumb: DEMOS_BREADCRUMB,
+});
 
 export const revalidate = 60;
 
 export const metadata = {
   title: "Demos | Velt",
   description: "Live product demos showcasing Velt collaboration features.",
+  alternates: {
+    canonical: "/demos",
+  },
+  openGraph: {
+    url: "https://velt.dev/demos",
+    title: "Demos | Velt",
+    description: "Live product demos showcasing Velt collaboration features.",
+  },
 };
 
 type DemoCard = {
@@ -23,6 +49,8 @@ export default async function DemosListingPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-16">
+      <JsonLd id="ld-demos-webpage" data={DEMOS_WEBPAGE} />
+      <JsonLd id="ld-demos-breadcrumb" data={DEMOS_BREADCRUMB} />
       <h1 className="text-4xl md:text-5xl font-bold mb-6">Demos</h1>
       <p className="text-lg text-white/60 mb-12 max-w-2xl">
         Live product demos showcasing Velt collaboration features in real apps.

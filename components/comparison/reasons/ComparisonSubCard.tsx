@@ -21,6 +21,10 @@ export type ComparisonSubCardProps = {
   children?: ReactNode;
   /** Override the default 260px visual-area height. */
   mediaHeight?: number;
+  /** Override the badge label (defaults: "VELT" / "COMPETITOR"). Useful
+   *  on competitor-specific landing pages — e.g. pass "LIVEBLOCKS" so the
+   *  orange badge calls out the competitor by name. */
+  badgeLabel?: string;
 };
 
 const VARIANT = {
@@ -45,8 +49,10 @@ export function ComparisonSubCard({
   media,
   children,
   mediaHeight = 260,
+  badgeLabel,
 }: ComparisonSubCardProps) {
   const v = VARIANT[variant];
+  const label = badgeLabel ?? v.label;
   return (
     <div
       className="relative flex flex-col items-start"
@@ -117,7 +123,7 @@ export function ComparisonSubCard({
             style={{ filter: "brightness(0) invert(1)" }}
           />
         ) : null}
-        {v.label}
+        {label}
       </span>
     </div>
   );

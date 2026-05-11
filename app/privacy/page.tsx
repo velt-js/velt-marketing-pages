@@ -5,6 +5,15 @@ export const metadata = {
   title: "Privacy Policy — Velt",
   description:
     "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.",
+  alternates: {
+    canonical: "/privacy",
+  },
+  openGraph: {
+    url: "https://velt.dev/privacy",
+    title: "Privacy Policy — Velt",
+    description:
+      "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.",
+  },
 };
 
 export default function PrivacyPage() {

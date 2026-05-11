@@ -1,0 +1,57 @@
+import type { Metadata } from "next";
+
+import { ScaleWrapper } from "@/components/home/ScaleWrapper";
+import { Footer } from "@/components/home/Footer";
+import { PageHero } from "@/components/library/PageHero";
+
+const THANK_YOU_DESCRIPTION =
+  "Our team will reach out within one business day to schedule your demo. In the meantime, take a tour of what Velt can do.";
+
+export const metadata: Metadata = {
+  title: "Thank you",
+  description: THANK_YOU_DESCRIPTION,
+  alternates: {
+    canonical: "/thank-you",
+  },
+  openGraph: {
+    url: "https://velt.dev/thank-you",
+    title: "Thank you | Velt",
+    description: THANK_YOU_DESCRIPTION,
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
+
+/**
+ * /thank-you — post-form-submission confirmation page reached after a
+ * visitor submits the Book Demo form. Intentionally minimal: nav + a
+ * centered hero with two CTAs + footer. No testimonials, FAQ, or
+ * feature grids belong here.
+ */
+export default function ThankYouPage() {
+  return (
+    <ScaleWrapper>
+      <div
+        className="relative bg-black text-white font-urbanist"
+        style={{ width: 1440 }}
+      >
+        <PageHero
+          decorated={false}
+          eyebrow={{ label: "Request received", dotColor: "#0D9A5D" }}
+          heading="Thanks — we'll be in touch"
+          subheading={THANK_YOU_DESCRIPTION}
+          primaryCta={{
+            label: "Read the Docs",
+            href: "https://docs.velt.dev/",
+            newTab: true,
+          }}
+          secondaryCta={{ label: "Back to home", href: "/" }}
+        />
+
+        <Footer />
+      </div>
+    </ScaleWrapper>
+  );
+}

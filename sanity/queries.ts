@@ -26,6 +26,7 @@ export async function getBlogPostBySlug(slug: string) {
       "slug": slug.current,
       description,
       publishedAt,
+      _updatedAt,
       category,
       tags,
       "author": author->{ name, role, "avatar": avatar.asset->url },

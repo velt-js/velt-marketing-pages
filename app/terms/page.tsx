@@ -5,6 +5,15 @@ export const metadata = {
   title: "Terms of Service — Velt",
   description:
     "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    url: "https://velt.dev/terms",
+    title: "Terms of Service — Velt",
+    description:
+      "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.",
+  },
 };
 
 export default function TermsPage() {

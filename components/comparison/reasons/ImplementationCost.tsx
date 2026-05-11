@@ -15,7 +15,14 @@ const VIDEO_STYLE = {
   display: "block",
 } as const;
 
-export function ImplementationCost() {
+export type ImplementationCostProps = {
+  /** Override the orange "COMPETITOR" badge label (e.g. "LIVEBLOCKS"). */
+  competitorLabel?: string;
+};
+
+export function ImplementationCost({
+  competitorLabel,
+}: ImplementationCostProps = {}) {
   return (
     <ReasonShell
       num={2}
@@ -43,6 +50,7 @@ export function ImplementationCost() {
             title="Partial Solution"
             subtitle="Mainly backend solutions"
             mediaHeight={266}
+            badgeLabel={competitorLabel}
           >
             <Media
               kind="image"
@@ -70,6 +78,7 @@ export function ImplementationCost() {
             title="Requires weeks to complete"
             subtitle="Requires you to write an excessive amount of code to get the feature working"
             mediaHeight={266}
+            badgeLabel={competitorLabel}
           >
             <Media
               kind="video"
@@ -97,6 +106,7 @@ export function ImplementationCost() {
             title="Complex integration"
             subtitle="Requires senior engineers"
             mediaHeight={266}
+            badgeLabel={competitorLabel}
           >
             <Media
               kind="image"

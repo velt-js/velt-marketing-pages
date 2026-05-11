@@ -33,6 +33,12 @@ import {
   getAllLibrarySlugs,
   getLibraryPageBySlug,
 } from "@/sanity/queries";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 export const revalidate = 60;
 
@@ -132,10 +138,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getLibraryPageBySlug(slug)) as LibraryPageDoc | null;
   if (!doc) return {};
+  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const description = doc.metaDescription ?? doc.hero.subheading;
   return {
-    title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-    description: doc.metaDescription ?? doc.hero.subheading,
-    openGraph: doc.ogImage ? { images: [{ url: doc.ogImage }] } : undefined,
+    title,
+    description,
+    alternates: { canonical: `/libraries/${slug}` },
+    openGraph: {
+      url: `https://velt.dev/libraries/${slug}`,
+      title,
+      description,
+      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
+    },
   };
 }
 
@@ -168,8 +182,23 @@ export default async function LibraryPage({
     ...sharedFAQ,
   ];
 
+  const pageUrl = `${SITE_URL}/libraries/${slug}`;
+  const breadcrumb = buildBreadcrumbList([
+    { name: "Home", url: SITE_URL },
+    { name: "Libraries", url: `${SITE_URL}/libraries` },
+    { name: doc.title ?? doc.hero.heading, url: pageUrl },
+  ]);
+  const webpage = buildWebPageSchema({
+    name: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
+    description: doc.metaDescription ?? doc.hero.subheading,
+    url: pageUrl,
+    breadcrumb,
+  });
+
   return (
     <ScaleWrapper>
+      <JsonLd id="ld-library-webpage" data={webpage} />
+      <JsonLd id="ld-library-breadcrumb" data={breadcrumb} />
       <div
         className="relative bg-black text-white font-urbanist"
         style={{ width: 1440 }}
