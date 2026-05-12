@@ -36,21 +36,8 @@ const nextConfig: NextConfig = {
         destination: "https://samples.velt.dev",
         permanent: true,
       },
-      {
-        source: "/add-comments-quick",
-        destination: "/comments",
-        permanent: true,
-      },
-      {
-        source: "/add-notifications-quick",
-        destination: "/notifications",
-        permanent: true,
-      },
-      {
-        source: "/add-recording-quick",
-        destination: "/recording",
-        permanent: true,
-      },
+      // /add-comments-quick, /add-notifications-quick, /add-recording-quick
+      // are standalone quick-start landing pages — see app/add-*-quick/.
       {
         source: "/security",
         destination: "https://trust.velt.dev/",
