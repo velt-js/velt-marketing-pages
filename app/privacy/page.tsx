@@ -5,6 +5,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const PRIVACY_DESCRIPTION =
   "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.";
@@ -21,18 +22,11 @@ const PRIVACY_WEBPAGE = buildWebPageSchema({
   breadcrumb: PRIVACY_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Privacy Policy",
   description: PRIVACY_DESCRIPTION,
-  alternates: {
-    canonical: "/privacy",
-  },
-  openGraph: {
-    url: "https://velt.dev/privacy",
-    title: "Privacy Policy — Velt",
-    description: PRIVACY_DESCRIPTION,
-  },
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

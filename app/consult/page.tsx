@@ -16,6 +16,7 @@ import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -41,20 +42,12 @@ const CONSULT_WEBPAGE = buildWebPageSchema({
   breadcrumb: CONSULT_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Consult",
   description:
     "Free design consultation with ex-Google and Netflix product managers and designers — product audits, custom mockups, and an implementation plan for your collaboration features.",
-  alternates: {
-    canonical: "/consult",
-  },
-  openGraph: {
-    url: "https://velt.dev/consult",
-    title: "Consult | Velt",
-    description:
-      "Free design consultation with ex-Google and Netflix product managers and designers — product audits, custom mockups, and an implementation plan for your collaboration features.",
-  },
-};
+  path: "/consult",
+});
 
 // Four "what's covered" cards rendered through the Security component's
 // 2x2 grid. Reuses Security card chrome (#f7f7f7, 24px radius, 493 tall)

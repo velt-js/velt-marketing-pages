@@ -36,6 +36,34 @@ const nextConfig: NextConfig = {
         destination: "https://trust.velt.dev/",
         permanent: true,
       },
+      // /examples and all nested example slugs point at the samples
+      // dogfooding subdomain — we don't host examples on the marketing
+      // site anymore. Both /examples and /examples/anything → samples.velt.dev.
+      {
+        source: "/examples",
+        destination: "https://samples.velt.dev",
+        permanent: true,
+      },
+      {
+        source: "/examples/:slug*",
+        destination: "https://samples.velt.dev",
+        permanent: true,
+      },
+      // Canonical migration URLs are the long descriptive slugs
+      // (/migrate-from-{vendor}-to-velt). The short /migrate/{slug} form
+      // 308s to long form for the two vendors that have explicit landings.
+      // Any other Sanity migration slugs (if added later) continue to render
+      // at /migrate/{slug} via the [slug] route.
+      {
+        source: "/migrate/liveblocks",
+        destination: "/migrate-from-liveblocks-to-velt",
+        permanent: true,
+      },
+      {
+        source: "/migrate/cord",
+        destination: "/migrate-from-cord-to-velt",
+        permanent: true,
+      },
       // Three feature pages keep the legacy velt.dev URLs (/platform,
       // /devtools, /multiplayer-editing). Their Sanity slugs differ
       // (admin-console, dev-tools, multiplayer) — the mapping lives in
@@ -93,19 +121,10 @@ const nextConfig: NextConfig = {
         destination: "/recording",
         permanent: true,
       },
-      // Legacy comments/notifications SEO landing pages → feature pages.
-      {
-        source: "/notion-like-comments",
-        destination: "/comments",
-        permanent: true,
-      },
-      // /google-spreadsheets-like-comments — standalone SEO landing (see
-      // app/google-spreadsheets-like-comments/).
-      {
-        source: "/tiptap-editor-comments",
-        destination: "/comments",
-        permanent: true,
-      },
+      // /notion-like-comments, /google-spreadsheets-like-comments and
+      // /tiptap-editor-comments are standalone SEO landings (see
+      // app/notion-like-comments/, app/google-spreadsheets-like-comments/
+      // and app/tiptap-editor-comments/).
       // /knock-like-notifications — standalone SEO landing (see
       // app/knock-like-notifications/) that renders /notifications content
       // via the shared FeaturePageBody.

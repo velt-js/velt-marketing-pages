@@ -28,6 +28,7 @@ import { TemplateVariables } from "@/components/customization/ways/TemplateVaria
 import { ConditionalRendering } from "@/components/customization/ways/ConditionalRendering";
 import { CustomFunctionality } from "@/components/customization/ways/CustomFunctionality";
 import { ComponentVariants } from "@/components/customization/ways/ComponentVariants";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -48,20 +49,13 @@ const CUSTOMIZATION_WEBPAGE = buildWebPageSchema({
   breadcrumb: CUSTOMIZATION_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt Customization: Themes, Components, APIs",
   description:
     "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
-  alternates: {
-    canonical: "/customization",
-  },
-  openGraph: {
-    url: "https://velt.dev/customization",
-    title: "Velt Customization: Themes, Components, APIs | Velt",
-    description:
-      "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
-  },
-};
+  path: "/customization",
+  ogImage: "/og/customization.png",
+});
 
 export default function CustomizationPage() {
   return (

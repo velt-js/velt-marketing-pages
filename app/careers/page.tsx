@@ -16,6 +16,7 @@ import Link from "next/link";
 import { Footer } from "@/components/home/Footer";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
 import { PageHero } from "@/components/library/PageHero";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -36,20 +37,12 @@ const CAREERS_WEBPAGE = buildWebPageSchema({
   breadcrumb: CAREERS_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Careers",
   description:
     "Join Velt — building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
-  alternates: {
-    canonical: "/careers",
-  },
-  openGraph: {
-    url: "https://velt.dev/careers",
-    title: "Careers | Velt",
-    description:
-      "Join Velt — building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
-  },
-};
+  path: "/careers",
+});
 
 type OpenRole = {
   title: string;

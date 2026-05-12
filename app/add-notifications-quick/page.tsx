@@ -3,6 +3,7 @@
 // its own canonical/OG metadata so search engines can rank them for their
 // respective intents (feature page vs. "add notifications quickly" keyword).
 
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { FeaturePageBody } from "@/components/feature/FeaturePageBody";
 
 export const revalidate = 60;
@@ -10,18 +11,12 @@ export const revalidate = 60;
 const PAGE_DESCRIPTION =
   "Add in-app notifications to your product in days, not months. Velt ships a drop-in inbox, bell, grouped notifications, and multi-channel delivery — the same surface that powers /notifications.";
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Add notifications quickly",
   description: PAGE_DESCRIPTION,
-  alternates: {
-    canonical: "/add-notifications-quick",
-  },
-  openGraph: {
-    url: "https://velt.dev/add-notifications-quick",
-    title: "Add notifications quickly | Velt",
-    description: PAGE_DESCRIPTION,
-  },
-};
+  path: "/add-notifications-quick",
+  ogImage: "/og/add-notifications-quick.png",
+});
 
 export default function AddNotificationsQuickPage() {
   return (

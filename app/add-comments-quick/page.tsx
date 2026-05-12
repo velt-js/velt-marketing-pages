@@ -15,6 +15,7 @@ import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { LibraryGetStartedCallout } from "@/components/library/LibraryGetStartedCallout";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -37,18 +38,12 @@ const ADD_COMMENTS_WEBPAGE = buildWebPageSchema({
   breadcrumb: ADD_COMMENTS_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Add comments quickly",
   description: PAGE_DESCRIPTION,
-  alternates: {
-    canonical: "/add-comments-quick",
-  },
-  openGraph: {
-    url: "https://velt.dev/add-comments-quick",
-    title: "Add comments quickly | Velt",
-    description: PAGE_DESCRIPTION,
-  },
-};
+  path: "/add-comments-quick",
+  ogImage: "/og/add-comments-quick.png",
+});
 
 // Four "what you get" cards rendered through the Security component's
 // 2x2 grid. Mirrors the live velt.dev/add-comments-quick value props:

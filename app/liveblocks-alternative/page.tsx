@@ -22,6 +22,7 @@ import { Scalability } from "@/components/comparison/reasons/Scalability";
 import { UserExperience } from "@/components/comparison/reasons/UserExperience";
 import { Security } from "@/components/comparison/reasons/Security";
 import { Support } from "@/components/comparison/reasons/Support";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -46,18 +47,12 @@ const LIVEBLOCKS_ALT_WEBPAGE = buildWebPageSchema({
   breadcrumb: LIVEBLOCKS_ALT_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt: Alternative to Liveblocks",
   description: LIVEBLOCKS_ALT_DESCRIPTION,
-  alternates: {
-    canonical: "/liveblocks-alternative",
-  },
-  openGraph: {
-    url: "https://velt.dev/liveblocks-alternative",
-    title: "Velt: Alternative to Liveblocks",
-    description: LIVEBLOCKS_ALT_DESCRIPTION,
-  },
-};
+  path: "/liveblocks-alternative",
+  ogImage: "/og/liveblocks-alternative.png",
+});
 
 export default function LiveblocksAlternativePage() {
   return (

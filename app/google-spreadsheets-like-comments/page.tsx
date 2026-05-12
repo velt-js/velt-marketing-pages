@@ -17,6 +17,7 @@ import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -42,18 +43,12 @@ const WEBPAGE = buildWebPageSchema({
   breadcrumb: BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Google Spreadsheets-like comments",
   description: PAGE_DESCRIPTION,
-  alternates: {
-    canonical: "/google-spreadsheets-like-comments",
-  },
-  openGraph: {
-    url: "https://velt.dev/google-spreadsheets-like-comments",
-    title: "Google Spreadsheets-like comments | Velt",
-    description: PAGE_DESCRIPTION,
-  },
-};
+  path: "/google-spreadsheets-like-comments",
+  ogImage: "/og/google-spreadsheets-like-comments.png",
+});
 
 // Four "what you get" cards rendered through the Security component's
 // 2x2 grid (hideShield removes the security-themed glyph). Each card

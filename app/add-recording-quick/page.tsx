@@ -20,6 +20,7 @@ import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -40,20 +41,13 @@ const ADD_RECORDING_WEBPAGE = buildWebPageSchema({
   breadcrumb: ADD_RECORDING_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Add recording quickly",
   description:
     "Ship Loom-style in-app recording in days. Audio, video, and screen recording with AI transcripts, captions, and summaries — drop in one component with the Velt SDK.",
-  alternates: {
-    canonical: "/add-recording-quick",
-  },
-  openGraph: {
-    url: "https://velt.dev/add-recording-quick",
-    title: "Add recording quickly | Velt",
-    description:
-      "Ship Loom-style in-app recording in days. Audio, video, and screen recording with AI transcripts, captions, and summaries — drop in one component with the Velt SDK.",
-  },
-};
+  path: "/add-recording-quick",
+  ogImage: "/og/add-recording-quick.png",
+});
 
 // Four "what you get" cards rendered through the Security component's
 // 2x2 grid. Reuses the existing /images/features/recordings/* assets

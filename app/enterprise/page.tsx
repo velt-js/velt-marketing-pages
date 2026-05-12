@@ -25,6 +25,7 @@ import { CustomerUI } from "@/components/home/CustomerUI";
 import { Security, CardVisual } from "@/components/home/Security";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { EnterpriseTabsSection } from "@/components/enterprise/EnterpriseTabsSection";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -45,20 +46,13 @@ const ENTERPRISE_WEBPAGE = buildWebPageSchema({
   breadcrumb: ENTERPRISE_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt for Enterprise — Self-hosting, Compliance & Dedicated Support",
   description:
     "Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime. SOC 2 Type II, HIPAA BAA, and enterprise-grade SLAs.",
-  alternates: {
-    canonical: "/enterprise",
-  },
-  openGraph: {
-    url: "https://velt.dev/enterprise",
-    title: "Velt for Enterprise — Self-hosting, Compliance & Dedicated Support",
-    description:
-      "Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime. SOC 2 Type II, HIPAA BAA, and enterprise-grade SLAs.",
-  },
-};
+  path: "/enterprise",
+  ogImage: "/og/enterprise.png",
+});
 
 export default function EnterprisePage() {
   return (

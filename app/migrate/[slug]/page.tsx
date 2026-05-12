@@ -11,6 +11,7 @@ import {
   getAllMigrationSlugs,
   getMigrationPageBySlug,
 } from "@/sanity/queries";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
 
@@ -27,20 +28,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getMigrationPageBySlug(slug)) as MigrationPageDoc | null;
   if (!doc) return {};
-  const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
-  const title = cleanMetaTitle ?? doc.hero.heading;
-  const description = doc.metaDescription ?? doc.hero.subheading;
-  return {
+  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const description = doc.metaDescription ?? doc.hero.subheading ?? "";
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/migrate/${slug}` },
-    openGraph: {
-      url: `https://velt.dev/migrate/${slug}`,
-      title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-      description,
-      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
-    },
-  };
+    path: `/migrate/${slug}`,
+    ogImage: doc.ogImage ?? undefined,
+  });
 }
 
 export default async function MigrateSlugPage({

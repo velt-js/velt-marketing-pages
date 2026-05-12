@@ -80,11 +80,23 @@ export type FeaturePageBodyProps = {
    * the same content at a different URL (e.g. "add-notifications-quick").
    */
   pageUrlPath?: string;
+  /**
+   * Override the hero heading and/or subheading. Use when a duplicate route
+   * needs differentiated H1 copy for keyword targeting (e.g. /knock-like-
+   * notifications targets "Knock alternative" so its H1 reads "Build
+   * Notifications Quickly", not the canonical "Add Notifications Before
+   * Standup" served by /notifications).
+   */
+  heroOverride?: {
+    heading?: string;
+    subheading?: string;
+  };
 };
 
 export async function FeaturePageBody({
   sanitySlug,
   pageUrlPath,
+  heroOverride,
 }: FeaturePageBodyProps) {
   const doc = (await getFeaturePageBySlug(sanitySlug)) as FeaturePageDoc | null;
 
@@ -124,8 +136,8 @@ export async function FeaturePageBody({
       >
         <PageHero
           decorated={doc.hero.decorated ?? true}
-          heading={doc.hero.heading}
-          subheading={doc.hero.subheading}
+          heading={heroOverride?.heading ?? doc.hero.heading}
+          subheading={heroOverride?.subheading ?? doc.hero.subheading}
           primaryCta={doc.hero.primaryCta}
           secondaryCta={doc.hero.secondaryCta}
         />

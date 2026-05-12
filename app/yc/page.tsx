@@ -19,6 +19,7 @@ import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -39,20 +40,13 @@ const YC_WEBPAGE = buildWebPageSchema({
   breadcrumb: YC_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "For YC",
   description:
     "Y Combinator companies get $499/mo for the first year on Velt — ship comments, notifications, multiplayer editing, presence, and cursors in about a week instead of 4-5 months.",
-  alternates: {
-    canonical: "/yc",
-  },
-  openGraph: {
-    url: "https://velt.dev/yc",
-    title: "For YC | Velt",
-    description:
-      "Y Combinator companies get $499/mo for the first year on Velt — ship comments, notifications, multiplayer editing, presence, and cursors in about a week instead of 4-5 months.",
-  },
-};
+  path: "/yc",
+  ogImage: "/og/yc.png",
+});
 
 // Four "what's included" cards rendered through the Security component's
 // 2x2 grid. Copy is sourced from the live velt.dev/yc "features included
