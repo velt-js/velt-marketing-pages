@@ -4,7 +4,7 @@ import {
   FEATURE_UI_TITLES,
 } from "../../components/feature/uis/keys";
 
-// Schema for /features/[slug] pages — one document per Velt product surface
+// Schema for top-level feature pages — one document per Velt product surface
 // (Commenting, Notifications, Presence, Cursors, Huddle, Recorder, …).
 //
 // Unlike libraryPage which has a single fixed bento, a feature page strings
@@ -91,7 +91,7 @@ export const featurePage = defineType({
     defineField({
       name: "slug",
       title: "Slug",
-      description: "URL segment. e.g. 'commenting' → /features/commenting",
+      description: "URL segment. e.g. 'comments' → /comments. Must not collide with an existing top-level route (blog, pricing, libraries, etc.).",
       type: "slug",
       group: "identity",
       options: { source: "title", maxLength: 80 },

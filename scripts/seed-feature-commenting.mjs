@@ -467,7 +467,7 @@ async function main() {
       },
       // Customer Stories carousel ("How X Leverages Velt") is rendered as
       // page chrome via the showCustomerStories toggle on the doc, not as a
-      // section block — see app/features/[slug]/page.tsx.
+      // section block — see app/(features)/[slug]/page.tsx.
       // Customer Trust Carousel ("Our Customers Trust Us") is also page
       // chrome now — rendered above the FAQ on every page that has one.
       // See components/feature/FeatureCustomerCarousel.tsx (TRUST_DEFAULTS).

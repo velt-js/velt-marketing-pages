@@ -14,6 +14,7 @@ import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCar
 
 import { CustomersLogoGrid } from "@/components/customers/CustomersLogoGrid";
 import { customerLogos } from "@/components/customers/customer-logos";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -34,20 +35,12 @@ const CUSTOMERS_WEBPAGE = buildWebPageSchema({
   breadcrumb: CUSTOMERS_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt Customers: Trusted by Google, Pendo & More",
   description:
     "See how Google, Pendo, Runway, and 50+ companies use Velt to add collaboration features. Increased engagement by 26%, saved 3 FTEs, and shipped 5x faster.",
-  alternates: {
-    canonical: "/customers",
-  },
-  openGraph: {
-    url: "https://velt.dev/customers",
-    title: "Velt Customers: Trusted by Google, Pendo & More",
-    description:
-      "See how Google, Pendo, Runway, and 50+ companies use Velt to add collaboration features. Increased engagement by 26%, saved 3 FTEs, and shipped 5x faster.",
-  },
-};
+  path: "/customers",
+});
 
 export default function CustomersPage() {
   return (

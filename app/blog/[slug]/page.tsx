@@ -12,6 +12,7 @@ import {
   SITE_URL,
   buildBreadcrumbList,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 /**
  * Build a BlogPosting JSON-LD payload from a Sanity blog document.
@@ -78,18 +79,22 @@ export async function generateMetadata({
   const post = await getBlogPostBySlug(slug);
   if (!post) return {};
   const rawTitle = post.metaTitle || `${post.title} | Velt Blog`;
-  const description = post.metaDescription || post.description;
-  return {
-    title: { absolute: rawTitle },
+  const description = post.metaDescription || post.description || "";
+  const metadata = buildPageMetadata({
+    title: rawTitle,
     description,
-    alternates: { canonical: `/blog/${slug}` },
-    openGraph: {
-      url: `https://velt.dev/blog/${slug}`,
-      title: rawTitle,
-      description,
-      ...(post.ogImage ? { images: [{ url: post.ogImage }] } : {}),
-    },
-  };
+    path: `/blog/${slug}`,
+    ogImage: post.ogImage ?? undefined,
+    socialTitle: rawTitle,
+  });
+  // Blog posts always use an absolute title (bypasses the layout title template)
+  // and override openGraph.type to "article".
+  metadata.title = { absolute: rawTitle };
+  if (metadata.openGraph) {
+    // Next.js OpenGraph is a discriminated union; cast to set type to "article".
+    (metadata.openGraph as Record<string, unknown>).type = "article";
+  }
+  return metadata;
 }
 
 export async function generateStaticParams() {

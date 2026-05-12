@@ -1,27 +1,16 @@
-import type { Metadata } from "next";
-
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { Footer } from "@/components/home/Footer";
 import { PageHero } from "@/components/library/PageHero";
 
 const THANK_YOU_DESCRIPTION =
   "Our team will reach out within one business day to schedule your demo. In the meantime, take a tour of what Velt can do.";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Thank you",
   description: THANK_YOU_DESCRIPTION,
-  alternates: {
-    canonical: "/thank-you",
-  },
-  openGraph: {
-    url: "https://velt.dev/thank-you",
-    title: "Thank you | Velt",
-    description: THANK_YOU_DESCRIPTION,
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+  path: "/thank-you",
+  noindex: true,
+});
 
 /**
  * /thank-you — post-form-submission confirmation page reached after a

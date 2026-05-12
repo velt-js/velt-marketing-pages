@@ -5,7 +5,7 @@
 // hardcoded Figma copy/CTAs, and a testimonial bar at the bottom (Ethan
 // attached to Card 1, free-standing Yuri after Card 2).
 //
-// Slug-conditional in app/features/[slug]/page.tsx — only rendered
+// Slug-conditional in app/(features)/[slug]/page.tsx — only rendered
 // when the slug is "webhooks-and-api".
 
 import { InlineTestimonialCard } from "@/components/home/InlineTestimonialCard";

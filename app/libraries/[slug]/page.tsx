@@ -38,6 +38,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
 
@@ -137,20 +138,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getLibraryPageBySlug(slug)) as LibraryPageDoc | null;
   if (!doc) return {};
-  const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
-  const title = cleanMetaTitle ?? doc.hero.heading;
-  const description = doc.metaDescription ?? doc.hero.subheading;
-  return {
+  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const description = doc.metaDescription ?? doc.hero.subheading ?? "";
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/libraries/${slug}` },
-    openGraph: {
-      url: `https://velt.dev/libraries/${slug}`,
-      title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-      description,
-      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
-    },
-  };
+    path: `/libraries/${slug}`,
+    ogImage: doc.ogImage ?? undefined,
+  });
 }
 
 export default async function LibraryPage({
@@ -219,9 +214,7 @@ export default async function LibraryPage({
             githubUrl={doc.demoStage.githubUrl}
             previewSrc={doc.demoStage.previewSrc}
             label={doc.demoStage.label}
-            iconSrc={`/images/home/libraries/icons/${
-              ({ reactflow: "react-flow" } as Record<string, string>)[slug] ?? slug
-            }.png`}
+            iconSrc={`/images/home/libraries/icons/${slug}.png`}
           />
         </section>
 

@@ -5,6 +5,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const TERMS_DESCRIPTION =
   "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.";
@@ -21,18 +22,11 @@ const TERMS_WEBPAGE = buildWebPageSchema({
   breadcrumb: TERMS_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Terms of Service",
   description: TERMS_DESCRIPTION,
-  alternates: {
-    canonical: "/terms",
-  },
-  openGraph: {
-    url: "https://velt.dev/terms",
-    title: "Terms of Service — Velt",
-    description: TERMS_DESCRIPTION,
-  },
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

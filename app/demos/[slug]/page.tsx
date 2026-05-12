@@ -10,6 +10,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
 
@@ -48,17 +49,13 @@ export async function generateMetadata({
   const doc = (await getDemoPageBySlug(slug)) as DemoDoc | null;
   if (!doc) return {};
   const title = `${doc.title} | Velt Demos`;
-  const description = doc.content;
-  return {
+  const description = doc.content ?? "";
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/demos/${slug}` },
-    openGraph: {
-      url: `https://velt.dev/demos/${slug}`,
-      title,
-      description,
-    },
-  };
+    path: `/demos/${slug}`,
+    socialTitle: title,
+  });
 }
 
 export default async function DemoPage({

@@ -17,6 +17,7 @@ import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 
 import { UseCaseGrid } from "@/components/use-case/UseCaseGrid";
 import { useCaseFaq } from "@/components/use-case/use-case-faq";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -37,20 +38,12 @@ const USE_CASE_WEBPAGE = buildWebPageSchema({
   breadcrumb: USE_CASE_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt Use Cases: Where Will You Integrate Velt?",
   description:
     "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.",
-  alternates: {
-    canonical: "/use-case",
-  },
-  openGraph: {
-    url: "https://velt.dev/use-case",
-    title: "Velt Use Cases: Where Will You Integrate Velt? | Velt",
-    description:
-      "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.",
-  },
-};
+  path: "/use-case",
+});
 
 export default function UseCasePage() {
   return (

@@ -132,7 +132,7 @@ async function main() {
     showCustomerStories: false,
     sections: [
       // Note: "Steal Features from Popular Products" is rendered in
-      // app/features/[slug]/page.tsx as a slug-conditional <StealFeatures />
+      // app/(features)/[slug]/page.tsx as a slug-conditional <StealFeatures />
       // (the homepage marquee component). It's intentionally NOT in this
       // sections array.
       // Bento section — same layout/design as the "Built for Tiptap"
@@ -222,17 +222,17 @@ async function main() {
         inlineTestimonial: lindaTestimonial,
       },
       // Note: "How [X] Integrates Velt" is rendered in
-      // app/features/[slug]/page.tsx as the homepage <CustomerUI />
+      // app/(features)/[slug]/page.tsx as the homepage <CustomerUI />
       // carousel slotted between this bento and the next image card. It's
       // intentionally NOT in this sections array.
       // Note: "Your Data, Your Choice" is rendered in
-      // app/features/[slug]/page.tsx as the slug-conditional
+      // app/(features)/[slug]/page.tsx as the slug-conditional
       // <MultiplayerYourDataSection /> (narrower 816-wide layout with
       // the file-static body image at public/images/features/multiplayer/
       // card-4-your-data.png + a compact rounded testimonial bar).
       // Intentionally NOT in this sections array.
       // Note: "Works seamlessly with your libraries" is rendered in
-      // app/features/[slug]/page.tsx as the slug-conditional homepage
+      // app/(features)/[slug]/page.tsx as the slug-conditional homepage
       // <LibrarySupport /> component. Intentionally NOT in this sections
       // array.
       // Note: "Enterprise level security" is rendered by the chrome

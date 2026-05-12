@@ -1,7 +1,12 @@
-// Dynamic per-feature page driven by Sanity. One featurePage document per
-// route. Composition mirrors /libraries/[slug] but the middle of the page
-// is a polymorphic `sections[]` array (bentos, integrations rows, customer
-// testimonial grids) that renders in document order via FeatureSections.
+// Shared renderer for feature pages backed by a Sanity `featurePage`
+// document. Used by:
+//   - app/(features)/[slug]/page.tsx — canonical per-slug routes
+//   - app/add-notifications-quick/page.tsx — SEO landing that mirrors
+//     /notifications 1:1
+// To create another SEO duplicate that shadows an existing feature page,
+// render <FeaturePageBody sanitySlug="..." pageUrlPath="..." /> from a
+// new route. Keep slug-specific composition rules (NotificationsDemoSidebar,
+// MultiplayerYourDataSection, etc.) here so duplicates inherit them.
 
 import { notFound } from "next/navigation";
 
@@ -31,10 +36,7 @@ import { AdminConsoleAnalyticsPanel } from "@/components/feature/AdminConsoleAna
 import { AdminConsoleHighlights } from "@/components/feature/AdminConsoleHighlights";
 import { WebhooksAndApiDemoSidebar } from "@/components/feature/WebhooksAndApiDemoSidebar";
 import { WebhooksAndApiHighlights } from "@/components/feature/WebhooksAndApiHighlights";
-import {
-  getAllFeatureSlugs,
-  getFeaturePageBySlug,
-} from "@/sanity/queries";
+import { getFeaturePageBySlug } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -42,15 +44,13 @@ import {
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
-export const revalidate = 60;
-
 type CtaLink = {
   label?: string;
   href?: string;
   newTab?: boolean;
 };
 
-type FeaturePageDoc = {
+export type FeaturePageDoc = {
   title: string;
   slug: string;
   hero: {
@@ -71,48 +71,40 @@ type FeaturePageDoc = {
   ogImage?: string;
 };
 
-export async function generateStaticParams() {
-  const slugs = await getAllFeatureSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const doc = (await getFeaturePageBySlug(slug)) as FeaturePageDoc | null;
-  if (!doc) return {};
-  const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
-  const title = cleanMetaTitle ?? doc.hero.heading;
-  const description = doc.metaDescription ?? doc.hero.subheading;
-  return {
-    title,
-    description,
-    alternates: { canonical: `/features/${slug}` },
-    openGraph: {
-      url: `https://velt.dev/features/${slug}`,
-      title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-      description,
-      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
-    },
+export type FeaturePageBodyProps = {
+  /** Sanity slug to fetch (e.g. "notifications", "comments"). */
+  sanitySlug: string;
+  /**
+   * URL path under SITE_URL used for canonical/breadcrumb/JSON-LD. Defaults
+   * to `/${sanitySlug}` — pass an override when a duplicate route renders
+   * the same content at a different URL (e.g. "add-notifications-quick").
+   */
+  pageUrlPath?: string;
+  /**
+   * Override the hero heading and/or subheading. Use when a duplicate route
+   * needs differentiated H1 copy for keyword targeting (e.g. /knock-like-
+   * notifications targets "Knock alternative" so its H1 reads "Build
+   * Notifications Quickly", not the canonical "Add Notifications Before
+   * Standup" served by /notifications).
+   */
+  heroOverride?: {
+    heading?: string;
+    subheading?: string;
   };
-}
+};
 
-export default async function FeaturePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const doc = (await getFeaturePageBySlug(slug)) as FeaturePageDoc | null;
+export async function FeaturePageBody({
+  sanitySlug,
+  pageUrlPath,
+  heroOverride,
+}: FeaturePageBodyProps) {
+  const doc = (await getFeaturePageBySlug(sanitySlug)) as FeaturePageDoc | null;
 
   // 404 on missing/incomplete docs. A featurePage with no hero is partial
   // draft state from an editor and should not render — keeps in-progress
   // docs from blocking the static build. Empty `sections` is OK: pages
-  // like /features/notifications render their main highlight section as
-  // a hardcoded slug-conditional component below FeatureSections.
+  // like /notifications render their main highlight section as a
+  // hardcoded slug-conditional component below FeatureSections.
   if (!doc || !doc.hero?.heading || !doc.sections) {
     notFound();
   }
@@ -122,7 +114,7 @@ export default async function FeaturePage({
   const showCustomerStories = doc.showCustomerStories ?? true;
   const faqItems: FaqEntry[] = [...(doc.faq?.items ?? []), ...sharedFAQ];
 
-  const pageUrl = `${SITE_URL}/features/${slug}`;
+  const pageUrl = `${SITE_URL}/${pageUrlPath ?? sanitySlug}`;
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
     { name: "Features", url: `${SITE_URL}/features` },
@@ -144,23 +136,23 @@ export default async function FeaturePage({
       >
         <PageHero
           decorated={doc.hero.decorated ?? true}
-          heading={doc.hero.heading}
-          subheading={doc.hero.subheading}
+          heading={heroOverride?.heading ?? doc.hero.heading}
+          subheading={heroOverride?.subheading ?? doc.hero.subheading}
           primaryCta={doc.hero.primaryCta}
           secondaryCta={doc.hero.secondaryCta}
         />
 
-        {slug === "comments" ? <CommentsDemoSidebar /> : null}
-        {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
-        {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
-        {slug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
+        {sanitySlug === "comments" ? <CommentsDemoSidebar /> : null}
+        {sanitySlug === "recordings" ? <RecordingsDemoSidebar /> : null}
+        {sanitySlug === "notifications" ? <NotificationsDemoSidebar /> : null}
+        {sanitySlug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
-        {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
-        {slug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
+        {sanitySlug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
+        {sanitySlug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
 
-        {slug === "multiplayer" ? (
+        {sanitySlug === "multiplayer" ? (
           // Reuses the homepage's "Steal Features" marquee (Figma node
           // 32:2588). Wrapped in a topAccent shell that mirrors
           // FeatureSectionShell's first-light treatment (80px margin,
@@ -182,17 +174,7 @@ export default async function FeaturePage({
           </section>
         ) : null}
 
-        {slug === "multiplayer" ? (
-          // Section ordering for /features/multiplayer:
-          //   1. doc.sections[0]              — Collaborative Product bento
-          //   2. <CustomerUI />               — "How [X] Leverages Velt"
-          //   3. <MultiplayerYourDataSection /> — 816-wide hosting cards
-          //   4. <LibrarySupport />           — homepage "Works seamlessly
-          //                                     with your libraries" grid
-          //   5. doc.sections[1..]            — Security image card
-          // FeatureSections is called with disableFirstAccent so the
-          // rounded-top transition only fires on the StealFeatures
-          // wrapper that opens the light section above.
+        {sanitySlug === "multiplayer" ? (
           <>
             <FeatureSections
               sections={doc.sections.slice(0, 1)}
@@ -206,7 +188,7 @@ export default async function FeaturePage({
               disableFirstAccent
             />
           </>
-        ) : slug === "admin-console" || slug === "webhooks-and-api" ? (
+        ) : sanitySlug === "admin-console" || sanitySlug === "webhooks-and-api" ? (
           <div style={{ marginTop: -120, position: "relative", zIndex: 1, borderTopLeftRadius: 48, borderTopRightRadius: 48, overflow: "hidden" }}>
             <FeatureSections sections={doc.sections} disableFirstAccent />
           </div>
@@ -214,10 +196,10 @@ export default async function FeaturePage({
           <FeatureSections sections={doc.sections} />
         )}
 
-        {slug === "notifications" ? <NotificationsHighlights /> : null}
-        {slug === "activity-logs" ? <ActivityLogsHighlights /> : null}
-        {slug === "admin-console" ? <AdminConsoleHighlights /> : null}
-        {slug === "webhooks-and-api" ? <WebhooksAndApiHighlights /> : null}
+        {sanitySlug === "notifications" ? <NotificationsHighlights /> : null}
+        {sanitySlug === "activity-logs" ? <ActivityLogsHighlights /> : null}
+        {sanitySlug === "admin-console" ? <AdminConsoleHighlights /> : null}
+        {sanitySlug === "webhooks-and-api" ? <WebhooksAndApiHighlights /> : null}
 
         {showCustomerStories ? <CustomerUI /> : null}
 

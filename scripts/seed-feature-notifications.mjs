@@ -62,7 +62,7 @@ async function main() {
   // as a hardcoded slug-conditional component (NotificationsHighlights) so
   // the popover mockups stay sharp at any zoom — see
   // components/feature/NotificationsHighlights.tsx and the slug check in
-  // app/features/[slug]/page.tsx. As a result, Sanity has no body sections
+  // app/(features)/[slug]/page.tsx. As a result, Sanity has no body sections
   // for this page; chrome (TrustedLogos, FAQ, GetStarted, Footer, etc.)
   // still flows from the doc.
 

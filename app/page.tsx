@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
 import { JsonLd } from "./_seo/JsonLd";
 import {
   ORG_ID,
   ORG_OG_IMAGE,
   SITE_URL,
 } from "./_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { Nav } from "@/components/home/Nav";
 import { Hero } from "@/components/home/Hero";
 import { Outcomes } from "@/components/home/Outcomes";
@@ -18,19 +18,12 @@ import { LibrarySupport } from "@/components/home/LibrarySupport";
 import { Security } from "@/components/home/Security";
 import { Footer } from "@/components/home/Footer";
 
-export const metadata: Metadata = {
-  title: {
-    absolute: "The Collaboration Stack for B2B | Velt",
-  },
+export const metadata = buildPageMetadata({
+  title: "The Collaboration Stack for B2B",
   description:
     "Add powerful real-time and multiplayer features to your product with Velt's easy-to-use collaboration SDK. Integrate comments, live cursors, and more in minutes.",
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    url: "https://velt.dev/",
-  },
-};
+  path: "/",
+});
 
 // Section rhythm follows Figma's 1440 design but is now responsive —
 // each section owns its own horizontal max-width (container-page) and

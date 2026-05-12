@@ -23,6 +23,7 @@ import { Scalability } from "@/components/comparison/reasons/Scalability";
 import { UserExperience } from "@/components/comparison/reasons/UserExperience";
 import { Security } from "@/components/comparison/reasons/Security";
 import { Support } from "@/components/comparison/reasons/Support";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -43,20 +44,13 @@ const COMPARISON_WEBPAGE = buildWebPageSchema({
   breadcrumb: COMPARISON_BREADCRUMB,
 });
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt vs Competitors: 6 Reasons Velt Outperforms",
   description:
     "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
-  alternates: {
-    canonical: "/comparison",
-  },
-  openGraph: {
-    url: "https://velt.dev/comparison",
-    title: "Velt vs Competitors: 6 Reasons Velt Outperforms | Velt",
-    description:
-      "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
-  },
-};
+  path: "/comparison",
+  ogImage: "/og/comparison.png",
+});
 
 export default function ComparisonPage() {
   return (

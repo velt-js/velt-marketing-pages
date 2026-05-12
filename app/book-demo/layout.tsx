@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Nav } from "@/components/home/Nav";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
@@ -6,26 +5,17 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const BOOK_DEMO_DESCRIPTION =
   "See Velt in action. Get a personalized walkthrough of our collaboration SDK — comments, cursors, notifications, and more.";
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Book a demo",
   description: BOOK_DEMO_DESCRIPTION,
-  alternates: {
-    canonical: "/book-demo",
-  },
-  openGraph: {
-    url: "https://velt.dev/book-demo",
-    title: "Book a demo | Velt",
-    description: BOOK_DEMO_DESCRIPTION,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+  path: "/book-demo",
+  ogImage: "/og/book-demo.png",
+});
 
 const BOOK_DEMO_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },

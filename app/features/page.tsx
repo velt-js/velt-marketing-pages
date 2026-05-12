@@ -15,12 +15,14 @@ import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { getAllFeaturePages } from "@/sanity/queries";
+import { sanitySlugToUrl } from "@/lib/feature-slugs";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const FEATURES_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -37,20 +39,12 @@ const FEATURES_WEBPAGE = buildWebPageSchema({
 
 export const revalidate = 60;
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Features",
   description:
     "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
-  alternates: {
-    canonical: "/features",
-  },
-  openGraph: {
-    url: "https://velt.dev/features",
-    title: "Features | Velt",
-    description:
-      "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
-  },
-};
+  path: "/features",
+});
 
 type FeatureListItem = {
   _id: string;
@@ -171,7 +165,7 @@ function FeaturesGrid({ items }: { items: FeatureListItem[] }) {
           {items.map((item) => (
             <Link
               key={item._id}
-              href={`/features/${item.slug}`}
+              href={`/${sanitySlugToUrl(item.slug)}`}
               className="group flex flex-col"
               style={{
                 background: "rgb(247, 247, 247)",

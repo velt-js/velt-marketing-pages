@@ -14,9 +14,9 @@ type LinkGroup = {
 const asyncFeatures: LinkGroup = {
   heading: "Async Features",
   links: [
-    { label: "Comments", href: "/features/comments" },
-    { label: "Notifications", href: "/features/notifications" },
-    { label: "Recording", href: "/features/recordings" },
+    { label: "Comments", href: "/comments" },
+    { label: "Notifications", href: "/notifications" },
+    { label: "Recording", href: "/recording" },
     { label: "Video Editor", href: "https://docs.velt.dev/async-collaboration/recorder/setup", newTab: true },
     { label: "View Analytics", href: "https://docs.velt.dev/async-collaboration/view-analytics/overview", newTab: true },
     { label: "Reactions", href: "https://docs.velt.dev/async-collaboration/reactions/overview", newTab: true },
@@ -66,17 +66,17 @@ const chartLibraries: LinkGroup = {
 
 const canvasLibraries: LinkGroup = {
   heading: "Canvas Libraries",
-  links: [{ label: "React Flow", href: "/libraries/reactflow" }],
+  links: [{ label: "React Flow", href: "/libraries/react-flow" }],
   variant: "library",
 };
 
 const platform: LinkGroup = {
   heading: "Platform",
   links: [
-    { label: "Admin Console", href: "/features/admin-console" },
-    { label: "Dev Tools", href: "/features/dev-tools" },
+    { label: "Admin Console", href: "/platform" },
+    { label: "Dev Tools", href: "/devtools" },
     { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", newTab: true },
-    { label: "Webhooks & API", href: "/features/webhooks-and-api" },
+    { label: "Webhooks & API", href: "/webhooks-and-api" },
   ],
 };
 
@@ -114,7 +114,7 @@ const company: LinkGroup = {
   heading: "Company",
   links: [
     { label: "For Enterprise", href: "/enterprise" },
-    { label: "For YC", href: "https://velt.dev/yc", newTab: true },
+    { label: "For YC", href: "/yc" },
     { label: "Pricing", href: "/pricing" },
     { label: "Customers", href: "/customers" },
     { label: "Status", href: "https://status.velt.dev/", newTab: true },

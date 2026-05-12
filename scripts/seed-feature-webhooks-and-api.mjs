@@ -79,7 +79,7 @@ async function main() {
     showSecurity: true,
     showCustomerStories: false,
     // Body sections are rendered via the slug-conditional
-    // WebhooksAndApiHighlights component in app/features/[slug]/page.tsx.
+    // WebhooksAndApiHighlights component in app/(features)/[slug]/page.tsx.
     // Keeping sections[] empty is intentional.
     sections: [],
     getStartedSteps: { step1PackageName: "@veltdev/react" },
