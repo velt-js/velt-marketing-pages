@@ -19,17 +19,10 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...buildBlogRedirectEntries(),
-      // Legacy migration URLs → new /migrate/[slug] template.
-      {
-        source: "/migrate-from-liveblocks-to-velt",
-        destination: "/migrate/liveblocks",
-        permanent: true,
-      },
-      {
-        source: "/migrate-from-cord-to-velt",
-        destination: "/migrate/cord",
-        permanent: true,
-      },
+      // /migrate-from-liveblocks-to-velt and /migrate-from-cord-to-velt
+      // are standalone top-level routes (see app/migrate-from-*/) that
+      // render the same Sanity-backed body as their /migrate/{slug}
+      // counterparts via MigrationPageBody.
       // Legacy marketing landing pages → live destinations
       {
         source: "/try-features",
@@ -106,21 +99,16 @@ const nextConfig: NextConfig = {
         destination: "/comments",
         permanent: true,
       },
-      {
-        source: "/google-spreadsheets-like-comments",
-        destination: "/comments",
-        permanent: true,
-      },
+      // /google-spreadsheets-like-comments — standalone SEO landing (see
+      // app/google-spreadsheets-like-comments/).
       {
         source: "/tiptap-editor-comments",
         destination: "/comments",
         permanent: true,
       },
-      {
-        source: "/knock-like-notifications",
-        destination: "/notifications",
-        permanent: true,
-      },
+      // /knock-like-notifications — standalone SEO landing (see
+      // app/knock-like-notifications/) that renders /notifications content
+      // via the shared FeaturePageBody.
       // Collapse plural /liveblocks-alternatives onto the canonical
       // singular /liveblocks-alternative so search engines index a
       // single URL for the competitor landing page.

@@ -66,7 +66,7 @@ const chartLibraries: LinkGroup = {
 
 const canvasLibraries: LinkGroup = {
   heading: "Canvas Libraries",
-  links: [{ label: "React Flow", href: "/libraries/reactflow" }],
+  links: [{ label: "React Flow", href: "/libraries/react-flow" }],
   variant: "library",
 };
 

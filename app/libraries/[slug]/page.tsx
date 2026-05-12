@@ -219,9 +219,7 @@ export default async function LibraryPage({
             githubUrl={doc.demoStage.githubUrl}
             previewSrc={doc.demoStage.previewSrc}
             label={doc.demoStage.label}
-            iconSrc={`/images/home/libraries/icons/${
-              ({ reactflow: "react-flow" } as Record<string, string>)[slug] ?? slug
-            }.png`}
+            iconSrc={`/images/home/libraries/icons/${slug}.png`}
           />
         </section>
 
