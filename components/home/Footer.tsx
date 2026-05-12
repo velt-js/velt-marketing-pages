@@ -114,7 +114,7 @@ const company: LinkGroup = {
   heading: "Company",
   links: [
     { label: "For Enterprise", href: "/enterprise" },
-    { label: "For YC", href: "https://velt.dev/yc", newTab: true },
+    { label: "For YC", href: "/yc" },
     { label: "Pricing", href: "/pricing" },
     { label: "Customers", href: "/customers" },
     { label: "Status", href: "https://status.velt.dev/", newTab: true },

@@ -32,6 +32,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/liveblocks-alternative`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/customization`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/use-case`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/consult`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/yc`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${BASE}/libraries`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/integrations`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/launch-kit`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
@@ -39,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/examples`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
     { url: `${BASE}/migrate`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/careers`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${BASE}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
