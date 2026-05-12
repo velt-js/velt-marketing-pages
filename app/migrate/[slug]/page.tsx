@@ -140,13 +140,21 @@ export default async function MigrateSlugPage({
     url: pageUrl,
     breadcrumb,
   });
-  const faqSchema = buildFaqPageSchemaFromEntries(doc.faq?.items ?? []);
+  // Gate the FAQPage JSON-LD on the same `showFaq` flag that controls
+  // visual rendering — Google's structured-data guidelines require the
+  // schema to reflect content actually visible on the page. Emitting
+  // FAQPage when the FAQ is hidden risks rich-result rejection.
+  const faqSchema = showFaq
+    ? buildFaqPageSchemaFromEntries(doc.faq?.items ?? [])
+    : null;
 
   return (
     <>
       <JsonLd id="ld-migrate-webpage" data={webpage} />
       <JsonLd id="ld-migrate-breadcrumb" data={breadcrumb} />
-      <JsonLd id="ld-migrate-faq" data={faqSchema} />
+      {faqSchema ? (
+        <JsonLd id="ld-migrate-faq" data={faqSchema} />
+      ) : null}
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
