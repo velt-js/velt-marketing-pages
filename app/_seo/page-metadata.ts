@@ -50,11 +50,11 @@ export function buildPageMetadata(input: BuildPageMetadataInput): Metadata {
       noindex = false,
     } = input;
 
-    // Strip any pre-existing "| Velt" suffix before building the social
-    // title — Sanity metaTitle values often arrive with the suffix already
-    // attached, and without this normalization og/twitter titles render
-    // "Foo | Velt | Velt".
-    const SUFFIX_RE = /\s*\|\s*Velt\s*$/;
+    // Strip any pre-existing " | Velt" or " — Velt" suffix before building
+    // the social title — Sanity metaTitle values arrive with either form
+    // attached. Without this normalization og/twitter titles render
+    // "Foo | Velt | Velt" or "Foo — Velt | Velt".
+    const SUFFIX_RE = /\s*[—|]\s*Velt\s*$/i;
     const bareTitle = title.replace(SUFFIX_RE, "");
     const social = socialTitle ?? `${bareTitle} | ${SITE_NAME}`;
     const absoluteUrl = `${SITE_URL}${path === "/" ? "" : path}`;
