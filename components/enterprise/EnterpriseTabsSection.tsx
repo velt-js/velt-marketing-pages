@@ -257,7 +257,9 @@ function TabContent({
         </a>
       </div>
 
-      {/* Image card + testimonial card */}
+      {/* Image card + testimonial card. The image card matches the source
+          asset aspect (~1.7:1) so the diagram renders at its native scale
+          on desktop; the testimonial card stretches to match height. */}
       <div className="flex flex-col lg:flex-row items-stretch w-full" style={{ gap: 24 }}>
         <div
           className="flex items-center justify-center relative"
@@ -266,25 +268,19 @@ function TabContent({
             minWidth: 0,
             background: "#fff",
             borderRadius: 28,
-            padding: 32,
-            minHeight: 300,
+            minHeight: 432,
             overflow: "hidden",
           }}
         >
-          <div
-            className="relative w-full h-full"
-            style={{ minHeight: 260 }}
-          >
-            <Image
-              key={tab.id}
-              src={tab.imageSrc}
-              alt={tab.imageAlt}
-              fill
-              sizes="(min-width: 1200px) 720px, 100vw"
-              style={{ objectFit: "contain" }}
-              priority={tab.id === "self-hosting"}
-            />
-          </div>
+          <Image
+            key={tab.id}
+            src={tab.imageSrc}
+            alt={tab.imageAlt}
+            fill
+            sizes="(min-width: 1200px) 800px, 100vw"
+            style={{ objectFit: "cover" }}
+            priority={tab.id === "self-hosting"}
+          />
         </div>
 
         <div
@@ -412,10 +408,10 @@ export function EnterpriseTabsSection() {
     <section
       data-outcomes
       data-enterprise-tabs
-      className="full-bleed-bg relative py-20 lg:py-[80px] px-6 lg:px-20"
+      className="full-bleed-bg relative py-16 lg:py-[64px] px-6 lg:px-20"
       style={{
         background: "#625df5",
-        paddingBottom: 120,
+        paddingBottom: 96,
       }}
     >
       {/* All 4 tab anchor targets land at the top of the band — each is a

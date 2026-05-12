@@ -1,23 +1,44 @@
 import { Footer } from "@/components/home/Footer";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const PRIVACY_DESCRIPTION =
+  "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.";
+
+const PRIVACY_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Privacy Policy", url: `${SITE_URL}/privacy` },
+]);
+
+const PRIVACY_WEBPAGE = buildWebPageSchema({
+  name: "Privacy Policy — Velt",
+  description: PRIVACY_DESCRIPTION,
+  url: `${SITE_URL}/privacy`,
+  breadcrumb: PRIVACY_BREADCRUMB,
+});
 
 export const metadata = {
   title: "Privacy Policy",
-  description:
-    "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.",
+  description: PRIVACY_DESCRIPTION,
   alternates: {
     canonical: "/privacy",
   },
   openGraph: {
     url: "https://velt.dev/privacy",
     title: "Privacy Policy — Velt",
-    description:
-      "Learn how Velt collects, uses, and protects your personal information when you use our collaboration SDK and marketing website.",
+    description: PRIVACY_DESCRIPTION,
   },
 };
 
 export default function PrivacyPage() {
   return (
     <>
+      <JsonLd id="ld-privacy-webpage" data={PRIVACY_WEBPAGE} />
+      <JsonLd id="ld-privacy-breadcrumb" data={PRIVACY_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

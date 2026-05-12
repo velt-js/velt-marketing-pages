@@ -47,7 +47,7 @@ function CodeLine({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-baseline" style={{ gap: 16, paddingLeft: 8 }}>
+    <div className="flex items-baseline overflow-hidden" style={{ gap: 16, paddingLeft: 8, maxWidth: "100%" }}>
       <span
         style={{
           fontFamily: FIRA,
@@ -68,7 +68,10 @@ function CodeLine({
           fontSize: 14,
           fontWeight: 500,
           lineHeight: 1.6,
-          whiteSpace: "pre",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          minWidth: 0,
         }}
       >
         {children}
@@ -135,7 +138,7 @@ function TemplateVariablesVisual() {
 
       {/* Code editor (left) */}
       <div
-        className="absolute flex flex-col items-start"
+        className="absolute flex flex-col items-start overflow-hidden"
         style={{ left: 8, top: 64, width: "44%", gap: 14 }}
       >
         <CodeLine num={1}>

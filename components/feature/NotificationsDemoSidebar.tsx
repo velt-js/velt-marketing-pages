@@ -84,12 +84,15 @@ export function NotificationsDemoSidebar() {
     <section
       className="flex flex-col items-center bg-black full-bleed-bg px-6 pb-16 lg:px-20 lg:pb-[100px]"
     >
-      <div className="w-full overflow-x-auto">
+      <div className="w-full">
       <div
         style={{
           // Same compact frame size as the recordings demo so the two
           // pages share the same vertical rhythm under the hero.
-          width: 1200,
+          width: "100%",
+          maxWidth: 1200,
+          marginLeft: "auto",
+          marginRight: "auto",
           background: CHROME,
           border: `2px solid ${CHROME}`,
           borderRadius: 12,
@@ -103,6 +106,7 @@ export function NotificationsDemoSidebar() {
         <div
           role="tablist"
           aria-label="Notification mode"
+          className="no-scrollbar"
           style={{
             background: CHROME,
             padding: "6px 16px 4px",

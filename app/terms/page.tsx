@@ -1,23 +1,44 @@
 import { Footer } from "@/components/home/Footer";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
+
+const TERMS_DESCRIPTION =
+  "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.";
+
+const TERMS_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Terms of Service", url: `${SITE_URL}/terms` },
+]);
+
+const TERMS_WEBPAGE = buildWebPageSchema({
+  name: "Terms of Service — Velt",
+  description: TERMS_DESCRIPTION,
+  url: `${SITE_URL}/terms`,
+  breadcrumb: TERMS_BREADCRUMB,
+});
 
 export const metadata = {
   title: "Terms of Service",
-  description:
-    "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.",
+  description: TERMS_DESCRIPTION,
   alternates: {
     canonical: "/terms",
   },
   openGraph: {
     url: "https://velt.dev/terms",
     title: "Terms of Service — Velt",
-    description:
-      "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.",
+    description: TERMS_DESCRIPTION,
   },
 };
 
 export default function TermsPage() {
   return (
     <>
+      <JsonLd id="ld-terms-webpage" data={TERMS_WEBPAGE} />
+      <JsonLd id="ld-terms-breadcrumb" data={TERMS_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

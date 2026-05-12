@@ -22,27 +22,48 @@ import { Scalability } from "@/components/comparison/reasons/Scalability";
 import { UserExperience } from "@/components/comparison/reasons/UserExperience";
 import { Security } from "@/components/comparison/reasons/Security";
 import { Support } from "@/components/comparison/reasons/Support";
+import { JsonLd } from "@/app/_seo/JsonLd";
+import {
+  SITE_URL,
+  buildBreadcrumbList,
+  buildWebPageSchema,
+} from "@/app/_seo/schema";
 
 const COMPETITOR_LABEL = "LIVEBLOCKS";
 
+const LIVEBLOCKS_ALT_DESCRIPTION =
+  "Velt is the #1 alternative to Liveblocks. Velt is used by popular SaaS products on their flagship products. On the other hand, Liveblocks is used on experimental projects or conference websites.";
+
+const LIVEBLOCKS_ALT_BREADCRUMB = buildBreadcrumbList([
+  { name: "Home", url: SITE_URL },
+  { name: "Liveblocks Alternative", url: `${SITE_URL}/liveblocks-alternative` },
+]);
+
+const LIVEBLOCKS_ALT_WEBPAGE = buildWebPageSchema({
+  name: "Velt: Alternative to Liveblocks",
+  description: LIVEBLOCKS_ALT_DESCRIPTION,
+  url: `${SITE_URL}/liveblocks-alternative`,
+  breadcrumb: LIVEBLOCKS_ALT_BREADCRUMB,
+});
+
 export const metadata = {
   title: "Velt: Alternative to Liveblocks",
-  description:
-    "Velt is the #1 alternative to Liveblocks. Velt is used by popular SaaS products on their flagship products. On the other hand, Liveblocks is used on experimental projects or conference websites.",
+  description: LIVEBLOCKS_ALT_DESCRIPTION,
   alternates: {
     canonical: "/liveblocks-alternative",
   },
   openGraph: {
     url: "https://velt.dev/liveblocks-alternative",
     title: "Velt: Alternative to Liveblocks",
-    description:
-      "Velt is the #1 alternative to Liveblocks. Velt is used by popular SaaS products on their flagship products. On the other hand, Liveblocks is used on experimental projects or conference websites.",
+    description: LIVEBLOCKS_ALT_DESCRIPTION,
   },
 };
 
 export default function LiveblocksAlternativePage() {
   return (
     <>
+      <JsonLd id="ld-liveblocks-alt-webpage" data={LIVEBLOCKS_ALT_WEBPAGE} />
+      <JsonLd id="ld-liveblocks-alt-breadcrumb" data={LIVEBLOCKS_ALT_BREADCRUMB} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

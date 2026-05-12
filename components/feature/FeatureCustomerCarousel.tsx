@@ -272,13 +272,7 @@ export function FeatureCustomerCarousel({
       <div
         ref={viewportRef}
         className="trust-marquee-viewport w-full overflow-hidden"
-        style={{
-          padding: 10,
-          maskImage:
-            "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 87.5%, rgba(0,0,0,0) 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 12.5%, rgba(0,0,0,1) 87.5%, rgba(0,0,0,0) 100%)",
-        }}
+        style={{ padding: 10 }}
       >
         <div
           ref={trackRef}

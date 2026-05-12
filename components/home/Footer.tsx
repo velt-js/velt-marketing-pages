@@ -187,7 +187,7 @@ function SocialIcon({ label, src, href }: { label: string; src: string; href: st
 export function Footer() {
   return (
     <footer
-      className="w-full flex flex-col items-center bg-black px-6 lg:px-20 pt-16 lg:pt-20"
+      className="w-full flex flex-col items-center bg-black px-6 lg:px-20"
     >
       <div
         className="flex flex-col w-full max-w-[1280px] gap-12 lg:gap-16"

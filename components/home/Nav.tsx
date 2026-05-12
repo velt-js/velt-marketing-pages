@@ -473,32 +473,90 @@ export function Nav() {
 
   useEffect(() => {
     const NAV_STRIP = 80;
-    const check = () => {
-      const outcomes = document.querySelector<HTMLElement>("[data-outcomes]");
-      const getStarted = document.querySelector<HTMLElement>("[data-getstarted]");
-      if (outcomes) {
-        // Homepage: flip while between the Outcomes and GetStartedSteps markers.
-        const outcomesTop = outcomes.getBoundingClientRect().top;
-        const getStartedTop = getStarted?.getBoundingClientRect().top ?? Infinity;
-        setOverPurple(outcomesTop <= NAV_STRIP && getStartedTop > NAV_STRIP);
-        return;
+    // Sample point ~just below the fixed nav strip. Probing here gives us
+    // "what the nav is actually sitting over" rather than relying on marker
+    // attributes that page authors must remember to add.
+    const SAMPLE_Y = NAV_STRIP + 8;
+
+    /**
+     * Probe the visible background colour at the nav strip and decide if it
+     * is "light" (needs dark text + white nav fill) or "dark" (white text +
+     * transparent nav). Walks elementsFromPoint top-down, skipping the nav
+     * itself, and returns the first sufficiently-opaque background colour
+     * found, falling back to the document body if none qualifies.
+     *
+     * @returns true if the nav is currently over a light section.
+     */
+    const isOverLightSection = (): boolean => {
+      try {
+        const navEl = document.querySelector<HTMLElement>("nav");
+        const probes: ReadonlyArray<readonly [number, number]> = [
+          [window.innerWidth / 2, SAMPLE_Y],
+          [Math.min(80, window.innerWidth / 4), SAMPLE_Y],
+          [Math.max(window.innerWidth - 80, (3 * window.innerWidth) / 4), SAMPLE_Y],
+        ];
+        for (const [pointX, pointY] of probes) {
+          const stack = document.elementsFromPoint(pointX, pointY);
+          for (const el of stack) {
+            if (!(el instanceof HTMLElement)) continue;
+            if (navEl && (el === navEl || navEl.contains(el))) continue;
+            const bg = window.getComputedStyle(el).backgroundColor;
+            const match = bg.match(/rgba?\(([^)]+)\)/);
+            if (!match) continue;
+            const parts = match[1]
+              .split(",")
+              .map((part) => parseFloat(part.trim()));
+            const red = parts[0];
+            const green = parts[1];
+            const blue = parts[2];
+            const alpha = parts.length >= 4 ? parts[3] : 1;
+            if (!Number.isFinite(red) || alpha < 0.5) continue;
+            // Perceived luminance — > 0.6 counts as a light surface, which
+            // catches pure white (#fff), light grey (#f7f7f7), and the off-
+            // white card backgrounds while still treating purple/navy panels
+            // (#625df5, #0a092a, etc.) as dark.
+            const luminance = (0.299 * red + 0.587 * green + 0.114 * blue) / 255;
+            return luminance > 0.6;
+          }
+        }
+      } catch {
+        // elementsFromPoint can throw on detached docs — fall through.
       }
-      // Fallback for pages without homepage markers (e.g. /features/*, /libraries/*):
-      // flip to solid white once scrolled past the dark hero, then flip BACK to
-      // dark/transparent when the [data-getstarted] marker (mounted on
-      // FeatureCustomerCarousel — "Our Customers Trust Us" — and on
-      // LibraryFAQ as a backup) reaches the nav strip. One viewport-height
-      // is a reasonable heuristic for the dark hero exit.
-      const pastHero = window.scrollY > window.innerHeight - NAV_STRIP;
-      const getStartedTop = getStarted?.getBoundingClientRect().top ?? Infinity;
-      setOverPurple(pastHero && getStartedTop > NAV_STRIP);
+      return false;
     };
-    check();
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check);
+
+    // rAF-throttled wrapper so a burst of scroll events collapses into one
+    // probe per frame. Without this, elementsFromPoint (×3) +
+    // getComputedStyle (n elements per probe) ran on every scroll tick,
+    // which adds up fast at 120Hz on a long page.
+    let frameId: number | null = null;
+    const runCheck = () => {
+      frameId = null;
+      try {
+        // While still in the first NAV_STRIP px the hero owns the area and
+        // the nav should be fully transparent — skip the probe entirely so
+        // the dark gradient stays on top of the dark hero.
+        if (window.scrollY <= NAV_STRIP) {
+          setOverPurple(false);
+          return;
+        }
+        setOverPurple(isOverLightSection());
+      } catch {
+        setOverPurple(false);
+      }
+    };
+    const schedule = () => {
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(runCheck);
+    };
+
+    runCheck();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     return () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
     };
   }, []);
 

@@ -186,11 +186,10 @@ function SecurityCardBox({
 }
 
 // WideBottomCardBox — full-width variant of SecurityCardBox.
-// Same #f7f7f7 chrome and rounded-24 corners. Title/subtitle sit at the
-// top-left, with the visual centered horizontally below them so the asset
-// renders at its natural size on any viewport (the previous side-by-side
-// layout clipped the SLA timeline on narrow widths). Used by Security's
-// `wideBottomCard` prop.
+// Same #f7f7f7 chrome and rounded-24 corners. Title/subtitle sit on the
+// left, with the visual on the right — side-by-side on desktop, stacked
+// (text on top, visual below) on mobile. Matches the velt.dev/enterprise
+// "Priority Support SLAs" card behavior.
 function WideBottomCardBox({
   title,
   subtitle,
@@ -202,7 +201,7 @@ function WideBottomCardBox({
 }) {
   return (
     <article
-      className="flex flex-col overflow-hidden"
+      className="flex flex-col lg:flex-row lg:items-center overflow-hidden"
       style={{
         width: "100%",
         background: "#f7f7f7",
@@ -211,7 +210,7 @@ function WideBottomCardBox({
         gap: 28,
       }}
     >
-      <div className="flex flex-col items-start" style={{ gap: 8 }}>
+      <div className="flex flex-col items-start lg:shrink-0" style={{ gap: 8, maxWidth: 360 }}>
         <h3
           className="font-urbanist font-bold"
           style={{ color: "#111", fontSize: 28, lineHeight: 1.2, letterSpacing: "-0.03em" }}
@@ -226,7 +225,7 @@ function WideBottomCardBox({
         </p>
       </div>
       <div
-        className="flex items-center justify-center"
+        className="flex items-center justify-center lg:flex-1 lg:justify-end"
         style={{ width: "100%", minHeight: 220 }}
       >
         {children}
@@ -357,7 +356,7 @@ export function Security({
                 {certification.subtitle}
               </p>
             </div>
-            <div className="flex items-center gap-6 lg:gap-8">
+            <div className="flex flex-wrap items-center gap-4 lg:gap-8">
               {certification.badges.map((b) => (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
