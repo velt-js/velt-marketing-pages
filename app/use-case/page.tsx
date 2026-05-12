@@ -21,6 +21,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -36,6 +37,8 @@ const USE_CASE_WEBPAGE = buildWebPageSchema({
   url: `${SITE_URL}/use-case`,
   breadcrumb: USE_CASE_BREADCRUMB,
 });
+
+const USE_CASE_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(useCaseFaq);
 
 export const metadata = {
   title: "Velt Use Cases: Where Will You Integrate Velt?",
@@ -57,6 +60,7 @@ export default function UseCasePage() {
     <>
       <JsonLd id="ld-use-case-webpage" data={USE_CASE_WEBPAGE} />
       <JsonLd id="ld-use-case-breadcrumb" data={USE_CASE_BREADCRUMB} />
+      <JsonLd id="ld-use-case-faq" data={USE_CASE_FAQ_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

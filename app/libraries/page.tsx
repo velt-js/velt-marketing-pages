@@ -22,6 +22,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -37,6 +38,8 @@ const LIBRARIES_WEBPAGE = buildWebPageSchema({
   url: `${SITE_URL}/libraries`,
   breadcrumb: LIBRARIES_BREADCRUMB,
 });
+
+const LIBRARIES_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
 
 export const metadata = {
   title: "Libraries",
@@ -58,6 +61,7 @@ export default function LibrariesLandingPage() {
     <>
       <JsonLd id="ld-libraries-webpage" data={LIBRARIES_WEBPAGE} />
       <JsonLd id="ld-libraries-breadcrumb" data={LIBRARIES_BREADCRUMB} />
+      <JsonLd id="ld-libraries-faq" data={LIBRARIES_FAQ_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

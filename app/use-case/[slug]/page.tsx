@@ -35,6 +35,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -124,11 +125,13 @@ export default async function UseCaseSlugPage({
     url: pageUrl,
     breadcrumb,
   });
+  const faqSchema = buildFaqPageSchemaFromEntries(doc.faq?.items ?? []);
 
   return (
     <>
       <JsonLd id="ld-use-case-slug-webpage" data={webpage} />
       <JsonLd id="ld-use-case-slug-breadcrumb" data={breadcrumb} />
+      <JsonLd id="ld-use-case-slug-faq" data={faqSchema} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

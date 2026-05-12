@@ -32,6 +32,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -139,11 +140,13 @@ export default async function MigrateSlugPage({
     url: pageUrl,
     breadcrumb,
   });
+  const faqSchema = buildFaqPageSchemaFromEntries(doc.faq?.items ?? []);
 
   return (
     <>
       <JsonLd id="ld-migrate-webpage" data={webpage} />
       <JsonLd id="ld-migrate-breadcrumb" data={breadcrumb} />
+      <JsonLd id="ld-migrate-faq" data={faqSchema} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

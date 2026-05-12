@@ -39,6 +39,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -134,11 +135,13 @@ export default async function FeaturePage({
     url: pageUrl,
     breadcrumb,
   });
+  const faqSchema = buildFaqPageSchemaFromEntries(faqItems);
 
   return (
     <>
       <JsonLd id="ld-feature-webpage" data={webpage} />
       <JsonLd id="ld-feature-breadcrumb" data={breadcrumb} />
+      <JsonLd id="ld-feature-faq" data={faqSchema} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

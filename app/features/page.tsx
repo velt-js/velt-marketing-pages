@@ -19,6 +19,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -34,6 +35,8 @@ const FEATURES_WEBPAGE = buildWebPageSchema({
   url: `${SITE_URL}/features`,
   breadcrumb: FEATURES_BREADCRUMB,
 });
+
+const FEATURES_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
 
 export const revalidate = 60;
 
@@ -68,6 +71,7 @@ export default async function FeaturesLandingPage() {
     <>
       <JsonLd id="ld-features-webpage" data={FEATURES_WEBPAGE} />
       <JsonLd id="ld-features-breadcrumb" data={FEATURES_BREADCRUMB} />
+      <JsonLd id="ld-features-faq" data={FEATURES_FAQ_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

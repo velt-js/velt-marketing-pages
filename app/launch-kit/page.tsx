@@ -27,6 +27,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -49,6 +50,8 @@ const LAUNCH_KIT_WEBPAGE = buildWebPageSchema({
   breadcrumb: LAUNCH_KIT_BREADCRUMB,
 });
 
+const LAUNCH_KIT_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
+
 export const metadata: Metadata = {
   title: "Launch Kit",
   description: LAUNCH_KIT_DESCRIPTION,
@@ -67,6 +70,7 @@ export default function LaunchKitPage() {
     <>
       <JsonLd id="ld-launch-kit-webpage" data={LAUNCH_KIT_WEBPAGE} />
       <JsonLd id="ld-launch-kit-breadcrumb" data={LAUNCH_KIT_BREADCRUMB} />
+      <JsonLd id="ld-launch-kit-faq" data={LAUNCH_KIT_FAQ_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
