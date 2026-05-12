@@ -15,6 +15,7 @@ import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
 import { getAllFeaturePages } from "@/sanity/queries";
+import { sanitySlugToUrl } from "@/lib/feature-slugs";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
@@ -171,7 +172,7 @@ function FeaturesGrid({ items }: { items: FeatureListItem[] }) {
           {items.map((item) => (
             <Link
               key={item._id}
-              href={`/features/${item.slug}`}
+              href={`/${sanitySlugToUrl(item.slug)}`}
               className="group flex flex-col"
               style={{
                 background: "rgb(247, 247, 247)",

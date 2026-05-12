@@ -10,7 +10,7 @@
 //
 // "use client" because Card 1 has switchable Automatic/Custom tabs.
 //
-// Slug-conditional in app/features/[slug]/page.tsx — only rendered
+// Slug-conditional in app/(features)/[slug]/page.tsx — only rendered
 // when the slug is "activity-logs".
 
 import Link from "next/link";

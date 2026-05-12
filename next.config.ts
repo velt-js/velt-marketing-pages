@@ -38,17 +38,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/add-comments-quick",
-        destination: "/features/comments",
+        destination: "/comments",
         permanent: true,
       },
       {
         source: "/add-notifications-quick",
-        destination: "/features/notifications",
+        destination: "/notifications",
         permanent: true,
       },
       {
         source: "/add-recording-quick",
-        destination: "/features/recordings",
+        destination: "/recording",
         permanent: true,
       },
       {
@@ -56,53 +56,82 @@ const nextConfig: NextConfig = {
         destination: "https://trust.velt.dev/",
         permanent: true,
       },
+      // Three feature pages keep the legacy velt.dev URLs (/platform,
+      // /devtools, /multiplayer-editing). Their Sanity slugs differ
+      // (admin-console, dev-tools, multiplayer) — the mapping lives in
+      // lib/feature-slugs.ts. These redirects fold the slug-style URLs
+      // back to the canonical legacy URLs so we don't ship two URLs for
+      // the same page.
       {
-        source: "/platform",
-        destination: "/features/admin-console",
-        permanent: true,
-      },
-      // Flat feature URLs (legacy velt.dev structure) → nested /features/[slug].
-      // /activity-logs and /webhooks-and-api already match their feature slugs
-      // exactly, so they need no redirect.
-      {
-        source: "/comments",
-        destination: "/features/comments",
-        permanent: true,
-      },
-      {
-        source: "/recording",
-        destination: "/features/recordings",
+        source: "/admin-console",
+        destination: "/platform",
         permanent: true,
       },
       {
-        source: "/devtools",
-        destination: "/features/dev-tools",
+        source: "/dev-tools",
+        destination: "/devtools",
         permanent: true,
       },
       {
-        source: "/multiplayer-editing",
-        destination: "/features/multiplayer",
+        source: "/multiplayer",
+        destination: "/multiplayer-editing",
+        permanent: true,
+      },
+      // Nested /features/[slug] URLs from the previous structure also
+      // redirect to the canonical legacy URL for the three above.
+      {
+        source: "/features/admin-console",
+        destination: "/platform",
+        permanent: true,
+      },
+      {
+        source: "/features/dev-tools",
+        destination: "/devtools",
+        permanent: true,
+      },
+      {
+        source: "/features/multiplayer",
+        destination: "/multiplayer-editing",
+        permanent: true,
+      },
+      {
+        source: "/features/recordings",
+        destination: "/recording",
+        permanent: true,
+      },
+      // Everything else nested under /features goes to the flat URL.
+      // /features (the index page) is unaffected.
+      {
+        source: "/features/:slug",
+        destination: "/:slug",
+        permanent: true,
+      },
+      // Sanity slug for the recordings feature is plural; canonical URL
+      // is the singular /recording (matches legacy velt.dev).
+      {
+        source: "/recordings",
+        destination: "/recording",
         permanent: true,
       },
       // Legacy comments/notifications SEO landing pages → feature pages.
       {
         source: "/notion-like-comments",
-        destination: "/features/comments",
+        destination: "/comments",
         permanent: true,
       },
       {
         source: "/google-spreadsheets-like-comments",
-        destination: "/features/comments",
+        destination: "/comments",
         permanent: true,
       },
       {
         source: "/tiptap-editor-comments",
-        destination: "/features/comments",
+        destination: "/comments",
         permanent: true,
       },
       {
         source: "/knock-like-notifications",
-        destination: "/features/notifications",
+        destination: "/notifications",
         permanent: true,
       },
       // Collapse plural /liveblocks-alternatives onto the canonical

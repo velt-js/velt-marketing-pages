@@ -283,18 +283,18 @@ const icons = {
 };
 
 const productAsync: DropdownItem[] = [
-  { label: "Comments", href: "/features/comments", icon: icons.comments, tint: "#ffa3fa" },
-  { label: "Notifications", href: "/features/notifications", icon: icons.bell, tint: "#f5d14a" },
-  { label: "Recording", href: "/features/recordings", icon: icons.video, tint: "#f47474" },
-  { label: "Activity Logs", href: "/features/activity-logs", icon: icons.list, tint: "#5ca3ff" },
+  { label: "Comments", href: "/comments", icon: icons.comments, tint: "#ffa3fa" },
+  { label: "Notifications", href: "/notifications", icon: icons.bell, tint: "#f5d14a" },
+  { label: "Recording", href: "/recording", icon: icons.video, tint: "#f47474" },
+  { label: "Activity Logs", href: "/activity-logs", icon: icons.list, tint: "#5ca3ff" },
   { label: "Video Editor", href: "https://docs.velt.dev/async-collaboration/recorder/setup", icon: icons.movie, tint: "#5ca3ff" },
   { label: "View Analytics", href: "https://docs.velt.dev/async-collaboration/view-analytics/overview", icon: icons.moodSmile, tint: "#b387f7" },
   { label: "Reactions", href: "https://docs.velt.dev/async-collaboration/reactions/overview", icon: icons.eye, tint: "#f5a15e" },
 ];
 
 const productRealtime: DropdownItem[] = [
-  { label: "Multiplayer Editing", href: "/features/multiplayer", icon: icons.yjs, tint: "#48cfad" },
-  { label: "Single Editor", href: "/features/multiplayer", icon: icons.pencilStar, tint: "#5ca3ff" },
+  { label: "Multiplayer Editing", href: "/multiplayer-editing", icon: icons.yjs, tint: "#48cfad" },
+  { label: "Single Editor", href: "/multiplayer-editing", icon: icons.pencilStar, tint: "#5ca3ff" },
   { label: "Live State Sync", href: "https://docs.velt.dev/realtime-collaboration/live-state-sync/overview", icon: icons.refresh, tint: "#48cfad" },
   { label: "Live Selection", href: "https://docs.velt.dev/realtime-collaboration/live-selection/overview", icon: icons.click, tint: "#b387f7" },
   { label: "Huddle", href: "https://docs.velt.dev/realtime-collaboration/huddle/overview", icon: icons.headphones, tint: "#a4bd52" },
@@ -304,10 +304,10 @@ const productRealtime: DropdownItem[] = [
 ];
 
 const productPlatform: DropdownItem[] = [
-  { label: "Admin Console", href: "/features/admin-console", icon: icons.hexagon, tint: "#b387f7" },
-  { label: "Dev Tools", href: "/features/dev-tools", icon: icons.circle, tint: "#f5d14a" },
+  { label: "Admin Console", href: "/platform", icon: icons.hexagon, tint: "#b387f7" },
+  { label: "Dev Tools", href: "/devtools", icon: icons.circle, tint: "#f5d14a" },
   { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", icon: icons.server, tint: "#ffa3fa" },
-  { label: "Webhooks & API", href: "/features/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
+  { label: "Webhooks & API", href: "/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
   { label: "Integrations", href: "https://docs.velt.dev/integrations", icon: icons.plug, tint: "#ffa3fa" },
 ];
 

@@ -8,6 +8,7 @@ import {
   getAllMigrationSlugs,
   getAllUseCaseSlugs,
 } from "@/sanity/queries";
+import { sanitySlugToUrl } from "@/lib/feature-slugs";
 
 const BASE = "https://velt.dev";
 
@@ -89,7 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const featureEntries: MetadataRoute.Sitemap = (featureSlugs as string[]).map(
     (slug) => ({
-      url: `${BASE}/features/${slug}`,
+      url: `${BASE}/${sanitySlugToUrl(slug)}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,

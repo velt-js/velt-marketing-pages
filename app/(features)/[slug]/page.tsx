@@ -2,6 +2,12 @@
 // route. Composition mirrors /libraries/[slug] but the middle of the page
 // is a polymorphic `sections[]` array (bentos, integrations rows, customer
 // testimonial grids) that renders in document order via FeatureSections.
+//
+// Routes live at the root (e.g. /comments, /recordings) via the (features)
+// route group. Next.js prioritizes static routes over this dynamic [slug],
+// so existing routes like /blog or /pricing are unaffected. A Sanity slug
+// that collides with a static route name will silently 404 — pick slugs
+// that don't shadow existing folders under app/.
 
 import { notFound } from "next/navigation";
 
@@ -41,6 +47,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
 
 export const revalidate = 60;
 
@@ -73,7 +80,7 @@ type FeaturePageDoc = {
 
 export async function generateStaticParams() {
   const slugs = await getAllFeatureSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return slugs.map((slug) => ({ slug: sanitySlugToUrl(slug) }));
 }
 
 export async function generateMetadata({
@@ -82,7 +89,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const doc = (await getFeaturePageBySlug(slug)) as FeaturePageDoc | null;
+  const doc = (await getFeaturePageBySlug(urlSlugToSanity(slug))) as FeaturePageDoc | null;
   if (!doc) return {};
   const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
   const title = cleanMetaTitle ?? doc.hero.heading;
@@ -90,9 +97,9 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical: `/features/${slug}` },
+    alternates: { canonical: `/${slug}` },
     openGraph: {
-      url: `https://velt.dev/features/${slug}`,
+      url: `https://velt.dev/${slug}`,
       title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
       description,
       ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
@@ -106,12 +113,13 @@ export default async function FeaturePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const doc = (await getFeaturePageBySlug(slug)) as FeaturePageDoc | null;
+  const sanitySlug = urlSlugToSanity(slug);
+  const doc = (await getFeaturePageBySlug(sanitySlug)) as FeaturePageDoc | null;
 
   // 404 on missing/incomplete docs. A featurePage with no hero is partial
   // draft state from an editor and should not render — keeps in-progress
   // docs from blocking the static build. Empty `sections` is OK: pages
-  // like /features/notifications render their main highlight section as
+  // like /notifications render their main highlight section as
   // a hardcoded slug-conditional component below FeatureSections.
   if (!doc || !doc.hero?.heading || !doc.sections) {
     notFound();
@@ -122,7 +130,7 @@ export default async function FeaturePage({
   const showCustomerStories = doc.showCustomerStories ?? true;
   const faqItems: FaqEntry[] = [...(doc.faq?.items ?? []), ...sharedFAQ];
 
-  const pageUrl = `${SITE_URL}/features/${slug}`;
+  const pageUrl = `${SITE_URL}/${slug}`;
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
     { name: "Features", url: `${SITE_URL}/features` },
@@ -150,17 +158,17 @@ export default async function FeaturePage({
           secondaryCta={doc.hero.secondaryCta}
         />
 
-        {slug === "comments" ? <CommentsDemoSidebar /> : null}
-        {slug === "recordings" ? <RecordingsDemoSidebar /> : null}
-        {slug === "notifications" ? <NotificationsDemoSidebar /> : null}
-        {slug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
+        {sanitySlug === "comments" ? <CommentsDemoSidebar /> : null}
+        {sanitySlug === "recordings" ? <RecordingsDemoSidebar /> : null}
+        {sanitySlug === "notifications" ? <NotificationsDemoSidebar /> : null}
+        {sanitySlug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
-        {slug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
-        {slug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
+        {sanitySlug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
+        {sanitySlug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
 
-        {slug === "multiplayer" ? (
+        {sanitySlug === "multiplayer" ? (
           // Reuses the homepage's "Steal Features" marquee (Figma node
           // 32:2588). Wrapped in a topAccent shell that mirrors
           // FeatureSectionShell's first-light treatment (80px margin,
@@ -182,8 +190,8 @@ export default async function FeaturePage({
           </section>
         ) : null}
 
-        {slug === "multiplayer" ? (
-          // Section ordering for /features/multiplayer:
+        {sanitySlug === "multiplayer" ? (
+          // Section ordering for /multiplayer:
           //   1. doc.sections[0]              — Collaborative Product bento
           //   2. <CustomerUI />               — "How [X] Leverages Velt"
           //   3. <MultiplayerYourDataSection /> — 816-wide hosting cards
@@ -206,7 +214,7 @@ export default async function FeaturePage({
               disableFirstAccent
             />
           </>
-        ) : slug === "admin-console" || slug === "webhooks-and-api" ? (
+        ) : sanitySlug === "admin-console" || sanitySlug === "webhooks-and-api" ? (
           <div style={{ marginTop: -120, position: "relative", zIndex: 1, borderTopLeftRadius: 48, borderTopRightRadius: 48, overflow: "hidden" }}>
             <FeatureSections sections={doc.sections} disableFirstAccent />
           </div>
@@ -214,10 +222,10 @@ export default async function FeaturePage({
           <FeatureSections sections={doc.sections} />
         )}
 
-        {slug === "notifications" ? <NotificationsHighlights /> : null}
-        {slug === "activity-logs" ? <ActivityLogsHighlights /> : null}
-        {slug === "admin-console" ? <AdminConsoleHighlights /> : null}
-        {slug === "webhooks-and-api" ? <WebhooksAndApiHighlights /> : null}
+        {sanitySlug === "notifications" ? <NotificationsHighlights /> : null}
+        {sanitySlug === "activity-logs" ? <ActivityLogsHighlights /> : null}
+        {sanitySlug === "admin-console" ? <AdminConsoleHighlights /> : null}
+        {sanitySlug === "webhooks-and-api" ? <WebhooksAndApiHighlights /> : null}
 
         {showCustomerStories ? <CustomerUI /> : null}
 

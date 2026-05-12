@@ -39,7 +39,7 @@ const client = DRY_RUN
 
 async function main() {
   // Body content lives in AdminConsoleHighlights + AdminConsoleAnalyticsPanel
-  // (hardcoded slug-conditional components in app/features/[slug]/page.tsx).
+  // (hardcoded slug-conditional components in app/(features)/[slug]/page.tsx).
   // Sanity carries chrome + hero only.
   const doc = {
     _id: "featurePage-admin-console",

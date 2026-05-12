@@ -41,7 +41,7 @@ async function main() {
   // The body of the page is rendered by ActivityLogsHighlights as a
   // hardcoded slug-conditional component (see
   // components/feature/ActivityLogsHighlights.tsx + the slug check in
-  // app/features/[slug]/page.tsx). All 5 card mockups + section title
+  // app/(features)/[slug]/page.tsx). All 5 card mockups + section title
   // are DOM, so nothing flows through Sanity for the body.
 
   const doc = {
