@@ -2,6 +2,8 @@
 // document per route, e.g. /migrate/liveblocks. The body is rendered by
 // the shared MigrationPageBody (also used by legacy SEO duplicates
 // /migrate-from-liveblocks-to-velt and /migrate-from-cord-to-velt).
+// JSON-LD (WebPage / BreadcrumbList / FAQPage) is emitted inside that
+// body component so all three migration entry points stay in sync.
 
 import {
   MigrationPageBody,

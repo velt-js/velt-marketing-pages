@@ -175,3 +175,25 @@ export function buildFaqPageSchema(
     return {};
   }
 }
+
+/**
+ * Convenience wrapper over `buildFaqPageSchema` for callers that pass the
+ * runtime `FaqEntry` shape (where `answer` is optional because some
+ * entries use a `paragraphs` ReactNode array instead). Entries without a
+ * plain-text answer are dropped — those should pre-flatten via the
+ * caller (see `/pricing`'s `PRICING_FAQ_FOR_SCHEMA`).
+ *
+ * @param entries - FAQ entries with optional plain-text answers.
+ * @returns A schema.org FAQPage node (or empty if no entries qualify).
+ */
+export function buildFaqPageSchemaFromEntries(
+  entries: Array<{ question: string; answer?: string }>,
+): Record<string, unknown> {
+  const pairs = entries
+    .filter((e): e is { question: string; answer: string } =>
+      typeof e.answer === "string" && e.answer.length > 0,
+    )
+    .map(({ question, answer }) => ({ question, answer }));
+  if (pairs.length === 0) return {};
+  return buildFaqPageSchema(pairs);
+}

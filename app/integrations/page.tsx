@@ -20,6 +20,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
@@ -37,6 +38,8 @@ const INTEGRATIONS_WEBPAGE = buildWebPageSchema({
   breadcrumb: INTEGRATIONS_BREADCRUMB,
 });
 
+const INTEGRATIONS_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
+
 export const metadata = buildPageMetadata({
   title: "Integrations",
   description:
@@ -49,6 +52,7 @@ export default function IntegrationsLandingPage() {
     <>
       <JsonLd id="ld-integrations-webpage" data={INTEGRATIONS_WEBPAGE} />
       <JsonLd id="ld-integrations-breadcrumb" data={INTEGRATIONS_BREADCRUMB} />
+      <JsonLd id="ld-integrations-faq" data={INTEGRATIONS_FAQ_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

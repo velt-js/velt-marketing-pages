@@ -26,6 +26,7 @@ import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
   buildBreadcrumbList,
+  buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
@@ -114,11 +115,21 @@ export async function MigrationPageBody({
     url: pageUrl,
     breadcrumb,
   });
+  // Gate the FAQPage JSON-LD on the same `showFaq` flag that controls
+  // visual rendering — Google's structured-data guidelines require the
+  // schema to reflect content actually visible on the page. Emitting
+  // FAQPage when the FAQ is hidden risks rich-result rejection.
+  const faqSchema = showFaq
+    ? buildFaqPageSchemaFromEntries(doc.faq?.items ?? [])
+    : null;
 
   return (
     <>
       <JsonLd id="ld-migrate-webpage" data={webpage} />
       <JsonLd id="ld-migrate-breadcrumb" data={breadcrumb} />
+      {faqSchema ? (
+        <JsonLd id="ld-migrate-faq" data={faqSchema} />
+      ) : null}
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >
