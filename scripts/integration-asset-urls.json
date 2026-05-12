@@ -1,0 +1,138 @@
+{
+  "slack": {
+    "heroLogo": "https://framerusercontent.com/images/BuoN0LLC7PMhhkuI5JbaxGxD6A.png?width=600&height=216",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/VSCxQoWLhTx870NnILu2Avw39s.png"
+    ]
+  },
+  "discord": {
+    "heroLogo": "https://framerusercontent.com/images/IKrIxZdUHjxgwyBg2BuEQsJVmGI.png?width=301&height=84",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/AnYH1hoHhE4hS4fQrlPQqlioqPQ.png"
+    ]
+  },
+  "microsoft-teams": {
+    "heroLogo": "https://framerusercontent.com/images/VxlAsU1FlbQmzJxJT6NZVquzQ.png?width=860&height=206",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/ll5uoIW2NZrQzuMGUiAJZFWnpI4.png"
+    ]
+  },
+  "aws-s3": {
+    "heroLogo": "https://framerusercontent.com/images/d8FXvHdTj0Q5jHAdUWVvrf7fNM.png?width=268&height=122",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/OX7c5kme7fGMsdGQ04EgX4P8s7w.png"
+    ]
+  },
+  "google-cloud-storage": {
+    "heroLogo": "https://framerusercontent.com/images/lReeAXcsfJB3Jsv8ftQyPnKnYIk.png?width=366&height=82",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/VpDAVMJp8x1thLWtqTTnxvvspzQ.png"
+    ]
+  },
+  "microsoft-azure": {
+    "heroLogo": "https://framerusercontent.com/images/4Za9edLKBhdBzpi8lGpECxUlE.png?width=342&height=100",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/cNG9OLU8esWcQmNvWZ4z5yJleE.png"
+    ]
+  },
+  "hubspot": {
+    "heroLogo": "https://framerusercontent.com/images/2OVjBqiWXPYMF4phXLXYOtkYTfc.png?width=264&height=76",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/DbgEdciHsQqcrqWtq6Swq11EvI.png"
+    ]
+  },
+  "close-crm": {
+    "heroLogo": "https://framerusercontent.com/images/kx1AYR3T5DMMUp4wOlx1O8jAgQE.png?width=267&height=73",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/ufjioHwx2ixRtK9irpHlX1d4ek.png"
+    ]
+  },
+  "segment": {
+    "heroLogo": "https://framerusercontent.com/images/oGhssEyfARMTfOS8U5HrrYon0.png?width=105&height=108",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/sKxemmyaDeluWgp72yWqNO4Rs.png"
+    ]
+  },
+  "opentelemetry": {
+    "heroLogo": "https://framerusercontent.com/images/EVpctUNKc0ZN2ISQuHI2nbSVQWs.png?width=290&height=110",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/ufjioHwx2ixRtK9irpHlX1d4ek.png"
+    ]
+  },
+  "zapier": {
+    "heroLogo": "https://framerusercontent.com/images/s363pTEdCaLpII7OzvrvM27g3E.png?width=280&height=76",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/FsQs2YlnvbVLYsxD2BzomJMgg.png"
+    ]
+  },
+  "inngest": {
+    "heroLogo": "https://framerusercontent.com/images/0TAwAG3jIzTDdY18a3f8Z86ty2Y.png?width=121&height=120",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/98YBqBhKK9v4IsREKfA78Z8PZY.png"
+    ]
+  },
+  "windmill": {
+    "heroLogo": "https://framerusercontent.com/images/ex3xRYFHxO9E3XOS3TnpB6GnwY0.png?width=132&height=130",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/sNAJo5BvSQ3J3g7bx4FGXjeUg0A.png"
+    ]
+  },
+  "sendgrid": {
+    "heroLogo": "https://framerusercontent.com/images/NakG5YFdTDcXxCL7lP2JIvE5k.png?width=301&height=76",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/dl47SsgF1i7UNNCDzo8HCTx0I.png",
+      "https://framerusercontent.com/images/gy0UdUAcBRDiOMCw8OoPi5T3QM.png"
+    ]
+  },
+  "loops": {
+    "heroLogo": "https://framerusercontent.com/images/SLFpBMzwYGrFYaLoe6SJMmur78.png?width=200&height=45",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/hCVJXxC1vzNNs9rawTNCDI9QOqs.png"
+    ]
+  },
+  "customer-io": {
+    "heroLogo": "https://framerusercontent.com/images/0vOzT3zopXbKQRCB5IZe8RQwmo.png?width=284&height=40",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/YR8IEvvjrgSNcebVkx17zgVk.png"
+    ]
+  },
+  "resend": {
+    "heroLogo": "https://framerusercontent.com/images/OhlqDKm3QBgoLHIA4fhdWtSaXb4.png?width=186&height=40",
+    "sectionImages": [
+      "https://framerusercontent.com/images/vlE2xhDFqlhwOv5irdFN7aUtMtg.png",
+      "https://framerusercontent.com/images/IQ7r5kXMUfsrLzaWBEOH6iJO14.png",
+      "https://framerusercontent.com/images/2aC6yEcanaUAK7ARqpMv2ZfCUY.png"
+    ]
+  }
+}

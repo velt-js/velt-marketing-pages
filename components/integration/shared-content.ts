@@ -4,13 +4,15 @@
 // there by `scripts/sync-integrations-from-framer-to-sanity.mjs` and there's
 // no need to duplicate them in /public.
 //
-// Each card links to https://docs.velt.dev/ — production velt.dev/integrations
-// uses the same destination (no per-integration deep-link pages exist).
+// Each card's "View Docs" button links to https://docs.velt.dev/. The
+// "Learn More" button links to /integrations/{slug} — the Sanity-backed
+// detail page rendered by `app/integrations/[slug]/page.tsx`.
 
 import type { LibraryTab } from "../library/LibraryTabs";
 import type { LibraryCardData } from "../library/AllLibraries";
 
 const DOCS_URL = "https://docs.velt.dev/";
+const integrationHref = (slug: string) => `/integrations/${slug}`;
 
 // Tabs match the categories shown on production velt.dev/integrations:
 // ALL · MESSAGING · STORAGE · CRM · ANALYTICS · WORKFLOWS · EMAILS.
@@ -35,6 +37,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 216,
     category: "Messaging",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("slack"),
   },
   {
     name: "Discord",
@@ -45,6 +48,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 84,
     category: "Messaging",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("discord"),
   },
   {
     name: "Microsoft Teams",
@@ -55,6 +59,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 206,
     category: "Messaging",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("microsoft-teams"),
   },
 
   // ---- Storage ----
@@ -67,6 +72,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 122,
     category: "Storage",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("aws-s3"),
   },
   {
     name: "Google Cloud Storage",
@@ -77,6 +83,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 82,
     category: "Storage",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("google-cloud-storage"),
   },
   {
     name: "Microsoft Azure",
@@ -87,6 +94,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 100,
     category: "Storage",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("microsoft-azure"),
   },
 
   // ---- CRM ----
@@ -99,6 +107,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 76,
     category: "CRM",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("hubspot"),
   },
   {
     name: "Close CRM",
@@ -109,6 +118,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 73,
     category: "CRM",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("close-crm"),
   },
 
   // ---- Analytics ----
@@ -121,6 +131,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 108,
     category: "Analytics",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("segment"),
   },
   {
     name: "OpenTelemetry",
@@ -131,6 +142,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 110,
     category: "Analytics",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("opentelemetry"),
   },
 
   // ---- Workflows ----
@@ -143,6 +155,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 76,
     category: "Workflows",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("zapier"),
   },
   {
     name: "Inngest",
@@ -153,6 +166,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 120,
     category: "Workflows",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("inngest"),
   },
   {
     name: "Windmill",
@@ -163,6 +177,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 130,
     category: "Workflows",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("windmill"),
   },
 
   // ---- Emails ----
@@ -175,6 +190,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 76,
     category: "Emails",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("sendgrid"),
   },
   {
     name: "Loops",
@@ -185,6 +201,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 45,
     category: "Emails",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("loops"),
   },
   {
     name: "Customer.io",
@@ -195,6 +212,7 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 40,
     category: "Emails",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("customer-io"),
   },
   {
     name: "Resend",
@@ -205,5 +223,6 @@ export const allIntegrationCards: LibraryCardData[] = [
     logoHeight: 40,
     category: "Emails",
     docsHref: DOCS_URL,
+    learnMoreHref: integrationHref("resend"),
   },
 ];
