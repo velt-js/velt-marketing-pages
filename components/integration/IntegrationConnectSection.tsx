@@ -52,7 +52,14 @@ export function IntegrationConnectSection({
   ];
 
   return (
-    <section className="bg-white full-bleed-bg w-full py-20 lg:py-[120px] px-6 lg:px-20">
+    // `data-outcomes` is the Nav's "light-start" marker — flips the
+    // sticky nav from transparent-on-dark to solid-on-light when this
+    // (first white) section scrolls into view. Without it the nav stays
+    // dark-themed and becomes unreadable against the white background.
+    <section
+      data-outcomes
+      className="bg-white full-bleed-bg w-full py-20 lg:py-[120px] px-6 lg:px-20"
+    >
       <div className="mx-auto w-full max-w-[1200px] flex flex-col gap-16 lg:gap-[120px]">
         {steps.map((step, idx) => (
           <IntegrationRow
