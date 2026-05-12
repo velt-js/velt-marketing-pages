@@ -8,6 +8,9 @@
 // that collides with a static route name will silently 404 — pick slugs
 // that don't shadow existing folders under app/.
 
+import fs from "node:fs";
+import path from "node:path";
+
 import {
   FeaturePageBody,
   type FeaturePageDoc,
@@ -20,6 +23,25 @@ import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
+
+// Snapshot of which slug-keyed OG images are bundled in /public/og/. Built
+// once at module load — the directory is static (changes require a deploy)
+// so re-reading on every request would be wasted I/O. Used by
+// generateMetadata to decide whether to point at /og/{slug}.png or fall
+// back to the site-wide default.
+const OG_DIR = path.join(process.cwd(), "public", "og");
+const AVAILABLE_OG_SLUGS: ReadonlySet<string> = (() => {
+  try {
+    return new Set(
+      fs
+        .readdirSync(OG_DIR)
+        .filter((name) => /\.(png|jpe?g|webp)$/i.test(name))
+        .map((name) => name.replace(/\.(png|jpe?g|webp)$/i, ""))
+    );
+  } catch {
+    return new Set<string>();
+  }
+})();
 
 export async function generateStaticParams() {
   const slugs = await getAllFeatureSlugs();
@@ -36,10 +58,14 @@ export async function generateMetadata({
   if (!doc) return {};
   const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
   const description = doc.metaDescription ?? doc.hero.subheading ?? "";
-  // Prefer Sanity-supplied OG image; otherwise the bundled per-slug image
-  // downloaded into /public/og/. The buildPageMetadata helper falls back
-  // to the site-wide /opengraph-image.png if neither is present.
-  const ogImage = doc.ogImage ?? `/og/${slug}.png`;
+  // Prefer Sanity-supplied OG image. Fall back to a bundled per-slug image
+  // (/og/{slug}.png) only when one actually exists — otherwise leave
+  // `ogImage` undefined so the helper drops in the site-wide default.
+  // Without the existence check, slugs without a downloaded image would
+  // emit a broken /og/{slug}.png URL.
+  const ogImage =
+    doc.ogImage ??
+    (AVAILABLE_OG_SLUGS.has(slug) ? `/og/${slug}.png` : undefined);
   return buildPageMetadata({
     title,
     description,
