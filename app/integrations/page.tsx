@@ -81,7 +81,6 @@ export default function IntegrationsLandingPage() {
           items={allIntegrationCards}
           tabs={integrationTabs}
           topAccent
-          hideLearnMore
         />
 
         <Security />
