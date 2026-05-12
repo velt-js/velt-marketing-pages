@@ -19,92 +19,115 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...buildBlogRedirectEntries(),
-      // Legacy migration URLs → new /migrate/[slug] template.
-      {
-        source: "/migrate-from-liveblocks-to-velt",
-        destination: "/migrate/liveblocks",
-        permanent: true,
-      },
-      {
-        source: "/migrate-from-cord-to-velt",
-        destination: "/migrate/cord",
-        permanent: true,
-      },
+      // /migrate-from-liveblocks-to-velt and /migrate-from-cord-to-velt
+      // are standalone top-level routes (see app/migrate-from-*/) that
+      // render the same Sanity-backed body as their /migrate/{slug}
+      // counterparts via MigrationPageBody.
       // Legacy marketing landing pages → live destinations
       {
         source: "/try-features",
         destination: "https://samples.velt.dev",
         permanent: true,
       },
-      {
-        source: "/add-comments-quick",
-        destination: "/features/comments",
-        permanent: true,
-      },
-      {
-        source: "/add-notifications-quick",
-        destination: "/features/notifications",
-        permanent: true,
-      },
-      {
-        source: "/add-recording-quick",
-        destination: "/features/recordings",
-        permanent: true,
-      },
+      // /add-comments-quick, /add-notifications-quick, /add-recording-quick
+      // are standalone quick-start landing pages — see app/add-*-quick/.
       {
         source: "/security",
         destination: "https://trust.velt.dev/",
         permanent: true,
       },
+      // /examples and all nested example slugs point at the samples
+      // dogfooding subdomain — we don't host examples on the marketing
+      // site anymore. Both /examples and /examples/anything → samples.velt.dev.
       {
-        source: "/platform",
-        destination: "/features/admin-console",
-        permanent: true,
-      },
-      // Flat feature URLs (legacy velt.dev structure) → nested /features/[slug].
-      // /activity-logs and /webhooks-and-api already match their feature slugs
-      // exactly, so they need no redirect.
-      {
-        source: "/comments",
-        destination: "/features/comments",
+        source: "/examples",
+        destination: "https://samples.velt.dev",
         permanent: true,
       },
       {
-        source: "/recording",
-        destination: "/features/recordings",
+        source: "/examples/:slug*",
+        destination: "https://samples.velt.dev",
+        permanent: true,
+      },
+      // Canonical migration URLs are the long descriptive slugs
+      // (/migrate-from-{vendor}-to-velt). The short /migrate/{slug} form
+      // 308s to long form for the two vendors that have explicit landings.
+      // Any other Sanity migration slugs (if added later) continue to render
+      // at /migrate/{slug} via the [slug] route.
+      {
+        source: "/migrate/liveblocks",
+        destination: "/migrate-from-liveblocks-to-velt",
         permanent: true,
       },
       {
-        source: "/devtools",
-        destination: "/features/dev-tools",
+        source: "/migrate/cord",
+        destination: "/migrate-from-cord-to-velt",
+        permanent: true,
+      },
+      // Three feature pages keep the legacy velt.dev URLs (/platform,
+      // /devtools, /multiplayer-editing). Their Sanity slugs differ
+      // (admin-console, dev-tools, multiplayer) — the mapping lives in
+      // lib/feature-slugs.ts. These redirects fold the slug-style URLs
+      // back to the canonical legacy URLs so we don't ship two URLs for
+      // the same page.
+      {
+        source: "/admin-console",
+        destination: "/platform",
         permanent: true,
       },
       {
-        source: "/multiplayer-editing",
-        destination: "/features/multiplayer",
-        permanent: true,
-      },
-      // Legacy comments/notifications SEO landing pages → feature pages.
-      {
-        source: "/notion-like-comments",
-        destination: "/features/comments",
+        source: "/dev-tools",
+        destination: "/devtools",
         permanent: true,
       },
       {
-        source: "/google-spreadsheets-like-comments",
-        destination: "/features/comments",
+        source: "/multiplayer",
+        destination: "/multiplayer-editing",
+        permanent: true,
+      },
+      // Nested /features/[slug] URLs from the previous structure also
+      // redirect to the canonical legacy URL for the three above.
+      {
+        source: "/features/admin-console",
+        destination: "/platform",
         permanent: true,
       },
       {
-        source: "/tiptap-editor-comments",
-        destination: "/features/comments",
+        source: "/features/dev-tools",
+        destination: "/devtools",
         permanent: true,
       },
       {
-        source: "/knock-like-notifications",
-        destination: "/features/notifications",
+        source: "/features/multiplayer",
+        destination: "/multiplayer-editing",
         permanent: true,
       },
+      {
+        source: "/features/recordings",
+        destination: "/recording",
+        permanent: true,
+      },
+      // Everything else nested under /features goes to the flat URL.
+      // /features (the index page) is unaffected.
+      {
+        source: "/features/:slug",
+        destination: "/:slug",
+        permanent: true,
+      },
+      // Sanity slug for the recordings feature is plural; canonical URL
+      // is the singular /recording (matches legacy velt.dev).
+      {
+        source: "/recordings",
+        destination: "/recording",
+        permanent: true,
+      },
+      // /notion-like-comments, /google-spreadsheets-like-comments and
+      // /tiptap-editor-comments are standalone SEO landings (see
+      // app/notion-like-comments/, app/google-spreadsheets-like-comments/
+      // and app/tiptap-editor-comments/).
+      // /knock-like-notifications — standalone SEO landing (see
+      // app/knock-like-notifications/) that renders /notifications content
+      // via the shared FeaturePageBody.
       // Collapse plural /liveblocks-alternatives onto the canonical
       // singular /liveblocks-alternative so search engines index a
       // single URL for the competitor landing page.

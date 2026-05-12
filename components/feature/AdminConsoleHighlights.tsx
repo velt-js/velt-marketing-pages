@@ -8,7 +8,7 @@
 // the standard FeatureSectionShell chrome (DOM heading + sub + CTAs +
 // testimonial) wrapped around a single mockup screenshot for the body.
 //
-// Slug-conditional in app/features/[slug]/page.tsx — only rendered
+// Slug-conditional in app/(features)/[slug]/page.tsx — only rendered
 // when the slug is "admin-console".
 
 "use client";

@@ -104,7 +104,7 @@ async function main() {
     _id: "libraryPage-reactflow",
     _type: "libraryPage",
     title: "React Flow",
-    slug: { _type: "slug", current: "reactflow" },
+    slug: { _type: "slug", current: "react-flow" },
     category: "Canvas",
     tagline:
       "Add comments, notifications, cursors, and multiplayer editing to React Flow in minutes.",

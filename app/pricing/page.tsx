@@ -13,6 +13,7 @@ import { PricingYCCallout } from "@/components/pricing/PricingYCCallout";
 import { PricingComparisonTable } from "@/components/pricing/PricingComparisonTable";
 import { pricingFAQ } from "@/components/pricing/pricing-faq";
 import { TIERS } from "@/components/pricing/pricing-data";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   ORG_ID,
@@ -125,20 +126,13 @@ const PRICING_BREADCRUMB = buildBreadcrumbList([
 
 const PRICING_FAQ_SCHEMA = buildFaqPageSchema(PRICING_FAQ_FOR_SCHEMA);
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Velt Pricing: Collaboration SDK Plans",
   description:
     "Pay only for meaningful collaboration usage. Hacker (free), Growth, and Enterprise plans for Velt's collaboration SDK.",
-  alternates: {
-    canonical: "/pricing",
-  },
-  openGraph: {
-    url: "https://velt.dev/pricing",
-    title: "Velt Pricing: Collaboration SDK Plans | Velt",
-    description:
-      "Pay only for meaningful collaboration usage. Hacker (free), Growth, and Enterprise plans for Velt's collaboration SDK.",
-  },
-};
+  path: "/pricing",
+  ogImage: "/og/pricing.png",
+});
 
 export default function PricingPage() {
   return (

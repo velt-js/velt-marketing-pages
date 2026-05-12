@@ -10,6 +10,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const BLOG_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -26,20 +27,13 @@ const BLOG_WEBPAGE = buildWebPageSchema({
 
 export const revalidate = 60;
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Blog",
   description:
     "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
-  alternates: {
-    canonical: "/blog",
-  },
-  openGraph: {
-    url: "https://velt.dev/blog",
-    title: "Blog | Velt",
-    description:
-      "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
-  },
-};
+  path: "/blog",
+  ogImage: "/og/blog.png",
+});
 
 type BlogPost = {
   _id: string;

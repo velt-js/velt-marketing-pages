@@ -6,7 +6,7 @@
 // card (Ethan Veres) at the bottom — rendered via the shared
 // InlineTestimonialCard so it matches the Security/standalone-card spec.
 //
-// Slug-conditional in app/features/[slug]/page.tsx — only rendered for
+// Slug-conditional in app/(features)/[slug]/page.tsx — only rendered for
 // slug === "multiplayer", slotted between the CustomerUI carousel and
 // the remaining image cards.
 

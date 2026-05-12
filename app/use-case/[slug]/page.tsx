@@ -38,6 +38,7 @@ import {
   buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
 
@@ -82,20 +83,14 @@ export async function generateMetadata({
   const { slug } = await params;
   const doc = (await getUseCasePageBySlug(slug)) as UseCasePageDoc | null;
   if (!doc) return {};
-  const cleanMetaTitle = doc.metaTitle?.replace(/\s+[—|]\s+Velt\s*$/i, "");
-  const title = cleanMetaTitle ?? doc.hero.heading;
-  const description = doc.metaDescription ?? doc.hero.subheading;
-  return {
+  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+  const description = doc.metaDescription ?? doc.hero.subheading ?? "";
+  return buildPageMetadata({
     title,
     description,
-    alternates: { canonical: `/use-case/${slug}` },
-    openGraph: {
-      url: `https://velt.dev/use-case/${slug}`,
-      title: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-      description,
-      ...(doc.ogImage ? { images: [{ url: doc.ogImage }] } : {}),
-    },
-  };
+    path: `/use-case/${slug}`,
+    ogImage: doc.ogImage ?? undefined,
+  });
 }
 
 export default async function UseCaseSlugPage({

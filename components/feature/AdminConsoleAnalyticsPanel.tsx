@@ -6,7 +6,7 @@
 // Data) and a different mockup body per tab. Fully DOM-rebuilt for
 // sharpness at any zoom (matches the activity-logs precedent).
 //
-// Slug-conditional in app/features/[slug]/page.tsx — only rendered
+// Slug-conditional in app/(features)/[slug]/page.tsx — only rendered
 // when the slug is "admin-console".
 
 import { useState } from "react";

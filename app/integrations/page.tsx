@@ -23,6 +23,7 @@ import {
   buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const INTEGRATIONS_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -39,20 +40,12 @@ const INTEGRATIONS_WEBPAGE = buildWebPageSchema({
 
 const INTEGRATIONS_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Integrations",
   description:
     "Connect Velt with the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.",
-  alternates: {
-    canonical: "/integrations",
-  },
-  openGraph: {
-    url: "https://velt.dev/integrations",
-    title: "Integrations | Velt",
-    description:
-      "Connect Velt with the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.",
-  },
-};
+  path: "/integrations",
+});
 
 export default function IntegrationsLandingPage() {
   return (
@@ -85,7 +78,6 @@ export default function IntegrationsLandingPage() {
           items={allIntegrationCards}
           tabs={integrationTabs}
           topAccent
-          hideLearnMore
         />
 
         <Security />

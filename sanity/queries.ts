@@ -639,3 +639,37 @@ export async function getMigrationPageBySlug(slug: string) {
     { slug },
   );
 }
+
+export async function getAllIntegrationSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "integrationPage" && defined(slug.current)].slug.current`,
+  );
+}
+
+export async function getIntegrationPageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "integrationPage" && slug.current == $slug][0] {
+      _id,
+      name,
+      "slug": slug.current,
+      category,
+      heroTitle,
+      tagline,
+      description,
+      "logo": logo.asset->url,
+      demoUrl,
+      githubUrl,
+      docsUrl,
+      codeSnippet,
+      connectBody,
+      "connectImage": connectImage.asset->url,
+      payloadBody,
+      "payloadImage": payloadImage.asset->url,
+      unifiedBody,
+      "unifiedImage": unifiedImage.asset->url
+    }
+  `,
+    { slug },
+  );
+}

@@ -25,6 +25,7 @@ import {
   buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const LIBRARIES_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -41,20 +42,12 @@ const LIBRARIES_WEBPAGE = buildWebPageSchema({
 
 const LIBRARIES_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Libraries",
   description:
     "Deep integrations with popular libraries — drop-in collaboration for Tiptap, Lexical, BlockNote, CodeMirror, SlateJS and more.",
-  alternates: {
-    canonical: "/libraries",
-  },
-  openGraph: {
-    url: "https://velt.dev/libraries",
-    title: "Libraries | Velt",
-    description:
-      "Deep integrations with popular libraries — drop-in collaboration for Tiptap, Lexical, BlockNote, CodeMirror, SlateJS and more.",
-  },
-};
+  path: "/libraries",
+});
 
 export default function LibrariesLandingPage() {
   return (

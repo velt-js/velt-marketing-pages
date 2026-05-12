@@ -2,12 +2,12 @@ import type { MetadataRoute } from "next";
 import {
   getAllBlogPosts,
   getAllDemoSlugs,
-  getAllExampleSlugs,
   getAllFeatureSlugs,
   getAllLibrarySlugs,
   getAllMigrationSlugs,
   getAllUseCaseSlugs,
 } from "@/sanity/queries";
+import { sanitySlugToUrl } from "@/lib/feature-slugs";
 
 const BASE = "https://velt.dev";
 
@@ -31,13 +31,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/liveblocks-alternative`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/customization`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/use-case`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/consult`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/add-comments-quick`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/add-notifications-quick`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/add-recording-quick`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/google-spreadsheets-like-comments`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/notion-like-comments`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/tiptap-editor-comments`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/yc`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${BASE}/libraries`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/integrations`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/launch-kit`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/demos`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${BASE}/examples`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
-    { url: `${BASE}/migrate`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/migrate-from-liveblocks-to-velt`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/migrate-from-cord-to-velt`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${BASE}/knock-like-notifications`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
+    { url: `${BASE}/careers`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
     { url: `${BASE}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
     { url: `${BASE}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
@@ -45,7 +55,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [
     blogPosts,
     demoSlugs,
-    exampleSlugs,
     featureSlugs,
     librarySlugs,
     migrationSlugs,
@@ -53,7 +62,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
     getAllDemoSlugs().catch(() => []),
-    getAllExampleSlugs().catch(() => []),
     getAllFeatureSlugs().catch(() => []),
     getAllLibrarySlugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
@@ -78,18 +86,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const exampleEntries: MetadataRoute.Sitemap = (exampleSlugs as string[]).map(
-    (slug) => ({
-      url: `${BASE}/examples/${slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    })
-  );
-
   const featureEntries: MetadataRoute.Sitemap = (featureSlugs as string[]).map(
     (slug) => ({
-      url: `${BASE}/features/${slug}`,
+      url: `${BASE}/${sanitySlugToUrl(slug)}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
@@ -105,14 +104,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const migrationEntries: MetadataRoute.Sitemap = (migrationSlugs as string[]).map(
-    (slug) => ({
+  // Migration pages: the canonical URL is the long descriptive slug
+  // (/migrate-from-{vendor}-to-velt). The short /migrate/{slug} form 308s
+  // to the long form for cord and liveblocks (see next.config.ts). Any
+  // additional Sanity migration documents that don't have a corresponding
+  // long-form route fall back to /migrate/{slug}.
+  const LONG_FORM_VENDORS = new Set(["cord", "liveblocks"]);
+  const migrationEntries: MetadataRoute.Sitemap = (migrationSlugs as string[])
+    .filter((slug) => !LONG_FORM_VENDORS.has(slug))
+    .map((slug) => ({
       url: `${BASE}/migrate/${slug}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
-    })
-  );
+    }));
 
   const useCaseEntries: MetadataRoute.Sitemap = (useCaseSlugs as string[]).map(
     (slug) => ({
@@ -127,7 +132,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...staticRoutes,
     ...blogEntries,
     ...demoEntries,
-    ...exampleEntries,
     ...featureEntries,
     ...libraryEntries,
     ...migrationEntries,

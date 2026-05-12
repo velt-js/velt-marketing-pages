@@ -14,8 +14,7 @@
 // site re-uses one Figma URL for every "Get Figma file" button). The hero
 // secondary CTA mirrors the live page's "Get Free API Key" → console.
 
-import type { Metadata } from "next";
-
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { PageHero } from "@/components/library/PageHero";
@@ -52,18 +51,12 @@ const LAUNCH_KIT_WEBPAGE = buildWebPageSchema({
 
 const LAUNCH_KIT_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: "Launch Kit",
   description: LAUNCH_KIT_DESCRIPTION,
-  alternates: {
-    canonical: "/launch-kit",
-  },
-  openGraph: {
-    url: "https://velt.dev/launch-kit",
-    title: "Launch Kit | Velt",
-    description: LAUNCH_KIT_DESCRIPTION,
-  },
-};
+  path: "/launch-kit",
+  ogImage: "/og/launch-kit.png",
+});
 
 export default function LaunchKitPage() {
   return (

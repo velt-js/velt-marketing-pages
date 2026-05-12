@@ -77,6 +77,12 @@ export type SecurityProps = {
    * with title/subtitle on the left. Pass `null` (or omit) to hide.
    */
   wideBottomCard?: SecurityCardData | null;
+  /**
+   * Hide the shield glyph above the heading. Default false. Set true when
+   * reusing this layout for non-security content (e.g. a feature highlight
+   * grid on /add-recording-quick) where the shield is misleading.
+   */
+  hideShield?: boolean;
   /** Override default section top padding (150). */
   paddingTop?: number;
   /** Override default section bottom padding (100). */
@@ -245,6 +251,7 @@ export function Security({
   wideBottomCard = null,
   paddingTop = 150,
   paddingBottom = 100,
+  hideShield = false,
 }: SecurityProps = {}) {
   return (
     <section
@@ -257,7 +264,7 @@ export function Security({
     >
       <div className="flex flex-col items-center gap-6 max-w-[820px] w-full">
         <div className="flex flex-col items-center text-center gap-3">
-          <ShieldIcon />
+          {hideShield ? null : <ShieldIcon />}
           <h2
             className="font-urbanist font-bold"
             style={{

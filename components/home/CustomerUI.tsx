@@ -7,6 +7,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 export type Customer = {
   slug: string;
@@ -510,7 +511,10 @@ export function CustomerUI({
           </button>
         </div>
 
-        {/* Product screenshot — fills edge-to-edge, 24px radius, object-cover */}
+        {/* Product screenshot — all 11 stacked so the browser fetches them
+            in parallel and switching between customers is just an opacity
+            swap (no network round-trip). next/image converts the source
+            PNGs to AVIF/WebP at the displayed size. */}
         <div
           className="w-full relative overflow-hidden"
           style={{
@@ -518,14 +522,22 @@ export function CustomerUI({
             background: "#111",
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            key={active.slug}
-            src={active.productSrc}
-            alt={`${active.name} integrated with Velt`}
-            className="absolute inset-0 w-full h-full"
-            style={{ objectFit: "cover", objectPosition: "center top" }}
-          />
+          {customers.map((c, idx) => (
+            <Image
+              key={c.slug}
+              src={c.productSrc}
+              alt={`${c.name} integrated with Velt`}
+              fill
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="absolute inset-0"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center top",
+                opacity: idx === activeIdx ? 1 : 0,
+                transition: "opacity 150ms ease",
+              }}
+            />
+          ))}
         </div>
 
         {/* Testimonial — swaps per customer. Stacks vertically on mobile. */}

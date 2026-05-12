@@ -6,6 +6,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const DEMOS_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -21,18 +22,11 @@ const DEMOS_WEBPAGE = buildWebPageSchema({
 
 export const revalidate = 60;
 
-export const metadata = {
+export const metadata = buildPageMetadata({
   title: "Demos",
   description: "Live product demos showcasing Velt collaboration features.",
-  alternates: {
-    canonical: "/demos",
-  },
-  openGraph: {
-    url: "https://velt.dev/demos",
-    title: "Demos | Velt",
-    description: "Live product demos showcasing Velt collaboration features.",
-  },
-};
+  path: "/demos",
+});
 
 type DemoCard = {
   _id: string;
