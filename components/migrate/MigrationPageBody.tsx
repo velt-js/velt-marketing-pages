@@ -101,9 +101,11 @@ export async function MigrationPageBody({
   const showFaq = doc.showFaq !== false;
 
   const pageUrl = `${SITE_URL}/${pageUrlPath ?? `migrate/${sanitySlug}`}`;
+  // Two-level breadcrumb: Home → {vendor}. The previous trail included a
+  // "Migrate" parent linking to /migrate, but that route was removed and
+  // pointing structured data at a 404 trips Google's breadcrumb validator.
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
-    { name: "Migrate", url: `${SITE_URL}/migrate` },
     { name: doc.title ?? doc.hero.heading, url: pageUrl },
   ]);
   const webpage = buildWebPageSchema({
