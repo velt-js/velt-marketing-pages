@@ -166,7 +166,7 @@ function TabContent({ tab }: { tab: TabDef }) {
       <div className="flex flex-col lg:flex-row items-stretch w-full gap-3">
         <div
           className="flex-1 relative overflow-hidden"
-          style={{ aspectRatio: "766 / 513", borderRadius: 32 }}
+          style={{ aspectRatio: "1742 / 1026", borderRadius: 32 }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -244,7 +244,6 @@ function TabContent({ tab }: { tab: TabDef }) {
 
 export function Outcomes() {
   const [activeId, setActiveId] = useState<TabId>("engagement");
-  const active = TABS.find((t) => t.id === activeId) ?? TABS[0];
 
   return (
     <section
@@ -301,9 +300,15 @@ export function Outcomes() {
           })}
         </div>
 
-        {/* Desktop content — single active tab. */}
+        {/* Desktop content — all five rendered, inactive ones hidden. Keeps
+            every tab's visual/logo/avatar in the DOM after first paint so
+            switching tabs doesn't trigger a fresh network fetch. */}
         <div className="hidden lg:block">
-          <TabContent tab={active} />
+          {TABS.map((tab) => (
+            <div key={tab.id} hidden={tab.id !== activeId}>
+              <TabContent tab={tab} />
+            </div>
+          ))}
         </div>
 
         {/* Mobile accordion — all five tabs as <details>. First one open
