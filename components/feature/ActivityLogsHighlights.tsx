@@ -1080,12 +1080,12 @@ function PRDMockup() {
       <PRDItem n="04" bold="Debouncing" rest=" that turns rapid edits into meaningful records" />
       <PRDItem n="05" bold="Real-time subscriptions" rest=" so feeds update without polling" />
 
-      <PRDWeekLabel>Week 3 - 5</PRDWeekLabel>
+      <PRDWeekLabel>Week 3–5</PRDWeekLabel>
       <PRDItem n="06" bold="Filtering" rest=" by org, document, feature, user, agent, time" />
       <PRDItem n="07" bold="Immutability" rest=" that actually prevents tampering" />
       <PRDItem n="08" bold="Permission" rest=" scoping so users only see what they should" />
 
-      <PRDWeekLabel>Week 6 - 8</PRDWeekLabel>
+      <PRDWeekLabel>Week 6–8</PRDWeekLabel>
       <PRDItem n="09" bold="REST API" rest=" for backend access and exports" />
       <PRDItem n="10" bold="Compliance" rest=" formatting for SOC 2, HIPAA, and audits" />
 

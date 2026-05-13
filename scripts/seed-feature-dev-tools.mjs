@@ -159,7 +159,7 @@ async function main() {
         _type: "featureImageCardSection",
         _key: "img-event-stream",
         heading: "Observe Event Stream",
-        subheading: "Monitor Velt Events in real time",
+        subheading: "Monitor Velt events in real-time",
         primaryCta: getExtensionCta,
         ...sharedImageProps,
         videoSrc: "/videos/features/dev-tools/observe-event-stream.mp4",

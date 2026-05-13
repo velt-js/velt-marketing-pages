@@ -183,7 +183,7 @@ async function main() {
             _key: "card-mentions",
             title: "User Mentions",
             description:
-              "Enable rich conversations with replies, @mentions, and reactions",
+              "Tag teammates inline to bring them into the document and notify them instantly",
             illustrationKey: "userMentions",
           },
           {

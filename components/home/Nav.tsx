@@ -294,7 +294,7 @@ const productAsync: DropdownItem[] = [
 
 const productRealtime: DropdownItem[] = [
   { label: "Multiplayer Editing", href: "/multiplayer-editing", icon: icons.yjs, tint: "#48cfad" },
-  { label: "Single Editor", href: "/multiplayer-editing", icon: icons.pencilStar, tint: "#5ca3ff" },
+  { label: "Single Editor", href: "https://docs.velt.dev/realtime-collaboration/single-editor-mode/overview", icon: icons.pencilStar, tint: "#5ca3ff" },
   { label: "Live State Sync", href: "https://docs.velt.dev/realtime-collaboration/live-state-sync/overview", icon: icons.refresh, tint: "#48cfad" },
   { label: "Live Selection", href: "https://docs.velt.dev/realtime-collaboration/live-selection/overview", icon: icons.click, tint: "#b387f7" },
   { label: "Huddle", href: "https://docs.velt.dev/realtime-collaboration/huddle/overview", icon: icons.headphones, tint: "#a4bd52" },
@@ -308,7 +308,7 @@ const productPlatform: DropdownItem[] = [
   { label: "Dev Tools", href: "/devtools", icon: icons.circle, tint: "#f5d14a" },
   { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
-  { label: "Integrations", href: "https://docs.velt.dev/integrations", icon: icons.plug, tint: "#ffa3fa" },
+  { label: "Integrations", href: "/integrations", icon: icons.plug, tint: "#ffa3fa" },
 ];
 
 const productColumns: DropdownColumn[] = [
@@ -890,7 +890,7 @@ function ProductDropdown({ light }: { light?: boolean }) {
       {productColumns.map((col, i) => (
         <LinkGroup key={i} column={col} light={light} />
       ))}
-      <PreviewCard />
+      <PreviewCard light={light} />
     </div>
   );
 }
@@ -1093,7 +1093,7 @@ function DropdownFooterLink({
   );
 }
 
-function PreviewCard() {
+function PreviewCard({ light }: { light?: boolean }) {
   // Figma 1:21794 "Link Card" — 250 wide, fills card-group height. Card Image
   // (1:21798) is 250×250 pinned top-right, card text pinned bottom-left.
   return (
@@ -1106,7 +1106,7 @@ function PreviewCard() {
         style={{
           width: 250,
           alignSelf: "stretch",
-          background: "#1b1a1a",
+          background: light ? "#f7f7f7" : "#1b1a1a",
           borderRadius: 16,
         }}
       >
@@ -1132,8 +1132,8 @@ function PreviewCard() {
           />
         </div>
         <div
-          className="absolute flex flex-col items-start text-white"
-          style={{ left: 16, bottom: 16, width: 218, gap: 12 }}
+          className="absolute flex flex-col items-start"
+          style={{ left: 16, bottom: 16, width: 218, gap: 12, color: light ? "#0f0f11" : "#fff" }}
         >
           <p
             className="font-urbanist font-semibold"
@@ -1143,12 +1143,12 @@ function PreviewCard() {
           </p>
           <p
             className="font-urbanist"
-            style={{ fontSize: 12, lineHeight: "normal", opacity: 0.52 }}
+            style={{ fontSize: 12, lineHeight: "normal", opacity: light ? 0.6 : 0.52 }}
           >
             Personalize your collaboration experience
           </p>
           <div className="flex items-center" style={{ gap: 8, marginTop: 4 }}>
-            <PromoCardSecondary href="/customization">Learn More</PromoCardSecondary>
+            <PromoCardSecondary href="/customization" light={light}>Learn More</PromoCardSecondary>
             <PromoCardPrimary href="https://docs.velt.dev/" external>
               View Docs
             </PromoCardPrimary>
@@ -1196,9 +1196,11 @@ function PromoCardPrimary({
 function PromoCardSecondary({
   href,
   children,
+  light,
 }: {
   href: string;
   children: ReactNode;
+  light?: boolean;
 }) {
   return (
     <Link
@@ -1209,8 +1211,8 @@ function PromoCardSecondary({
         padding: "0 12px",
         borderRadius: 6,
         background: "transparent",
-        border: "1px solid rgba(255,255,255,0.32)",
-        color: "#fff",
+        border: `1px solid ${light ? "rgba(0,0,0,0.18)" : "rgba(255,255,255,0.32)"}`,
+        color: light ? "#0f0f11" : "#fff",
         fontSize: 12,
         letterSpacing: "-0.36px",
         textDecoration: "none",

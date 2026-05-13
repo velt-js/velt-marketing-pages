@@ -206,7 +206,7 @@ function UseCaseTabRail({
                 whiteSpace: "nowrap",
               }}
             >
-              Not just a picture,
+              Not just a picture.
               <br />
               Click to try
             </p>
@@ -298,15 +298,26 @@ export function UseCaseDemo() {
           />
         ) : (
           <>
-            <Image
-              key={activeTab.id}
-              src={activeTab.image}
-              alt={`${activeTab.label} demo`}
-              fill
-              sizes="(max-width: 1280px) 100vw, 1280px"
-              style={{ objectFit: "cover", objectPosition: "top left" }}
-              priority={activeId === "dashboard"}
-            />
+            {/* All 5 images stay mounted so tab switches are instant after
+                first paint. Only the dashboard image is priority (LCP); the
+                rest load eagerly in parallel right after hydration. */}
+            {DEMO_TABS.map((tab) => (
+              <Image
+                key={tab.id}
+                src={tab.image}
+                alt={`${tab.label} demo`}
+                fill
+                sizes="(max-width: 1280px) 100vw, 1280px"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "top left",
+                  opacity: tab.id === activeId ? 1 : 0,
+                  transition: "opacity 150ms ease-out",
+                }}
+                priority={tab.id === "dashboard"}
+                loading={tab.id === "dashboard" ? undefined : "eager"}
+              />
+            ))}
             <div
               className="absolute inset-0 pointer-events-none transition-opacity duration-200"
               style={{

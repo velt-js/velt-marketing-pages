@@ -159,7 +159,7 @@ export function LibraryDemoStage({
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Not just a picture,
+                  Not just a picture.
                   <br />
                   Click to try
                 </p>

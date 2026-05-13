@@ -6,7 +6,6 @@ type DemoTab = {
   label: string;
   description: string;
   iframe: string;
-  github?: string;
 };
 
 const TABS: DemoTab[] = [
@@ -15,84 +14,64 @@ const TABS: DemoTab[] = [
     description: "Drop comments anywhere on the page.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/area-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/area-comments",
   },
   {
     label: "Popover",
     description: "Lightweight popover comments anchored to UI elements.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/popover-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/popover-comments",
   },
   {
     label: "Stream",
     description: "A continuous comment stream alongside your content.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/stream-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/stream-comments",
   },
   {
     label: "Text",
     description: "Inline text annotations and discussions.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/text-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/text-comments",
   },
   {
     label: "Tiptap",
     description: "Comments inside a Tiptap rich text editor.",
     iframe: "https://documentation-app-demo.vercel.app/?focused=true",
-    github: "https://github.com/velt-js/documentation-app-demo",
   },
   {
     label: "Inline",
     description: "Inline comments threaded into the document flow.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/inline-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/inline-comments",
   },
   {
     label: "Inbox",
     description: "Centralized inbox view of every comment thread.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/inbox-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/inbox-comments",
   },
   {
     label: "Chart",
     description: "Comments pinned to data points on a chart.",
     iframe: "https://analytics-chartjs-demo.vercel.app/?focused=true",
-    github: "https://github.com/velt-js/analytics-chartjs-demo",
   },
   {
     label: "Page",
     description: "Page-level comments and discussions.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/page-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/page-comments",
   },
   {
     label: "Video",
     description: "Comments at exact timestamps on video.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/video-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/video-comments",
   },
   {
     label: "Lottie",
     description: "Comments on Lottie animation frames.",
     iframe:
       "https://demo-examples.vercel.app/async/comments/lottie-comments?background=000000&theme=dark",
-    github:
-      "https://github.com/velt-js/demo_examples/tree/main/src/app/components/async/comments/lottie-comments",
   },
 ];
 
@@ -120,14 +99,6 @@ function IconExternalLink() {
   );
 }
 
-function IconGithub() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M3.54353 1.39996C4.07086 1.32463 4.8102 1.49663 5.76553 2.04396L5.94686 2.15129L6.05353 2.21796L6.3182 2.16263C7.32739 1.96762 8.36282 1.94957 9.3782 2.10929L9.6822 2.16263L9.9462 2.21796L10.0535 2.15129C10.9769 1.59129 11.7115 1.37129 12.2682 1.38596L12.3775 1.39129L12.4755 1.40263L12.5262 1.41196L12.5595 1.41929L12.6555 1.45063C12.8127 1.5156 12.9391 1.63818 13.0089 1.79329C13.2817 2.40109 13.3736 3.07463 13.2735 3.73329L13.2422 3.91129L13.2115 4.04196L13.2935 4.15063C13.6762 4.68063 13.9135 5.30263 13.9802 5.95529L13.9955 6.15196L14.0002 6.33329C14.0002 8.90329 12.8942 10.2553 10.9042 10.7866L10.7409 10.8273L10.6529 10.8466L10.6622 10.954L10.6675 11.0586L10.6702 11.302L10.6689 11.444L10.6669 14C10.6668 14.1632 10.6069 14.3209 10.4984 14.4429C10.3899 14.5649 10.2404 14.6429 10.0782 14.662L10.0002 14.6666H6.0002C5.83691 14.6666 5.67931 14.6067 5.55728 14.4981C5.43526 14.3896 5.3573 14.2401 5.3382 14.078L5.33353 14V13.5106C4.12153 13.684 3.31353 13.228 2.59353 12.2586L2.23686 11.748C2.0502 11.484 1.93353 11.362 1.8442 11.3186L1.8122 11.306C1.64714 11.2523 1.5095 11.1364 1.42854 10.9829C1.34758 10.8294 1.32968 10.6504 1.37864 10.4839C1.4276 10.3173 1.53957 10.1765 1.69074 10.0912C1.84191 10.006 2.02038 9.98305 2.1882 10.0273C2.6162 10.1526 2.9042 10.406 3.23486 10.8533L3.59353 11.366C4.1002 12.0853 4.5002 12.3386 5.33286 12.16L5.33353 11.708L5.32153 11.596C5.30184 11.4135 5.29716 11.2298 5.30753 11.0466L5.31886 10.9233L5.33153 10.8433L5.25953 10.8273C3.27553 10.354 2.1242 9.11196 2.00953 6.73463L2.00286 6.52796L2.0002 6.33329C2.00097 5.61101 2.21124 4.90446 2.60553 4.29929L2.70686 4.15129L2.7882 4.04263L2.7582 3.91196C2.63801 3.32634 2.67131 2.71958 2.85486 2.15063L2.92153 1.96263L2.9922 1.79396C3.06179 1.63897 3.18794 1.51641 3.34486 1.45129L3.44086 1.41996L3.54353 1.39996Z" fill="currentColor" />
-    </svg>
-  );
-}
-
 function IconInfo() {
   return (
     <svg
@@ -146,7 +117,6 @@ export function CommentsDemoSidebar() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
   const [openHover, setOpenHover] = useState(false);
-  const [ghHover, setGhHover] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const active = TABS[activeIdx];
 
@@ -299,34 +269,6 @@ export function CommentsDemoSidebar() {
             <IconExternalLink />
             Open
           </a>
-          {active.github ? (
-            <a
-              href={active.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onMouseEnter={() => setGhHover(true)}
-              onMouseLeave={() => setGhHover(false)}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "6px 8px",
-                borderRadius: 8,
-                fontFamily: "'Fira Mono', monospace",
-                fontWeight: 500,
-                fontSize: 14,
-                lineHeight: 1.2,
-                letterSpacing: "-0.42px",
-                textTransform: "uppercase",
-                color: ghHover ? TAB_HOVER : TAB_INACTIVE,
-                textDecoration: "none",
-                transition: "color 160ms ease",
-              }}
-            >
-              <IconGithub />
-              Github
-            </a>
-          ) : null}
         </div>
 
         {/* Bottom-left floating info button */}

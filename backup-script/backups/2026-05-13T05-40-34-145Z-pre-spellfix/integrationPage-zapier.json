@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:36:31Z",
+  "_id": "integrationPage-zapier",
+  "_rev": "xzJHDkjaEEloDSSKMtJsuM",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:36:31Z",
+  "category": "Workflows",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Zapier",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Zapier",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Zapier",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-3f2d402b9a830e580c13fbfdd470daf3d3d3dee3-280x76-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Zapier",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "zapier"
+  },
+  "tagline": "Zapier",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-b6d8b481191e69885a9e7527acae5ca3545d37c1-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

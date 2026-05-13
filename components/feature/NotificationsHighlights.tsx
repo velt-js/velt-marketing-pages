@@ -32,7 +32,7 @@ export function NotificationsHighlights() {
         />
         <SubCard
           title="Group Notifications"
-          description="Easily manage and find comments without loosing context of where it is placed"
+          description="Easily manage and find comments without losing context of where it is placed"
           imageSrc="/images/features/notifications/group-notifications.png"
         />
       </div>

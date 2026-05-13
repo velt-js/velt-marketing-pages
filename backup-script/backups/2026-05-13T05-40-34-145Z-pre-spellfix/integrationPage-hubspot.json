@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:35:57Z",
+  "_id": "integrationPage-hubspot",
+  "_rev": "JxhUtlLptLidCGOeIEDyzg",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:35:57Z",
+  "category": "CRM",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for HubSpot",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in HubSpot",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in HubSpot",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-4ab38652e7c4c107029746fd3124769831b4e5ab-264x76-png",
+      "_type": "reference"
+    }
+  },
+  "name": "HubSpot",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "hubspot"
+  },
+  "tagline": "HubSpot",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-8cbb1adc031f967bec09424ae05ce257d40ead6e-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

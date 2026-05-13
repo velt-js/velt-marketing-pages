@@ -1,0 +1,123 @@
+{
+  "_createdAt": "2026-05-04T16:39:28Z",
+  "_id": "featurePage-multiplayer",
+  "_rev": "JxhUtlLptLidCGOeIEG5k1",
+  "_type": "featurePage",
+  "_updatedAt": "2026-05-12T12:00:14Z",
+  "category": "Realtime",
+  "getStartedSteps": {
+    "step1PackageName": "@veltdev/react"
+  },
+  "hero": {
+    "decorated": true,
+    "heading": "Give Your Product Multiplayer Magic",
+    "primaryCta": {
+      "_type": "ctaLink",
+      "href": "https://console.velt.dev/",
+      "label": "Get Free API Key",
+      "newTab": true
+    },
+    "secondaryCta": {
+      "_type": "ctaLink",
+      "href": "/book-demo",
+      "label": "Book Demo"
+    },
+    "subheading": "Add Google Docs or Figma style collaborative live editing to your product. Your users will love it."
+  },
+  "metaDescription": "Add conflict-free, Google Docs-style multiplayer editing to your app with Velt's CRDT-powered SDK. Get real-time collaboration with no infrastructure to manage.",
+  "metaTitle": "CRDT-Powered Yjs Multiplayer Editing SDK | Velt",
+  "sections": [
+    {
+      "_key": "bento-collaborative",
+      "_type": "featureBentoSection",
+      "cards": [
+        {
+          "_key": "card-multiplayer",
+          "_type": "bentoCard",
+          "description": "Co-edit documents in real-time and see who is working with you",
+          "illustrationKey": "multiplayerEditing",
+          "title": "Multiplayer Editing"
+        },
+        {
+          "_key": "card-comments",
+          "_type": "bentoCard",
+          "description": "Enable rich conversations with replies, @mentions, and reactions",
+          "illustrationKey": "contextualComments",
+          "title": "Contextual Comments"
+        },
+        {
+          "_key": "card-cursors",
+          "_type": "bentoCard",
+          "description": "Decide how users appear with fully customizable name tags and cursors",
+          "illustrationKey": "customizableCursors",
+          "title": "Customizable Cursors"
+        },
+        {
+          "_key": "card-mentions",
+          "_type": "bentoCard",
+          "description": "Enable rich conversations with replies, @mentions, and reactions",
+          "illustrationKey": "userMentions",
+          "title": "User Mentions"
+        },
+        {
+          "_key": "card-notification",
+          "_type": "bentoCard",
+          "description": "See what changes have been made to a shared document with timestamps",
+          "illustrationKey": "notification",
+          "title": "Notification"
+        },
+        {
+          "_key": "card-history",
+          "_type": "bentoCard",
+          "description": "See what changes have been made to a shared document with timestamps",
+          "illustrationKey": "versionHistory",
+          "title": "Version History"
+        },
+        {
+          "_key": "card-single-editor",
+          "_type": "bentoCard",
+          "description": "Limit editing control to one user in collaborative scenarios",
+          "illustrationKey": "singleEditorMode",
+          "title": "Single Editor Mode"
+        },
+        {
+          "_key": "card-offline",
+          "_type": "bentoCard",
+          "description": "Keep working when the connection drops. Data will sync when you reconnect",
+          "illustrationKey": "offlineStorage",
+          "title": "Offline Storage"
+        }
+      ],
+      "heading": "Create a Truly Collaborative Product",
+      "inlineTestimonial": {
+        "accentColor": "#b4b1fa",
+        "accentFragment": "boost engagement",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f026d19f57ca9085b599aa92166c92c2d5c56a3e-104x104-png",
+            "_type": "reference"
+          }
+        },
+        "name": "Linda Belcher",
+        "quote": "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+        "role": "Product Manager @HeyGen"
+      },
+      "primaryCta": {
+        "_type": "ctaLink",
+        "href": "/use-cases",
+        "label": "View All Examples"
+      },
+      "subheading": "Everything you need to transform your product into a real-time, interactive space"
+    }
+  ],
+  "showCustomerStories": false,
+  "showSecurity": true,
+  "showTrustedLogos": true,
+  "slug": {
+    "_type": "slug",
+    "current": "multiplayer"
+  },
+  "tagline": "Add Google Docs / Figma style live editing to your product.",
+  "title": "Multiplayer"
+}

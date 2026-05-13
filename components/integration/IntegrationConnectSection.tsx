@@ -40,7 +40,7 @@ export function IntegrationConnectSection({
       body: connectBody,
     },
     {
-      title: "In-built payload transformation",
+      title: "Built-in payload transformation",
       body: payloadBody,
       imageSrc: payloadImage,
     },

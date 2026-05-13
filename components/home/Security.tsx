@@ -101,7 +101,7 @@ const DEFAULT_CARDS: SecurityCardData[] = [
     visual: <CardVisual src="/images/security/Mutli%20Region%20Hosting.png" />,
   },
   {
-    title: "Isolated Server and Data Storage",
+    title: "Isolated Servers and Data Storage",
     subtitle: "Our customer data is logically isolated and never co-mingled",
     visual: <CardVisual src="/images/security/Isolated%20Data.png" />,
   },

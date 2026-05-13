@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:34:59Z",
+  "_id": "integrationPage-slack",
+  "_rev": "JxhUtlLptLidCGOeIEDpHK",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:34:59Z",
+  "category": "Messaging",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Slack",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Connect Slack with Velt in minutes. Build smarter customer flows with webhooks, payload transformation, and enterprise-grade security.",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Slack",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0a711e8c173b2316b1ed42bd8b99fec518a49a86-600x216-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Slack",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "slack"
+  },
+  "tagline": "Slack",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-ba44bca88f69f6e8c1706824f2899088f5fa53bb-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

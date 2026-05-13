@@ -15,7 +15,7 @@ export type ComparePricingCTAProps = {
 
 export function ComparePricingCTA({
   competitorLabel = "Others",
-  subheading = "Consider Velt for serious production app or others for basic collaboration",
+  subheading = "Consider Velt for a serious production app or others for basic collaboration",
 }: ComparePricingCTAProps = {}) {
   return (
     <section

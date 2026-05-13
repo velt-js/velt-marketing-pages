@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:35:09Z",
+  "_id": "integrationPage-discord",
+  "_rev": "xzJHDkjaEEloDSSKMtJc5S",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:35:09Z",
+  "category": "Messaging",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Discord",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Connect Discord with Velt Console using webhooks. Transform payloads with JavaScript functions and build unified customer experiences with enterprise-grade security.",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Discord",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-9eeea30b4f413c5b1eafe6ff453245fb2bfab19e-301x84-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Discord",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "discord"
+  },
+  "tagline": "Discord",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-92f01632454d288bb5b5d3b46f9009fe1169f279-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

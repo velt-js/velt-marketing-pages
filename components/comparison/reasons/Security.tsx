@@ -85,7 +85,7 @@ export function Security({ competitorLabel }: SecurityProps = {}) {
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full" style={{ gap: 22 }}>
           <ComparisonSubCard
             variant="velt"
-            title="SOC II & HIPAA Compliance ++"
+            title="SOC II & HIPAA Compliance"
             subtitle="Fully compliant plus annual pen testing"
             mediaHeight={266}
           >

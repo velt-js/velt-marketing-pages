@@ -287,8 +287,9 @@ export function LibraryBento({
                     style={{
                       position: "absolute",
                       top: 0,
-                      left: 0,
-                      width: "100%",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                      width: "80%",
                       height: "auto",
                     }}
                   />

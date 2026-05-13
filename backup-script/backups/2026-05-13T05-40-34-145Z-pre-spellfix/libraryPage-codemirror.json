@@ -1,0 +1,181 @@
+{
+  "_createdAt": "2026-04-28T20:16:16Z",
+  "_id": "libraryPage-codemirror",
+  "_rev": "aE9Q4zkNVwrcEZyo1bZSbL",
+  "_type": "libraryPage",
+  "_updatedAt": "2026-04-30T20:53:46Z",
+  "bento": {
+    "cards": [
+      {
+        "_key": "card-multiplayer",
+        "_type": "bentoCard",
+        "description": "Co-edit documents in real-time and see who is working with you",
+        "illustrationKey": "multiplayerEditing",
+        "title": "Multiplayer Editing"
+      },
+      {
+        "_key": "card-comments",
+        "_type": "bentoCard",
+        "description": "Enable rich conversations with replies, @mentions, and reactions",
+        "illustrationKey": "contextualComments",
+        "title": "Contextual Comments"
+      },
+      {
+        "_key": "card-cursors",
+        "_type": "bentoCard",
+        "description": "Decide how users appear with fully customizable name tags and carets",
+        "illustrationKey": "customizableCursors",
+        "title": "Real-time Cursors & Presence"
+      },
+      {
+        "_key": "card-mentions",
+        "_type": "bentoCard",
+        "description": "Enable rich conversations with replies, @mentions, and reactions",
+        "illustrationKey": "userMentions",
+        "title": "User Mentions"
+      },
+      {
+        "_key": "card-notifications",
+        "_type": "bentoCard",
+        "description": "See what changes have been made to a shared document with timestamps",
+        "illustrationKey": "notification",
+        "title": "Notification"
+      },
+      {
+        "_key": "card-history",
+        "_type": "bentoCard",
+        "description": "Manage multiple versions to manage historical data",
+        "illustrationKey": "versionHistory",
+        "title": "Version History"
+      },
+      {
+        "_key": "card-single-editor",
+        "_type": "bentoCard",
+        "description": "Limit editing control to one user in collaborative scenarios",
+        "illustrationKey": "singleEditorMode",
+        "title": "Single Editor Mode"
+      },
+      {
+        "_key": "card-offline",
+        "_type": "bentoCard",
+        "description": "Keep working when the connection drops. Data will sync when you reconnect",
+        "illustrationKey": "offlineStorage",
+        "title": "Offline Storage"
+      }
+    ],
+    "eyebrow": "No Custom Logic Required",
+    "heading": "Built for CodeMirror",
+    "primaryCta": {
+      "_type": "ctaLink",
+      "href": "https://github.com/velt-js/velt-codemirror-crdt-demo",
+      "label": "View All Examples",
+      "newTab": true
+    },
+    "subheading": "Deeply embedded in CodeMirror and works reliably as content changes line by line",
+    "viewDocsCta": {
+      "_type": "ctaLink",
+      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+      "label": "View Docs",
+      "newTab": true
+    }
+  },
+  "category": "Text Editor",
+  "demoStage": {
+    "demoUrl": "https://velt-codemirror-crdt-demo.vercel.app/",
+    "githubUrl": "https://github.com/velt-js/velt-codemirror-crdt-demo/tree/main",
+    "label": "CodeMirror",
+    "previewImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-32c7ff49c4e391a868cd1b33df2f106fa773151e-2880x1600-png",
+        "_type": "reference"
+      }
+    }
+  },
+  "faq": {
+    "items": [
+      {
+        "_key": "faq-anchor",
+        "answer": "Yes. Velt anchors each comment to a range in the CodeMirror document and rebases that anchor as the surrounding code is edited. Comments stay attached to the right line even after multi-user edits, refactors, or formatting changes.",
+        "question": "Will comments move as code changes?"
+      },
+      {
+        "_key": "faq-comments-only",
+        "answer": "Yes. The comments package can be installed and used standalone, without enabling presence, cursors, or CRDT-backed multiplayer editing.",
+        "question": "Can I add comments without multiplayer?"
+      },
+      {
+        "_key": "faq-backend",
+        "answer": "No. Velt provides a fully managed collaboration backend for comments, presence, and persistence — no server to run.",
+        "question": "Do I need backend infrastructure?"
+      },
+      {
+        "_key": "faq-code-review",
+        "answer": "Yes. Inline comments anchored to specific lines or ranges work well for code review and pair-programming workflows.",
+        "question": "Is this suitable for code reviews?"
+      },
+      {
+        "_key": "faq-pricing",
+        "answer": "Pricing is based on Monthly Active Collaborators who actively use Velt features, not raw connections or messages.",
+        "question": "How does pricing work?"
+      }
+    ]
+  },
+  "getStartedCallout": {
+    "body": "Install the Velt CodeMirror extension. Test. Ship.",
+    "codeSnippet": {
+      "code": "// Initialize the Velt CRDT extension\nconst { store, isLoading } = useVeltCodeMirrorCrdtExtension({ editorId });\n\nuseEffect(() => {\n  if (!store || !editorRef.current) return;\n\n  const startState = EditorState.create({\n    doc: store.getYText()?.toString() ?? '',\n    extensions: [\n      basicSetup,\n      yCollab(store.getYText()!, store.getAwareness(), { undoManager: store.getUndoManager() }),\n    ],\n  });\n\n  viewRef.current = new EditorView({\n      state: startState,\n      parent: editorRef.current,\n  });\n\n  return () => viewRef.current?.destroy();\n}, [store]);",
+      "language": "tsx"
+    },
+    "getApiKeyHref": "https://console.velt.dev/",
+    "heading": "Production-Ready in Minutes",
+    "viewDocsHref": "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror"
+  },
+  "getStartedSteps": {
+    "step1PackageName": "@veltdev/crdt-react"
+  },
+  "hero": {
+    "decorated": true,
+    "heading": "Collaboration Toolkit for CodeMirror",
+    "primaryCta": {
+      "_type": "ctaLink",
+      "href": "https://console.velt.dev/?ref=library-codemirror",
+      "label": "Start Free",
+      "newTab": true
+    },
+    "secondaryCta": {
+      "_type": "ctaLink",
+      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+      "label": "View Docs",
+      "newTab": true
+    },
+    "subheading": "Add comments, notifications, cursors, and multiplayer editing to CodeMirror in minutes"
+  },
+  "inlineTestimonial": {
+    "avatar": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-4a11a6f3202bffbd1fdaa980304bd889a095670e-400x400-png",
+        "_type": "reference"
+      }
+    },
+    "name": "Ethan Veres",
+    "quote": "Commenting is something we wanted in our app, Velt made it possible",
+    "role": "CTO @eqtble"
+  },
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-61d808dcb98ec7f2c662021d245278374301e53e-289x67-png",
+      "_type": "reference"
+    }
+  },
+  "metaDescription": "Add comments, notifications, cursors, and multiplayer editing to CodeMirror in minutes.",
+  "metaTitle": "Collaboration Toolkit for CodeMirror | Velt",
+  "slug": {
+    "_type": "slug",
+    "current": "codemirror"
+  },
+  "tagline": "Add comments, notifications, cursors, and multiplayer editing to CodeMirror in minutes.",
+  "title": "CodeMirror"
+}
