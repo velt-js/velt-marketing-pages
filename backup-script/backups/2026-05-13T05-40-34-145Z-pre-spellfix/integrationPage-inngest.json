@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:36:41Z",
+  "_id": "integrationPage-inngest",
+  "_rev": "DfugmhWDcOBgQGyzndQ4PC",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:36:41Z",
+  "category": "Workflows",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Inngest",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Inngest",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Inngest",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-067a89a77c2a18ab1463b3463831e053e0cc69c4-121x120-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Inngest",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "inngest"
+  },
+  "tagline": "Inngest",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-9a94d04af1f4d1b408855f84a5a469ce4cb9e36b-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

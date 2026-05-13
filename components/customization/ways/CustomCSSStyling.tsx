@@ -15,7 +15,7 @@ export function CustomCSSStyling() {
       num={2}
       height={711}
       heading="Custom CSS Styling"
-      subheading="Use your own custom css or a library like Tailwind"
+      subheading="Use your own custom CSS or a library like Tailwind"
       tabs={{
         activeIndex: 0,
         labels: ["Add Custom Styles", "Use Your Design Systems"],

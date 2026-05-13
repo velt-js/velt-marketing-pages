@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:37:15Z",
+  "_id": "integrationPage-customer-io",
+  "_rev": "JxhUtlLptLidCGOeIEEiQK",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:37:15Z",
+  "category": "Emails",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Customer.io",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Customer.io",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Customer.io",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-3822ef5406b2846fa829bd29a7073051b8a00943-284x40-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Customer.io",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "customer-io"
+  },
+  "tagline": "Customer.io",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-8d4070edddde28b82dab64dcf83ea979cf1a9724-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

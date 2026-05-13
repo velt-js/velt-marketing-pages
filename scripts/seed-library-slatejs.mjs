@@ -148,7 +148,7 @@ async function main() {
           _type: "bentoCard",
           _key: "card-cursors",
           title: "Real-time Cursors & Presence",
-          description: "Decide how users appear with fully customizable name tags and carets",
+          description: "Decide how users appear with fully customizable name tags and cursors",
           illustrationKey: "customizableCursors",
         },
         {

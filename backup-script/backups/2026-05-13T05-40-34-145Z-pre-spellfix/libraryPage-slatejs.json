@@ -1,0 +1,168 @@
+{
+  "_createdAt": "2026-04-28T20:17:35Z",
+  "_id": "libraryPage-slatejs",
+  "_rev": "iA3Eg1v50p1NFdwLFefIr5",
+  "_type": "libraryPage",
+  "_updatedAt": "2026-04-30T20:53:51Z",
+  "bento": {
+    "cards": [
+      {
+        "_key": "card-multiplayer",
+        "_type": "bentoCard",
+        "description": "Co-edit documents in real-time and see who is working with you",
+        "illustrationKey": "multiplayerEditing",
+        "title": "Multiplayer Editing"
+      },
+      {
+        "_key": "card-comments",
+        "_type": "bentoCard",
+        "description": "Enable rich conversations with replies, @mentions, and reactions",
+        "illustrationKey": "contextualComments",
+        "title": "Contextual Comments"
+      },
+      {
+        "_key": "card-cursors",
+        "_type": "bentoCard",
+        "description": "Decide how users appear with fully customizable name tags and carets",
+        "illustrationKey": "customizableCursors",
+        "title": "Real-time Cursors & Presence"
+      },
+      {
+        "_key": "card-mentions",
+        "_type": "bentoCard",
+        "description": "Enable rich conversations with replies, @mentions, and reactions",
+        "illustrationKey": "userMentions",
+        "title": "User Mentions"
+      },
+      {
+        "_key": "card-notifications",
+        "_type": "bentoCard",
+        "description": "See what changes have been made to a shared document with timestamps",
+        "illustrationKey": "notification",
+        "title": "Notification"
+      },
+      {
+        "_key": "card-history",
+        "_type": "bentoCard",
+        "description": "See what changes have been made to a shared document with timestamps",
+        "illustrationKey": "versionHistory",
+        "title": "Version History"
+      },
+      {
+        "_key": "card-single-editor",
+        "_type": "bentoCard",
+        "description": "Limit editing control to one user in collaborative scenarios",
+        "illustrationKey": "singleEditorMode",
+        "title": "Single Editor Mode"
+      },
+      {
+        "_key": "card-offline",
+        "_type": "bentoCard",
+        "description": "Keep working when the connection drops. Data will sync when you reconnect",
+        "illustrationKey": "offlineStorage",
+        "title": "Offline Storage"
+      }
+    ],
+    "eyebrow": "No Custom Logic Required",
+    "heading": "Built for SlateJS",
+    "primaryCta": {
+      "_type": "ctaLink",
+      "href": "https://github.com/velt-js/slatejs-app-demo",
+      "label": "View All Examples",
+      "newTab": true
+    },
+    "subheading": "Deeply embedded in Slate and works reliably as nodes are edited and restructured",
+    "viewDocsCta": {
+      "_type": "ctaLink",
+      "href": "https://docs.velt.dev/async-collaboration/comments/setup/slatejs",
+      "label": "View Docs",
+      "newTab": true
+    }
+  },
+  "category": "Text Editor",
+  "demoStage": {
+    "demoUrl": "https://slatejs-app-demo.vercel.app/",
+    "githubUrl": "https://github.com/velt-js/slatejs-app-demo/tree/main",
+    "label": "SlateJS",
+    "previewImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-f6cb29a38150c3a96981a7d644fd025fe5e98c87-1440x800-png",
+        "_type": "reference"
+      }
+    }
+  },
+  "faq": {
+    "items": [
+      {
+        "_key": "faq-anchor",
+        "answer": "Yes. Velt anchors each comment to a path in the Slate document tree and rebases that anchor as nodes are split, merged, or restructured. Comments stay attached to the right content even after multi-user edits, formatting changes, or block reflows.",
+        "question": "Will comments move as the document changes?"
+      },
+      {
+        "_key": "faq-plugins",
+        "answer": "Yes. The Velt SlateJS integration ships as a `withVeltComments` plugin that composes alongside `withReact`, `withHistory`, and any of your own `with*` plugins without overriding their schema, commands, or transforms. You can keep using any plugins you already have.",
+        "question": "Does this work with custom Slate plugins?"
+      }
+    ]
+  },
+  "getStartedCallout": {
+    "body": "Install the Velt SlateJS extension. Test. Ship.",
+    "codeSnippet": {
+      "code": "import { withVeltComments } from '@veltdev/slate-velt-comments';\nimport { withReact, withHistory } from 'slate-react';\n\nconst editor = withVeltComments(\n  withReact(withHistory(createEditor())),\n  { HistoryEditor: SlateHistoryEditor }\n);",
+      "language": "tsx"
+    },
+    "getApiKeyHref": "https://console.velt.dev/",
+    "heading": "Production-Ready in Minutes",
+    "viewDocsHref": "https://docs.velt.dev/async-collaboration/comments/setup/slatejs"
+  },
+  "getStartedSteps": {
+    "step1PackageName": "@veltdev/slate-velt-comments"
+  },
+  "hero": {
+    "decorated": true,
+    "heading": "Collaboration Toolkit for SlateJS",
+    "primaryCta": {
+      "_type": "ctaLink",
+      "href": "https://console.velt.dev/",
+      "label": "Get Free API Key",
+      "newTab": true
+    },
+    "secondaryCta": {
+      "_type": "ctaLink",
+      "href": "/book-demo",
+      "label": "Book Demo",
+      "newTab": false
+    },
+    "subheading": "Add comments, notifications, cursors, and multiplayer editing to Slate in minutes"
+  },
+  "inlineTestimonial": {
+    "accentColor": "#0085ff",
+    "accentFragment": "Velt made it possible",
+    "avatar": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-4a11a6f3202bffbd1fdaa980304bd889a095670e-400x400-png",
+        "_type": "reference"
+      }
+    },
+    "name": "Ethan Veres",
+    "quote": "Commenting is something we wanted in our app, Velt made it possible",
+    "role": "CTO @eqtble"
+  },
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-63708a98ef5b65bf183ef78bafe2904b659cc96b-115x75-png",
+      "_type": "reference"
+    }
+  },
+  "metaDescription": "Add comments, notifications, cursors, and multiplayer editing to Slate in minutes. Velt's SlateJS integration ships as a single plugin.",
+  "metaTitle": "Collaboration Toolkit for SlateJS | Velt",
+  "slug": {
+    "_type": "slug",
+    "current": "slatejs"
+  },
+  "tagline": "Add comments, notifications, cursors, and multiplayer editing to Slate in minutes.",
+  "title": "SlateJS"
+}

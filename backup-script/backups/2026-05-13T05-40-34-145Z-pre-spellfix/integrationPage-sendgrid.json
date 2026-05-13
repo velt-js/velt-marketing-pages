@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:36:58Z",
+  "_id": "integrationPage-sendgrid",
+  "_rev": "JxhUtlLptLidCGOeIEEUwf",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:36:58Z",
+  "category": "Emails",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Sendgrid",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Sendgrid",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Sendgrid",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-d204845370a87c369934f9ebd74bf125e688114a-301x76-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Sendgrid",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-3102461eeddec7759aec2328431b026636860c52-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "sendgrid"
+  },
+  "tagline": "Sendgrid",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-042fe833df8ad1c939e1d3b54849cbd061ecc847-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

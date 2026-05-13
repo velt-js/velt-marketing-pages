@@ -372,7 +372,7 @@ export function Footer() {
               className="font-urbanist font-medium text-white text-center whitespace-nowrap"
               style={{ fontSize: 16, lineHeight: "19.2px" }}
             >
-              All rights reserved © 2025 Velt
+              © 2025 Velt. All rights reserved.
             </p>
           </div>
           <div

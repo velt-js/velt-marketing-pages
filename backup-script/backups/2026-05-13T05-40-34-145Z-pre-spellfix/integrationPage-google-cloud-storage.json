@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:35:38Z",
+  "_id": "integrationPage-google-cloud-storage",
+  "_rev": "xzJHDkjaEEloDSSKMtJfj8",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:35:38Z",
+  "category": "Storage",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Google Cloud Storage",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Google Cloud Storage",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Google Cloud Storage",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-c651a0a8a2884e71edb814825ee637996363d3cb-366x82-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Google Cloud Storage",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "google-cloud-storage"
+  },
+  "tagline": "Google Cloud Storage",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-34ee5153131c705da83522320e9e1d1a299524f1-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

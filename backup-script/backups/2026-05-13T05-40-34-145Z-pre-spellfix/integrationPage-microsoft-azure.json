@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:35:48Z",
+  "_id": "integrationPage-microsoft-azure",
+  "_rev": "JxhUtlLptLidCGOeIEDtnI",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:35:48Z",
+  "category": "Storage",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Microsoft Azure",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Microsoft Azure",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Microsoft Azure",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-5c196264980ebee844591b3f45ebdeecca14fc4e-342x100-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Microsoft Azure",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "microsoft-azure"
+  },
+  "tagline": "Microsoft Azure",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-fb5b232ae1ddbeb7697e91fa3b6fb5a1884b84ca-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

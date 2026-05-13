@@ -6,8 +6,8 @@
     "heroTitle": "Integrate Velt in Slack",
     "tagline": "Slack",
     "description": "Connect Slack with Velt in minutes. Build smarter customer flows with webhooks, payload transformation, and enterprise-grade security.",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Slack",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Slack",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -17,8 +17,8 @@
     "heroTitle": "Integrate Velt in Discord",
     "tagline": "Discord",
     "description": "Connect Discord with Velt Console using webhooks. Transform payloads with JavaScript functions and build unified customer experiences with enterprise-grade security.",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Discord",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Discord",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -28,8 +28,8 @@
     "heroTitle": "Integrate Velt in Microsoft Teams",
     "tagline": "Microsoft Teams",
     "description": "Write 6 lines to integrate Velt in Microsoft Teams",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Microsoft Teams",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Microsoft Teams",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -39,8 +39,8 @@
     "heroTitle": "Integrate Velt in AWS S3",
     "tagline": "AWS S3",
     "description": "Write 6 lines to integrate Velt in AWS S3",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for AWS S3",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for AWS S3",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -50,8 +50,8 @@
     "heroTitle": "Integrate Velt in Google Cloud Storage",
     "tagline": "Google Cloud Storage",
     "description": "Write 6 lines to integrate Velt in Google Cloud Storage",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Google Cloud Storage",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Google Cloud Storage",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -61,8 +61,8 @@
     "heroTitle": "Integrate Velt in Microsoft Azure",
     "tagline": "Microsoft Azure",
     "description": "Write 6 lines to integrate Velt in Microsoft Azure",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Microsoft Azure",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Microsoft Azure",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -72,8 +72,8 @@
     "heroTitle": "Integrate Velt in HubSpot",
     "tagline": "HubSpot",
     "description": "Write 6 lines to integrate Velt in HubSpot",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for HubSpot",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for HubSpot",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -83,8 +83,8 @@
     "heroTitle": "Integrate Velt in Close CRM",
     "tagline": "Close CRM",
     "description": "Write 6 lines to integrate Velt in Close CRM",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Close CRM",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Close CRM",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -94,8 +94,8 @@
     "heroTitle": "Integrate Velt in Segment",
     "tagline": "Segment",
     "description": "Write 6 lines to integrate Velt in Segment",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Segment",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Segment",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -105,8 +105,8 @@
     "heroTitle": "Integrate Velt in OpenTelemetry",
     "tagline": "OpenTelemetry",
     "description": "Write 6 lines to integrate Velt in OpenTelemetry",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for OpenTelemetry",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for OpenTelemetry",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -116,8 +116,8 @@
     "heroTitle": "Integrate Velt in Zapier",
     "tagline": "Zapier",
     "description": "Write 6 lines to integrate Velt in Zapier",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Zapier",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Zapier",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -127,8 +127,8 @@
     "heroTitle": "Integrate Velt in Inngest",
     "tagline": "Inngest",
     "description": "Write 6 lines to integrate Velt in Inngest",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Inngest",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Inngest",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -138,8 +138,8 @@
     "heroTitle": "Integrate Velt in Windmill",
     "tagline": "Windmill",
     "description": "Write 6 lines to integrate Velt in Windmill",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Windmill",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Windmill",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -149,8 +149,8 @@
     "heroTitle": "Integrate Velt in Sendgrid",
     "tagline": "Sendgrid",
     "description": "Write 6 lines to integrate Velt in Sendgrid",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Sendgrid",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Sendgrid",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -160,8 +160,8 @@
     "heroTitle": "Integrate Velt in Loops",
     "tagline": "Loops",
     "description": "Write 6 lines to integrate Velt in Loops",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Loops",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Loops",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -171,8 +171,8 @@
     "heroTitle": "Integrate Velt in Customer.io",
     "tagline": "Customer.io",
     "description": "Write 6 lines to integrate Velt in Customer.io",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Customer.io",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Customer.io",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   },
   {
@@ -182,8 +182,8 @@
     "heroTitle": "Integrate Velt in Resend",
     "tagline": "Resend",
     "description": "Write 6 lines to integrate Velt in Resend",
-    "connectBody": "Go to advance web hook configs and create a new endpoint for Resend",
-    "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+    "connectBody": "Go to advanced webhook configs and create a new endpoint for Resend",
+    "payloadBody": "Take the event and model it for your consumption with simple JavaScript functions",
     "unifiedBody": "Build smarter customer flows by connecting services through webhooks."
   }
 ]

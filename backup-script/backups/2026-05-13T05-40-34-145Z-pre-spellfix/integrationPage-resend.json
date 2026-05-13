@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:37:24Z",
+  "_id": "integrationPage-resend",
+  "_rev": "JxhUtlLptLidCGOeIEEn4m",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:37:24Z",
+  "category": "Emails",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Resend",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Resend",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Resend",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-39456c32167fa98f88c31f63f0e6930ecfd67c90-186x40-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Resend",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "resend"
+  },
+  "tagline": "Resend",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-8fd15e31189156974f82403d509ab39247b81e14-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

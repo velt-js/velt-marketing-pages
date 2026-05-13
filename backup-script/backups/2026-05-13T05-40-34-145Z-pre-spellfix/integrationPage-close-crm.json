@@ -1,0 +1,49 @@
+{
+  "_createdAt": "2026-05-12T11:36:06Z",
+  "_id": "integrationPage-close-crm",
+  "_rev": "DfugmhWDcOBgQGyzndQ0Ls",
+  "_type": "integrationPage",
+  "_updatedAt": "2026-05-12T11:36:06Z",
+  "category": "CRM",
+  "connectBody": "Go to advance web hook configs and create a new endpoint for Close CRM",
+  "connectImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-66d0cb01e1671213b0f5b60c09dc4a049ec2af95-512x512-png",
+      "_type": "reference"
+    }
+  },
+  "demoUrl": "https://console.velt.dev/",
+  "description": "Write 6 lines to integrate Velt in Close CRM",
+  "docsUrl": "https://docs.velt.dev/",
+  "heroTitle": "Integrate Velt in Close CRM",
+  "logo": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-fa282b5c353b6596c83879dd1d1d3198d26d9aba-267x73-png",
+      "_type": "reference"
+    }
+  },
+  "name": "Close CRM",
+  "payloadBody": "Take the event and model it for your consumption with simple javascript functions",
+  "payloadImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-0444dae39cfa48139151a61cbcbdb4638629cae5-1160x756-png",
+      "_type": "reference"
+    }
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "close-crm"
+  },
+  "tagline": "Close CRM",
+  "unifiedBody": "Build smarter customer flows by connecting services through webhooks.",
+  "unifiedImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-74130c28b751730252b7f5860f97d7e38319e60b-1160x788-png",
+      "_type": "reference"
+    }
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "_createdAt": "2026-05-04T15:59:05Z",
+  "_id": "featurePage-dev-tools",
+  "_rev": "o0WBjfw6LmJLEPyuHmNlvm",
+  "_type": "featurePage",
+  "_updatedAt": "2026-05-08T06:43:15Z",
+  "category": "Platform",
+  "getStartedSteps": {
+    "step1PackageName": "@veltdev/react"
+  },
+  "hero": {
+    "decorated": true,
+    "heading": "Velt DevTools Chrome Extension",
+    "primaryCta": {
+      "_type": "ctaLink",
+      "href": "https://chrome.google.com/webstore/",
+      "label": "Get Chrome Extension",
+      "newTab": true
+    },
+    "secondaryCta": {
+      "_type": "ctaLink",
+      "href": "https://console.velt.dev/",
+      "label": "Get Free API Key",
+      "newTab": true
+    },
+    "subheading": "View events, explore component structure, and debug collaboration data directly in the browser"
+  },
+  "metaDescription": "Debug Velt collaboration data right in your browser. View events, explore component structure, inspect data, and switch SDK versions with the Velt DevTools Chrome Extension.",
+  "metaTitle": "Velt DevTools | Velt",
+  "sections": [
+    {
+      "_key": "img-overview",
+      "_type": "featureImageCardSection",
+      "heading": "Get The Overview",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-40c70b579acf4f0456a1db9fe44a1a7b527b3466-1620x720-png",
+          "_type": "reference"
+        }
+      },
+      "imageAlt": "Velt DevTools inspector showing Api Key, User, Organization, Documents, Locations, and Folders rows",
+      "imageBottomOffset": 0,
+      "imageHeight": 568,
+      "imageWidth": 1280,
+      "inlineTestimonial": {
+        "accentColor": "#b4b1fa",
+        "accentFragment": "boost engagement",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f026d19f57ca9085b599aa92166c92c2d5c56a3e-104x104-png",
+            "_type": "reference"
+          }
+        },
+        "name": "Linda Belcher",
+        "quote": "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+        "role": "Product Manager @HeyGen"
+      },
+      "primaryCta": {
+        "_type": "ctaLink",
+        "href": "https://chrome.google.com/webstore/",
+        "label": "Get Extension",
+        "newTab": true
+      },
+      "subheading": "See key details about your Velt installation",
+      "videoSrc": "/videos/features/dev-tools/get-the-overview.mp4"
+    },
+    {
+      "_key": "img-access-data",
+      "_type": "featureImageCardSection",
+      "heading": "Access Data",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-40c70b579acf4f0456a1db9fe44a1a7b527b3466-1620x720-png",
+          "_type": "reference"
+        }
+      },
+      "imageAlt": "Velt DevTools inspector showing Api Key, User, Organization, Documents, Locations, and Folders rows",
+      "imageBottomOffset": 0,
+      "imageHeight": 568,
+      "imageWidth": 1280,
+      "inlineTestimonial": {
+        "accentColor": "#b4b1fa",
+        "accentFragment": "boost engagement",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f026d19f57ca9085b599aa92166c92c2d5c56a3e-104x104-png",
+            "_type": "reference"
+          }
+        },
+        "name": "Linda Belcher",
+        "quote": "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+        "role": "Product Manager @HeyGen"
+      },
+      "primaryCta": {
+        "_type": "ctaLink",
+        "href": "https://chrome.google.com/webstore/",
+        "label": "Get Extension",
+        "newTab": true
+      },
+      "subheading": "View all the Velt data surfaced in your product",
+      "videoSrc": "/videos/features/dev-tools/access-data.mp4"
+    },
+    {
+      "_key": "img-event-stream",
+      "_type": "featureImageCardSection",
+      "heading": "Observe Event Stream",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-40c70b579acf4f0456a1db9fe44a1a7b527b3466-1620x720-png",
+          "_type": "reference"
+        }
+      },
+      "imageAlt": "Velt DevTools inspector showing Api Key, User, Organization, Documents, Locations, and Folders rows",
+      "imageBottomOffset": 0,
+      "imageHeight": 568,
+      "imageWidth": 1280,
+      "inlineTestimonial": {
+        "accentColor": "#b4b1fa",
+        "accentFragment": "boost engagement",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f026d19f57ca9085b599aa92166c92c2d5c56a3e-104x104-png",
+            "_type": "reference"
+          }
+        },
+        "name": "Linda Belcher",
+        "quote": "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+        "role": "Product Manager @HeyGen"
+      },
+      "primaryCta": {
+        "_type": "ctaLink",
+        "href": "https://chrome.google.com/webstore/",
+        "label": "Get Extension",
+        "newTab": true
+      },
+      "subheading": "Monitor Velt Events in real time",
+      "videoSrc": "/videos/features/dev-tools/observe-event-stream.mp4"
+    },
+    {
+      "_key": "img-inspect",
+      "_type": "featureImageCardSection",
+      "heading": "Inspect Components",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-40c70b579acf4f0456a1db9fe44a1a7b527b3466-1620x720-png",
+          "_type": "reference"
+        }
+      },
+      "imageAlt": "Velt DevTools inspector showing Api Key, User, Organization, Documents, Locations, and Folders rows",
+      "imageBottomOffset": 0,
+      "imageHeight": 568,
+      "imageWidth": 1280,
+      "inlineTestimonial": {
+        "accentColor": "#b4b1fa",
+        "accentFragment": "boost engagement",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f026d19f57ca9085b599aa92166c92c2d5c56a3e-104x104-png",
+            "_type": "reference"
+          }
+        },
+        "name": "Linda Belcher",
+        "quote": "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+        "role": "Product Manager @HeyGen"
+      },
+      "primaryCta": {
+        "_type": "ctaLink",
+        "href": "https://chrome.google.com/webstore/",
+        "label": "Get Extension",
+        "newTab": true
+      },
+      "subheading": "Find and interact with Velt components in your product",
+      "videoSrc": "/videos/features/dev-tools/inspect-components.mp4"
+    },
+    {
+      "_key": "img-sdk-version",
+      "_type": "featureImageCardSection",
+      "heading": "Test With Any SDK Version",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-40c70b579acf4f0456a1db9fe44a1a7b527b3466-1620x720-png",
+          "_type": "reference"
+        }
+      },
+      "imageAlt": "Velt DevTools inspector showing Api Key, User, Organization, Documents, Locations, and Folders rows",
+      "imageBottomOffset": 0,
+      "imageHeight": 568,
+      "imageWidth": 1280,
+      "inlineTestimonial": {
+        "accentColor": "#b4b1fa",
+        "accentFragment": "boost engagement",
+        "avatar": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f026d19f57ca9085b599aa92166c92c2d5c56a3e-104x104-png",
+            "_type": "reference"
+          }
+        },
+        "name": "Linda Belcher",
+        "quote": "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+        "role": "Product Manager @HeyGen"
+      },
+      "primaryCta": {
+        "_type": "ctaLink",
+        "href": "https://chrome.google.com/webstore/",
+        "label": "Get Extension",
+        "newTab": true
+      },
+      "subheading": "Quickly switch between different versions of Velt SDK",
+      "videoSrc": "/videos/features/dev-tools/test-with-any-sdk-version.mp4"
+    }
+  ],
+  "showCustomerStories": false,
+  "showSecurity": false,
+  "showTrustedLogos": true,
+  "slug": {
+    "_type": "slug",
+    "current": "dev-tools"
+  },
+  "tagline": "Debug Velt directly in the browser.",
+  "title": "Dev Tools"
+}

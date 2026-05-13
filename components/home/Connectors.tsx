@@ -346,7 +346,7 @@ export function Connectors() {
         <InlineTestimonialCard
           name="Hope Callaway"
           role="Senior PM @Leadpages"
-          quote="With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs"
+          quote="With Velt, implementation took weeks instead of the quarters it would have taken, even with 3 FTEs"
           avatarSrc="/images/home/avatar-leadpages.png"
         />
       </div>

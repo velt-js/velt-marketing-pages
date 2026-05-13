@@ -144,7 +144,7 @@ export default function EnterprisePage() {
                 visual: <CardVisual src="/images/security/Mutli%20Region%20Hosting.png" />,
               },
               {
-                title: "Isolated Server and Data Storage",
+                title: "Isolated Servers and Data Storage",
                 subtitle:
                   "Enable Loom-style recording. Your users can record their screen, camera or audio",
                 visual: <CardVisual src="/images/security/Isolated%20Data.png" />,

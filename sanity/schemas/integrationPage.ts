@@ -105,7 +105,7 @@ export const integrationPage = defineType({
       options: { hotspot: false },
     }),
 
-    // ---- Section 3: In-built payload transformation ----
+    // ---- Section 3: Built-in payload transformation ----
     defineField({
       name: "payloadBody",
       title: "Payload Section Body",
