@@ -294,7 +294,7 @@ const productAsync: DropdownItem[] = [
 
 const productRealtime: DropdownItem[] = [
   { label: "Multiplayer Editing", href: "/multiplayer-editing", icon: icons.yjs, tint: "#48cfad" },
-  { label: "Single Editor", href: "/multiplayer-editing", icon: icons.pencilStar, tint: "#5ca3ff" },
+  { label: "Single Editor", href: "https://docs.velt.dev/realtime-collaboration/single-editor-mode/overview", icon: icons.pencilStar, tint: "#5ca3ff" },
   { label: "Live State Sync", href: "https://docs.velt.dev/realtime-collaboration/live-state-sync/overview", icon: icons.refresh, tint: "#48cfad" },
   { label: "Live Selection", href: "https://docs.velt.dev/realtime-collaboration/live-selection/overview", icon: icons.click, tint: "#b387f7" },
   { label: "Huddle", href: "https://docs.velt.dev/realtime-collaboration/huddle/overview", icon: icons.headphones, tint: "#a4bd52" },
@@ -308,7 +308,7 @@ const productPlatform: DropdownItem[] = [
   { label: "Dev Tools", href: "/devtools", icon: icons.circle, tint: "#f5d14a" },
   { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
-  { label: "Integrations", href: "https://docs.velt.dev/integrations", icon: icons.plug, tint: "#ffa3fa" },
+  { label: "Integrations", href: "/integrations", icon: icons.plug, tint: "#ffa3fa" },
 ];
 
 const productColumns: DropdownColumn[] = [

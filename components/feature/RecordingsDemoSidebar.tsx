@@ -107,13 +107,14 @@ export function RecordingsDemoSidebar() {
     <section
       className="flex flex-col items-center bg-black full-bleed-bg px-6 pb-16 lg:px-20 lg:pb-[100px]"
     >
-      <div className="w-full overflow-x-auto">
+      <div className="w-full overflow-x-auto flex justify-center">
       <div
         style={{
           // Narrower than the 1280px page rail because the recorder demo's
           // natural content (a small centered "click to start" widget) is
           // narrow — a full-page-width frame leaves huge empty flanks.
           width: 1200,
+          flexShrink: 0,
           background: CHROME,
           border: `2px solid ${CHROME}`,
           borderRadius: 12,
