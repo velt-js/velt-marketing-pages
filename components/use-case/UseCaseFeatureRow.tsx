@@ -142,9 +142,8 @@ export function UseCaseFeatureRow({
       className="relative overflow-hidden w-full lg:flex-1 lg:min-w-0"
       style={{
         minHeight: 240,
-        border: "1px solid #d9d9d9",
         borderRadius: VISUAL_RADIUS,
-        background: "#ffffff",
+        background: "#000000",
       }}
     >
       {image ? (
