@@ -36,6 +36,7 @@ export function BuildYourOwnUICTA() {
           style={{
             top: 55,
             left: "50%",
+            transform: "translateX(-50%)",
             gap: 32,
           }}
         >

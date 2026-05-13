@@ -21,7 +21,7 @@ const asyncFeatures: LinkGroup = {
     { label: "View Analytics", href: "https://docs.velt.dev/async-collaboration/view-analytics/overview", newTab: true },
     { label: "Reactions", href: "https://docs.velt.dev/async-collaboration/reactions/overview", newTab: true },
     { label: "Customization", href: "/customization" },
-    { label: "Try Features", href: "https://velt.dev/try-features", newTab: true },
+    { label: "Try Features", href: "https://samples.velt.dev/", newTab: true },
   ],
 };
 
@@ -50,7 +50,7 @@ const realtimeFeatures: LinkGroup = {
     { label: "Cursors", href: "https://docs.velt.dev/realtime-collaboration/cursors/overview", newTab: true },
     { label: "Follow Mode", href: "https://docs.velt.dev/realtime-collaboration/flock-mode/overview", newTab: true },
     { label: "Customization", href: "/customization" },
-    { label: "Try Features", href: "https://velt.dev/try-features", newTab: true },
+    { label: "Try Features", href: "https://samples.velt.dev/", newTab: true },
   ],
 };
 
