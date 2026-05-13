@@ -27,12 +27,6 @@ import {
   UseCaseSections,
   type UseCaseSectionDoc,
 } from "@/components/use-case/UseCaseSections";
-import { UseCaseProblemSection } from "@/components/use-case/UseCaseProblemSection";
-import { UseCaseExampleSection } from "@/components/use-case/UseCaseExampleSection";
-import { UseCaseBenefits } from "@/components/use-case/UseCaseBenefits";
-import { UseCaseCodeSnippet } from "@/components/use-case/UseCaseCodeSnippet";
-import { UseCaseTestimonial } from "@/components/use-case/UseCaseTestimonial";
-import { UseCaseActionCallout } from "@/components/use-case/UseCaseActionCallout";
 import {
   getAllUseCaseSlugs,
   getUseCasePageBySlug,
@@ -66,45 +60,6 @@ type UseCasePageDoc = {
     secondaryCta?: CtaLink;
   };
   sections: UseCaseSectionDoc[];
-  problemSection?: {
-    title1?: string | null;
-    title2?: string | null;
-    items?: Array<{ _key?: string; imageSrc?: string | null; text?: string | null }> | null;
-  } | null;
-  exampleSection?: {
-    videoSrc?: string | null;
-    imageSrc?: string | null;
-    exampleUrl?: string | null;
-    sandboxLink?: string | null;
-    docsLink?: string | null;
-    featureCountText?: string | null;
-    features?: (string | null)[] | null;
-  } | null;
-  benefits?: Array<{
-    _key?: string;
-    tag?: string | null;
-    title?: string | null;
-    description?: string | null;
-    imageSrc?: string | null;
-    useCases?: Array<{
-      _key?: string;
-      imageSrc?: string | null;
-      name?: string | null;
-      link?: string | null;
-    }> | null;
-  }> | null;
-  codeSnippet?: { code?: string | null; language?: string | null } | null;
-  testimonial?: {
-    quote?: string | null;
-    name?: string | null;
-    roleAndCompany?: string | null;
-    logoSrc?: string | null;
-  } | null;
-  actionCallout?: {
-    text1?: string | null;
-    text2?: string | null;
-    text3?: string | null;
-  } | null;
   showLibrarySection?: boolean;
   showCustomerUI?: boolean;
   showSecurity?: boolean;
@@ -188,53 +143,7 @@ export default async function UseCaseSlugPage({
 
         <TrustedLogos />
 
-        {(() => {
-          // Legacy sections[] is auto-populated with Build/Review/Approve
-          // scaffolds (eyebrow only, no heading). Filter out scaffold-only
-          // rows so we don't render empty cards for the ~13 newly-ported
-          // pages that haven't filled in row-specific copy.
-          const meaningfulSections = (doc.sections ?? []).filter(
-            (s) => s?.heading && s?.description,
-          );
-          const hasLegacy = meaningfulSections.length > 0;
-          const hasNewContent =
-            !!doc.problemSection ||
-            !!doc.exampleSection ||
-            !!doc.benefits?.length ||
-            !!doc.codeSnippet?.code ||
-            !!doc.testimonial ||
-            !!doc.actionCallout;
-
-          return (
-            <>
-              {hasLegacy ? (
-                <UseCaseSections sections={meaningfulSections} />
-              ) : null}
-              {hasNewContent ? (
-                <section
-                  data-outcomes={hasLegacy ? undefined : ""}
-                  className="relative flex flex-col items-center full-bleed-bg w-full"
-                  style={{
-                    background: "#FFFFFF",
-                    ...(hasLegacy
-                      ? {}
-                      : {
-                          borderTopLeftRadius: 52,
-                          borderTopRightRadius: 52,
-                        }),
-                  }}
-                >
-                  <UseCaseProblemSection {...(doc.problemSection ?? {})} />
-                  <UseCaseBenefits benefits={doc.benefits} />
-                  <UseCaseExampleSection {...(doc.exampleSection ?? {})} />
-                  <UseCaseCodeSnippet {...(doc.codeSnippet ?? {})} />
-                  <UseCaseTestimonial {...(doc.testimonial ?? {})} />
-                  <UseCaseActionCallout {...(doc.actionCallout ?? {})} />
-                </section>
-              ) : null}
-            </>
-          );
-        })()}
+        <UseCaseSections sections={doc.sections ?? []} />
 
         {showCustomerUI ? <CustomerUI /> : null}
 
