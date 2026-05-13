@@ -142,9 +142,8 @@ export function UseCaseFeatureRow({
       className="relative overflow-hidden w-full lg:flex-1 lg:min-w-0"
       style={{
         minHeight: 240,
-        border: "1px solid #d9d9d9",
         borderRadius: VISUAL_RADIUS,
-        background: "#ffffff",
+        background: "#000000",
       }}
     >
       {image ? (
@@ -190,17 +189,17 @@ export function UseCaseFeatureRow({
 function FeatureChip({ chip }: { chip: UseCaseFeatureChipData }) {
   const inner = (
     <span
-      className="font-urbanist font-semibold"
+      className="font-urbanist"
       style={{
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: 16,
+        fontSize: 14,
+        fontWeight: 400,
         lineHeight: 1.2,
-        letterSpacing: "-0.48px",
-        color: "#ffffff",
-        mixBlendMode: "exclusion",
-        border: "2px solid #625df5",
+        letterSpacing: "-0.42px",
+        color: "#111",
+        border: "1px solid #d9d9d9",
         borderRadius: 32,
         padding: "10px 16px",
         whiteSpace: "nowrap",
