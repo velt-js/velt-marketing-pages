@@ -115,10 +115,10 @@ function DivLine({ closing = false }: { closing?: boolean }) {
 function TemplateVariablesVisual() {
   return (
     <div
-      className="relative bg-white"
+      className="relative bg-white flex"
       style={{ width: "100%", height: "100%" }}
     >
-      {/* App.tsx header */}
+      {/* App.tsx header — single absolute element, anchored top-left */}
       <div
         className="absolute flex items-center"
         style={{
@@ -130,16 +130,22 @@ function TemplateVariablesVisual() {
           fontWeight: 500,
           color: "#000",
           opacity: 0.16,
+          zIndex: 1,
         }}
       >
         <span>{"//"}</span>
         <span>App.tsx</span>
       </div>
 
-      {/* Code editor (left) */}
+      {/* Left column — code editor pinned to top under the App.tsx label */}
       <div
-        className="absolute flex flex-col items-start overflow-hidden"
-        style={{ left: 8, top: 64, width: "44%", gap: 14 }}
+        className="flex flex-col items-start overflow-hidden"
+        style={{
+          flex: "0 0 50%",
+          paddingLeft: 8,
+          paddingTop: 64,
+          gap: 14,
+        }}
       >
         <CodeLine num={1}>
           <DivLine />
@@ -155,31 +161,29 @@ function TemplateVariablesVisual() {
         </CodeLine>
       </div>
 
-      {/* Vertical divider */}
+      {/* Vertical divider — sits in normal flow between the two columns */}
       <div
-        className="absolute"
         style={{
-          left: "50%",
-          top: 12,
-          bottom: 12,
           width: 1,
           background: "#eef0ff",
+          marginTop: 12,
+          marginBottom: 12,
         }}
       />
 
-      {/* UI panel (right) — bordered "<div>" mock card */}
+      {/* Right column — flex-centered mock card */}
       <div
-        className="absolute"
+        className="flex items-center"
+        style={{ flex: 1, paddingLeft: 24, paddingRight: 24 }}
+      >
+      <div
+        className="relative w-full"
         style={{
-          left: "calc(50% + 24px)",
-          right: 24,
-          top: "50%",
-          transform: "translateY(-50%)",
           border: "0.5px solid #3f5bea",
           borderRadius: 8,
-          overflow: "hidden",
           padding: 16,
           paddingTop: 38,
+          boxSizing: "border-box",
         }}
       >
         {/* "<div>" pill in top-left of the bordered card */}
@@ -296,6 +300,7 @@ function TemplateVariablesVisual() {
             </span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

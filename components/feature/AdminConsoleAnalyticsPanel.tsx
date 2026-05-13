@@ -202,7 +202,7 @@ function AnalyticsBody() {
           style={{
             left: 690,
             top: 88,
-            width: 280,
+            width: 340,
             background: "#0e0c38",
             border: "1px solid #cc26c0",
             borderRadius: 16,
