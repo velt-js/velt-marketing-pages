@@ -19,10 +19,14 @@ const TABS: DemoTab[] = [
   {
     label: "Button",
     description: "Trigger notifications from a button anywhere in your app.",
+    iframe:
+      "https://demo-examples.vercel.app/async/notifications?background=0A0A0A&theme=dark&embedMode=false",
   },
   {
     label: "Embedded",
     description: "Embed the notifications panel inline inside your UI.",
+    iframe:
+      "https://demo-examples.vercel.app/async/notifications?background=0A0A0A&theme=dark&embedMode=true",
   },
 ];
 

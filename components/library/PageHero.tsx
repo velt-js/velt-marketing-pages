@@ -212,7 +212,6 @@ export function PageHero({
                   border: "1.002px solid #625df5",
                   fontSize: 16,
                   letterSpacing: "-0.03em",
-                  mixBlendMode: "exclusion",
                 }}
               >
                 {secondaryCta.leadingIcon}

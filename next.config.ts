@@ -136,6 +136,11 @@ const nextConfig: NextConfig = {
         destination: "/liveblocks-alternative",
         permanent: true,
       },
+      {
+        source: "/boost-engagement-with-velt",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
