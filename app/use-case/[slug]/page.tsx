@@ -48,6 +48,20 @@ type CtaLink = {
   newTab?: boolean;
 };
 
+type BenefitDoc = {
+  _key?: string;
+  tag?: string | null;
+  title?: string | null;
+  description?: string | null;
+  imageSrc?: string | null;
+  useCases?: Array<{
+    _key?: string;
+    name?: string | null;
+    link?: string | null;
+    imageSrc?: string | null;
+  }> | null;
+};
+
 type UseCasePageDoc = {
   title: string;
   slug: string;
@@ -60,6 +74,9 @@ type UseCasePageDoc = {
     secondaryCta?: CtaLink;
   };
   sections: UseCaseSectionDoc[];
+  /** Framer-shaped per-page content. Each benefit becomes a feature
+   *  row in the white middle section. See `mapBenefitsToSections`. */
+  benefits?: BenefitDoc[] | null;
   showLibrarySection?: boolean;
   showCustomerUI?: boolean;
   showSecurity?: boolean;
@@ -69,6 +86,32 @@ type UseCasePageDoc = {
   metaDescription?: string;
   ogImage?: string;
 };
+
+// Eyebrow fallback when a benefit has no `tag` set — matches the
+// Build/Review/Approve pattern the existing seed (Video Editor) used.
+// 4th slot handles the upper bound of the schema array (max 4 benefits).
+const DEFAULT_BENEFIT_EYEBROWS = ["Build", "Review", "Approve", "Scale"];
+
+function mapBenefitsToSections(
+  benefits?: BenefitDoc[] | null,
+): UseCaseSectionDoc[] {
+  if (!benefits || benefits.length === 0) return [];
+  return benefits.map((b, i) => ({
+    _key: b._key ?? `benefit-row-${i}`,
+    eyebrow: b.tag ?? DEFAULT_BENEFIT_EYEBROWS[i] ?? "",
+    heading: b.title ?? "",
+    description: b.description ?? "",
+    features: (b.useCases ?? [])
+      .filter((uc): uc is { _key?: string; name?: string | null; link?: string | null } => Boolean(uc?.name))
+      .map((uc, j) => ({
+        _key: uc._key ?? `${b._key ?? `benefit-${i}`}-chip-${j}`,
+        label: uc.name as string,
+        href: uc.link ?? null,
+      })),
+    image: b.imageSrc ?? null,
+    imagePosition: i % 2 === 0 ? "right" : "left",
+  }));
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllUseCaseSlugs();
@@ -143,7 +186,18 @@ export default async function UseCaseSlugPage({
 
         <TrustedLogos />
 
-        <UseCaseSections sections={doc.sections ?? []} />
+        {(() => {
+          // Prefer per-page benefits[] (Nathan's manual port content)
+          // over the legacy sections[] scaffold which is identical
+          // across most of the 13 ported docs. Fall back to sections[]
+          // when benefits[] is absent so the Video Editor seed and any
+          // future legacy-only docs still render.
+          const mappedBenefitRows = mapBenefitsToSections(doc.benefits);
+          const rows = mappedBenefitRows.length > 0
+            ? mappedBenefitRows
+            : (doc.sections ?? []);
+          return <UseCaseSections sections={rows} />;
+        })()}
 
         {showCustomerUI ? <CustomerUI /> : null}
 
