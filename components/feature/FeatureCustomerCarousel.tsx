@@ -107,7 +107,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
   {
     customerLogoSrc: "/images/features/comments/trust-us/logo-cloudfactory.png",
     pullQuote: "Saved massive development effort",
-    body: "Velt provides the critical commenting functionality our customers rely on, saving us massive development effort. Velt made migrating our commenting data from our previous vendor seamless. After evaluating other options, Velt stood out as the most compelling choice. They not only met our core requirements but also offered a wealth of additional features for future implementation.",
+    body: "Velt provides the critical commenting functionality our customers rely on, saving us massive development effort. Migration from our previous vendor was seamless.",
     authorName: "Fenne Buitenrust Hettema",
     authorRole: "Product Lead @Cloudfactory",
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-fenne.png",
