@@ -78,12 +78,16 @@ async function scrapeBenefitImages(slug) {
     orderedImages.push(m[0].replace(/&amp;/g, "&"));
   }
 
-  const rows = positions.map((p, i) => ({
-    _key: p._key,
-    title: p.title,
-    onLivePage: p.pos !== -1,
-    image: p.pos !== -1 ? orderedImages[i] ?? null : null,
-  }));
+  // Walk CMS headings in order and pair each *present* heading with the
+  // next un-consumed image. Using the full-positions index would mis-pair
+  // when an absent heading sits in the middle of the list (the present
+  // headings on the live page would slip out of sync with orderedImages).
+  let imgIdx = 0;
+  const rows = positions.map((p) => {
+    const onLivePage = p.pos !== -1;
+    const image = onLivePage ? orderedImages[imgIdx++] ?? null : null;
+    return { _key: p._key, title: p.title, onLivePage, image };
+  });
   return { docId: doc._id, slug, rows };
 }
 

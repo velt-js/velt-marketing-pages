@@ -42,6 +42,9 @@ const DOCS = "https://docs.velt.dev";
 const LABEL_MAP = [
   // Internal feature pages -----------------------------------------------
   {
+    // `tax` is not a typo on our end — the `docs` use-case in CMS has
+    // a chip authored as "Tax Comment" (sic, intended "Text Comment").
+    // Keep the alternative so a re-run still maps that chip cleanly.
     match: /^(text|box|pin|pop ?over|page|area|tax) ?comments?$/i,
     url: "/comments",
     confidence: "linked",

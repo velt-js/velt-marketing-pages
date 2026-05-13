@@ -80,12 +80,17 @@ for (const m of html.slice(zoneStart, zoneEnd).matchAll(imgRe)) {
   orderedImages.push(m[0].replace(/&amp;/g, "&"));
 }
 
+// Pair each *present* heading with the next un-consumed image. Indexing
+// by the full-positions index would mis-pair when an absent heading
+// sits in the middle of the list (the live-page-present headings would
+// slip out of sync with orderedImages).
 const out = { slug, benefits: [] };
+let imgIdx = 0;
 for (let i = 0; i < cmsHeadings.length; i++) {
   const found = headingPositions[i].pos !== -1;
   out.benefits.push({
     title: cmsHeadings[i],
-    image: found ? orderedImages[i] ?? null : null,
+    image: found ? orderedImages[imgIdx++] ?? null : null,
     onLivePage: found,
   });
 }
