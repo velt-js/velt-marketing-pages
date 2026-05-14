@@ -90,7 +90,7 @@ async function main() {
   const getExtensionCta = {
     _type: "ctaLink",
     label: "Get Extension",
-    href: "https://chrome.google.com/webstore/",
+    href: "https://chromewebstore.google.com/detail/velt-devtools/nfldoicbagllmegffdapcnohakpamlnl",
     newTab: true,
   };
 
@@ -121,7 +121,7 @@ async function main() {
       primaryCta: {
         _type: "ctaLink",
         label: "Get Chrome Extension",
-        href: "https://chrome.google.com/webstore/",
+        href: "https://chromewebstore.google.com/detail/velt-devtools/nfldoicbagllmegffdapcnohakpamlnl",
         newTab: true,
       },
       secondaryCta: {
