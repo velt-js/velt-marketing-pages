@@ -74,6 +74,27 @@ async function main() {
   const avatarEthan = await uploadImage(
     "public/images/home/libraries/tiptap/avatars/ethan.png",
   );
+  const tileMultiplayer = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-multiplayer.jpg",
+  );
+  const tileComments = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-comments.jpg",
+  );
+  const tileCursors = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-cursors.jpg",
+  );
+  const tileMentions = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-mentions.jpg",
+  );
+  const tileHistory = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-history.jpg",
+  );
+  const tileSingleEditor = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-single-editor.jpg",
+  );
+  const tileOffline = await uploadImage(
+    "public/images/home/libraries/tiptap/bento/tile-offline.jpg",
+  );
   console.log("  → uploaded.");
 
   const doc = {
@@ -139,28 +160,28 @@ async function main() {
           _key: "card-multiplayer",
           title: "Multiplayer Editing",
           description: "Co-edit documents in real-time and see who is working with you",
-          illustrationKey: "multiplayerEditing",
+          image: tileMultiplayer,
         },
         {
           _type: "bentoCard",
           _key: "card-comments",
           title: "Contextual Comments",
           description: "Enable rich conversations with replies, @mentions, and reactions",
-          illustrationKey: "contextualComments",
+          image: tileComments,
         },
         {
           _type: "bentoCard",
           _key: "card-cursors",
           title: "Real-time Cursors & Presence",
           description: "Decide how users appear with fully customizable name tags and cursors",
-          illustrationKey: "customizableCursors",
+          image: tileCursors,
         },
         {
           _type: "bentoCard",
           _key: "card-mentions",
           title: "User Mentions",
           description: "Enable rich conversations with replies, @mentions, and reactions",
-          illustrationKey: "userMentions",
+          image: tileMentions,
         },
         {
           _type: "bentoCard",
@@ -174,21 +195,21 @@ async function main() {
           _key: "card-history",
           title: "Version History",
           description: "See what changes have been made to a shared document with timestamps",
-          illustrationKey: "versionHistory",
+          image: tileHistory,
         },
         {
           _type: "bentoCard",
           _key: "card-single-editor",
           title: "Single Editor Mode",
           description: "Limit editing control to one user in collaborative scenarios",
-          illustrationKey: "singleEditorMode",
+          image: tileSingleEditor,
         },
         {
           _type: "bentoCard",
           _key: "card-offline",
           title: "Offline Storage",
           description: "Keep working when the connection drops. Data will sync when you reconnect",
-          illustrationKey: "offlineStorage",
+          image: tileOffline,
         },
       ],
     },

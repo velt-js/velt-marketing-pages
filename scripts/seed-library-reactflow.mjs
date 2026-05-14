@@ -75,28 +75,28 @@ async function main() {
     "public/images/home/libraries/tiptap/avatars/ethan.png",
   );
   const tileMultiplayer = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-multiplayer.png",
+    "public/images/home/libraries/reactflow/bento/tile-multiplayer.jpg",
   );
   const tileComments = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-comments.png",
+    "public/images/home/libraries/reactflow/bento/tile-comments.jpg",
   );
   const tileCursors = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-cursors.png",
+    "public/images/home/libraries/reactflow/bento/tile-cursors.jpg",
   );
   const tileMentions = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-mentions.png",
+    "public/images/home/libraries/reactflow/bento/tile-mentions.jpg",
   );
   const tileNotification = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-notification.png",
+    "public/images/home/libraries/reactflow/bento/tile-notification.jpg",
   );
   const tileHistory = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-history.png",
+    "public/images/home/libraries/reactflow/bento/tile-history.jpg",
   );
   const tileUndo = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-undo.png",
+    "public/images/home/libraries/reactflow/bento/tile-undo.jpg",
   );
   const tileOffline = await uploadImage(
-    "public/images/home/libraries/reactflow/bento/tile-offline.png",
+    "public/images/home/libraries/reactflow/bento/tile-offline.jpg",
   );
   console.log("  → uploaded.");
 
