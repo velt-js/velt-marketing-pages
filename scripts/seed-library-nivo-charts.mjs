@@ -83,22 +83,22 @@ async function main() {
   // Bento tiles are reused from highcharts since both chart libraries surface
   // the same 6 feature tiles on the live site.
   const tileComments = await uploadImage(
-    "public/images/home/libraries/highcharts/bento/tile-comments.png",
+    "public/images/home/libraries/highcharts/bento/tile-comments.jpg",
   );
   const tileSticky = await uploadImage(
-    "public/images/home/libraries/highcharts/bento/tile-sticky.png",
+    "public/images/home/libraries/highcharts/bento/tile-sticky.jpg",
   );
   const tileCursors = await uploadImage(
-    "public/images/home/libraries/highcharts/bento/tile-cursors.png",
+    "public/images/home/libraries/highcharts/bento/tile-cursors.jpg",
   );
   const tileMentions = await uploadImage(
-    "public/images/home/libraries/highcharts/bento/tile-mentions.png",
+    "public/images/home/libraries/highcharts/bento/tile-mentions.jpg",
   );
   const tileNotification = await uploadImage(
-    "public/images/home/libraries/highcharts/bento/tile-notification.png",
+    "public/images/home/libraries/highcharts/bento/tile-notification.jpg",
   );
   const tileOffline = await uploadImage(
-    "public/images/home/libraries/highcharts/bento/tile-offline.png",
+    "public/images/home/libraries/highcharts/bento/tile-offline.jpg",
   );
   console.log("  → uploaded.");
 

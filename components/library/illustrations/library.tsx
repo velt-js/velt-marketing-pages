@@ -40,40 +40,42 @@ function BentoTile({ src }: { src: string }) {
 // 1. Multiplayer Editing — Figma 1:5636 (tile bg) composited with
 //    1:5644 (illustration, structurally a sibling), then cropped.
 export function MultiplayerEditingIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-multiplayer.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-multiplayer.jpg`} />;
 }
 
 // 2. Real-time Cursors & Presence — Figma 1:5595, cropped.
 export function CustomizableCursorsIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-cursors.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-cursors.jpg`} />;
 }
 
 // 3. Notification — Figma 162:18776, cropped.
 export function NotificationIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-notification.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-notification.jpg`} />;
 }
 
 // 4. Single Editor Mode — Figma 162:18995, cropped.
 export function SingleEditorModeIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-single-editor.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-single-editor.jpg`} />;
 }
 
 // 5. Contextual Comments — Figma 1:5619, cropped.
 export function ContextualCommentsIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-comments.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-comments.jpg`} />;
 }
 
 // 6. User Mentions — Figma 162:18640, cropped.
 export function UserMentionsIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-mentions.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-mentions.jpg`} />;
 }
 
-// 7. Version History — Figma 162:18639, cropped.
+// 7. Version History — Figma 162:18639. File renamed from tile-version
+// to tile-history.jpg to match the seed-script naming used everywhere
+// else (tileHistory / "history" key).
 export function VersionHistoryIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-version.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-history.jpg`} />;
 }
 
 // 8. Offline Storage — Figma 162:19062, cropped.
 export function OfflineStorageIllustration() {
-  return <BentoTile src={`${BENTO_DIR}/tile-offline.png`} />;
+  return <BentoTile src={`${BENTO_DIR}/tile-offline.jpg`} />;
 }

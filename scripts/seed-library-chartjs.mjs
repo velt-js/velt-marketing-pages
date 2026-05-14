@@ -74,22 +74,22 @@ async function main() {
     "public/images/home/libraries/tiptap/avatars/ethan.png",
   );
   const tileComments = await uploadImage(
-    "public/images/home/libraries/chartjs/bento/tile-comments.png",
+    "public/images/home/libraries/chartjs/bento/tile-comments.jpg",
   );
   const tileSticky = await uploadImage(
-    "public/images/home/libraries/chartjs/bento/tile-sticky.png",
+    "public/images/home/libraries/chartjs/bento/tile-sticky.jpg",
   );
   const tileCursors = await uploadImage(
-    "public/images/home/libraries/chartjs/bento/tile-cursors.png",
+    "public/images/home/libraries/chartjs/bento/tile-cursors.jpg",
   );
   const tileMentions = await uploadImage(
-    "public/images/home/libraries/chartjs/bento/tile-mentions.png",
+    "public/images/home/libraries/chartjs/bento/tile-mentions.jpg",
   );
   const tileNotification = await uploadImage(
-    "public/images/home/libraries/chartjs/bento/tile-notification.png",
+    "public/images/home/libraries/chartjs/bento/tile-notification.jpg",
   );
   const tileOffline = await uploadImage(
-    "public/images/home/libraries/chartjs/bento/tile-offline.png",
+    "public/images/home/libraries/chartjs/bento/tile-offline.jpg",
   );
   console.log("  → uploaded.");
 

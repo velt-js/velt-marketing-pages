@@ -92,13 +92,13 @@ export default function EnterprisePage() {
               {
                 title: "Complimentary Design & Implementation Support",
                 subtitle: "Host your data where you need it",
-                visual: <CardVisual src="/images/enterprise/support/design-support.png" />,
+                visual: <CardVisual src="/images/enterprise/support/design-support.jpg" />,
               },
               {
                 title: "Dedicated CSM",
                 subtitle:
                   "Enable Loom-style recording. Your users can record their screen, camera or audio",
-                visual: <CardVisual src="/images/enterprise/support/dedicated-csm.png" />,
+                visual: <CardVisual src="/images/enterprise/support/dedicated-csm.jpg" />,
               },
             ]}
             wideBottomCard={{
@@ -108,7 +108,7 @@ export default function EnterprisePage() {
               visual: (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img
-                  src="/images/enterprise/support/slas.png"
+                  src="/images/enterprise/support/slas.jpg"
                   alt=""
                   aria-hidden="true"
                   style={{

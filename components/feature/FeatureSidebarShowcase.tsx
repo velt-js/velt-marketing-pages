@@ -7,7 +7,19 @@
 
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
+
+// Sanity CDN supports inline transforms via query params. The detail panel
+// maxes out near ~900px wide; w=1200 covers 2x retina without overshooting.
+// auto=format picks AVIF/WebP based on Accept; q=80 trims bytes with no
+// visible loss for screenshots. Skip non-Sanity URLs (local /public assets
+// don't have a transform endpoint).
+function withSanityResize(src: string | null | undefined, width = 1200) {
+  if (!src) return null;
+  if (!src.includes("cdn.sanity.io")) return src;
+  const sep = src.includes("?") ? "&" : "?";
+  return `${src}${sep}w=${width}&fit=max&auto=format&q=80`;
+}
 
 export type FeatureSidebarShowcaseItem = {
   label: string;
@@ -46,8 +58,29 @@ export function FeatureSidebarShowcase({
   );
   const [activeIdx, setActiveIdx] = useState(initialActive >= 0 ? initialActive : 0);
   const active = items[activeIdx];
-  const screenshotSrc = active?.screenshotSrc ?? defaultScreenshotSrc;
   const hasTestimonial = Boolean(testimonial?.quote);
+
+  const stackedSources = items.map((item) =>
+    withSanityResize(item.screenshotSrc ?? defaultScreenshotSrc ?? null),
+  );
+  const hasAnyScreenshot = stackedSources.some(Boolean);
+
+  // Only mount images that have been visited. Initial paint loads one image
+  // (the active one); hovering a sidebar item mounts that index's image and
+  // it stays in the DOM — so subsequent hovers are free (in-DOM + browser
+  // cache). Items the user never hovers never download. The old "stack
+  // everything up front" approach saturated the network for ~10s on the
+  // /comments page where the section has many items.
+  const [mounted, setMounted] = useState<Set<number>>(() => new Set([activeIdx]));
+  const showItem = useCallback((idx: number) => {
+    setActiveIdx(idx);
+    setMounted((prev) => {
+      if (prev.has(idx)) return prev;
+      const next = new Set(prev);
+      next.add(idx);
+      return next;
+    });
+  }, []);
 
   return (
     <section
@@ -123,7 +156,7 @@ export function FeatureSidebarShowcase({
                     color: isActive ? "#fff" : "#111",
                     transition: "background-color 150ms ease, color 150ms ease",
                   }}
-                  onMouseEnter={() => setActiveIdx(i)}
+                  onMouseEnter={() => showItem(i)}
                 >
                   <span
                     className="font-urbanist"
@@ -170,18 +203,41 @@ export function FeatureSidebarShowcase({
               <span aria-hidden>📁</span>
               {heading}
             </div>
-            {screenshotSrc ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={screenshotSrc}
-                alt={active?.label ?? heading}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  borderRadius: 12,
-                }}
-              />
+            {hasAnyScreenshot ? (
+              <div
+                className="relative"
+                style={{ width: "100%", height: "100%" }}
+              >
+                {stackedSources.map((src, i) => {
+                  if (!src || !mounted.has(i)) return null;
+                  const isActive = i === activeIdx;
+                  return (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      key={`${src}-${i}`}
+                      src={src}
+                      alt={isActive ? (active?.label ?? heading) : ""}
+                      aria-hidden={!isActive}
+                      decoding="async"
+                      // The initially active screenshot is the LCP candidate
+                      // for the section; everything else loads on hover.
+                      loading={i === initialActive ? "eager" : "lazy"}
+                      fetchPriority={i === initialActive ? "high" : "low"}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        borderRadius: 12,
+                        opacity: isActive ? 1 : 0,
+                        transition: "opacity 150ms ease",
+                        pointerEvents: isActive ? "auto" : "none",
+                      }}
+                    />
+                  );
+                })}
+              </div>
             ) : (
               <div
                 className="flex items-center justify-center"
