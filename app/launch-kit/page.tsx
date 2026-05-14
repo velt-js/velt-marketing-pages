@@ -1,25 +1,24 @@
-// Velt Launch Kit landing page — replica of https://velt.dev/launch-kit using
-// this repo's design system.
+// Velt Launch Kit landing page.
 //
-// Composition mirrors the /libraries and /integrations pattern:
+// Composition:
 //   Dark hero (PageHero, decorated)
-//     → 4 × white FeatureImageCard sections (email / social / website /
-//       sticker sheet templates) — each shows a screenshot and links out
-//       to the shared Figma community file
-//     → Customer launches band (FeatureImageCard with the YC-style "Check
-//       out assets from our customer launches" SVG)
+//     → LaunchKitTabs — dark section with "Off App" / "In App" tab rail
+//       and a 2-col grid of white cards. Off App = 4 marketing-asset
+//       templates (email / social / website / sticker sheet). In App = 5
+//       in-product UX patterns (indicator / tour guide / user action
+//       checklist / nudges / announcement notifications).
+//     → Customer launches marquee band
 //     → FAQ → GetStartedSteps → Footer
 //
-// All four template CTAs point to the same Figma community file (the live
-// site re-uses one Figma URL for every "Get Figma file" button). The hero
+// Every card CTA points to the same Figma community file; the hero
 // secondary CTA mirrors the live page's "Get Free API Key" → console.
 
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { Footer } from "@/components/home/Footer";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { PageHero } from "@/components/library/PageHero";
-import { FeatureImageCard } from "@/components/feature/FeatureImageCard";
 import { CustomerLaunches } from "@/components/launch-kit/CustomerLaunches";
+import { LaunchKitTabs } from "@/components/launch-kit/LaunchKitTabs";
 import { LibraryFAQ } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
 import { JsonLd } from "@/app/_seo/JsonLd";
@@ -83,62 +82,7 @@ export default function LaunchKitPage() {
           }}
         />
 
-        <FeatureImageCard
-          topAccent
-          heading="Email template"
-          subheading="Our professionally designed email template clearly communicates the value of your new features"
-          viewDocsCta={{
-            label: "Get Figma file",
-            href: FIGMA_KIT_URL,
-            newTab: true,
-          }}
-          imageSrc="/images/launch-kit/email-template.png"
-          imageAlt="Velt launch email template"
-          imageWidth={1100}
-          imageHeight={600}
-        />
-
-        <FeatureImageCard
-          heading="Social media template"
-          subheading="Easy ready-to-post assets for your social media accounts"
-          viewDocsCta={{
-            label: "Get Figma file",
-            href: FIGMA_KIT_URL,
-            newTab: true,
-          }}
-          imageSrc="/images/launch-kit/social-media-template.png"
-          imageAlt="Velt launch social media template"
-          imageWidth={1100}
-          imageHeight={600}
-        />
-
-        <FeatureImageCard
-          heading="Website template"
-          subheading="Don't fret on your launch site, just follow our template"
-          viewDocsCta={{
-            label: "Get Figma file",
-            href: FIGMA_KIT_URL,
-            newTab: true,
-          }}
-          imageSrc="/images/launch-kit/website-template.png"
-          imageAlt="Velt launch website template"
-          imageWidth={1100}
-          imageHeight={600}
-        />
-
-        <FeatureImageCard
-          heading="DIY sticker sheet"
-          subheading="Build your own launch graphics with our pre-built Figma components"
-          viewDocsCta={{
-            label: "Get Figma file",
-            href: FIGMA_KIT_URL,
-            newTab: true,
-          }}
-          imageSrc="/images/launch-kit/sticker-sheet.png"
-          imageAlt="Velt launch DIY sticker sheet"
-          imageWidth={1100}
-          imageHeight={600}
-        />
+        <LaunchKitTabs figmaUrl={FIGMA_KIT_URL} />
 
         <CustomerLaunches
           ctaLabel="View all assets"
