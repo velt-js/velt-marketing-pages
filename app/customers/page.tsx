@@ -21,6 +21,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { CUSTOMERS_WEBPAGE_SCHEMA } from "@/lib/bespoke-jsonld";
 
 const CUSTOMERS_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -47,6 +48,11 @@ export default function CustomersPage() {
     <>
       <JsonLd id="ld-customers-webpage" data={CUSTOMERS_WEBPAGE} />
       <JsonLd id="ld-customers-breadcrumb" data={CUSTOMERS_BREADCRUMB} />
+      {/* Framer-ported bespoke schema (Script 14): adds the
+          SoftwareApplication mainEntity, 37 customer Organization
+          mentions, and 5 Review entities with ratingValue 5 — the
+          ratings are the most SEO-valuable piece. */}
+      <JsonLd id="ld-customers-framer" data={CUSTOMERS_WEBPAGE_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

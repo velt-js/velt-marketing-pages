@@ -38,6 +38,7 @@ import { WebhooksAndApiDemoSidebar } from "@/components/feature/WebhooksAndApiDe
 import { WebhooksAndApiHighlights } from "@/components/feature/WebhooksAndApiHighlights";
 import { getFeaturePageBySlug } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
+import { BESPOKE_FEATURE_SCHEMAS_BY_SLUG } from "@/lib/bespoke-jsonld";
 import {
   SITE_URL,
   buildBreadcrumbList,
@@ -134,6 +135,17 @@ export async function FeaturePageBody({
       <JsonLd id="ld-feature-webpage" data={webpage} />
       <JsonLd id="ld-feature-breadcrumb" data={breadcrumb} />
       <JsonLd id="ld-feature-faq" data={faqSchema} />
+      {/* Framer-ported bespoke per-slug schemas. /recording emits the
+          rich SoftwareApplication featureList + screenshot block
+          (Script 16); other feature slugs use only the generic webpage
+          schema above. Add new entries to BESPOKE_FEATURE_SCHEMAS_BY_SLUG
+          as more Framer-style per-page schemas come over. */}
+      {pageUrlPath && BESPOKE_FEATURE_SCHEMAS_BY_SLUG[pageUrlPath] ? (
+        <JsonLd
+          id={`ld-feature-framer-${pageUrlPath}`}
+          data={BESPOKE_FEATURE_SCHEMAS_BY_SLUG[pageUrlPath]}
+        />
+      ) : null}
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

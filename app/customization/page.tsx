@@ -35,6 +35,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { CUSTOMIZATION_WEBPAGE_SCHEMA } from "@/lib/bespoke-jsonld";
 
 const CUSTOMIZATION_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -62,6 +63,9 @@ export default function CustomizationPage() {
     <>
       <JsonLd id="ld-customization-webpage" data={CUSTOMIZATION_WEBPAGE} />
       <JsonLd id="ld-customization-breadcrumb" data={CUSTOMIZATION_BREADCRUMB} />
+      {/* Framer-ported bespoke schema (Script 17): customization
+          keyword list + SoftwareApplication featureList. */}
+      <JsonLd id="ld-customization-framer" data={CUSTOMIZATION_WEBPAGE_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

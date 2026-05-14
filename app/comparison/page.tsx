@@ -30,6 +30,7 @@ import {
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
+import { COMPARISON_WEBPAGE_SCHEMA } from "@/lib/bespoke-jsonld";
 
 const COMPARISON_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -57,6 +58,10 @@ export default function ComparisonPage() {
     <>
       <JsonLd id="ld-comparison-webpage" data={COMPARISON_WEBPAGE} />
       <JsonLd id="ld-comparison-breadcrumb" data={COMPARISON_BREADCRUMB} />
+      {/* Framer-ported bespoke schema (Script 15): adds SDK keywords,
+          about SoftwareApplication featureList, and competitor-comparison
+          customer mentions. */}
+      <JsonLd id="ld-comparison-framer" data={COMPARISON_WEBPAGE_SCHEMA} />
       <div
         className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
       >

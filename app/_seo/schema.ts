@@ -73,6 +73,18 @@ export function buildWebSiteSchema(): Record<string, unknown> {
       url: SITE_URL,
       publisher: { "@id": ORG_ID },
       inLanguage: "en-US",
+      // mainEntity ImageObject mirrors the per-page WebSite JSON-LD
+      // Framer was emitting site-wide (Scripts 9 + 10) so the logo
+      // stays attached to the WebSite entity in addition to the
+      // Organization.logo field. SEO crawlers that key off either
+      // location keep getting the same asset.
+      mainEntity: [
+        {
+          "@type": "ImageObject",
+          url: "https://framerusercontent.com/images/vCF2hcxqRxsOmGcdO72Zk3CMbU.svg",
+          caption: "Velt Logo",
+        },
+      ],
     };
   } catch {
     return {};

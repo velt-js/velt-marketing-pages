@@ -4,18 +4,22 @@
 // re-instrumentation.
 //
 // Tools in flight (in load order):
-//   1. Termly  — cookie-consent resource blocker (autoBlock=off,
-//      so it loads but doesn't actively gate anything until consent UX
-//      lands)
-//   2. Mixpanel — custom CDN at cdn.velt.dev/mp/lib.min.js, custom
-//      api_host. Session recording + heatmap + autocapture enabled.
-//   3. Amplitude — session-replay plugin at 100% sample rate.
-//   4. Google Ads — gtag (conversion ID AW-16764728482).
-//   5. Reddit Pixel — a2_g76ztnxffwu2.
-//   6. Twitter (X) Pixel — ootae.
-//   7. Apollo — appId 65e19e14dc524f01c61d1357.
-//   8. reb2b  — Q6J2RHMPWQ6D.
-//   9. Common Room — site 08f69d8a-754c-4c96-a7de-bef17fb066e1.
+//   1.  Termly  — cookie-consent resource blocker (autoBlock=off,
+//       so it loads but doesn't actively gate anything until consent UX
+//       lands)
+//   2.  Mixpanel — custom CDN at cdn.velt.dev/mp/lib.min.js, custom
+//       api_host. Session recording + heatmap + autocapture enabled.
+//   3.  Amplitude — session-replay plugin at 100% sample rate.
+//   4.  Google Ads — gtag (conversion ID AW-16764728482).
+//   5.  Reddit Pixel — a2_g76ztnxffwu2.
+//   6.  Twitter (X) Pixel — ootae.
+//   7.  Apollo — appId 65e19e14dc524f01c61d1357.
+//   8.  reb2b  — Q6J2RHMPWQ6D.
+//   9.  Common Room — site 08f69d8a-754c-4c96-a7de-bef17fb066e1.
+//   10. Intercom — app_id fxx14qnk (chat widget).
+//   11. Calendly listener — listens for `calendly.event_scheduled`
+//       postMessages and fires a `demoBooked` event on Mixpanel and
+//       Koala (`window.ko`) with the page's query-string params.
 //
 // All use next/script `afterInteractive` so they fire after hydration
 // without blocking initial paint. Script execution order is preserved
@@ -155,6 +159,53 @@ export function Analytics() {
             script.async = true;
             window.signals = Object.assign([], ['page', 'identify', 'form'].reduce(function (acc, method){ acc[method] = function () { signals.push([method, arguments]); return signals; }; return acc; }, {}));
             document.head.appendChild(script);
+          })();
+        `}
+      </Script>
+
+      {/* 10. Intercom chat widget — settings + bootstrap stub combined
+          so window.intercomSettings is populated before the stub runs
+          (otherwise the widget loads with empty config and the
+          app_id never reaches Intercom). */}
+      <Script id="intercom" strategy="afterInteractive">
+        {`
+          window.intercomSettings = {
+            api_base: "https://api-iam.intercom.io",
+            app_id: "fxx14qnk"
+          };
+          (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/fxx14qnk';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
+        `}
+      </Script>
+
+      {/* 11. Calendly listener — fires `demoBooked` on Mixpanel
+          (loaded above) and Koala (window.ko if present) whenever
+          the embedded Calendly widget reports a successful booking.
+          Wrapped in an IIFE so the helper fns don't pollute window. */}
+      <Script id="calendly-listener" strategy="afterInteractive">
+        {`
+          (function() {
+            function getAllQueryParams() {
+              var search = window.location.search;
+              if (!search) return {};
+              var params = new URLSearchParams(search);
+              var queryParams = {};
+              if (params) {
+                for (var pair of params) {
+                  queryParams[pair[0]] = pair[1];
+                }
+              }
+              return queryParams;
+            }
+            function isCalendlyEvent(e) {
+              return e.data && e.data.event && e.data.event.indexOf('calendly') === 0;
+            }
+            window.addEventListener('message', function(e) {
+              if (!isCalendlyEvent(e)) return;
+              if (e.data.event !== 'calendly.event_scheduled') return;
+              var queryParams = getAllQueryParams();
+              if (window.mixpanel) window.mixpanel.track('demoBooked', queryParams);
+              if (window.ko) window.ko.track('demoBooked', queryParams);
+            });
           })();
         `}
       </Script>

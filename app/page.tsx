@@ -4,6 +4,10 @@ import {
   ORG_OG_IMAGE,
   SITE_URL,
 } from "./_seo/schema";
+import {
+  HOMEPAGE_PRODUCT_SCHEMA,
+  HOMEPAGE_SOFTWARE_APPLICATION_SCHEMA,
+} from "@/lib/bespoke-jsonld";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { Nav } from "@/components/home/Nav";
 import { Hero } from "@/components/home/Hero";
@@ -73,6 +77,21 @@ export default function Home() {
         <Nav />
       </div>
       <JsonLd id="ld-home-software" data={HOME_SOFTWARE_APPLICATION} />
+      {/* Framer-ported bespoke SoftwareApplication (Script 20) — adds
+          aggregateRating (5/5, 5 reviews), 3 named Review entities,
+          3 Offer tiers, full featureList, and social `sameAs` links.
+          The reviews are what light up rich snippets in SERPs. */}
+      <JsonLd
+        id="ld-home-software-framer"
+        data={HOMEPAGE_SOFTWARE_APPLICATION_SCHEMA}
+      />
+      {/* Framer-ported Product schema (Script 22) — sits alongside
+          the SoftwareApplication entities above. NB: all three offers
+          list price="0" in the Framer source (likely a copy-paste
+          artifact since Growth/Enterprise are contract-based). Kept
+          verbatim for SEO continuity; revisit if Google starts
+          surfacing $0 in a snippet. */}
+      <JsonLd id="ld-home-product-framer" data={HOMEPAGE_PRODUCT_SCHEMA} />
 
       <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
         <Hero />
