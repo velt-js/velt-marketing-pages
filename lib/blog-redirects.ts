@@ -52,6 +52,22 @@ export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "velt-vs-liveblocks-comparison-2025", to: "velt-vs-liveblocks-comparison" },
   { from: "velt-vs-liveblocks-dec-2025-comparison", to: "velt-vs-liveblocks-comparison" },
   { from: "velt-vs-liveblocks-for-documents-2025", to: "velt-vs-liveblocks-for-documents" },
+
+  // Slug-mismatch redirects (Nathan's 404 list, May 2026). External
+  // links / stale references use slug structures that never existed
+  // on Framer or Sanity. Each entry maps the unknown variant onto its
+  // canonical Sanity doc so SEO crawlers + any in-the-wild link
+  // resolves to a real page instead of velt.dev's 404 template.
+  { from: "best-commenting-sdk-for-google-docs-style-comments", to: "best-google-docs-commenting-sdks" },
+  { from: "best-in-app-video-recording-sdk", to: "best-in-app-recording-sdk" },
+  // Ambiguous source — went with the "in-app + email" canonical based on
+  // "for In-App Messaging" in the original title; flip to
+  // best-notification-sdks-developers if Nathan prefers the broader doc.
+  { from: "best-notification-sdks-for-in-app-messaging-in-2025", to: "best-notification-sdks-in-app-email" },
+  { from: "ably-realtime-reviews-pricing-and-better-alternatives", to: "best-ably-alternatives-realtime-collaboration" },
+  { from: "7-key-features-of-online-collaboration-tools-and-software", to: "online-collaboration-tools-guide" },
+  { from: "velt-vs-liveblocks-best-contextual-commenting-tool-for-design-and-development-teams-in-november-2025", to: "velt-vs-liveblocks-comparison" },
+  { from: "best-crdt-libraries-real-time-data-sync", to: "top-crdt-libraries-for-real-time-data-sync" },
 ];
 
 // Escape path-to-regexp special characters so literal slugs (especially
