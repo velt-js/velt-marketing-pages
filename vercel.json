@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://docs.velt.dev/docs"
+    },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://docs.velt.dev/docs/:path*"
+    },
+    {
+      "source": "/_mintlify/:path*",
+      "destination": "https://docs.velt.dev/_mintlify/:path*"
+    },
+    {
+      "source": "/mintlify-assets/:path*",
+      "destination": "https://docs.velt.dev/mintlify-assets/:path*"
+    },
+    {
+      "source": "/api/request",
+      "destination": "https://docs.velt.dev/_mintlify/api/request"
+    }
+  ]
+}
