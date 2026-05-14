@@ -209,3 +209,32 @@ img {
   }
 }
 
+
+/* Ported from Framer's End-of-<head> custom CSS. Three pieces:
+   1. Force the <html> background to pure black so the page never flashes
+      white during scroll past content (Framer ran an inline JS to do this;
+      a CSS rule is simpler + race-free).
+   2. Override the chotu-cursor primary tint (used by the Superflow toolbar
+      cursor overlay in app/layout.tsx) to Velt's accent purple.
+   3. Re-export the `soothing-gradient` keyframes the Framer hero used.
+      Kept available globally in case any ported component animates a
+      gradient via `animation: soothing-gradient ...`. */
+html {
+  background: #000000;
+}
+
+chotu-cursor#chotu-cursor {
+  --chotu-primary: #B01FFF;
+}
+
+@keyframes soothing-gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}

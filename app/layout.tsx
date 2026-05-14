@@ -7,6 +7,7 @@ import {
   buildOrganizationSchema,
   buildWebSiteSchema,
 } from "./_seo/schema";
+import { Analytics } from "@/components/analytics/Analytics";
 
 const urbanist = Urbanist({
   subsets: ["latin"],
@@ -104,6 +105,10 @@ export default function RootLayout({
         src="https://cdn.velt.dev/lib/superflow.js?apiKey=aU1MxKP0rca2UXwKi8bl&projectId=620866069199868"
         strategy="afterInteractive"
       />
+      {/* Site-wide third-party analytics ported from the legacy
+          Framer site's End-of-<head> custom code block. See
+          components/analytics/Analytics.tsx for the inventory. */}
+      <Analytics />
     </html>
   );
 }

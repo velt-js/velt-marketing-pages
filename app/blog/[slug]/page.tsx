@@ -91,8 +91,25 @@ export async function generateMetadata({
   // and override openGraph.type to "article".
   metadata.title = { absolute: rawTitle };
   if (metadata.openGraph) {
-    // Next.js OpenGraph is a discriminated union; cast to set type to "article".
-    (metadata.openGraph as Record<string, unknown>).type = "article";
+    // Next.js OpenGraph is a discriminated union; cast to set article-shape
+    // fields. These emit <meta property="article:published_time">,
+    // <meta property="article:modified_time">, and <meta
+    // property="article:author"> — the standard OG article tags Framer
+    // was already shipping per-post.
+    const og = metadata.openGraph as Record<string, unknown>;
+    og.type = "article";
+    if (post.publishedAt) og.publishedTime = post.publishedAt;
+    if (post._updatedAt) og.modifiedTime = post._updatedAt;
+    if (post.author?.name) og.authors = [post.author.name];
+  }
+  // Framer also emitted a non-standard <meta property="article:author_name">
+  // alongside the standard article:author. Preserve it via metadata.other
+  // so anything that was reading that specific tag keeps working.
+  if (post.author?.name) {
+    metadata.other = {
+      ...(metadata.other ?? {}),
+      "article:author_name": post.author.name,
+    };
   }
   return metadata;
 }
