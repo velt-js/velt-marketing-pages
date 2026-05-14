@@ -344,7 +344,7 @@ const useCasesAppTypes: DropdownItem[] = [
   { label: "Analytics Product", href: "/use-case/analytics", icon: icons.eye, tint: "#b387f7" },
   { label: "Task Manager", href: "/use-case/task-manager", icon: icons.click, tint: "#f5d14a" },
   { label: "Sheets Product", href: "/use-case/sheets", icon: icons.grid, tint: "#48cfad" },
-  { label: "Session Replay Tool", href: "/use-case/session-replay", icon: icons.refresh, tint: "#ffa3fa" },
+  { label: "Session Replay Tool", href: "/use-case/session-replay-tool", icon: icons.refresh, tint: "#ffa3fa" },
 ];
 
 const useCasesEditors: DropdownItem[] = [

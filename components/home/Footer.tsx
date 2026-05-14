@@ -106,7 +106,7 @@ const useCases: LinkGroup = {
     { label: "Analytics Product", href: "/use-case/analytics" },
     { label: "Task Manager", href: "/use-case/task-manager" },
     { label: "Sheets Product", href: "/use-case/sheets" },
-    { label: "Session Replay Tool", href: "/use-case/session-replay" },
+    { label: "Session Replay Tool", href: "/use-case/session-replay-tool" },
   ],
 };
 

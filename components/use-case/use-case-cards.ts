@@ -37,12 +37,12 @@ export const USE_CASE_CARDS: UseCaseCardProps[] = [
   },
   {
     title: "Documentation",
-    href: "/use-case/documentation",
+    href: "/use-case/docs",
     media: { kind: "image", src: "/images/use-case/cards/documentation.png", alt: "" },
   },
   {
     title: "Code IDE",
-    href: "/use-case/code-ide",
+    href: "/use-case/coding-tool",
     media: { kind: "image", src: "/images/use-case/cards/code-ide.png", alt: "" },
   },
   {
@@ -52,7 +52,7 @@ export const USE_CASE_CARDS: UseCaseCardProps[] = [
   },
   {
     title: "Session Replay",
-    href: "/use-case/session-replay",
+    href: "/use-case/session-replay-tool",
     media: { kind: "image", src: "/images/use-case/cards/session-replay.png", alt: "" },
   },
 ];
