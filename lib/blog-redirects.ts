@@ -66,7 +66,7 @@ export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "best-notification-sdks-for-in-app-messaging-in-2025", to: "best-notification-sdks-in-app-email" },
   { from: "ably-realtime-reviews-pricing-and-better-alternatives", to: "best-ably-alternatives-realtime-collaboration" },
   { from: "7-key-features-of-online-collaboration-tools-and-software", to: "online-collaboration-tools-guide" },
-  { from: "velt-vs-liveblocks-best-contextual-commenting-tool-for-design-and-development-teams-in-november-2025", to: "velt-vs-liveblocks-comparison" },
+  { from: "velt-vs-liveblocks-best-contextual-commenting-tool-for-design-and-development-teams-in-november-2025", to: "best-contextual-commenting-systems" },
   { from: "best-crdt-libraries-real-time-data-sync", to: "top-crdt-libraries-for-real-time-data-sync" },
 ];
 
