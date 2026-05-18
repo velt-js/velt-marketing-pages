@@ -3,23 +3,23 @@
   "rewrites": [
     {
       "source": "/docs",
-      "destination": "https://docs.velt.dev/docs"
+      "destination": "https://[your-subdomain].mintlify.dev/docs"
     },
     {
       "source": "/docs/:path*",
-      "destination": "https://docs.velt.dev/docs/:path*"
+      "destination": "https://[your-subdomain].mintlify.dev/docs/:path*"
     },
     {
       "source": "/_mintlify/:path*",
-      "destination": "https://docs.velt.dev/_mintlify/:path*"
+      "destination": "https://[your-subdomain].mintlify.dev/_mintlify/:path*"
     },
     {
       "source": "/mintlify-assets/:path*",
-      "destination": "https://docs.velt.dev/mintlify-assets/:path*"
+      "destination": "https://[your-subdomain].mintlify.dev/mintlify-assets/:path*"
     },
     {
       "source": "/api/request",
-      "destination": "https://docs.velt.dev/_mintlify/api/request"
+      "destination": "https://[your-subdomain].mintlify.dev/_mintlify/api/request"
     }
   ]
 }
