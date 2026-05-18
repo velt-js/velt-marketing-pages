@@ -291,7 +291,7 @@ export function Connectors() {
         </div>
         <div className="flex items-start gap-3">
           <a
-            href="https://docs.velt.dev/integrations"
+            href="https://velt.dev/docs/integrations"
             target="_blank"
             rel="noopener"
             className="flex items-center justify-center gap-1 rounded-lg"

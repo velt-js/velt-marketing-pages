@@ -62,20 +62,24 @@ export default function CustomizationPage() {
   return (
     <>
       <JsonLd id="ld-customization-webpage" data={CUSTOMIZATION_WEBPAGE} />
-      <JsonLd id="ld-customization-breadcrumb" data={CUSTOMIZATION_BREADCRUMB} />
+      <JsonLd
+        id="ld-customization-breadcrumb"
+        data={CUSTOMIZATION_BREADCRUMB}
+      />
       {/* Framer-ported bespoke schema (Script 17): customization
           keyword list + SoftwareApplication featureList. */}
-      <JsonLd id="ld-customization-framer" data={CUSTOMIZATION_WEBPAGE_SCHEMA} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
+      <JsonLd
+        id="ld-customization-framer"
+        data={CUSTOMIZATION_WEBPAGE_SCHEMA}
+      />
+      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
         <PageHero
           decorated
           heading="Fully Customizable Collaboration Experiences"
           subheading="Velt components can look and function the way you want"
           primaryCta={{
             label: "View Docs",
-            href: "https://docs.velt.dev/",
+            href: "https://velt.dev/docs/",
             newTab: true,
           }}
           secondaryCta={{

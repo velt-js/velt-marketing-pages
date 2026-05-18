@@ -43,7 +43,7 @@ const client = createClient({
 async function scrapeBenefitImages(slug) {
   // The live velt.dev site lowercases its use-case slugs (e.g. CMS
   // `Presentation` lives at `/use-case/presentation`).
-  const url = `https://www.velt.dev/use-case/${slug.toLowerCase()}`;
+  const url = `https://velt.dev/use-case/${slug.toLowerCase()}`;
   const res = await fetch(url, { headers: { "user-agent": "Mozilla/5.0" } });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   const html = await res.text();
@@ -64,12 +64,17 @@ async function scrapeBenefitImages(slug) {
   }));
   const present = positions.filter((h) => h.pos !== -1);
   if (present.length === 0) {
-    return { docId: doc._id, slug, rows: positions.map((p) => ({ ...p, image: null, onLivePage: false })) };
+    return {
+      docId: doc._id,
+      slug,
+      rows: positions.map((p) => ({ ...p, image: null, onLivePage: false })),
+    };
   }
   const zoneStart = Math.min(...present.map((p) => p.pos));
   const zoneEnd = Math.max(...present.map((p) => p.pos)) + 50000;
 
-  const re = /https:\/\/framerusercontent\.com\/images\/([A-Za-z0-9]+)\.(?:png|jpg|jpeg|webp)\?[^\s"&]*?width=(\d+)[^\s"]*/g;
+  const re =
+    /https:\/\/framerusercontent\.com\/images\/([A-Za-z0-9]+)\.(?:png|jpg|jpeg|webp)\?[^\s"&]*?width=(\d+)[^\s"]*/g;
   const seen = new Set();
   const orderedImages = [];
   for (const m of html.slice(zoneStart, zoneEnd).matchAll(re)) {
@@ -85,7 +90,7 @@ async function scrapeBenefitImages(slug) {
   let imgIdx = 0;
   const rows = positions.map((p) => {
     const onLivePage = p.pos !== -1;
-    const image = onLivePage ? orderedImages[imgIdx++] ?? null : null;
+    const image = onLivePage ? (orderedImages[imgIdx++] ?? null) : null;
     return { _key: p._key, title: p.title, onLivePage, image };
   });
   return { docId: doc._id, slug, rows };
@@ -93,9 +98,12 @@ async function scrapeBenefitImages(slug) {
 
 async function uploadFromUrl(imageUrl) {
   const res = await fetch(imageUrl);
-  if (!res.ok) throw new Error(`Download failed: HTTP ${res.status} for ${imageUrl}`);
+  if (!res.ok)
+    throw new Error(`Download failed: HTTP ${res.status} for ${imageUrl}`);
   const buf = Buffer.from(await res.arrayBuffer());
-  const filename = imageUrl.match(/\/images\/([A-Za-z0-9]+\.(?:png|jpg|jpeg|webp))/)?.[1] ?? "scrape.png";
+  const filename =
+    imageUrl.match(/\/images\/([A-Za-z0-9]+\.(?:png|jpg|jpeg|webp))/)?.[1] ??
+    "scrape.png";
   const asset = await client.assets.upload("image", buf, { filename });
   return asset._id;
 }

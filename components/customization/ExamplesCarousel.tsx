@@ -96,7 +96,7 @@ export function ExamplesCarousel() {
            *  on the whole anchor blends the border too and turns the
            *  purple stroke green/yellow. */}
           <Link
-            href="https://docs.velt.dev/"
+            href="https://velt.dev/docs/"
             target="_blank"
             rel="noopener"
             className="flex items-center justify-center gap-1 rounded-lg"

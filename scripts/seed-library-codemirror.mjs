@@ -105,7 +105,7 @@ async function main() {
       secondaryCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+        href: "https://velt.dev/docs/realtime-collaboration/crdt/setup/codemirror",
         newTab: true,
       },
     },
@@ -123,7 +123,7 @@ async function main() {
       viewDocsCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+        href: "https://velt.dev/docs/realtime-collaboration/crdt/setup/codemirror",
         newTab: true,
       },
       primaryCta: {
@@ -206,7 +206,7 @@ async function main() {
       heading: "Production-Ready in Minutes",
       body: "Install the Velt CodeMirror extension. Test. Ship.",
       viewDocsHref:
-        "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+        "https://velt.dev/docs/realtime-collaboration/crdt/setup/codemirror",
       getApiKeyHref: "https://console.velt.dev/",
       codeSnippet: {
         code: SETUP_CODE,

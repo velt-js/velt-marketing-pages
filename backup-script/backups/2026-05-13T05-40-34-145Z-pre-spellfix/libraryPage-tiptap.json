@@ -74,7 +74,7 @@
     "subheading": "Deeply embedded in Tiptap and works reliably through edits, reflows, and formatting changes",
     "viewDocsCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/async-collaboration/comments/setup/tiptap",
+      "href": "https://velt.dev/docs/async-collaboration/comments/setup/tiptap",
       "label": "View Docs",
       "newTab": true
     }
@@ -114,7 +114,7 @@
     },
     "getApiKeyHref": "https://console.velt.dev/",
     "heading": "Production-Ready in Minutes",
-    "viewDocsHref": "https://docs.velt.dev/async-collaboration/comments/setup/tiptap"
+    "viewDocsHref": "https://velt.dev/docs/async-collaboration/comments/setup/tiptap"
   },
   "getStartedSteps": {
     "step1PackageName": "@veltdev/tiptap-collab"

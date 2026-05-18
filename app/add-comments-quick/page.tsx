@@ -62,7 +62,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/home/feature-grid/Comment.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -76,7 +81,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/home/feature-grid/Recording.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -90,7 +100,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/features/comments/little-big-details/Pirority.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -104,7 +119,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/features/comments/little-big-details/Reactions.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -175,7 +195,7 @@ export default function AddCommentsQuickPage() {
         <Security
           heading="Everything commenting should be"
           subheading="Four building blocks that turn a single SDK install into a Figma-grade commenting experience."
-          primaryCta={{ label: "View Docs", href: "https://docs.velt.dev/" }}
+          primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
           secondaryCta={{
             label: "Get Free API Key",
             href: "https://console.velt.dev/",
@@ -190,7 +210,7 @@ export default function AddCommentsQuickPage() {
         <LibraryGetStartedCallout
           heading="Production-ready in five lines of code"
           body="Install the SDK, wrap your app in VeltProvider, and drop in VeltComments. That's it — comments, mentions, notifications, and recordings light up across your product."
-          viewDocsHref="https://docs.velt.dev/async-collaboration/comments/setup"
+          viewDocsHref="https://velt.dev/docs/async-collaboration/comments/setup"
           getApiKeyHref="https://console.velt.dev/"
           codeSnippet={{ code: INSTALL_SNIPPET, language: "tsx" }}
         />

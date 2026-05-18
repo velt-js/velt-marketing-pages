@@ -116,7 +116,7 @@ async function main() {
       secondaryCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/",
+        href: "https://velt.dev/docs/",
         newTab: true,
       },
       step1: {
@@ -139,8 +139,7 @@ async function main() {
         name: "Linda Belcher",
         role: "Product Manager @HeyGen",
         avatar: lindaAvatar,
-        quotePrefix:
-          "Velt hosts all collaboration functionalities needed to ",
+        quotePrefix: "Velt hosts all collaboration functionalities needed to ",
         quoteHighlight: "boost engagement",
         quoteSuffix: " at HeyGen",
       },
@@ -166,8 +165,7 @@ async function main() {
         _key: "row-full-customization",
         eyebrow: "02",
         heading: "Full Customization",
-        description:
-          "Bring in your design system or cusotmize CSS directly",
+        description: "Bring in your design system or cusotmize CSS directly",
         image: featureCustomizationImage,
         imagePosition: "left",
       },

@@ -74,7 +74,7 @@
     "subheading": "Deeply embedded in Slate and works reliably as nodes are edited and restructured",
     "viewDocsCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/async-collaboration/comments/setup/slatejs",
+      "href": "https://velt.dev/docs/async-collaboration/comments/setup/slatejs",
       "label": "View Docs",
       "newTab": true
     }
@@ -114,7 +114,7 @@
     },
     "getApiKeyHref": "https://console.velt.dev/",
     "heading": "Production-Ready in Minutes",
-    "viewDocsHref": "https://docs.velt.dev/async-collaboration/comments/setup/slatejs"
+    "viewDocsHref": "https://velt.dev/docs/async-collaboration/comments/setup/slatejs"
   },
   "getStartedSteps": {
     "step1PackageName": "@veltdev/slate-velt-comments"

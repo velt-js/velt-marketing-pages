@@ -15,7 +15,7 @@
   },
   "demoUrl": "https://console.velt.dev/",
   "description": "Connect Slack with Velt in minutes. Build smarter customer flows with webhooks, payload transformation, and enterprise-grade security.",
-  "docsUrl": "https://docs.velt.dev/",
+  "docsUrl": "https://velt.dev/docs/",
   "heroTitle": "Integrate Velt in Slack",
   "logo": {
     "_type": "image",

@@ -287,26 +287,26 @@ const productAsync: DropdownItem[] = [
   { label: "Notifications", href: "/notifications", icon: icons.bell, tint: "#f5d14a" },
   { label: "Recording", href: "/recording", icon: icons.video, tint: "#f47474" },
   { label: "Activity Logs", href: "/activity-logs", icon: icons.list, tint: "#5ca3ff" },
-  { label: "Video Editor", href: "https://docs.velt.dev/async-collaboration/recorder/setup", icon: icons.movie, tint: "#5ca3ff" },
-  { label: "View Analytics", href: "https://docs.velt.dev/async-collaboration/view-analytics/overview", icon: icons.moodSmile, tint: "#b387f7" },
-  { label: "Reactions", href: "https://docs.velt.dev/async-collaboration/reactions/overview", icon: icons.eye, tint: "#f5a15e" },
+  { label: "Video Editor", href: "https://velt.dev/docs/async-collaboration/recorder/setup", icon: icons.movie, tint: "#5ca3ff" },
+  { label: "View Analytics", href: "https://velt.dev/docs/async-collaboration/view-analytics/overview", icon: icons.moodSmile, tint: "#b387f7" },
+  { label: "Reactions", href: "https://velt.dev/docs/async-collaboration/reactions/overview", icon: icons.eye, tint: "#f5a15e" },
 ];
 
 const productRealtime: DropdownItem[] = [
   { label: "Multiplayer Editing", href: "/multiplayer-editing", icon: icons.yjs, tint: "#48cfad" },
-  { label: "Single Editor", href: "https://docs.velt.dev/realtime-collaboration/single-editor-mode/overview", icon: icons.pencilStar, tint: "#5ca3ff" },
-  { label: "Live State Sync", href: "https://docs.velt.dev/realtime-collaboration/live-state-sync/overview", icon: icons.refresh, tint: "#48cfad" },
-  { label: "Live Selection", href: "https://docs.velt.dev/realtime-collaboration/live-selection/overview", icon: icons.click, tint: "#b387f7" },
-  { label: "Huddle", href: "https://docs.velt.dev/realtime-collaboration/huddle/overview", icon: icons.headphones, tint: "#a4bd52" },
-  { label: "Presence", href: "https://docs.velt.dev/realtime-collaboration/presence/overview", icon: icons.usersGroup, tint: "#97e07f" },
-  { label: "Cursors", href: "https://docs.velt.dev/realtime-collaboration/cursors/overview", icon: icons.pointer, tint: "#f5a15e" },
-  { label: "Follow Mode", href: "https://docs.velt.dev/realtime-collaboration/flock-mode/overview", icon: icons.pointer, tint: "#5eda7a" },
+  { label: "Single Editor", href: "https://velt.dev/docs/realtime-collaboration/single-editor-mode/overview", icon: icons.pencilStar, tint: "#5ca3ff" },
+  { label: "Live State Sync", href: "https://velt.dev/docs/realtime-collaboration/live-state-sync/overview", icon: icons.refresh, tint: "#48cfad" },
+  { label: "Live Selection", href: "https://velt.dev/docs/realtime-collaboration/live-selection/overview", icon: icons.click, tint: "#b387f7" },
+  { label: "Huddle", href: "https://velt.dev/docs/realtime-collaboration/huddle/overview", icon: icons.headphones, tint: "#a4bd52" },
+  { label: "Presence", href: "https://velt.dev/docs/realtime-collaboration/presence/overview", icon: icons.usersGroup, tint: "#97e07f" },
+  { label: "Cursors", href: "https://velt.dev/docs/realtime-collaboration/cursors/overview", icon: icons.pointer, tint: "#f5a15e" },
+  { label: "Follow Mode", href: "https://velt.dev/docs/realtime-collaboration/flock-mode/overview", icon: icons.pointer, tint: "#5eda7a" },
 ];
 
 const productPlatform: DropdownItem[] = [
   { label: "Admin Console", href: "/platform", icon: icons.hexagon, tint: "#b387f7" },
   { label: "Dev Tools", href: "/devtools", icon: icons.circle, tint: "#f5d14a" },
-  { label: "MCP", href: "https://docs.velt.dev/mcp/mcp", icon: icons.server, tint: "#ffa3fa" },
+  { label: "MCP", href: "https://velt.dev/docs/mcp/mcp", icon: icons.server, tint: "#ffa3fa" },
   { label: "Webhooks & API", href: "/webhooks-and-api", icon: icons.cloud, tint: "#5eda7a" },
   { label: "Integrations", href: "/integrations", icon: icons.plug, tint: "#ffa3fa" },
 ];
@@ -401,7 +401,7 @@ const enterpriseColumns: DropdownColumn[] = [
 // ---------- Resources dropdown — Figma 88:1113 ----------
 
 const resourcesLearn: DropdownItem[] = [
-  { label: "Docs", href: "https://docs.velt.dev/", icon: icons.book, tint: "#5ca3ff" },
+  { label: "Docs", href: "https://velt.dev/docs/", icon: icons.book, tint: "#5ca3ff" },
   { label: "Comparison", href: "/comparison", icon: icons.scale, tint: "#f5a15e" },
   { label: "Examples", href: "https://samples.velt.dev/", icon: icons.sparkles, tint: "#f5d14a" },
 ];
@@ -420,7 +420,7 @@ const resourcesMigrate: DropdownItem[] = [
 const resourcesOthers: DropdownItem[] = [
   { label: "Customers", href: "/customers", icon: icons.usersGroup, tint: "#97e07f" },
   { label: "Security", href: "https://trust.velt.dev/", icon: icons.shield, tint: "#f47474" },
-  { label: "Release Notes", href: "https://docs.velt.dev/release-notes", icon: icons.list, tint: "#5ca3ff" },
+  { label: "Release Notes", href: "https://velt.dev/docs/release-notes", icon: icons.list, tint: "#5ca3ff" },
   { label: "Blog", href: "/blog", icon: icons.book, tint: "#48cfad" },
 ];
 
@@ -752,7 +752,7 @@ export function Nav() {
           <NavLabel color={textColor} opacity={textOpacity}>Sign In</NavLabel>
         </a>
         <a
-          href="https://docs.velt.dev/"
+          href="https://velt.dev/docs/"
           target="_blank"
           rel="noreferrer"
           className="flex items-center rounded-lg"
@@ -1149,7 +1149,7 @@ function PreviewCard({ light }: { light?: boolean }) {
           </p>
           <div className="flex items-center" style={{ gap: 8, marginTop: 4 }}>
             <PromoCardSecondary href="/customization" light={light}>Learn More</PromoCardSecondary>
-            <PromoCardPrimary href="https://docs.velt.dev/" external>
+            <PromoCardPrimary href="https://velt.dev/docs/" external>
               View Docs
             </PromoCardPrimary>
           </div>
@@ -1409,7 +1409,7 @@ function MobileNavDrawer({ open, onClose }: { open: boolean; onClose: () => void
             Sign In
           </a>
           <a
-            href="https://docs.velt.dev/"
+            href="https://velt.dev/docs/"
             target="_blank"
             rel="noreferrer"
             onClick={onClose}

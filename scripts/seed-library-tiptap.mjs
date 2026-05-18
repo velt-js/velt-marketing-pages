@@ -22,7 +22,9 @@ import { basename, resolve } from "node:path";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
-  console.error("Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.");
+  console.error(
+    "Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.",
+  );
   process.exit(1);
 }
 
@@ -39,7 +41,8 @@ const client = DRY_RUN
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 
 async function uploadImage(relPath) {
-  if (DRY_RUN) return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
+  if (DRY_RUN)
+    return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
   const filePath = resolve(PROJECT_ROOT, relPath);
   const buffer = readFileSync(filePath);
   const asset = await client.assets.upload("image", buffer, {
@@ -69,7 +72,9 @@ return <EditorContent editor={editor} />;`;
 
 async function main() {
   console.log("Uploading tiptap images...");
-  const previewImage = await uploadImage("public/images/home/libraries/demos/tiptap.png");
+  const previewImage = await uploadImage(
+    "public/images/home/libraries/demos/tiptap.png",
+  );
   const logo = await uploadImage("public/images/home/libraries/tiptap.png");
   const avatarEthan = await uploadImage(
     "public/images/home/libraries/tiptap/avatars/ethan.png",
@@ -103,7 +108,8 @@ async function main() {
     title: "Tiptap",
     slug: { _type: "slug", current: "tiptap" },
     category: "Text Editor",
-    tagline: "Add comments, notifications, cursors, and multiplayer editing to Tiptap in minutes.",
+    tagline:
+      "Add comments, notifications, cursors, and multiplayer editing to Tiptap in minutes.",
     logo,
     metaTitle: "Collaboration Toolkit for Tiptap | Velt",
     metaDescription:
@@ -140,7 +146,7 @@ async function main() {
       viewDocsCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/async-collaboration/comments/setup/tiptap",
+        href: "https://velt.dev/docs/async-collaboration/comments/setup/tiptap",
         newTab: true,
       },
       primaryCta: {
@@ -159,56 +165,64 @@ async function main() {
           _type: "bentoCard",
           _key: "card-multiplayer",
           title: "Multiplayer Editing",
-          description: "Co-edit documents in real-time and see who is working with you",
+          description:
+            "Co-edit documents in real-time and see who is working with you",
           image: tileMultiplayer,
         },
         {
           _type: "bentoCard",
           _key: "card-comments",
           title: "Contextual Comments",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
           image: tileComments,
         },
         {
           _type: "bentoCard",
           _key: "card-cursors",
           title: "Real-time Cursors & Presence",
-          description: "Decide how users appear with fully customizable name tags and cursors",
+          description:
+            "Decide how users appear with fully customizable name tags and cursors",
           image: tileCursors,
         },
         {
           _type: "bentoCard",
           _key: "card-mentions",
           title: "User Mentions",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
           image: tileMentions,
         },
         {
           _type: "bentoCard",
           _key: "card-notifications",
           title: "Notification",
-          description: "See what changes have been made to a shared document with timestamps",
+          description:
+            "See what changes have been made to a shared document with timestamps",
           illustrationKey: "notification",
         },
         {
           _type: "bentoCard",
           _key: "card-history",
           title: "Version History",
-          description: "See what changes have been made to a shared document with timestamps",
+          description:
+            "See what changes have been made to a shared document with timestamps",
           image: tileHistory,
         },
         {
           _type: "bentoCard",
           _key: "card-single-editor",
           title: "Single Editor Mode",
-          description: "Limit editing control to one user in collaborative scenarios",
+          description:
+            "Limit editing control to one user in collaborative scenarios",
           image: tileSingleEditor,
         },
         {
           _type: "bentoCard",
           _key: "card-offline",
           title: "Offline Storage",
-          description: "Keep working when the connection drops. Data will sync when you reconnect",
+          description:
+            "Keep working when the connection drops. Data will sync when you reconnect",
           image: tileOffline,
         },
       ],
@@ -216,7 +230,8 @@ async function main() {
     inlineTestimonial: {
       name: "Ethan Veres",
       role: "CTO @eqtble",
-      quote: "Commenting is something we wanted in our app, Velt made it possible",
+      quote:
+        "Commenting is something we wanted in our app, Velt made it possible",
       accentFragment: "Velt made it possible",
       accentColor: "#0085ff",
       avatar: avatarEthan,
@@ -224,7 +239,8 @@ async function main() {
     getStartedCallout: {
       heading: "Production-Ready in Minutes",
       body: "Install the Velt Tiptap extension. Test. Ship.",
-      viewDocsHref: "https://docs.velt.dev/async-collaboration/comments/setup/tiptap",
+      viewDocsHref:
+        "https://velt.dev/docs/async-collaboration/comments/setup/tiptap",
       getApiKeyHref: "https://console.velt.dev/",
       codeSnippet: {
         code: SETUP_CODE,

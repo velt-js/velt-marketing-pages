@@ -166,7 +166,7 @@ export default function NotionLikeCommentsPage() {
 
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <a
-                href="https://docs.velt.dev/"
+                href="https://velt.dev/docs/"
                 target="_blank"
                 rel="noopener"
                 className="flex items-center justify-center rounded-lg font-urbanist font-semibold"

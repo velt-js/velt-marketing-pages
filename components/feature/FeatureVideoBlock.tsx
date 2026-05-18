@@ -53,7 +53,7 @@ export function FeatureVideoBlock({
           {body}
         </p>
         <a
-          href="https://docs.velt.dev/"
+          href="https://velt.dev/docs/"
           target="_blank"
           rel="noopener"
           className="font-urbanist font-semibold"

@@ -15,7 +15,7 @@
   },
   "demoUrl": "https://console.velt.dev/",
   "description": "Connect Discord with Velt Console using webhooks. Transform payloads with JavaScript functions and build unified customer experiences with enterprise-grade security.",
-  "docsUrl": "https://docs.velt.dev/",
+  "docsUrl": "https://velt.dev/docs/",
   "heroTitle": "Integrate Velt in Discord",
   "logo": {
     "_type": "image",

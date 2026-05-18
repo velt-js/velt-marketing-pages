@@ -68,7 +68,12 @@ function Card1ExtensiveApiCoverage() {
       >
         <div
           className="relative hidden lg:block"
-          style={{ width: "100%", maxWidth: 1280, height: 528, overflow: "hidden" }}
+          style={{
+            width: "100%",
+            maxWidth: 1280,
+            height: 528,
+            overflow: "hidden",
+          }}
         >
           {/* Heading + subhead + View Docs CTA, centered at top:55 (Figma 177:34709) */}
           <div
@@ -82,7 +87,12 @@ function Card1ExtensiveApiCoverage() {
           >
             <div
               className="flex flex-col items-center"
-              style={{ gap: 12, width: 691, textAlign: "center", whiteSpace: "nowrap" }}
+              style={{
+                gap: 12,
+                width: 691,
+                textAlign: "center",
+                whiteSpace: "nowrap",
+              }}
             >
               <h2
                 className="font-urbanist font-bold"
@@ -106,7 +116,8 @@ function Card1ExtensiveApiCoverage() {
                   margin: 0,
                 }}
               >
-                Programmatically perform CRUD operations on Velt features to adapt to your workflows
+                Programmatically perform CRUD operations on Velt features to
+                adapt to your workflows
               </p>
             </div>
             <ViewDocsButton />
@@ -128,7 +139,7 @@ function Card1ExtensiveApiCoverage() {
 function ViewDocsButton() {
   return (
     <a
-      href="https://docs.velt.dev/api-reference"
+      href="https://velt.dev/docs/api-reference"
       target="_blank"
       rel="noopener"
       className="flex items-center justify-center"
@@ -238,7 +249,7 @@ function ApiEndpointPill() {
 
       {/* Try It button */}
       <a
-        href="https://docs.velt.dev/api-reference"
+        href="https://velt.dev/docs/api-reference"
         target="_blank"
         rel="noopener"
         className="flex items-center"
@@ -326,13 +337,19 @@ function Card2WebhookFeaturesGrid() {
       className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
       style={{ paddingBottom: 120 }}
     >
-      <div className="flex flex-col items-center w-full max-w-[824px]" style={{ gap: 52 }}>
+      <div
+        className="flex flex-col items-center w-full max-w-[824px]"
+        style={{ gap: 52 }}
+      >
         {/* Heading + 2 CTAs centered (Figma 177:34733) */}
         <div
           className="flex flex-col items-center w-full"
           style={{ gap: 32, textAlign: "center" }}
         >
-          <div className="flex flex-col items-center" style={{ gap: 12, width: "100%" }}>
+          <div
+            className="flex flex-col items-center"
+            style={{ gap: 12, width: "100%" }}
+          >
             <h2
               className="font-urbanist font-bold"
               style={{
@@ -394,7 +411,7 @@ function Card2WebhookFeaturesGrid() {
 function TrustCentreButton() {
   return (
     <a
-      href="https://docs.velt.dev/security"
+      href="https://velt.dev/docs/security"
       target="_blank"
       rel="noopener"
       className="flex items-center justify-center"
@@ -427,7 +444,7 @@ function TrustCentreButton() {
 function LearnMoreButton() {
   return (
     <a
-      href="https://docs.velt.dev/security"
+      href="https://velt.dev/docs/security"
       target="_blank"
       rel="noopener"
       className="flex items-center justify-center"
@@ -459,7 +476,15 @@ function LearnMoreButton() {
 // icon at top-left and (title + description) at the bottom. Mirrors any of
 // Figma nodes 177:34745 / 177:34751 / 177:34757 / 177:34764 / 177:34770 /
 // 177:34776.
-function FeatureCard({ title, icon, alt }: { title: string; icon: string; alt: string }) {
+function FeatureCard({
+  title,
+  icon,
+  alt,
+}: {
+  title: string;
+  icon: string;
+  alt: string;
+}) {
   return (
     <div
       className="flex flex-col"

@@ -34,7 +34,9 @@ import { basename, resolve } from "node:path";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
-  console.error("Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.");
+  console.error(
+    "Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.",
+  );
   process.exit(1);
 }
 
@@ -51,7 +53,8 @@ const client = DRY_RUN
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 
 async function uploadImage(relPath) {
-  if (DRY_RUN) return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
+  if (DRY_RUN)
+    return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
   const filePath = resolve(PROJECT_ROOT, relPath);
   const buffer = readFileSync(filePath);
   const asset = await client.assets.upload("image", buffer, {
@@ -63,7 +66,8 @@ async function uploadImage(relPath) {
   };
 }
 
-const LITTLE_BIG_DETAILS_DIR = "public/images/features/comments/little-big-details";
+const LITTLE_BIG_DETAILS_DIR =
+  "public/images/features/comments/little-big-details";
 
 /**
  * Maps each "Little Big Details" label to its screenshot filename inside
@@ -71,13 +75,25 @@ const LITTLE_BIG_DETAILS_DIR = "public/images/features/comments/little-big-detai
  */
 const LITTLE_BIG_DETAILS = [
   { label: "Permission Controls", file: "Document Access.png" },
-  { label: "Conditional @ Mentions List", file: "Conditionally control @mention list.png" },
+  {
+    label: "Conditional @ Mentions List",
+    file: "Conditionally control @mention list.png",
+  },
   { label: "Dynamic Sign-in", file: "Dynamic Sign In.png" },
   { label: "Guest Mode", file: "Guest Mode.png" },
   { label: "Private Mode", file: "Private.png" },
-  { label: "Frontend APIs", file: "Frontend APIs and callbacks to extend into other apps.png" },
-  { label: "Programmatic Commenting", file: "Programamtcially add comments.png" },
-  { label: "Backend APIs", file: "REST APIs to extend the feature into other systems.png" },
+  {
+    label: "Frontend APIs",
+    file: "Frontend APIs and callbacks to extend into other apps.png",
+  },
+  {
+    label: "Programmatic Commenting",
+    file: "Programamtcially add comments.png",
+  },
+  {
+    label: "Backend APIs",
+    file: "REST APIs to extend the feature into other systems.png",
+  },
   { label: "Webhooks", file: "Webhooks.png" },
   { label: "Cell Comments", file: "Cell.png" },
   { label: "Chart Comments", file: "Charts.png" },
@@ -91,13 +107,22 @@ const LITTLE_BIG_DETAILS = [
   { label: "Authentication", file: "Authentication.png" },
   { label: "Prebuilt Data Structure", file: "Data structure.png" },
   { label: "Managed File Storage", file: "File storage.png" },
-  { label: "Realtime Resource Management", file: "Realtime database and server.png" },
+  {
+    label: "Realtime Resource Management",
+    file: "Realtime database and server.png",
+  },
   { label: "Individual @ Mentions", file: "@mentions individual.png" },
   { label: "Here @ Mentions", file: "@mention.png" },
   { label: "User Group @ Mentions", file: "User Group.png" },
   { label: "Assign Comments", file: "Group 1707479583.png" },
-  { label: "Email Notifications", file: "Control what triggers a notifications.png" },
-  { label: "In-app Notifications", file: "Control what triggers a notifications-1.png" },
+  {
+    label: "Email Notifications",
+    file: "Control what triggers a notifications.png",
+  },
+  {
+    label: "In-app Notifications",
+    file: "Control what triggers a notifications-1.png",
+  },
   { label: "Seen by Status", file: "Seen by Status.png" },
   { label: "Sidebar Pagination", file: "Pagination.png" },
   { label: "Auto Categorization", file: "AI Tagging.png" },
@@ -107,21 +132,36 @@ const LITTLE_BIG_DETAILS = [
   { label: "Sidebar Custom Grouping", file: "Custom Grouping Sidebar.png" },
   { label: "Sidebar Custom Sorting", file: "Sort.png" },
   { label: "Navigate on Click", file: "navigate on click.png" },
-  { label: "Programmatic Comment Selection", file: "Programatically select.png" },
+  {
+    label: "Programmatic Comment Selection",
+    file: "Programatically select.png",
+  },
   { label: "Scroll to Comment", file: "Scroll.png" },
-  { label: "Sidebar Comment Viewing", file: "Sidebar to show all comments.png" },
+  {
+    label: "Sidebar Comment Viewing",
+    file: "Sidebar to show all comments.png",
+  },
   { label: "Read and Unread Indicators", file: "Unread.png" },
   { label: "Audio Recording", file: "Audio Recording.png" },
   { label: "Custom Dropdowns", file: "Custom Dropdown.png" },
   { label: "Multi-Threaded Comments", file: "Thread.png" },
   { label: "Reactions", file: "Reactions.png" },
   { label: "Player for Recordings", file: "Video Player.png" },
-  { label: "Recording Transcripts and summaries", file: "Transcripts & Summary.png" },
+  {
+    label: "Recording Transcripts and summaries",
+    file: "Transcripts & Summary.png",
+  },
   { label: "Screen Recording", file: "Screen Recording.png" },
   { label: "Video Recording", file: "Video Attachment.png" },
   { label: "Comment Anchoring Logic", file: "Comment Anchoring Logic.png" },
-  { label: "Comment Data Binding Logic", file: "Comment data binding logic (Needs Animation).png" },
-  { label: "Cross Browser Compatibility", file: "Cross browser compatibility for comments, recording etc.png" },
+  {
+    label: "Comment Data Binding Logic",
+    file: "Comment data binding logic (Needs Animation).png",
+  },
+  {
+    label: "Cross Browser Compatibility",
+    file: "Cross browser compatibility for comments, recording etc.png",
+  },
   { label: "DOM Change Awareness", file: "DOM Change Awareness.png" },
   { label: "Ghost Comments", file: "Ghost.png" },
   { label: "Robust Comment Placement", file: "Comment Anchoring Logic.png" },
@@ -137,8 +177,14 @@ const LITTLE_BIG_DETAILS = [
   { label: "Device Info", file: "Device Info.png" },
   { label: "File Attachments", file: "File Attachments.png" },
   { label: "Collapseable Threads", file: "Thread.png" },
-  { label: "Comment Indicator Bubbles", file: "Comment bubble on elements.png" },
-  { label: "Notification Trigger Controls", file: "Control what triggers a notifications.png" },
+  {
+    label: "Comment Indicator Bubbles",
+    file: "Comment bubble on elements.png",
+  },
+  {
+    label: "Notification Trigger Controls",
+    file: "Control what triggers a notifications.png",
+  },
   { label: "Dark Mode", file: "Dark Mode.png" },
   { label: "Deeplinking Comments", file: "Deep link.png" },
   { label: "Confirm on Delete", file: "Delete Confirmation.png" },
@@ -158,16 +204,25 @@ const LITTLE_BIG_DETAILS = [
 ];
 
 async function buildLittleBigDetailsItems() {
-  console.log(`  Uploading ${LITTLE_BIG_DETAILS.length} Little Big Details screenshots...`);
+  console.log(
+    `  Uploading ${LITTLE_BIG_DETAILS.length} Little Big Details screenshots...`,
+  );
   const items = [];
   for (const { label, file } of LITTLE_BIG_DETAILS) {
-    const key = `li-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/-+$/, "")}`;
+    const key = `li-${label
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/-+$/, "")}`;
     const item = { _key: key, label };
     if (file) {
       try {
-        item.screenshot = await uploadImage(`${LITTLE_BIG_DETAILS_DIR}/${file}`);
+        item.screenshot = await uploadImage(
+          `${LITTLE_BIG_DETAILS_DIR}/${file}`,
+        );
       } catch (err) {
-        console.warn(`    ⚠ Could not upload "${file}" for "${label}": ${err.message}`);
+        console.warn(
+          `    ⚠ Could not upload "${file}" for "${label}": ${err.message}`,
+        );
       }
     }
     items.push(item);
@@ -210,7 +265,8 @@ async function main() {
   const lindaTestimonial = {
     name: "Linda Belcher",
     role: "Product Manager @HeyGen",
-    quote: "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
+    quote:
+      "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
     accentFragment: "boost engagement",
     accentColor: "#625df5",
     avatar: avatarLinda,
@@ -266,11 +322,12 @@ async function main() {
         _type: "featurePowerfulBentoSection",
         _key: "bento-powerful",
         heading: "Powerful and Beautiful Commenting",
-        subheading: "Build a complete commenting experience that enhances user workflow",
+        subheading:
+          "Build a complete commenting experience that enhances user workflow",
         viewDocsCta: {
           _type: "ctaLink",
           label: "View Docs",
-          href: "https://docs.velt.dev/async-collaboration/comments",
+          href: "https://velt.dev/docs/async-collaboration/comments",
           newTab: true,
         },
         primaryCta: {
@@ -290,7 +347,8 @@ async function main() {
         },
         recordingsCard: {
           title: "Recordings",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
         },
         reactionsCard: {
           title: "Reactions",
@@ -307,7 +365,8 @@ async function main() {
         _type: "featureSidebarShowcaseSection",
         _key: "sidebar-details",
         heading: "Little Big Details",
-        subheading: "Everything that goes into building the best commenting experience",
+        subheading:
+          "Everything that goes into building the best commenting experience",
         items: await buildLittleBigDetailsItems(),
       },
       // ---- Card Row: Extend the Capabilities ----
@@ -319,7 +378,7 @@ async function main() {
         viewDocsCta: {
           _type: "ctaLink",
           label: "View Docs",
-          href: "https://docs.velt.dev/async-collaboration/comments",
+          href: "https://velt.dev/docs/async-collaboration/comments",
           newTab: true,
         },
         primaryCta: {
@@ -333,19 +392,19 @@ async function main() {
             "ext-data",
             "Custom Data",
             "customDataChip",
-            "https://docs.velt.dev/async-collaboration/comments/customize-behavior",
+            "https://velt.dev/docs/async-collaboration/comments/customize-behavior",
           ),
           cardRowCard(
             "ext-dropdown",
             "Custom Dropdown",
             "customDropdownDemo",
-            "https://docs.velt.dev/async-collaboration/comments/customize-behavior#createcustomlistdataoncomment",
+            "https://velt.dev/docs/async-collaboration/comments/customize-behavior#createcustomlistdataoncomment",
           ),
           cardRowCard(
             "ext-autocomplete",
             "Custom Autocomplete",
             "customAutocompleteDemo",
-            "https://docs.velt.dev/async-collaboration/comments/customize-behavior#autocompletescrollconfig",
+            "https://velt.dev/docs/async-collaboration/comments/customize-behavior#autocompletescrollconfig",
           ),
         ],
         inlineTestimonial: lindaTestimonial,
@@ -359,7 +418,7 @@ async function main() {
         viewDocsCta: {
           _type: "ctaLink",
           label: "View Docs",
-          href: "https://docs.velt.dev/async-collaboration/comments/customize-behavior",
+          href: "https://velt.dev/docs/async-collaboration/comments/customize-behavior",
           newTab: true,
         },
         primaryCta: {
@@ -385,11 +444,12 @@ async function main() {
         _type: "featureBentoSection",
         _key: "bento-more",
         heading: "More than just Commenting",
-        subheading: "Build a complete experience with features that complement each other",
+        subheading:
+          "Build a complete experience with features that complement each other",
         viewDocsCta: {
           _type: "ctaLink",
           label: "View Docs",
-          href: "https://docs.velt.dev/async-collaboration",
+          href: "https://velt.dev/docs/async-collaboration",
           newTab: true,
         },
         primaryCta: {
@@ -404,29 +464,40 @@ async function main() {
             _type: "featureBentoCard",
             _key: "card-inapp",
             title: "In-App Notifications",
-            description: "See what changes have been made to a shared document with timestamps",
-            image: await uploadImage("public/images/features/comments/extra-features/in-app-notification.png"),
+            description:
+              "See what changes have been made to a shared document with timestamps",
+            image: await uploadImage(
+              "public/images/features/comments/extra-features/in-app-notification.png",
+            ),
           },
           {
             _type: "featureBentoCard",
             _key: "card-email",
             title: "Email Notifications",
             description: "Enable users to get notifications off app via email",
-            image: await uploadImage("public/images/features/comments/extra-features/email-notifications.png"),
+            image: await uploadImage(
+              "public/images/features/comments/extra-features/email-notifications.png",
+            ),
           },
           {
             _type: "featureBentoCard",
             _key: "card-sidebar",
             title: "Sidebar",
-            description: "All comments are viewable in one easy to access place",
-            image: await uploadImage("public/images/features/comments/extra-features/sidebar.png"),
+            description:
+              "All comments are viewable in one easy to access place",
+            image: await uploadImage(
+              "public/images/features/comments/extra-features/sidebar.png",
+            ),
           },
           {
             _type: "featureBentoCard",
             _key: "card-minimap",
             title: "Mini map",
-            description: "Identifying and navigating to comments on a page is a delightful experience",
-            image: await uploadImage("public/images/features/comments/extra-features/minimap.png"),
+            description:
+              "Identifying and navigating to comments on a page is a delightful experience",
+            image: await uploadImage(
+              "public/images/features/comments/extra-features/minimap.png",
+            ),
           },
         ],
         inlineTestimonial: lindaTestimonial,
@@ -436,11 +507,12 @@ async function main() {
         _type: "featureFlowDiagramSection",
         _key: "flow-rest",
         heading: "REST APIs and Webhooks",
-        subheading: "Seamlessly integrate with your systems for extended functionality",
+        subheading:
+          "Seamlessly integrate with your systems for extended functionality",
         viewDocsCta: {
           _type: "ctaLink",
           label: "View Docs",
-          href: "https://docs.velt.dev/api-reference",
+          href: "https://velt.dev/docs/api-reference",
           newTab: true,
         },
         primaryCta: {
@@ -454,7 +526,12 @@ async function main() {
         // bottom white fade).
         stages: [
           { _key: "s-comment", label: "Comment Added", color: "#ff4f00" },
-          { _key: "s-transform", label: "Transform", color: "#ffc12f", labelColor: "#111" },
+          {
+            _key: "s-transform",
+            label: "Transform",
+            color: "#ffc12f",
+            labelColor: "#111",
+          },
           {
             _key: "s-partners",
             label: "Partners",

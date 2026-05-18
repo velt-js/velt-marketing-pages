@@ -117,9 +117,7 @@ function Card1AutomaticEvents() {
   const [tab, setTab] = useState<"automatic" | "custom">("automatic");
   const isAutomatic = tab === "automatic";
   return (
-    <section
-      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
-    >
+    <section className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20">
       <div
         className="overflow-hidden w-full max-w-[1280px]"
         style={{
@@ -141,8 +139,16 @@ function Card1AutomaticEvents() {
           }}
         >
           <div className="flex items-start" style={{ gap: 8 }}>
-            <Card1Tab label="Automatic" active={isAutomatic} onClick={() => setTab("automatic")} />
-            <Card1Tab label="Custom" active={!isAutomatic} onClick={() => setTab("custom")} />
+            <Card1Tab
+              label="Automatic"
+              active={isAutomatic}
+              onClick={() => setTab("automatic")}
+            />
+            <Card1Tab
+              label="Custom"
+              active={!isAutomatic}
+              onClick={() => setTab("custom")}
+            />
           </div>
         </div>
 
@@ -206,7 +212,9 @@ function Card1AutomaticEvents() {
                     lineHeight: 1.2,
                   }}
                 >
-                  <span style={{ color: "#1b70c4" }}>setActivityDebounceTime</span>
+                  <span style={{ color: "#1b70c4" }}>
+                    setActivityDebounceTime
+                  </span>
                   <span style={{ color: "#969696" }}>()</span>
                 </span>
                 <span
@@ -282,7 +290,10 @@ function Card1Tab({
 // rows overlapping the right edge. Matches Figma node 259:26585.
 function CustomLoggingMockup() {
   return (
-    <div className="hidden lg:block relative" style={{ width: 930, height: 386 }}>
+    <div
+      className="hidden lg:block relative"
+      style={{ width: 930, height: 386 }}
+    >
       {/* Light grey rounded code panel */}
       <div
         className="absolute"
@@ -327,7 +338,10 @@ function CustomLoggingMockup() {
           {"  "}
           <span style={{ color: "#0057e2" }}>message</span>
           {": "}
-          <span style={{ color: "#009e74" }}>{"'v2.4.1 deployed to production'"}</span>,
+          <span style={{ color: "#009e74" }}>
+            {"'v2.4.1 deployed to production'"}
+          </span>
+          ,
         </div>
         <div>
           {"  "}
@@ -344,7 +358,9 @@ function CustomLoggingMockup() {
         </div>
         <div>{"});"}</div>
         <div>&nbsp;</div>
-        <div style={{ color: "rgba(0,0,0,0.52)" }}>{"// Log an AI agent action"}</div>
+        <div style={{ color: "rgba(0,0,0,0.52)" }}>
+          {"// Log an AI agent action"}
+        </div>
         <div>
           {"activity."}
           <span style={{ color: "#0057e2" }}>createActivity</span>
@@ -360,7 +376,10 @@ function CustomLoggingMockup() {
           {"  "}
           <span style={{ color: "#0057e2" }}>message</span>
           {": "}
-          <span style={{ color: "#009e74" }}>{"'Brand voice check completed'"}</span>,
+          <span style={{ color: "#009e74" }}>
+            {"'Brand voice check completed'"}
+          </span>
+          ,
         </div>
         <div>
           {"  "}
@@ -427,7 +446,11 @@ function CustomActivityRow({
   text: ReactNode;
 }) {
   const Icon =
-    icon === "pencil" ? PencilIcon : icon === "ballpen" ? BallpenIcon : ChecksIcon;
+    icon === "pencil"
+      ? PencilIcon
+      : icon === "ballpen"
+        ? BallpenIcon
+        : ChecksIcon;
   const iconColor =
     icon === "pencil" ? "#0168f2" : icon === "ballpen" ? "#ff7162" : "#16a34a";
   return (
@@ -480,7 +503,11 @@ function Card2SameRecordFormat() {
     <FeatureSectionShell
       heading="Same record format. Human or AI."
       subheading="AI agent writes a comment, flags an issue, suggests an edit. Same structured record as a human action. Same schema. Same attribution."
-      viewDocsCta={{ label: "Get Started", href: "https://console.velt.dev/", newTab: true }}
+      viewDocsCta={{
+        label: "Get Started",
+        href: "https://console.velt.dev/",
+        newTab: true,
+      }}
       primaryCta={{ label: "Book Demo", href: "/book-demo" }}
       testimonial={ethanTestimonial}
     >
@@ -507,11 +534,17 @@ function TimelineMockup() {
           gap: 5,
         }}
       >
-        <PipelinePill bg="#262c35" color="#fff">Agent acted</PipelinePill>
+        <PipelinePill bg="#262c35" color="#fff">
+          Agent acted
+        </PipelinePill>
         <PipelineArrow />
-        <PipelinePill bg="#14aa6e" color="#fff">Decision recorded</PipelinePill>
+        <PipelinePill bg="#14aa6e" color="#fff">
+          Decision recorded
+        </PipelinePill>
         <PipelineArrow />
-        <PipelinePill bg="#0168f2" color="#fff">Human reviewed</PipelinePill>
+        <PipelinePill bg="#0168f2" color="#fff">
+          Human reviewed
+        </PipelinePill>
       </div>
 
       {/* Activity rows centered */}
@@ -525,10 +558,26 @@ function TimelineMockup() {
           width: 615,
         }}
       >
-        <ActivityRow icon="pencil" prefix="Brand Agent" suffix="flagged 3 brand voice issues" />
-        <ActivityRow icon="checks" prefix="Sarah Chen" suffix="Resolved 2 and dismissed 1 Issue" />
-        <ActivityRow icon="ballpen" prefix="Compliance Agent" suffix="verified final version" />
-        <ActivityRow icon="checks" prefix="James Park" suffix="approved for publishing" />
+        <ActivityRow
+          icon="pencil"
+          prefix="Brand Agent"
+          suffix="flagged 3 brand voice issues"
+        />
+        <ActivityRow
+          icon="checks"
+          prefix="Sarah Chen"
+          suffix="Resolved 2 and dismissed 1 Issue"
+        />
+        <ActivityRow
+          icon="ballpen"
+          prefix="Compliance Agent"
+          suffix="verified final version"
+        />
+        <ActivityRow
+          icon="checks"
+          prefix="James Park"
+          suffix="approved for publishing"
+        />
       </div>
 
       {/* Bottom fade */}
@@ -605,7 +654,11 @@ function ActivityRow({
   suffix: string;
 }) {
   const Icon =
-    icon === "pencil" ? PencilIcon : icon === "ballpen" ? BallpenIcon : ChecksIcon;
+    icon === "pencil"
+      ? PencilIcon
+      : icon === "ballpen"
+        ? BallpenIcon
+        : ChecksIcon;
   return (
     <div
       className="flex items-center"
@@ -621,7 +674,16 @@ function ActivityRow({
       }}
     >
       <div className="flex items-center" style={{ gap: 12.5 }}>
-        <Icon size={25} color={icon === "checks" ? "#16a34a" : icon === "pencil" ? "#0168f2" : "#ff7162"} />
+        <Icon
+          size={25}
+          color={
+            icon === "checks"
+              ? "#16a34a"
+              : icon === "pencil"
+                ? "#0168f2"
+                : "#ff7162"
+          }
+        />
         <p
           style={{
             fontFamily: "Poppins, sans-serif",
@@ -664,8 +726,7 @@ function Card3WhatTeamsBuild() {
       tiles={[
         {
           title: "Compliance Audit Trail",
-          body:
-            "Who approved what. When. With what context. Immutable records for SOC 2, HIPAA, and regulated workflows.",
+          body: "Who approved what. When. With what context. Immutable records for SOC 2, HIPAA, and regulated workflows.",
           imageSrc: "/images/features/activity-logs/compliance-audit-trail.png",
           imageWidth: 480,
           imageHeight: 180,
@@ -674,8 +735,7 @@ function Card3WhatTeamsBuild() {
         },
         {
           title: "AI Agent Traceability",
-          body:
-            "AI agent acts. Human reviews. Both get the same structured record. The evidence chain enterprises need before trusting AI in production.",
+          body: "AI agent acts. Human reviews. Both get the same structured record. The evidence chain enterprises need before trusting AI in production.",
           imageSrc: "/images/features/activity-logs/ai-agent-traceability.png",
           imageWidth: 421,
           imageHeight: 158,
@@ -686,8 +746,7 @@ function Card3WhatTeamsBuild() {
       ]}
       wideTile={{
         title: "Activity Feed",
-        body:
-          "A timeline of everything that happened in a document. Comments, edits, status changes, agent actions. Scoped to permissions.",
+        body: "A timeline of everything that happened in a document. Comments, edits, status changes, agent actions. Scoped to permissions.",
         imageSrc: "/images/features/activity-logs/activity-feed.png",
         imageWidth: 376,
         imageHeight: 186,
@@ -710,10 +769,13 @@ function Card4CaptureSlice() {
           title: "Query & Filter",
           body: (
             <>
-              <span style={{ fontFamily: "'Fira Code', monospace", fontSize: 15 }}>
+              <span
+                style={{ fontFamily: "'Fira Code', monospace", fontSize: 15 }}
+              >
                 getAllActivities()
-              </span>
-              {" "}for org-wide or per-document. Filter by feature, user, agent, or time. Real-time or REST.
+              </span>{" "}
+              for org-wide or per-document. Filter by feature, user, agent, or
+              time. Real-time or REST.
             </>
           ),
           imageSrc: "/images/features/activity-logs/query-filter.png",
@@ -725,8 +787,7 @@ function Card4CaptureSlice() {
         },
         {
           title: "Immutable Mode",
-          body:
-            "On by default. Records can't be changed or deleted. SOC 2, HIPAA, EU AI Act ready. Turn off when you need flexibility.",
+          body: "On by default. Records can't be changed or deleted. SOC 2, HIPAA, EU AI Act ready. Turn off when you need flexibility.",
           imageSrc: "/images/features/activity-logs/immutable-mode.png",
           imageWidth: 392,
           imageHeight: 232,
@@ -737,8 +798,7 @@ function Card4CaptureSlice() {
       ]}
       wideTile={{
         title: "REST API",
-        body:
-          "Create, query, and manage records from your backend. The SDK captures. The API gives you control.",
+        body: "Create, query, and manage records from your backend. The SDK captures. The API gives you control.",
         imageSrc: "/images/features/activity-logs/rest-api.png",
         imageWidth: 336,
         imageHeight: 198,
@@ -775,9 +835,7 @@ function BentoCard({
   wideTile: BentoTile;
 }) {
   return (
-    <section
-      className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20"
-    >
+    <section className="flex flex-col items-center bg-white full-bleed-bg py-10 lg:py-[60px] px-6 lg:px-20">
       <div
         className="flex flex-col items-center w-full max-w-[800px]"
         style={{ gap: 40 }}
@@ -812,7 +870,7 @@ function BentoCard({
             ) : null}
           </div>
           <div className="flex items-start" style={{ gap: 12 }}>
-            <SecondaryCta href="https://docs.velt.dev/" label="View Docs" />
+            <SecondaryCta href="https://velt.dev/docs/" label="View Docs" />
             <PrimaryCta href="/book-demo" label="Book Demo" />
           </div>
         </div>
@@ -860,7 +918,13 @@ function BentoTileBox({ tile }: { tile: BentoTile }) {
       <BentoTileImage tile={tile} />
       <div
         className="absolute flex flex-col items-start"
-        style={{ left: 28, bottom: 28, width: 383, gap: 8, color: TEXT_HEADING }}
+        style={{
+          left: 28,
+          bottom: 28,
+          width: 383,
+          gap: 8,
+          color: TEXT_HEADING,
+        }}
       >
         <p
           className="font-urbanist font-bold"
@@ -904,7 +968,13 @@ function BentoWideTileBox({ tile }: { tile: BentoTile }) {
       <BentoTileImage tile={tile} />
       <div
         className="absolute flex flex-col items-start"
-        style={{ left: 30, bottom: 30, width: 460, gap: 8, color: TEXT_HEADING }}
+        style={{
+          left: 30,
+          bottom: 30,
+          width: 460,
+          gap: 8,
+          color: TEXT_HEADING,
+        }}
       >
         <p
           className="font-urbanist font-bold"
@@ -990,17 +1060,20 @@ function Card5PRD() {
               }}
             >
               <span style={{ display: "block" }}>Easy to build.</span>
-              <span style={{ display: "block" }}>{`Until you list what's inside`}</span>
+              <span
+                style={{ display: "block" }}
+              >{`Until you list what's inside`}</span>
             </h3>
             <p
               className="font-urbanist"
               style={{ fontSize: 20, lineHeight: 1.2, margin: 0 }}
             >
-              One feature. Ten systems under it. Every one of these ships out of the box with Velt.
+              One feature. Ten systems under it. Every one of these ships out of
+              the box with Velt.
             </p>
           </div>
           <div className="flex items-start" style={{ gap: 12 }}>
-            <SecondaryCta href="https://docs.velt.dev/" label="View Docs" />
+            <SecondaryCta href="https://velt.dev/docs/" label="View Docs" />
             <PrimaryCta href="/book-demo" label="Book Demo" />
           </div>
         </div>
@@ -1013,7 +1086,12 @@ function Card5PRD() {
           color="#ff74f6"
           name="Emma"
           className="hidden lg:flex"
-          style={{ position: "absolute", right: -30, top: "calc(50% + 169.5px)", transform: "translateY(-50%)" }}
+          style={{
+            position: "absolute",
+            right: -30,
+            top: "calc(50% + 169.5px)",
+            transform: "translateY(-50%)",
+          }}
           variant="left"
         />
         <CursorPin
@@ -1074,20 +1152,56 @@ function PRDMockup() {
       </div>
 
       <PRDWeekLabel>Week 1 - 3</PRDWeekLabel>
-      <PRDItem n="01" bold="Event schema" rest=" for comments, edits, reactions, agent actions, and custom events" />
-      <PRDItem n="02" bold="User attribution" rest=" across sessions, devices, and API keys" />
-      <PRDItem n="03" bold="Agent attribution" rest=" that distinguishes AI from human in the same schema" />
-      <PRDItem n="04" bold="Debouncing" rest=" that turns rapid edits into meaningful records" />
-      <PRDItem n="05" bold="Real-time subscriptions" rest=" so feeds update without polling" />
+      <PRDItem
+        n="01"
+        bold="Event schema"
+        rest=" for comments, edits, reactions, agent actions, and custom events"
+      />
+      <PRDItem
+        n="02"
+        bold="User attribution"
+        rest=" across sessions, devices, and API keys"
+      />
+      <PRDItem
+        n="03"
+        bold="Agent attribution"
+        rest=" that distinguishes AI from human in the same schema"
+      />
+      <PRDItem
+        n="04"
+        bold="Debouncing"
+        rest=" that turns rapid edits into meaningful records"
+      />
+      <PRDItem
+        n="05"
+        bold="Real-time subscriptions"
+        rest=" so feeds update without polling"
+      />
 
       <PRDWeekLabel>Week 3–5</PRDWeekLabel>
-      <PRDItem n="06" bold="Filtering" rest=" by org, document, feature, user, agent, time" />
-      <PRDItem n="07" bold="Immutability" rest=" that actually prevents tampering" />
-      <PRDItem n="08" bold="Permission" rest=" scoping so users only see what they should" />
+      <PRDItem
+        n="06"
+        bold="Filtering"
+        rest=" by org, document, feature, user, agent, time"
+      />
+      <PRDItem
+        n="07"
+        bold="Immutability"
+        rest=" that actually prevents tampering"
+      />
+      <PRDItem
+        n="08"
+        bold="Permission"
+        rest=" scoping so users only see what they should"
+      />
 
       <PRDWeekLabel>Week 6–8</PRDWeekLabel>
       <PRDItem n="09" bold="REST API" rest=" for backend access and exports" />
-      <PRDItem n="10" bold="Compliance" rest=" formatting for SOC 2, HIPAA, and audits" />
+      <PRDItem
+        n="10"
+        bold="Compliance"
+        rest=" formatting for SOC 2, HIPAA, and audits"
+      />
 
       {/* Bottom white-fade gradient */}
       <div
@@ -1126,20 +1240,9 @@ function PRDWeekLabel({ children }: { children: ReactNode }) {
   );
 }
 
-function PRDItem({
-  n,
-  bold,
-  rest,
-}: {
-  n: string;
-  bold: string;
-  rest: string;
-}) {
+function PRDItem({ n, bold, rest }: { n: string; bold: string; rest: string }) {
   return (
-    <div
-      className="flex items-center"
-      style={{ padding: "8px 12px", gap: 16 }}
-    >
+    <div className="flex items-center" style={{ padding: "8px 12px", gap: 16 }}>
       <span
         style={{
           fontFamily: "'IBM Plex Mono', monospace",
@@ -1224,7 +1327,11 @@ function CursorPin({
         alignItems: variant === "left" ? "flex-start" : "flex-end",
       }}
     >
-      {variant === "left" ? Pointer : <div style={{ transform: "scaleX(-1)" }}>{Pointer}</div>}
+      {variant === "left" ? (
+        Pointer
+      ) : (
+        <div style={{ transform: "scaleX(-1)" }}>{Pointer}</div>
+      )}
       <div
         style={{
           paddingLeft: variant === "left" ? 20 : 0,
@@ -1318,10 +1425,15 @@ function SecondaryCta({ href, label }: { href: string; label: string }) {
   );
 }
 
-
 // --------------------------------------------------- Inline Tabler-style icons
 
-function ChecksIcon({ size = 18, color = "#16a34a" }: { size?: number; color?: string }) {
+function ChecksIcon({
+  size = 18,
+  color = "#16a34a",
+}: {
+  size?: number;
+  color?: string;
+}) {
   return (
     <svg
       width={size}
@@ -1340,7 +1452,13 @@ function ChecksIcon({ size = 18, color = "#16a34a" }: { size?: number; color?: s
   );
 }
 
-function PencilIcon({ size = 18, color = "#0168f2" }: { size?: number; color?: string }) {
+function PencilIcon({
+  size = 18,
+  color = "#0168f2",
+}: {
+  size?: number;
+  color?: string;
+}) {
   return (
     <svg
       width={size}
@@ -1359,7 +1477,13 @@ function PencilIcon({ size = 18, color = "#0168f2" }: { size?: number; color?: s
   );
 }
 
-function BallpenIcon({ size = 18, color = "#ff7162" }: { size?: number; color?: string }) {
+function BallpenIcon({
+  size = 18,
+  color = "#ff7162",
+}: {
+  size?: number;
+  color?: string;
+}) {
   return (
     <svg
       width={size}

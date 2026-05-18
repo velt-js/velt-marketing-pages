@@ -74,7 +74,7 @@
     "subheading": "Deeply embedded in Lexical and works reliably as the document tree updates",
     "viewDocsCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/async-collaboration/comments/setup/lexical#lexical-setup",
+      "href": "https://velt.dev/docs/async-collaboration/comments/setup/lexical#lexical-setup",
       "label": "View Docs",
       "newTab": true
     }
@@ -129,7 +129,7 @@
     },
     "getApiKeyHref": "https://console.velt.dev/",
     "heading": "Production-Ready in Minutes",
-    "viewDocsHref": "https://docs.velt.dev/async-collaboration/comments/setup/lexical#lexical-setup"
+    "viewDocsHref": "https://velt.dev/docs/async-collaboration/comments/setup/lexical#lexical-setup"
   },
   "getStartedSteps": {
     "step1PackageName": "@veltdev/lexical-velt-comments"
@@ -145,7 +145,7 @@
     },
     "secondaryCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/async-collaboration/comments/setup/lexical#lexical-setup",
+      "href": "https://velt.dev/docs/async-collaboration/comments/setup/lexical#lexical-setup",
       "label": "View Docs",
       "newTab": true
     },

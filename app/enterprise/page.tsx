@@ -59,9 +59,7 @@ export default function EnterprisePage() {
     <>
       <JsonLd id="ld-enterprise-webpage" data={ENTERPRISE_WEBPAGE} />
       <JsonLd id="ld-enterprise-breadcrumb" data={ENTERPRISE_BREADCRUMB} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
+      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
         <PageHero
           decorated
           heading="The Collaboration Stack For Enterprise"
@@ -86,19 +84,23 @@ export default function EnterprisePage() {
           <Security
             heading="Support So Seamless, It Feels In-House"
             subheading="Expert support embedded in your workflow, from onboarding to deployment"
-            primaryCta={{ label: "View Docs", href: "https://docs.velt.dev/" }}
+            primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
             secondaryCta={{ label: "Request Demo", href: "/book-demo" }}
             cards={[
               {
                 title: "Complimentary Design & Implementation Support",
                 subtitle: "Host your data where you need it",
-                visual: <CardVisual src="/images/enterprise/support/design-support.jpg" />,
+                visual: (
+                  <CardVisual src="/images/enterprise/support/design-support.jpg" />
+                ),
               },
               {
                 title: "Dedicated CSM",
                 subtitle:
                   "Enable Loom-style recording. Your users can record their screen, camera or audio",
-                visual: <CardVisual src="/images/enterprise/support/dedicated-csm.jpg" />,
+                visual: (
+                  <CardVisual src="/images/enterprise/support/dedicated-csm.jpg" />
+                ),
               },
             ]}
             wideBottomCard={{
@@ -135,19 +137,26 @@ export default function EnterprisePage() {
             paddingBottom={80}
             heading="Everything You Need to Keep Your Data Safe and Secure"
             subheading="All components come with different modes and setups to fit your app perfectly"
-            primaryCta={{ label: "Visit Trust Centre", href: "https://trust.velt.dev/" }}
+            primaryCta={{
+              label: "Visit Trust Centre",
+              href: "https://trust.velt.dev/",
+            }}
             secondaryCta={{ label: "Request Demo", href: "/book-demo" }}
             cards={[
               {
                 title: "Multi Region Hosting",
                 subtitle: "Host your data where you need it",
-                visual: <CardVisual src="/images/security/Mutli%20Region%20Hosting.png" />,
+                visual: (
+                  <CardVisual src="/images/security/Mutli%20Region%20Hosting.png" />
+                ),
               },
               {
                 title: "Isolated Servers and Data Storage",
                 subtitle:
                   "Enable Loom-style recording. Your users can record their screen, camera or audio",
-                visual: <CardVisual src="/images/security/Isolated%20Data.png" />,
+                visual: (
+                  <CardVisual src="/images/security/Isolated%20Data.png" />
+                ),
               },
             ]}
             wideBottomCard={null}

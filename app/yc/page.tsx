@@ -334,7 +334,7 @@ export default function YcPage() {
         <Security
           heading="What's included"
           subheading="Every YC account ships with the full Velt feature suite and the infrastructure to scale it."
-          primaryCta={{ label: "View Docs", href: "https://docs.velt.dev/" }}
+          primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
           secondaryCta={{ label: "Book a call", href: "/book-demo" }}
           cards={YC_CARDS}
           certification={null}

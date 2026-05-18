@@ -74,7 +74,7 @@ export default function ComparisonPage() {
             href: "https://console.velt.dev/",
             newTab: true,
           }}
-          secondaryCta={{ label: "View Docs", href: "https://docs.velt.dev/", newTab: true }}
+          secondaryCta={{ label: "View Docs", href: "https://velt.dev/docs/", newTab: true }}
         />
 
         <TrustedLogos />

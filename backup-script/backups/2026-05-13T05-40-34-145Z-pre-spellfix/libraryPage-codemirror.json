@@ -74,7 +74,7 @@
     "subheading": "Deeply embedded in CodeMirror and works reliably as content changes line by line",
     "viewDocsCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+      "href": "https://velt.dev/docs/realtime-collaboration/crdt/setup/codemirror",
       "label": "View Docs",
       "newTab": true
     }
@@ -129,7 +129,7 @@
     },
     "getApiKeyHref": "https://console.velt.dev/",
     "heading": "Production-Ready in Minutes",
-    "viewDocsHref": "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror"
+    "viewDocsHref": "https://velt.dev/docs/realtime-collaboration/crdt/setup/codemirror"
   },
   "getStartedSteps": {
     "step1PackageName": "@veltdev/crdt-react"
@@ -145,7 +145,7 @@
     },
     "secondaryCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/codemirror",
+      "href": "https://velt.dev/docs/realtime-collaboration/crdt/setup/codemirror",
       "label": "View Docs",
       "newTab": true
     },

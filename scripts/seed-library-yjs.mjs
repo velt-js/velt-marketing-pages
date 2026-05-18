@@ -19,7 +19,9 @@ import { basename, resolve } from "node:path";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
-  console.error("Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.");
+  console.error(
+    "Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.",
+  );
   process.exit(1);
 }
 
@@ -36,7 +38,8 @@ const client = DRY_RUN
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 
 async function uploadImage(relPath) {
-  if (DRY_RUN) return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
+  if (DRY_RUN)
+    return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
   const filePath = resolve(PROJECT_ROOT, relPath);
   const buffer = readFileSync(filePath);
   const asset = await client.assets.upload("image", buffer, {
@@ -58,7 +61,9 @@ function Component() {
 
 async function main() {
   console.log("Uploading yjs images...");
-  const previewImage = await uploadImage("public/images/home/libraries/demos/yjs.png");
+  const previewImage = await uploadImage(
+    "public/images/home/libraries/demos/yjs.png",
+  );
   const logo = await uploadImage("public/images/home/libraries/yjs.png");
   const avatarEthan = await uploadImage(
     "public/images/home/libraries/tiptap/avatars/ethan.png",
@@ -71,7 +76,8 @@ async function main() {
     title: "Yjs",
     slug: { _type: "slug", current: "yjs" },
     category: "Text Editor",
-    tagline: "Run Yjs apps without building or operating realtime infrastructure.",
+    tagline:
+      "Run Yjs apps without building or operating realtime infrastructure.",
     logo,
     metaTitle: "Collaboration Toolkit for YJS | Velt",
     metaDescription:
@@ -90,7 +96,7 @@ async function main() {
       secondaryCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/realtime-collaboration/crdt/setup/core",
+        href: "https://velt.dev/docs/realtime-collaboration/crdt/setup/core",
         newTab: true,
       },
     },
@@ -108,7 +114,7 @@ async function main() {
       viewDocsCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/realtime-collaboration/crdt/setup/core",
+        href: "https://velt.dev/docs/realtime-collaboration/crdt/setup/core",
         newTab: true,
       },
       primaryCta: {
@@ -127,56 +133,64 @@ async function main() {
           _type: "bentoCard",
           _key: "card-multiplayer",
           title: "Multiplayer Editing",
-          description: "Co-edit documents in real-time and see who is working with you",
+          description:
+            "Co-edit documents in real-time and see who is working with you",
           illustrationKey: "multiplayerEditing",
         },
         {
           _type: "bentoCard",
           _key: "card-comments",
           title: "Contextual Comments",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
           illustrationKey: "contextualComments",
         },
         {
           _type: "bentoCard",
           _key: "card-cursors",
           title: "Real-time Cursors & Presence",
-          description: "Decide how users appear with fully customizable name tags and cursors",
+          description:
+            "Decide how users appear with fully customizable name tags and cursors",
           illustrationKey: "customizableCursors",
         },
         {
           _type: "bentoCard",
           _key: "card-mentions",
           title: "User Mentions",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
           illustrationKey: "userMentions",
         },
         {
           _type: "bentoCard",
           _key: "card-notifications",
           title: "Notification",
-          description: "See what changes have been made to a shared document with timestamps",
+          description:
+            "See what changes have been made to a shared document with timestamps",
           illustrationKey: "notification",
         },
         {
           _type: "bentoCard",
           _key: "card-history",
           title: "Version History",
-          description: "See what changes have been made to a shared document with timestamps",
+          description:
+            "See what changes have been made to a shared document with timestamps",
           illustrationKey: "versionHistory",
         },
         {
           _type: "bentoCard",
           _key: "card-single-editor",
           title: "Single Editor Mode",
-          description: "Limit editing control to one user in collaborative scenarios",
+          description:
+            "Limit editing control to one user in collaborative scenarios",
           illustrationKey: "singleEditorMode",
         },
         {
           _type: "bentoCard",
           _key: "card-offline",
           title: "Offline Storage",
-          description: "Keep working when the connection drops. Data will sync when you reconnect",
+          description:
+            "Keep working when the connection drops. Data will sync when you reconnect",
           illustrationKey: "offlineStorage",
         },
       ],
@@ -184,13 +198,15 @@ async function main() {
     inlineTestimonial: {
       name: "Ethan Veres",
       role: "CTO @eqtble",
-      quote: "Commenting is something we wanted in our app, Velt made it possible",
+      quote:
+        "Commenting is something we wanted in our app, Velt made it possible",
       avatar: avatarEthan,
     },
     getStartedCallout: {
       heading: "Production-Ready in Minutes",
       body: "Install the Velt YJS extension. Test. Ship.",
-      viewDocsHref: "https://docs.velt.dev/realtime-collaboration/crdt/setup/core",
+      viewDocsHref:
+        "https://velt.dev/docs/realtime-collaboration/crdt/setup/core",
       getApiKeyHref: "https://console.velt.dev/",
       codeSnippet: {
         code: SETUP_CODE,

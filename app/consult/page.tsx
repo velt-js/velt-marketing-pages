@@ -322,7 +322,7 @@ export default function ConsultPage() {
         <Security
           heading="What you get"
           subheading="Every consultation includes a product audit, custom mockups, and an implementation plan tailored to your stack."
-          primaryCta={{ label: "View Docs", href: "https://docs.velt.dev/" }}
+          primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
           secondaryCta={{ label: "Book a slot", href: "#calendly" }}
           cards={CONSULT_CARDS}
           certification={null}

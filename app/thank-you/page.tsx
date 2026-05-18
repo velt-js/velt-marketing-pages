@@ -22,9 +22,7 @@ export const metadata = buildPageMetadata({
 export default function ThankYouPage() {
   return (
     <>
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
+      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
         <PageHero
           decorated={false}
           eyebrow={{ label: "Request received", dotColor: "#0D9A5D" }}
@@ -32,7 +30,7 @@ export default function ThankYouPage() {
           subheading={THANK_YOU_DESCRIPTION}
           primaryCta={{
             label: "Read the Docs",
-            href: "https://docs.velt.dev/",
+            href: "https://velt.dev/docs/",
             newTab: true,
           }}
           secondaryCta={{ label: "Back to home", href: "/" }}

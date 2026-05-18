@@ -214,7 +214,7 @@ function DebugLocallyCard() {
           </p>
         </div>
         <a
-          href="https://docs.velt.dev/get-started/setup/install"
+          href="https://velt.dev/docs/get-started/setup/install"
           target="_blank"
           rel="noopener"
           className="inline-flex items-center justify-center font-urbanist font-semibold whitespace-nowrap"
@@ -919,7 +919,7 @@ function NavigateDataCard() {
         <div className="flex items-start" style={{ gap: 12 }}>
           {/* View Docs (secondary, bordered, with book icon) */}
           <a
-            href="https://docs.velt.dev/"
+            href="https://velt.dev/docs/"
             target="_blank"
             rel="noopener"
             className="inline-flex items-center justify-center font-urbanist font-semibold whitespace-nowrap"
@@ -1279,7 +1279,7 @@ function Card3ConfigureWebhooks() {
     <FeatureFlowDiagram
       heading="Configure Advanced Webhooks"
       subheading="Enable multiplayer editing, text comments, version history and more"
-      viewDocsCta={{ label: "View Docs", href: "https://docs.velt.dev/", newTab: true }}
+      viewDocsCta={{ label: "View Docs", href: "https://velt.dev/docs/", newTab: true }}
       primaryCta={{ label: "View All Examples", href: "https://velt.dev/examples", newTab: true }}
       stages={WEBHOOK_FLOW_STAGES}
       testimonial={ethanTestimonial}
@@ -1488,7 +1488,7 @@ function Card4ExtendIntegrations() {
                 View Docs (purple border + mix-blend-exclusion text) and a
                 solid purple primary button. */}
             <a
-              href="https://docs.velt.dev/"
+              href="https://velt.dev/docs/"
               target="_blank"
               rel="noopener"
               className="flex items-center justify-center gap-1 rounded-lg"

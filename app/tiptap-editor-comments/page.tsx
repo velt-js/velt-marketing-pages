@@ -61,8 +61,7 @@ type FeatureBlock = FeatureVideoBlockProps;
 
 const FEATURE_BLOCKS: FeatureBlock[] = [
   {
-    title:
-      "Quickly add commenting to any product that uses Tiptap Editor",
+    title: "Quickly add commenting to any product that uses Tiptap Editor",
     body: "Drop in Velt's Tiptap extension and let your users leave inline, text-anchored comments inside any Tiptap-powered editor — no custom plumbing required.",
     videoSrc: "/videos/tiptap-editor-comments/quickly-add-commenting.mp4",
     videoPoster:
@@ -154,9 +153,9 @@ export default function TiptapEditorCommentsPage() {
                   lineHeight: 1.3,
                 }}
               >
-                Three building blocks that turn a single SDK install into
-                a production-grade commenting experience inside your
-                Tiptap editor.
+                Three building blocks that turn a single SDK install into a
+                production-grade commenting experience inside your Tiptap
+                editor.
               </p>
             </div>
 
@@ -168,7 +167,7 @@ export default function TiptapEditorCommentsPage() {
 
             <div className="flex items-center gap-3 flex-wrap justify-center">
               <a
-                href="https://docs.velt.dev/"
+                href="https://velt.dev/docs/"
                 target="_blank"
                 rel="noopener"
                 className="flex items-center justify-center rounded-lg font-urbanist font-semibold"

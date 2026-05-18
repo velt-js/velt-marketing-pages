@@ -22,7 +22,7 @@ export function BlogNav() {
             Blog
           </Link>
           <Link
-            href="https://docs.velt.dev/"
+            href="https://velt.dev/docs/"
             className="text-sm text-white/60 hover:text-white transition-colors"
           >
             Docs

@@ -74,7 +74,7 @@
     "subheading": "Deeply embedded in BlockNote and works reliably through edits, reflows, and formatting changes",
     "viewDocsCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/blocknote",
+      "href": "https://velt.dev/docs/realtime-collaboration/crdt/setup/blocknote",
       "label": "View Docs",
       "newTab": true
     }
@@ -129,7 +129,7 @@
     },
     "getApiKeyHref": "https://console.velt.dev/",
     "heading": "Production-Ready in Minutes",
-    "viewDocsHref": "https://docs.velt.dev/realtime-collaboration/crdt/setup/blocknote"
+    "viewDocsHref": "https://velt.dev/docs/realtime-collaboration/crdt/setup/blocknote"
   },
   "getStartedSteps": {
     "step1PackageName": "@veltdev/blocknote-crdt"

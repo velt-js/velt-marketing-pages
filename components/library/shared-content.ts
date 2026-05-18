@@ -64,7 +64,7 @@ export const libraryTabs: LibraryTab[] = [
 // 10 libraries in the /libraries grid. Logos, order, slugs, and category
 // assignment mirror production velt.dev/libraries (images downloaded from
 // framerusercontent.com under public/images/home/libraries/).
-const docsBase = "https://docs.velt.dev/async-collaboration/comments/setup";
+const docsBase = "https://velt.dev/docs/async-collaboration/comments/setup";
 const libBase = "/images/home/libraries";
 
 export const allLibraryCards: LibraryCardData[] = [
@@ -75,7 +75,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 57,
     logoHeight: 67,
     category: "Text Editor",
-    docsHref: "https://docs.velt.dev/realtime-collaboration/crdt",
+    docsHref: "https://velt.dev/docs/realtime-collaboration/crdt",
     learnMoreHref: "/libraries/yjs",
   },
   {
@@ -95,7 +95,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 303,
     logoHeight: 56,
     category: "Canvas",
-    docsHref: "https://docs.velt.dev/realtime-collaboration/crdt/setup/reactflow",
+    docsHref: "https://velt.dev/docs/realtime-collaboration/crdt/setup/reactflow",
     learnMoreHref: "/libraries/react-flow",
   },
   {
@@ -105,7 +105,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 353,
     logoHeight: 67,
     category: "Text Editor",
-    docsHref: "https://docs.velt.dev/realtime-collaboration/crdt/setup/blocknote",
+    docsHref: "https://velt.dev/docs/realtime-collaboration/crdt/setup/blocknote",
     learnMoreHref: "/libraries/blocknote",
   },
   {
@@ -135,7 +135,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 115,
     logoHeight: 75,
     category: "Text Editor",
-    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/slatejs",
+    docsHref: "https://velt.dev/docs/async-collaboration/comments/setup/slatejs",
     learnMoreHref: "/libraries/slatejs",
   },
   {
@@ -145,7 +145,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 1364,
     logoHeight: 484,
     category: "Charts",
-    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/chartjs",
+    docsHref: "https://velt.dev/docs/async-collaboration/comments/setup/chart-comments-setup/chartjs",
     learnMoreHref: "/libraries/chartjs",
   },
   {
@@ -155,7 +155,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 212,
     logoHeight: 66,
     category: "Charts",
-    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
+    docsHref: "https://velt.dev/docs/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
     learnMoreHref: "/libraries/nivo-charts",
   },
   {
@@ -165,7 +165,7 @@ export const allLibraryCards: LibraryCardData[] = [
     logoWidth: 422,
     logoHeight: 72,
     category: "Charts",
-    docsHref: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/highcharts",
+    docsHref: "https://velt.dev/docs/async-collaboration/comments/setup/chart-comments-setup/highcharts",
     learnMoreHref: "/libraries/highcharts",
   },
 ];

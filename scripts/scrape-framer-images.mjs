@@ -23,7 +23,7 @@ if (!slug) {
   process.exit(1);
 }
 
-const res = await fetch(`https://www.velt.dev/use-case/${slug}`, {
+const res = await fetch(`https://velt.dev/use-case/${slug}`, {
   headers: { "user-agent": "Mozilla/5.0" },
 });
 if (!res.ok) {
@@ -68,7 +68,8 @@ const zoneStart = Math.min(...presentHeadings.map((h) => h.pos));
 // a generous lookahead (~50KB) which comfortably covers the row block.
 const zoneEnd = Math.max(...presentHeadings.map((h) => h.pos)) + 50000;
 
-const imgRe = /https:\/\/framerusercontent\.com\/images\/([A-Za-z0-9]+)\.(?:png|jpg|jpeg|webp)\?[^\s"&]*?width=(\d+)[^\s"]*/g;
+const imgRe =
+  /https:\/\/framerusercontent\.com\/images\/([A-Za-z0-9]+)\.(?:png|jpg|jpeg|webp)\?[^\s"&]*?width=(\d+)[^\s"]*/g;
 const MIN_W = 600;
 const seenIds = new Set();
 const orderedImages = [];
@@ -90,7 +91,7 @@ for (let i = 0; i < cmsHeadings.length; i++) {
   const found = headingPositions[i].pos !== -1;
   out.benefits.push({
     title: cmsHeadings[i],
-    image: found ? orderedImages[imgIdx++] ?? null : null,
+    image: found ? (orderedImages[imgIdx++] ?? null) : null,
     onLivePage: found,
   });
 }

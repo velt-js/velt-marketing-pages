@@ -26,7 +26,9 @@ import { basename, resolve } from "node:path";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
-  console.error("Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.");
+  console.error(
+    "Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.",
+  );
   process.exit(1);
 }
 
@@ -43,7 +45,8 @@ const client = DRY_RUN
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 
 async function uploadImage(relPath) {
-  if (DRY_RUN) return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
+  if (DRY_RUN)
+    return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
   const filePath = resolve(PROJECT_ROOT, relPath);
   const buffer = readFileSync(filePath);
   const asset = await client.assets.upload("image", buffer, {
@@ -75,8 +78,12 @@ const SETUP_CODE = `<ResponsiveLine
 
 async function main() {
   console.log("Uploading nivo-charts images...");
-  const previewImage = await uploadImage("public/images/home/libraries/demos/nivo.png");
-  const logo = await uploadImage("public/images/home/libraries/nivo-charts.png");
+  const previewImage = await uploadImage(
+    "public/images/home/libraries/demos/nivo.png",
+  );
+  const logo = await uploadImage(
+    "public/images/home/libraries/nivo-charts.png",
+  );
   const avatarEthan = await uploadImage(
     "public/images/home/libraries/tiptap/avatars/ethan.png",
   );
@@ -128,7 +135,7 @@ async function main() {
       secondaryCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
+        href: "https://velt.dev/docs/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
         newTab: true,
       },
     },
@@ -138,7 +145,8 @@ async function main() {
       // the highcharts page). Mirrored verbatim per direction; correct
       // upstream and re-seed when the real nivo demo + repo are available.
       demoUrl: "https://velt-reactflow-crdt-demo.vercel.app/",
-      githubUrl: "https://github.com/velt-js/velt-reactflow-crdt-demo/tree/main",
+      githubUrl:
+        "https://github.com/velt-js/velt-reactflow-crdt-demo/tree/main",
       previewImage,
     },
     bento: {
@@ -149,7 +157,7 @@ async function main() {
       viewDocsCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
+        href: "https://velt.dev/docs/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
         newTab: true,
       },
       primaryCta: {
@@ -190,21 +198,24 @@ async function main() {
           _type: "bentoCard",
           _key: "card-mentions",
           title: "User Mentions",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
           image: tileMentions,
         },
         {
           _type: "bentoCard",
           _key: "card-notification",
           title: "Notification",
-          description: "See what changes have been made to a shared document with timestamps",
+          description:
+            "See what changes have been made to a shared document with timestamps",
           image: tileNotification,
         },
         {
           _type: "bentoCard",
           _key: "card-offline",
           title: "Offline Storage",
-          description: "Keep working when the connection drops. Data will sync when you reconnect",
+          description:
+            "Keep working when the connection drops. Data will sync when you reconnect",
           image: tileOffline,
         },
       ],
@@ -212,14 +223,15 @@ async function main() {
     inlineTestimonial: {
       name: "Ethan Veres",
       role: "CTO @eqtble",
-      quote: "Commenting is something we wanted in our app, Velt made it possible",
+      quote:
+        "Commenting is something we wanted in our app, Velt made it possible",
       avatar: avatarEthan,
     },
     getStartedCallout: {
       heading: "Production-Ready in Minutes",
       body: "Install the Velt Nivo Charts extension. Test. Ship.",
       viewDocsHref:
-        "https://docs.velt.dev/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
+        "https://velt.dev/docs/async-collaboration/comments/setup/chart-comments-setup/nivo-charts",
       getApiKeyHref: "https://console.velt.dev/",
       codeSnippet: {
         code: SETUP_CODE,

@@ -74,7 +74,7 @@
     "subheading": "Velt handles sync, persistence, and connections so Yjs apps stay reliable at scale",
     "viewDocsCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/core",
+      "href": "https://velt.dev/docs/realtime-collaboration/crdt/setup/core",
       "label": "View Docs",
       "newTab": true
     }
@@ -129,7 +129,7 @@
     },
     "getApiKeyHref": "https://console.velt.dev/",
     "heading": "Production-Ready in Minutes",
-    "viewDocsHref": "https://docs.velt.dev/realtime-collaboration/crdt/setup/core"
+    "viewDocsHref": "https://velt.dev/docs/realtime-collaboration/crdt/setup/core"
   },
   "getStartedSteps": {
     "step1PackageName": "@veltdev/crdt-react"
@@ -145,7 +145,7 @@
     },
     "secondaryCta": {
       "_type": "ctaLink",
-      "href": "https://docs.velt.dev/realtime-collaboration/crdt/setup/core",
+      "href": "https://velt.dev/docs/realtime-collaboration/crdt/setup/core",
       "label": "View Docs",
       "newTab": true
     },

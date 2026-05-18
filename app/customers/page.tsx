@@ -53,9 +53,7 @@ export default function CustomersPage() {
           mentions, and 5 Review entities with ratingValue 5 — the
           ratings are the most SEO-valuable piece. */}
       <JsonLd id="ld-customers-framer" data={CUSTOMERS_WEBPAGE_SCHEMA} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
+      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
         <PageHero
           decorated
           heading="Products using Velt to boost engagement and growth"
@@ -67,7 +65,7 @@ export default function CustomersPage() {
           }}
           secondaryCta={{
             label: "View Docs",
-            href: "https://docs.velt.dev/",
+            href: "https://velt.dev/docs/",
             newTab: true,
           }}
         />

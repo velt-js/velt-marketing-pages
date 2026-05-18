@@ -4,14 +4,14 @@
 // there by `scripts/sync-integrations-from-framer-to-sanity.mjs` and there's
 // no need to duplicate them in /public.
 //
-// Each card's "View Docs" button links to https://docs.velt.dev/. The
+// Each card's "View Docs" button links to https://velt.dev/docs/. The
 // "Learn More" button links to /integrations/{slug} — the Sanity-backed
 // detail page rendered by `app/integrations/[slug]/page.tsx`.
 
 import type { LibraryTab } from "../library/LibraryTabs";
 import type { LibraryCardData } from "../library/AllLibraries";
 
-const DOCS_URL = "https://docs.velt.dev/";
+const DOCS_URL = "https://velt.dev/docs/";
 const integrationHref = (slug: string) => `/integrations/${slug}`;
 
 // Tabs match the categories shown on production velt.dev/integrations:

@@ -127,7 +127,7 @@ export function NotFoundContent() {
 
           <div className="flex items-start gap-3 flex-wrap justify-center">
             <a
-              href="https://docs.velt.dev"
+              href="https://velt.dev/docs"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 rounded-lg font-urbanist font-bold text-white"

@@ -157,7 +157,7 @@ export function BuildYourOwnUICTA() {
 function ViewDocsButton() {
   return (
     <a
-      href="https://docs.velt.dev/api-reference"
+      href="https://velt.dev/docs/api-reference"
       target="_blank"
       rel="noopener"
       className="flex items-center justify-center"
@@ -247,7 +247,7 @@ function ApiEndpointPillContent() {
       </div>
 
       <a
-        href="https://docs.velt.dev/api-reference"
+        href="https://velt.dev/docs/api-reference"
         target="_blank"
         rel="noopener"
         className="flex items-center"

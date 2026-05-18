@@ -2,12 +2,12 @@
 /**
  * Repoint the `link` field on every useCasePage benefits[].useCases[] chip.
  *
- * Background: chips were authored as absolute `https://www.velt.dev/feature/<slug>`
+ * Background: chips were authored as absolute `https://velt.dev/feature/<slug>`
  * URLs, but (a) this app routes feature pages at the root (e.g. /comments), not
  * under /feature/, and (b) most of the referenced slugs (huddle, presence,
  * flock-mode, …) don't have a featurePage document. We rewrite each chip's
  * link by matching its label to either an internal feature page in this app
- * or the canonical docs.velt.dev overview page for that capability.
+ * or the canonical velt.dev/docs overview page for that capability.
  *
  * Usage:
  *   DRY_RUN=1 node --env-file=.env.local scripts/fix-use-case-chip-links.mjs
@@ -33,7 +33,7 @@ const client = createClient({
   useCdn: false,
 });
 
-const DOCS = "https://docs.velt.dev";
+const DOCS = "https://velt.dev/docs";
 
 // Label → URL. Match is case-insensitive after stripping punctuation. When a
 // chip label doesn't match anything here, we leave its `link` untouched so
@@ -71,7 +71,7 @@ const LABEL_MAP = [
     confidence: "linked",
   },
 
-  // docs.velt.dev pages --------------------------------------------------
+  // velt.dev/docs pages --------------------------------------------------
   {
     match: /^cursors?$/i,
     url: `${DOCS}/realtime-collaboration/cursors/overview`,
@@ -222,7 +222,9 @@ async function main() {
     a[0].localeCompare(b[0]),
   )) {
     if (info.action === "no-match (will leave as-is)") {
-      console.log(`${label} | (no-match — left as-is) | doubt (${info.count}×)`);
+      console.log(
+        `${label} | (no-match — left as-is) | doubt (${info.count}×)`,
+      );
     } else {
       console.log(
         `${label} | ${info.to} | ${info.confidence} (${info.count}×, ${info.action})`,
@@ -230,8 +232,12 @@ async function main() {
     }
   }
 
-  console.log(`\nTotal chip rewrites/fills planned: ${changes.filter((c) => c.patch).length}`);
-  console.log(`Use-case docs touched: ${new Set(changes.map((c) => c.doc)).size}`);
+  console.log(
+    `\nTotal chip rewrites/fills planned: ${changes.filter((c) => c.patch).length}`,
+  );
+  console.log(
+    `Use-case docs touched: ${new Set(changes.map((c) => c.doc)).size}`,
+  );
 
   if (DRY_RUN) {
     console.log("\nDRY_RUN=1 — no writes performed.");
@@ -242,7 +248,10 @@ async function main() {
   let applied = 0;
   for (const c of changes) {
     if (!c.patch) continue;
-    await client.patch(c.patch.id).set({ [c.patch.path]: c.to }).commit();
+    await client
+      .patch(c.patch.id)
+      .set({ [c.patch.path]: c.to })
+      .commit();
     applied++;
   }
   console.log(`Applied ${applied} patches.`);

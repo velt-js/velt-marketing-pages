@@ -67,7 +67,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/features/comments/little-big-details/Cell.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -81,7 +86,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/features/comments/little-big-details/Thread.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -95,7 +105,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/features/comments/little-big-details/@mention.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -109,7 +124,12 @@ const FEATURE_CARDS: SecurityCardData[] = [
         src="/images/home/feature-grid/Notifications.png"
         alt=""
         aria-hidden="true"
-        style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          objectPosition: "center",
+        }}
       />
     ),
   },
@@ -162,7 +182,7 @@ export default function GoogleSpreadsheetsLikeCommentsPage() {
           hideShield
           heading="Supercharged commenting for sheets"
           subheading="Four building blocks that turn a single SDK install into a Google Sheets-grade commenting experience inside your product."
-          primaryCta={{ label: "View Docs", href: "https://docs.velt.dev/" }}
+          primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
           secondaryCta={{
             label: "Get Free API Key",
             href: "https://console.velt.dev/",

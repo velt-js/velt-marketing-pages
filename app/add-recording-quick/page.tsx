@@ -161,7 +161,7 @@ export default function AddRecordingQuickPage() {
         <Security
           heading="Why teams pick Velt for recording"
           subheading="Full-stack recording components with capture, storage, playback, and AI features included — drop one tag in and ship."
-          primaryCta={{ label: "View Docs", href: "https://docs.velt.dev/" }}
+          primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
           secondaryCta={{ label: "Book demo", href: "/book-demo" }}
           cards={RECORDING_CARDS}
           certification={null}

@@ -19,7 +19,9 @@ import { basename, resolve } from "node:path";
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
-  console.error("Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.");
+  console.error(
+    "Set SANITY_API_TOKEN env var, or DRY_RUN=1 to preview without writing.",
+  );
   process.exit(1);
 }
 
@@ -36,7 +38,8 @@ const client = DRY_RUN
 const PROJECT_ROOT = resolve(import.meta.dirname, "..");
 
 async function uploadImage(relPath) {
-  if (DRY_RUN) return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
+  if (DRY_RUN)
+    return { _type: "image", asset: { _ref: `dry-run-${basename(relPath)}` } };
   const filePath = resolve(PROJECT_ROOT, relPath);
   const buffer = readFileSync(filePath);
   const asset = await client.assets.upload("image", buffer, {
@@ -69,7 +72,9 @@ return (
 
 async function main() {
   console.log("Uploading reactflow images...");
-  const previewImage = await uploadImage("public/images/home/libraries/demos/react-flow.png");
+  const previewImage = await uploadImage(
+    "public/images/home/libraries/demos/react-flow.png",
+  );
   const logo = await uploadImage("public/images/home/libraries/react-flow.png");
   const avatarEthan = await uploadImage(
     "public/images/home/libraries/tiptap/avatars/ethan.png",
@@ -126,14 +131,15 @@ async function main() {
       secondaryCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/realtime-collaboration/crdt/setup/reactflow",
+        href: "https://velt.dev/docs/realtime-collaboration/crdt/setup/reactflow",
         newTab: true,
       },
     },
     demoStage: {
       label: "React Flow",
       demoUrl: "https://velt-reactflow-crdt-demo.vercel.app/",
-      githubUrl: "https://github.com/velt-js/velt-reactflow-crdt-demo/tree/main",
+      githubUrl:
+        "https://github.com/velt-js/velt-reactflow-crdt-demo/tree/main",
       previewImage,
     },
     bento: {
@@ -144,7 +150,7 @@ async function main() {
       viewDocsCta: {
         _type: "ctaLink",
         label: "View Docs",
-        href: "https://docs.velt.dev/realtime-collaboration/crdt/setup/reactflow",
+        href: "https://velt.dev/docs/realtime-collaboration/crdt/setup/reactflow",
         newTab: true,
       },
       primaryCta: {
@@ -165,14 +171,16 @@ async function main() {
           _type: "bentoCard",
           _key: "card-multiplayer",
           title: "Multiplayer Editing",
-          description: "Co-edit documents in real-time and see who is working with you",
+          description:
+            "Co-edit documents in real-time and see who is working with you",
           image: tileMultiplayer,
         },
         {
           _type: "bentoCard",
           _key: "card-comments",
           title: "Comment on Nodes and Edges",
-          description: "Co-edit documents in real-time and see who is working with you",
+          description:
+            "Co-edit documents in real-time and see who is working with you",
           image: tileComments,
         },
         {
@@ -186,14 +194,16 @@ async function main() {
           _type: "bentoCard",
           _key: "card-mentions",
           title: "User Mentions",
-          description: "Enable rich conversations with replies, @mentions, and reactions",
+          description:
+            "Enable rich conversations with replies, @mentions, and reactions",
           image: tileMentions,
         },
         {
           _type: "bentoCard",
           _key: "card-notification",
           title: "Notification",
-          description: "See what changes have been made to a shared document with timestamps",
+          description:
+            "See what changes have been made to a shared document with timestamps",
           image: tileNotification,
         },
         {
@@ -214,7 +224,8 @@ async function main() {
           _type: "bentoCard",
           _key: "card-offline",
           title: "Offline Storage",
-          description: "Keep working when the connection drops. Data will sync when you reconnect",
+          description:
+            "Keep working when the connection drops. Data will sync when you reconnect",
           image: tileOffline,
         },
       ],
@@ -222,14 +233,15 @@ async function main() {
     inlineTestimonial: {
       name: "Ethan Veres",
       role: "CTO @eqtble",
-      quote: "Commenting is something we wanted in our app, Velt made it possible",
+      quote:
+        "Commenting is something we wanted in our app, Velt made it possible",
       avatar: avatarEthan,
     },
     getStartedCallout: {
       heading: "Production-Ready in Minutes",
       body: "Install the Velt React Flow extension. Test. Ship.",
       viewDocsHref:
-        "https://docs.velt.dev/realtime-collaboration/crdt/setup/reactflow",
+        "https://velt.dev/docs/realtime-collaboration/crdt/setup/reactflow",
       getApiKeyHref: "https://console.velt.dev/",
       codeSnippet: {
         code: SETUP_CODE,
@@ -244,7 +256,8 @@ async function main() {
         {
           _key: "faq-scope",
           question: "Can I comment only on nodes or edges?",
-          answer: "Yes, comments can be scoped to nodes, edges, or canvas areas.",
+          answer:
+            "Yes, comments can be scoped to nodes, edges, or canvas areas.",
         },
         {
           _key: "faq-backend",
@@ -259,7 +272,8 @@ async function main() {
         {
           _key: "faq-pricing",
           question: "How does pricing work?",
-          answer: "Pricing is based on Monthly Active Collaborators who use Velt features.",
+          answer:
+            "Pricing is based on Monthly Active Collaborators who use Velt features.",
         },
         {
           _key: "faq-dynamic",
