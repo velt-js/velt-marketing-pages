@@ -3,6 +3,7 @@ import {
   getAllBlogPosts,
   getAllDemoSlugs,
   getAllFeatureSlugs,
+  getAllIntegrationSlugs,
   getAllLibrarySlugs,
   getAllMigrationSlugs,
   getAllUseCaseSlugs,
@@ -86,6 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     librarySlugs,
     migrationSlugs,
     useCaseSlugs,
+    integrationSlugs,
     docsEntries,
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
@@ -94,6 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getAllLibrarySlugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
     getAllUseCaseSlugs().catch(() => []),
+    getAllIntegrationSlugs().catch(() => []),
     fetchDocsEntries(now),
   ]);
 
@@ -157,6 +160,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
+  const integrationEntries: MetadataRoute.Sitemap = (
+    integrationSlugs as string[]
+  ).map((slug) => ({
+    url: `${BASE}/integrations/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
   return [
     ...staticRoutes,
     ...blogEntries,
@@ -165,6 +177,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...libraryEntries,
     ...migrationEntries,
     ...useCaseEntries,
+    ...integrationEntries,
     ...docsEntries,
   ];
 }
