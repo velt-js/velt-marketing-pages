@@ -4,7 +4,7 @@
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "docs.velt.dev" }],
-      "destination": "https://velt.dev/docs/:path*",
+      "destination": "https://www.velt.dev/docs/:path*",
       "permanent": true
     }
   ],
@@ -31,5 +31,3 @@
     }
   ]
 }
-
-
