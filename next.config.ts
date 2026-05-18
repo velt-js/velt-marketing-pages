@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // docs.velt.dev/* → www.velt.dev/docs/*
+      // docs.velt.dev/* → velt.dev/docs/*
       // Must be first so it fires before any other rule or rewrite.
       {
         source: "/:path*",
@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
             value: "docs.velt.dev",
           },
         ],
-        destination: "https://www.velt.dev/docs/:path*",
+        destination: "https://velt.dev/docs/:path*",
         permanent: true,
       },
       ...buildBlogRedirectEntries(),
