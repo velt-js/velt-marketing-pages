@@ -1,5 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "docs.velt.dev" }],
+      "destination": "https://velt.dev/docs/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/docs",
