@@ -18,6 +18,19 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // docs.velt.dev/* → www.velt.dev/docs/*
+      // Must be first so it fires before any other rule or rewrite.
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "docs.velt.dev",
+          },
+        ],
+        destination: "https://www.velt.dev/docs/:path*",
+        permanent: true,
+      },
       ...buildBlogRedirectEntries(),
       // /migrate-from-liveblocks-to-velt and /migrate-from-cord-to-velt
       // are standalone top-level routes (see app/migrate-from-*/) that
