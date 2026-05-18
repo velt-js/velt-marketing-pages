@@ -10,6 +10,32 @@ import {
 import { sanitySlugToUrl } from "@/lib/feature-slugs";
 
 const BASE = "https://velt.dev";
+const MINTLIFY_SITEMAP = "https://velt.mintlify.dev/sitemap.xml";
+
+/**
+ * Fetches Mintlify's auto-generated docs sitemap and rewrites the hostname
+ * to velt.dev so the canonical URLs match where docs are actually served.
+ * Cached for 1 hour via Next's fetch cache. Failures return [] so the rest
+ * of the sitemap still emits.
+ */
+async function fetchDocsEntries(now: Date): Promise<MetadataRoute.Sitemap> {
+  try {
+    const res = await fetch(MINTLIFY_SITEMAP, {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return [];
+    const xml = await res.text();
+    const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+    return urls.map((url) => ({
+      url: url.replace("https://velt.mintlify.dev", BASE),
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+  } catch {
+    return [];
+  }
+}
 
 /**
  * Generates the XML sitemap for all public routes on velt.dev.
@@ -59,6 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     librarySlugs,
     migrationSlugs,
     useCaseSlugs,
+    docsEntries,
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
     getAllDemoSlugs().catch(() => []),
@@ -66,6 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getAllLibrarySlugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
     getAllUseCaseSlugs().catch(() => []),
+    fetchDocsEntries(now),
   ]);
 
   const blogEntries: MetadataRoute.Sitemap = (blogPosts as Array<{ slug: string; publishedAt?: string }>).map(
@@ -136,5 +164,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...libraryEntries,
     ...migrationEntries,
     ...useCaseEntries,
+    ...docsEntries,
   ];
 }
