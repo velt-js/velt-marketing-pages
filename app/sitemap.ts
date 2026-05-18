@@ -10,11 +10,12 @@ import {
 import { sanitySlugToUrl } from "@/lib/feature-slugs";
 
 const BASE = "https://velt.dev";
-const MINTLIFY_SITEMAP = "https://velt.mintlify.dev/sitemap.xml";
+const MINTLIFY_SITEMAP = "https://velt.mintlify.dev/docs/sitemap.xml";
 
 /**
- * Fetches Mintlify's auto-generated docs sitemap and rewrites the hostname
- * to velt.dev so the canonical URLs match where docs are actually served.
+ * Fetches Mintlify's auto-generated docs sitemap. Mintlify already emits
+ * URLs with the canonical hostname (https://velt.dev/docs/...) based on
+ * the domain set in the Mintlify dashboard, so no rewriting is needed.
  * Cached for 1 hour via Next's fetch cache. Failures return [] so the rest
  * of the sitemap still emits.
  */
@@ -27,7 +28,7 @@ async function fetchDocsEntries(now: Date): Promise<MetadataRoute.Sitemap> {
     const xml = await res.text();
     const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
     return urls.map((url) => ({
-      url: url.replace("https://velt.mintlify.dev", BASE),
+      url,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
