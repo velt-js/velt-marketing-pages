@@ -123,7 +123,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
     body: "We considered building this feature in-house. However, we quickly realized that creating a robust, scalable commenting system with all the modern collaboration features our users expect would require months of development effort and significant engineering resources, pulling our teams away from core innovation projects. That's when we discovered Velt.",
     authorName: "Chris Bakke",
     authorRole: "Head of Product @X",
-    authorAvatarSrc: "/images/features/comments/trust-us/avatar-gavin.png",
+    authorAvatarSrc: "/images/features/comments/trust-us/avatar-chris-bakke.png",
   },
   {
     customerLogoSrc: "/images/features/comments/trust-us/logo-eqtble.png",
