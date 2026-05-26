@@ -42,7 +42,7 @@ const TABS: TabDef[] = [
     subtitle: "Users spend 10+ hours a week communicating on other platforms. Bring those conversations into your product!",
     visual: "/images/home/outcomes-visual.png",
     logo: { src: "/images/home/trumpet-logo.svg", width: 133, height: 23 },
-    quote: "Engagement at Trumpet grew by 10%” after adding collaborative features from Velt",
+    quote: "Engagement at Trumpet grew by 10% after adding collaborative features from Velt",
     person: {
       name: "William Angle",
       title: "Lead PM, Trumpet",
