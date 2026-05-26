@@ -68,6 +68,25 @@ export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "7-key-features-of-online-collaboration-tools-and-software", to: "online-collaboration-tools-guide" },
   { from: "velt-vs-liveblocks-best-contextual-commenting-tool-for-design-and-development-teams-in-november-2025", to: "best-contextual-commenting-systems" },
   { from: "best-crdt-libraries-real-time-data-sync", to: "top-crdt-libraries-for-real-time-data-sync" },
+
+  // Nathan's 404 list (Slack, May 2026): legacy slugs indexed by Google
+  // before the Framer→Sanity migration snapshot, or renamed again in
+  // Sanity afterward. None existed in velt-301s.csv, so they 404'd until
+  // surfaced in Search Console. Targets verified live in Sanity.
+  { from: "javascript-chart-libraries-web-apps", to: "top-chart-libraries-for-modern-web-apps" },
+  { from: "velt-vs-knock-notification-sdk-comparison", to: "velt-vs-knock-which-notification-sdk-is-better" },
+  { from: "best-table-frameworks-web-apps", to: "best-table-frameworks-for-web-apps" },
+  { from: "trumpet-collaborative-features-from-velt-to-increase-engagement", to: "how-trumpet-used-collaborative-features-from-velt-sdk-to-increase-their-engagement" },
+  { from: "best-presence-cursor-tracking-sdks-collaborative-apps", to: "best-presence-cursor-sdks" },
+  { from: "tiptap-cloud-vs-velt", to: "tiptap-cloud-vs-velt-which-collaboration-sdk-fits-your-app" },
+  { from: "collaboration-sdk-architecture-guide", to: "collaboration-sdk-architecture-primitives-vs-frameworks-explained" },
+  { from: "best-notification-sdks-in-app-email-integration", to: "best-notification-sdks-in-app-email" },
+  { from: "document-collaboration-platforms-custom-applications", to: "velt-vs-liveblocks-collaboration-platforms-compared" },
+  { from: "follow-me-mode-sdks-collaborative-presentations", to: "best-follow-me-mode-sdks-for-collaborative-presentations" },
+  { from: "implementing-crdts-why-developers-give-up-real-time-editing", to: "crdt-implementation-guide-conflict-free-apps" },
+  { from: "self-hosted-collaboration-tools-enterprise-compliance", to: "self-hosted-collaboration-tools-for-compliance" },
+  { from: "crdt-implementation-guide-conflict-free-apps-2025", to: "crdt-implementation-guide-conflict-free-apps" },
+  { from: "websockets-vs-webrtc-full-guide-2025", to: "websockets-vs-webrtc-full-guide" },
 ];
 
 // Escape path-to-regexp special characters so literal slugs (especially
