@@ -5,7 +5,7 @@
 // characters are escaped when consumed by next.config.ts.
 export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "best-ably-alternatives-realtime-collaboration-2025", to: "best-ably-alternatives-realtime-collaboration" },
-  { from: "best-ai-powered-collaboration-sdks-for-auto-tagging-and-summarization-(december-2025)", to: "best-ai-collaboration-sdks-auto-tagging-summarization" },
+  { from: "best-ai-powered-collaboration-sdks-for-auto-tagging-and-summarization-(december-2025)", to: "best-ai-powered-collaboration-sdks-for-auto-tagging-and-summarization" },
   { from: "best-canvas-library-for-web-and-mobile-apps-in-january-2026", to: "best-canvas-library-for-web-and-mobile-apps" },
   { from: "best-collaboration-sdks-2026", to: "best-collaboration-sdks" },
   { from: "best-commenting-sdk-for-2025-ranked", to: "best-commenting-sdk-ranked" },
@@ -26,12 +26,12 @@ export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "best-screen-recording-sdks-for-developer-tools-(january-2026-update)", to: "best-screen-recording-sdks-for-developer-tools" },
   { from: "best-table-frameworks-for-web-apps-in-january-2026", to: "best-table-frameworks-for-web-apps" },
   { from: "building-a-react-native-text-editor-complete-guide-(december-2025)", to: "building-a-react-native-text-editor-complete-guide" },
-  { from: "collaboration-sdk-architecture-primitives-vs-frameworks-explained-(january-2026)", to: "collaboration-sdk-primitives-vs-frameworks" },
-  { from: "collaboration-sdk-pricing-models-infrastructure-vs.-value-based-billing-(january-2026)", to: "collaboration-sdk-pricing-infra-vs-value-based-billing" },
+  { from: "collaboration-sdk-architecture-primitives-vs-frameworks-explained-(january-2026)", to: "collaboration-sdk-architecture-primitives-vs-frameworks-explained" },
+  { from: "collaboration-sdk-pricing-models-infrastructure-vs.-value-based-billing-(january-2026)", to: "collaboration-sdk-pricing-models-infrastructure-vs.-value-based-billing" },
   { from: "commenting-sdk-build-vs-buy-guide-for-2025", to: "commenting-sdk-build-vs-buy-guide" },
   { from: "commenting-sdk-cost-2025", to: "commenting-sdk-cost" },
   { from: "enterprise-ready-collaboration-sdk-complete-guide-for-2026", to: "enterprise-ready-collaboration-sdk-complete-guide" },
-  { from: "implementing-crdts-why-most-developers-give-up-on-real-time-editing-(february-2026)", to: "implementing-crdts-why-developers-give-up-real-time-editing" },
+  { from: "implementing-crdts-why-most-developers-give-up-on-real-time-editing-(february-2026)", to: "crdt-implementation-guide-conflict-free-apps" },
   { from: "knock-alternatives-best-notification-apis-(january-2026)", to: "knock-alternatives-best-notification-apis" },
   { from: "knock-vs-courier-notification-api-2025", to: "knock-vs-courier-notification-api" },
   { from: "liveblocks-sdk-review-alternatives-2025", to: "liveblocks-sdk-review-alternatives" },
@@ -39,7 +39,7 @@ export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "liveblocks-vs-velt-notifications-sdk-comparison-aug-2025", to: "liveblocks-vs-velt-notifications-sdk-comparison" },
   { from: "online-collaboration-tools-guide-2025", to: "online-collaboration-tools-guide" },
   { from: "self-hosted-collaboration-tools-for-compliance-(jan-2026)", to: "self-hosted-collaboration-tools-for-compliance" },
-  { from: "the-hallucination-tax-why-ai-coding-agents-struggle-with-third-party-sdks-in-february-2026", to: "hallucination-tax-ai-coding-agents-third-party-sdks" },
+  { from: "the-hallucination-tax-why-ai-coding-agents-struggle-with-third-party-sdks-in-february-2026", to: "the-hallucination-tax-why-ai-coding-agents-struggle-with-third-party-sdks" },
   { from: "thread-management-sdks-for-contextual-commenting---dec-2025", to: "thread-management-sdks-for-contextual-commenting" },
   { from: "tiptap-cloud-vs-velt-which-collaboration-sdk-fits-your-app-in-december-2025", to: "tiptap-cloud-vs-velt-which-collaboration-sdk-fits-your-app" },
   { from: "tiptap-comments-reviews-alternatives-2025", to: "tiptap-comments-reviews-alternatives" },
@@ -52,6 +52,24 @@ export const blogRedirects: ReadonlyArray<{ from: string; to: string }> = [
   { from: "velt-vs-liveblocks-comparison-2025", to: "velt-vs-liveblocks-comparison" },
   { from: "velt-vs-liveblocks-dec-2025-comparison", to: "velt-vs-liveblocks-comparison" },
   { from: "velt-vs-liveblocks-for-documents-2025", to: "velt-vs-liveblocks-for-documents" },
+  // Legacy slugs indexed by Google before the Framer→Sanity migration CSV
+  // snapshot (or renamed again in Sanity afterward). These were never in
+  // velt-301s.csv, so they 404'd until surfaced in Search Console. Targets
+  // verified live in Sanity (May 2026).
+  { from: "javascript-chart-libraries-web-apps", to: "top-chart-libraries-for-modern-web-apps" },
+  { from: "velt-vs-knock-notification-sdk-comparison", to: "velt-vs-knock-which-notification-sdk-is-better" },
+  { from: "best-table-frameworks-web-apps", to: "best-table-frameworks-for-web-apps" },
+  { from: "trumpet-collaborative-features-from-velt-to-increase-engagement", to: "how-trumpet-used-collaborative-features-from-velt-sdk-to-increase-their-engagement" },
+  { from: "best-presence-cursor-tracking-sdks-collaborative-apps", to: "best-presence-cursor-sdks" },
+  { from: "tiptap-cloud-vs-velt", to: "tiptap-cloud-vs-velt-which-collaboration-sdk-fits-your-app" },
+  { from: "collaboration-sdk-architecture-guide", to: "collaboration-sdk-architecture-primitives-vs-frameworks-explained" },
+  { from: "best-notification-sdks-in-app-email-integration", to: "best-notification-sdks-in-app-email" },
+  { from: "document-collaboration-platforms-custom-applications", to: "velt-vs-liveblocks-collaboration-platforms-compared" },
+  { from: "follow-me-mode-sdks-collaborative-presentations", to: "best-follow-me-mode-sdks-for-collaborative-presentations" },
+  { from: "implementing-crdts-why-developers-give-up-real-time-editing", to: "crdt-implementation-guide-conflict-free-apps" },
+  { from: "self-hosted-collaboration-tools-enterprise-compliance", to: "self-hosted-collaboration-tools-for-compliance" },
+  { from: "crdt-implementation-guide-conflict-free-apps-2025", to: "crdt-implementation-guide-conflict-free-apps" },
+  { from: "websockets-vs-webrtc-full-guide-2025", to: "websockets-vs-webrtc-full-guide" },
 ];
 
 // Escape path-to-regexp special characters so literal slugs (especially
