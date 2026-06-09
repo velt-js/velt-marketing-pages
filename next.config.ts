@@ -154,6 +154,30 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Cole's 404 list (Slack, May 2026): non-blog routes that 404'd
+      // in Search Console. /use-cases and /implementation-comparison
+      // have no app routes — sent to home per Cole. /notifications →
+      // the quick-start landing. /blog/velt.dev was an invalid blog slug.
+      {
+        source: "/notifications",
+        destination: "/add-notifications-quick",
+        permanent: true,
+      },
+      {
+        source: "/use-cases",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/implementation-comparison",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/blog/velt.dev",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
