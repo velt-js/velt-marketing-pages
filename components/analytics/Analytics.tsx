@@ -10,7 +10,9 @@
 //   2.  Mixpanel — custom CDN at cdn.velt.dev/mp/lib.min.js, custom
 //       api_host. Session recording + heatmap + autocapture enabled.
 //   3.  Amplitude — session-replay plugin at 100% sample rate.
-//   4.  Google Ads — gtag (conversion ID AW-16764728482).
+//   4.  Google — gtag for both Google Ads (conversion ID
+//       AW-16764728482) and GA4 (measurement ID G-6D523BSLHR).
+//       Single gtag.js load, two config() calls.
 //   5.  Reddit Pixel — a2_g76ztnxffwu2.
 //   6.  Twitter (X) Pixel — ootae.
 //   7.  Apollo — appId 65e19e14dc524f01c61d1357.
@@ -100,11 +102,14 @@ export function Analytics() {
         `}
       </Script>
 
-      {/* 4. Google Ads (gtag) — conversion tracking only; we don't
-          load GA4. Conversion ID AW-16764728482. */}
+      {/* 4. Google gtag — single SDK load services both Google Ads
+          (conversion ID AW-16764728482) and GA4 (measurement ID
+          G-6D523BSLHR). Per Google's docs, gtag.js only needs to be
+          loaded once with any valid ID; additional properties are
+          activated via subsequent gtag('config', ID) calls. */}
       <Script
         id="gtag-sdk"
-        src="https://www.googletagmanager.com/gtag/js?id=AW-16764728482"
+        src="https://www.googletagmanager.com/gtag/js?id=G-6D523BSLHR"
         strategy="afterInteractive"
       />
       <Script id="gtag-init" strategy="afterInteractive">
@@ -112,6 +117,7 @@ export function Analytics() {
           window.dataLayer = window.dataLayer || [];
           function gtag(){ dataLayer.push(arguments); }
           gtag('js', new Date());
+          gtag('config', 'G-6D523BSLHR');
           gtag('config', 'AW-16764728482');
         `}
       </Script>

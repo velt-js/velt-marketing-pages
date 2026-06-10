@@ -113,17 +113,13 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-fenne.png",
   },
   {
-    // Bigtincan card — name/role intentionally mirrors the live site
-    // (where the CMS labels it "Chris Bakke / Head of Product @X" against
-    // a Gavin McIver avatar). Preserved verbatim per design parity ask.
-    // Placed mid-list so it isn't adjacent to the real X testimonial above.
     customerLogoSrc: "/images/features/comments/trust-us/logo-bigtincan.png",
     pullQuote:
       "With Velt we turned months of development into weeks of delivery.",
     body: "We considered building this feature in-house. However, we quickly realized that creating a robust, scalable commenting system with all the modern collaboration features our users expect would require months of development effort and significant engineering resources, pulling our teams away from core innovation projects. That's when we discovered Velt.",
-    authorName: "Chris Bakke",
-    authorRole: "Head of Product @X",
-    authorAvatarSrc: "/images/features/comments/trust-us/avatar-chris-bakke.png",
+    authorName: "Gavin McIver",
+    authorRole: "Senior PM @Bigtincan",
+    authorAvatarSrc: "/images/features/comments/trust-us/avatar-gavin.png",
   },
   {
     customerLogoSrc: "/images/features/comments/trust-us/logo-eqtble.png",
