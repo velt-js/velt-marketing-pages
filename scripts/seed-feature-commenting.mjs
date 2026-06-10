@@ -16,7 +16,7 @@
  *   2. TrustedLogos (chrome)
  *   3. Bento "Powerful and Beautiful Commenting" + testimonial
  *   4. Sidebar Showcase "Little Big Details"
- *   5. Card Row "Extend the Capabilities" + testimonial
+ *   5. Card Row "Extend the Capabilities"
  *   6. Customizer "Fully Customizable UI" (interactive)
  *   7. Bento "More than just Commenting" + testimonial
  *   8. Flow Diagram "REST APIs and Webhooks" + testimonial
@@ -233,7 +233,15 @@ async function buildLittleBigDetailsItems() {
 
 async function main() {
   console.log("Uploading commenting feature assets...");
-  const avatarLinda = await uploadImage("public/images/home/linda-steps.png");
+  const avatarEthan = await uploadImage(
+    "public/images/features/comments/trust-us/avatar-ethan.png",
+  );
+  const avatarHope = await uploadImage(
+    "public/images/features/comments/trust-us/avatar-hope.png",
+  );
+  const avatarWeller = await uploadImage(
+    "public/images/features/comments/trust-us/avatar-weller.png",
+  );
 
   // Partner-logo carousel for the "REST APIs and Webhooks" third pill
   // (Figma 174:28953). Order matches the Figma column top-to-bottom; the
@@ -261,15 +269,26 @@ async function main() {
   ];
   console.log("  → uploaded.");
 
-  // Inline-testimonial bar that appears at the bottom of several sections.
-  const lindaTestimonial = {
-    name: "Linda Belcher",
-    role: "Product Manager @HeyGen",
+  // Inline-testimonial bars attached to the bottom of feature sections.
+  const ethanTestimonial = {
+    name: "Ethan Veres",
+    role: "CTO @eqtble",
+    quote: "Commenting is something we wanted in our app, Velt made it possible",
+    avatar: avatarEthan,
+  };
+  const hopeTestimonial = {
+    name: "Hope Callaway",
+    role: "Senior PM @Leadpages",
     quote:
-      "Velt hosts all collaboration functionalities needed to boost engagement at HeyGen",
-    accentFragment: "boost engagement",
-    accentColor: "#625df5",
-    avatar: avatarLinda,
+      "With Velt, implementation took weeks instead of the quarters it would have taken, even with 3 FTEs",
+    avatar: avatarHope,
+  };
+  const wellerTestimonial = {
+    name: "Weller Miranda",
+    role: "Sr. Software Engineer @marco",
+    quote:
+      "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
+    avatar: avatarWeller,
   };
 
   const featureBentoCard = (key, title, description, uiComponentKey) => ({
@@ -355,10 +374,7 @@ async function main() {
           description: "Users can express themselves",
         },
         // Detached testimonial — renders as a SEPARATE dark card below the bento.
-        inlineTestimonial: {
-          ...lindaTestimonial,
-          accentColor: "#b4b1fa",
-        },
+        inlineTestimonial: ethanTestimonial,
       },
       // ---- Sidebar Showcase: Little Big Details ----
       {
@@ -407,7 +423,6 @@ async function main() {
             "https://velt.dev/docs/async-collaboration/comments/customize-behavior#autocompletescrollconfig",
           ),
         ],
-        inlineTestimonial: lindaTestimonial,
       },
       // ---- Customizer: Fully Customizable UI ----
       {
@@ -500,7 +515,7 @@ async function main() {
             ),
           },
         ],
-        inlineTestimonial: lindaTestimonial,
+        inlineTestimonial: hopeTestimonial,
       },
       // ---- Flow Diagram: REST APIs and Webhooks ----
       {
@@ -540,7 +555,7 @@ async function main() {
             carouselLogos: partnerLogos,
           },
         ],
-        inlineTestimonial: lindaTestimonial,
+        inlineTestimonial: wellerTestimonial,
       },
       // Customer Stories carousel ("How X Leverages Velt") is rendered as
       // page chrome via the showCustomerStories toggle on the doc, not as a
