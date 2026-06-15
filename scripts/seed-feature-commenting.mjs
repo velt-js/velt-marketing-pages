@@ -285,7 +285,7 @@ async function main() {
   };
   const wellerTestimonial = {
     name: "Weller Miranda",
-    role: "Sr. Software Engineer @marco",
+    role: "Sr. Software Engineer @Marco",
     quote:
       "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
     avatar: avatarWeller,

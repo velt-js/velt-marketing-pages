@@ -145,7 +145,7 @@ export const DEFAULT_CUSTOMERS: Customer[] = [
     stripLogoWidthPx: 100,
     stripLogoHeightPx: 23,
     productSrc: "/images/home/customer-cloudfactory.png",
-    testimonialAuthor: "Fenne Buitenrust",
+    testimonialAuthor: "Fenne Buitenrust Hettema",
     testimonialRole: "Product Lead @CloudFactory",
     testimonialQuote: "The Velt Commenting features allow our users to communicate and collaborate in-tool to achieve fast feedback loops",
     testimonialHighlight: "fast feedback loops",

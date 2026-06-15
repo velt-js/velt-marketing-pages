@@ -169,7 +169,7 @@ const TABS: TabDef[] = [
     imageAlt: "Isolated server illustration",
     testimonial: {
       name: "Hope Callaway",
-      role: "Sr. PM @Leadpages",
+      role: "Senior PM @Leadpages",
       quote: "Saved 3 FTEs & will boost retention",
       avatarSrc: "/images/features/comments/trust-us/avatar-hope.png",
       brandLogoSrc: "/images/features/comments/trust-us/logo-leadpages.png",

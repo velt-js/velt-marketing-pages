@@ -44,7 +44,7 @@ const TABS: TabDef[] = [
     logo: { src: "/images/home/trumpet-logo.svg", width: 133, height: 23 },
     quote: "Engagement at Trumpet grew by 10% after adding collaborative features from Velt",
     person: {
-      name: "William Angle",
+      name: "William Angel",
       title: "Lead PM, Trumpet",
       avatar: "/images/home/william-angle.png",
       avatarBorder: "#fcca44",
@@ -80,7 +80,7 @@ const TABS: TabDef[] = [
     logo: { src: "/images/home/outcomes/differentiate-logo.png", width: 140, height: 25 },
     quote: "The Velt Commenting features allow our users to communicate and collaborate in-tool to achieve fast feedback loops",
     person: {
-      name: "Fenne Buitenrust",
+      name: "Fenne Buitenrust Hettema",
       title: "Product Lead @CloudFactory",
       avatar: "/images/home/outcomes/differentiate-profile.png",
       avatarBorder: "#fcca44",
@@ -99,7 +99,7 @@ const TABS: TabDef[] = [
     quote: "Instead of quarters of work for 3 FTEs, it only took a few weeks with Velt",
     person: {
       name: "Hope Callaway",
-      title: "Sr. Product Manager @Leadpages",
+      title: "Senior PM @Leadpages",
       avatar: "/images/home/outcomes/savecost-profile.png",
       avatarBorder: "#fcca44",
     },
@@ -117,7 +117,7 @@ const TABS: TabDef[] = [
     quote: "With Velt, a single engineer was able to integrate commenting functionality in just a few minutes",
     person: {
       name: "Weller Miranda",
-      title: "Sr. Software Engineer @marco",
+      title: "Sr. Software Engineer @Marco",
       avatar: "/images/home/outcomes/shipfast-profile.png",
       avatarBorder: "#fcca44",
     },
