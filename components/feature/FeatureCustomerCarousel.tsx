@@ -85,7 +85,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
     pullQuote: "Increased weekly active users by 26%",
     body: "Velt gave us 1-on-1 attention in our own private slack channel. The team was quick to add new features that we needed (thanks for the category feature!) We were extremely happy with how customizable Velt’s components were, allowing us to keep a cohesive look and feel to our product. Highly recommended.",
     authorName: "Jeff Cunning",
-    authorRole: "CPO @metaimpact",
+    authorRole: "CPO @MetaImpact",
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-jeff.png",
   },
   {
@@ -101,7 +101,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
     pullQuote: "Saved 3 FTEs & will boost retention",
     body: "Implementing Velt took weeks, not the quarters it would have taken us to build in-house, even with 3 FTE engineers. We're already seeing added value for our users and anticipate increased retention. Velt's product is slick, and their team is incredibly supportive.",
     authorName: "Hope Callaway",
-    authorRole: "Sr. Product Manager @Leadpages",
+    authorRole: "Senior PM @Leadpages",
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-hope.png",
   },
   {
@@ -109,7 +109,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
     pullQuote: "Saved massive development effort",
     body: "Velt provides the critical commenting functionality our customers rely on, saving us massive development effort. Migration from our previous vendor was seamless.",
     authorName: "Fenne Buitenrust Hettema",
-    authorRole: "Product Lead @Cloudfactory",
+    authorRole: "Product Lead @CloudFactory",
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-fenne.png",
   },
   {

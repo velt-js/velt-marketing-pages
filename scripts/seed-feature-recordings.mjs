@@ -87,7 +87,7 @@ async function main() {
   };
   const fenneTestimonial = {
     name: "Fenne Buitenrust Hettema",
-    role: "Product Lead @Cloudfactory",
+    role: "Product Lead @CloudFactory",
     quote:
       "Velt provides the critical commenting functionality our customers rely on, saving us massive development effort. Migration from our previous vendor was seamless.",
     avatar: avatarFenne,
