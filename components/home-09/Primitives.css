@@ -48,68 +48,140 @@
   margin-top: 16px;
 }
 
-/* ── Rail rows (grid wrappers) ─────────────────────────────── */
-
-/* First row: 0.82fr 1.18fr, has marginTop 48px */
-.vlp .prim-rail-a {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  gap: 48px;
-  align-items: center;
-  padding: 56px 0;
-  border-top: 1px solid #d9d5cf;
-  margin-top: 48px;
-}
-
-/* 0.82fr 1.18fr, no marginTop, standard padding */
-.vlp .prim-rail-b {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  gap: 48px;
-  align-items: center;
-  padding: 56px 0;
-  border-top: 1px solid #d9d5cf;
-}
-
-/* 1.18fr 0.82fr, standard padding */
-.vlp .prim-rail-c {
+/* ── Card grid (wide-left, narrow-right) ───────────────────── */
+.vlp .prim-grid {
   display: grid;
   grid-template-columns: 1.18fr 0.82fr;
-  gap: 48px;
-  align-items: center;
-  padding: 56px 0;
-  border-top: 1px solid #d9d5cf;
+  gap: 24px;
+  align-items: start;
+  margin-top: 44px;
 }
 
-/* Last row: 0.82fr 1.18fr, padding-bottom 8px */
-.vlp .prim-rail-d {
-  display: grid;
-  grid-template-columns: 0.82fr 1.18fr;
-  gap: 48px;
-  align-items: center;
-  padding: 56px 0 8px;
-  border-top: 1px solid #d9d5cf;
+/* The finale card spans the full width of the grid. */
+.vlp .prim-card-wide {
+  grid-column: 1 / -1;
 }
 
-/* ── Section label line (01 · COMMENTS etc.) ───────────────── */
-.vlp .prim-label {
+/* ── Card shell ────────────────────────────────────────────── */
+.vlp .prim-card2 {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: rgba(38, 37, 30, 0.04) 0px 1px 0px;
+}
+
+.vlp .prim-card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* ── Card kicker (01 · COMMENTS // proven wedge) ───────────── */
+.vlp .prim-kicker {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vlp .prim-kicker-id {
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.05em;
+  color: #f54e00;
+}
+
+.vlp .prim-kicker-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: #a1a19f;
+}
+
+/* ── Preview | Code segmented toggle ───────────────────────── */
+.vlp .prim-tabs {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 2px;
+  padding: 3px;
+  background: #f7f7f4;
+  border: 1px solid #e6e5e0;
+  border-radius: 9px;
+}
+
+.vlp .prim-tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.vlp .prim-tab-active {
+  background: #26251e;
+  color: #f7f7f4;
+}
+
+.vlp .prim-tab-inactive {
+  background: transparent;
   color: #7a7974;
+}
+
+/* ── Card body (the swapped preview / code area) ───────────── */
+.vlp .prim-card-body {
+  margin-top: 22px;
+}
+
+.vlp .prim-card-body > .prim-code-card {
+  margin-top: 0;
+}
+
+/* ── Preview stage (soft inset that holds the live mock) ───── */
+.vlp .prim-stage {
+  background: #f7f7f4;
+  border: 1px solid #e6e5e0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ── Skeleton document (Comments preview) ──────────────────── */
+.vlp .prim-skel {
+  background: #fff;
+  border: 1px solid #e6e5e0;
+  border-radius: 8px;
+  padding: 16px;
   margin-bottom: 14px;
 }
 
-/* Inner orange comment span  // proven wedge  */
+.vlp .prim-skel-line {
+  height: 9px;
+  border-radius: 4px;
+  background: #e6e5e0;
+  margin-bottom: 10px;
+}
+
+.vlp .prim-skel-line:nth-child(1) { width: 62%; }
+.vlp .prim-skel-line:nth-child(2) { width: 92%; }
+.vlp .prim-skel-line:nth-child(3) { width: 74%; background: rgba(245, 78, 0, 0.16); }
+.vlp .prim-skel-line:nth-child(4) { width: 84%; margin-bottom: 0; }
+
+/* Inner orange comment span (used for @maya mention inside threads) */
 .vlp .prim-label-comment {
   color: #f54e00;
 }
 
-/* ── h3 headings ───────────────────────────────────────────── */
+/* ── Card headline ─────────────────────────────────────────── */
 .vlp .prim-h3 {
-  font-size: 24px;
-  line-height: 1.2;
-  letter-spacing: -0.012em;
+  font-size: 27px;
+  line-height: 1.18;
+  letter-spacing: -0.018em;
   font-weight: 400;
 }
 
@@ -583,29 +655,7 @@
   margin-top: 2px;
 }
 
-/* ── 06/07 label row (label + NEW badge) ───────────────────── */
-.vlp .prim-label-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-
-/* Same row but margin-bottom 12px (07 section) */
-.vlp .prim-label-row-12 {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.vlp .prim-label-text {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  color: #7a7974;
-}
-
+/* ── NEW badge (in card kicker) ────────────────────────────── */
 .vlp .prim-badge-new {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
@@ -614,14 +664,6 @@
   color: #fff;
   padding: 2px 7px;
   border-radius: 4px;
-}
-
-/* ── 06/07 orange "// the moat" line ──────────────────────── */
-.vlp .prim-moat-line {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: #f54e00;
-  margin-bottom: 12px;
 }
 
 /* ── Notifications card internals ──────────────────────────── */
