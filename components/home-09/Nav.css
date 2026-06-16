@@ -76,6 +76,6 @@
   background: #26251e;
   color: #f7f7f4;
   padding: 9px 18px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   transition: background .15s;
 }

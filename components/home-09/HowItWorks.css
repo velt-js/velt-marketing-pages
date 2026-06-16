@@ -30,7 +30,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #26251e;
+  background: #f54e00;
 }
 
 .vlp .how-heading {
@@ -50,51 +50,73 @@
 .vlp .how-steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 40px;
+  gap: 48px;
+  margin-top: 48px;
 }
 
-.vlp .how-step-card {
-  background: #ffffff;
-  border: 1px solid #d9d5cf;
-  border-radius: 8px;
-  padding: 20px;
+.vlp .how-step {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Step header reads as a stepper node on a rail: number chip, label, then a
+   hairline that runs to the column edge. The three segments share a baseline,
+   so the steps connect visually without the heavy bordered cards. */
+.vlp .how-step-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.vlp .how-step-num {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #26251e;
+  color: #f7f7f4;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
 }
 
 .vlp .how-step-label {
+  flex-shrink: 0;
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
-  letter-spacing: 0.05em;
-  color: #a1a19f;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a7974;
+}
+
+.vlp .how-step-head::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #d9d5cf;
 }
 
 .vlp .how-step-text {
-  font-size: 15px;
-  margin: 12px 0;
-}
-
-.vlp .how-code-dark {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: #f7f7f4;
-  background: #26251e;
-  padding: 10px 12px;
-  border-radius: 4px;
-}
-
-.vlp .how-code-dark-prompt {
-  color: #8f8e89;
-}
-
-.vlp .how-code-light {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11.5px;
-  line-height: 1.6;
+  font-size: 17px;
+  letter-spacing: -0.01em;
   color: #26251e;
-  background: #f7f7f4;
-  padding: 10px 12px;
-  border-radius: 4px;
-  border: 1px solid #d9d5cf;
+  margin-bottom: 14px;
+}
+
+.vlp .how-code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: #26251e;
+  border-left: 2px solid #d9d5cf;
+  padding-left: 14px;
+}
+
+.vlp .how-code-prompt {
+  color: #f54e00;
 }
 
 .vlp .how-comment {
@@ -106,104 +128,205 @@
 
 .vlp .how-mcp-block {
   background: #26251e;
+  border: 1px solid #3a3934;
   border-radius: 8px;
-  padding: 32px;
+  padding: 36px;
   margin-top: 32px;
 }
 
-.vlp .how-mcp-header {
+.vlp .how-mcp-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 40px 48px;
+  align-items: start;
+}
+
+.vlp .how-mcp-copy {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 12px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vlp .how-mcp-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f54e00;
 }
 
 .vlp .how-mcp-title {
-  font-size: 22px;
+  font-size: 24px;
+  line-height: 1.25;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: #f7f7f4;
 }
 
-.vlp .how-mcp-subtitle {
-  font-size: 14px;
-  color: #a1a19f;
-}
-
 .vlp .how-mcp-desc {
-  font-size: 14.5px;
+  font-size: 15px;
   line-height: 1.55;
   color: #a1a19f;
-  max-width: 62ch;
-  margin-top: 12px;
+  max-width: 42ch;
+}
+
+.vlp .how-mcp-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 
 .vlp .how-tab-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  width: 100%;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid #3a3934;
+  border-radius: 6px;
 }
 
 .vlp .how-tab {
-  font-size: 13px;
+  justify-self: center;
+  width: fit-content;
+  max-width: 100%;
+  text-align: center;
+  font-size: 12px;
   font-family: 'Geist Mono', monospace;
-  padding: 8px 14px;
-  border-radius: 9999px;
+  padding: 7px 10px;
+  border-radius: 4px;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: all .15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
 }
 
 .vlp .how-tab-active {
-  border: 1px solid #26251e;
-  background: #26251e;
+  background: rgba(247, 247, 244, 0.1);
+  border-color: #4a4944;
   color: #f7f7f4;
 }
 
 .vlp .how-tab-inactive {
-  border: 1px solid #d9d5cf;
   background: transparent;
   color: #7a7974;
 }
 
+.vlp .how-tab-inactive:hover {
+  color: #c4c3be;
+  background: rgba(247, 247, 244, 0.04);
+}
+
 .vlp .how-terminal {
+  position: relative;
   background: #141414;
   border: 1px solid #3a3934;
-  border-radius: 4px;
-  padding: 14px 16px;
-  margin-top: 16px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 13px;
-  color: #f7f7f4;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.vlp .how-terminal-scroll {
   overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 64px 14px 14px;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3934 transparent;
+}
+
+.vlp .how-terminal-scroll::-webkit-scrollbar {
+  height: 5px;
+}
+
+.vlp .how-terminal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vlp .how-terminal-scroll::-webkit-scrollbar-thumb {
+  background: #3a3934;
+  border-radius: 999px;
+}
+
+.vlp .how-terminal-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: #f7f7f4;
+  white-space: nowrap;
 }
 
 .vlp .how-terminal-prompt {
+  flex-shrink: 0;
   color: #f54e00;
 }
 
 .vlp .how-terminal-cmd {
-  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.vlp .how-checks-grid {
+.vlp .how-terminal-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0px;
+  width: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  background: linear-gradient(90deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.82) 42%, #141414 68%);
+  pointer-events: none;
+}
+
+.vlp .how-terminal-copy {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: rgba(247, 247, 244, 0.06);
+  color: #a1a19f;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.vlp .how-terminal-copy:hover {
+  color: #f7f7f4;
+  background: rgba(247, 247, 244, 0.12);
+}
+
+.vlp .how-checks-list {
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px 28px;
-  margin-top: 22px;
-  max-width: 620px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 20px;
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(58, 57, 52, 0.85);
 }
 
 .vlp .how-check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   font-size: 13px;
-  color: #e6e5e0;
+  line-height: 1.45;
+  color: #c4c3be;
 }
 
 .vlp .how-check-mark {
+  flex-shrink: 0;
   color: #4ade80;
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .vlp .how-footer-row {
@@ -238,6 +361,30 @@
   background: #26251e;
   color: #f7f7f4;
   padding: 11px 20px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   transition: background .15s;
+}
+
+@media (max-width: 900px) {
+  .vlp .how-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .vlp .how-step-head::after {
+    display: none;
+  }
+
+  .vlp .how-mcp-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .vlp .how-mcp-block {
+    padding: 28px 24px;
+  }
+
+  .vlp .how-checks-list {
+    grid-template-columns: 1fr;
+  }
 }

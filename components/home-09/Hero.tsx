@@ -55,10 +55,13 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hero-art-right">
-            <svg className="hero-art-link" viewBox="0 0 40 78" fill="none" aria-hidden="true">
-              <path d="M0 78 C 20 78 20 0 40 0" stroke="#6cae92" strokeWidth="1.5" strokeDasharray="4 4" strokeLinecap="round" />
+          <div className="hero-art-connector" aria-hidden="true">
+            <svg className="hero-art-elbow" viewBox="0 0 520 80" fill="none" preserveAspectRatio="none">
+              <path d="M355 0 V22 a8 8 0 0 1 -8 8 H148 a8 8 0 0 0 -8 8 V80" stroke="#6cae92" strokeWidth="1.5" strokeDasharray="4 4" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
             </svg>
+          </div>
+
+          <div className="hero-art-lower">
             <div className="hero-art-approved">
               <div className="hero-art-approved-head">
                 <span className="hero-art-avatar-k">K</span>
@@ -73,7 +76,7 @@ export default function Hero() {
                 <p className="hero-art-agent-msg">Proposed Pro price was $92, above the approved Q3 band. I suggest $85, the band maximum.</p>
               </div>
             </div>
-            <span className="hero-art-vline" aria-hidden="true"></span>
+            <span className="hero-art-hline" aria-hidden="true"></span>
             <div className="hero-art-webhook">
               <div className="hero-art-webhook-row">
                 <span className="hero-art-post">POST</span>

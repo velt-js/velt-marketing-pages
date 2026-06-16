@@ -24,7 +24,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #26251e;
+  background: #f54e00;
 }
 
 .vlp .collab-title {
@@ -52,7 +52,7 @@
   background: #fff;
   border: 1px solid #d9d5cf;
   border-radius: 8px;
-  padding: 20px;
+  padding: 16px;
 }
 
 .vlp .collab-card-h4 {
@@ -78,117 +78,460 @@
   margin-top: 12px;
 }
 
-.vlp .collab-avatar-row {
+/* ── Artifact stage ─────────────────────────────────────── */
+.vlp .collab-stage {
+  position: relative;
+  height: 168px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+/* ── Presence ───────────────────────────────────────────── */
+.vlp .presence-stage {
+  padding: 18px 16px;
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.vlp .collab-avatar-green {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: #34785c;
-  color: #fff;
-  font-size: 10px;
-  display: inline-flex;
-  align-items: center;
   justify-content: center;
 }
 
-.vlp .collab-avatar-gold {
-  width: 24px;
-  height: 24px;
+.vlp .pr-facepile {
+  display: flex;
+}
+
+.vlp .pr-ava {
+  position: relative;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: #c08532;
-  color: #fff;
-  font-size: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: -8px;
+  font-size: 17px;
+  font-weight: 600;
+  color: #fff;
+  border: 3px solid #fff;
+  margin-left: -12px;
 }
 
-.vlp .collab-avatar-ai {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+.vlp .pr-ava:first-child { margin-left: 0; }
+.vlp .pr-ava-green { background: #34785c; }
+.vlp .pr-ava-gold { background: #c08532; }
+.vlp .pr-ava-pink { background: #c0508f; }
+.vlp .pr-ava-ai {
   background: #26251e;
   color: #f7f7f4;
   font-family: 'Geist Mono', monospace;
-  font-size: 8px;
+  font-size: 14px;
+}
+
+.vlp .pr-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #2bb673;
+  border: 3px solid #fff;
+}
+
+/* ── Live Cursors ───────────────────────────────────────── */
+.vlp .cs-selection {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 86px;
+  border: 1.5px solid #FF7162;
+}
+
+.vlp .cs-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border: 1.5px solid #FF7162;
+}
+
+.vlp .cs-h-tl { left: -4px; top: -4px; }
+.vlp .cs-h-tr { right: -4px; top: -4px; }
+.vlp .cs-h-bl { left: -4px; bottom: -4px; }
+.vlp .cs-h-br { right: -4px; bottom: -4px; }
+
+.vlp .cs-anna {
+  position: absolute;
+  left: 18px;
+  top: 34px;
+  display: flex;
+  align-items: center;
+}
+
+.vlp .cs-ava {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #625DF5;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-left: -8px;
+  border: 2px solid #625DF5;
+  box-shadow: 0 0 0 2px #fff;
 }
 
-.vlp .collab-avatar-label {
-  margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #7a7974;
+.vlp .cs-cursor-anna {
+  margin-left: -4px;
+  margin-top: -22px;
 }
 
-.vlp .collab-cursor-row {
+.vlp .cs-emma {
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
   display: flex;
-  gap: 14px;
-  margin-bottom: 12px;
+  align-items: flex-start;
+}
+
+.vlp .cs-name {
+  margin-top: 8px;
+  margin-left: -2px;
+  background: #FF7162;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 9px;
+  border-radius: 10px;
+}
+
+/* ── Multiplayer Editing ────────────────────────────────── */
+.vlp .multi-stage {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 11px;
+}
+
+.vlp .ml-line {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  background: #ededeb;
+}
+
+.vlp .ml-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 6px;
+  background: #ededeb;
+}
+
+.vlp .ml-fill-pink { background: rgba(233, 52, 191, 0.16); }
+.vlp .ml-fill-green { background: rgba(13, 154, 93, 0.16); }
+
+.vlp .ml-flag {
+  position: absolute;
+  top: -16px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  padding: 1px 7px 1px 6px;
+  border-radius: 3px 3px 3px 0;
+  white-space: nowrap;
+}
+
+.vlp .ml-flag::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 1.5px;
+  height: 16px;
+}
+
+.vlp .ml-flag-pink {
+  left: 46%;
+  background: #E934BF;
+}
+.vlp .ml-flag-pink::before { background: #E934BF; }
+
+.vlp .ml-flag-green {
+  left: 70%;
+  background: #0D9A5D;
+}
+.vlp .ml-flag-green::before { background: #0D9A5D; }
+
+/* ── Single Editor Mode ─────────────────────────────────── */
+.vlp .single-stage {
+  padding: 16px 0 0 16px;
+  overflow: hidden;
+}
+
+.vlp .se-window {
+  height: 100%;
+  border: 1px solid #e4e4e2;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 8px 0 0 0;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: -2px -2px 0 rgba(98, 93, 245, 0.06);
+}
+
+.vlp .se-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: #625DF5;
+}
+
+.vlp .se-bar-txt {
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
 }
 
-.vlp .collab-cursor-anna {
-  color: #34785c;
+.vlp .se-body {
+  padding: 13px 14px;
 }
 
-.vlp .collab-cursor-marcus {
-  color: #c08532;
-}
-
-.vlp .collab-cursor-agent {
-  color: #f54e00;
-}
-
-.vlp .collab-yjs-title {
-  font-size: 12.5px;
-  color: #26251e;
-  margin-bottom: 6px;
-}
-
-.vlp .collab-yjs-sub {
+.vlp .se-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-family: 'Geist Mono', monospace;
   font-size: 10px;
-  color: #34785c;
-  margin-bottom: 12px;
-}
-
-.vlp .collab-lock-title {
-  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
   color: #26251e;
-  margin-bottom: 4px;
+  margin-bottom: 11px;
 }
 
-.vlp .collab-lock-sub {
+.vlp .se-doc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e4e4e2;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.vlp .se-doc-line {
+  height: 9px;
+  border-radius: 4px;
+  background: #efefed;
+}
+
+/* ── Recording ──────────────────────────────────────────── */
+.vlp .rec-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 16px;
+}
+
+.vlp .rc-control {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: #fff;
+  border: 1px solid #e6e6e4;
+  border-radius: 999px;
+  padding: 7px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.vlp .rc-screen {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #625DF5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .rc-time {
   font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #7a7974;
-  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #26251e;
+  letter-spacing: 0.02em;
 }
 
-.vlp .collab-rec-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #7a7974;
-  margin-bottom: 12px;
+.vlp .rc-pause {
+  display: inline-flex;
+  gap: 3px;
 }
 
-.vlp .collab-huddle-live {
+.vlp .rc-pause i {
+  width: 3px;
+  height: 13px;
+  border-radius: 1px;
+  background: #26251e;
+}
+
+.vlp .rc-stop {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  background: #FF6B5E;
+}
+
+.vlp .rc-close {
+  display: inline-flex;
+}
+
+.vlp .rc-cam {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.vlp .rc-ava {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #34785c;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid #625DF5;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+.vlp .rc-cam-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid #e6e6e4;
+  border-radius: 999px;
+  padding: 6px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Huddle ─────────────────────────────────────────────── */
+.vlp .huddle-stage {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.vlp .hd-panel {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e6e6e4;
+  border-radius: 10px;
+  padding: 11px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.vlp .hd-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #f0f0ee;
+}
+
+.vlp .hd-head-txt {
+  font-size: 12px;
+  font-weight: 600;
+  color: #26251e;
+}
+
+.vlp .hd-kebab {
   margin-left: auto;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vlp .hd-kebab i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #b2b1ac;
+}
+
+.vlp .hd-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 2px;
+}
+
+.vlp .hd-ava {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .hd-ava-you { background: #625DF5; }
+.vlp .hd-ava-linda { background: #c08532; }
+
+.vlp .hd-name {
+  font-size: 12px;
+  color: #26251e;
+}
+
+.vlp .hd-muted { margin-left: auto; display: inline-flex; }
+
+.vlp .hd-bars {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.vlp .hd-bars i {
+  width: 2.5px;
+  border-radius: 1px;
+}
+
+.vlp .hd-bars i:nth-child(1) { height: 5px; }
+.vlp .hd-bars i:nth-child(2) { height: 11px; }
+.vlp .hd-bars i:nth-child(3) { height: 7px; }
+
+.vlp .hd-bars-gold i { background: #FFCD2E; }
+
+.vlp .hd-leave {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #FF6B5E;
+  background: #fff;
+  color: #FF6B5E;
   font-family: 'Geist Mono', monospace;
   font-size: 10px;
-  color: #f54e00;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 7px;
+  border-radius: 999px;
+  cursor: pointer;
 }
 
 .vlp .collab-link {
@@ -199,4 +542,12 @@
   font-size: 12px;
   color: #f54e00;
   margin-top: 28px;
+}
+
+@media (max-width: 980px) {
+  .vlp .collab-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .vlp .collab-grid { grid-template-columns: 1fr; }
 }

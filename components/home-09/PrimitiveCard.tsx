@@ -63,14 +63,6 @@ export default function PrimitiveCard({
         </div>
       </div>
 
-      <div className="prim-card-content">
-        <div className="prim-card-text">
-          <h3 className="prim-h3">{headline}</h3>
-          {support ? <p className="prim-card-support">{support}</p> : null}
-        </div>
-        <a href={exploreHref} className="prim-explore">{exploreLabel}</a>
-      </div>
-
       {/* Both panes stay mounted, stacked in one grid cell, so the card
           height equals the taller pane — switching tabs toggles visibility
           without resizing the card (and without jumping the shared row). */}
@@ -81,6 +73,14 @@ export default function PrimitiveCard({
         <div className={tab === "code" ? "prim-code-host" : "prim-code-host prim-pane-hidden"}>
           {code}
         </div>
+      </div>
+
+      <div className="prim-card-content">
+        <div className="prim-card-text">
+          <h3 className="prim-h3">{headline}</h3>
+          {support ? <p className="prim-card-support">{support}</p> : null}
+        </div>
+        <a href={exploreHref} className="prim-explore">{exploreLabel}</a>
       </div>
 
       {quote && showTestimonial ? (

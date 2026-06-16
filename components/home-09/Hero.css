@@ -76,7 +76,7 @@
   background: #26251e;
   color: #f7f7f4;
   padding: 12px 22px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   transition: background 0.15s;
 }
 
@@ -88,23 +88,26 @@
   background: transparent;
   color: #26251e;
   padding: 12px 22px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   border: 1px solid #26251e;
   transition: background 0.15s;
 }
 
 /* ── Hero artifact: pricing table → approval card → webhook ──── */
+/* Stacked composition: the Q3 table spans the top, a green dashed elbow drops
+   from it into the approval card, and a black dashed line links that card to
+   the webhook on the right. Connector geometry is tuned for the default
+   desktop column width — approximate by design. */
 .vlp .hero-artifact {
   position: relative;
   display: flex;
-  align-items: center;
-  gap: 40px;
+  flex-direction: column;
+  align-items: stretch;
 }
 
-/* ── Left: Q3 Pricing table ──────────────────────────────────── */
+/* ── Top: Q3 Pricing table ───────────────────────────────────── */
 .vlp .hero-art-table {
-  flex: 1 1 auto;
-  min-width: 0;
+  width: 82%;
 }
 
 .vlp .hero-art-title {
@@ -151,31 +154,30 @@
   background: rgba(19, 130, 82, 0.16);
 }
 
-/* ── Right: stacked approval + webhook cards ─────────────────── */
-.vlp .hero-art-right {
+/* ── Green dashed elbow: table bottom → approval card top ─────── */
+.vlp .hero-art-connector {
   position: relative;
-  flex: 0 0 218px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  height: 80px;
 }
 
-/* Green dashed connector from the $85 cell up to the approval card, drawn as
-   a smooth cubic S-curve: it exits the cell horizontally (bottom-left) and
-   enters the card horizontally (top-right), flowing through a vertical S
-   between. viewBox maps 1:1 to the 40×78 box so the curve isn't distorted.
-   Positioned for the default desktop width — approximate by design. */
-.vlp .hero-art-link {
+.vlp .hero-art-elbow {
   position: absolute;
-  left: -40px;
-  top: 92px;
-  width: 40px;
-  height: 78px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: visible;
   pointer-events: none;
 }
 
+/* ── Lower row: approval card — dashed line — webhook ─────────── */
+.vlp .hero-art-lower {
+  display: flex;
+  align-items: center;
+}
+
 .vlp .hero-art-approved {
+  flex: 1 1 auto;
+  min-width: 0;
   background: #fff;
   border: 1px solid #e6e5e0;
   border-radius: 8px;
@@ -254,20 +256,21 @@
   color: rgba(0, 0, 0, 0.8);
 }
 
-/* Black dashed vertical connector between the two right-side cards.
-   Both cards are equal width and centered, so this aligns exactly. */
-.vlp .hero-art-vline {
-  align-self: center;
-  width: 2px;
-  height: 30px;
+/* Black dashed horizontal connector from the approval card to the webhook.
+   Lives between the two flex items and centers to their shared mid-line. */
+.vlp .hero-art-hline {
+  flex: 0 0 48px;
+  height: 2px;
   background-image: repeating-linear-gradient(
-    to bottom,
+    to right,
     #1c1c28 0 4px,
     transparent 4px 8px
   );
 }
 
 .vlp .hero-art-webhook {
+  flex: 0 0 auto;
+  width: 196px;
   display: flex;
   flex-direction: column;
   gap: 11px;
@@ -309,4 +312,42 @@
   font-family: 'Geist Mono', monospace;
   font-size: 13px;
   color: #6fa3f7;
+}
+
+/* ── Staged reveal: table → cell greens → elbow drops → approval
+      card → black dashed line → webhook card. Pure-CSS, one pass on
+      load; each step's delay sequences the next. ─────────────────── */
+@keyframes heroArtRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroCellGreen {
+  from { background-color: rgba(19, 130, 82, 0); }
+  to   { background-color: rgba(19, 130, 82, 0.16); }
+}
+@keyframes heroLineDrop {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+@keyframes heroLineSlide {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+.vlp .hero-art-table    { animation: heroArtRise 0.55s ease both; }
+.vlp .hero-art-cell--hl { animation: heroCellGreen 0.5s ease 0.85s both; }
+.vlp .hero-art-connector { animation: heroLineDrop 0.6s ease 1.35s both; }
+.vlp .hero-art-approved { animation: heroArtRise 0.5s ease 1.95s both; }
+.vlp .hero-art-hline    { animation: heroLineSlide 0.45s ease 2.5s both; }
+.vlp .hero-art-webhook  { animation: heroArtRise 0.5s ease 2.9s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .hero-art-table,
+  .vlp .hero-art-cell--hl,
+  .vlp .hero-art-connector,
+  .vlp .hero-art-approved,
+  .vlp .hero-art-hline,
+  .vlp .hero-art-webhook {
+    animation: none;
+  }
 }

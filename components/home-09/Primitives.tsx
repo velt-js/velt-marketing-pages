@@ -1,5 +1,6 @@
 import "./Primitives.css";
 import PrimitiveCard from "./PrimitiveCard";
+import CopyButton from "./CopyButton";
 
 // Real customer testimonials (names, roles, avatars) reused from the
 // "Our Customers Trust Us" set in components/feature/FeatureCustomerCarousel.
@@ -53,7 +54,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">Invoice.tsx<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">Invoice.tsx<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `import { VeltComments } from <span style="color:#34785c;">"@veltdev/react"</span>;
 
     &lt;VeltComments
@@ -86,7 +87,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">Editor.tsx<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">Editor.tsx<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltSuggestions
       documentId={docId}
       editor=<span style="color:#34785c;">"tiptap"</span>
@@ -116,7 +117,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">approvals.ts<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">approvals.ts<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.approvals.<span style="color:#c08532;">define</span>({
       id: <span style="color:#34785c;">"invoice-signoff"</span>,
       steps: [
@@ -152,7 +153,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">audit.ts<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">audit.ts<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltActivityLog
       documentId={id}
       exportTo=<span style="color:#34785c;">"splunk"</span>
@@ -186,7 +187,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">App.tsx<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">App.tsx<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltNotifications
       channels={[<span style="color:#34785c;">"inbox"</span>, <span style="color:#34785c;">"email"</span>, <span style="color:#34785c;">"slack"</span>]}
       routeBy=<span style="color:#34785c;">"mention"</span>
@@ -217,7 +218,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">memory.ts<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">memory.ts<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span style="color:#c08532;">const</span> ctx = <span style="color:#c08532;">await</span> velt.memory.query({
       workflow: <span style="color:#34785c;">"launch-email"</span>,
       reviewer: user.id,
@@ -253,7 +254,7 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">agents.ts<span className="prim-code-copy">copy</span></div>
+                <div className="prim-code-header">agents.ts<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.agents.<span style="color:#c08532;">define</span>({
       id: <span style="color:#34785c;">"launch-email"</span>,
       checks: [

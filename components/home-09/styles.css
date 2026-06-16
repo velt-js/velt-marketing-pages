@@ -4,6 +4,7 @@
 html { scroll-behavior: smooth; }
 body { background: #ffffff; }
 .vlp {
+  --cta-border-radius: 4px;
   background: #ffffff;
   color: #26251e;
   font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;

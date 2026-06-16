@@ -1,4 +1,6 @@
 import "./Proof.css";
+import LogoCarousel from "./LogoCarousel";
+import { LOGOS } from "./TrustStrip";
 
 export default function Proof() {
   return (
@@ -14,9 +16,9 @@ export default function Proof() {
             <div className="proof-attribution"><span className="proof-avatar-dm">DM</span><div className="proof-attribution-name">Daniel Mejia<span className="proof-attribution-role">VP Engineering · OpenEnvoy</span></div></div>
             <a href="#" className="proof-case-study-link">Read the case study</a>
             <div className="proof-stats-row">
-              <div><div className="proof-stat-number">500k+</div><div className="proof-stat-label">COMMENTS</div></div>
-              <div><div className="proof-stat-number">0</div><div className="proof-stat-label">AUDITS FAILED</div></div>
-              <div><div className="proof-stat-number">3 FTE</div><div className="proof-stat-label">ENG SAVED</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">500k+</div><div className="proof-stat-label">COMMENTS</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">0</div><div className="proof-stat-label">AUDITS FAILED</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">3 FTE</div><div className="proof-stat-label">ENG SAVED</div></div>
             </div>
           </div>
 
@@ -38,9 +40,7 @@ export default function Proof() {
             </div>
           </div>
         </div>
-        <div className="proof-logo-bar">
-          <span>Pendo</span><span>Stensul</span><span>Bigtincan</span><span>Cofactr</span><span>Datarails</span><span>Vareto</span><span className="proof-logo-bar-bold">PERSUIT</span><span>Vidyard</span><span>Highspot</span>
-        </div>
+        <LogoCarousel logos={LOGOS} className="proof-logos" gap={72} logoHeight={24} monochrome />
         <div className="proof-cta-row">
           <span className="proof-cta-microcopy">30 MINUTES, WITH AN ENGINEER, NOT A SALES DECK</span>
           <a href="#cta" className="proof-cta-btn hdark">Book Demo</a>

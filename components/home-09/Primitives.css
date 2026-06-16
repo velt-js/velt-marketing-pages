@@ -31,7 +31,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #26251e;
+  background: #f54e00;
 }
 
 .vlp .prim-intro-h2 {
@@ -56,7 +56,7 @@
 .vlp .prim-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 24px;
+  gap: 16px;
   margin-top: 44px;
 }
 
@@ -78,7 +78,6 @@
    grows to fill the equalized card height (no dead space under the demo). */
 .vlp .prim-card2 > .prim-stack {
   display: grid;
-  flex-grow: 1;
 }
 .vlp .prim-stack > * {
   grid-area: 1 / 1;
@@ -210,7 +209,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   font-size: 15px;
   letter-spacing: -0.01em;
   padding: 9px 18px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
 }
 
 /* @maya mention inside comment threads */
@@ -379,7 +378,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 .vlp .prim-code-header {
   display: flex;
   padding: 8px 12px;
-  border-bottom: 1px solid #d9d5cf;
+  border-bottom: 1px solid #ebe9e4;
   font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #7a7974;
@@ -387,7 +386,19 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 
 .vlp .prim-code-copy {
   margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
   color: #a1a19f;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vlp .prim-code-copy:hover {
+  color: #26251e;
 }
 
 .vlp .prim-pre {
@@ -398,6 +409,15 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   line-height: 1.65;
   color: #26251e;
   overflow-x: auto;
+}
+
+/* Approval flows (03) and Audit trail (04) sit in one row, so the taller of
+   the two drives the shared height. Tightening their code line-height keeps
+   the row compact (03's snippet is the long one) without affecting the other
+   cards' code blocks. */
+.vlp .prim-grid > .prim-card2:nth-child(3) .prim-pre,
+.vlp .prim-grid > .prim-card2:nth-child(4) .prim-pre {
+  line-height: 1.5;
 }
 
 /* ── Thread / comment rows inside white cards ──────────────── */
@@ -586,7 +606,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 .vlp .prim-audit-header {
   display: flex;
   align-items: center;
-  padding: 11px 14px;
+  padding-bottom: 9px;
   border-bottom: 1px solid #e6e5e0;
   font-size: 12px;
   color: #7a7974;
@@ -608,7 +628,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
+  padding-block: 8px;
   border-bottom: 1px solid #f0efea;
 }
 
@@ -617,7 +637,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
+  padding-block: 8px;
 }
 
 .vlp .prim-audit-ts {
@@ -689,7 +709,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   background: #26251e;
   color: #f7f7f4;
   padding: 6px 14px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
 }
 
 .vlp .prim-sug-reject {
@@ -698,7 +718,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   color: #26251e;
   border: 1px solid #d9d5cf;
   padding: 6px 14px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
 }
 
 .vlp .prim-sug-agent {
@@ -831,7 +851,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   background: #26251e;
   color: #f7f7f4;
   padding: 5px 12px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
 }
 
 .vlp .prim-agent-dismiss {
@@ -840,7 +860,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   color: #7a7974;
   border: 1px solid #d9d5cf;
   padding: 5px 12px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
 }
 
 .vlp .prim-brand-ref {

@@ -20,7 +20,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #26251e;
+  background: #f54e00;
 }
 
 .vlp .proof-heading {
@@ -45,6 +45,7 @@
   padding: 32px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
 }
 
 .vlp .proof-dark-card-header {
@@ -70,19 +71,18 @@
 }
 
 .vlp .proof-dark-card-title {
-  font-size: 26px;
+  font-size: 32px;
   line-height: 1.15;
   letter-spacing: -0.015em;
   font-weight: 400;
-  max-width: 20ch;
+  text-wrap: balance;
 }
 
 .vlp .proof-dark-card-body {
   font-size: 14.5px;
   line-height: 1.6;
   color: #a1a19f;
-  margin-top: 16px;
-  max-width: 52ch;
+  text-wrap: balance;
 }
 
 .vlp .proof-attribution {
@@ -124,24 +124,35 @@
   margin-top: 18px;
 }
 
+/* Stats sit in a bordered grid of three equal columns spanning the card,
+   split by hairline dividers. */
 .vlp .proof-stats-row {
-  display: flex;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   margin-top: auto;
-  padding-top: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.vlp .proof-stat {
+  padding: 22px 20px;
+}
+
+.vlp .proof-stat + .proof-stat {
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .vlp .proof-stat-number {
+  font-family: 'Geist Mono', monospace;
   font-size: 24px;
   letter-spacing: -0.02em;
 }
 
 .vlp .proof-stat-label {
   font-family: 'Geist Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: #8f8e89;
   letter-spacing: 0.04em;
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
 .vlp .proof-right-col {
@@ -167,9 +178,9 @@
 }
 
 .vlp .proof-small-card-quote {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Urbanist', serif;
   font-size: 18px;
-  font-style: italic;
+  font-weight: 500;
   line-height: 1.4;
 }
 
@@ -180,25 +191,13 @@
   margin-top: 10px;
 }
 
-.vlp .proof-logo-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 12px 36px;
+.vlp .proof-logos {
   margin-top: 48px;
-  opacity: 0.5;
-  font-size: 16px;
-  color: #26251e;
-}
-
-.vlp .proof-logo-bar-bold {
-  font-weight: 500;
 }
 
 .vlp .proof-cta-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 16px;
@@ -220,6 +219,6 @@
   background: #26251e;
   color: #f7f7f4;
   padding: 11px 20px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   transition: background .15s;
 }

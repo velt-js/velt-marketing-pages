@@ -138,7 +138,7 @@
   background: #ffffff;
   color: #26251e;
   padding: 11px 20px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   transition: opacity .15s;
 }
 
@@ -149,7 +149,7 @@
   font-size: 14px;
   color: #f7f7f4;
   padding: 11px 20px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   border: 1px solid #3a3934;
   transition: border-color .15s;
 }

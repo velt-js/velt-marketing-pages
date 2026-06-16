@@ -5,7 +5,7 @@ import LogoCarousel, { type LogoCarouselItem } from "./LogoCarousel";
 // ratio. These brand SVGs use preserveAspectRatio="none", so they stretch
 // to fill their box — pinning the width keeps the box at the right ratio.
 // PNGs (no `w`) size from their natural aspect via CSS width: auto.
-const LOGOS: LogoCarouselItem[] = [
+export const LOGOS: LogoCarouselItem[] = [
   { src: "/images/logos/openenvoy.svg", alt: "OpenEnvoy", w: 93 },
   { src: "/images/logos/bigtincan.svg", alt: "Bigtincan", w: 75 },
   { src: "/images/logos/trumpet.svg", alt: "Trumpet", w: 106 },
@@ -35,23 +35,6 @@ export default function TrustStrip() {
           <span><strong className="trust-highlight">500k+ reviews</strong> running in production at OpenEnvoy</span>
         </div>
         <div className="trust-sub">// 2M+ review decisions across 33 products</div>
-      </div>
-
-      <div className="trust-featured">
-        {FEATURED.map((logo) => (
-          <div className="trust-card" key={logo.alt}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="trust-card-logo"
-              src={logo.src}
-              alt={logo.alt}
-              style={{
-                height: `${FEATURED_LOGO_HEIGHT}px`,
-                ...(logo.w ? { width: `${(logo.w * FEATURED_LOGO_HEIGHT) / RATIO_BASE_HEIGHT}px` } : {}),
-              }}
-            />
-          </div>
-        ))}
       </div>
 
       <LogoCarousel logos={LOGOS} gap={16} card fullBleed />

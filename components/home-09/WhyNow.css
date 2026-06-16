@@ -24,7 +24,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #26251e;
+  background: #f54e00;
 }
 
 .vlp .why-heading {
@@ -281,7 +281,7 @@
   color: #f7f7f4;
   border: none;
   padding: 7px 16px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   cursor: pointer;
 }
 
@@ -291,7 +291,7 @@
   color: #26251e;
   border: 1px solid #d9d5cf;
   padding: 7px 16px;
-  border-radius: 9999px;
+  border-radius: var(--cta-border-radius);
   cursor: pointer;
 }
 
