@@ -19,7 +19,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -48,136 +48,308 @@
   margin-top: 16px;
 }
 
-/* ── Card grid (wide-left, narrow-right) ───────────────────── */
+/* ── Card grid — asymmetric widths that flip each row ──────── */
+/* A 5-col track: wide cards span 3 (~60%), narrow span 2 (~40%). The
+   span pattern flips per row (wide|narrow, then narrow|wide, …). Default
+   align-items: stretch keeps both cards in a row the same height, so no
+   gaps form under the shorter one. */
 .vlp .prim-grid {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
-  align-items: start;
   margin-top: 44px;
 }
+
+.vlp .prim-grid > .prim-card2:nth-child(1) { grid-column: span 3; }
+.vlp .prim-grid > .prim-card2:nth-child(2) { grid-column: span 2; }
+.vlp .prim-grid > .prim-card2:nth-child(3) { grid-column: span 2; }
+.vlp .prim-grid > .prim-card2:nth-child(4) { grid-column: span 3; }
+.vlp .prim-grid > .prim-card2:nth-child(5) { grid-column: span 3; }
+.vlp .prim-grid > .prim-card2:nth-child(6) { grid-column: span 2; }
 
 /* The finale card spans the full width of the grid. */
 .vlp .prim-card-wide {
   grid-column: 1 / -1;
 }
 
+/* Preview and code share one grid cell, so the card's height is the taller
+   of the two panes. Switching tabs swaps visibility without resizing the
+   card — no jump, and no cascade through the equal-height row. The stack
+   grows to fill the equalized card height (no dead space under the demo). */
+.vlp .prim-card2 > .prim-stack {
+  display: grid;
+  flex-grow: 1;
+}
+.vlp .prim-stack > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+/* Code card stretches to fill the cell so its fill reaches the card edges. */
+.vlp .prim-code-host {
+  display: grid;
+}
+.vlp .prim-pane-hidden {
+  visibility: hidden;
+}
+
 /* ── Card shell ────────────────────────────────────────────── */
 .vlp .prim-card2 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   background: #fff;
-  border: 1px solid #e6e5e0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
-  padding: 30px 30px 28px;
+  padding: 40px;
 }
 
 .vlp .prim-card-head {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 20px;
 }
 
-/* ── Card kicker (01 · COMMENTS // proven wedge) ───────────── */
+/* ── Kicker: orange number badge + name ────────────────────── */
 .vlp .prim-kicker {
   display: inline-flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
+  gap: 11px;
 }
 
-.vlp .prim-kicker-id {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.05em;
+.vlp .prim-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #f54e00;
+  color: #ffffff;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.vlp .prim-kicker-name {
+  font-family: 'Geist Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: #f54e00;
 }
 
-/* ── Preview | Code text toggle (underline on active) ──────── */
+/* ── Preview | Code pill toggle ────────────────────────────── */
 .vlp .prim-tabs {
   display: inline-flex;
   flex-shrink: 0;
-  gap: 18px;
+  gap: 4px;
 }
 
 .vlp .prim-tab {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  padding: 0 0 4px;
+  padding: 4px 8px;
   background: transparent;
   border: none;
-  border-bottom: 1.5px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: background 0.15s, color 0.15s;
+}
+.vlp .prim-tab:hover {
+outline: 2px solid rgba(245, 78, 0, 0.08);
 }
 
 .vlp .prim-tab-active {
-  color: #26251e;
-  border-bottom-color: #26251e;
+  background: rgba(245, 78, 0, 0.12);
+  color: #f54e00;
 }
 
 .vlp .prim-tab-inactive {
-  color: #a1a19f;
+  color: rgba(38, 37, 30, 0.52);
 }
 
-/* ── Card body (the swapped preview / code area) ───────────── */
-.vlp .prim-card-body {
-  margin-top: 26px;
+/* ── Headline + support + Explore pill ─────────────────────── */
+.vlp .prim-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
 }
 
-/* Inner orange comment span (used for @maya mention inside threads) */
-.vlp .prim-label-comment {
-  color: #f54e00;
+.vlp .prim-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* ── Card headline ─────────────────────────────────────────── */
 .vlp .prim-h3 {
-  font-size: 27px;
-  line-height: 1.18;
-  letter-spacing: -0.018em;
-  font-weight: 400;
-}
-
-/* ── Body paragraphs ───────────────────────────────────────── */
-.vlp .prim-body-p {
-  font-size: 15px;
-  line-height: 1.55;
-  color: #7a7974;
-  margin-top: 14px;
-}
-
-/* ── "Explore X →" links ───────────────────────────────────── */
-.vlp .prim-explore {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: #f54e00;
-  margin-top: 18px;
-}
-
-/* ── Blockquotes ───────────────────────────────────────────── */
-.vlp .prim-blockquote {
-  margin: 24px 0 0;
-  padding-left: 14px;
-  border-left: 2px solid #c08532;
-  font-family: 'EB Garamond', serif;
-  font-size: 17px;
-  font-style: italic;
-  line-height: 1.45;
+  font-size: 24px;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
   color: #26251e;
 }
 
-.vlp .prim-blockquote-attr {
-  display: block;
-  font-family: 'JetBrains Mono', monospace;
-  font-style: normal;
-  font-size: 11px;
+.vlp .prim-card-support {
+  font-size: 15px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   color: #7a7974;
-  margin-top: 8px;
+}
+
+.vlp .prim-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #26251e;
+  color: #f7f7f4;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  padding: 9px 18px;
+  border-radius: 9999px;
+}
+
+/* @maya mention inside comment threads */
+.vlp .prim-mention {
+  color: #f54e00;
+}
+
+/* ── Preview frame (holds each primitive's live mock) ──────── */
+.vlp .prim-stage {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  background: #fff;
+}
+
+/* ── Comment thread (Comments preview) ─────────────────────── */
+.vlp .prim-thread {
+  display: flex;
+  flex-direction: column;
+}
+
+.vlp .prim-msg {
+  display: flex;
+  gap: 16px;
+}
+
+.vlp .prim-msg:not(:last-child) .prim-msg-body {
+  padding-bottom: 20px;
+}
+
+.vlp .prim-msg-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+}
+
+.vlp .prim-msg-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.vlp .prim-msg-avatar--green { background: #34785c; }
+.vlp .prim-msg-avatar--teal { background: #0e9cb5; }
+
+/* Dashed vertical rule drawn as a 2px-wide gradient rather than a
+   border-left. A border on a 0-width flex item renders to the LEFT of the
+   centered box, so it sat ~2px off the avatar's center; a real 2px element
+   centers exactly under the 32px avatar via the rail's align-items: center. */
+.vlp .prim-msg-line {
+  flex: 1;
+  width: 2px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #a8c4ba 0 3px,
+    transparent 3px 7px
+  );
+  margin-top: 6px;
+}
+
+.vlp .prim-msg-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vlp .prim-msg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.vlp .prim-msg-name {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #26251e;
+}
+
+.vlp .prim-msg-time {
+  font-size: 14px;
+  color: #a1a19f;
+}
+
+.vlp .prim-msg-text {
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: rgba(38, 37, 30, 0.8);
+}
+
+/* ── Customer quote block ──────────────────────────────────── */
+.vlp .prim-quote {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.vlp .prim-quote-avatar {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #d9d5cf;
+  object-fit: cover;
+}
+
+.vlp .prim-quote-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 2px;
+}
+
+.vlp .prim-quote-attr {
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: #7a7974;
+}
+
+.vlp .prim-quote-body {
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #26251e;
 }
 
 /* ── Demo mocks (flattened: sit directly on the card) ──────── */
@@ -208,7 +380,7 @@
   display: flex;
   padding: 8px 12px;
   border-bottom: 1px solid #d9d5cf;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #7a7974;
 }
@@ -221,7 +393,7 @@
 .vlp .prim-pre {
   margin: 0;
   padding: 12px 14px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   line-height: 1.65;
   color: #26251e;
@@ -247,21 +419,7 @@
 
 /* ── Avatar circles ────────────────────────────────────────── */
 
-/* JR — green, 26px */
-.vlp .prim-avatar-jr {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: #34785c;
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  flex-shrink: 0;
-}
-
-/* AI — dark, 26px, JetBrains Mono 9px */
+/* AI — dark, 26px, Geist Mono 9px */
 .vlp .prim-avatar-ai-26 {
   width: 26px;
   height: 26px;
@@ -271,12 +429,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 9px;
   flex-shrink: 0;
 }
 
-/* AI — dark, 22px, JetBrains Mono 9px (approval rows) */
+/* AI — dark, 22px, Geist Mono 9px (approval rows) */
 .vlp .prim-avatar-ai-22 {
   width: 22px;
   height: 22px;
@@ -286,7 +444,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 9px;
 }
 
@@ -329,7 +487,7 @@
   font-size: 9px;
 }
 
-/* AI — dark, 24px, JetBrains Mono 9px (memory card) */
+/* AI — dark, 24px, Geist Mono 9px (memory card) */
 .vlp .prim-avatar-ai-24 {
   width: 24px;
   height: 24px;
@@ -339,7 +497,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 9px;
   flex-shrink: 0;
 }
@@ -349,12 +507,6 @@
 /* Name line inside thread */
 .vlp .prim-thread-name {
   font-size: 13px;
-}
-
-/* Muted timestamp / secondary text inline */
-.vlp .prim-thread-time {
-  color: #a1a19f;
-  font-size: 11px;
 }
 
 /* Thread body paragraph */
@@ -394,7 +546,7 @@
 /* Status badge — done/approved (green) */
 .vlp .prim-badge-done {
   margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   color: #34785c;
   border: 1px solid #4ade80;
@@ -405,7 +557,7 @@
 /* Status badge — pending (grey) */
 .vlp .prim-badge-pending {
   margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   color: #7a7974;
   border: 1px solid #d9d5cf;
@@ -416,14 +568,14 @@
 /* Status text — waiting (no border) */
 .vlp .prim-badge-waiting {
   margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   color: #a1a19f;
 }
 
 /* Reject footer note inside approval card */
 .vlp .prim-approval-footer {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #a1a19f;
   padding-top: 10px;
@@ -442,13 +594,13 @@
 
 .vlp .prim-audit-export {
   margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #f54e00;
 }
 
 .vlp .prim-audit-log {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11.5px;
 }
 
@@ -551,14 +703,14 @@
 
 .vlp .prim-sug-agent {
   margin-left: auto;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #7a7974;
 }
 
 /* ── Memory card internals ─────────────────────────────────── */
 .vlp .prim-mem-precedent {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.05em;
   color: #c08532;
@@ -575,7 +727,7 @@
   font-size: 11.5px;
   color: #a1a19f;
   margin-top: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
 }
 
 .vlp .prim-mem-thread {
@@ -595,7 +747,7 @@
 
 /* ── NEW badge (in card kicker) ────────────────────────────── */
 .vlp .prim-badge-new {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 9px;
   letter-spacing: 0.06em;
   background: #f54e00;
@@ -649,7 +801,7 @@
 }
 
 .vlp .prim-notif-chip {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #26251e;
   background: #f7f7f4;
@@ -659,7 +811,7 @@
 
 /* ── Review-agents card internals ──────────────────────────── */
 .vlp .prim-findings-badge {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   color: #b8400a;
   border: 1px solid #f0b89c;
@@ -692,6 +844,6 @@
 }
 
 .vlp .prim-brand-ref {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   color: #f54e00;
 }

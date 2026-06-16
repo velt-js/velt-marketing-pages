@@ -1,6 +1,13 @@
 import "./Primitives.css";
 import PrimitiveCard from "./PrimitiveCard";
 
+// Real customer testimonials (names, roles, avatars) reused from the
+// "Our Customers Trust Us" set in components/feature/FeatureCustomerCarousel.
+const TRUST_AVATARS = "/images/features/comments/trust-us";
+
+// Testimonials are wired up but hidden for now. Flip to true to show them.
+const SHOW_TESTIMONIALS = false;
+
 export default function Primitives() {
   return (
     <section id="primitives" className="prim-section">
@@ -13,22 +20,34 @@ export default function Primitives() {
 
         <div className="prim-grid">
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="01"
             name="COMMENTS"
             headline="Contextual threads from humans or agents, on any element, doc, cell, or canvas."
             support="The feedback layer your users already expect."
             exploreLabel="Explore Comments"
             exploreHref="#"
-            quote={{ text: "We replaced our home-grown commenting in a week. Velt is now the review surface for half a million decisions.", attribution: "Engineering Lead · OpenEnvoy" }}
+            quote={{ text: "Full collaboration features shipped in under 1 week.", attribution: "Chris Bakke · Head of Product @X", avatar: `${TRUST_AVATARS}/avatar-chris-bakke.png` }}
             preview={
-              <div className="prim-card">
-                <div className="prim-thread-row-top">
-                  <span className="prim-avatar-jr">JR</span>
-                  <div><div className="prim-thread-name">Jordan <span className="prim-thread-time">1h</span></div><p className="prim-thread-p">This claim needs the updated benchmark. <span className="prim-label-comment">@maya</span> can you confirm the source?</p></div>
+              <div className="prim-thread">
+                <div className="prim-msg">
+                  <div className="prim-msg-rail">
+                    <span className="prim-msg-avatar prim-msg-avatar--green">J</span>
+                    <span className="prim-msg-line"></span>
+                  </div>
+                  <div className="prim-msg-body">
+                    <div className="prim-msg-head"><span className="prim-msg-name">Jordan</span><span className="prim-msg-time">1h</span></div>
+                    <p className="prim-msg-text">This claim needs the updated benchmark. <span className="prim-mention">@maya</span> can you confirm the source?</p>
+                  </div>
                 </div>
-                <div className="prim-thread-row-bot">
-                  <span className="prim-avatar-ai-26">AI</span>
-                  <div><div className="prim-thread-name">Research Agent <span className="prim-thread-time">58m</span></div><p className="prim-thread-p">Source confirmed: 2026 industry report, table 4. Added the citation inline.</p></div>
+                <div className="prim-msg">
+                  <div className="prim-msg-rail">
+                    <span className="prim-msg-avatar prim-msg-avatar--teal">A</span>
+                  </div>
+                  <div className="prim-msg-body">
+                    <div className="prim-msg-head"><span className="prim-msg-name">Research Agent</span><span className="prim-msg-time">58m</span></div>
+                    <p className="prim-msg-text">Source confirmed: 2026 industry report, table 4. Added the citation inline.</p>
+                  </div>
                 </div>
               </div>
             }
@@ -47,13 +66,14 @@ export default function Primitives() {
           />
 
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="02"
             name="SUGGESTIONS"
             headline="Propose edits inline, accept or reject like a diff."
             support="In any editor, or your own custom components."
             exploreLabel="Explore Suggestions"
             exploreHref="#"
-            quote={{ text: "Suggestions cut our contract redline cycle from a week to a day.", attribution: "Legal Ops · PERSUIT" }}
+            quote={{ text: "We were able to launch 5x faster than building from scratch.", attribution: "Roman Sevast · CEO @Awesomic", avatar: `${TRUST_AVATARS}/avatar-roman.png` }}
             preview={
               <div className="prim-card">
                 <p className="prim-sug-p">Renewal is due within <span className="prim-sug-del">30 days</span> <span className="prim-sug-ins">45 days</span> of the notice date, and either party may terminate with <span className="prim-sug-del">written consent</span> <span className="prim-sug-ins">30 days written notice</span>.</p>
@@ -77,13 +97,14 @@ export default function Primitives() {
           />
 
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="03"
             name="APPROVAL FLOWS"
             headline="Staged sign-off before anything ships."
             support="Routing, conditions, and a timestamped record."
             exploreLabel="Explore Approval flows"
             exploreHref="#"
-            quote={{ text: "Approvals as a primitive saved us from building a router on top of comments.", attribution: "Product · Trumpet" }}
+            quote={{ text: "Saved 3 FTEs and will boost retention.", attribution: "Hope Callaway · Senior PM @Leadpages", avatar: `${TRUST_AVATARS}/avatar-hope.png` }}
             preview={
               <div className="prim-card-col">
                 <div className="prim-approval-row"><span className="prim-avatar-ai-22">AI</span>Review agent first pass<span className="prim-badge-done">done</span></div>
@@ -110,13 +131,14 @@ export default function Primitives() {
           />
 
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="04"
             name="AUDIT TRAIL"
             headline="An immutable record of every action in your product."
             support="Audit-ready by default."
             exploreLabel="Explore Audit trail"
             exploreHref="#"
-            quote={{ text: "Auditor walked through our SIEM dashboard and signed off in one meeting.", attribution: "CISO · OpenEnvoy" }}
+            quote={{ text: "With Velt we turned months of development into weeks of delivery.", attribution: "Gavin McIver · Senior PM @Bigtincan", avatar: `${TRUST_AVATARS}/avatar-gavin.png` }}
             preview={
               <div className="prim-card-overflow">
                 <div className="prim-audit-header">Q3 Pricing One-Pager · run #214<span className="prim-audit-export">Export CSV</span></div>
@@ -141,12 +163,13 @@ export default function Primitives() {
           />
 
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="05"
             name="NOTIFICATIONS"
             headline="Reach reviewers in-app, by email, in Slack and Teams, before the deadline slips."
             exploreLabel="Explore Notifications"
             exploreHref="#"
-            quote={{ text: "Shipped notifications in weeks instead of quarters.", attribution: "Head of Platform · Leadpages" }}
+            quote={{ text: "Velt's commenting and notification features are bundled with a lot of magic.", attribution: "Yuri Kleban · Sr. Product Manager @Google", avatar: `${TRUST_AVATARS}/avatar-yuri.png` }}
             preview={
               <div className="prim-card">
                 <div className="prim-notif-row">
@@ -174,6 +197,7 @@ export default function Primitives() {
           />
 
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="06"
             name="MEMORY"
             isNew
@@ -204,6 +228,7 @@ export default function Primitives() {
           />
 
           <PrimitiveCard
+            showTestimonial={SHOW_TESTIMONIALS}
             num="07"
             name="REVIEW AGENTS"
             isNew
@@ -212,7 +237,7 @@ export default function Primitives() {
             support="The first-pass reviewer that never gets tired."
             exploreLabel="Explore Review agents"
             exploreHref="#"
-            quote={{ text: "80% of issues are flagged before a human ever opens the doc.", attribution: "Eng Lead · pilot customer" }}
+            quote={{ text: "Increased engagement by 10% and helped ship 5x faster.", attribution: "William Angel · Lead PM @Trumpet", avatar: `${TRUST_AVATARS}/avatar-william.png` }}
             preview={
               <div className="prim-card">
                 <div className="prim-thread-row-top">

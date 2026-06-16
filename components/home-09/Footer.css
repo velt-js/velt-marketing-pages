@@ -56,7 +56,7 @@
 }
 
 .vlp .footer-badge {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   color: #7a7974;
   border: 1px solid #d9d5cf;
@@ -65,7 +65,7 @@
 }
 
 .vlp .footer-col-heading {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.06em;
   color: #a1a19f;
@@ -88,7 +88,7 @@
   margin-top: 48px;
   padding-top: 24px;
   border-top: 1px solid #d9d5cf;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #a1a19f;
   letter-spacing: 0.03em;

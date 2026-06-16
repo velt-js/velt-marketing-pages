@@ -8,7 +8,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -48,7 +48,7 @@
 }
 
 .vlp .vert-card-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #a1a19f;
   letter-spacing: 0.05em;
@@ -71,7 +71,7 @@
 }
 
 .vlp .vert-card-explore {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   color: #f54e00;
   margin-top: 16px;

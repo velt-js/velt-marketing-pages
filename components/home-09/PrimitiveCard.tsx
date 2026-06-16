@@ -12,7 +12,8 @@ type PrimitiveCardProps = {
   exploreHref: string;
   preview: React.ReactNode;
   code: React.ReactNode;
-  quote?: { text: string; attribution: string };
+  quote?: { text: string; attribution: string; avatar?: string };
+  showTestimonial?: boolean;
   wide?: boolean;
 };
 
@@ -27,6 +28,7 @@ export default function PrimitiveCard({
   preview,
   code,
   quote,
+  showTestimonial = true,
   wide = false,
 }: PrimitiveCardProps) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
@@ -35,7 +37,8 @@ export default function PrimitiveCard({
     <article className={wide ? "prim-card2 prim-card-wide" : "prim-card2"}>
       <div className="prim-card-head">
         <div className="prim-kicker">
-          <span className="prim-kicker-id">{num} · {name}</span>
+          <span className="prim-kicker-badge">{num}</span>
+          <span className="prim-kicker-name">{name}</span>
           {isNew ? <span className="prim-badge-new">NEW</span> : null}
         </div>
         <div className="prim-tabs" role="tablist" aria-label={`${name} preview`}>
@@ -60,19 +63,39 @@ export default function PrimitiveCard({
         </div>
       </div>
 
-      <h3 className="prim-h3">{headline}</h3>
-      {support ? <p className="prim-body-p">{support}</p> : null}
-      <a href={exploreHref} className="prim-explore">{exploreLabel}</a>
-
-      <div className="prim-card-body">
-        {tab === "preview" ? preview : code}
+      <div className="prim-card-content">
+        <div className="prim-card-text">
+          <h3 className="prim-h3">{headline}</h3>
+          {support ? <p className="prim-card-support">{support}</p> : null}
+        </div>
+        <a href={exploreHref} className="prim-explore">{exploreLabel}</a>
       </div>
 
-      {quote ? (
-        <blockquote className="prim-blockquote">
-          {quote.text}
-          <span className="prim-blockquote-attr">{quote.attribution}</span>
-        </blockquote>
+      {/* Both panes stay mounted, stacked in one grid cell, so the card
+          height equals the taller pane — switching tabs toggles visibility
+          without resizing the card (and without jumping the shared row). */}
+      <div className="prim-stack">
+        <div className={tab === "preview" ? "prim-stage" : "prim-stage prim-pane-hidden"}>
+          {preview}
+        </div>
+        <div className={tab === "code" ? "prim-code-host" : "prim-code-host prim-pane-hidden"}>
+          {code}
+        </div>
+      </div>
+
+      {quote && showTestimonial ? (
+        <div className="prim-quote">
+          {quote.avatar ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="prim-quote-avatar" src={quote.avatar} alt={quote.attribution} />
+          ) : (
+            <span className="prim-quote-avatar" />
+          )}
+          <div className="prim-quote-text">
+            <p className="prim-quote-attr">{quote.attribution}</p>
+            <p className="prim-quote-body">{quote.text}</p>
+          </div>
+        </div>
       ) : null}
     </article>
   );

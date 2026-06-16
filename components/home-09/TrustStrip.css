@@ -34,28 +34,61 @@
 }
 
 .vlp .trust-sub {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.04em;
   color: #a1a19f;
 }
 
-.vlp .trust-logos {
+/* Full-bleed marquee viewport with faded edges. */
+.vlp .trust-marquee {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* Two identical sets scroll left; translateX(-50%) lands set 2 exactly
+   where set 1 began, so the loop is seamless. */
+.vlp .trust-track {
   display: flex;
-  flex-wrap: wrap;
+  width: max-content;
+  animation: trust-marquee-scroll 45s linear infinite;
+}
+
+.vlp .trust-marquee:hover .trust-track {
+  animation-play-state: paused;
+}
+
+/* padding-right matches the gap so spacing stays uniform across the seam. */
+.vlp .trust-set {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px 40px;
-  opacity: 0.55;
-  font-size: 17px;
-  letter-spacing: -0.01em;
-  color: #26251e;
+  gap: 64px;
+  padding-right: 64px;
+  flex-shrink: 0;
 }
 
-.vlp .trust-logo-italic {
-  font-style: italic;
+.vlp .trust-logo {
+  height: 22px;
+  width: auto;
+  flex-shrink: 0;
+  /* Brand logos ship white (for dark backgrounds); render them as muted
+     gray silhouettes so they read on this light strip. */
+  filter: brightness(0);
+  opacity: 0.4;
 }
 
-.vlp .trust-logo-bold {
-  font-weight: 500;
+@keyframes trust-marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .trust-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }

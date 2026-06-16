@@ -5,17 +5,40 @@
 }
 
 .vlp .problem-inner {
-  max-width: 780px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 80px 32px;
-  text-align: center;
+}
+
+/* Left/right split: heading block on the left, checklist on the right.
+   The heading column is fixed-ish so the long checklist sentences get the
+   wider track; both columns top-align. */
+.vlp .problem-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: stretch;
+}
+
+/* Left column stretches to the row height (set by the taller checklist) so
+   the qualifier can pin to the bottom via margin-top: auto. */
+.vlp .problem-col-left {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 860px) {
+  .vlp .problem-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
 
 .vlp .problem-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -35,25 +58,18 @@
   line-height: 1.12;
   letter-spacing: -0.02em;
   font-weight: 400;
-  max-width: 24ch;
-  margin: 0 auto;
 }
 
 .vlp .problem-subtext {
   font-size: 14px;
   color: #7a7974;
-  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .vlp .problem-checklist {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 28px;
-  text-align: left;
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .vlp .problem-label {
@@ -77,13 +93,12 @@
 }
 
 .vlp .problem-qualifier-wrapper {
-  margin-top: 36px;
-  padding-top: 32px;
-  border-top: 1px solid #d9d5cf;
+  margin-top: auto;
+  padding-top: 40px;
 }
 
 .vlp .problem-qualifier-comment {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   color: #f54e00;
   margin-bottom: 12px;
@@ -95,6 +110,5 @@
   font-style: italic;
   line-height: 1.4;
   color: #26251e;
-  max-width: 52ch;
-  margin: 0 auto;
+  max-width: 60ch;
 }

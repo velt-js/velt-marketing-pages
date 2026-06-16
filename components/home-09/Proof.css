@@ -8,7 +8,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -60,7 +60,7 @@
 }
 
 .vlp .proof-badge-orange {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.05em;
   color: #f54e00;
@@ -118,7 +118,7 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 12px;
   color: #f54e00;
   margin-top: 18px;
@@ -137,7 +137,7 @@
 }
 
 .vlp .proof-stat-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   color: #8f8e89;
   letter-spacing: 0.04em;
@@ -159,7 +159,7 @@
 }
 
 .vlp .proof-small-card-label {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.05em;
   color: #f54e00;
@@ -174,7 +174,7 @@
 }
 
 .vlp .proof-small-card-attribution {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   color: #7a7974;
   margin-top: 10px;
@@ -206,7 +206,7 @@
 }
 
 .vlp .proof-cta-microcopy {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Geist Mono', monospace;
   font-size: 11px;
   letter-spacing: 0.04em;
   color: #a1a19f;
