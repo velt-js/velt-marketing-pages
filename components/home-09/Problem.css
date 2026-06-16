@@ -1,21 +1,21 @@
 .vlp .problem-section {
   background: #f7f7f4;
-  border-top: 1px solid #d9d5cf;
-  border-bottom: 1px solid #d9d5cf;
 }
 
 .vlp .problem-inner {
-  max-width: 1080px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: 120px 32px;
 }
 
 /* Left/right split: heading block on the left, checklist on the right.
    The heading column is fixed-ish so the long checklist sentences get the
    wider track; both columns top-align. */
 .vlp .problem-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+    display: flex;
+    justify-content: space-between;
+  /* display: grid;
+  grid-template-columns: minmax(0, 460px) minmax(0, 1fr); */
   gap: 64px;
   align-items: stretch;
 }
@@ -23,8 +23,13 @@
 /* Left column stretches to the row height (set by the taller checklist) so
    the qualifier can pin to the bottom via margin-top: auto. */
 .vlp .problem-col-left {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    max-width: 460px;
+}
+
+.vlp .problem-col-right {
+    max-width: 460px;
 }
 
 @media (max-width: 860px) {
@@ -83,6 +88,31 @@
   cursor: pointer;
   font-size: 15px;
   line-height: 1.45;
+  /* Hidden until the list scrolls into view, then revealed with a stagger
+     (see .is-visible nth-child delays below). */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.vlp .problem-checklist.is-visible .problem-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vlp .problem-checklist.is-visible .problem-label:nth-child(1) { transition-delay: 0s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(2) { transition-delay: 0.09s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(3) { transition-delay: 0.18s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(4) { transition-delay: 0.27s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(5) { transition-delay: 0.36s; }
+
+/* Reduced-motion users get the content immediately, no slide/fade. */
+@media (prefers-reduced-motion: reduce) {
+  .vlp .problem-label {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .vlp .problem-checkbox {
@@ -90,6 +120,30 @@
   accent-color: #f54e00;
   width: 15px;
   height: 15px;
+}
+
+/* The label text. The strike lives on an inline inner span so the gradient
+   "line" paints per line box (box-decoration-break: clone) — each wrapped
+   line gets its own strikethrough that draws left-to-right when checked. */
+.vlp .problem-strike {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 60%;
+  background-size: 0% 1.5px;
+  transition: background-size 0.4s ease, color 0.4s ease;
+}
+
+.vlp .problem-checkbox:checked + span .problem-strike {
+  background-size: 100% 1.5px;
+  color: #9a9892;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .problem-strike {
+    transition: none;
+  }
 }
 
 .vlp .problem-qualifier-wrapper {
@@ -105,10 +159,10 @@
 }
 
 .vlp .problem-qualifier-text {
-  font-family: 'EB Garamond', serif;
-  font-size: 21px;
-  font-style: italic;
-  line-height: 1.4;
+  font-family: 'Geist Mono', monospace;
+  font-size: 16px;
+  line-height: 1.5;
   color: #26251e;
   max-width: 60ch;
+  letter-spacing: -0.02em;
 }

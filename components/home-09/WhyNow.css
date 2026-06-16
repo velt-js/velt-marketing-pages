@@ -1,5 +1,5 @@
 .vlp .why-section {
-  max-width: 1180px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 80px 32px;
 }
@@ -48,12 +48,125 @@
   margin-top: 16px;
 }
 
-.vlp .why-grid {
+/* Horizontal timeline: three steps left-to-right, a dashed spine across the
+   top linking numbered nodes (01/02/03), each card below its node. */
+.vlp .why-timeline {
+  margin-top: 48px;
+}
+
+.vlp .why-tl-track {
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 18px;
-  margin-top: 44px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   align-items: stretch;
+}
+
+/* Dashed spine at the pill's vertical center (18px = half the 36px pill),
+   running from the first column's center to the last column's center (each
+   column is (100% - 2*24px gap)/3 wide, so its center is 16.667% - 8px from
+   the edge). The centered pills mask the overlap, so the marching ants only
+   show in the gaps between groups, and the ends sit under the outer pills. */
+.vlp .why-tl-track::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: calc(16.667% - 8px);
+  right: calc(16.667% - 8px);
+  height: 2px;
+  transform: translateY(-50%);
+  background-image: repeating-linear-gradient(
+    to right,
+    #cfcbc4 0 4px,
+    transparent 4px 9px
+  );
+  /* Marching ants: shift the dash pattern by exactly one period (9px) so the
+     dashes flow rightward along the spine and loop seamlessly. */
+  animation: why-tl-march-x 0.7s linear infinite;
+}
+
+@keyframes why-tl-march-x {
+  to {
+    background-position: 9px 0;
+  }
+}
+
+/* Each step stacks: a left-aligned "(node) label" head sitting on the spine,
+   a short vertical drop tying the node down into the card, then the card. */
+.vlp .why-tl-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Outlined pill holding the number + label as plain text (no inner circle),
+   centered above each card. White fill so it masks the spine behind it — the
+   marching ants only show in the gaps between pills. */
+.vlp .why-tl-head {
+  align-self: center;
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 36px;
+  padding: 0 20px;
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 9999px;
+}
+
+.vlp .why-tl-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #26251e;
+  white-space: nowrap;
+}
+
+.vlp .why-tl-node {
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+  color: #26251e;
+}
+
+/* Vertical dashed connector bridging the centered head down into the card.
+   The dashes march downward, continuing the spine's flow. */
+.vlp .why-tl-drop {
+  align-self: center;
+  width: 2px;
+  height: 20px;
+  flex-shrink: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #cfcbc4 0 4px,
+    transparent 4px 9px
+  );
+  animation: why-tl-march-y 0.7s linear infinite;
+}
+
+@keyframes why-tl-march-y {
+  to {
+    background-position: 0 9px;
+  }
+}
+
+/* Honor reduced-motion: hold the dashes static. */
+@media (prefers-reduced-motion: reduce) {
+  .vlp .why-tl-track::before,
+  .vlp .why-tl-drop {
+    animation: none;
+  }
+}
+
+/* Cards span the column width and grow to fill the row so all three are equal
+   height (buttons pin to the bottom via .why-btn-row margin-top: auto). */
+.vlp .why-tl-item > .why-card-light,
+.vlp .why-tl-item > .why-card-dark {
+  flex: 1;
+  align-self: stretch;
 }
 
 .vlp .why-card-light {
@@ -73,22 +186,17 @@
   flex-direction: column;
 }
 
-.vlp .why-step-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #a1a19f;
-  margin-bottom: 16px;
-}
+/* Stack the steps below the tablet breakpoint; drop the horizontal spine but
+   keep each node + drop so every card stays connected to its own marker. */
+@media (max-width: 760px) {
+  .vlp .why-tl-track {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 
-.vlp .why-step-label-dark {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #8f8e89;
-  margin-bottom: 16px;
+  .vlp .why-tl-track::before {
+    display: none;
+  }
 }
 
 .vlp .why-agent-row {
@@ -219,4 +327,77 @@
   color: #8f8e89;
   margin-top: auto;
   padding-top: 16px;
+}
+
+/* ── Audit-trail lineage ──────────────────────────────────────────
+   Each traceable token is color-coded by thread so the webhook payload
+   visibly traces back to its source card (target -> the agent's "line 7",
+   approver -> the human "Maya K."). At rest it's a dotted-underlined word in
+   the thread color; hovering either end fills both with a soft chip. */
+.vlp .why-trace {
+  color: inherit;
+  cursor: default;
+  border-radius: 4px;
+  padding: 0 2px;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: background 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+/* Light cards (prose) */
+.vlp .why-trace--target {
+  color: #0d7c8a;
+  text-decoration-color: rgba(13, 124, 138, 0.5);
+}
+
+.vlp .why-trace--approver {
+  color: #a8702a;
+  text-decoration-color: rgba(168, 112, 42, 0.5);
+}
+
+.vlp .why-trace.is-linked {
+  text-decoration-color: transparent;
+}
+
+.vlp .why-trace--target.is-linked {
+  background: rgba(20, 151, 168, 0.15);
+}
+
+.vlp .why-trace--approver.is-linked {
+  background: rgba(207, 138, 57, 0.18);
+}
+
+/* Dark card (payload) — brighter tints for contrast on #26251e */
+.vlp .why-card-dark .why-trace--target {
+  color: #36c5d6;
+  text-decoration-color: rgba(54, 197, 214, 0.5);
+}
+
+.vlp .why-card-dark .why-trace--approver {
+  color: #e3a14e;
+  text-decoration-color: rgba(227, 161, 78, 0.5);
+}
+
+.vlp .why-card-dark .why-trace--target.is-linked {
+  background: rgba(54, 197, 214, 0.18);
+}
+
+.vlp .why-card-dark .why-trace--approver.is-linked {
+  background: rgba(227, 161, 78, 0.2);
+}
+
+.vlp .why-tl-caption {
+  margin-top: 30px;
+  text-align: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: #a1a19f;
+}
+
+@media (max-width: 760px) {
+  .vlp .why-tl-caption {
+    text-align: left;
+  }
 }

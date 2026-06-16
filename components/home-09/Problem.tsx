@@ -1,6 +1,43 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import "./Problem.css";
 
+/**
+ * The Problem section — a two-column editorial block whose checklist items
+ * fade in with a staggered reveal the first time the list scrolls into view.
+ */
 export default function Problem() {
+  const checklistRef = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const node = checklistRef.current;
+    if (!node) {
+      return;
+    }
+
+    let observer: IntersectionObserver | undefined;
+    try {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            setRevealed(true);
+            observer?.disconnect();
+          }
+        },
+        { threshold: 0.2 },
+      );
+      observer.observe(node);
+    } catch (error) {
+      // IntersectionObserver unavailable (older browsers) — show immediately.
+      console.error("Problem checklist reveal failed", error);
+      setRevealed(true);
+    }
+
+    return () => observer?.disconnect();
+  }, []);
+
   return (
       <section className="problem-section">
         <div className="problem-inner">
@@ -15,12 +52,12 @@ export default function Problem() {
             </div>
             <div className="problem-col-right">
               <p className="problem-subtext">Check all that apply.</p>
-              <div className="problem-checklist">
-                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span>Buyers ask "do you support approval workflows?" and the honest answer costs a quarter.</span></label>
-                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span>Your agents need write access to be useful, and security says no.</span></label>
-                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span>Feedback about work in your product happens in Slack screenshots.</span></label>
-                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span>A regulated deal stalled on "who approved this?"</span></label>
-                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span>Users turned off your AI the first time it changed something it shouldn't.</span></label>
+              <div className={revealed ? "problem-checklist is-visible" : "problem-checklist"} ref={checklistRef}>
+                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span><span className="problem-strike">Buyers ask "do you support approval workflows?" and the honest answer costs a quarter.</span></span></label>
+                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span><span className="problem-strike">Your agents need write access to be useful, and security says no.</span></span></label>
+                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span><span className="problem-strike">Feedback about work in your product happens in Slack screenshots.</span></span></label>
+                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span><span className="problem-strike">A regulated deal stalled on "who approved this?"</span></span></label>
+                <label className="problem-label"><input type="checkbox" className="problem-checkbox" /><span><span className="problem-strike">Users turned off your AI the first time it changed something it shouldn't.</span></span></label>
               </div>
             </div>
           </div>

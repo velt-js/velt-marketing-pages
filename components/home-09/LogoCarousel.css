@@ -1,0 +1,75 @@
+/* Reusable logo marquee. Per-instance tuning arrives as CSS variables
+   (--lc-gap, --lc-duration, --lc-logo-height) set inline by the component, so
+   the same stylesheet serves every placement. Not scoped to .vlp on purpose —
+   the component is meant to be reusable across pages. */
+.lc-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+/* Optional full-viewport-width breakout (parent should be a centered column). */
+.lc-viewport--bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Two identical sets scroll left; translateX(-50%) lands set 2 exactly where
+   set 1 began, so the loop is seamless. */
+.lc-track {
+  display: flex;
+  width: max-content;
+  animation: lc-scroll var(--lc-duration, 45s) linear infinite;
+}
+
+.lc-viewport:hover .lc-track {
+  animation-play-state: paused;
+}
+
+/* padding-right matches the gap so spacing stays uniform across the seam. */
+.lc-set {
+  display: flex;
+  align-items: center;
+  gap: var(--lc-gap, 96px);
+  padding-right: var(--lc-gap, 96px);
+  flex-shrink: 0;
+}
+
+.lc-logo {
+  height: var(--lc-logo-height, 22px);
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Card-chip variant: each logo sits in a padded, rounded container. */
+.lc-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 16px 28px;
+  border-radius: 12px;
+}
+
+/* Muted gray silhouettes for light backgrounds (brand logos ship white). */
+.lc-viewport--mono .lc-logo {
+  filter: brightness(0);
+  opacity: 0.4;
+}
+
+@keyframes lc-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lc-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .lc-set--dup {
+    display: none;
+  }
+}

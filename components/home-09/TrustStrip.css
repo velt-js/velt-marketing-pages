@@ -1,15 +1,15 @@
 .vlp .trust-section {
-  max-width: 1180px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 24px 32px 64px;
 }
 
+/* Split header: stat on the left, mono note on the right. */
 .vlp .trust-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 6px;
-  text-align: center;
+  gap: 16px;
   margin-bottom: 28px;
 }
 
@@ -24,6 +24,7 @@
 .vlp .trust-dot {
   width: 7px;
   height: 7px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #f54e00;
 }
@@ -40,55 +41,43 @@
   color: #a1a19f;
 }
 
-/* Full-bleed marquee viewport with faded edges. */
-.vlp .trust-marquee {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+/* Featured row: the four lead logos as larger static cards. */
+.vlp .trust-featured {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-/* Two identical sets scroll left; translateX(-50%) lands set 2 exactly
-   where set 1 began, so the loop is seamless. */
-.vlp .trust-track {
-  display: flex;
-  width: max-content;
-  animation: trust-marquee-scroll 45s linear infinite;
-}
-
-.vlp .trust-marquee:hover .trust-track {
-  animation-play-state: paused;
-}
-
-/* padding-right matches the gap so spacing stays uniform across the seam. */
-.vlp .trust-set {
+.vlp .trust-card {
   display: flex;
   align-items: center;
-  gap: 64px;
-  padding-right: 64px;
-  flex-shrink: 0;
+  justify-content: center;
+  padding: 30px 28px;
 }
 
-.vlp .trust-logo {
-  height: 22px;
+.vlp .trust-card-logo {
   width: auto;
-  flex-shrink: 0;
-  /* Brand logos ship white (for dark backgrounds); render them as muted
-     gray silhouettes so they read on this light strip. */
+  /* Brand logos ship white; render as muted gray silhouettes on the card. */
   filter: brightness(0);
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-@keyframes trust-marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* Stack the featured cards two-up, then one-up, on narrow viewports. */
+@media (max-width: 860px) {
+  .vlp .trust-featured {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .vlp .trust-track {
-    animation: none;
-    flex-wrap: wrap;
-    justify-content: center;
+@media (max-width: 520px) {
+  .vlp .trust-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .vlp .trust-featured {
+    grid-template-columns: 1fr;
   }
 }
