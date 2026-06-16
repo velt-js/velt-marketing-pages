@@ -1,0 +1,229 @@
+.vlp .proof-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.vlp .proof-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 20px;
+}
+
+.vlp .proof-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .proof-heading {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.vlp .proof-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+  margin-top: 40px;
+  align-items: stretch;
+}
+
+.vlp .proof-dark-card {
+  background: #26251e;
+  color: #f7f7f4;
+  border-radius: 8px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vlp .proof-dark-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.vlp .proof-dark-card-company {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.vlp .proof-badge-orange {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: #f54e00;
+  border: 1px solid #f54e00;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.vlp .proof-dark-card-title {
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  max-width: 20ch;
+}
+
+.vlp .proof-dark-card-body {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #a1a19f;
+  margin-top: 16px;
+  max-width: 52ch;
+}
+
+.vlp .proof-attribution {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.vlp .proof-avatar-dm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #c08532;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.vlp .proof-attribution-name {
+  font-size: 13px;
+}
+
+.vlp .proof-attribution-role {
+  display: block;
+  color: #8f8e89;
+  font-size: 11.5px;
+}
+
+.vlp .proof-case-study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-top: 18px;
+}
+
+.vlp .proof-stats-row {
+  display: flex;
+  gap: 32px;
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+.vlp .proof-stat-number {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+}
+
+.vlp .proof-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #8f8e89;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.vlp .proof-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vlp .proof-small-card {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  padding: 22px;
+  flex: 1;
+}
+
+.vlp .proof-small-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: #f54e00;
+  margin-bottom: 10px;
+}
+
+.vlp .proof-small-card-quote {
+  font-family: 'EB Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.vlp .proof-small-card-attribution {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #7a7974;
+  margin-top: 10px;
+}
+
+.vlp .proof-logo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 36px;
+  margin-top: 48px;
+  opacity: 0.5;
+  font-size: 16px;
+  color: #26251e;
+}
+
+.vlp .proof-logo-bar-bold {
+  font-weight: 500;
+}
+
+.vlp .proof-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 44px;
+}
+
+.vlp .proof-cta-microcopy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #a1a19f;
+}
+
+.vlp .proof-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  background: #26251e;
+  color: #f7f7f4;
+  padding: 11px 20px;
+  border-radius: 9999px;
+  transition: background .15s;
+}
+
+.vlp .proof-cta-arrow {
+  font-family: 'JetBrains Mono', monospace;
+}

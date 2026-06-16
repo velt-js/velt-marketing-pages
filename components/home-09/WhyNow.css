@@ -1,0 +1,222 @@
+.vlp .why-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.vlp .why-intro {
+  max-width: 620px;
+}
+
+.vlp .why-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 20px;
+}
+
+.vlp .why-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .why-heading {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.vlp .why-desc {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #7a7974;
+  margin-top: 18px;
+}
+
+.vlp .why-comment {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-top: 16px;
+}
+
+.vlp .why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  margin-top: 44px;
+  align-items: stretch;
+}
+
+.vlp .why-card-light {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vlp .why-card-dark {
+  background: #26251e;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vlp .why-step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a1a19f;
+  margin-bottom: 16px;
+}
+
+.vlp .why-step-label-dark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8f8e89;
+  margin-bottom: 16px;
+}
+
+.vlp .why-agent-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.vlp .why-avatar-ai {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #26251e;
+  color: #f7f7f4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.vlp .why-avatar-mk {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #c08532;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+.vlp .why-agent-name {
+  font-size: 15px;
+  color: #26251e;
+}
+
+.vlp .why-confidence {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #34785c;
+}
+
+.vlp .why-approver-badge {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #7a7974;
+  border: 1px solid #d9d5cf;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.vlp .why-card-text {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #26251e;
+}
+
+.vlp .why-card-sub {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #7a7974;
+  margin-top: 14px;
+}
+
+.vlp .why-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.vlp .why-btn-approve {
+  font-size: 12.5px;
+  background: #26251e;
+  color: #f7f7f4;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.vlp .why-btn-reject {
+  font-size: 12.5px;
+  background: transparent;
+  color: #26251e;
+  border: 1px solid #d9d5cf;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.vlp .why-code-block {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.vlp .why-code-post {
+  color: #4ade80;
+}
+
+.vlp .why-code-route {
+  color: #f7f7f4;
+}
+
+.vlp .why-code-brace {
+  color: #a1a19f;
+}
+
+.vlp .why-code-line {
+  padding-left: 18px;
+  color: #f7f7f4;
+}
+
+.vlp .why-code-string {
+  color: #e0913f;
+}
+
+.vlp .why-code-footer {
+  font-size: 12px;
+  color: #8f8e89;
+  margin-top: auto;
+  padding-top: 16px;
+}

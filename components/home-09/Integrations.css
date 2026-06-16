@@ -1,0 +1,85 @@
+.vlp .integ-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.vlp .integ-header {
+  max-width: 640px;
+}
+
+.vlp .integ-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 20px;
+}
+
+.vlp .integ-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .integ-title {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.vlp .integ-desc {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #7a7974;
+  margin-top: 16px;
+}
+
+.vlp .integ-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.vlp .integ-card {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.vlp .integ-cat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #a1a19f;
+  margin-bottom: 14px;
+}
+
+.vlp .integ-cat-label-margin {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #a1a19f;
+  margin: 16px 0 14px;
+}
+
+.vlp .integ-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vlp .integ-tag {
+  font-size: 13px;
+  background: #f7f7f4;
+  padding: 5px 11px;
+  border-radius: 4px;
+}

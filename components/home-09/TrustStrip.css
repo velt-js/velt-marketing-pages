@@ -1,0 +1,61 @@
+.vlp .trust-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 32px 64px;
+}
+
+.vlp .trust-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.vlp .trust-stat-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  color: #26251e;
+}
+
+.vlp .trust-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f54e00;
+}
+
+.vlp .trust-highlight {
+  color: #f54e00;
+  font-weight: 500;
+}
+
+.vlp .trust-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #a1a19f;
+}
+
+.vlp .trust-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px 40px;
+  opacity: 0.55;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: #26251e;
+}
+
+.vlp .trust-logo-italic {
+  font-style: italic;
+}
+
+.vlp .trust-logo-bold {
+  font-weight: 500;
+}

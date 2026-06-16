@@ -1,0 +1,85 @@
+.vlp .nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid #d9d5cf;
+}
+
+.vlp .nav-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.vlp .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+
+.vlp .nav-logo-box {
+  width: 22px;
+  height: 22px;
+  background: #26251e;
+  position: relative;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.vlp .nav-logo-box-inner {
+  position: absolute;
+  inset: 6px;
+  background: #ffffff;
+}
+
+.vlp .nav-logo-wordmark {
+  font-weight: 500;
+}
+
+.vlp .nav-links {
+  display: flex;
+  gap: 22px;
+  font-size: 14px;
+  color: #7a7974;
+}
+
+.vlp .nav-link {
+  transition: color .15s;
+}
+
+.vlp .nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vlp .nav-signin {
+  font-size: 14px;
+  color: #26251e;
+  transition: color .15s;
+}
+
+.vlp .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  white-space: nowrap;
+  background: #26251e;
+  color: #f7f7f4;
+  padding: 9px 18px;
+  border-radius: 9999px;
+  transition: background .15s;
+}
+
+.vlp .nav-cta-arrow {
+  font-family: 'JetBrains Mono',monospace;
+}

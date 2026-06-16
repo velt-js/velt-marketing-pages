@@ -1,0 +1,95 @@
+.vlp .footer-root {
+  background: #ffffff;
+  border-top: 1px solid #d9d5cf;
+}
+
+.vlp .footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 64px 32px 32px;
+}
+
+.vlp .footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.vlp .footer-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.vlp .footer-logomark {
+  width: 22px;
+  height: 22px;
+  background: #26251e;
+  position: relative;
+  display: inline-block;
+  border-radius: 3px;
+}
+
+.vlp .footer-logomark-inset {
+  position: absolute;
+  inset: 6px;
+  background: #ffffff;
+}
+
+.vlp .footer-brand-name {
+  font-weight: 500;
+}
+
+.vlp .footer-tagline {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #7a7974;
+  max-width: 34ch;
+}
+
+.vlp .footer-badges {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.vlp .footer-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #7a7974;
+  border: 1px solid #d9d5cf;
+  padding: 4px 9px;
+  border-radius: 4px;
+}
+
+.vlp .footer-col-heading {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: #a1a19f;
+  margin-bottom: 14px;
+}
+
+.vlp .footer-col-links {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 13.5px;
+  color: #7a7974;
+}
+
+.vlp .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid #d9d5cf;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #a1a19f;
+  letter-spacing: 0.03em;
+}

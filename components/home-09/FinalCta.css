@@ -1,0 +1,100 @@
+.vlp .cta-section {
+  background: #26251e;
+  color: #f7f7f4;
+}
+
+.vlp .cta-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 96px 32px;
+  text-align: center;
+}
+
+.vlp .cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f54e00;
+  margin-bottom: 24px;
+}
+
+.vlp .cta-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f54e00;
+}
+
+.vlp .cta-heading {
+  font-size: 54px;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  max-width: 18ch;
+  margin: 0 auto;
+}
+
+.vlp .cta-sub {
+  font-size: 17px;
+  line-height: 1.5;
+  color: #a1a19f;
+  margin-top: 24px;
+}
+
+.vlp .cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.vlp .cta-btn-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  background: #ffffff;
+  color: #26251e;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  transition: opacity .15s;
+}
+
+.vlp .cta-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #f7f7f4;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  border: 1px solid #3a3934;
+  transition: border-color .15s;
+}
+
+.vlp .cta-arrow {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.vlp .cta-microcopy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #8f8e89;
+  margin-top: 24px;
+}
+
+.vlp .cta-footnote {
+  margin-top: 18px;
+  font-size: 14px;
+  color: #a1a19f;
+}
+
+.vlp .cta-founder-link {
+  color: #f54e00;
+}

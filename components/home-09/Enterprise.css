@@ -1,0 +1,159 @@
+.vlp .ent-section {
+  background: #26251e;
+  color: #f7f7f4;
+}
+
+.vlp .ent-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.vlp .ent-header-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: end;
+}
+
+.vlp .ent-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #f54e00;
+  margin-bottom: 20px;
+}
+
+.vlp .ent-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f54e00;
+}
+
+.vlp .ent-heading {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  max-width: 18ch;
+}
+
+.vlp .ent-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #a1a19f;
+}
+
+.vlp .ent-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 44px;
+}
+
+.vlp .ent-pillar {
+  background: #1e1d17;
+  border: 1px solid #3a3934;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.vlp .ent-pillar-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  color: #8f8e89;
+  margin-bottom: 14px;
+}
+
+.vlp .ent-pillar-title {
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.vlp .ent-pillar-body {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #a1a19f;
+}
+
+.vlp .ent-pillar-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  line-height: 1.9;
+  color: #e6e5e0;
+  margin-top: 14px;
+}
+
+.vlp .ent-regions-mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px;
+  color: #e6e5e0;
+  margin-top: 14px;
+}
+
+.vlp .ent-pillar-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #f54e00;
+  margin-top: 12px;
+}
+
+.vlp .ent-uptime-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.vlp .ent-uptime-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #8f8e89;
+}
+
+.vlp .ent-uptime-value {
+  font-size: 18px;
+  color: #4ade80;
+}
+
+.vlp .ent-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+.vlp .ent-btn-light {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #26251e;
+  padding: 11px 20px;
+  border-radius: 9999px;
+  transition: opacity .15s;
+}
+
+.vlp .ent-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #f7f7f4;
+  padding: 11px 20px;
+  border-radius: 9999px;
+  border: 1px solid #3a3934;
+  transition: border-color .15s;
+}
+
+.vlp .ent-btn-arrow {
+  font-family: 'JetBrains Mono', monospace;
+}

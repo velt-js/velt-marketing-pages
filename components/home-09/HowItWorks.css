@@ -1,0 +1,247 @@
+.vlp .how-section {
+  background: #f7f7f4;
+  border-top: 1px solid #d9d5cf;
+  border-bottom: 1px solid #d9d5cf;
+}
+
+.vlp .how-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.vlp .how-intro {
+  max-width: 640px;
+}
+
+.vlp .how-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 20px;
+}
+
+.vlp .how-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .how-heading {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.vlp .how-subtext {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #7a7974;
+  margin-top: 16px;
+}
+
+.vlp .how-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.vlp .how-step-card {
+  background: #ffffff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.vlp .how-step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: #a1a19f;
+}
+
+.vlp .how-step-text {
+  font-size: 15px;
+  margin: 12px 0;
+}
+
+.vlp .how-code-dark {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f7f7f4;
+  background: #26251e;
+  padding: 10px 12px;
+  border-radius: 4px;
+}
+
+.vlp .how-code-dark-prompt {
+  color: #8f8e89;
+}
+
+.vlp .how-code-light {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: #26251e;
+  background: #f7f7f4;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #d9d5cf;
+}
+
+.vlp .how-comment {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-top: 16px;
+}
+
+.vlp .how-mcp-block {
+  background: #26251e;
+  border-radius: 8px;
+  padding: 32px;
+  margin-top: 32px;
+}
+
+.vlp .how-mcp-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.vlp .how-mcp-title {
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #f7f7f4;
+}
+
+.vlp .how-mcp-subtitle {
+  font-size: 14px;
+  color: #a1a19f;
+}
+
+.vlp .how-mcp-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #a1a19f;
+  max-width: 62ch;
+  margin-top: 12px;
+}
+
+.vlp .how-tab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.vlp .how-tab {
+  font-size: 13px;
+  font-family: 'JetBrains Mono', monospace;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.vlp .how-tab-active {
+  border: 1px solid #26251e;
+  background: #26251e;
+  color: #f7f7f4;
+}
+
+.vlp .how-tab-inactive {
+  border: 1px solid #d9d5cf;
+  background: transparent;
+  color: #7a7974;
+}
+
+.vlp .how-terminal {
+  background: #141414;
+  border: 1px solid #3a3934;
+  border-radius: 4px;
+  padding: 14px 16px;
+  margin-top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #f7f7f4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.vlp .how-terminal-prompt {
+  color: #f54e00;
+}
+
+.vlp .how-terminal-cmd {
+  white-space: nowrap;
+}
+
+.vlp .how-checks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 28px;
+  margin-top: 22px;
+  max-width: 620px;
+}
+
+.vlp .how-check-row {
+  font-size: 13px;
+  color: #e6e5e0;
+}
+
+.vlp .how-check-mark {
+  color: #4ade80;
+}
+
+.vlp .how-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.vlp .how-tagline {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: #26251e;
+}
+
+.vlp .how-stack {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: #a1a19f;
+}
+
+.vlp .how-cta {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  background: #26251e;
+  color: #f7f7f4;
+  padding: 11px 20px;
+  border-radius: 9999px;
+  transition: background .15s;
+}
+
+.vlp .how-cta-arrow {
+  font-family: 'JetBrains Mono', monospace;
+}

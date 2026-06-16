@@ -1,4 +1,5 @@
 "use client";
+import "./Faq.css";
 
 import { useState } from "react";
 
@@ -49,22 +50,22 @@ export default function Faq() {
   const [faqOpen, setFaqOpen] = useState(0);
 
   return (
-    <section id="faq" style={{ background: "#f7f7f4", borderTop: "1px solid #d9d5cf", borderBottom: "1px solid #d9d5cf" }}>
-      <div style={{ maxWidth: "880px", margin: "0 auto", padding: "80px 32px" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontFamily: "'JetBrains Mono',monospace", fontSize: "12px", letterSpacing: "0.06em", textTransform: "uppercase", color: "#7a7974", marginBottom: "20px" }}><span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#26251e" }}></span>Objections, named</div>
-        <h2 style={{ fontSize: "34px", lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400", marginBottom: "36px" }}>Questions buyers ask in the first meeting.</h2>
+    <section id="faq" className="faq-section">
+      <div className="faq-inner">
+        <div className="faq-eyebrow"><span className="faq-eyebrow-dot"></span>Objections, named</div>
+        <h2 className="faq-heading">Questions buyers ask in the first meeting.</h2>
         <div>
           {FAQS.map((item, index) => {
             const isOpen = faqOpen === index;
             return (
-              <div key={item.num} onClick={() => setFaqOpen(isOpen ? -1 : index)} style={{ borderTop: "1px solid #d9d5cf", padding: "20px 0", cursor: "pointer" }}>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
-                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "12px", color: "#a1a19f", paddingTop: "3px" }}>{item.num}</span>
-                  <span style={{ flex: "1", fontSize: "17px", lineHeight: "1.35", letterSpacing: "-0.01em" }}>{item.q}</span>
-                  <span style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: "18px", color: "#f54e00", lineHeight: "1" }}>{isOpen ? "−" : "+"}</span>
+              <div key={item.num} onClick={() => setFaqOpen(isOpen ? -1 : index)} className="faq-row">
+                <div className="faq-row-header">
+                  <span className="faq-num">{item.num}</span>
+                  <span className="faq-question">{item.q}</span>
+                  <span className="faq-toggle">{isOpen ? "−" : "+"}</span>
                 </div>
                 {isOpen && (
-                  <p style={{ fontSize: "14.5px", lineHeight: "1.6", color: "#7a7974", margin: "14px 0 0 32px", maxWidth: "64ch" }}>{item.a}</p>
+                  <p className="faq-answer">{item.a}</p>
                 )}
               </div>
             );

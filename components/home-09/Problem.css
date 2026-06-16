@@ -1,0 +1,100 @@
+.vlp .problem-section {
+  background: #f7f7f4;
+  border-top: 1px solid #d9d5cf;
+  border-bottom: 1px solid #d9d5cf;
+}
+
+.vlp .problem-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  text-align: center;
+}
+
+.vlp .problem-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 22px;
+}
+
+.vlp .problem-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .problem-heading {
+  font-size: 34px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  max-width: 24ch;
+  margin: 0 auto;
+}
+
+.vlp .problem-subtext {
+  font-size: 14px;
+  color: #7a7974;
+  margin-top: 16px;
+}
+
+.vlp .problem-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 28px;
+  text-align: left;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vlp .problem-label {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  padding: 14px 16px;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.vlp .problem-checkbox {
+  margin-top: 3px;
+  accent-color: #f54e00;
+  width: 15px;
+  height: 15px;
+}
+
+.vlp .problem-qualifier-wrapper {
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid #d9d5cf;
+}
+
+.vlp .problem-qualifier-comment {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-bottom: 12px;
+}
+
+.vlp .problem-qualifier-text {
+  font-family: 'EB Garamond', serif;
+  font-size: 21px;
+  font-style: italic;
+  line-height: 1.4;
+  color: #26251e;
+  max-width: 52ch;
+  margin: 0 auto;
+}

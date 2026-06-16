@@ -3,6 +3,14 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { background: #ffffff; }
+.vlp {
+  background: #ffffff;
+  color: #26251e;
+  font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'tnum';
+  overflow-x: hidden;
+}
 .vlp ::selection { background: #26251e; color: #f7f7f4; }
 .vlp a { color: inherit; text-decoration: none; }
 

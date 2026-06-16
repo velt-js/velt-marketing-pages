@@ -1,0 +1,717 @@
+/* ── Section shell ─────────────────────────────────────────── */
+.vlp .prim-section {
+  background: #f7f7f4;
+  border-top: 1px solid #d9d5cf;
+}
+
+.vlp .prim-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px 64px;
+}
+
+/* ── Intro block ───────────────────────────────────────────── */
+.vlp .prim-intro {
+  max-width: 640px;
+}
+
+.vlp .prim-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 20px;
+}
+
+.vlp .prim-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .prim-intro-h2 {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+.vlp .prim-intro-p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: #7a7974;
+  margin-top: 16px;
+}
+
+/* ── Rail rows (grid wrappers) ─────────────────────────────── */
+
+/* First row: 0.82fr 1.18fr, has marginTop 48px */
+.vlp .prim-rail-a {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 0;
+  border-top: 1px solid #d9d5cf;
+  margin-top: 48px;
+}
+
+/* 0.82fr 1.18fr, no marginTop, standard padding */
+.vlp .prim-rail-b {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 0;
+  border-top: 1px solid #d9d5cf;
+}
+
+/* 1.18fr 0.82fr, standard padding */
+.vlp .prim-rail-c {
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 0;
+  border-top: 1px solid #d9d5cf;
+}
+
+/* Last row: 0.82fr 1.18fr, padding-bottom 8px */
+.vlp .prim-rail-d {
+  display: grid;
+  grid-template-columns: 0.82fr 1.18fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 0 8px;
+  border-top: 1px solid #d9d5cf;
+}
+
+/* ── Section label line (01 · COMMENTS etc.) ───────────────── */
+.vlp .prim-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #7a7974;
+  margin-bottom: 14px;
+}
+
+/* Inner orange comment span  // proven wedge  */
+.vlp .prim-label-comment {
+  color: #f54e00;
+}
+
+/* ── h3 headings ───────────────────────────────────────────── */
+.vlp .prim-h3 {
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+  font-weight: 400;
+}
+
+/* ── Body paragraphs ───────────────────────────────────────── */
+.vlp .prim-body-p {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #7a7974;
+  margin-top: 14px;
+}
+
+/* ── "Explore X →" links ───────────────────────────────────── */
+.vlp .prim-explore {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-top: 18px;
+}
+
+/* ── Blockquotes ───────────────────────────────────────────── */
+.vlp .prim-blockquote {
+  margin: 24px 0 0;
+  padding-left: 14px;
+  border-left: 2px solid #c08532;
+  font-family: 'EB Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.45;
+  color: #26251e;
+}
+
+.vlp .prim-blockquote-attr {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 11px;
+  color: #7a7974;
+  margin-top: 8px;
+}
+
+/* ── White demo cards ──────────────────────────────────────── */
+
+/* Standard: bg #fff, border, radius 8, shadow, padding 18px */
+.vlp .prim-card {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  box-shadow: rgba(0,0,0,0.06) 0px 14px 32px;
+  padding: 18px;
+}
+
+/* Approval-flow card: same base but flex column, gap 11px (no padding override) */
+.vlp .prim-card-col {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  box-shadow: rgba(0,0,0,0.06) 0px 14px 32px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+/* Audit-trail card: same base, overflow hidden, no padding */
+.vlp .prim-card-overflow {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  box-shadow: rgba(0,0,0,0.06) 0px 14px 32px;
+  overflow: hidden;
+}
+
+/* ── Code-window cards ─────────────────────────────────────── */
+.vlp .prim-code-card {
+  background: #f7f7f4;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+.vlp .prim-code-header {
+  display: flex;
+  padding: 8px 12px;
+  border-bottom: 1px solid #d9d5cf;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #7a7974;
+}
+
+.vlp .prim-code-copy {
+  margin-left: auto;
+  color: #a1a19f;
+}
+
+.vlp .prim-pre {
+  margin: 0;
+  padding: 12px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  color: #26251e;
+  overflow-x: auto;
+}
+
+/* ── Thread / comment rows inside white cards ──────────────── */
+
+/* Row with bottom divider (border-bottom) */
+.vlp .prim-thread-row-top {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e6e5e0;
+}
+
+/* Row below divider (padding-top) */
+.vlp .prim-thread-row-bot {
+  display: flex;
+  gap: 10px;
+  padding-top: 14px;
+}
+
+/* ── Avatar circles ────────────────────────────────────────── */
+
+/* JR — green, 26px */
+.vlp .prim-avatar-jr {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #34785c;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* AI — dark, 26px, JetBrains Mono 9px */
+.vlp .prim-avatar-ai-26 {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #26251e;
+  color: #f7f7f4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* AI — dark, 22px, JetBrains Mono 9px (approval rows) */
+.vlp .prim-avatar-ai-22 {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #26251e;
+  color: #f7f7f4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+}
+
+/* MK — amber, 22px, 9px (no mono) */
+.vlp .prim-avatar-mk-22 {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #c08532;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+/* JR — grey (brand step), 22px */
+.vlp .prim-avatar-jr-22 {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #8f8e89;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+/* SP — light grey, 22px, muted text */
+.vlp .prim-avatar-sp-22 {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #d9d5cf;
+  color: #7a7974;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+/* AI — dark, 24px, JetBrains Mono 9px (memory card) */
+.vlp .prim-avatar-ai-24 {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #26251e;
+  color: #f7f7f4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* ── Thread sub-elements shared across cards ───────────────── */
+
+/* Name line inside thread */
+.vlp .prim-thread-name {
+  font-size: 13px;
+}
+
+/* Muted timestamp / secondary text inline */
+.vlp .prim-thread-time {
+  color: #a1a19f;
+  font-size: 11px;
+}
+
+/* Thread body paragraph */
+.vlp .prim-thread-p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #26251e;
+  margin-top: 3px;
+}
+
+.vlp .prim-thread-p--mt4 {
+  margin-top: 4px;
+}
+
+/* ── Comment card internal thread (flex:1 div in review-agents) */
+.vlp .prim-thread-body {
+  flex: 1;
+}
+
+/* ── Approval row (each step row) ──────────────────────────── */
+.vlp .prim-approval-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+}
+
+/* muted variant for last row */
+.vlp .prim-approval-row-muted {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #7a7974;
+}
+
+/* Status badge — done/approved (green) */
+.vlp .prim-badge-done {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #34785c;
+  border: 1px solid #4ade80;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Status badge — pending (grey) */
+.vlp .prim-badge-pending {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #7a7974;
+  border: 1px solid #d9d5cf;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Status text — waiting (no border) */
+.vlp .prim-badge-waiting {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #a1a19f;
+}
+
+/* Reject footer note inside approval card */
+.vlp .prim-approval-footer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #a1a19f;
+  padding-top: 10px;
+  border-top: 1px solid #e6e5e0;
+}
+
+/* ── Audit trail card internals ────────────────────────────── */
+.vlp .prim-audit-header {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  border-bottom: 1px solid #e6e5e0;
+  font-size: 12px;
+  color: #7a7974;
+}
+
+.vlp .prim-audit-export {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #f54e00;
+}
+
+.vlp .prim-audit-log {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+}
+
+.vlp .prim-audit-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #f0efea;
+}
+
+/* Last audit row has no border */
+.vlp .prim-audit-row-last {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+}
+
+.vlp .prim-audit-ts {
+  color: #a1a19f;
+}
+
+.vlp .prim-audit-desc {
+  flex: 1;
+  color: #26251e;
+}
+
+.vlp .prim-audit-strong {
+  font-weight: 500;
+}
+
+/* Status tag — agent (grey) */
+.vlp .prim-tag-agent {
+  color: #7a7974;
+  border: 1px solid #d9d5cf;
+  padding: 1px 7px;
+  border-radius: 4px;
+}
+
+/* Status tag — approved (green) */
+.vlp .prim-tag-approved {
+  color: #34785c;
+  border: 1px solid #4ade80;
+  padding: 1px 7px;
+  border-radius: 4px;
+}
+
+/* Status tag — rejected (orange-red) */
+.vlp .prim-tag-rejected {
+  color: #b8400a;
+  border: 1px solid #f0b89c;
+  padding: 1px 7px;
+  border-radius: 4px;
+}
+
+/* ── Suggestions card internals ────────────────────────────── */
+.vlp .prim-sug-p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #26251e;
+}
+
+.vlp .prim-sug-del {
+  background: #fde8e0;
+  color: #b8400a;
+  text-decoration: line-through;
+}
+
+.vlp .prim-sug-ins {
+  background: #dff3e8;
+  color: #34785c;
+}
+
+.vlp .prim-sug-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e6e5e0;
+}
+
+.vlp .prim-sug-accept {
+  font-size: 12px;
+  background: #26251e;
+  color: #f7f7f4;
+  padding: 6px 14px;
+  border-radius: 9999px;
+}
+
+.vlp .prim-sug-reject {
+  font-size: 12px;
+  background: transparent;
+  color: #26251e;
+  border: 1px solid #d9d5cf;
+  padding: 6px 14px;
+  border-radius: 9999px;
+}
+
+.vlp .prim-sug-agent {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #7a7974;
+}
+
+/* ── Memory card internals ─────────────────────────────────── */
+.vlp .prim-mem-precedent {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: #c08532;
+  margin-bottom: 8px;
+}
+
+.vlp .prim-mem-p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: #26251e;
+}
+
+.vlp .prim-mem-meta {
+  font-size: 11.5px;
+  color: #a1a19f;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.vlp .prim-mem-thread {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e6e5e0;
+}
+
+.vlp .prim-mem-thread-p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #7a7974;
+  margin-top: 2px;
+}
+
+/* ── 06/07 label row (label + NEW badge) ───────────────────── */
+.vlp .prim-label-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* Same row but margin-bottom 12px (07 section) */
+.vlp .prim-label-row-12 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.vlp .prim-label-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #7a7974;
+}
+
+.vlp .prim-badge-new {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  background: #f54e00;
+  color: #fff;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* ── 06/07 orange "// the moat" line ──────────────────────── */
+.vlp .prim-moat-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-bottom: 12px;
+}
+
+/* ── Notifications card internals ──────────────────────────── */
+.vlp .prim-notif-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.vlp .prim-notif-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #f54e00;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vlp .prim-notif-body {
+  flex: 1;
+}
+
+.vlp .prim-notif-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.vlp .prim-notif-sub {
+  font-size: 13px;
+  color: #7a7974;
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
+.vlp .prim-notif-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e6e5e0;
+}
+
+.vlp .prim-notif-chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #26251e;
+  background: #f7f7f4;
+  padding: 5px 11px;
+  border-radius: 9999px;
+}
+
+/* ── Review-agents card internals ──────────────────────────── */
+.vlp .prim-findings-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #b8400a;
+  border: 1px solid #f0b89c;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+.vlp .prim-agent-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.vlp .prim-agent-accept {
+  font-size: 11.5px;
+  background: #26251e;
+  color: #f7f7f4;
+  padding: 5px 12px;
+  border-radius: 9999px;
+}
+
+.vlp .prim-agent-dismiss {
+  font-size: 11.5px;
+  background: transparent;
+  color: #7a7974;
+  border: 1px solid #d9d5cf;
+  padding: 5px 12px;
+  border-radius: 9999px;
+}
+
+.vlp .prim-brand-ref {
+  font-family: 'JetBrains Mono', monospace;
+  color: #f54e00;
+}

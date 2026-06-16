@@ -1,39 +1,43 @@
+import type { Metadata } from "next";
+import "@/components/home-09/styles.css";
+
 import { JsonLd } from "./_seo/JsonLd";
-import {
-  ORG_ID,
-  ORG_OG_IMAGE,
-  SITE_URL,
-} from "./_seo/schema";
+import { ORG_ID, ORG_OG_IMAGE, SITE_URL } from "./_seo/schema";
 import {
   HOMEPAGE_PRODUCT_SCHEMA,
   HOMEPAGE_SOFTWARE_APPLICATION_SCHEMA,
 } from "@/lib/bespoke-jsonld";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
-import { Nav } from "@/components/home/Nav";
-import { Hero } from "@/components/home/Hero";
-import { Outcomes } from "@/components/home/Outcomes";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { StealFeatures } from "@/components/home/StealFeatures";
-import { FeaturesGrid } from "@/components/home/FeaturesGrid";
-import { CustomerUI } from "@/components/home/CustomerUI";
-import { Connectors } from "@/components/home/Connectors";
-import { LibrarySupport } from "@/components/home/LibrarySupport";
-import { Security } from "@/components/home/Security";
-import { Footer } from "@/components/home/Footer";
 
-export const metadata = buildPageMetadata({
-  title: "The Collaboration Stack for B2B",
-  description:
-    "Add powerful real-time and multiplayer features to your product with Velt's easy-to-use collaboration SDK. Integrate comments, live cursors, and more in minutes.",
-  path: "/",
-});
+import Nav from "@/components/home-09/Nav";
+import Hero from "@/components/home-09/Hero";
+import TrustStrip from "@/components/home-09/TrustStrip";
+import Problem from "@/components/home-09/Problem";
+import WhyNow from "@/components/home-09/WhyNow";
+import Primitives from "@/components/home-09/Primitives";
+import Collaboration from "@/components/home-09/Collaboration";
+import HowItWorks from "@/components/home-09/HowItWorks";
+import Integrations from "@/components/home-09/Integrations";
+import Enterprise from "@/components/home-09/Enterprise";
+import Verticals from "@/components/home-09/Verticals";
+import Faq from "@/components/home-09/Faq";
+import Proof from "@/components/home-09/Proof";
+import FinalCta from "@/components/home-09/FinalCta";
+import Footer from "@/components/home-09/Footer";
 
-// Section rhythm follows Figma's 1440 design but is now responsive —
-// each section owns its own horizontal max-width (container-page) and
-// vertical padding (section-pad-y). The marginTops below are interim
-// gaps between sections; per-component refactors will replace them
-// with section-pad-y once each section is converted.
+// Homepage meta follows the website spec (Part 3.1): the title leads with
+// "Velt |" (a deliberate prefix, unlike the site-wide "{title} | Velt"
+// suffix), so it is set as an absolute title to bypass the layout template.
+export const metadata: Metadata = {
+  ...buildPageMetadata({
+    title: "Add a pull request to your product",
+    description:
+      "Embeddable review and approval for AI-native apps. Comments, approval flows, review agents, memory, and audit trails in one SDK.",
+    path: "/",
+    socialTitle: "Velt | Add a pull request to your product",
+  }),
+  title: { absolute: "Velt | Add a pull request to your product" },
+};
 
 // SoftwareApplication schema for the homepage. `applicationCategory:
 // DeveloperApplication` signals this is a developer tool (vs SaaS app),
@@ -47,7 +51,7 @@ const HOME_SOFTWARE_APPLICATION = {
   applicationCategory: "DeveloperApplication",
   operatingSystem: "Web",
   description:
-    "Velt is a collaboration SDK that lets B2B SaaS teams add real-time multiplayer features — comments, live cursors, presence, notifications — to their product in minutes.",
+    "Velt is embeddable review and approval for AI-native apps: comments, approval flows, review agents, suggestions, audit trails, memory, and notifications in one SDK. Agents do the work, humans decide.",
   image: ORG_OG_IMAGE,
   publisher: { "@id": ORG_ID },
   offers: {
@@ -56,76 +60,49 @@ const HOME_SOFTWARE_APPLICATION = {
     price: "0",
     priceCurrency: "USD",
     availability: "https://schema.org/InStock",
-    description: "Free Hacker plan with 100 Monthly Active Documents",
+    description: "Free tier for development and early production",
   },
 };
 
 export default function Home() {
   return (
-    <>
-      {/* Fixed nav — viewport-relative; flips to white bg when Outcomes
-          scrolls under it. */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 50,
-        }}
-      >
-        <Nav />
-      </div>
+    <div className="vlp">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-home-software" data={HOME_SOFTWARE_APPLICATION} />
       {/* Framer-ported bespoke SoftwareApplication (Script 20) — adds
-          aggregateRating (5/5, 5 reviews), 3 named Review entities,
-          3 Offer tiers, full featureList, and social `sameAs` links.
-          The reviews are what light up rich snippets in SERPs. */}
+          aggregateRating, named Review entities, Offer tiers, full
+          featureList, and social `sameAs` links. The reviews are what
+          light up rich snippets in SERPs. */}
       <JsonLd
         id="ld-home-software-framer"
         data={HOMEPAGE_SOFTWARE_APPLICATION_SCHEMA}
       />
-      {/* Framer-ported Product schema (Script 22) — sits alongside
-          the SoftwareApplication entities above. NB: all three offers
-          list price="0" in the Framer source (likely a copy-paste
-          artifact since Growth/Enterprise are contract-based). Kept
-          verbatim for SEO continuity; revisit if Google starts
-          surfacing $0 in a snippet. */}
+      {/* Framer-ported Product schema (Script 22) — sits alongside the
+          SoftwareApplication entities above. */}
       <JsonLd id="ld-home-product-framer" data={HOMEPAGE_PRODUCT_SCHEMA} />
 
-      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
-        <Hero />
-
-        <div className="mt-10 lg:mt-[77px]">
-          <TrustedLogos />
-        </div>
-
-        <div className="mt-10 lg:mt-[77px]">
-          <Outcomes />
-        </div>
-
-        {/* White rounded content container — overlaps Outcomes' bottom padding
-            by 72 px so its top-rounded corners sit inside the purple band.
-            Smaller radius/overlap on mobile to match the compressed rhythm. */}
-        <div
-          className="bg-white relative -mt-10 lg:-mt-[72px] rounded-t-[28px] lg:rounded-[52px] pt-12 lg:pt-[100px] pb-8 lg:pb-10"
-        >
-          <StealFeatures />
-          <FeaturesGrid />
-          <CustomerUI />
-          <Connectors />
-          <LibrarySupport />
-          <Security />
-        </div>
-
-        <div className="mt-6 lg:mt-10">
-          <GetStartedSteps />
-        </div>
-
-        <div className="mt-12 lg:mt-[87px]">
-          <Footer />
-        </div>
-      </div>
-    </>
+      <Nav />
+      <a id="top" />
+      <Hero />
+      <TrustStrip />
+      <Problem />
+      <WhyNow />
+      <Primitives />
+      <Collaboration />
+      <HowItWorks />
+      <Integrations />
+      <Enterprise />
+      <Verticals />
+      <Faq />
+      <Proof />
+      <FinalCta />
+      <Footer />
+    </div>
   );
 }

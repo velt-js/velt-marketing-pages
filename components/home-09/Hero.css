@@ -1,0 +1,247 @@
+.vlp .hero {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 72px 32px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+
+.vlp .hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: #7a7974;
+  margin-bottom: 22px;
+}
+
+.vlp .hero-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34785c;
+}
+
+.vlp .hero-title {
+  font-size: 62px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  max-width: 11ch;
+}
+
+.vlp .hero-sub {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #7a7974;
+  max-width: 46ch;
+  margin-top: 24px;
+}
+
+.vlp .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.vlp .hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  background: #26251e;
+  color: #f7f7f4;
+  padding: 12px 22px;
+  border-radius: 9999px;
+  transition: background 0.15s;
+}
+
+.vlp .hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  background: transparent;
+  color: #26251e;
+  padding: 12px 22px;
+  border-radius: 9999px;
+  border: 1px solid #26251e;
+  transition: background 0.15s;
+}
+
+.vlp .hero-arrow {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.vlp .hero-microcopy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  color: #a1a19f;
+  margin-top: 24px;
+}
+
+.vlp .hero-panel {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 28px 70px 0px, rgba(0, 0, 0, 0.1) 0px 14px 32px 0px, rgba(38, 37, 30, 0.1) 0px 0px 0px 1px;
+  overflow: hidden;
+}
+
+.vlp .hero-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border-bottom: 1px solid #e6e5e0;
+  background: #f7f7f4;
+}
+
+.vlp .hero-panel-filename {
+  font-size: 13px;
+}
+
+.vlp .hero-badge-approved {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #34785c;
+  border: 1px solid #4ade80;
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+
+.vlp .hero-panel-body {
+  padding: 18px;
+}
+
+.vlp .hero-meta-row {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed #d9d5cf;
+  font-size: 12.5px;
+  color: #7a7974;
+}
+
+.vlp .hero-meta-label {
+  color: #a1a19f;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.vlp .hero-meta-proposed {
+  color: #26251e;
+}
+
+.vlp .hero-card {
+  margin-top: 16px;
+  padding: 14px;
+  background: #ffffff;
+  border: 1px solid #e6e5e0;
+  border-radius: 8px;
+}
+
+.vlp .hero-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.vlp .hero-avatar-ai {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #26251e;
+  color: #f7f7f4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+}
+
+.vlp .hero-card-name {
+  font-size: 13px;
+}
+
+.vlp .hero-card-time {
+  margin-left: auto;
+  font-size: 11px;
+  color: #a1a19f;
+}
+
+.vlp .hero-card-body {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #26251e;
+}
+
+.vlp .hero-card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.vlp .hero-btn-approve {
+  font-size: 12.5px;
+  background: #26251e;
+  color: #f7f7f4;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.vlp .hero-btn-reject {
+  font-size: 12.5px;
+  background: transparent;
+  color: #26251e;
+  border: 1px solid #d9d5cf;
+  padding: 7px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+}
+
+.vlp .hero-approver {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: #7a7974;
+}
+
+.vlp .hero-avatar-mk {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #c08532;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+.vlp .hero-webhook {
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #f7f7f4;
+  background: #26251e;
+  padding: 9px 12px;
+  border-radius: 4px;
+}
+
+.vlp .hero-webhook-event {
+  color: #4ade80;
+}

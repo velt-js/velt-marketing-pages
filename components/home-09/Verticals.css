@@ -1,0 +1,76 @@
+.vlp .vert-section {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.vlp .vert-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7a7974;
+  margin-bottom: 20px;
+}
+
+.vlp .vert-eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #26251e;
+}
+
+.vlp .vert-heading {
+  font-size: 36px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  max-width: 26ch;
+}
+
+.vlp .vert-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.vlp .vert-card {
+  background: #fff;
+  border: 1px solid #d9d5cf;
+  border-radius: 8px;
+  padding: 22px;
+  display: block;
+  transition: border-color .15s, transform .15s;
+}
+
+.vlp .vert-card-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #a1a19f;
+  letter-spacing: 0.05em;
+  margin-bottom: 14px;
+}
+
+.vlp .vert-card-title {
+  font-size: 17px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.vlp .vert-card-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #7a7974;
+}
+
+.vlp .vert-card-explore {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #f54e00;
+  margin-top: 16px;
+}
