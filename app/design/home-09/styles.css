@@ -1,0 +1,18 @@
+/* home-09 — global rules ported verbatim from the original bundled page's
+   <style> block. Loaded only on this route. */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: #ffffff; }
+.vlp ::selection { background: #26251e; color: #f7f7f4; }
+.vlp a { color: inherit; text-decoration: none; }
+
+/* Hover states. The original applied these as inline styles via JS on
+   mouseenter (`style-hover="..."`), so they win over the element's inline
+   base style. Replicated here as :hover rules with !important to keep the
+   same override behavior. Per-element transitions stay on the inline style. */
+.vlp .hl:hover { color: #f54e00 !important; }
+.vlp .hcard:hover { border-color: #26251e !important; transform: translateY(-3px); }
+.vlp .hdark:hover { background: #141414 !important; }
+.vlp .hfade:hover { opacity: 0.88 !important; }
+.vlp .houtline:hover { border-color: #8f8e89 !important; }
+.vlp .hsoft:hover { background: #f7f7f4 !important; }
