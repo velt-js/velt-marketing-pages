@@ -48,7 +48,7 @@ export default function Collaboration() {
             <div className="collab-chip">&lt;VeltHuddle /&gt;</div>
           </div>
         </div>
-        <a href="#" className="collab-link">See the full collaboration layer <span>→</span></a>
+        <a href="#" className="collab-link">See the full collaboration layer</a>
       </section>
   );
 }

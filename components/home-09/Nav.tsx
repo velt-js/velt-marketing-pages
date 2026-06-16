@@ -18,7 +18,7 @@ export default function Nav() {
           </nav>
           <div className="nav-right">
             <a href="#" className="nav-signin hl">Sign in</a>
-            <a href="#cta" className="nav-cta hdark">Get Free API Key <span className="nav-cta-arrow">→</span></a>
+            <a href="#cta" className="nav-cta hdark">Get Free API Key</a>
           </div>
         </div>
       </header>

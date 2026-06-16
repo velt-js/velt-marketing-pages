@@ -10,7 +10,7 @@ export default function Hero() {
           <h1 className="hero-title">Add a pull request to your product.</h1>
           <p className="hero-sub">Embeddable review and approval for AI-native apps. Add governance to the work that can't ship unapproved.</p>
           <div className="hero-actions">
-            <a href="#cta" className="hero-btn-primary hdark">Get Free API Key <span className="hero-arrow">→</span></a>
+            <a href="#cta" className="hero-btn-primary hdark">Get Free API Key</a>
             <a href="#proof" className="hero-btn-secondary hsoft">Book Demo</a>
           </div>
           <div className="hero-microcopy">FREE TIER · NO CREDIT CARD · FIRST COMMENT IN 5 MINUTES</div>

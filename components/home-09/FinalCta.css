@@ -77,10 +77,6 @@
   transition: border-color .15s;
 }
 
-.vlp .cta-arrow {
-  font-family: 'JetBrains Mono', monospace;
-}
-
 .vlp .cta-microcopy {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;

@@ -5,7 +5,6 @@ import { useState } from "react";
 type PrimitiveCardProps = {
   num: string;
   name: string;
-  note: string;
   isNew?: boolean;
   headline: string;
   support?: string;
@@ -20,7 +19,6 @@ type PrimitiveCardProps = {
 export default function PrimitiveCard({
   num,
   name,
-  note,
   isNew = false,
   headline,
   support,
@@ -39,7 +37,6 @@ export default function PrimitiveCard({
         <div className="prim-kicker">
           <span className="prim-kicker-id">{num} · {name}</span>
           {isNew ? <span className="prim-badge-new">NEW</span> : null}
-          <span className="prim-kicker-note">{note}</span>
         </div>
         <div className="prim-tabs" role="tablist" aria-label={`${name} preview`}>
           <button
@@ -65,10 +62,10 @@ export default function PrimitiveCard({
 
       <h3 className="prim-h3">{headline}</h3>
       {support ? <p className="prim-body-p">{support}</p> : null}
-      <a href={exploreHref} className="prim-explore">{exploreLabel} <span>→</span></a>
+      <a href={exploreHref} className="prim-explore">{exploreLabel}</a>
 
       <div className="prim-card-body">
-        {tab === "preview" ? <div className="prim-stage">{preview}</div> : code}
+        {tab === "preview" ? preview : code}
       </div>
 
       {quote ? (

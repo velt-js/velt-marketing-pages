@@ -65,10 +65,9 @@
 /* ── Card shell ────────────────────────────────────────────── */
 .vlp .prim-card2 {
   background: #fff;
-  border: 1px solid #d9d5cf;
+  border: 1px solid #e6e5e0;
   border-radius: 16px;
-  padding: 28px;
-  box-shadow: rgba(38, 37, 30, 0.04) 0px 1px 0px;
+  padding: 30px 30px 28px;
 }
 
 .vlp .prim-card-head {
@@ -94,83 +93,39 @@
   color: #f54e00;
 }
 
-.vlp .prim-kicker-note {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.02em;
-  color: #a1a19f;
-}
-
-/* ── Preview | Code segmented toggle ───────────────────────── */
+/* ── Preview | Code text toggle (underline on active) ──────── */
 .vlp .prim-tabs {
   display: inline-flex;
   flex-shrink: 0;
-  gap: 2px;
-  padding: 3px;
-  background: #f7f7f4;
-  border: 1px solid #e6e5e0;
-  border-radius: 9px;
+  gap: 18px;
 }
 
 .vlp .prim-tab {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 5px 11px;
+  padding: 0 0 4px;
+  background: transparent;
   border: none;
-  border-radius: 6px;
+  border-bottom: 1.5px solid transparent;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s, border-color 0.15s;
 }
 
 .vlp .prim-tab-active {
-  background: #26251e;
-  color: #f7f7f4;
+  color: #26251e;
+  border-bottom-color: #26251e;
 }
 
 .vlp .prim-tab-inactive {
-  background: transparent;
-  color: #7a7974;
+  color: #a1a19f;
 }
 
 /* ── Card body (the swapped preview / code area) ───────────── */
 .vlp .prim-card-body {
-  margin-top: 22px;
+  margin-top: 26px;
 }
-
-.vlp .prim-card-body > .prim-code-card {
-  margin-top: 0;
-}
-
-/* ── Preview stage (soft inset that holds the live mock) ───── */
-.vlp .prim-stage {
-  background: #f7f7f4;
-  border: 1px solid #e6e5e0;
-  border-radius: 12px;
-  padding: 20px;
-}
-
-/* ── Skeleton document (Comments preview) ──────────────────── */
-.vlp .prim-skel {
-  background: #fff;
-  border: 1px solid #e6e5e0;
-  border-radius: 8px;
-  padding: 16px;
-  margin-bottom: 14px;
-}
-
-.vlp .prim-skel-line {
-  height: 9px;
-  border-radius: 4px;
-  background: #e6e5e0;
-  margin-bottom: 10px;
-}
-
-.vlp .prim-skel-line:nth-child(1) { width: 62%; }
-.vlp .prim-skel-line:nth-child(2) { width: 92%; }
-.vlp .prim-skel-line:nth-child(3) { width: 74%; background: rgba(245, 78, 0, 0.16); }
-.vlp .prim-skel-line:nth-child(4) { width: 84%; margin-bottom: 0; }
 
 /* Inner orange comment span (used for @maya mention inside threads) */
 .vlp .prim-label-comment {
@@ -225,45 +180,28 @@
   margin-top: 8px;
 }
 
-/* ── White demo cards ──────────────────────────────────────── */
-
-/* Standard: bg #fff, border, radius 8, shadow, padding 18px */
+/* ── Demo mocks (flattened: sit directly on the card) ──────── */
 .vlp .prim-card {
-  background: #fff;
-  border: 1px solid #d9d5cf;
-  border-radius: 8px;
-  box-shadow: rgba(0,0,0,0.06) 0px 14px 32px;
-  padding: 18px;
+  background: transparent;
 }
 
-/* Approval-flow card: same base but flex column, gap 11px (no padding override) */
+/* Approval-flow mock: flex column with gap between step rows */
 .vlp .prim-card-col {
-  background: #fff;
-  border: 1px solid #d9d5cf;
-  border-radius: 8px;
-  box-shadow: rgba(0,0,0,0.06) 0px 14px 32px;
-  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 11px;
 }
 
-/* Audit-trail card: same base, overflow hidden, no padding */
+/* Audit-trail mock */
 .vlp .prim-card-overflow {
-  background: #fff;
-  border: 1px solid #d9d5cf;
-  border-radius: 8px;
-  box-shadow: rgba(0,0,0,0.06) 0px 14px 32px;
-  overflow: hidden;
+  background: transparent;
 }
 
-/* ── Code-window cards ─────────────────────────────────────── */
+/* ── Code view (filled, frameless) ─────────────────────────── */
 .vlp .prim-code-card {
   background: #f7f7f4;
-  border: 1px solid #d9d5cf;
   border-radius: 8px;
   overflow: hidden;
-  margin-top: 14px;
 }
 
 .vlp .prim-code-header {

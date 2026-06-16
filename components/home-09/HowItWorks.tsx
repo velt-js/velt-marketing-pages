@@ -75,7 +75,7 @@ export default function HowItWorks() {
         <div className="how-footer-row">
           <span className="how-tagline">Days, not quarters.</span>
           <span className="how-stack">NO CREDIT CARD · REACT · NEXT.JS · VUE · ANGULAR · HTML</span>
-          <a href="#cta" className="how-cta hdark">Get Free API Key <span className="how-cta-arrow">→</span></a>
+          <a href="#cta" className="how-cta hdark">Get Free API Key</a>
         </div>
       </div>
     </section>

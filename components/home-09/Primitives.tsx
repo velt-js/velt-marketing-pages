@@ -15,31 +15,22 @@ export default function Primitives() {
           <PrimitiveCard
             num="01"
             name="COMMENTS"
-            note="// proven wedge"
             headline="Contextual threads from humans or agents, on any element, doc, cell, or canvas."
             support="The feedback layer your users already expect."
             exploreLabel="Explore Comments"
             exploreHref="#"
             quote={{ text: "We replaced our home-grown commenting in a week. Velt is now the review surface for half a million decisions.", attribution: "Engineering Lead · OpenEnvoy" }}
             preview={
-              <>
-                <div className="prim-skel">
-                  <div className="prim-skel-line"></div>
-                  <div className="prim-skel-line"></div>
-                  <div className="prim-skel-line"></div>
-                  <div className="prim-skel-line"></div>
+              <div className="prim-card">
+                <div className="prim-thread-row-top">
+                  <span className="prim-avatar-jr">JR</span>
+                  <div><div className="prim-thread-name">Jordan <span className="prim-thread-time">1h</span></div><p className="prim-thread-p">This claim needs the updated benchmark. <span className="prim-label-comment">@maya</span> can you confirm the source?</p></div>
                 </div>
-                <div className="prim-card">
-                  <div className="prim-thread-row-top">
-                    <span className="prim-avatar-jr">JR</span>
-                    <div><div className="prim-thread-name">Jordan <span className="prim-thread-time">1h</span></div><p className="prim-thread-p">This claim needs the updated benchmark. <span className="prim-label-comment">@maya</span> can you confirm the source?</p></div>
-                  </div>
-                  <div className="prim-thread-row-bot">
-                    <span className="prim-avatar-ai-26">AI</span>
-                    <div><div className="prim-thread-name">Research Agent <span className="prim-thread-time">58m</span></div><p className="prim-thread-p">Source confirmed: 2026 industry report, table 4. Added the citation inline.</p></div>
-                  </div>
+                <div className="prim-thread-row-bot">
+                  <span className="prim-avatar-ai-26">AI</span>
+                  <div><div className="prim-thread-name">Research Agent <span className="prim-thread-time">58m</span></div><p className="prim-thread-p">Source confirmed: 2026 industry report, table 4. Added the citation inline.</p></div>
                 </div>
-              </>
+              </div>
             }
             code={
               <div className="prim-code-card">
@@ -58,7 +49,6 @@ export default function Primitives() {
           <PrimitiveCard
             num="02"
             name="SUGGESTIONS"
-            note="// the consent step"
             headline="Propose edits inline, accept or reject like a diff."
             support="In any editor, or your own custom components."
             exploreLabel="Explore Suggestions"
@@ -89,7 +79,6 @@ export default function Primitives() {
           <PrimitiveCard
             num="03"
             name="APPROVAL FLOWS"
-            note="// the workflow engine"
             headline="Staged sign-off before anything ships."
             support="Routing, conditions, and a timestamped record."
             exploreLabel="Explore Approval flows"
@@ -123,7 +112,6 @@ export default function Primitives() {
           <PrimitiveCard
             num="04"
             name="AUDIT TRAIL"
-            note="// the evidence layer"
             headline="An immutable record of every action in your product."
             support="Audit-ready by default."
             exploreLabel="Explore Audit trail"
@@ -155,7 +143,6 @@ export default function Primitives() {
           <PrimitiveCard
             num="05"
             name="NOTIFICATIONS"
-            note="// keeps reviews moving"
             headline="Reach reviewers in-app, by email, in Slack and Teams, before the deadline slips."
             exploreLabel="Explore Notifications"
             exploreHref="#"
@@ -189,7 +176,6 @@ export default function Primitives() {
           <PrimitiveCard
             num="06"
             name="MEMORY"
-            note="// the moat"
             isNew
             headline="Past decisions surface as precedent, so reviews stay consistent as teams grow."
             exploreLabel="Explore Memory"
@@ -220,7 +206,6 @@ export default function Primitives() {
           <PrimitiveCard
             num="07"
             name="REVIEW AGENTS"
-            note="// AI catches the obvious"
             isNew
             wide
             headline="AI flags issues and proposes fixes as comments, before a human looks."

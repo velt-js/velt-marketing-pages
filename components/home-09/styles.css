@@ -14,6 +14,25 @@ body { background: #ffffff; }
 .vlp ::selection { background: #26251e; color: #f7f7f4; }
 .vlp a { color: inherit; text-decoration: none; }
 
+/* Titles use Urbanist. Mono headings (e.g. footer column labels) set their
+   own font-family and win on specificity, so they stay monospace. */
+.vlp h1,
+.vlp h2,
+.vlp h3,
+.vlp h4 {
+  font-family: 'Urbanist', sans-serif;
+}
+
+/* Titles are semibold. The doubled `.vlp.vlp` raises specificity above each
+   heading's own font-weight rule (no !important). Footer column labels are
+   intentionally light mono, so they're excluded. */
+.vlp.vlp h1,
+.vlp.vlp h2,
+.vlp.vlp h3,
+.vlp.vlp h4:not(.footer-col-heading) {
+  font-weight: 600;
+}
+
 /* Hover states. The original applied these as inline styles via JS on
    mouseenter (`style-hover="..."`), so they win over the element's inline
    base style. Replicated here as :hover rules with !important to keep the
