@@ -30,7 +30,7 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-bg-section-alt:      var(--vlp-color-cream);
   --vlp-bg-card:             var(--vlp-color-white);
   --vlp-bg-card-dark:        var(--vlp-color-ink);
-  --vlp-bg-nav:              rgba(255, 255, 255, 0.82);
+  --vlp-bg-nav:              var(--vlp-color-white);
   --vlp-bg-soft-hover:       var(--vlp-color-cream);
   --vlp-bg-accent-subtle:    rgba(245, 78, 0, 0.12);
   --vlp-bg-accent-focus:     rgba(245, 78, 0, 0.08);
@@ -274,6 +274,10 @@ body { background: var(--vlp-color-white, #ffffff); }
   font-family: var(--vlp-font-body);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'tnum';
+}
+
+/* Horizontal clip lives below the sticky nav so position: sticky still works. */
+.vlp .vlp-page {
   overflow-x: hidden;
 }
 
@@ -286,6 +290,7 @@ body { background: var(--vlp-color-white, #ffffff); }
 /* All CTAs and button variants use Urbanist (DESIGN.md §10). */
 .vlp .hero-btn-primary,
 .vlp .hero-btn-secondary,
+.vlp .nav-signin,
 .vlp .nav-cta,
 .vlp .proof-cta-btn,
 .vlp .how-cta,

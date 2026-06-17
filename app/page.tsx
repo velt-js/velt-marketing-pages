@@ -88,21 +88,23 @@ export default function Home() {
       <JsonLd id="ld-home-product-framer" data={HOMEPAGE_PRODUCT_SCHEMA} />
 
       <Nav />
-      <a id="top" />
-      <Hero />
-      <TrustStrip />
-      <Problem />
-      <WhyNow />
-      <Primitives />
-      <Collaboration />
-      <HowItWorks />
-      <Integrations />
-      <Enterprise />
-      <Verticals />
-      <Faq />
-      <Proof />
-      <FinalCta />
-      <Footer />
+      <div className="vlp-page">
+        <a id="top" />
+        <Hero />
+        <TrustStrip />
+        <Problem />
+        <WhyNow />
+        <Primitives />
+        <Collaboration />
+        <HowItWorks />
+        <Integrations />
+        <Enterprise />
+        <Verticals />
+        <Faq />
+        <Proof />
+        <FinalCta />
+        <Footer />
+      </div>
     </div>
   );
 }

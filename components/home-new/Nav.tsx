@@ -4,9 +4,15 @@ export default function Nav() {
   return (
       <header className="nav-header">
         <div className="nav-inner">
-          <a href="#top" className="nav-logo">
-            <span className="nav-logo-box"><span className="nav-logo-box-inner"></span></span>
-            <span className="nav-logo-wordmark">velt</span>
+          <a href="#top" className="nav-logo" aria-label="Velt home">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/velt-logo.svg"
+              alt=""
+              className="nav-logo-img"
+              width={59}
+              height={22}
+            />
           </a>
           <nav className="nav-links">
             <a href="#primitives" className="nav-link hl">Products</a>
@@ -17,7 +23,7 @@ export default function Nav() {
             <a href="#how" className="nav-link hl">Docs</a>
           </nav>
           <div className="nav-right">
-            <a href="#" className="nav-signin hl">Sign in</a>
+            <a href="#" className="nav-signin houtline">Sign in</a>
             <a href="#cta" className="nav-cta hdark">Get Free API Key</a>
           </div>
         </div>
