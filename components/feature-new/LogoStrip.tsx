@@ -16,7 +16,7 @@ type LogoStripProps = {
  */
 export default function LogoStrip({ content }: LogoStripProps) {
   return (
-    <section className="logos" data-section="logo-strip">
+    <section className="logos" id="logo-strip" data-section="logo-strip">
       <div className="wrap">
         <p className="logos-label">{content.label}</p>
         <LogoCarousel logos={LOGOS} card className="logos-marquee" />

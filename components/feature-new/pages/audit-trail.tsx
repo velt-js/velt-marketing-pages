@@ -515,6 +515,10 @@ export const auditTrailContent: FeaturePageContent = {
       { label: "View Docs", href: "https://docs.velt.dev/async-collaboration/activity/overview", newTab: true },
       { label: "View Examples", href: "/examples" },
     ],
+    interstitial: {
+      quote: "The auditor asked for the approval chain on a sample of filings. We ran one query and sent the records — who was asked, who decided, and the note they left.",
+      who: "Compliance lead · FP&A platform",
+    },
   },
 
   details: {
@@ -605,6 +609,10 @@ export const auditTrailContent: FeaturePageContent = {
         copyText: BEHAVIOR_CODE,
       },
     ],
+    interstitial: {
+      quote: "We shipped a defensible trail in an afternoon. The hard part — immutability and attribution — was already done.",
+      who: "Staff engineer · sales enablement platform",
+    },
   },
 
   inProduction: {
@@ -762,8 +770,8 @@ export const auditTrailContent: FeaturePageContent = {
     badges: ["SOC 2 Type II", "HIPAA", "EU data residency", "Audit-ready"],
     line: (
       <>
-        Log content, entity snapshots, and custom fields can live on your infrastructure via the activity data provider. EU AI Act Article 14 (high-risk systems under Annex III, enforceable August 2, 2026): for products in that scope, this trail is the evidence layer — approval before action, recorded.{" "}
-        <a href="/self-hosting">See self-hosting</a>.
+        Log content, entity snapshots, and custom fields can live on your infrastructure via the activity data provider, with only minimal identifiers on Velt. GDPR deletion runs through the compliance API with its own audit log. EU AI Act Article 14 (high-risk systems under Annex III, enforceable August 2, 2026): for products in that scope, this trail is the evidence layer — approval before action, recorded. See{" "}
+        <a href="/self-hosting">self-hosting</a> and <a href="/governance">governance</a>.
       </>
     ),
     cta: { label: "Book Demo", href: "/book-demo" },

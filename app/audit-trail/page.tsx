@@ -14,11 +14,14 @@ import { auditTrailContent } from "@/components/feature-new/pages/audit-trail";
 
 const PAGE_PATH = "/audit-trail";
 const PAGE_TITLE = "Audit Trail";
+// Verbatim <title> from the page spec (Part 3). The " | Velt" suffix makes
+// buildPageMetadata emit it as the absolute browser-tab title.
+const META_TITLE = "Audit Trail | An immutable record of every action | Velt";
 const PAGE_DESCRIPTION =
-  "An immutable record of every comment, revision, and approval — across your agents and your humans. Prove who approved what, and when. SOC 2 Type II and HIPAA ready.";
+  "An immutable, exportable record of every comment, edit, approval, and rejection in your product. Audit-ready by default.";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: PAGE_TITLE,
+  title: META_TITLE,
   description: PAGE_DESCRIPTION,
   path: PAGE_PATH,
 });
@@ -32,7 +35,7 @@ const BREADCRUMB = buildBreadcrumbList([
 ]);
 
 const WEBPAGE_SCHEMA = buildWebPageSchema({
-  name: `${PAGE_TITLE} | Velt`,
+  name: META_TITLE,
   description: PAGE_DESCRIPTION,
   url: PAGE_URL,
   breadcrumb: BREADCRUMB,

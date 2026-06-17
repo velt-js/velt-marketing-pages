@@ -15,7 +15,7 @@ type EnterpriseStripProps = {
  */
 export default function EnterpriseStrip({ content }: EnterpriseStripProps) {
   return (
-    <section className="ent-strip" data-section="enterprise">
+    <section className="ent-strip" id="enterprise" data-section="enterprise">
       <div className="wrap ent-inner">
         <div className="ent-badges">
           {content.badges.map((badge) => (

@@ -64,6 +64,7 @@ export default function HowItWorks({ content }: HowItWorksProps) {
 
         <div className="mech-grid">
           <div className="mech-card">
+            <span className="mech-eyebrow"><span className="mech-dot" />With Velt</span>
             <h3>{content.mechanics.heading}</h3>
             <p>{content.mechanics.body}</p>
             {content.mechanics.microcopy ? (
@@ -71,6 +72,7 @@ export default function HowItWorks({ content }: HowItWorksProps) {
             ) : null}
           </div>
           <div className="bvb-card">
+            <span className="bvb-eyebrow">Build it yourself</span>
             <h3>{content.buildVsBuy.heading}</h3>
             <ul className="bvb-list">
               {content.buildVsBuy.items.map((item) => (

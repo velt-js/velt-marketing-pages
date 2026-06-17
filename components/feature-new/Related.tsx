@@ -22,14 +22,11 @@ export default function Related({ content }: RelatedProps) {
         <div className="related-grid">
           {content.cards.map((card) => (
             <article className="collab-card" key={card.title}>
-              <div className="collab-head">
-                <span className="collab-ic">{card.icon}</span>
-              </div>
               <div className="collab-meta">
                 <h3>{card.title}</h3>
                 <p>{card.body}</p>
               </div>
-              <div className="pc-body">{card.visual}</div>
+              <div className="related-preview">{card.visual}</div>
               <div className="collab-foot">
                 <a className="primitive-link" href={card.link.href}>
                   {card.link.label} <ArrowIcon />

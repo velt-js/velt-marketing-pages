@@ -134,6 +134,13 @@ const nextConfig: NextConfig = {
         destination: "/recording",
         permanent: true,
       },
+      // Legacy /activity-logs URL (docs + agent deep links) folds onto the
+      // canonical Audit Trail feature page.
+      {
+        source: "/activity-logs",
+        destination: "/audit-trail",
+        permanent: true,
+      },
       // /notion-like-comments, /google-spreadsheets-like-comments and
       // /tiptap-editor-comments are standalone SEO landings (see
       // app/notion-like-comments/, app/google-spreadsheets-like-comments/

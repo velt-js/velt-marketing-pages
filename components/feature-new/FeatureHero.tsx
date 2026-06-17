@@ -21,7 +21,7 @@ export default function FeatureHero({ hero }: FeatureHeroProps) {
   const [activeTab, setActiveTab] = useState(hero.demoTabs[0]?.id ?? "");
 
   return (
-    <section className="f-hero" data-section="hero">
+    <section className="f-hero" id="hero" data-section="hero">
       <div className="wrap f-hero-grid">
         <div className="hero-copy">
           <p className="kicker">{hero.kicker}</p>
