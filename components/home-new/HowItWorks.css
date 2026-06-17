@@ -214,6 +214,14 @@
   color: var(--vlp-color-cream);
   overflow-x: auto;
   white-space: pre;
+  /* Keep the code horizontally scrollable (trackpad/shift-wheel) without
+     showing a scrollbar track. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.vlp .how-pre::-webkit-scrollbar {
+  display: none;
 }
 
 .vlp .how-code-prompt {

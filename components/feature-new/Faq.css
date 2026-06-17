@@ -1,0 +1,11 @@
+/* FAQ accordion. Scoped under .vfp. */
+.vfp .faq-list { display: grid; gap: 0; margin-top: 40px; border-top: 1px solid var(--line-soft); max-width: 820px; margin-left: auto; margin-right: auto; }
+.vfp .faq-item { border-bottom: 1px solid var(--line-soft); }
+.vfp .faq-q { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%; text-align: left; padding: 22px 4px; }
+.vfp .faq-q h3 { font-family: var(--heading); font-size: 17px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.vfp .faq-q svg { flex: none; color: var(--muted); transition: transform 0.2s ease; }
+.vfp .faq-item.open .faq-q svg { transform: rotate(180deg); }
+.vfp .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.24s ease; }
+.vfp .faq-item.open .faq-a { grid-template-rows: 1fr; }
+.vfp .faq-a-inner { overflow: hidden; font-size: 15px; line-height: 1.65; color: var(--muted); }
+.vfp .faq-item.open .faq-a-inner { padding: 0 4px 24px; }

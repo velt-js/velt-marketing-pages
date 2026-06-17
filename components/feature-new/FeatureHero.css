@@ -1,0 +1,65 @@
+/* Feature hero + tabbed demo shell. Scoped under .vfp. */
+.vfp .f-hero { padding: 72px 0 64px; overflow: hidden; }
+.vfp .f-hero-grid { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px; align-items: center; }
+.vfp .f-hero h1 { font-size: clamp(34px, 4vw, 52px); line-height: 1.06; letter-spacing: -0.03em; }
+.vfp .hero-copy { display: grid; gap: 24px; }
+.vfp .hero-secondary { font-size: 17.5px; line-height: 1.55; color: var(--muted); max-width: 480px; text-wrap: pretty; }
+.vfp .hero-accent { display: flex; align-items: baseline; gap: 9px; font-family: var(--mono); font-size: 13px; color: var(--approve); }
+.vfp .hero-accent::before { content: "//"; font-weight: 600; color: var(--brand); }
+
+/* Hero CTAs mirror the homepage hero buttons (same .vlp button tokens); the
+   .hdark / .hsoft hover rules come from the shared home-new stylesheet. */
+.vfp .hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+  font-size: var(--vlp-btn-primary-font-lg);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-lg);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+.vfp .hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+  font-size: var(--vlp-btn-secondary-font-lg);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  padding: var(--vlp-btn-secondary-padding-lg);
+  border-radius: var(--vlp-btn-secondary-radius);
+  border: var(--vlp-btn-secondary-border);
+  transition: var(--vlp-btn-transition);
+}
+
+.vfp .demo-shell { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg); box-shadow: var(--shadow-lg); overflow: hidden; position: relative; }
+.vfp .demo-stage { background: var(--bg-wash); min-height: 300px; padding: 24px; position: relative; }
+.vfp .build-chip {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--brand);
+  border-radius: 999px;
+  padding: 8px 14px;
+  box-shadow: var(--shadow-md);
+  z-index: 5;
+}
+.vfp .build-chip:hover { background: var(--brand-deep); }
+
+@media (max-width: 1024px) {
+  .vfp .f-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 760px) {
+  .vfp .f-hero { padding: 48px 0; }
+}

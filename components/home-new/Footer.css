@@ -16,30 +16,15 @@
 }
 
 .vlp .footer-brand-link {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
-  font-size: var(--vlp-text-body);
   margin-bottom: var(--vlp-space-3-5);
 }
 
-.vlp .footer-logomark {
-  width: var(--vlp-size-logomark);
-  height: var(--vlp-size-logomark);
-  background: var(--vlp-btn-bg);
-  position: relative;
-  display: inline-block;
-  border-radius: var(--vlp-radius-sm);
-}
-
-.vlp .footer-logomark-inset {
-  position: absolute;
-  inset: var(--vlp-space-1-5);
-  background: var(--vlp-color-white);
-}
-
-.vlp .footer-brand-name {
-  font-weight: var(--vlp-weight-medium);
+.vlp .footer-brand-logo {
+  display: block;
+  height: 22px;
+  width: auto;
 }
 
 .vlp .footer-tagline {

@@ -1,9 +1,10 @@
 "use client";
 import "./HowItWorks.css";
 
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 
 import OpenInEditorLink from "./OpenInEditorLink";
+import InstallTimeline, { type InstallStep } from "./InstallTimeline";
 import {
   formatTerminalLine,
   MCP_EDITORS,
@@ -16,12 +17,7 @@ const MCP_TABS = MCP_EDITOR_ORDER.map((key) => ({
   label: MCP_EDITORS[key].tabLabel,
 }));
 
-const STEPS: {
-  num: string;
-  label: string;
-  tab: string;
-  code: ReactNode;
-}[] = [
+const STEPS: InstallStep[] = [
   {
     num: "01",
     label: "Install",
@@ -95,29 +91,7 @@ export default function HowItWorks() {
           <p className="how-subtext">Drop into the editor or framework you already ship. No new infrastructure.</p>
         </div>
 
-        <div className="how-timeline">
-          <div className="how-tl-track">
-            {STEPS.map((step) => (
-              <div key={step.num} className="how-tl-item">
-                <div className="how-tl-head">
-                  <span className="how-tl-node">{step.num}</span>
-                  <span className="how-tl-label">{step.label}</span>
-                </div>
-                <span className="how-tl-drop" aria-hidden="true"></span>
-                <div className="how-editor">
-                  <div className="how-editor-chrome">
-                    <span className="how-editor-dot how-editor-dot-red" aria-hidden="true"></span>
-                    <span className="how-editor-dot how-editor-dot-amber" aria-hidden="true"></span>
-                    <span className="how-editor-dot how-editor-dot-green" aria-hidden="true"></span>
-                    <span className="how-editor-tab">{step.tab}</span>
-                  </div>
-                  <pre className="how-pre"><code>{step.code}</code></pre>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="how-footnote">// First component live in under 10 minutes.</p>
-        </div>
+        <InstallTimeline steps={STEPS} footnote="// First component live in under 10 minutes." />
 
         <div className="how-mcp-block">
           <div className="how-mcp-layout">

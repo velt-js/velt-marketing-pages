@@ -1,0 +1,18 @@
+/* Make it yours: Look + Behavior collab cards. Scoped under .vfp. */
+.vfp .miy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 44px; }
+.vfp .miy-grid .collab-card { display: grid; grid-template-rows: auto auto 1fr; }
+/* Drop the cream preview wash in these two cards — preview sits on the card. */
+.vfp .miy-grid .pc-preview { background: transparent; }
+.vfp .theme-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 22px 22px; }
+.vfp .theme-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+
+/* Dark "themed" preview variant of the thread atom */
+.vfp .thread.themed { background: #2a2924; border-color: #3a3934; }
+.vfp .thread.themed .thread-head .who { color: #fff; }
+.vfp .thread.themed .thread-head .when { color: #b6b4ad; }
+.vfp .thread.themed .fb,
+.vfp .thread.themed p { color: #d7d5ce; }
+
+@media (max-width: 1024px) {
+  .vfp .miy-grid { grid-template-columns: 1fr; }
+}

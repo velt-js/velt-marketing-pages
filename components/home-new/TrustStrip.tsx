@@ -37,7 +37,7 @@ export default function TrustStrip() {
         <div className="trust-sub">// 2M+ review decisions</div>
       </div>
 
-        <LogoCarousel logos={LOGOS} card fullBleed className="trust-logos" />
+        <LogoCarousel logos={LOGOS} card className="trust-logos" />
     </section>
   );
 }

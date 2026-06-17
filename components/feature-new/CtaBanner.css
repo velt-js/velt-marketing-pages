@@ -1,0 +1,14 @@
+/* Reusable inline CTA banner. Scoped under .vfp. */
+.vfp .cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  border: 2px solid var(--line);
+  color: var(--ink);
+}
+.vfp .cta-banner .t { font-family: var(--heading); font-size: 20px; font-weight: 600; letter-spacing: -0.018em; color: var(--ink); }
+.vfp .cta-banner .m { font-size: 14px; color: var(--muted); margin-top: 5px; }

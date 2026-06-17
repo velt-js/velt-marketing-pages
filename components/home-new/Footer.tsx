@@ -6,7 +6,10 @@ export default function Footer() {
         <div className="footer-inner">
           <div className="footer-grid">
             <div>
-              <a href="#top" className="footer-brand-link"><span className="footer-logomark"><span className="footer-logomark-inset"></span></span><span className="footer-brand-name">velt</span></a>
+              <a href="#top" className="footer-brand-link" aria-label="Velt home">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/velt-logo.svg" alt="Velt" className="footer-brand-logo" width={59} height={22} />
+              </a>
               <p className="footer-tagline">Embeddable review and approval for AI-native apps. Agents do the work, humans decide.</p>
               <div className="footer-badges">
                 <span className="footer-badge">SOC 2 Type II</span>

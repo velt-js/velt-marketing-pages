@@ -1,0 +1,28 @@
+/* Showcase ("Capabilities"): reuses the homepage `.prim-*` primitive-card
+   chrome (imported from home-new/Primitives.css). This file only adds the
+   grid, flattens the .vfp demo atoms inside the card's preview stage, and
+   re-tints the syntax tokens for the homepage's light code surface. */
+
+/* The homepage `.prim-grid` uses an asymmetric 5-col layout tuned for 7 cards;
+   the capability wall has 10 uniform cards, so use an even 2-up grid here. */
+.vfp .sc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--vlp-gap-card, 20px); margin-top: 48px; }
+
+/* Flatten the .vfp demo atoms so the homepage `.prim-stage` frame is the only
+   border (the homepage mocks sit flat inside the stage). */
+.vfp .prim-stage .pv { width: 100%; max-width: none; display: grid; gap: 10px; }
+.vfp .prim-stage .audit { border: none; box-shadow: none; background: transparent; }
+.vfp .prim-stage .precedent { border: none; background: transparent; padding: 0; }
+.vfp .prim-stage .sol-panel-body.dark { border: none; }
+
+/* Syntax tokens re-tinted for the homepage's light (cream) code card. The
+   shared `.tk-*` colors are tuned for the dark editors elsewhere on the page. */
+.vfp .prim-pre .tk-cm { color: var(--muted); }
+.vfp .prim-pre .tk-str { color: var(--vlp-color-green-ui, #1f7a4d); }
+.vfp .prim-pre .tk-kw { color: var(--vlp-color-amber, #b26a1a); }
+.vfp .prim-pre .tk-tag { color: var(--brand); }
+.vfp .prim-pre .tk-attr { color: #2563a8; }
+.vfp .prim-pre .tk-num { color: #2563a8; }
+
+@media (max-width: 1024px) {
+  .vfp .sc-grid { grid-template-columns: 1fr; }
+}
