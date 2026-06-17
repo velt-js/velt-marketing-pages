@@ -1,51 +1,51 @@
 /* ── Section shell ─────────────────────────────────────────── */
 .vlp .prim-section {
-  background: #f7f7f4;
-  border-top: 1px solid #d9d5cf;
+  background: var(--vlp-color-cream);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
 }
 
 .vlp .prim-inner {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 80px 32px 64px;
+  padding: var(--vlp-space-20) var(--vlp-gutter) 64px;
 }
 
 /* ── Intro block ───────────────────────────────────────────── */
 .vlp .prim-intro {
-  max-width: 640px;
+  max-width: var(--vlp-content-narrow);
 }
 
 .vlp .prim-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: #7a7974;
-  margin-bottom: 20px;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
 }
 
 .vlp .prim-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .prim-intro-h2 {
-  font-size: 36px;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 400;
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
 }
 
 .vlp .prim-intro-p {
-  font-size: 16px;
-  line-height: 1.55;
-  color: #7a7974;
-  margin-top: 16px;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
 }
 
 /* ── Card grid — asymmetric widths that flip each row ──────── */
@@ -56,8 +56,8 @@
 .vlp .prim-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-top: 44px;
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-11);
 }
 
 .vlp .prim-grid > .prim-card2:nth-child(1) { grid-column: span 3; }
@@ -95,25 +95,25 @@
 .vlp .prim-card2 {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
-  padding: 40px;
+  gap: var(--vlp-space-6);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-2xl);
+  padding: var(--vlp-space-10);
 }
 
 .vlp .prim-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--vlp-gap-card);
 }
 
 /* ── Kicker: orange number badge + name ────────────────────── */
 .vlp .prim-kicker {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
+  gap: var(--vlp-gap-tight);
 }
 
 .vlp .prim-kicker-badge {
@@ -122,50 +122,50 @@
   justify-content: center;
   width: 24px;
   height: 24px;
-  border-radius: 9999px;
-  background: #f54e00;
-  color: #ffffff;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-text-on-accent);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  font-weight: var(--vlp-weight-medium);
   text-transform: uppercase;
 }
 
 .vlp .prim-kicker-name {
-  font-family: 'Geist Mono', monospace;
-  font-size: 14px;
-  font-weight: 500;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #f54e00;
+  color: var(--vlp-color-accent);
 }
 
 /* ── Preview | Code pill toggle ────────────────────────────── */
 .vlp .prim-tabs {
   display: inline-flex;
   flex-shrink: 0;
-  gap: 4px;
+  gap: var(--vlp-space-1);
 }
 
 .vlp .prim-tab {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: -0.02em;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-snug);
   text-transform: uppercase;
   padding: 4px 8px;
   background: transparent;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: var(--vlp-btn-transition), color 0.15s;
 }
 .vlp .prim-tab:hover {
-outline: 2px solid rgba(245, 78, 0, 0.08);
+outline: 2px solid var(--vlp-bg-accent-focus);
 }
 
 .vlp .prim-tab-active {
-  background: rgba(245, 78, 0, 0.12);
-  color: #f54e00;
+  background: var(--vlp-bg-accent-subtle);
+  color: var(--vlp-color-accent);
 }
 
 .vlp .prim-tab-inactive {
@@ -177,52 +177,54 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 24px;
+  gap: var(--vlp-space-6);
+  margin-top: auto;
 }
 
 .vlp .prim-card-text {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--vlp-space-2);
 }
 
 .vlp .prim-h3 {
-  font-size: 24px;
+  font-size: var(--vlp-text-card);
   line-height: 1.3;
-  letter-spacing: -0.03em;
-  color: #26251e;
+  letter-spacing: var(--vlp-tracking-tight);
+  color: var(--vlp-color-ink);
+  text-wrap: balance;
 }
 
 .vlp .prim-card-support {
-  font-size: 15px;
+  font-size: var(--vlp-btn-primary-font-lg);
   line-height: 1.4;
   letter-spacing: -0.01em;
-  color: #7a7974;
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .prim-explore {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #26251e;
-  color: #f7f7f4;
-  font-size: 15px;
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  font-size: var(--vlp-btn-primary-font-lg);
   letter-spacing: -0.01em;
-  padding: 9px 18px;
-  border-radius: var(--cta-border-radius);
+  padding: var(--vlp-btn-primary-padding-sm);
+  border-radius: var(--vlp-btn-primary-radius);
 }
 
 /* @maya mention inside comment threads */
 .vlp .prim-mention {
-  color: #f54e00;
+  color: var(--vlp-color-accent);
 }
 
 /* ── Preview frame (holds each primitive's live mock) ──────── */
 .vlp .prim-stage {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 24px;
-  background: #fff;
+  border: var(--vlp-border-width) solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-xl);
+  padding: var(--vlp-space-6);
+  background: var(--vlp-bg-card);
 }
 
 /* ── Comment thread (Comments preview) ─────────────────────── */
@@ -233,7 +235,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 
 .vlp .prim-msg {
   display: flex;
-  gap: 16px;
+  gap: var(--vlp-gap-card);
 }
 
 .vlp .prim-msg:not(:last-child) .prim-msg-body {
@@ -255,14 +257,14 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 500;
+  color: var(--vlp-color-text-on-accent);
+  font-size: var(--vlp-btn-primary-font-lg);
+  font-weight: var(--vlp-weight-medium);
   letter-spacing: -0.01em;
 }
 
-.vlp .prim-msg-avatar--green { background: #34785c; }
-.vlp .prim-msg-avatar--teal { background: #0e9cb5; }
+.vlp .prim-msg-avatar--green { background: var(--vlp-color-green-ui); }
+.vlp .prim-msg-avatar--teal { background: var(--vlp-color-teal); }
 
 /* Dashed vertical rule drawn as a 2px-wide gradient rather than a
    border-left. A border on a 0-width flex item renders to the LEFT of the
@@ -273,10 +275,10 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   width: 2px;
   background-image: repeating-linear-gradient(
     to bottom,
-    #a8c4ba 0 3px,
+    var(--vlp-color-thread-line) 0 3px,
     transparent 3px 7px
   );
-  margin-top: 6px;
+  margin-top: var(--vlp-space-1-5);
 }
 
 .vlp .prim-msg-body {
@@ -294,20 +296,20 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 }
 
 .vlp .prim-msg-name {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: var(--vlp-btn-primary-font-lg);
+  font-weight: var(--vlp-weight-medium);
   letter-spacing: -0.01em;
-  color: #26251e;
+  color: var(--vlp-color-ink);
 }
 
 .vlp .prim-msg-time {
-  font-size: 14px;
-  color: #a1a19f;
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-subtle);
 }
 
 .vlp .prim-msg-text {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
   letter-spacing: -0.01em;
   color: rgba(38, 37, 30, 0.8);
 }
@@ -315,7 +317,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 /* ── Customer quote block ──────────────────────────────────── */
 .vlp .prim-quote {
   display: flex;
-  gap: 16px;
+  gap: var(--vlp-gap-card);
   align-items: flex-start;
 }
 
@@ -324,7 +326,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #d9d5cf;
+  background: var(--vlp-border-default);
   object-fit: cover;
 }
 
@@ -333,22 +335,22 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--vlp-space-1);
   padding-top: 2px;
 }
 
 .vlp .prim-quote-attr {
-  font-size: 14px;
+  font-size: var(--vlp-text-label);
   letter-spacing: -0.01em;
-  color: #7a7974;
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .prim-quote-body {
-  font-family: 'Urbanist', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
+  font-family: var(--vlp-font-heading);
+  font-weight: var(--vlp-weight-medium);
+  font-size: var(--vlp-text-body);
   line-height: 1.3;
-  color: #26251e;
+  color: var(--vlp-color-ink);
 }
 
 /* ── Demo mocks (flattened: sit directly on the card) ──────── */
@@ -360,7 +362,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 .vlp .prim-card-col {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: var(--vlp-gap-tight);
 }
 
 /* Audit-trail mock */
@@ -370,18 +372,18 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 
 /* ── Code view (filled, frameless) ─────────────────────────── */
 .vlp .prim-code-card {
-  background: #f7f7f4;
-  border-radius: 8px;
+  background: var(--vlp-color-cream);
+  border-radius: var(--vlp-card-radius);
   overflow: hidden;
 }
 
 .vlp .prim-code-header {
   display: flex;
   padding: 8px 12px;
-  border-bottom: 1px solid #ebe9e4;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #7a7974;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-faint);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .prim-code-copy {
@@ -392,22 +394,22 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   padding: 0;
   background: none;
   border: none;
-  color: #a1a19f;
+  color: var(--vlp-color-text-subtle);
   cursor: pointer;
   transition: color 0.15s ease;
 }
 
 .vlp .prim-code-copy:hover {
-  color: #26251e;
+  color: var(--vlp-color-ink);
 }
 
 .vlp .prim-pre {
   margin: 0;
   padding: 12px 14px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
   line-height: 1.65;
-  color: #26251e;
+  color: var(--vlp-color-ink);
   overflow-x: auto;
 }
 
@@ -417,7 +419,7 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
    cards' code blocks. */
 .vlp .prim-grid > .prim-card2:nth-child(3) .prim-pre,
 .vlp .prim-grid > .prim-card2:nth-child(4) .prim-pre {
-  line-height: 1.5;
+  line-height: var(--vlp-leading-body);
 }
 
 /* ── Thread / comment rows inside white cards ──────────────── */
@@ -425,15 +427,15 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 /* Row with bottom divider (border-bottom) */
 .vlp .prim-thread-row-top {
   display: flex;
-  gap: 10px;
+  gap: var(--vlp-space-2-5);
   padding-bottom: 14px;
-  border-bottom: 1px solid #e6e5e0;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
 }
 
 /* Row below divider (padding-top) */
 .vlp .prim-thread-row-bot {
   display: flex;
-  gap: 10px;
+  gap: var(--vlp-space-2-5);
   padding-top: 14px;
 }
 
@@ -444,37 +446,37 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #26251e;
-  color: #f7f7f4;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--vlp-font-mono);
   font-size: 9px;
   flex-shrink: 0;
 }
 
 /* AI — dark, 22px, Geist Mono 9px (approval rows) */
 .vlp .prim-avatar-ai-22 {
-  width: 22px;
-  height: 22px;
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
   border-radius: 50%;
-  background: #26251e;
-  color: #f7f7f4;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--vlp-font-mono);
   font-size: 9px;
 }
 
 /* MK — amber, 22px, 9px (no mono) */
 .vlp .prim-avatar-mk-22 {
-  width: 22px;
-  height: 22px;
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
   border-radius: 50%;
-  background: #c08532;
-  color: #fff;
+  background: var(--vlp-color-amber);
+  color: var(--vlp-color-white);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -483,11 +485,11 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 
 /* JR — grey (brand step), 22px */
 .vlp .prim-avatar-jr-22 {
-  width: 22px;
-  height: 22px;
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
   border-radius: 50%;
-  background: #8f8e89;
-  color: #fff;
+  background: var(--vlp-color-text-faint);
+  color: var(--vlp-color-white);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -496,11 +498,11 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 
 /* SP — light grey, 22px, muted text */
 .vlp .prim-avatar-sp-22 {
-  width: 22px;
-  height: 22px;
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
   border-radius: 50%;
-  background: #d9d5cf;
-  color: #7a7974;
+  background: var(--vlp-border-default);
+  color: var(--vlp-color-text-muted);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -512,12 +514,12 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #26251e;
-  color: #f7f7f4;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--vlp-font-mono);
   font-size: 9px;
   flex-shrink: 0;
 }
@@ -526,14 +528,14 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 
 /* Name line inside thread */
 .vlp .prim-thread-name {
-  font-size: 13px;
+  font-size: var(--vlp-text-body-sm);
 }
 
 /* Thread body paragraph */
 .vlp .prim-thread-p {
-  font-size: 13px;
-  line-height: 1.5;
-  color: #26251e;
+  font-size: var(--vlp-text-body-sm);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-ink);
   margin-top: 3px;
 }
 
@@ -550,56 +552,56 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 .vlp .prim-approval-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13.5px;
+  gap: var(--vlp-space-2-5);
+  font-size: var(--vlp-text-body-sm-plus);
 }
 
 /* muted variant for last row */
 .vlp .prim-approval-row-muted {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 13.5px;
-  color: #7a7974;
+  gap: var(--vlp-space-2-5);
+  font-size: var(--vlp-text-body-sm-plus);
+  color: var(--vlp-color-text-muted);
 }
 
 /* Status badge — done/approved (green) */
 .vlp .prim-badge-done {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #34785c;
-  border: 1px solid #4ade80;
-  padding: 2px 8px;
-  border-radius: 4px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-green-ui);
+  border: var(--vlp-border-width) solid var(--vlp-color-success);
+  padding: var(--vlp-chip-padding);
+  border-radius: var(--vlp-chip-radius);
 }
 
 /* Status badge — pending (grey) */
 .vlp .prim-badge-pending {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #7a7974;
-  border: 1px solid #d9d5cf;
-  padding: 2px 8px;
-  border-radius: 4px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-muted);
+  border: var(--vlp-card-border);
+  padding: var(--vlp-chip-padding);
+  border-radius: var(--vlp-chip-radius);
 }
 
 /* Status text — waiting (no border) */
 .vlp .prim-badge-waiting {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #a1a19f;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-subtle);
 }
 
 /* Reject footer note inside approval card */
 .vlp .prim-approval-footer {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #a1a19f;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-subtle);
   padding-top: 10px;
-  border-top: 1px solid #e6e5e0;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
 }
 
 /* ── Audit trail card internals ────────────────────────────── */
@@ -607,188 +609,188 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
   display: flex;
   align-items: center;
   padding-bottom: 9px;
-  border-bottom: 1px solid #e6e5e0;
-  font-size: 12px;
-  color: #7a7974;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .prim-audit-export {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #f54e00;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-accent);
 }
 
 .vlp .prim-audit-log {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11.5px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-muted-outline-font);
 }
 
 .vlp .prim-audit-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--vlp-space-3);
   padding-block: 8px;
-  border-bottom: 1px solid #f0efea;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-faint);
 }
 
 /* Last audit row has no border */
 .vlp .prim-audit-row-last {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--vlp-space-3);
   padding-block: 8px;
 }
 
 .vlp .prim-audit-ts {
-  color: #a1a19f;
+  color: var(--vlp-color-text-subtle);
 }
 
 .vlp .prim-audit-desc {
   flex: 1;
-  color: #26251e;
+  color: var(--vlp-color-ink);
 }
 
 .vlp .prim-audit-strong {
-  font-weight: 500;
+  font-weight: var(--vlp-weight-medium);
 }
 
 /* Status tag — agent (grey) */
 .vlp .prim-tag-agent {
-  color: #7a7974;
-  border: 1px solid #d9d5cf;
+  color: var(--vlp-color-text-muted);
+  border: var(--vlp-card-border);
   padding: 1px 7px;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
 }
 
 /* Status tag — approved (green) */
 .vlp .prim-tag-approved {
-  color: #34785c;
-  border: 1px solid #4ade80;
+  color: var(--vlp-color-green-ui);
+  border: var(--vlp-border-width) solid var(--vlp-color-success);
   padding: 1px 7px;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
 }
 
 /* Status tag — rejected (orange-red) */
 .vlp .prim-tag-rejected {
-  color: #b8400a;
-  border: 1px solid #f0b89c;
+  color: var(--vlp-color-accent-muted);
+  border: var(--vlp-border-width) solid var(--vlp-color-accent-border-muted);
   padding: 1px 7px;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
 }
 
 /* ── Suggestions card internals ────────────────────────────── */
 .vlp .prim-sug-p {
-  font-size: 14px;
+  font-size: var(--vlp-text-label);
   line-height: 1.7;
-  color: #26251e;
+  color: var(--vlp-color-ink);
 }
 
 .vlp .prim-sug-del {
-  background: #fde8e0;
-  color: #b8400a;
+  background: var(--vlp-bg-suggestion-del);
+  color: var(--vlp-color-accent-muted);
   text-decoration: line-through;
 }
 
 .vlp .prim-sug-ins {
-  background: #dff3e8;
-  color: #34785c;
+  background: var(--vlp-bg-suggestion-ins);
+  color: var(--vlp-color-green-ui);
 }
 
 .vlp .prim-sug-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 14px;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-3-5);
   padding-top: 14px;
-  border-top: 1px solid #e6e5e0;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
 }
 
 .vlp .prim-sug-accept {
-  font-size: 12px;
-  background: #26251e;
-  color: #f7f7f4;
-  padding: 6px 14px;
-  border-radius: var(--cta-border-radius);
+  font-size: var(--vlp-btn-primary-font-xs);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-xs);
+  border-radius: var(--vlp-btn-primary-radius);
 }
 
 .vlp .prim-sug-reject {
-  font-size: 12px;
-  background: transparent;
-  color: #26251e;
-  border: 1px solid #d9d5cf;
-  padding: 6px 14px;
-  border-radius: var(--cta-border-radius);
+  font-size: var(--vlp-btn-primary-font-xs);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  border: var(--vlp-btn-compact-outline-border);
+  padding: var(--vlp-btn-primary-padding-xs);
+  border-radius: var(--vlp-btn-primary-radius);
 }
 
 .vlp .prim-sug-agent {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #7a7974;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-muted);
 }
 
 /* ── Memory card internals ─────────────────────────────────── */
 .vlp .prim-mem-precedent {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
   letter-spacing: 0.05em;
-  color: #c08532;
+  color: var(--vlp-color-amber);
   margin-bottom: 8px;
 }
 
 .vlp .prim-mem-p {
-  font-size: 14px;
-  line-height: 1.55;
-  color: #26251e;
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-ink);
 }
 
 .vlp .prim-mem-meta {
-  font-size: 11.5px;
-  color: #a1a19f;
+  font-size: var(--vlp-btn-muted-outline-font);
+  color: var(--vlp-color-text-subtle);
   margin-top: 8px;
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--vlp-font-mono);
 }
 
 .vlp .prim-mem-thread {
   display: flex;
-  gap: 10px;
-  margin-top: 14px;
+  gap: var(--vlp-space-2-5);
+  margin-top: var(--vlp-space-3-5);
   padding-top: 14px;
-  border-top: 1px solid #e6e5e0;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
 }
 
 .vlp .prim-mem-thread-p {
-  font-size: 13px;
-  line-height: 1.5;
-  color: #7a7974;
+  font-size: var(--vlp-text-body-sm);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
   margin-top: 2px;
 }
 
 /* ── NEW badge (in card kicker) ────────────────────────────── */
 .vlp .prim-badge-new {
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--vlp-font-mono);
   font-size: 9px;
-  letter-spacing: 0.06em;
-  background: #f54e00;
-  color: #fff;
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-white);
   padding: 2px 7px;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
 }
 
 /* ── Notifications card internals ──────────────────────────── */
 .vlp .prim-notif-row {
   display: flex;
-  gap: 12px;
+  gap: var(--vlp-space-3);
   align-items: flex-start;
 }
 
 .vlp .prim-notif-icon {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
-  background: #f54e00;
-  color: #fff;
+  border-radius: var(--vlp-card-radius);
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-white);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -800,70 +802,78 @@ outline: 2px solid rgba(245, 78, 0, 0.08);
 }
 
 .vlp .prim-notif-title {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
 }
 
 .vlp .prim-notif-sub {
-  font-size: 13px;
-  color: #7a7974;
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-muted);
   margin-top: 3px;
-  line-height: 1.5;
+  line-height: var(--vlp-leading-body);
 }
 
 .vlp .prim-notif-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-4);
   padding-top: 14px;
-  border-top: 1px solid #e6e5e0;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
 }
 
 .vlp .prim-notif-chip {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #26251e;
-  background: #f7f7f4;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-ink);
+  background: var(--vlp-color-cream);
   padding: 5px 11px;
-  border-radius: 9999px;
+  border-radius: var(--vlp-radius-pill);
 }
 
 /* ── Review-agents card internals ──────────────────────────── */
 .vlp .prim-findings-badge {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #b8400a;
-  border: 1px solid #f0b89c;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-accent-muted);
+  border: var(--vlp-border-width) solid var(--vlp-color-accent-border-muted);
   padding: 1px 6px;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
   margin-left: 4px;
 }
 
 .vlp .prim-agent-actions {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-2-5);
 }
 
 .vlp .prim-agent-accept {
-  font-size: 11.5px;
-  background: #26251e;
-  color: #f7f7f4;
-  padding: 5px 12px;
-  border-radius: var(--cta-border-radius);
+  font-size: var(--vlp-btn-muted-outline-font);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-muted-outline-padding);
+  border-radius: var(--vlp-btn-primary-radius);
 }
 
 .vlp .prim-agent-dismiss {
-  font-size: 11.5px;
-  background: transparent;
-  color: #7a7974;
-  border: 1px solid #d9d5cf;
-  padding: 5px 12px;
-  border-radius: var(--cta-border-radius);
+  font-size: var(--vlp-btn-muted-outline-font);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-muted-outline-text);
+  border: var(--vlp-btn-muted-outline-border);
+  padding: var(--vlp-btn-muted-outline-padding);
+  border-radius: var(--vlp-btn-primary-radius);
 }
 
 .vlp .prim-brand-ref {
-  font-family: 'Geist Mono', monospace;
-  color: #f54e00;
+  font-family: var(--vlp-font-mono);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .prim-code-str {
+  color: var(--vlp-color-green-ui);
+}
+
+.vlp .prim-code-kw {
+  color: var(--vlp-color-amber);
 }

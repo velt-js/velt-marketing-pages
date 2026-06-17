@@ -1,57 +1,57 @@
 .vlp .how-section {
-  background: #f7f7f4;
-  border-top: 1px solid #d9d5cf;
-  border-bottom: 1px solid #d9d5cf;
+  background: var(--vlp-color-cream);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
 }
 
 .vlp .how-inner {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
 }
 
 .vlp .how-intro {
-  max-width: 640px;
+  max-width: var(--vlp-content-narrow);
 }
 
 .vlp .how-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: #7a7974;
-  margin-bottom: 20px;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
 }
 
 .vlp .how-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .how-heading {
-  font-size: 36px;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 400;
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
 }
 
 .vlp .how-subtext {
-  font-size: 16px;
-  line-height: 1.55;
-  color: #7a7974;
-  margin-top: 16px;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
 }
 
 .vlp .how-steps-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  margin-top: 48px;
+  gap: var(--vlp-gap-section);
+  margin-top: var(--vlp-gap-section);
 }
 
 .vlp .how-step {
@@ -65,8 +65,8 @@
 .vlp .how-step-head {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: var(--vlp-space-3);
+  margin-bottom: var(--vlp-space-5);
 }
 
 .vlp .how-step-num {
@@ -77,61 +77,61 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #26251e;
-  color: #f7f7f4;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
 }
 
 .vlp .how-step-label {
   flex-shrink: 0;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #7a7974;
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .how-step-head::after {
   content: "";
   flex: 1;
   height: 1px;
-  background: #d9d5cf;
+  background: var(--vlp-border-default);
 }
 
 .vlp .how-step-text {
-  font-size: 17px;
+  font-size: var(--vlp-text-lead);
   letter-spacing: -0.01em;
-  color: #26251e;
-  margin-bottom: 14px;
+  color: var(--vlp-color-ink);
+  margin-bottom: var(--vlp-space-3-5);
 }
 
 .vlp .how-code {
-  font-family: 'Geist Mono', monospace;
+  font-family: var(--vlp-font-mono);
   font-size: 12.5px;
   line-height: 1.7;
-  color: #26251e;
-  border-left: 2px solid #d9d5cf;
+  color: var(--vlp-color-ink);
+  border-left: 2px solid var(--vlp-border-default);
   padding-left: 14px;
 }
 
 .vlp .how-code-prompt {
-  color: #f54e00;
+  color: var(--vlp-color-accent);
 }
 
 .vlp .how-comment {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: #f54e00;
-  margin-top: 16px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
+  margin-top: var(--vlp-space-4);
 }
 
 .vlp .how-mcp-block {
-  background: #26251e;
-  border: 1px solid #3a3934;
-  border-radius: 8px;
+  background: var(--vlp-btn-bg);
+  border: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
+  border-radius: var(--vlp-card-radius);
   padding: 36px;
-  margin-top: 32px;
+  margin-top: var(--vlp-space-8);
 }
 
 .vlp .how-mcp-layout {
@@ -144,47 +144,47 @@
 .vlp .how-mcp-copy {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--vlp-gap-card);
 }
 
 .vlp .how-mcp-eyebrow {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #f54e00;
+  color: var(--vlp-color-accent);
 }
 
 .vlp .how-mcp-title {
-  font-size: 24px;
+  font-size: var(--vlp-text-card);
   line-height: 1.25;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  color: #f7f7f4;
+  font-weight: var(--vlp-weight-regular);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-cream);
 }
 
 .vlp .how-mcp-desc {
-  font-size: 15px;
-  line-height: 1.55;
-  color: #a1a19f;
+  font-size: var(--vlp-btn-primary-font-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-subtle);
   max-width: 42ch;
 }
 
 .vlp .how-mcp-demo {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--vlp-space-3);
   min-width: 0;
 }
 
 .vlp .how-tab-row {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 4px;
+  gap: var(--vlp-space-1);
   width: 100%;
   padding: 4px;
   background: rgba(0, 0, 0, 0.28);
-  border: 1px solid #3a3934;
+  border: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
   border-radius: 6px;
 }
 
@@ -193,36 +193,36 @@
   width: fit-content;
   max-width: 100%;
   text-align: center;
-  font-size: 12px;
-  font-family: 'Geist Mono', monospace;
+  font-size: var(--vlp-text-tag);
+  font-family: var(--vlp-font-mono);
   padding: 7px 10px;
-  border-radius: 4px;
-  border: 1px solid transparent;
+  border-radius: var(--vlp-chip-radius);
+  border: var(--vlp-border-width) solid transparent;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: var(--vlp-btn-transition), color 0.15s, border-color 0.15s;
   white-space: nowrap;
 }
 
 .vlp .how-tab-active {
   background: rgba(247, 247, 244, 0.1);
   border-color: #4a4944;
-  color: #f7f7f4;
+  color: var(--vlp-color-cream);
 }
 
 .vlp .how-tab-inactive {
   background: transparent;
-  color: #7a7974;
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .how-tab-inactive:hover {
-  color: #c4c3be;
+  color: var(--vlp-color-text-on-dark-muted);
   background: rgba(247, 247, 244, 0.04);
 }
 
 .vlp .how-terminal {
   position: relative;
-  background: #141414;
-  border: 1px solid #3a3934;
+  background: var(--vlp-color-ink-hover);
+  border: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
   border-radius: 6px;
   overflow: hidden;
 }
@@ -232,7 +232,7 @@
   overflow-y: hidden;
   padding: 10px 64px 14px 14px;
   scrollbar-width: thin;
-  scrollbar-color: #3a3934 transparent;
+  scrollbar-color: var(--vlp-color-ink-soft) transparent;
 }
 
 .vlp .how-terminal-scroll::-webkit-scrollbar {
@@ -244,24 +244,24 @@
 }
 
 .vlp .how-terminal-scroll::-webkit-scrollbar-thumb {
-  background: #3a3934;
-  border-radius: 999px;
+  background: var(--vlp-color-ink-soft);
+  border-radius: var(--vlp-radius-pill);
 }
 
 .vlp .how-terminal-line {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
   font-size: 12.5px;
   line-height: 1.35;
-  color: #f7f7f4;
+  color: var(--vlp-color-cream);
   white-space: nowrap;
 }
 
 .vlp .how-terminal-prompt {
   flex-shrink: 0;
-  color: #f54e00;
+  color: var(--vlp-color-accent);
 }
 
 .vlp .how-terminal-cmd {
@@ -278,7 +278,7 @@
   align-items: center;
   justify-content: flex-end;
   padding-right: 10px;
-  background: linear-gradient(90deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.82) 42%, #141414 68%);
+  background: linear-gradient(90deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.82) 42%, var(--vlp-color-ink-hover) 68%);
   pointer-events: none;
 }
 
@@ -291,15 +291,15 @@
   height: 28px;
   padding: 0;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
   background: rgba(247, 247, 244, 0.06);
-  color: #a1a19f;
+  color: var(--vlp-color-text-subtle);
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease;
 }
 
 .vlp .how-terminal-copy:hover {
-  color: #f7f7f4;
+  color: var(--vlp-color-cream);
   background: rgba(247, 247, 244, 0.12);
 }
 
@@ -307,25 +307,25 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 20px;
+  gap: var(--vlp-space-2-5) 20px;
   margin-top: 4px;
   padding-top: 20px;
-  border-top: 1px solid rgba(58, 57, 52, 0.85);
+  border-top: var(--vlp-border-width) solid rgba(58, 57, 52, 0.85);
 }
 
 .vlp .how-check-row {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: 13px;
+  gap: var(--vlp-space-2);
+  font-size: var(--vlp-text-body-sm);
   line-height: 1.45;
-  color: #c4c3be;
+  color: var(--vlp-color-text-on-dark-muted);
 }
 
 .vlp .how-check-mark {
   flex-shrink: 0;
-  color: #4ade80;
-  font-size: 12px;
+  color: var(--vlp-color-success);
+  font-size: var(--vlp-text-tag);
   line-height: 1.45;
 }
 
@@ -338,37 +338,37 @@
 }
 
 .vlp .how-tagline {
-  font-family: 'EB Garamond', serif;
+  font-family: var(--vlp-font-serif);
   font-style: italic;
   font-size: 20px;
-  color: #26251e;
+  color: var(--vlp-color-ink);
 }
 
 .vlp .how-stack {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
   letter-spacing: 0.04em;
-  color: #a1a19f;
+  color: var(--vlp-color-text-subtle);
 }
 
 .vlp .how-cta {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-primary-font-md);
   white-space: nowrap;
-  background: #26251e;
-  color: #f7f7f4;
-  padding: 11px 20px;
-  border-radius: var(--cta-border-radius);
-  transition: background .15s;
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-md);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
 }
 
 @media (max-width: 900px) {
   .vlp .how-steps-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: var(--vlp-space-8);
   }
 
   .vlp .how-step-head::after {

@@ -1,16 +1,16 @@
 .vlp .nav-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid #d9d5cf;
+  z-index: var(--vlp-z-nav);
+  background: var(--vlp-bg-nav);
+  backdrop-filter: var(--vlp-nav-blur);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
 }
 
 .vlp .nav-inner {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 14px 32px;
+  padding: var(--vlp-space-3-5) var(--vlp-gutter);
   display: flex;
   align-items: center;
   gap: 36px;
@@ -20,62 +20,62 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 16px;
+  font-size: var(--vlp-text-body);
   letter-spacing: 0.01em;
 }
 
 .vlp .nav-logo-box {
-  width: 22px;
-  height: 22px;
-  background: #26251e;
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  background: var(--vlp-color-ink);
   position: relative;
   display: inline-block;
-  border-radius: 3px;
+  border-radius: var(--vlp-radius-sm);
 }
 
 .vlp .nav-logo-box-inner {
   position: absolute;
-  inset: 6px;
-  background: #ffffff;
+  inset: var(--vlp-space-1-5);
+  background: var(--vlp-color-white);
 }
 
 .vlp .nav-logo-wordmark {
-  font-weight: 500;
+  font-weight: var(--vlp-weight-medium);
 }
 
 .vlp .nav-links {
   display: flex;
-  gap: 22px;
-  font-size: 14px;
-  color: #7a7974;
+  gap: var(--vlp-gap-nav);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .nav-link {
-  transition: color .15s;
+  transition: color var(--vlp-transition-fast);
 }
 
 .vlp .nav-right {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--vlp-space-3-5);
 }
 
 .vlp .nav-signin {
-  font-size: 14px;
-  color: #26251e;
-  transition: color .15s;
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-ink);
+  transition: color var(--vlp-transition-fast);
 }
 
 .vlp .nav-cta {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-size: 14px;
+  font-size: var(--vlp-btn-primary-font-md);
   white-space: nowrap;
-  background: #26251e;
-  color: #f7f7f4;
-  padding: 9px 18px;
-  border-radius: var(--cta-border-radius);
-  transition: background .15s;
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-sm);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
 }

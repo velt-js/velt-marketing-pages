@@ -1,79 +1,79 @@
 .vlp .faq-section {
-  background: #f7f7f4;
-  border-top: 1px solid #d9d5cf;
-  border-bottom: 1px solid #d9d5cf;
+  background: var(--vlp-color-cream);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
 }
 
 .vlp .faq-inner {
-  max-width: 880px;
+  max-width: var(--vlp-content-medium);
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
 }
 
 .vlp .faq-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: #7a7974;
-  margin-bottom: 20px;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
 }
 
 .vlp .faq-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .faq-heading {
-  font-size: 34px;
+  font-size: var(--vlp-text-section);
   line-height: 1.1;
-  letter-spacing: -0.02em;
-  font-weight: 400;
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
   margin-bottom: 36px;
 }
 
 .vlp .faq-row {
-  border-top: 1px solid #d9d5cf;
-  padding: 20px 0;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  padding: var(--vlp-space-5) 0;
   cursor: pointer;
 }
 
 .vlp .faq-row-header {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
+  gap: var(--vlp-gap-card);
 }
 
 .vlp .faq-num {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: #a1a19f;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-subtle);
   padding-top: 3px;
 }
 
 .vlp .faq-question {
   flex: 1;
-  font-size: 17px;
+  font-size: var(--vlp-text-lead);
   line-height: 1.35;
   letter-spacing: -0.01em;
 }
 
 .vlp .faq-toggle {
-  font-family: 'Geist Mono', monospace;
-  font-size: 18px;
-  color: #f54e00;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-lg);
+  color: var(--vlp-color-accent);
   line-height: 1;
 }
 
 .vlp .faq-answer {
-  font-size: 14.5px;
+  font-size: var(--vlp-text-body-md);
   line-height: 1.6;
-  color: #7a7974;
+  color: var(--vlp-color-text-muted);
   margin: 14px 0 0 32px;
   max-width: 64ch;
 }

@@ -34,40 +34,34 @@ export default function Hero() {
 
 
         <div className="hero-artifact">
-          <div className="hero-art-table">
-            <div className="hero-art-title">Q3 Pricing</div>
-            <div className="hero-art-grid">
-              <div className="hero-art-row">
-                <div className="hero-art-cell hero-art-cell--head">Plan</div>
-                <div className="hero-art-cell hero-art-cell--head">Current</div>
-                <div className="hero-art-cell hero-art-cell--head">Proposed</div>
-              </div>
-              <div className="hero-art-row">
-                <div className="hero-art-cell">Starter</div>
-                <div className="hero-art-cell">$29</div>
-                <div className="hero-art-cell">$35</div>
-              </div>
-              <div className="hero-art-row">
-                <div className="hero-art-cell">Pro</div>
-                <div className="hero-art-cell">$79</div>
-                <div className="hero-art-cell hero-art-cell--hl">$85</div>
+          <div className="hero-art-stage">
+            <div className="hero-art-table">
+              <div className="hero-art-title">Q3 Pricing</div>
+              <div className="hero-art-grid">
+                <div className="hero-art-row">
+                  <div className="hero-art-cell hero-art-cell--head">Plan</div>
+                  <div className="hero-art-cell hero-art-cell--head">Current</div>
+                  <div className="hero-art-cell hero-art-cell--head">Proposed</div>
+                </div>
+                <div className="hero-art-row">
+                  <div className="hero-art-cell">Starter</div>
+                  <div className="hero-art-cell">$29</div>
+                  <div className="hero-art-cell">$35</div>
+                </div>
+                <div className="hero-art-row">
+                  <div className="hero-art-cell">Pro</div>
+                  <div className="hero-art-cell">$79</div>
+                  <div className="hero-art-cell hero-art-cell--hl">$85</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="hero-art-connector" aria-hidden="true">
-            <svg className="hero-art-elbow" viewBox="0 0 520 80" fill="none" preserveAspectRatio="none">
-              <path d="M355 0 V22 a8 8 0 0 1 -8 8 H148 a8 8 0 0 0 -8 8 V80" stroke="#6cae92" strokeWidth="1.5" strokeDasharray="4 4" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-            </svg>
-          </div>
-
-          <div className="hero-art-lower">
-            <div className="hero-art-approved">
-              <div className="hero-art-approved-head">
+            <div className="hero-art-comment">
+              <div className="hero-art-comment-head">
                 <span className="hero-art-avatar-k">K</span>
                 Approved by Kim
               </div>
-              <div className="hero-art-approved-body">
+              <div className="hero-art-comment-body">
                 <div className="hero-art-agent">
                   <span className="hero-art-avatar-a">A</span>
                   <span className="hero-art-agent-name">Pricing Agent</span>
@@ -76,7 +70,18 @@ export default function Hero() {
                 <p className="hero-art-agent-msg">Proposed Pro price was $92, above the approved Q3 band. I suggest $85, the band maximum.</p>
               </div>
             </div>
-            <span className="hero-art-hline" aria-hidden="true"></span>
+
+            <svg className="hero-art-connector" viewBox="0 0 220 96" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path
+                d="M0 42 H168 a8 8 0 0 1 8 8 V96"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeDasharray="4 4"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+
             <div className="hero-art-webhook">
               <div className="hero-art-webhook-row">
                 <span className="hero-art-post">POST</span>

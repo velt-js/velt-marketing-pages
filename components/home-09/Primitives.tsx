@@ -55,12 +55,12 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">Invoice.tsx<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `import { VeltComments } from <span style="color:#34785c;">"@veltdev/react"</span>;
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `import { VeltComments } from <span class="prim-code-str">"@veltdev/react"</span>;
 
     &lt;VeltComments
       documentId={id}
-      mode=<span style="color:#34785c;">"sidebar"</span>
-      attribution=<span style="color:#34785c;">"strict"</span>
+      mode=<span class="prim-code-str">"sidebar"</span>
+      attribution=<span class="prim-code-str">"strict"</span>
     /&gt;` }} />
               </div>
             }
@@ -90,8 +90,8 @@ export default function Primitives() {
                 <div className="prim-code-header">Editor.tsx<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltSuggestions
       documentId={docId}
-      editor=<span style="color:#34785c;">"tiptap"</span>
-      requireReview={<span style="color:#c08532;">true</span>}
+      editor=<span class="prim-code-str">"tiptap"</span>
+      requireReview={<span class="prim-code-kw">true</span>}
     /&gt;` }} />
               </div>
             }
@@ -118,12 +118,12 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">approvals.ts<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.approvals.<span style="color:#c08532;">define</span>({
-      id: <span style="color:#34785c;">"invoice-signoff"</span>,
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.approvals.<span class="prim-code-kw">define</span>({
+      id: <span class="prim-code-str">"invoice-signoff"</span>,
       steps: [
-        { role: <span style="color:#34785c;">"reviewer"</span>, required: 2 },
-        { role: <span style="color:#34785c;">"approver"</span> },
-        { role: <span style="color:#34785c;">"compliance"</span>, final: <span style="color:#c08532;">true</span> }
+        { role: <span class="prim-code-str">"reviewer"</span>, required: 2 },
+        { role: <span class="prim-code-str">"approver"</span> },
+        { role: <span class="prim-code-str">"compliance"</span>, final: <span class="prim-code-kw">true</span> }
       ],
       onSignoff: (e) =&gt; audit.export(e)
     });` }} />
@@ -156,7 +156,7 @@ export default function Primitives() {
                 <div className="prim-code-header">audit.ts<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltActivityLog
       documentId={id}
-      exportTo=<span style="color:#34785c;">"splunk"</span>
+      exportTo=<span class="prim-code-str">"splunk"</span>
       retentionDays={2555}
     /&gt;` }} />
               </div>
@@ -189,8 +189,8 @@ export default function Primitives() {
               <div className="prim-code-card">
                 <div className="prim-code-header">App.tsx<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltNotifications
-      channels={[<span style="color:#34785c;">"inbox"</span>, <span style="color:#34785c;">"email"</span>, <span style="color:#34785c;">"slack"</span>]}
-      routeBy=<span style="color:#34785c;">"mention"</span>
+      channels={[<span class="prim-code-str">"inbox"</span>, <span class="prim-code-str">"email"</span>, <span class="prim-code-str">"slack"</span>]}
+      routeBy=<span class="prim-code-str">"mention"</span>
       slackWebhook={env.SLACK_URL}
     /&gt;` }} />
               </div>
@@ -219,10 +219,10 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">memory.ts<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span style="color:#c08532;">const</span> ctx = <span style="color:#c08532;">await</span> velt.memory.query({
-      workflow: <span style="color:#34785c;">"launch-email"</span>,
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">const</span> ctx = <span class="prim-code-kw">await</span> velt.memory.query({
+      workflow: <span class="prim-code-str">"launch-email"</span>,
       reviewer: user.id,
-      window: <span style="color:#34785c;">"90d"</span>,
+      window: <span class="prim-code-str">"90d"</span>,
     });` }} />
               </div>
             }
@@ -255,14 +255,14 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">agents.ts<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.agents.<span style="color:#c08532;">define</span>({
-      id: <span style="color:#34785c;">"launch-email"</span>,
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.agents.<span class="prim-code-kw">define</span>({
+      id: <span class="prim-code-str">"launch-email"</span>,
       checks: [
-        checks.disclaimer(<span style="color:#34785c;">"policy-2025-04"</span>),
+        checks.disclaimer(<span class="prim-code-str">"policy-2025-04"</span>),
         checks.noPII(),
         checks.toneVsBaseline(),
       ],
-      memory: <span style="color:#c08532;">true</span>,
+      memory: <span class="prim-code-kw">true</span>,
       onFinding: notify.reviewer,
     });` }} />
               </div>

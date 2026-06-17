@@ -34,10 +34,10 @@ export default function TrustStrip() {
           <span className="trust-dot"></span>
           <span><strong className="trust-highlight">500k+ reviews</strong> running in production at OpenEnvoy</span>
         </div>
-        <div className="trust-sub">// 2M+ review decisions across 33 products</div>
+        <div className="trust-sub">// 2M+ review decisions</div>
       </div>
 
-      <LogoCarousel logos={LOGOS} gap={16} card fullBleed />
+        <LogoCarousel logos={LOGOS} card fullBleed className="trust-logos" />
     </section>
   );
 }

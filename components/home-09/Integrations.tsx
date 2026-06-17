@@ -1,41 +1,143 @@
 import "./Integrations.css";
 
+type IntegrationItem = {
+  name: string;
+  logoSrc: string;
+  wide?: boolean;
+};
+
+type IntegrationCategory = {
+  label: string;
+  items: IntegrationItem[];
+};
+
+const ICON = "/images/home/nav-icons";
+const LOGO = "/images/home";
+
+const integrationCards: IntegrationCategory[][] = [
+  [
+    {
+      label: "EDITORS",
+      items: [
+        { name: "Lexical", logoSrc: `${ICON}/lexical.svg` },
+        { name: "Tiptap", logoSrc: `${ICON}/tiptap.svg` },
+        { name: "BlockNote", logoSrc: `${ICON}/blocknote.svg` },
+        { name: "Slate", logoSrc: `${ICON}/slatejs.png` },
+        { name: "CodeMirror", logoSrc: `${LOGO}/logo-codemirror-icon.svg` },
+        { name: "ProseMirror", logoSrc: `${ICON}/prosemirror.svg` },
+        { name: "Quill", logoSrc: `${ICON}/quill.svg` },
+      ],
+    },
+  ],
+  [
+    {
+      label: "FRAMEWORKS",
+      items: [
+        { name: "React", logoSrc: `${ICON}/react.svg` },
+        { name: "Next.js", logoSrc: `${ICON}/nextdotjs.svg` },
+        { name: "Angular", logoSrc: `${ICON}/angular.svg` },
+        { name: "Vue", logoSrc: `${ICON}/vuedotjs.svg` },
+      ],
+    },
+    {
+      label: "CANVAS & DATA",
+      items: [
+        { name: "React Flow", logoSrc: `${ICON}/reactflow.svg` },
+        { name: "Chart.js", logoSrc: `${ICON}/chartjs.svg` },
+        { name: "Highcharts", logoSrc: `${LOGO}/logo-highcharts-symbol.svg` },
+        { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg` },
+      ],
+    },
+  ],
+  [
+    {
+      label: "NOTIFICATIONS OUT",
+      items: [
+        { name: "Slack", logoSrc: `${ICON}/slack.svg` },
+        { name: "Teams", logoSrc: `${ICON}/microsoftteams.svg` },
+        { name: "Discord", logoSrc: `${ICON}/discord.svg` },
+        { name: "Resend", logoSrc: `${ICON}/resend.svg` },
+        { name: "Customer.io", logoSrc: `${ICON}/customerio.svg` },
+        { name: "SendGrid", logoSrc: `${LOGO}/logo-sendgrid.svg` },
+      ],
+    },
+    {
+      label: "STORAGE & AUTH · SYNC",
+      items: [
+        { name: "Firebase", logoSrc: `${ICON}/firebase.svg` },
+        { name: "Supabase", logoSrc: `${ICON}/supabase.svg` },
+        { name: "Clerk", logoSrc: `${ICON}/clerk.svg` },
+        { name: "Auth0", logoSrc: `${ICON}/auth0.svg` },
+        { name: "YJS", logoSrc: `${LOGO}/logo-yjs.svg` },
+      ],
+    },
+  ],
+];
+
+/**
+ * Renders a single integration chip with brand logo and label.
+ */
+function IntegrationTag({ name, logoSrc, wide }: IntegrationItem) {
+  return (
+    <span className="integ-tag">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        className={wide ? "integ-tag-logo integ-tag-logo-wide" : "integ-tag-logo"}
+        src={logoSrc}
+        alt=""
+      />
+      <span className="integ-tag-label">{name}</span>
+    </span>
+  );
+}
+
+/**
+ * Renders one labeled group of integration chips inside a card.
+ */
+function IntegrationCategoryBlock({
+  label,
+  items,
+  spaced,
+}: IntegrationCategory & { spaced?: boolean }) {
+  return (
+    <>
+      <div className={spaced ? "integ-cat-label integ-cat-label-spaced" : "integ-cat-label"}>
+        {label}
+      </div>
+      <div className="integ-tag-row">
+        {items.map((item) => (
+          <IntegrationTag key={item.name} {...item} />
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function Integrations() {
   return (
-      <section className="integ-section">
-        <div className="integ-header">
-          <div className="integ-eyebrow"><span className="integ-eyebrow-dot"></span>Integrations</div>
-          <h2 className="integ-title">Drops into the stack you already have.</h2>
-          <p className="integ-desc">15+ first-party integrations. SDK works in any framework via web components.</p>
+    <section className="integ-section">
+      <div className="integ-header">
+        <div className="integ-eyebrow">
+          <span className="integ-eyebrow-dot"></span>Integrations
         </div>
-        <div className="integ-grid">
-          <div className="integ-card">
-            <div className="integ-cat-label">EDITORS</div>
-            <div className="integ-tag-row">
-              <span className="integ-tag">Lexical</span><span className="integ-tag">Tiptap</span><span className="integ-tag">BlockNote</span><span className="integ-tag">Slate</span><span className="integ-tag">CodeMirror</span><span className="integ-tag">ProseMirror</span><span className="integ-tag">Quill</span>
-            </div>
+        <h2 className="integ-title">Drops into the stack you already have.</h2>
+        <p className="integ-desc">
+          15+ first-party integrations. SDK works in any framework via web components.
+        </p>
+      </div>
+      <div className="integ-grid">
+        {integrationCards.map((categories, cardIndex) => (
+          <div className="integ-card" key={cardIndex}>
+            {categories.map((category, categoryIndex) => (
+              <IntegrationCategoryBlock
+                key={category.label}
+                {...category}
+                spaced={categoryIndex > 0}
+              />
+            ))}
           </div>
-          <div className="integ-card">
-            <div className="integ-cat-label">FRAMEWORKS</div>
-            <div className="integ-tag-row">
-              <span className="integ-tag">React</span><span className="integ-tag">Next.js</span><span className="integ-tag">Angular</span><span className="integ-tag">Vue</span>
-            </div>
-            <div className="integ-cat-label-margin">CANVAS &amp; DATA</div>
-            <div className="integ-tag-row">
-              <span className="integ-tag">React Flow</span><span className="integ-tag">Chart.js</span><span className="integ-tag">Highcharts</span><span className="integ-tag">Nivo</span>
-            </div>
-          </div>
-          <div className="integ-card">
-            <div className="integ-cat-label">NOTIFICATIONS OUT</div>
-            <div className="integ-tag-row">
-              <span className="integ-tag">Slack</span><span className="integ-tag">Teams</span><span className="integ-tag">Discord</span><span className="integ-tag">Resend</span><span className="integ-tag">Customer.io</span><span className="integ-tag">SendGrid</span>
-            </div>
-            <div className="integ-cat-label-margin">STORAGE &amp; AUTH · SYNC</div>
-            <div className="integ-tag-row">
-              <span className="integ-tag">Firebase</span><span className="integ-tag">Supabase</span><span className="integ-tag">Clerk</span><span className="integ-tag">Auth0</span><span className="integ-tag">YJS</span>
-            </div>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </section>
   );
 }

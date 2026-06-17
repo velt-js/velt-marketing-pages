@@ -1,85 +1,102 @@
 .vlp .integ-section {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
 }
 
 .vlp .integ-header {
-  max-width: 640px;
+  max-width: var(--vlp-content-narrow);
 }
 
 .vlp .integ-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: #7a7974;
-  margin-bottom: 20px;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
 }
 
 .vlp .integ-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .integ-title {
-  font-size: 36px;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 400;
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
 }
 
 .vlp .integ-desc {
-  font-size: 16px;
-  line-height: 1.55;
-  color: #7a7974;
-  margin-top: 16px;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
 }
 
 .vlp .integ-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 40px;
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-10);
 }
 
 .vlp .integ-card {
-  background: #fff;
-  border: 1px solid #d9d5cf;
-  border-radius: 8px;
-  padding: 20px;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-space-5);
 }
 
 .vlp .integ-cat-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: #a1a19f;
-  margin-bottom: 14px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  color: var(--vlp-color-text-subtle);
+  margin-bottom: var(--vlp-space-3-5);
 }
 
-.vlp .integ-cat-label-margin {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: #a1a19f;
-  margin: 16px 0 14px;
+.vlp .integ-cat-label-spaced {
+  margin-top: var(--vlp-space-4);
 }
 
 .vlp .integ-tag-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--vlp-space-2);
 }
 
 .vlp .integ-tag {
-  font-size: 13px;
-  background: #f7f7f4;
-  padding: 5px 11px;
-  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  font-size: var(--vlp-text-body-sm);
+  background: var(--vlp-color-cream);
+  padding: var(--vlp-space-1-5) var(--vlp-space-2-5);
+  border-radius: var(--vlp-chip-radius);
+}
+
+.vlp .integ-tag-logo {
+  display: block;
+  width: var(--vlp-integ-logo-size);
+  height: var(--vlp-integ-logo-size);
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: none;
+}
+
+.vlp .integ-tag-logo-wide {
+  width: auto;
+  max-width: var(--vlp-integ-logo-wide-max);
+}
+
+.vlp .integ-tag-label {
+  line-height: 1;
 }

@@ -1,19 +1,308 @@
 /* home-09 — global rules ported verbatim from the original bundled page's
    <style> block. Loaded only on this route. */
+
+/* Design tokens scoped to the homepage (.vlp). Values reflect the current
+   editorial palette; semantic names align with DESIGN.md where applicable. */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { background: #ffffff; }
+body { background: var(--vlp-color-white, #ffffff); }
+
 .vlp {
-  --cta-border-radius: 4px;
-  background: #ffffff;
-  color: #26251e;
-  font-family: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  /* ── Colors: core ───────────────────────────────────────── */
+  --vlp-color-ink:           #26251e;
+  --vlp-color-ink-soft:      #3a3934;
+  --vlp-color-ink-hover:     #141414;
+  --vlp-color-cream:         #f7f7f4;
+  --vlp-color-white:         #ffffff;
+  --vlp-color-accent:        #f54e00;
+  --vlp-color-accent-muted:  #b8400a;
+
+  /* ── Colors: text ───────────────────────────────────────── */
+  --vlp-color-text:          var(--vlp-color-ink);
+  --vlp-color-text-muted:    #7a7974;
+  --vlp-color-text-subtle:   #a1a19f;
+  --vlp-color-text-faint:    #8f8e89;
+  --vlp-color-text-on-dark:  var(--vlp-color-cream);
+  --vlp-color-text-on-accent: #ffffff;
+
+  /* ── Colors: surfaces ───────────────────────────────────── */
+  --vlp-bg-page:             var(--vlp-color-white);
+  --vlp-bg-section-alt:      var(--vlp-color-cream);
+  --vlp-bg-card:             var(--vlp-color-white);
+  --vlp-bg-card-dark:        var(--vlp-color-ink);
+  --vlp-bg-nav:              rgba(255, 255, 255, 0.82);
+  --vlp-bg-soft-hover:       var(--vlp-color-cream);
+  --vlp-bg-accent-subtle:    rgba(245, 78, 0, 0.12);
+  --vlp-bg-accent-focus:     rgba(245, 78, 0, 0.08);
+
+  /* ── Colors: borders ────────────────────────────────────── */
+  --vlp-border-default:      #d9d5cf;
+  --vlp-border-subtle:       #e6e5e0;
+  --vlp-border-faint:        #ebe9e4;
+  --vlp-border-card:         rgba(0, 0, 0, 0.08);
+  --vlp-border-on-dark:      rgba(255, 255, 255, 0.12);
+
+  /* ── Colors: collaboration accents (DESIGN.md §2) ───────── */
+  --vlp-color-purple:        #625DF5;
+  --vlp-color-pink:          #E934BF;
+  --vlp-color-green:         #0D9A5D;
+  --vlp-color-green-ui:      #34785c;
+  --vlp-color-orange:        #FF7162;
+  --vlp-color-yellow:        #FFCD2E;
+  --vlp-color-teal:          #0e9cb5;
+  --vlp-color-amber:         #c08532;
+  --vlp-color-blue:          #6fa3f7;
+  --vlp-color-success:       #4ade80;
+  --vlp-color-strike:          #9a9892;
+  --vlp-color-pink-muted:      #c0508f;
+  --vlp-color-presence-online: #2bb673;
+  --vlp-color-kebab:           #b2b1ac;
+  --vlp-color-timeline-dash:   #cfcbc4;
+  --vlp-color-text-on-dark-muted: #c4c3be;
+  --vlp-color-text-strong:     rgba(0, 0, 0, 0.65);
+  --vlp-color-text-on-dark-muted-rgb: rgba(255, 255, 255, 0.8);
+  --vlp-color-green-approval:  #128352;
+  --vlp-color-connector-green: #6cae92;
+  --vlp-color-connector-ink:   #1c1c28;
+  --vlp-color-syntax-orange:   #e0913f;
+  --vlp-color-thread-line:     #a8c4ba;
+  --vlp-color-success-border:  #4ade80;
+  --vlp-color-accent-border-muted: #f0b89c;
+  --vlp-color-trace-target:    #0d7c8a;
+  --vlp-color-trace-approver:  #a8702a;
+  --vlp-color-trace-target-bg: #36c5d6;
+  --vlp-color-trace-approver-bg: #e3a14e;
+  --vlp-text-avatar-xs:        9px;
+
+  /* ── Artifact / demo surfaces ───────────────────────────── */
+  --vlp-bg-pillar:             #1e1d17;
+  --vlp-bg-webhook:            #0f1021;
+  --vlp-bg-surface-muted:      rgba(0, 0, 0, 0.04);
+  --vlp-bg-green-highlight:    rgba(19, 130, 82, 0.16);
+  --vlp-bg-suggestion-del:     #fde8e0;
+  --vlp-bg-suggestion-ins:     #dff3e8;
+  --vlp-bg-skeleton:           #ededeb;
+  --vlp-bg-skeleton-dark:      #efefed;
+  --vlp-border-demo:           #e4e4e2;
+  --vlp-border-demo-alt:       #e6e6e4;
+  --vlp-border-demo-faint:     #f0f0ee;
+
+  /* ── Component sizes ────────────────────────────────────── */
+  --vlp-size-eyebrow-dot:      6px;
+  --vlp-size-logomark:         22px;
+  --vlp-avatar-size:           30px;
+  --vlp-logo-gap:              72px;
+  --vlp-logo-height:           24px;
+  --vlp-integ-logo-size:       16px;
+  --vlp-integ-logo-wide-max:   52px;
+  --vlp-trust-header-gap-bottom: 28px;
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --vlp-font-body:           'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  --vlp-font-heading:        'Urbanist', sans-serif;
+  --vlp-font-mono:           'Geist Mono', monospace;
+  --vlp-font-serif:          'EB Garamond', serif;
+
+  --vlp-text-hero:           62px;
+  --vlp-text-section:        36px;
+  --vlp-text-card:           24px;
+  --vlp-text-body:           16px;
+  --vlp-text-body-lg:        18px;
+  --vlp-text-label:          14px;
+  --vlp-text-body-sm:        13px;
+  --vlp-text-body-sm-plus:   13.5px;
+  --vlp-text-body-md:        14.5px;
+  --vlp-text-tag:            12px;
+  --vlp-text-micro:          10px;
+  --vlp-text-mono-sm:        10.5px;
+  --vlp-text-lead:           17px;
+  --vlp-text-quote:          32px;
+  --vlp-text-cta:            54px;
+
+  --vlp-weight-regular:      400;
+  --vlp-weight-medium:       500;
+  --vlp-weight-semibold:     600;
+  --vlp-weight-bold:         700;
+
+  --vlp-leading-tight:       1;
+  --vlp-leading-snug:        1.08;
+  --vlp-leading-body:        1.5;
+  --vlp-leading-relaxed:     1.55;
+  --vlp-leading-loose:       1.6;
+  --vlp-leading-display:     1.1;
+  --vlp-leading-display-tight: 1.02;
+  --vlp-leading-title-sm:    1.25;
+
+  --vlp-tracking-tight:      -0.03em;
+  --vlp-tracking-snug:       -0.02em;
+  --vlp-tracking-eyebrow:    0.06em;
+  --vlp-tracking-mono:       0.04em;
+
+  /* ── Spacing (8px base) ─────────────────────────────────── */
+  --vlp-space-1:             4px;
+  --vlp-space-1-5:           6px;
+  --vlp-space-2:             8px;
+  --vlp-space-2-5:           10px;
+  --vlp-space-3:             12px;
+  --vlp-space-3-5:           14px;
+  --vlp-space-4:             16px;
+  --vlp-space-4-5:           18px;
+  --vlp-space-5:             20px;
+  --vlp-space-6:             24px;
+  --vlp-space-8:             32px;
+  --vlp-space-10:            40px;
+  --vlp-space-11:            44px;
+  --vlp-space-12:            48px;
+  --vlp-space-14:            56px;
+  --vlp-space-16:            64px;
+  --vlp-space-18:            72px;
+  --vlp-space-20:            80px;
+  --vlp-space-24:            96px;
+  --vlp-space-30:            120px;
+
+  --vlp-gap-card:            16px;
+  --vlp-gap-section:         48px;
+  --vlp-gap-nav:             22px;
+  --vlp-gap-tight:           11px;
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  --vlp-content-max:         1200px;
+  --vlp-content-medium:      880px;
+  --vlp-content-narrow:      640px;
+  --vlp-content-intro:       620px;
+  --vlp-content-prose:       460px;
+  --vlp-gutter:              32px;
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --vlp-radius-sm:           3px;
+  --vlp-radius-md:           4px;
+  --vlp-radius-lg:           7px;
+  --vlp-radius-card:         8px;
+  --vlp-radius-xl:           12px;
+  --vlp-radius-2xl:          16px;
+  --vlp-radius-pill:         999px;
+  /* ── Borders (shared) ───────────────────────────────────── */
+  --vlp-border-width:        1px;
+
+  /* ── Buttons: shared ──────────────────────────────────────── */
+  --vlp-btn-font-family:     var(--vlp-font-heading);
+  --vlp-btn-font-weight:     var(--vlp-weight-semibold);
+  --vlp-btn-gap:             var(--vlp-space-2);
+  --vlp-btn-transition:      background var(--vlp-transition-fast), border-color var(--vlp-transition-fast), opacity var(--vlp-transition-fast);
+
+  /* Primary (filled) */
+  --vlp-btn-primary-radius:  var(--vlp-radius-md);
+  --vlp-btn-primary-bg:      var(--vlp-color-ink);
+  --vlp-btn-primary-bg-hover: var(--vlp-color-ink-hover);
+  --vlp-btn-primary-text:    var(--vlp-color-cream);
+  --vlp-btn-primary-font-lg: 15px;
+  --vlp-btn-primary-font-md: var(--vlp-text-label);
+  --vlp-btn-primary-font-xs: var(--vlp-text-tag);
+  --vlp-btn-primary-font-micro: 11.5px;
+  --vlp-btn-primary-padding-lg: 12px 22px;
+  --vlp-btn-primary-padding-md: 11px 20px;
+  --vlp-btn-primary-padding-sm: 9px 18px;
+  --vlp-btn-primary-padding-xs: 6px 14px;
+  --vlp-btn-primary-padding-micro: 5px 12px;
+
+  /* Secondary (outline on light background) */
+  --vlp-btn-secondary-radius: var(--vlp-btn-primary-radius);
+  --vlp-btn-secondary-bg:    transparent;
+  --vlp-btn-secondary-text:  var(--vlp-color-ink);
+  --vlp-btn-secondary-border: var(--vlp-border-width) solid var(--vlp-color-ink);
+  --vlp-btn-secondary-border-hover: var(--vlp-color-text-faint);
+  --vlp-btn-secondary-font-lg: 15px;
+  --vlp-btn-secondary-padding-lg: 12px 22px;
+
+  /* Outline on dark background */
+  --vlp-btn-outline-dark-radius: var(--vlp-btn-primary-radius);
+  --vlp-btn-outline-dark-bg: transparent;
+  --vlp-btn-outline-dark-text: var(--vlp-color-cream);
+  --vlp-btn-outline-dark-border: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
+  --vlp-btn-outline-dark-padding-lg: 12px 24px;
+  --vlp-btn-outline-dark-padding-md: 11px 20px;
+  --vlp-btn-outline-dark-font-lg: 15px;
+  --vlp-btn-outline-dark-font-md: var(--vlp-text-label);
+
+  /* Light (inverted fill on dark sections) */
+  --vlp-btn-light-radius:    var(--vlp-btn-primary-radius);
+  --vlp-btn-light-bg:        var(--vlp-color-white);
+  --vlp-btn-light-text:      var(--vlp-color-ink);
+  --vlp-btn-light-padding-lg: 12px 24px;
+  --vlp-btn-light-padding-md: 11px 20px;
+  --vlp-btn-light-font-lg:   15px;
+  --vlp-btn-light-font-md:   var(--vlp-text-label);
+
+  /* Compact (UI demo / approval flows) */
+  --vlp-btn-compact-radius:  var(--vlp-btn-primary-radius);
+  --vlp-btn-compact-padding: 7px 16px;
+  --vlp-btn-compact-font:    12.5px;
+  --vlp-btn-compact-outline-border: var(--vlp-border-width) solid var(--vlp-border-default);
+
+  /* Muted outline (dismiss / tertiary actions) */
+  --vlp-btn-muted-outline-border: var(--vlp-border-width) solid var(--vlp-border-default);
+  --vlp-btn-muted-outline-text: var(--vlp-color-text-muted);
+  --vlp-btn-muted-outline-padding: 5px 12px;
+  --vlp-btn-muted-outline-font: 11.5px;
+
+  /* Legacy aliases */
+  --vlp-btn-bg:              var(--vlp-btn-primary-bg);
+  --vlp-btn-text:            var(--vlp-btn-primary-text);
+  --vlp-btn-height-lg:       48px;
+  --vlp-btn-height-md:       36px;
+  --vlp-btn-padding-y:       12px;
+  --vlp-btn-padding-x:       22px;
+  --cta-border-radius:       var(--vlp-btn-primary-radius);
+
+  /* ── Cards & chips ────────────────────────────────────────── */
+  --vlp-card-radius:         var(--vlp-radius-card);
+  --vlp-card-border:         var(--vlp-border-width) solid var(--vlp-border-default);
+  --vlp-card-padding:        22px;
+  --vlp-card-padding-lg:     32px;
+  --vlp-chip-radius:         var(--vlp-radius-md);
+  --vlp-chip-padding:        2px 8px;
+  --vlp-chip-padding-sm:     3px 8px;
+  --vlp-chip-border-accent:  var(--vlp-border-width) solid var(--vlp-color-accent);
+
+  /* ── Effects ────────────────────────────────────────────── */
+  --vlp-nav-blur:            saturate(180%) blur(12px);
+  --vlp-transition-fast:     0.15s;
+  --vlp-z-nav:               50;
+
+  background: var(--vlp-bg-page);
+  color: var(--vlp-color-text);
+  font-family: var(--vlp-font-body);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'tnum';
   overflow-x: hidden;
 }
-.vlp ::selection { background: #26251e; color: #f7f7f4; }
+
+.vlp ::selection {
+  background: var(--vlp-color-ink);
+  color: var(--vlp-color-cream);
+}
 .vlp a { color: inherit; text-decoration: none; }
+
+/* All CTAs and button variants use Urbanist (DESIGN.md §10). */
+.vlp .hero-btn-primary,
+.vlp .hero-btn-secondary,
+.vlp .nav-cta,
+.vlp .proof-cta-btn,
+.vlp .how-cta,
+.vlp .ent-btn-light,
+.vlp .ent-btn-outline,
+.vlp .cta-btn-light,
+.vlp .cta-btn-outline,
+.vlp .why-btn-approve,
+.vlp .why-btn-reject,
+.vlp .prim-explore,
+.vlp .prim-sug-accept,
+.vlp .prim-sug-reject,
+.vlp .prim-agent-accept,
+.vlp .prim-agent-dismiss {
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+}
 
 /* Titles use Urbanist. Mono headings (e.g. footer column labels) set their
    own font-family and win on specificity, so they stay monospace. */
@@ -21,7 +310,7 @@ body { background: #ffffff; }
 .vlp h2,
 .vlp h3,
 .vlp h4 {
-  font-family: 'Urbanist', sans-serif;
+  font-family: var(--vlp-font-heading);
 }
 
 /* Titles are semibold. The doubled `.vlp.vlp` raises specificity above each
@@ -31,16 +320,26 @@ body { background: #ffffff; }
 .vlp.vlp h2,
 .vlp.vlp h3,
 .vlp.vlp h4:not(.footer-col-heading) {
-  font-weight: 600;
+  font-weight: var(--vlp-weight-semibold);
 }
 
 /* Hover states. The original applied these as inline styles via JS on
    mouseenter (`style-hover="..."`), so they win over the element's inline
    base style. Replicated here as :hover rules with !important to keep the
    same override behavior. Per-element transitions stay on the inline style. */
-.vlp .hl:hover { color: #f54e00 !important; }
-.vlp .hcard:hover { border-color: #26251e !important; transform: translateY(-3px); }
-.vlp .hdark:hover { background: #141414 !important; }
+.vlp .hl:hover { color: var(--vlp-color-accent) !important; }
+.vlp .hcard:hover { border-color: var(--vlp-color-ink) !important; transform: translateY(-3px); }
+.vlp .hdark:hover { background: var(--vlp-btn-primary-bg-hover) !important; }
 .vlp .hfade:hover { opacity: 0.88 !important; }
-.vlp .houtline:hover { border-color: #8f8e89 !important; }
-.vlp .hsoft:hover { background: #f7f7f4 !important; }
+.vlp .houtline:hover { border-color: var(--vlp-btn-secondary-border-hover) !important; }
+.vlp .hsoft:hover { background: var(--vlp-bg-soft-hover) !important; }
+
+/* LogoCarousel bridges (homepage placements) */
+.vlp .trust-logos {
+  --lc-gap: var(--vlp-gap-card);
+  --lc-logo-height: var(--vlp-logo-height);
+}
+.vlp .proof-logos {
+  --lc-gap: var(--vlp-logo-gap);
+  --lc-logo-height: var(--vlp-logo-height);
+}

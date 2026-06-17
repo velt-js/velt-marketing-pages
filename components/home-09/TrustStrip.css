@@ -1,7 +1,7 @@
 .vlp .trust-section {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 32px;
+  padding: var(--vlp-gutter);
   margin-inline: auto;
 }
 
@@ -10,16 +10,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 28px;
+  gap: var(--vlp-gap-card);
+  margin-bottom: var(--vlp-trust-header-gap-bottom);
 }
 
 .vlp .trust-stat-row {
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  font-size: 14px;
-  color: #26251e;
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-ink);
 }
 
 .vlp .trust-dot {
@@ -27,27 +27,27 @@
   height: 7px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .trust-highlight {
-  color: #f54e00;
-  font-weight: 500;
+  color: var(--vlp-color-accent);
+  font-weight: var(--vlp-weight-medium);
 }
 
 .vlp .trust-sub {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: #a1a19f;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-subtle);
 }
 
 /* Featured row: the four lead logos as larger static cards. */
 .vlp .trust-featured {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: var(--vlp-gap-card);
+  margin-bottom: var(--vlp-space-4);
 }
 
 .vlp .trust-card {
@@ -75,7 +75,7 @@
   .vlp .trust-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: var(--vlp-space-2);
   }
 
   .vlp .trust-featured {

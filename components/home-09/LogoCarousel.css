@@ -4,8 +4,8 @@
    the component is meant to be reusable across pages. */
 .lc-viewport {
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, var(--vlp-color-ink) 6%, var(--vlp-color-ink) 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, var(--vlp-color-ink) 6%, var(--vlp-color-ink) 94%, transparent);
 }
 
 /* Optional full-viewport-width breakout (parent should be a centered column). */
@@ -47,8 +47,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 16px 28px;
-  border-radius: 12px;
+  padding: var(--vlp-space-4) 28px;
+  border-radius: var(--vlp-radius-xl);
 }
 
 /* Muted gray silhouettes for light backgrounds (brand logos ship white). */

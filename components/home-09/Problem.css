@@ -1,11 +1,11 @@
 .vlp .problem-section {
-  background: #f7f7f4;
+  background: var(--vlp-color-cream);
 }
 
 .vlp .problem-inner {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 120px 32px;
+  padding: var(--vlp-space-30) var(--vlp-gutter);
 }
 
 /* Left/right split: heading block on the left, checklist on the right.
@@ -16,7 +16,7 @@
     justify-content: space-between;
   /* display: grid;
   grid-template-columns: minmax(0, 460px) minmax(0, 1fr); */
-  gap: 64px;
+  gap: var(--vlp-space-16);
   align-items: stretch;
 }
 
@@ -25,68 +25,68 @@
 .vlp .problem-col-left {
     display: flex;
     flex-direction: column;
-    max-width: 460px;
+    max-width: var(--vlp-content-prose);
 }
 
 .vlp .problem-col-right {
-    max-width: 460px;
+    max-width: var(--vlp-content-prose);
 }
 
 @media (max-width: 860px) {
   .vlp .problem-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: var(--vlp-space-8);
   }
 }
 
 .vlp .problem-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: #7a7974;
-  margin-bottom: 22px;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-card-padding);
 }
 
 .vlp .problem-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .problem-heading {
-  font-size: 34px;
+  font-size: var(--vlp-text-section);
   line-height: 1.12;
-  letter-spacing: -0.02em;
-  font-weight: 400;
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
 }
 
 .vlp .problem-subtext {
-  font-size: 14px;
-  color: #7a7974;
-  margin-bottom: 16px;
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-4);
 }
 
 .vlp .problem-checklist {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--vlp-space-2-5);
 }
 
 .vlp .problem-label {
   display: flex;
-  gap: 12px;
+  gap: var(--vlp-space-3);
   align-items: flex-start;
-  background: #ffffff;
-  border: 1px solid #d9d5cf;
-  border-radius: 8px;
-  padding: 14px 16px;
+  background: var(--vlp-color-white);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-space-3-5) var(--vlp-space-4);
   cursor: pointer;
-  font-size: 15px;
+  font-size: var(--vlp-btn-primary-font-lg);
   line-height: 1.45;
   /* Hidden until the list scrolls into view, then revealed with a stagger
      (see .is-visible nth-child delays below). */
@@ -117,7 +117,7 @@
 
 .vlp .problem-checkbox {
   margin-top: 3px;
-  accent-color: #f54e00;
+  accent-color: var(--vlp-color-accent);
   width: 15px;
   height: 15px;
 }
@@ -137,7 +137,7 @@
 
 .vlp .problem-checkbox:checked + span .problem-strike {
   background-size: 100% 1.5px;
-  color: #9a9892;
+  color: var(--vlp-color-strike);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -148,21 +148,21 @@
 
 .vlp .problem-qualifier-wrapper {
   margin-top: auto;
-  padding-top: 40px;
+  padding-top: var(--vlp-space-10);
 }
 
 .vlp .problem-qualifier-comment {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: #f54e00;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
   margin-bottom: 12px;
 }
 
 .vlp .problem-qualifier-text {
-  font-family: 'Geist Mono', monospace;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #26251e;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-ink);
   max-width: 60ch;
-  letter-spacing: -0.02em;
+  letter-spacing: var(--vlp-tracking-snug);
 }

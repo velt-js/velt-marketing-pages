@@ -1,12 +1,10 @@
 import "./Collaboration.css";
 
-function Cursor({ className, color }: { className: string; color: string }) {
+function Cursor({ className }: { className: string }) {
   return (
-    <svg className={className} width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
+    <svg className={`cs-cursor ${className}`} width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
       <path
         d="M1 1L1 13L4.3 10L6.4 14.6L8.5 13.7L6.4 9.2L11 9.2Z"
-        fill={color}
-        stroke="#fff"
         strokeWidth="1.1"
         strokeLinejoin="round"
       />
@@ -50,10 +48,10 @@ export default function Collaboration() {
             </div>
             <div className="cs-anna">
               <span className="cs-ava">A</span>
-              <Cursor className="cs-cursor cs-cursor-anna" color="#625DF5" />
+              <Cursor className="cs-cursor-anna" />
             </div>
             <div className="cs-emma">
-              <Cursor className="cs-cursor cs-cursor-emma" color="#FF7162" />
+              <Cursor className="cs-cursor-emma" />
               <span className="cs-name">Emma</span>
             </div>
           </div>
@@ -82,20 +80,20 @@ export default function Collaboration() {
             <div className="se-window">
               <div className="se-bar">
                 <span className="se-bar-ava">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <rect x="4" y="4" width="16" height="16" rx="4" stroke="#fff" strokeWidth="1.8" />
-                    <circle cx="9" cy="11" r="1.1" fill="#fff" />
-                    <circle cx="15" cy="11" r="1.1" fill="#fff" />
-                    <path d="M9 15c1 1 5 1 6 0" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+                  <svg className="collab-svg-on-dark" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" strokeWidth="1.8" />
+                    <circle cx="9" cy="11" r="1.1" fill="currentColor" />
+                    <circle cx="15" cy="11" r="1.1" fill="currentColor" />
+                    <path d="M9 15c1 1 5 1 6 0" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                   </svg>
                 </span>
                 <span className="se-bar-txt">Yoen is editing</span>
               </div>
               <div className="se-body">
                 <div className="se-label">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <rect x="5" y="11" width="14" height="9" rx="2" stroke="#26251e" strokeWidth="1.8" />
-                    <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#26251e" strokeWidth="1.8" />
+                  <svg className="collab-svg-ink" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.8" />
+                    <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.8" />
                   </svg>
                   Email template
                 </div>
@@ -117,30 +115,30 @@ export default function Collaboration() {
           <div className="collab-stage rec-stage">
             <div className="rc-control">
               <span className="rc-screen">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="3" y="5" width="18" height="12" rx="2" stroke="#fff" strokeWidth="1.8" />
-                  <path d="M8 21h8M12 17v4" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+                <svg className="collab-svg-on-dark" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="3" y="5" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.8" />
+                  <path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 </svg>
               </span>
               <span className="rc-time">00:42</span>
               <span className="rc-pause"><i></i><i></i></span>
               <span className="rc-stop"></span>
               <span className="rc-close">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <path d="M6 6l12 12M18 6L6 18" stroke="#9b9a95" strokeWidth="2" strokeLinecap="round" />
+                <svg className="collab-svg-muted" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </span>
             </div>
             <div className="rc-cam">
               <span className="rc-ava">D</span>
               <span className="rc-cam-ctrl">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="9" y="3" width="6" height="11" rx="3" stroke="#26251e" strokeWidth="1.7" />
-                  <path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="#26251e" strokeWidth="1.7" strokeLinecap="round" />
+                <svg className="collab-svg-ink" width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.7" />
+                  <path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
                 </svg>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
-                  <rect x="3" y="7" width="12" height="10" rx="2" stroke="#26251e" strokeWidth="1.7" />
-                  <path d="M15 11l5-3v8l-5-3" stroke="#26251e" strokeWidth="1.7" strokeLinejoin="round" />
+                <svg className="collab-svg-ink" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <rect x="3" y="7" width="12" height="10" rx="2" stroke="currentColor" strokeWidth="1.7" />
+                  <path d="M15 11l5-3v8l-5-3" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round" />
                 </svg>
               </span>
             </div>
@@ -156,10 +154,10 @@ export default function Collaboration() {
             <div className="hd-panel">
               <div className="hd-head">
                 <span className="hd-head-ico">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <path d="M4 13v-1a8 8 0 0 1 16 0v1" stroke="#0D9A5D" strokeWidth="1.8" strokeLinecap="round" />
-                    <rect x="3" y="13" width="4" height="6" rx="1.5" stroke="#0D9A5D" strokeWidth="1.8" />
-                    <rect x="17" y="13" width="4" height="6" rx="1.5" stroke="#0D9A5D" strokeWidth="1.8" />
+                  <svg className="collab-svg-green" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path d="M4 13v-1a8 8 0 0 1 16 0v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                    <rect x="3" y="13" width="4" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
+                    <rect x="17" y="13" width="4" height="6" rx="1.5" stroke="currentColor" strokeWidth="1.8" />
                   </svg>
                 </span>
                 <span className="hd-head-txt">2 people in Huddle</span>
@@ -169,9 +167,9 @@ export default function Collaboration() {
                 <span className="hd-ava hd-ava-you">Y</span>
                 <span className="hd-name">You</span>
                 <span className="hd-muted">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
-                    <rect x="9" y="3" width="6" height="11" rx="3" stroke="#b2b1ac" strokeWidth="1.6" />
-                    <path d="M5 5l14 14" stroke="#b2b1ac" strokeWidth="1.6" strokeLinecap="round" />
+                  <svg className="collab-svg-kebab" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" strokeWidth="1.6" />
+                    <path d="M5 5l14 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                   </svg>
                 </span>
               </div>

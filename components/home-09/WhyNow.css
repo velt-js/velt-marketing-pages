@@ -1,7 +1,7 @@
 .vlp .why-section {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 80px 32px;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
 }
 
 .vlp .why-intro {
@@ -11,54 +11,54 @@
 .vlp .why-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: #7a7974;
-  margin-bottom: 20px;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
 }
 
 .vlp .why-eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
   border-radius: 50%;
-  background: #f54e00;
+  background: var(--vlp-color-accent);
 }
 
 .vlp .why-heading {
-  font-size: 36px;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  font-weight: 400;
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
 }
 
 .vlp .why-desc {
-  font-size: 16px;
-  line-height: 1.55;
-  color: #7a7974;
-  margin-top: 18px;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4-5);
 }
 
 .vlp .why-comment {
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
-  color: #f54e00;
-  margin-top: 16px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
+  margin-top: var(--vlp-space-4);
 }
 
 /* Horizontal timeline: three steps left-to-right, a dashed spine across the
    top linking numbered nodes (01/02/03), each card below its node. */
 .vlp .why-timeline {
-  margin-top: 48px;
+  margin-top: var(--vlp-gap-section);
 }
 
 .vlp .why-tl-track {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: var(--vlp-space-6);
   align-items: stretch;
 }
 
@@ -77,7 +77,7 @@
   transform: translateY(-50%);
   background-image: repeating-linear-gradient(
     to right,
-    #cfcbc4 0 4px,
+    var(--vlp-color-timeline-dash) 0 4px,
     transparent 4px 9px
   );
   /* Marching ants: shift the dash pattern by exactly one period (9px) so the
@@ -108,28 +108,28 @@
   z-index: 1;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--vlp-space-2-5);
   height: 36px;
   padding: 0 20px;
-  background: #fff;
-  border: 1px solid #d9d5cf;
-  border-radius: 9999px;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-pill);
 }
 
 .vlp .why-tl-label {
-  font-family: 'Geist Mono', monospace;
-  font-size: 13px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #26251e;
+  color: var(--vlp-color-ink);
   white-space: nowrap;
 }
 
 .vlp .why-tl-node {
-  font-family: 'Geist Mono', monospace;
-  font-size: 13px;
-  letter-spacing: -0.02em;
-  color: #26251e;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
 }
 
 /* Vertical dashed connector bridging the centered head down into the card.
@@ -141,7 +141,7 @@
   flex-shrink: 0;
   background-image: repeating-linear-gradient(
     to bottom,
-    #cfcbc4 0 4px,
+    var(--vlp-color-timeline-dash) 0 4px,
     transparent 4px 9px
   );
   animation: why-tl-march-y 0.7s linear infinite;
@@ -170,18 +170,18 @@
 }
 
 .vlp .why-card-light {
-  background: #fff;
-  border: 1px solid #d9d5cf;
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-xl);
+  padding: var(--vlp-space-5);
   display: flex;
   flex-direction: column;
 }
 
 .vlp .why-card-dark {
-  background: #26251e;
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--vlp-btn-bg);
+  border-radius: var(--vlp-radius-xl);
+  padding: var(--vlp-space-5);
   display: flex;
   flex-direction: column;
 }
@@ -202,21 +202,21 @@
 .vlp .why-agent-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: var(--vlp-space-2-5);
+  margin-bottom: var(--vlp-space-3-5);
 }
 
 .vlp .why-avatar-ai {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #26251e;
-  color: #f7f7f4;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Geist Mono', monospace;
-  font-size: 9px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-avatar-xs);
   flex-shrink: 0;
 }
 
@@ -224,109 +224,109 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #c08532;
-  color: #fff;
+  background: var(--vlp-color-amber);
+  color: var(--vlp-color-white);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: var(--vlp-text-avatar-xs);
   flex-shrink: 0;
 }
 
 .vlp .why-agent-name {
-  font-size: 15px;
-  color: #26251e;
+  font-size: var(--vlp-btn-primary-font-lg);
+  color: var(--vlp-color-ink);
 }
 
 .vlp .why-confidence {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 13px;
-  color: #34785c;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-green-ui);
 }
 
 .vlp .why-approver-badge {
   margin-left: auto;
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #7a7974;
-  border: 1px solid #d9d5cf;
-  padding: 2px 8px;
-  border-radius: 4px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-muted);
+  border: var(--vlp-card-border);
+  padding: var(--vlp-chip-padding);
+  border-radius: var(--vlp-chip-radius);
 }
 
 .vlp .why-card-text {
-  font-size: 15px;
-  line-height: 1.5;
-  color: #26251e;
+  font-size: var(--vlp-btn-primary-font-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-ink);
 }
 
 .vlp .why-card-sub {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #7a7974;
-  margin-top: 14px;
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-3-5);
 }
 
 .vlp .why-btn-row {
   display: flex;
-  gap: 8px;
+  gap: var(--vlp-space-2);
   margin-top: auto;
   padding-top: 20px;
 }
 
 .vlp .why-btn-approve {
-  font-size: 12.5px;
-  background: #26251e;
-  color: #f7f7f4;
+  font-size: var(--vlp-btn-compact-font);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
   border: none;
-  padding: 7px 16px;
-  border-radius: var(--cta-border-radius);
+  padding: var(--vlp-btn-compact-padding);
+  border-radius: var(--vlp-btn-compact-radius);
   cursor: pointer;
 }
 
 .vlp .why-btn-reject {
-  font-size: 12.5px;
-  background: transparent;
-  color: #26251e;
-  border: 1px solid #d9d5cf;
-  padding: 7px 16px;
-  border-radius: var(--cta-border-radius);
+  font-size: var(--vlp-btn-compact-font);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  border: var(--vlp-btn-compact-outline-border);
+  padding: var(--vlp-btn-compact-padding);
+  border-radius: var(--vlp-btn-compact-radius);
   cursor: pointer;
 }
 
 .vlp .why-code-block {
-  font-family: 'Geist Mono', monospace;
-  font-size: 13px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
   line-height: 1.85;
 }
 
 .vlp .why-code-post {
-  color: #4ade80;
+  color: var(--vlp-color-success);
 }
 
 .vlp .why-code-route {
-  color: #f7f7f4;
+  color: var(--vlp-color-cream);
 }
 
 .vlp .why-code-brace {
-  color: #a1a19f;
+  color: var(--vlp-color-text-subtle);
 }
 
 .vlp .why-code-line {
   padding-left: 18px;
-  color: #f7f7f4;
+  color: var(--vlp-color-cream);
 }
 
 .vlp .why-code-string {
-  color: #e0913f;
+  color: var(--vlp-color-syntax-orange);
 }
 
 .vlp .why-code-footer {
-  font-size: 12px;
-  color: #8f8e89;
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-faint);
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: var(--vlp-space-4);
 }
 
 /* ── Audit-trail lineage ──────────────────────────────────────────
@@ -337,22 +337,22 @@
 .vlp .why-trace {
   color: inherit;
   cursor: default;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
   padding: 0 2px;
   text-decoration: underline dotted;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  transition: background 0.15s ease, text-decoration-color 0.15s ease;
+  transition: var(--vlp-btn-transition) ease, text-decoration-color 0.15s ease;
 }
 
 /* Light cards (prose) */
 .vlp .why-trace--target {
-  color: #0d7c8a;
+  color: var(--vlp-color-trace-target);
   text-decoration-color: rgba(13, 124, 138, 0.5);
 }
 
 .vlp .why-trace--approver {
-  color: #a8702a;
+  color: var(--vlp-color-trace-approver);
   text-decoration-color: rgba(168, 112, 42, 0.5);
 }
 
@@ -368,14 +368,14 @@
   background: rgba(207, 138, 57, 0.18);
 }
 
-/* Dark card (payload) — brighter tints for contrast on #26251e */
+/* Dark card (payload) — brighter tints for contrast on var(--vlp-color-ink) */
 .vlp .why-card-dark .why-trace--target {
-  color: #36c5d6;
+  color: var(--vlp-color-trace-target-bg);
   text-decoration-color: rgba(54, 197, 214, 0.5);
 }
 
 .vlp .why-card-dark .why-trace--approver {
-  color: #e3a14e;
+  color: var(--vlp-color-trace-approver-bg);
   text-decoration-color: rgba(227, 161, 78, 0.5);
 }
 
@@ -390,10 +390,10 @@
 .vlp .why-tl-caption {
   margin-top: 30px;
   text-align: center;
-  font-family: 'Geist Mono', monospace;
-  font-size: 12px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
   letter-spacing: 0.01em;
-  color: #a1a19f;
+  color: var(--vlp-color-text-subtle);
 }
 
 @media (max-width: 760px) {

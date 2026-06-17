@@ -1,95 +1,95 @@
 .vlp .footer-root {
-  background: #ffffff;
-  border-top: 1px solid #d9d5cf;
+  background: var(--vlp-color-white);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
 }
 
 .vlp .footer-inner {
-  max-width: 1200px;
+  max-width: var(--vlp-content-max);
   margin: 0 auto;
-  padding: 64px 32px 32px;
+  padding: var(--vlp-space-16) var(--vlp-gutter) 32px;
 }
 
 .vlp .footer-grid {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 32px;
+  gap: var(--vlp-space-8);
 }
 
 .vlp .footer-brand-link {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 16px;
-  margin-bottom: 14px;
+  font-size: var(--vlp-text-body);
+  margin-bottom: var(--vlp-space-3-5);
 }
 
 .vlp .footer-logomark {
-  width: 22px;
-  height: 22px;
-  background: #26251e;
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  background: var(--vlp-btn-bg);
   position: relative;
   display: inline-block;
-  border-radius: 3px;
+  border-radius: var(--vlp-radius-sm);
 }
 
 .vlp .footer-logomark-inset {
   position: absolute;
-  inset: 6px;
-  background: #ffffff;
+  inset: var(--vlp-space-1-5);
+  background: var(--vlp-color-white);
 }
 
 .vlp .footer-brand-name {
-  font-weight: 500;
+  font-weight: var(--vlp-weight-medium);
 }
 
 .vlp .footer-tagline {
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: #7a7974;
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
   max-width: 34ch;
 }
 
 .vlp .footer-badges {
   display: flex;
-  gap: 8px;
-  margin-top: 16px;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-4);
 }
 
 .vlp .footer-badge {
-  font-family: 'Geist Mono', monospace;
-  font-size: 10px;
-  color: #7a7974;
-  border: 1px solid #d9d5cf;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-muted);
+  border: var(--vlp-card-border);
   padding: 4px 9px;
-  border-radius: 4px;
+  border-radius: var(--vlp-chip-radius);
 }
 
 .vlp .footer-col-heading {
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: #a1a19f;
-  margin-bottom: 14px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  color: var(--vlp-color-text-subtle);
+  margin-bottom: var(--vlp-space-3-5);
 }
 
 .vlp .footer-col-links {
   display: flex;
   flex-direction: column;
   gap: 9px;
-  font-size: 13.5px;
-  color: #7a7974;
+  font-size: var(--vlp-text-body-sm-plus);
+  color: var(--vlp-color-text-muted);
 }
 
 .vlp .footer-bottom {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 48px;
-  padding-top: 24px;
-  border-top: 1px solid #d9d5cf;
-  font-family: 'Geist Mono', monospace;
-  font-size: 11px;
-  color: #a1a19f;
+  gap: var(--vlp-space-3);
+  margin-top: var(--vlp-gap-section);
+  padding-top: var(--vlp-space-6);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-subtle);
   letter-spacing: 0.03em;
 }

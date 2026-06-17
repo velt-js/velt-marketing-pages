@@ -83,9 +83,7 @@ function LogoSet({ logos, hidden = false, card = false }: { logos: LogoCarouselI
  * @returns the viewport root's className and inline style
  */
 function buildRootProps(
-  gap: number,
   durationSeconds: number,
-  logoHeight: number,
   monochrome: boolean,
   fullBleed: boolean,
   className?: string,
@@ -95,9 +93,7 @@ function buildRootProps(
       .filter(Boolean)
       .join(" ");
     const styleVars = {
-      "--lc-gap": `${gap}px`,
       "--lc-duration": `${durationSeconds}s`,
-      "--lc-logo-height": `${logoHeight}px`,
     } as CSSProperties;
     return { rootClass, styleVars };
   } catch (error) {
@@ -123,7 +119,7 @@ export default function LogoCarousel({
   card = false,
   className,
 }: LogoCarouselProps) {
-  const { rootClass, styleVars } = buildRootProps(gap, durationSeconds, logoHeight, monochrome, fullBleed, className);
+  const { rootClass, styleVars } = buildRootProps(durationSeconds, monochrome, fullBleed, className);
 
   return (
     <div className={rootClass} style={styleVars}>
