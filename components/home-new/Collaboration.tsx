@@ -1,16 +1,7 @@
 import "./Collaboration.css";
 
-function Cursor({ className }: { className: string }) {
-  return (
-    <svg className={`cs-cursor ${className}`} width="22" height="22" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path
-        d="M1 1L1 13L4.3 10L6.4 14.6L8.5 13.7L6.4 9.2L11 9.2Z"
-        strokeWidth="1.1"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+const CURSOR_POINTER_PURPLE = "/images/home/features/cursor-pointer-purple.svg";
+const CURSOR_POINTER_ORANGE = "/images/home/features/cursor-pointer-orange.svg";
 
 export default function Collaboration() {
   return (
@@ -47,11 +38,21 @@ export default function Collaboration() {
               <span className="cs-handle cs-h-br"></span>
             </div>
             <div className="cs-anna">
-              <span className="cs-ava">A</span>
-              <Cursor className="cs-cursor-anna" />
+              <span className="cs-ava" aria-hidden="true">A</span>
+              <img
+                src={CURSOR_POINTER_PURPLE}
+                alt=""
+                className="cs-pointer cs-pointer-flip"
+                aria-hidden="true"
+              />
             </div>
             <div className="cs-emma">
-              <Cursor className="cs-cursor-emma" />
+              <img
+                src={CURSOR_POINTER_ORANGE}
+                alt=""
+                className="cs-pointer"
+                aria-hidden="true"
+              />
               <span className="cs-name">Emma</span>
             </div>
           </div>

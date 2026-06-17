@@ -78,6 +78,12 @@
   margin-top: var(--vlp-space-3);
 }
 
+.vlp .collab-svg-on-dark { color: var(--vlp-color-white); }
+.vlp .collab-svg-ink { color: var(--vlp-color-ink); }
+.vlp .collab-svg-muted { color: var(--vlp-color-text-subtle); }
+.vlp .collab-svg-green { color: var(--vlp-color-green); }
+.vlp .collab-svg-kebab { color: var(--vlp-color-kebab); }
+
 /* ── Artifact stage ─────────────────────────────────────── */
 .vlp .collab-stage {
   position: relative;
@@ -136,6 +142,10 @@
 }
 
 /* ── Live Cursors ───────────────────────────────────────── */
+.vlp .cursor-stage {
+  background: var(--vlp-bg-card);
+}
+
 .vlp .cs-selection {
   position: absolute;
   left: 50%;
@@ -143,7 +153,7 @@
   transform: translate(-50%, -50%);
   width: 120px;
   height: 86px;
-  border: 1.5px solid var(--vlp-color-orange);
+  border: 1.5px solid #fe965c;
 }
 
 .vlp .cs-handle {
@@ -151,7 +161,7 @@
   width: 8px;
   height: 8px;
   background: var(--vlp-bg-card);
-  border: 1.5px solid var(--vlp-color-orange);
+  border: 1.5px solid #fe965c;
 }
 
 .vlp .cs-h-tl { left: -4px; top: -4px; }
@@ -159,69 +169,68 @@
 .vlp .cs-h-bl { left: -4px; bottom: -4px; }
 .vlp .cs-h-br { right: -4px; bottom: -4px; }
 
-.vlp .cs-anna {
-  position: absolute;
-  left: 18px;
-  top: 34px;
-  display: flex;
-  align-items: center;
+.vlp .cs-pointer {
+  display: block;
+  width: 38px;
+  height: 40px;
+  flex-shrink: 0;
+  pointer-events: none;
 }
 
-.vlp .collab-svg-on-dark { color: var(--vlp-color-white); }
-.vlp .collab-svg-ink { color: var(--vlp-color-ink); }
-.vlp .collab-svg-muted { color: var(--vlp-color-text-subtle); }
-.vlp .collab-svg-green { color: var(--vlp-color-green); }
-.vlp .collab-svg-kebab { color: var(--vlp-color-kebab); }
+.vlp .cs-anna {
+  position: absolute;
+  left: 22px;
+  top: 28px;
+  display: flex;
+  align-items: flex-end;
+}
 
-.vlp .cs-ava {
-  width: 28px;
-  height: 28px;
+.vlp .cs-anna .cs-ava {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin-bottom: -24px;
   border-radius: 50%;
   background: var(--vlp-color-purple);
   color: var(--vlp-color-white);
-  font-size: var(--vlp-btn-primary-font-micro);
+  font-size: 12px;
   font-weight: var(--vlp-weight-semibold);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--vlp-color-purple);
-  box-shadow: 0 0 0 2px var(--vlp-color-white);
+  border: 2px solid var(--vlp-color-white);
+  box-shadow: 0 0 0 1.5px var(--vlp-color-purple);
+  flex-shrink: 0;
 }
 
-.vlp .cs-cursor path {
-  stroke: var(--vlp-color-white);
-}
-
-.vlp .cs-cursor-anna path {
-  fill: var(--vlp-color-purple);
-}
-
-.vlp .cs-cursor-emma path {
-  fill: var(--vlp-color-orange);
-}
-
-.vlp .cs-cursor-anna {
-  margin-left: -4px;
-  margin-top: -22px;
+.vlp .cs-anna .cs-pointer {
+  margin-left: -19px;
+  margin-bottom: 0;
+  transform: scaleX(-1);
 }
 
 .vlp .cs-emma {
   position: absolute;
   right: 20px;
-  bottom: 30px;
+  bottom: 24px;
   display: flex;
   align-items: flex-start;
 }
 
-.vlp .cs-name {
-  margin-top: 8px;
-  margin-left: -2px;
-  background: var(--vlp-color-orange);
+.vlp .cs-emma .cs-name {
+  position: relative;
+  margin-left: -12px;
+  margin-top: 28px;
+  background: #fe965c;
   color: var(--vlp-color-white);
-  font-size: var(--vlp-btn-primary-font-micro);
+  font-size: var(--vlp-text-tag);
   font-weight: var(--vlp-weight-semibold);
-  padding: 2px 9px;
-  border-radius: 10px;
+  line-height: 1;
+  padding: 5px 12px;
+  border-radius: var(--vlp-radius-pill);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  flex-shrink: 0;
 }
 
 /* ── Multiplayer Editing ────────────────────────────────── */
@@ -286,19 +295,20 @@
 
 /* ── Single Editor Mode ─────────────────────────────────── */
 .vlp .single-stage {
-  padding: var(--vlp-space-4) 0 0 16px;
+  margin-right: calc(-1 * var(--vlp-space-4));
+  width: calc(100% + var(--vlp-space-4));
+  padding-left: var(--vlp-space-4);
   overflow: hidden;
 }
 
 .vlp .se-window {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   border: var(--vlp-border-width) solid var(--vlp-border-demo);
-  border-right: none;
-  border-bottom: none;
-  border-radius: var(--vlp-radius-card) 0 0 0;
+  border-radius: var(--vlp-radius-card);
   background: var(--vlp-bg-card);
   overflow: hidden;
-  box-shadow: -2px -2px 0 rgba(98, 93, 245, 0.06);
 }
 
 .vlp .se-bar {

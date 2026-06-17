@@ -47,83 +47,234 @@
   margin-top: var(--vlp-space-4);
 }
 
-.vlp .how-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--vlp-gap-section);
+/* ── Steps timeline: marching-ants spine + editor cards ───── */
+.vlp .how-timeline {
   margin-top: var(--vlp-gap-section);
 }
 
-.vlp .how-step {
+.vlp .how-tl-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-space-6);
+  align-items: stretch;
+}
+
+.vlp .how-tl-track::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  left: calc(16.667% - 8px);
+  right: calc(16.667% - 8px);
+  height: 2px;
+  transform: translateY(-50%);
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--vlp-color-accent) 0 4px,
+    transparent 4px 9px
+  );
+  opacity: 0.45;
+  animation: how-tl-march-x 0.7s linear infinite;
+}
+
+@keyframes how-tl-march-x {
+  to {
+    background-position: 9px 0;
+  }
+}
+
+.vlp .how-tl-item {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
-/* Step header reads as a stepper node on a rail: number chip, label, then a
-   hairline that runs to the column edge. The three segments share a baseline,
-   so the steps connect visually without the heavy bordered cards. */
-.vlp .how-step-head {
-  display: flex;
-  align-items: center;
-  gap: var(--vlp-space-3);
-  margin-bottom: var(--vlp-space-5);
-}
-
-.vlp .how-step-num {
-  flex-shrink: 0;
+.vlp .how-tl-head {
+  align-self: center;
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--vlp-btn-bg);
-  color: var(--vlp-color-cream);
-  font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-text-tag);
+  gap: var(--vlp-space-2-5);
+  height: 36px;
+  padding: 0 20px;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-pill);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.vlp .how-step-label {
-  flex-shrink: 0;
+.vlp .how-tl-node {
   font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-btn-primary-font-micro);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .how-tl-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--vlp-color-text-muted);
-}
-
-.vlp .how-step-head::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--vlp-border-default);
-}
-
-.vlp .how-step-text {
-  font-size: var(--vlp-text-lead);
-  letter-spacing: -0.01em;
   color: var(--vlp-color-ink);
-  margin-bottom: var(--vlp-space-3-5);
+  white-space: nowrap;
 }
 
-.vlp .how-code {
+.vlp .how-tl-drop {
+  align-self: center;
+  width: 2px;
+  height: 20px;
+  flex-shrink: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--vlp-color-timeline-dash) 0 4px,
+    transparent 4px 9px
+  );
+  animation: how-tl-march-y 0.7s linear infinite;
+}
+
+@keyframes how-tl-march-y {
+  to {
+    background-position: 0 9px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .how-tl-track::before,
+  .vlp .how-tl-drop {
+    animation: none;
+  }
+}
+
+.vlp .how-tl-item > .how-editor {
+  flex: 1;
+  align-self: stretch;
+}
+
+.vlp .how-editor {
+  display: flex;
+  flex-direction: column;
+  min-height: 108px;
+  border-radius: var(--vlp-radius-lg);
+  overflow: hidden;
+  border: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
+  background: var(--vlp-color-ink-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vlp .how-tl-item:hover .how-editor {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
+}
+
+.vlp .how-editor-chrome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--vlp-btn-bg);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
+}
+
+.vlp .how-editor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.vlp .how-editor-dot-red {
+  background: #ff5f57;
+}
+
+.vlp .how-editor-dot-amber {
+  background: #febc2e;
+}
+
+.vlp .how-editor-dot-green {
+  background: #28c840;
+}
+
+.vlp .how-editor-tab {
+  margin-left: 6px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-on-dark-muted);
+  letter-spacing: 0.02em;
+}
+
+.vlp .how-pre {
+  margin: 0;
+  padding: 14px 16px;
+  flex: 1;
   font-family: var(--vlp-font-mono);
   font-size: 12.5px;
-  line-height: 1.7;
-  color: var(--vlp-color-ink);
-  border-left: 2px solid var(--vlp-border-default);
-  padding-left: 14px;
+  line-height: 1.65;
+  color: var(--vlp-color-cream);
+  overflow-x: auto;
+  white-space: pre;
 }
 
 .vlp .how-code-prompt {
   color: var(--vlp-color-accent);
 }
 
-.vlp .how-comment {
+.vlp .how-code-tag {
+  color: var(--vlp-color-cream);
+}
+
+.vlp .how-code-attr {
+  color: var(--vlp-color-syntax-orange);
+}
+
+.vlp .how-code-str {
+  color: var(--vlp-color-success);
+}
+
+.vlp .how-footnote {
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-text-tag);
   color: var(--vlp-color-accent);
-  margin-top: var(--vlp-space-4);
+  text-align: center;
+  margin-top: var(--vlp-space-6);
+}
+
+/* ── Open in [editor] deeplinks ───────────────────────────── */
+.vlp .how-open-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--vlp-space-2);
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-cream);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.vlp .how-open-link-light {
+  color: var(--vlp-color-ink);
+}
+
+.vlp .how-open-link:hover,
+.vlp .how-open-link-light:hover {
+  color: var(--vlp-color-accent);
+}
+
+.vlp .how-open-link-text {
+  line-height: 1;
+}
+
+.vlp .how-open-link-arrow {
+  flex-shrink: 0;
+  display: block;
+  width: 14px;
+  height: 14px;
 }
 
 .vlp .how-mcp-block {
@@ -331,9 +482,10 @@
 
 .vlp .how-footer-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  gap: 18px;
+  text-align: center;
+  gap: var(--vlp-space-4);
   margin-top: 28px;
 }
 
@@ -352,7 +504,6 @@
 }
 
 .vlp .how-cta {
-  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--vlp-btn-gap);
@@ -366,13 +517,17 @@
 }
 
 @media (max-width: 900px) {
-  .vlp .how-steps-grid {
+  .vlp .how-tl-track {
     grid-template-columns: 1fr;
-    gap: var(--vlp-space-8);
+    gap: 28px;
   }
 
-  .vlp .how-step-head::after {
+  .vlp .how-tl-track::before {
     display: none;
+  }
+
+  .vlp .how-footnote {
+    text-align: left;
   }
 
   .vlp .how-mcp-layout {

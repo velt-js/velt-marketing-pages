@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@/components/home-09/styles.css";
+import "@/components/home-new/styles.css";
 
 import { JsonLd } from "./_seo/JsonLd";
 import { ORG_ID, ORG_OG_IMAGE, SITE_URL } from "./_seo/schema";
@@ -9,21 +9,21 @@ import {
 } from "@/lib/bespoke-jsonld";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
-import Nav from "@/components/home-09/Nav";
-import Hero from "@/components/home-09/Hero";
-import TrustStrip from "@/components/home-09/TrustStrip";
-import Problem from "@/components/home-09/Problem";
-import WhyNow from "@/components/home-09/WhyNow";
-import Primitives from "@/components/home-09/Primitives";
-import Collaboration from "@/components/home-09/Collaboration";
-import HowItWorks from "@/components/home-09/HowItWorks";
-import Integrations from "@/components/home-09/Integrations";
-import Enterprise from "@/components/home-09/Enterprise";
-import Verticals from "@/components/home-09/Verticals";
-import Faq from "@/components/home-09/Faq";
-import Proof from "@/components/home-09/Proof";
-import FinalCta from "@/components/home-09/FinalCta";
-import Footer from "@/components/home-09/Footer";
+import Nav from "@/components/home-new/Nav";
+import Hero from "@/components/home-new/Hero";
+import TrustStrip from "@/components/home-new/TrustStrip";
+import Problem from "@/components/home-new/Problem";
+import WhyNow from "@/components/home-new/WhyNow";
+import Primitives from "@/components/home-new/Primitives";
+import Collaboration from "@/components/home-new/Collaboration";
+import HowItWorks from "@/components/home-new/HowItWorks";
+import Integrations from "@/components/home-new/Integrations";
+import Enterprise from "@/components/home-new/Enterprise";
+import Verticals from "@/components/home-new/Verticals";
+import Faq from "@/components/home-new/Faq";
+import Proof from "@/components/home-new/Proof";
+import FinalCta from "@/components/home-new/FinalCta";
+import Footer from "@/components/home-new/Footer";
 
 // Homepage meta follows the website spec (Part 3.1): the title leads with
 // "Velt |" (a deliberate prefix, unlike the site-wide "{title} | Velt"

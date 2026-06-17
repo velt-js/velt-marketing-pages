@@ -358,7 +358,7 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   background: transparent;
 }
 
-/* Approval-flow mock: flex column with gap between step rows */
+/* Approval-flow mock: timeline steps + footer */
 .vlp .prim-card-col {
   display: flex;
   flex-direction: column;
@@ -468,6 +468,7 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   justify-content: center;
   font-family: var(--vlp-font-mono);
   font-size: 9px;
+  flex-shrink: 0;
 }
 
 /* MK — amber, 22px, 9px (no mono) */
@@ -481,6 +482,7 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   align-items: center;
   justify-content: center;
   font-size: 9px;
+  flex-shrink: 0;
 }
 
 /* JR — grey (brand step), 22px */
@@ -494,6 +496,7 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   align-items: center;
   justify-content: center;
   font-size: 9px;
+  flex-shrink: 0;
 }
 
 /* SP — light grey, 22px, muted text */
@@ -507,6 +510,7 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   align-items: center;
   justify-content: center;
   font-size: 9px;
+  flex-shrink: 0;
 }
 
 /* AI — dark, 24px, Geist Mono 9px (memory card) */
@@ -548,43 +552,87 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   flex: 1;
 }
 
-/* ── Approval row (each step row) ──────────────────────────── */
-.vlp .prim-approval-row {
+/* ── Approval timeline (vertical spine + step rows) ────────── */
+.vlp .prim-approval-timeline {
   display: flex;
-  align-items: center;
-  gap: var(--vlp-space-2-5);
-  font-size: var(--vlp-text-body-sm-plus);
+  flex-direction: column;
 }
 
-/* muted variant for last row */
-.vlp .prim-approval-row-muted {
+.vlp .prim-approval-step {
   display: flex;
-  align-items: center;
   gap: var(--vlp-space-2-5);
-  font-size: var(--vlp-text-body-sm-plus);
+}
+
+.vlp .prim-approval-step--muted .prim-approval-label {
   color: var(--vlp-color-text-muted);
 }
 
-/* Status badge — done/approved (green) */
+.vlp .prim-approval-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+  width: var(--vlp-size-logomark);
+  flex-shrink: 0;
+}
+
+.vlp .prim-approval-line {
+  flex: 1;
+  width: 2px;
+  margin-top: var(--vlp-space-1-5);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--vlp-color-timeline-dash) 0 4px,
+    transparent 4px 9px
+  );
+  animation: prim-approval-march-y 0.7s linear infinite;
+}
+
+@keyframes prim-approval-march-y {
+  to {
+    background-position: 0 9px;
+  }
+}
+
+.vlp .prim-approval-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  font-size: var(--vlp-text-body-sm-plus);
+  padding-bottom: 14px;
+}
+
+.vlp .prim-approval-step:last-child .prim-approval-body {
+  padding-bottom: 0;
+}
+
+.vlp .prim-approval-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Status badge — done/approved (green fill) */
 .vlp .prim-badge-done {
   margin-left: auto;
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-text-micro);
-  color: var(--vlp-color-green-ui);
-  border: var(--vlp-border-width) solid var(--vlp-color-success);
-  padding: var(--vlp-chip-padding);
-  border-radius: var(--vlp-chip-radius);
+  color: var(--vlp-color-green-approval);
+  background: var(--vlp-bg-green-highlight);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
 }
 
-/* Status badge — pending (grey) */
+/* Status badge — pending (muted fill) */
 .vlp .prim-badge-pending {
   margin-left: auto;
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-text-micro);
   color: var(--vlp-color-text-muted);
-  border: var(--vlp-card-border);
-  padding: var(--vlp-chip-padding);
-  border-radius: var(--vlp-chip-radius);
+  background: var(--vlp-bg-surface-muted);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
 }
 
 /* Status text — waiting (no border) */
@@ -655,28 +703,31 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   font-weight: var(--vlp-weight-medium);
 }
 
-/* Status tag — agent (grey) */
+/* Status tag — agent (muted fill) */
 .vlp .prim-tag-agent {
+  font-size: var(--vlp-text-micro);
   color: var(--vlp-color-text-muted);
-  border: var(--vlp-card-border);
-  padding: 1px 7px;
-  border-radius: var(--vlp-chip-radius);
+  background: var(--vlp-bg-surface-muted);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
 }
 
-/* Status tag — approved (green) */
+/* Status tag — approved (green fill) */
 .vlp .prim-tag-approved {
-  color: var(--vlp-color-green-ui);
-  border: var(--vlp-border-width) solid var(--vlp-color-success);
-  padding: 1px 7px;
-  border-radius: var(--vlp-chip-radius);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-green-approval);
+  background: var(--vlp-bg-green-highlight);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
 }
 
-/* Status tag — rejected (orange-red) */
+/* Status tag — rejected (accent fill) */
 .vlp .prim-tag-rejected {
+  font-size: var(--vlp-text-micro);
   color: var(--vlp-color-accent-muted);
-  border: var(--vlp-border-width) solid var(--vlp-color-accent-border-muted);
-  padding: 1px 7px;
-  border-radius: var(--vlp-chip-radius);
+  background: var(--vlp-bg-accent-subtle);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
 }
 
 /* ── Suggestions card internals ────────────────────────────── */

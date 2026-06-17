@@ -159,9 +159,9 @@
 /* Contextual comment: overlaps Pro row, top-right anchored to $85 cell */
 .vlp .hero-art-comment {
   position: absolute;
-  left: 32px;
+  left: 112px;
   top: 150px;
-  width: 63%;
+  width: 48%;
   z-index: 2;
   background: var(--vlp-bg-card);
   border: var(--vlp-border-width) solid var(--vlp-border-subtle);

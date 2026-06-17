@@ -1,28 +1,68 @@
 "use client";
 import "./HowItWorks.css";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
-const CMDS = {
-  cursor: { prompt: "cursor ›", cmd: "@velt install --workspace=acme --component=comments" },
-  claude: { prompt: "$", cmd: "claude mcp add velt https://mcp.velt.dev" },
-  windsurf: { prompt: "windsurf ›", cmd: "/mcp add @veltdev/mcp" },
-  copilot: { prompt: "$", cmd: "gh copilot extension install veltdev/copilot" },
-  zed: { prompt: "zed ›", cmd: "assistant: add-server velt-mcp" },
-} as const;
+import OpenInEditorLink from "./OpenInEditorLink";
+import {
+  formatTerminalLine,
+  MCP_EDITORS,
+  MCP_EDITOR_ORDER,
+  type McpEditorKey,
+} from "./mcpEditors";
 
-type McpKey = keyof typeof CMDS;
+const MCP_TABS = MCP_EDITOR_ORDER.map((key) => ({
+  key,
+  label: MCP_EDITORS[key].tabLabel,
+}));
 
-const MCP_TABS: { key: McpKey; label: string }[] = [
-  { key: "cursor", label: "Cursor" },
-  { key: "claude", label: "Claude Code" },
-  { key: "windsurf", label: "Windsurf" },
-  { key: "copilot", label: "Copilot" },
-  { key: "zed", label: "Zed" },
+const STEPS: {
+  num: string;
+  label: string;
+  tab: string;
+  code: ReactNode;
+}[] = [
+  {
+    num: "01",
+    label: "Install",
+    tab: "terminal",
+    code: (
+      <>
+        <span className="how-code-prompt">$ </span>npm i @veltdev/react
+      </>
+    ),
+  },
+  {
+    num: "02",
+    label: "Wrap",
+    tab: "App.tsx",
+    code: (
+      <>
+        <span className="how-code-tag">&lt;VeltProvider</span> <span className="how-code-attr">apiKey</span>=<span className="how-code-str">&quot;...&quot;</span><span className="how-code-tag">&gt;</span>
+        {"\n  "}{"{children}"}
+        {"\n"}
+        <span className="how-code-tag">&lt;/VeltProvider&gt;</span>
+      </>
+    ),
+  },
+  {
+    num: "03",
+    label: "Configure",
+    tab: "Dashboard.tsx",
+    code: (
+      <>
+        <span className="how-code-tag">&lt;VeltComments /&gt;</span>
+        {"\n"}
+        <span className="how-code-tag">&lt;VeltApprovalSteps /&gt;</span>
+        {"\n"}
+        <span className="how-code-tag">&lt;VeltNotifications /&gt;</span>
+      </>
+    ),
+  },
 ];
 
 export default function HowItWorks() {
-  const [mcp, setMcp] = useState<McpKey>("cursor");
+  const [mcp, setMcp] = useState<McpEditorKey>("cursor");
   const [cmdCopied, setCmdCopied] = useState(false);
 
   /**
@@ -31,8 +71,7 @@ export default function HowItWorks() {
    */
   const handleCopyCmd = async () => {
     try {
-      const activeCmd = CMDS[mcp];
-      const line = `${activeCmd.prompt} ${activeCmd.cmd}`.trim();
+      const line = formatTerminalLine(mcp);
       await navigator.clipboard?.writeText(line);
       setCmdCopied(true);
       window.setTimeout(() => setCmdCopied(false), 1500);
@@ -40,6 +79,12 @@ export default function HowItWorks() {
       console.error("Copy command failed", error);
     }
   };
+
+  /**
+   * Resolves the MCP prompt for the active editor open-in action.
+   * @returns {string} Prompt text for the deeplink
+   */
+  const activeMcpPrompt = MCP_EDITORS[mcp]?.mcpPrompt ?? "";
 
   return (
     <section id="how" className="how-section">
@@ -49,33 +94,30 @@ export default function HowItWorks() {
           <h2 className="how-heading">Live in an afternoon.</h2>
           <p className="how-subtext">Drop into the editor or framework you already ship. No new infrastructure.</p>
         </div>
-        <div className="how-steps-grid">
-          <div className="how-step">
-            <div className="how-step-head">
-              <span className="how-step-num">01</span>
-              <span className="how-step-label">Install</span>
-            </div>
-            <p className="how-step-text">Add the SDK.</p>
-            <div className="how-code"><span className="how-code-prompt">$</span> npm i @veltdev/react</div>
+
+        <div className="how-timeline">
+          <div className="how-tl-track">
+            {STEPS.map((step) => (
+              <div key={step.num} className="how-tl-item">
+                <div className="how-tl-head">
+                  <span className="how-tl-node">{step.num}</span>
+                  <span className="how-tl-label">{step.label}</span>
+                </div>
+                <span className="how-tl-drop" aria-hidden="true"></span>
+                <div className="how-editor">
+                  <div className="how-editor-chrome">
+                    <span className="how-editor-dot how-editor-dot-red" aria-hidden="true"></span>
+                    <span className="how-editor-dot how-editor-dot-amber" aria-hidden="true"></span>
+                    <span className="how-editor-dot how-editor-dot-green" aria-hidden="true"></span>
+                    <span className="how-editor-tab">{step.tab}</span>
+                  </div>
+                  <pre className="how-pre"><code>{step.code}</code></pre>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="how-step">
-            <div className="how-step-head">
-              <span className="how-step-num">02</span>
-              <span className="how-step-label">Wrap</span>
-            </div>
-            <p className="how-step-text">Provide your app.</p>
-            <div className="how-code">&lt;VeltProvider apiKey="..."&gt;<br />&nbsp;&nbsp;&#123;children&#125;<br />&lt;/VeltProvider&gt;</div>
-          </div>
-          <div className="how-step">
-            <div className="how-step-head">
-              <span className="how-step-num">03</span>
-              <span className="how-step-label">Configure</span>
-            </div>
-            <p className="how-step-text">Mount the review surface.</p>
-            <div className="how-code">&lt;VeltComments /&gt;<br />&lt;VeltApprovalSteps /&gt;<br />&lt;VeltNotifications /&gt;</div>
-          </div>
+          <p className="how-footnote">// First component live in under 10 minutes.</p>
         </div>
-        <div className="how-comment">// First component live in under 10 minutes.</div>
 
         <div className="how-mcp-block">
           <div className="how-mcp-layout">
@@ -113,8 +155,8 @@ export default function HowItWorks() {
               <div className="how-terminal" role="tabpanel">
                 <div className="how-terminal-scroll">
                   <code className="how-terminal-line">
-                    <span className="how-terminal-prompt">{CMDS[mcp].prompt}</span>
-                    <span className="how-terminal-cmd">{CMDS[mcp].cmd}</span>
+                    <span className="how-terminal-prompt">{MCP_EDITORS[mcp].terminal.prompt}</span>
+                    <span className="how-terminal-cmd">{MCP_EDITORS[mcp].terminal.cmd}</span>
                   </code>
                 </div>
                 <div className="how-terminal-overlay">
@@ -136,6 +178,12 @@ export default function HowItWorks() {
                   </button>
                 </div>
               </div>
+              <OpenInEditorLink
+                editor={MCP_EDITORS[mcp]}
+                prompt={activeMcpPrompt}
+                context="mcp"
+                variant="dark"
+              />
             </div>
           </div>
         </div>

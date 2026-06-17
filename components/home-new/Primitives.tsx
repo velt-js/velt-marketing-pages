@@ -108,10 +108,47 @@ export default function Primitives() {
             quote={{ text: "Saved 3 FTEs and will boost retention.", attribution: "Hope Callaway · Senior PM @Leadpages", avatar: `${TRUST_AVATARS}/avatar-hope.png` }}
             preview={
               <div className="prim-card-col">
-                <div className="prim-approval-row"><span className="prim-avatar-ai-22">AI</span>Review agent first pass<span className="prim-badge-done">done</span></div>
-                <div className="prim-approval-row"><span className="prim-avatar-mk-22">MK</span>Legal<span className="prim-badge-done">approved</span></div>
-                <div className="prim-approval-row"><span className="prim-avatar-jr-22">JR</span>Brand<span className="prim-badge-pending">pending</span></div>
-                <div className="prim-approval-row-muted"><span className="prim-avatar-sp-22">SP</span>Exec sponsor<span className="prim-badge-waiting">waiting on quorum</span></div>
+                <div className="prim-approval-timeline">
+                  <div className="prim-approval-step">
+                    <div className="prim-approval-rail">
+                      <span className="prim-avatar-ai-22">AI</span>
+                      <span className="prim-approval-line" aria-hidden="true" />
+                    </div>
+                    <div className="prim-approval-body">
+                      <span className="prim-approval-label">Review agent first pass</span>
+                      <span className="prim-badge-done">done</span>
+                    </div>
+                  </div>
+                  <div className="prim-approval-step">
+                    <div className="prim-approval-rail">
+                      <span className="prim-avatar-mk-22">MK</span>
+                      <span className="prim-approval-line" aria-hidden="true" />
+                    </div>
+                    <div className="prim-approval-body">
+                      <span className="prim-approval-label">Legal</span>
+                      <span className="prim-badge-done">approved</span>
+                    </div>
+                  </div>
+                  <div className="prim-approval-step">
+                    <div className="prim-approval-rail">
+                      <span className="prim-avatar-jr-22">JR</span>
+                      <span className="prim-approval-line" aria-hidden="true" />
+                    </div>
+                    <div className="prim-approval-body">
+                      <span className="prim-approval-label">Brand</span>
+                      <span className="prim-badge-pending">pending</span>
+                    </div>
+                  </div>
+                  <div className="prim-approval-step prim-approval-step--muted">
+                    <div className="prim-approval-rail">
+                      <span className="prim-avatar-sp-22">SP</span>
+                    </div>
+                    <div className="prim-approval-body">
+                      <span className="prim-approval-label">Exec sponsor</span>
+                      <span className="prim-badge-waiting">waiting on quorum</span>
+                    </div>
+                  </div>
+                </div>
                 <div className="prim-approval-footer">On reject: return to author</div>
               </div>
             }
