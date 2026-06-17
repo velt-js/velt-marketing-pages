@@ -24,7 +24,10 @@ export default function FeatureHero({ hero }: FeatureHeroProps) {
     <section className="f-hero" id="hero" data-section="hero">
       <div className="wrap f-hero-grid">
         <div className="hero-copy">
-          <p className="kicker">{hero.kicker}</p>
+          <p className="kicker">
+            {hero.kicker}
+            {hero.beta ? <span className="kicker-beta">Beta</span> : null}
+          </p>
           <h1>{hero.title}</h1>
           <p className="hero-secondary">{hero.secondary}</p>
           <p className="hero-accent">{hero.accent}</p>

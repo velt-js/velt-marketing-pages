@@ -1,19 +1,13 @@
+import Link from "next/link";
+
 import type { FeaturePageContent } from "../content";
-import { AuditLog, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
-import { ShieldIcon, VeltMark } from "../icons";
+import { resolveDemo, resolveIcon } from "../demo-registry";
 
 // Static content for the Audit Trail feature page. Copy mirrors the approved
-// reference page (Audit Trail Page.html). In Phase 2 this same
-// FeaturePageContent shape is produced from Sanity; the demo visuals below map
-// to demo-preset enums there. Visuals are simulated, not live SDK.
-
-const HERO_EXPORT = `GET /v2/activities?document=filing-q3
-
-[{
-  "event": "approval.changed",
-  "changedBy": "sarah@acme.com",
-  "note": "Cleared with legal"
-}]`;
+// reference page (Audit Trail Page.html). The demo visuals are resolved from
+// the shared demo registry (../demo-registry) by preset key, the same source
+// the Sanity content mapper uses — so the CMS-driven page at
+// /new-features/audit-trail renders identically to this static reference.
 
 const STEP_INSTALL = `npm install @veltdev/react`;
 
@@ -82,96 +76,9 @@ export const auditTrailContent: FeaturePageContent = {
     microcopy: "Free tier. No credit card. First comment in 5 minutes.",
     buildChip: { label: "Build this", href: "#how-it-works" },
     demoTabs: [
-      {
-        id: "timeline",
-        label: "Timeline",
-        content: (
-          <AuditLog
-            head={{ left: "Quarterly filing · today", right: "filter: all features" }}
-            rows={[
-              {
-                ts: "09:02:11",
-                ev: (
-                  <>
-                    <strong>Brand Agent</strong> flagged a pricing claim
-                  </>
-                ),
-                chip: { label: "agent", kind: "agent" },
-              },
-              {
-                ts: "09:14:40",
-                ev: (
-                  <>
-                    <strong>Maya</strong> replied: “Second claim is sourced, see footnote 4”
-                  </>
-                ),
-                chip: { label: "human", kind: "pending" },
-              },
-              {
-                ts: "09:21:03",
-                ev: (
-                  <>
-                    <strong>Sarah</strong> approved: “Looks good”
-                  </>
-                ),
-                chip: { label: "approved", kind: "approved" },
-              },
-              {
-                ts: "09:21:04",
-                ev: (
-                  <>
-                    <strong>Webhook</strong> review.approved delivered
-                  </>
-                ),
-                chip: { label: "200", kind: "approved" },
-              },
-            ]}
-          />
-        ),
-      },
-      {
-        id: "export",
-        label: "Export",
-        content: <DarkPanel footer="structured JSON · filterable · PDF & CSV (coming soon)">{HERO_EXPORT}</DarkPanel>,
-      },
-      {
-        id: "history",
-        label: "Workflow history",
-        content: (
-          <AuditLog
-            head={{ left: "statusHistory · filing-q3", right: "who · when · why" }}
-            rows={[
-              {
-                ts: "Mon 14:01",
-                ev: (
-                  <>
-                    <strong>Jordan</strong> submitted for review
-                  </>
-                ),
-                chip: { label: "submitted", kind: "pending" },
-              },
-              {
-                ts: "Mon 14:03",
-                ev: (
-                  <>
-                    <strong>Compliance Agent</strong> passed
-                  </>
-                ),
-                chip: { label: "agent", kind: "agent" },
-              },
-              {
-                ts: "Tue 09:21",
-                ev: (
-                  <>
-                    <strong>Sarah</strong> approved · “Cleared with legal”
-                  </>
-                ),
-                chip: { label: "approved", kind: "approved" },
-              },
-            ]}
-          />
-        ),
-      },
+      { id: "timeline", label: "Timeline", content: resolveDemo("audit-trail/hero/timeline") },
+      { id: "export", label: "Export", content: resolveDemo("audit-trail/hero/export") },
+      { id: "history", label: "Workflow history", content: resolveDemo("audit-trail/hero/history") },
     ],
   },
 
@@ -194,39 +101,7 @@ export const auditTrailContent: FeaturePageContent = {
       { label: "View Docs", href: "https://docs.velt.dev/async-collaboration/activity/overview", newTab: true },
       { label: "View Examples", href: "/examples" },
     ],
-    scene: (
-      <div style={{ display: "grid", gap: 14, padding: 18 }}>
-        <AuditLog
-          head={{ left: "Quarterly filing · audit timeline" }}
-          rows={[
-            {
-              ts: "09:02",
-              ev: (
-                <>
-                  <strong>Brand Agent</strong> flagged 2 claims · judge type AGENT · confidence 0.88
-                </>
-              ),
-              chip: { label: "agent", kind: "agent" },
-            },
-            {
-              ts: "09:14",
-              ev: (
-                <>
-                  <strong>Maya</strong> replied: “Second claim is sourced, see footnote 4” · judge type HUMAN
-                </>
-              ),
-              chip: { label: "human", kind: "pending" },
-            },
-          ]}
-        />
-        <Precedent
-          heading="statusHistory · expanded"
-          body={"status: Approved · changedBy: Sarah · changedAt: 09:21:03 · note: “Cleared with legal.”"}
-          meta="written synchronously with the status change"
-        />
-        <p className="code-microcopy">one trail, both actor types, the why attached to the decision</p>
-      </div>
-    ),
+    scene: resolveDemo("audit-trail/what-it-is/scene"),
   },
 
   howItWorks: {
@@ -340,18 +215,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// capture",
         headline:
           "Comments, reactions, recordings, CRDT edits, and approval changes create records the moment they happen. Nothing to instrument.",
-        preview: (
-          <div className="pv">
-            <AuditLog
-              style={{ boxShadow: "none", width: "100%" }}
-              rows={[
-                { ts: "live", ev: <><strong>comment.added</strong> · recorded</>, chip: { label: "auto", kind: "approved" } },
-                { ts: "live", ev: <><strong>edit.merged</strong> · recorded</>, chip: { label: "auto", kind: "approved" } },
-                { ts: "live", ev: <><strong>approval.changed</strong> · recorded</>, chip: { label: "auto", kind: "approved" } },
-              ]}
-            />
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/capture"),
         code: SC01_CODE,
         copyText: SC01_CODE,
       },
@@ -360,15 +224,7 @@ export const auditTrailContent: FeaturePageContent = {
         name: "Who, when, and why on every status change",
         codeKicker: "// attribution",
         headline: "“Who approved this filing?” becomes a lookup, not an investigation.",
-        preview: (
-          <div className="pv">
-            <Precedent
-              style={{ width: "100%" }}
-              heading="statusHistory"
-              body={"Approved · Sarah · Tue 09:21 · “Cleared with legal.”"}
-            />
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/attribution"),
         code: SC02_CODE,
         copyText: SC02_CODE,
       },
@@ -378,18 +234,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// judgment",
         headline:
           "Reasoning, confidence, judge type, and the authority that required the review. Evidence with context.",
-        preview: (
-          <div className="pv">
-            <div className="int-chips">
-              <span className="int-chip"><i />reasoning</span>
-              <span className="int-chip"><i />confidence</span>
-              <span className="int-chip"><i />judgeType</span>
-              <span className="int-chip"><i />authority</span>
-              <span className="int-chip"><i />priorJudgments</span>
-              <span className="int-chip"><i />contentContext</span>
-            </div>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/judgment"),
         code: SC03_CODE,
         copyText: SC03_CODE,
       },
@@ -399,17 +244,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// agents",
         headline:
           "Agent findings land in the same trail as human decisions, marked judge type agent. One chain of custody.",
-        preview: (
-          <div className="pv">
-            <AuditLog
-              style={{ boxShadow: "none", width: "100%" }}
-              rows={[
-                { ts: "09:02", ev: <><strong>Brand Agent</strong> flagged claim</>, chip: { label: "agent", kind: "agent" } },
-                { ts: "09:21", ev: <><strong>Sarah</strong> accepted finding</>, chip: { label: "human", kind: "approved" } },
-              ]}
-            />
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/agents"),
         code: SC04_CODE,
         copyText: SC04_CODE,
       },
@@ -419,12 +254,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// recording",
         headline:
           "The pipeline records silently from day one; the feed UI stays opt-in. The questionnaire arrives years after the actions.",
-        preview: (
-          <div className="pv">
-            <ProvRow>pipeline <ProvArrow /> recording from day one</ProvRow>
-            <ProvRow>feed UI <ProvArrow /> opt-in, whenever you ship it</ProvRow>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/recording"),
         code: SC05_CODE,
         copyText: SC05_CODE,
       },
@@ -433,11 +263,7 @@ export const auditTrailContent: FeaturePageContent = {
         name: "Query API for documents, users, and time ranges",
         codeKicker: "// query",
         headline: "The auditor’s sample request is a query, not a week of log archaeology.",
-        preview: (
-          <div className="pv">
-            <DarkPanel>{"GET /v2/activities\n  ?document=filing-q3\n  &user=sarah&from=2026-01-01"}</DarkPanel>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/query"),
         code: SC06_CODE,
         copyText: SC06_CODE,
       },
@@ -447,18 +273,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// decisions",
         headline:
           "The comment, the revision, the approval, in order. The full story behind a sign-off reads as one chain.",
-        preview: (
-          <div className="pv">
-            <AuditLog
-              style={{ boxShadow: "none", width: "100%" }}
-              rows={[
-                { ts: "1", ev: <>comment → <strong>flagged</strong></>, chip: { label: "chain", kind: "agent" } },
-                { ts: "2", ev: <>revision → <strong>corrected</strong></>, chip: { label: "chain", kind: "pending" } },
-                { ts: "3", ev: <>approval → <strong>signed off</strong></>, chip: { label: "chain", kind: "approved" } },
-              ]}
-            />
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/decisions"),
         code: SC07_CODE,
         copyText: SC07_CODE,
       },
@@ -467,12 +282,7 @@ export const auditTrailContent: FeaturePageContent = {
         name: "Immutable records",
         codeKicker: "// immutable",
         headline: "On by default for new accounts: changes create new linked records. Evidence stays evidence.",
-        preview: (
-          <div className="pv">
-            <ProvRow>edit <ProvArrow /> new linked record</ProvRow>
-            <ProvRow>content deleted <ProvArrow /> record stands</ProvRow>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/immutable"),
         code: SC08_CODE,
         copyText: SC08_CODE,
       },
@@ -482,11 +292,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// exports",
         headline:
           "Any record set as structured JSON through the API today; PDF and CSV packages assemble the same chain.",
-        preview: (
-          <div className="pv">
-            <DarkPanel>{"GET /v2/activities → JSON (shipped)\nPDF · CSV · hash chains (coming soon)"}</DarkPanel>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/exports"),
         code: SC09_CODE,
         copyText: SC09_CODE,
       },
@@ -496,17 +302,7 @@ export const auditTrailContent: FeaturePageContent = {
         codeKicker: "// custom events",
         headline:
           "Deploys, exports, and permission changes sit in the same timeline your reviewers already generate.",
-        preview: (
-          <div className="pv">
-            <AuditLog
-              style={{ boxShadow: "none", width: "100%" }}
-              rows={[
-                { ts: "11:40", ev: <><strong>deploy</strong> · v2.14 to production</>, chip: { label: "custom", kind: "pending" } },
-                { ts: "11:52", ev: <><strong>export</strong> · quarterly package</>, chip: { label: "custom", kind: "pending" } },
-              ]}
-            />
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/showcase/custom-events"),
         code: SC10_CODE,
         copyText: SC10_CODE,
       },
@@ -562,49 +358,18 @@ export const auditTrailContent: FeaturePageContent = {
       "VeltActivityLog for the fast path, wireframes and primitives for custom audit UIs, content capture tiers, and a full REST surface underneath.",
     cards: [
       {
-        icon: <VeltMark size={18} fill="var(--brand)" />,
+        icon: resolveIcon("velt"),
         title: "Look",
         body: "VeltActivityLog for the fast path; wireframes and primitives for fully custom audit timelines; template variables and dark mode.",
-        preview: (
-          <div className="theme-row">
-            <div>
-              <p className="theme-label">Prebuilt</p>
-              <div className="thread">
-                <div className="thread-head">
-                  <span className="av-c a1">SR</span>
-                  <span className="who">Sarah</span>
-                  <span className="when">09:21</span>
-                </div>
-                <p className="fb">approved</p>
-              </div>
-            </div>
-            <div>
-              <p className="theme-label">Your timeline</p>
-              <div className="thread themed">
-                <div className="thread-head">
-                  <span className="av-c av-agent">SR</span>
-                  <span className="who">Sarah approved</span>
-                  <span className="when">09:21</span>
-                </div>
-                <p className="fb">recorded</p>
-              </div>
-            </div>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/make-it-yours/look"),
         code: LOOK_CODE,
         copyText: LOOK_CODE,
       },
       {
-        icon: <ShieldIcon />,
+        icon: resolveIcon("shield"),
         title: "Behavior",
         body: "Custom events via createActivity, content capture tiers per your privacy posture, webhooks into your compliance pipeline, self-host activity provider.",
-        preview: (
-          <div style={{ padding: 18 }}>
-            <ProvRow>metadata only</ProvRow>
-            <ProvRow>summary</ProvRow>
-            <ProvRow>full content</ProvRow>
-          </div>
-        ),
+        preview: resolveDemo("audit-trail/make-it-yours/behavior"),
         code: BEHAVIOR_CODE,
         copyText: BEHAVIOR_CODE,
       },
@@ -623,17 +388,7 @@ export const auditTrailContent: FeaturePageContent = {
       {
         id: "sales",
         label: "Sales enablement",
-        visual: (
-          <AuditLog
-            head={{ left: "Deal · Acme Corp — $48k", right: "Quote #Q-1043" }}
-            rows={[
-              { ts: "09:12", ev: "Rep submitted quote", chip: { label: "pending", kind: "pending" } },
-              { ts: "09:31", ev: "Discount > 20% flagged", chip: { label: "pending", kind: "pending" } },
-              { ts: "10:04", ev: "VP Sales approved", chip: { label: "approved", kind: "approved" } },
-              { ts: "10:05", ev: "Quote sent to customer", chip: { label: "approved", kind: "approved" } },
-            ]}
-          />
-        ),
+        visual: resolveDemo("audit-trail/in-production/sales"),
         caption:
           "Brand and legal sign-off on every asset, recorded with the note attached. The regulated client’s question is one query.",
         link: { label: "For sales enablement", href: "/for/sales-enablement" },
@@ -641,17 +396,7 @@ export const auditTrailContent: FeaturePageContent = {
       {
         id: "fintech",
         label: "Fintech",
-        visual: (
-          <AuditLog
-            head={{ left: "Transaction · wire $250,000", right: "maker-checker" }}
-            rows={[
-              { ts: "14:02", ev: "Maker initiated wire", chip: { label: "pending", kind: "pending" } },
-              { ts: "14:09", ev: "Checker 1 verified", chip: { label: "approved", kind: "approved" } },
-              { ts: "14:18", ev: "Limit breach escalated", chip: { label: "pending", kind: "pending" } },
-              { ts: "14:33", ev: "Checker 2 signed off", chip: { label: "approved", kind: "approved" } },
-            ]}
-          />
-        ),
+        visual: resolveDemo("audit-trail/in-production/fintech"),
         caption:
           "Every transition timestamped and attributed. The examiner’s sample request returns the complete chain.",
         link: { label: "For fintech and FP&A", href: "/for/fintech" },
@@ -659,17 +404,7 @@ export const auditTrailContent: FeaturePageContent = {
       {
         id: "ops",
         label: "Operations",
-        visual: (
-          <AuditLog
-            head={{ left: "Change · prod config update", right: "CHG-2271" }}
-            rows={[
-              { ts: "Mon", ev: "Engineer opened change", chip: { label: "pending", kind: "pending" } },
-              { ts: "Mon", ev: "Peer review requested", chip: { label: "pending", kind: "pending" } },
-              { ts: "Tue", ev: "Change rejected — rollback plan", chip: { label: "rejected", kind: "rejected" } },
-              { ts: "Wed", ev: "Ops lead approved", chip: { label: "approved", kind: "approved" } },
-            ]}
-          />
-        ),
+        visual: resolveDemo("audit-trail/in-production/operations"),
         caption:
           "Sign-offs on orders, shipments, and field records carry who decided and why. The record settles disputes.",
         link: { label: "For operations", href: "/for/operations" },
@@ -677,17 +412,7 @@ export const auditTrailContent: FeaturePageContent = {
       {
         id: "ai",
         label: "AI-native",
-        visual: (
-          <AuditLog
-            head={{ left: "Agent · refund assistant", right: "run #8842" }}
-            rows={[
-              { ts: "00:00", ev: "Agent proposed refund $120", chip: { label: "agent", kind: "agent" } },
-              { ts: "00:01", ev: "Policy check passed", chip: { label: "agent", kind: "agent" } },
-              { ts: "00:02", ev: "Human review required", chip: { label: "pending", kind: "pending" } },
-              { ts: "00:14", ev: "Reviewer approved action", chip: { label: "approved", kind: "approved" } },
-            ]}
-          />
-        ),
+        visual: resolveDemo("audit-trail/in-production/ai"),
         caption:
           "Agent findings and human approvals land in one trail, with judge type marking each. AI oversight, queryable.",
         link: { label: "For AI-native SaaS", href: "/for/ai-native-saas" },
@@ -715,52 +440,24 @@ export const auditTrailContent: FeaturePageContent = {
     support: "Approvals, agent findings, and self-hosted storage all write to the same chain.",
     cards: [
       {
-        icon: <ShieldIcon />,
+        icon: resolveIcon("shield"),
         title: "Approval flows",
         body: "Every transition lands in the trail with authority attached.",
-        visual: (
-          <div className="pv">
-            <AuditLog
-              rows={[
-                {
-                  ts: "09:21",
-                  ev: <><strong>step 2</strong> approved</>,
-                  chip: { label: "recorded", kind: "approved" },
-                },
-              ]}
-            />
-          </div>
-        ),
+        visual: resolveDemo("audit-trail/related/approval-flows"),
         link: { label: "Explore Approval flows", href: "/approval-flows" },
       },
       {
-        icon: <VeltMark size={18} fill="var(--brand)" />,
+        icon: resolveIcon("velt"),
         title: "Review agents",
         body: "Findings are recorded decisions, judge type agent.",
-        visual: (
-          <div className="pv">
-            <AuditLog
-              rows={[
-                {
-                  ts: "AI",
-                  ev: <><strong>Brand Agent</strong> · Recorded with confidence 0.88.</>,
-                  chip: { label: "agent", kind: "agent" },
-                },
-              ]}
-            />
-          </div>
-        ),
+        visual: resolveDemo("audit-trail/related/review-agents"),
         link: { label: "Explore Review agents", href: "/review-agents" },
       },
       {
-        icon: <ShieldIcon />,
+        icon: resolveIcon("shield"),
         title: "Self-hosting",
         body: "The activity data provider keeps log content on your infrastructure.",
-        visual: (
-          <div className="pv">
-            <ProvRow>log content <ProvArrow /> your database</ProvRow>
-          </div>
-        ),
+        visual: resolveDemo("audit-trail/related/self-hosting"),
         link: { label: "Explore Self-hosting", href: "/self-hosting" },
       },
     ],
@@ -771,7 +468,7 @@ export const auditTrailContent: FeaturePageContent = {
     line: (
       <>
         Log content, entity snapshots, and custom fields can live on your infrastructure via the activity data provider, with only minimal identifiers on Velt. GDPR deletion runs through the compliance API with its own audit log. EU AI Act Article 14 (high-risk systems under Annex III, enforceable August 2, 2026): for products in that scope, this trail is the evidence layer — approval before action, recorded. See{" "}
-        <a href="/self-hosting">self-hosting</a> and <a href="/governance">governance</a>.
+        <Link href="/self-hosting">self-hosting</Link> and <Link href="/governance">governance</Link>.
       </>
     ),
     cta: { label: "Book Demo", href: "/book-demo" },

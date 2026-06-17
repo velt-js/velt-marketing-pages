@@ -21,6 +21,7 @@ export type HeroDemoTab = { id: string; label: string; content: ReactNode };
 
 export type FeatureHeroContent = {
   kicker: string;
+  beta?: boolean;
   title: string;
   secondary: string;
   accent: string;

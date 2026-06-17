@@ -339,6 +339,90 @@ export async function getFeaturePageBySlug(slug: string) {
   );
 }
 
+// Feature page v2 (v10 template) queries — rendered at /new-features/<slug>.
+export async function getAllFeatureV2Slugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "featurePageV2" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getFeaturePageV2BySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "featurePageV2" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      beta,
+      breadcrumbLabel,
+      hero {
+        kicker, title, secondary, accent, microcopy,
+        primaryCta, secondaryCta, buildChip,
+        demoTabs[] { id, label, demoPreset }
+      },
+      logoStrip {
+        label,
+        migration { label, links[] }
+      },
+      whatItIs {
+        kicker, heading, body, docLinks[], scene
+      },
+      howItWorks {
+        kicker, heading, support,
+        steps[] { kicker, title, filename, code, copyText },
+        mechanics { heading, body, microcopy },
+        buildVsBuy { heading, items, close },
+        mcp { heading, sub, tabs[] { id, label, command } },
+        integrations[] { label, chips[] { label, href, newTab, icon } },
+        ctaBanner { title, microcopy, cta, variant }
+      },
+      showcase {
+        kicker, heading, support,
+        cards[] { num, name, codeKicker, headline, preview, code, copyText, comingSoon },
+        docLinks[],
+        interstitial { quote, who }
+      },
+      details {
+        kicker, heading, support, visibleCount,
+        items[] { label, soon }
+      },
+      makeItYours {
+        kicker, heading, support,
+        cards[] { iconKey, title, body, preview, code, copyText },
+        interstitial { quote, who }
+      },
+      inProduction {
+        kicker, heading, support,
+        tabs[] {
+          id, label, demoPreset, caption, link,
+          "screenshotUrl": screenshot.asset->url
+        },
+        whereItFits { label, links[] },
+        ctaBanner { title, microcopy, cta, variant }
+      },
+      related {
+        kicker, heading, support,
+        cards[] { iconKey, title, body, visual, link }
+      },
+      enterprise { badges, line, links[], cta },
+      testimonials {
+        kicker, heading, support,
+        cards[] { metric, quote, who }
+      },
+      faq {
+        kicker, heading,
+        items[] { question, answer }
+      },
+      finalCta { title, primaryCta, secondaryCta, microcopies },
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
+    }
+  `,
+    { slug }
+  );
+}
+
 // Demo page queries
 export async function getAllDemoPages() {
   return client.fetch(`

@@ -15,7 +15,41 @@ export default function Nav() {
             />
           </a>
           <nav className="nav-links">
-            <a href="#primitives" className="nav-link hl">Products</a>
+            <div className="nav-item">
+              <button type="button" className="nav-link hl nav-trigger" aria-haspopup="true">
+                Products
+                <span className="nav-caret" aria-hidden="true">▾</span>
+              </button>
+              <div className="nav-menu nav-menu-wide" role="menu">
+                <div className="nav-menu-col">
+                  <p className="nav-menu-label">Collaboration</p>
+                  <a href="/new-features/comments" className="nav-menu-link" role="menuitem">Comments</a>
+                  <a href="/new-features/presence" className="nav-menu-link" role="menuitem">Presence</a>
+                  <a href="/new-features/multiplayer-editing" className="nav-menu-link" role="menuitem">Multiplayer editing</a>
+                  <a href="/new-features/huddle" className="nav-menu-link" role="menuitem">Huddle</a>
+                  <a href="/new-features/recording" className="nav-menu-link" role="menuitem">Recording</a>
+                  <a href="/new-features/suggestions" className="nav-menu-link" role="menuitem">
+                    Suggestions
+                    <span className="nav-badge">Beta</span>
+                  </a>
+                </div>
+                <div className="nav-menu-col">
+                  <p className="nav-menu-label">Review &amp; governance</p>
+                  <a href="/new-features/approval-flows" className="nav-menu-link" role="menuitem">
+                    Approval flows
+                    <span className="nav-badge">Beta</span>
+                  </a>
+                  <a href="/new-features/review-agents" className="nav-menu-link" role="menuitem">Review agents</a>
+                  <a href="/new-features/audit-trail" className="nav-menu-link" role="menuitem">Audit trail</a>
+                  <a href="/new-features/notifications" className="nav-menu-link" role="menuitem">Notifications</a>
+                  <a href="/new-features/memory" className="nav-menu-link" role="menuitem">
+                    Memory
+                    <span className="nav-badge">Beta</span>
+                  </a>
+                  <a href="/new-features/self-hosting" className="nav-menu-link" role="menuitem">Self-hosting</a>
+                </div>
+              </div>
+            </div>
             <a href="#verticals" className="nav-link hl">Solutions</a>
             <a href="#how" className="nav-link hl">Pricing</a>
             <a href="#faq" className="nav-link hl">Compare</a>

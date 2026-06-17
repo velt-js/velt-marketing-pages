@@ -71,6 +71,11 @@ import {
   featureCustomerCard,
 } from "./featurePage";
 import {
+  featurePageV2,
+  vfpCtaBanner,
+  vfpInterstitial,
+} from "./featurePageV2";
+import {
   sectionFeatureGrid,
   featureItem,
 } from "./sections/featureGrid";
@@ -94,6 +99,7 @@ export const schemaTypes = [
   examplePage,
   libraryPage,
   featurePage,
+  featurePageV2,
   useCasePage,
   migrationPage,
 
@@ -102,6 +108,10 @@ export const schemaTypes = [
   linkAnnotation,
   getStartedSteps,
   faqItem,
+
+  // featurePageV2 sub-types
+  vfpCtaBanner,
+  vfpInterstitial,
 
   // Reusable building blocks
   ctaLink,

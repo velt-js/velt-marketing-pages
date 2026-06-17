@@ -40,6 +40,113 @@
   transition: color var(--vlp-transition-fast);
 }
 
+.vlp .nav-item {
+  position: relative;
+  display: flex;
+}
+
+.vlp .nav-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.vlp .nav-caret {
+  font-size: 9px;
+  line-height: 1;
+  opacity: 0.6;
+  transition: transform var(--vlp-transition-fast);
+}
+
+.vlp .nav-item:hover .nav-caret,
+.vlp .nav-item:focus-within .nav-caret {
+  transform: translateY(1px);
+}
+
+.vlp .nav-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 220px;
+  padding: var(--vlp-space-1-5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--vlp-bg-nav);
+  border: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-radius: var(--vlp-radius-md, 12px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity var(--vlp-transition-fast), transform var(--vlp-transition-fast),
+    visibility var(--vlp-transition-fast);
+  z-index: var(--vlp-z-nav);
+}
+
+.vlp .nav-item:hover .nav-menu,
+.vlp .nav-item:focus-within .nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.vlp .nav-menu-wide {
+  min-width: 460px;
+  flex-direction: row;
+  gap: var(--vlp-space-4);
+  padding: var(--vlp-space-3);
+}
+
+.vlp .nav-menu-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.vlp .nav-menu-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  padding: var(--vlp-space-1-5) var(--vlp-space-2-5) var(--vlp-space-1);
+}
+
+.vlp .nav-menu-link {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  padding: var(--vlp-space-2) var(--vlp-space-2-5);
+  border-radius: var(--vlp-radius-sm);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text);
+  white-space: nowrap;
+  transition: background var(--vlp-transition-fast), color var(--vlp-transition-fast);
+}
+
+.vlp .nav-menu-link:hover {
+  background: var(--vlp-bg-wash, rgba(0, 0, 0, 0.04));
+}
+
+.vlp .nav-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 3px 6px;
+  border-radius: 999px;
+  color: var(--vlp-color-brand, #ff4f00);
+  background: color-mix(in srgb, var(--vlp-color-brand, #ff4f00) 14%, transparent);
+}
+
 .vlp .nav-right {
   margin-left: auto;
   display: flex;
