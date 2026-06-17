@@ -3,9 +3,16 @@
    grid, flattens the .vfp demo atoms inside the card's preview stage, and
    re-tints the syntax tokens for the homepage's light code surface. */
 
-/* The homepage `.prim-grid` uses an asymmetric 5-col layout tuned for 7 cards;
-   the capability wall has 10 uniform cards, so use an even 2-up grid here. */
-.vfp .sc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--vlp-gap-card, 20px); margin-top: 48px; }
+/* Match the homepage `.prim-grid`: a 5-col track where one card is wide
+   (span 3, ~60%) and one is narrow (span 2, ~40%), with the wide|narrow
+   arrangement flipping each row. The pattern repeats on a 4-card cycle
+   (wide, narrow | narrow, wide). align-items: stretch keeps paired cards the
+   same height so no gap forms under the shorter one. */
+.vfp .sc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--vlp-gap-card, 20px); margin-top: 48px; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 1) { grid-column: span 3; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 2) { grid-column: span 2; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 3) { grid-column: span 2; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 4) { grid-column: span 3; }
 
 /* Flatten the .vfp demo atoms so the homepage `.prim-stage` frame is the only
    border (the homepage mocks sit flat inside the stage). */
@@ -25,4 +32,8 @@
 
 @media (max-width: 1024px) {
   .vfp .sc-grid { grid-template-columns: 1fr; }
+  .vfp .sc-grid > .sc-card:nth-child(4n + 1),
+  .vfp .sc-grid > .sc-card:nth-child(4n + 2),
+  .vfp .sc-grid > .sc-card:nth-child(4n + 3),
+  .vfp .sc-grid > .sc-card:nth-child(4n + 4) { grid-column: auto; }
 }

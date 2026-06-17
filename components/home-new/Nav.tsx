@@ -50,7 +50,8 @@ export default function Nav() {
                 </div>
               </div>
             </div>
-            <div className="nav-item">
+            {/* Solutions dropdown hidden for now. */}
+            {/* <div className="nav-item">
               <button type="button" className="nav-link hl nav-trigger" aria-haspopup="true">
                 Solutions
                 <span className="nav-caret" aria-hidden="true">▾</span>
@@ -66,7 +67,7 @@ export default function Nav() {
                   <a href="/solutions/legal" className="nav-menu-link" role="menuitem">Legal</a>
                 </div>
               </div>
-            </div>
+            </div> */}
             <a href="#how" className="nav-link hl">Pricing</a>
             <a href="#faq" className="nav-link hl">Compare</a>
             <a href="#proof" className="nav-link hl">Customers</a>
