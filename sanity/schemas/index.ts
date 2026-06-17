@@ -75,6 +75,7 @@ import {
   vfpCtaBanner,
   vfpInterstitial,
 } from "./featurePageV2";
+import { solutionPageV1 } from "./solutionPageV1";
 import {
   sectionFeatureGrid,
   featureItem,
@@ -100,6 +101,7 @@ export const schemaTypes = [
   libraryPage,
   featurePage,
   featurePageV2,
+  solutionPageV1,
   useCasePage,
   migrationPage,
 

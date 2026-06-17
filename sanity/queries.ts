@@ -423,6 +423,70 @@ export async function getFeaturePageV2BySlug(slug: string) {
   );
 }
 
+// ---- Solution page (vertical, v1) queries --------------------------------
+
+export async function getAllSolutionSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "solutionPageV1" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getSolutionPageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "solutionPageV1" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      breadcrumbLabel,
+      hero {
+        kicker, title, secondary, microcopy,
+        primaryCta, secondaryCta, buildChip, visual
+      },
+      logoStrip {
+        label,
+        migration { label, links[] }
+      },
+      reviewReality {
+        kicker, heading, items, close
+      },
+      theLoop {
+        kicker, heading, body,
+        beats[] { num, title, body, links[] },
+        visual
+      },
+      featureMap {
+        kicker, heading, support,
+        cards[] { num, name, oneLiner, link, code, preview, beta }
+      },
+      agentLayer {
+        kicker, heading, body, visual
+      },
+      inProduction {
+        kicker, heading, body, metric, quote, who,
+        "screenshotUrl": screenshot.asset->url,
+        visual,
+        ctaBanner { title, microcopy, cta, variant }
+      },
+      compliance {
+        kicker, heading, lead,
+        items[] { title, body, link },
+        note
+      },
+      faq {
+        kicker, heading,
+        items[] { question, answer }
+      },
+      finalCta { title, primaryCta, secondaryCta, microcopies },
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
+    }
+  `,
+    { slug }
+  );
+}
+
 // Demo page queries
 export async function getAllDemoPages() {
   return client.fetch(`

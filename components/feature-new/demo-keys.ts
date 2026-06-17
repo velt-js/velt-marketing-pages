@@ -16,6 +16,12 @@ import { COMMENTS_DEMO_KEYS } from "./demo-presets/comments.keys";
 import { HUDDLE_DEMO_KEYS } from "./demo-presets/huddle.keys";
 import { SUGGESTIONS_DEMO_KEYS } from "./demo-presets/suggestions.keys";
 import { SELF_HOSTING_DEMO_KEYS } from "./demo-presets/self-hosting.keys";
+import { SOLUTIONS_SALES_ENABLEMENT_DEMO_KEYS } from "./demo-presets/solutions-sales-enablement.keys";
+import { SOLUTIONS_FINTECH_DEMO_KEYS } from "./demo-presets/solutions-fintech.keys";
+import { SOLUTIONS_OPERATIONS_DEMO_KEYS } from "./demo-presets/solutions-operations.keys";
+import { SOLUTIONS_AI_NATIVE_SAAS_DEMO_KEYS } from "./demo-presets/solutions-ai-native-saas.keys";
+import { SOLUTIONS_COMPLIANCE_DEMO_KEYS } from "./demo-presets/solutions-compliance.keys";
+import { SOLUTIONS_LEGAL_DEMO_KEYS } from "./demo-presets/solutions-legal.keys";
 
 const BUILT_IN_DEMO_KEYS = [
   // Audit Trail — hero tabs
@@ -245,6 +251,12 @@ const PAGE_DEMO_KEYS: string[] = [
   ...HUDDLE_DEMO_KEYS,
   ...SUGGESTIONS_DEMO_KEYS,
   ...SELF_HOSTING_DEMO_KEYS,
+  ...SOLUTIONS_SALES_ENABLEMENT_DEMO_KEYS,
+  ...SOLUTIONS_FINTECH_DEMO_KEYS,
+  ...SOLUTIONS_OPERATIONS_DEMO_KEYS,
+  ...SOLUTIONS_AI_NATIVE_SAAS_DEMO_KEYS,
+  ...SOLUTIONS_COMPLIANCE_DEMO_KEYS,
+  ...SOLUTIONS_LEGAL_DEMO_KEYS,
 ];
 
 /**

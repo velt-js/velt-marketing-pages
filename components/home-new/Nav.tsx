@@ -50,7 +50,23 @@ export default function Nav() {
                 </div>
               </div>
             </div>
-            <a href="#verticals" className="nav-link hl">Solutions</a>
+            <div className="nav-item">
+              <button type="button" className="nav-link hl nav-trigger" aria-haspopup="true">
+                Solutions
+                <span className="nav-caret" aria-hidden="true">▾</span>
+              </button>
+              <div className="nav-menu" role="menu">
+                <div className="nav-menu-col">
+                  <p className="nav-menu-label">By industry</p>
+                  <a href="/solutions/sales-enablement" className="nav-menu-link" role="menuitem">Sales enablement</a>
+                  <a href="/solutions/fintech" className="nav-menu-link" role="menuitem">Fintech &amp; FP&amp;A</a>
+                  <a href="/solutions/operations" className="nav-menu-link" role="menuitem">Operations</a>
+                  <a href="/solutions/ai-native-saas" className="nav-menu-link" role="menuitem">AI-native SaaS</a>
+                  <a href="/solutions/compliance" className="nav-menu-link" role="menuitem">Compliance</a>
+                  <a href="/solutions/legal" className="nav-menu-link" role="menuitem">Legal</a>
+                </div>
+              </div>
+            </div>
             <a href="#how" className="nav-link hl">Pricing</a>
             <a href="#faq" className="nav-link hl">Compare</a>
             <a href="#proof" className="nav-link hl">Customers</a>

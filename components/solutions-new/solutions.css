@@ -1,0 +1,263 @@
+/* Solutions (vertical) page section styles. Scoped under .vfp so they inherit
+   the feature-page design tokens (surfaces, ink, brand, type, shape). Only the
+   vertical-specific sections live here; hero, logo strip, FAQ, and final CTA
+   reuse their feature-page stylesheets. */
+
+/* ---------- The Review Reality (checklist) ---------- */
+.vfp .reality-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 40px;
+  max-width: 920px;
+}
+.vfp .reality-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 20px 22px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
+}
+.vfp .reality-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  color: var(--brand);
+  margin-top: 1px;
+}
+.vfp .reality-item p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.vfp .reality-close {
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 13.5px;
+  color: var(--muted);
+  max-width: 760px;
+}
+
+/* ---------- The Loop (centerpiece) ---------- */
+.vfp .loop-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 48px;
+  align-items: start;
+  margin-top: 44px;
+}
+.vfp .loop-beats {
+  display: grid;
+  gap: 4px;
+  counter-reset: none;
+}
+.vfp .loop-beat {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line-soft);
+  position: relative;
+}
+.vfp .loop-beat:last-child { border-bottom: none; }
+.vfp .loop-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+.vfp .loop-beat-body h3 {
+  font-family: var(--heading);
+  font-size: 18px;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.vfp .loop-beat-body p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+.vfp .loop-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+.vfp .loop-links a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--brand);
+  font-weight: 500;
+}
+.vfp .loop-links a:hover { color: var(--brand-deep); }
+.vfp .loop-stage {
+  position: sticky;
+  top: 92px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- Feature Map (cards) ---------- */
+.vfp .fm-beta {
+  margin-left: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--brand-soft);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+.vfp .fm-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--brand);
+}
+.vfp .fm-link:hover { color: var(--brand-deep); }
+.vfp .fm-link svg { width: 14px; height: 14px; }
+
+/* ---------- Agent Action Layer ---------- */
+.vfp .agent-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 48px;
+  align-items: center;
+}
+.vfp .agent-copy { display: grid; gap: 16px; }
+.vfp .agent-copy h2 { font-size: clamp(26px, 3.2vw, 36px); line-height: 1.14; }
+.vfp .agent-body { font-size: 16px; line-height: 1.65; color: var(--muted); text-wrap: pretty; }
+.vfp .agent-stage {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- In Production (case study) ---------- */
+.vfp .case-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: center;
+  margin-top: 40px;
+}
+.vfp .case-copy { display: grid; gap: 24px; }
+.vfp .case-body { font-size: 16.5px; line-height: 1.65; color: var(--ink-2); text-wrap: pretty; }
+.vfp .case-quote {
+  border-left: 3px solid var(--brand);
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+.vfp .case-metric {
+  font-family: var(--heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1;
+}
+.vfp .case-quote blockquote { font-size: 17px; line-height: 1.5; color: var(--ink); text-wrap: pretty; }
+.vfp .case-quote figcaption { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.vfp .case-stage {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- Compliance strip (dark band) ---------- */
+.vfp .comp-strip { background: var(--dark); color: #fff; padding: 80px 0; }
+.vfp .comp-head { display: grid; gap: 14px; max-width: 640px; margin-bottom: 40px; }
+.vfp .comp-kicker { color: #fff; }
+.vfp .comp-kicker::before { background: var(--brand); }
+.vfp .comp-head h2 { color: #fff; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.14; }
+.vfp .comp-lead { font-size: 15.5px; line-height: 1.6; color: var(--dark-muted); text-wrap: pretty; }
+.vfp .comp-items {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.vfp .comp-item {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--dark-line);
+  border-radius: var(--r-md);
+}
+.vfp .comp-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(247, 180, 143, 0.12);
+}
+.vfp .comp-icon svg { color: #f7b48f; }
+.vfp .comp-item-body h3 { font-family: var(--heading); font-size: 16px; color: #fff; margin-bottom: 6px; }
+.vfp .comp-item-body p { font-size: 14px; line-height: 1.6; color: var(--dark-muted); text-wrap: pretty; }
+.vfp .comp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f7b48f;
+}
+.vfp .comp-link svg { width: 13px; height: 13px; }
+.vfp .comp-note {
+  margin-top: 28px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--dark-muted);
+  max-width: 760px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .vfp .loop-grid,
+  .vfp .agent-grid,
+  .vfp .case-grid { grid-template-columns: 1fr; gap: 36px; }
+  .vfp .loop-stage { position: static; top: auto; }
+  .vfp .comp-items { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .vfp .reality-item { grid-template-columns: 24px 1fr; gap: 12px; padding: 16px; }
+}

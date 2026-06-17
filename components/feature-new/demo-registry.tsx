@@ -14,6 +14,12 @@ import { COMMENTS_DEMOS } from "./demo-presets/comments";
 import { HUDDLE_DEMOS } from "./demo-presets/huddle";
 import { SUGGESTIONS_DEMOS } from "./demo-presets/suggestions";
 import { SELF_HOSTING_DEMOS } from "./demo-presets/self-hosting";
+import { SOLUTIONS_SALES_ENABLEMENT_DEMOS } from "./demo-presets/solutions-sales-enablement";
+import { SOLUTIONS_FINTECH_DEMOS } from "./demo-presets/solutions-fintech";
+import { SOLUTIONS_OPERATIONS_DEMOS } from "./demo-presets/solutions-operations";
+import { SOLUTIONS_AI_NATIVE_SAAS_DEMOS } from "./demo-presets/solutions-ai-native-saas";
+import { SOLUTIONS_COMPLIANCE_DEMOS } from "./demo-presets/solutions-compliance";
+import { SOLUTIONS_LEGAL_DEMOS } from "./demo-presets/solutions-legal";
 
 // Canonical source for every v10 feature-page demo visual. Each entry maps a
 // demo-preset key (see ./demo-keys.ts) to the simulated-UI ReactNode that
@@ -379,6 +385,12 @@ const DEMOS: Record<string, ReactNode> = {
   ...HUDDLE_DEMOS,
   ...SUGGESTIONS_DEMOS,
   ...SELF_HOSTING_DEMOS,
+  ...SOLUTIONS_SALES_ENABLEMENT_DEMOS,
+  ...SOLUTIONS_FINTECH_DEMOS,
+  ...SOLUTIONS_OPERATIONS_DEMOS,
+  ...SOLUTIONS_AI_NATIVE_SAAS_DEMOS,
+  ...SOLUTIONS_COMPLIANCE_DEMOS,
+  ...SOLUTIONS_LEGAL_DEMOS,
 };
 
 /**
