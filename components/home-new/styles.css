@@ -101,7 +101,6 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-font-body:           'Inter Tight', ui-sans-serif, system-ui, sans-serif;
   --vlp-font-heading:        'Urbanist', sans-serif;
   --vlp-font-mono:           'Geist Mono', monospace;
-  --vlp-font-serif:          'EB Garamond', serif;
 
   --vlp-text-hero:           62px;
   --vlp-text-section:        36px;

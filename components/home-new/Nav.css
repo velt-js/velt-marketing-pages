@@ -29,12 +29,14 @@
 
 .vlp .nav-links {
   display: flex;
-  gap: var(--vlp-gap-nav);
+  gap: var(--vlp-space-2);
   font-size: var(--vlp-text-label);
   color: var(--vlp-color-text-muted);
 }
 
 .vlp .nav-link {
+  padding: var(--vlp-space-2) var(--vlp-space-2-5);
+  border-radius: var(--vlp-radius-sm);
   transition: color var(--vlp-transition-fast);
 }
 

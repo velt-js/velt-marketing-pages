@@ -490,8 +490,8 @@
 }
 
 .vlp .how-tagline {
-  font-family: var(--vlp-font-serif);
-  font-style: italic;
+  font-family: var(--vlp-font-heading);
+  font-weight: var(--vlp-weight-medium);
   font-size: 20px;
   color: var(--vlp-color-ink);
 }

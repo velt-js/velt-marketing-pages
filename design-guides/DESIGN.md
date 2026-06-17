@@ -5,16 +5,15 @@ Canonical tokens live in `components/home-new/styles.css` as `--vlp-*` CSS varia
 
 ## 1. Typography
 
-Editorial developer-tool aesthetic: warm neutrals, crisp sans-serif hierarchy, monospace metadata, and occasional serif accent lines.
+Editorial developer-tool aesthetic: warm neutrals, crisp sans-serif hierarchy, and monospace metadata.
 
 ### Font Families
 
 | Role | Font | Token | Usage |
 |------|------|-------|-------|
 | Body | Inter Tight | `--vlp-font-body` | Paragraphs, UI copy, nav links |
-| Headings & CTAs | Urbanist | `--vlp-font-heading` | `h1`–`h4`, buttons, proof card quotes |
+| Headings & CTAs | Urbanist | `--vlp-font-heading` | `h1`–`h4`, buttons, proof card quotes, accent lines (e.g. How It Works tagline) |
 | Labels & metadata | Geist Mono | `--vlp-font-mono` | Section eyebrows, chips, attribution, footer column labels |
-| Editorial accent | EB Garamond | `--vlp-font-serif` | Italic pull quotes only (e.g. How It Works tagline) |
 
 ### Capitalization
 
@@ -235,7 +234,7 @@ Proof section combines one anchor case study with supporting quote cards and a l
 
 - White card, 1px border, 8px radius
 - Label: mono, 10px, all-caps, orange (`FEATURE LAUNCHED · TRUMPET`)
-- Quote: **Urbanist** 18px medium — not serif
+- Tagline: **Urbanist** 20px medium (e.g. “Days, not quarters.”)
 - Attribution: mono, muted gray (`Name · Role`)
 
 ### Logo Bars
@@ -285,7 +284,7 @@ All homepage styles are scoped under `.vlp` in `components/home-new/styles.css`.
 Loaded on the homepage in `app/page.tsx`:
 
 ```
-EB Garamond, Geist Mono, Inter Tight, Urbanist
+Geist Mono, Inter Tight, Urbanist
 ```
 
 ### Cards & Chips
