@@ -4,6 +4,8 @@ import {
   PRICE_VELT,
   PRICE_OTHER,
   type ComparisonReason,
+  type ComparisonSide,
+  type CardMedia,
   type PriceCardData,
 } from "./comparison-data";
 
@@ -58,6 +60,89 @@ function CrossGlyph() {
 }
 
 /**
+ * Inline React-atom glyph for the "Just React" card (no asset exists).
+ * @returns The orange React mark.
+ */
+function ReactAtomGlyph() {
+  return (
+    <div className="cmp-media-react">
+      <svg width="72" height="64" viewBox="0 0 64 56" fill="none" aria-hidden="true">
+        <circle cx="32" cy="28" r="3.5" fill="currentColor" />
+        <ellipse cx="32" cy="28" rx="22" ry="9" stroke="currentColor" strokeWidth="2" opacity="0.6" />
+        <ellipse cx="32" cy="28" rx="22" ry="9" stroke="currentColor" strokeWidth="2" opacity="0.6" transform="rotate(60 32 28)" />
+        <ellipse cx="32" cy="28" rx="22" ry="9" stroke="currentColor" strokeWidth="2" opacity="0.6" transform="rotate(120 32 28)" />
+      </svg>
+    </div>
+  );
+}
+
+/**
+ * Renders the inner media element for a card's top slot.
+ * @param media The media descriptor.
+ * @param alt Accessible label for image media.
+ * @returns The media element.
+ */
+function renderMedia(media: CardMedia, alt: string) {
+  if (media.kind === "video") {
+    return (
+      <video
+        className="cmp-media-video"
+        src={media.src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+      />
+    );
+  }
+  if (media.kind === "marquee") {
+    return (
+      <div className="cmp-media-marquee">
+        <div className="cmp-media-marquee-track">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={media.src} alt={alt} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={media.src} alt="" aria-hidden="true" />
+        </div>
+      </div>
+    );
+  }
+  if (media.kind === "react") {
+    return <ReactAtomGlyph />;
+  }
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img className="cmp-media-image" src={media.src} alt={alt} loading="lazy" />
+  );
+}
+
+/**
+ * Renders one comparison card: a media slot with an overlaid Velt/Others
+ * badge, then the title and subtitle.
+ * @param props.side The card content (title, subtitle, media).
+ * @param props.accent Whether this is the Velt (accent) card.
+ * @returns The comparison card.
+ */
+function CompCard({ side, accent }: { side: ComparisonSide; accent: boolean }) {
+  return (
+    <div className={`cmp-card${accent ? " cmp-card--velt" : " cmp-card--other"}`}>
+      <div className="cmp-card-media">
+        {renderMedia(side.media, side.title)}
+        <span
+          className={`cmp-card-badge${accent ? " cmp-card-badge--velt" : ""}`}
+        >
+          {accent ? <CheckGlyph /> : <CrossGlyph />}
+          {accent ? "Velt" : "Others"}
+        </span>
+      </div>
+      <h4 className="cmp-card-title">{side.title}</h4>
+      <p className="cmp-card-sub">{side.subtitle}</p>
+    </div>
+  );
+}
+
+/**
  * Renders one reason block: a numbered header plus its stacked comparison
  * pairs (Velt card vs Others card).
  * @param props.reason The reason content.
@@ -77,22 +162,8 @@ function ReasonBlock({ reason }: { reason: ComparisonReason }) {
       <div className="cmp-pairs">
         {reason.pairs.map((pair) => (
           <div className="cmp-pair" key={pair.velt.title}>
-            <div className="cmp-card cmp-card--velt">
-              <div className="cmp-card-head">
-                <CheckGlyph />
-                <span className="cmp-card-brand cmp-card-brand--velt">Velt</span>
-              </div>
-              <h4 className="cmp-card-title">{pair.velt.title}</h4>
-              <p className="cmp-card-sub">{pair.velt.subtitle}</p>
-            </div>
-            <div className="cmp-card cmp-card--other">
-              <div className="cmp-card-head">
-                <CrossGlyph />
-                <span className="cmp-card-brand">Others</span>
-              </div>
-              <h4 className="cmp-card-title">{pair.other.title}</h4>
-              <p className="cmp-card-sub">{pair.other.subtitle}</p>
-            </div>
+            <CompCard side={pair.velt} accent />
+            <CompCard side={pair.other} accent={false} />
           </div>
         ))}
       </div>

@@ -129,6 +129,9 @@
 
 /* ── Comparison cards ───────────────────────────────────────── */
 .vlp .cmp-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   padding: var(--vlp-card-padding);
   border-radius: var(--vlp-radius-card);
   border: var(--vlp-card-border);
@@ -144,13 +147,6 @@
   border-style: dashed;
 }
 
-.vlp .cmp-card-head {
-  display: flex;
-  align-items: center;
-  gap: var(--vlp-space-2);
-  margin-bottom: var(--vlp-space-4);
-}
-
 .vlp .cmp-glyph {
   flex-shrink: 0;
 }
@@ -163,18 +159,116 @@
   color: var(--vlp-color-text-subtle);
 }
 
-.vlp .cmp-card-brand {
+/* ── Media slot ─────────────────────────────────────────────── */
+.vlp .cmp-card-media {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  border-radius: var(--vlp-radius-md);
+  overflow: hidden;
+  background: var(--vlp-color-cream);
+  border: var(--vlp-border-width) solid var(--vlp-border-faint);
+  margin-bottom: var(--vlp-space-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .cmp-card--other .cmp-card-media {
+  background: var(--vlp-bg-surface-muted);
+}
+
+.vlp .cmp-media-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vlp .cmp-media-image {
+  max-width: 88%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.vlp .cmp-media-react {
+  color: var(--vlp-color-accent);
+  opacity: 0.85;
+}
+
+/* Marquee: a wide strip scrolls horizontally; the image is duplicated so the
+   loop wraps seamlessly. Competitor cards desaturate the strip. */
+.vlp .cmp-media-marquee {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+.vlp .cmp-media-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: var(--vlp-space-10);
+  padding-right: var(--vlp-space-10);
+  animation: cmp-marquee 26s linear infinite;
+}
+
+.vlp .cmp-media-marquee-track img {
+  height: 132px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.vlp .cmp-card--other .cmp-media-marquee-track img {
+  filter: grayscale(0.6);
+  opacity: 0.85;
+}
+
+.vlp .cmp-card-media:hover .cmp-media-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes cmp-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ── Badge overlay ──────────────────────────────────────────── */
+.vlp .cmp-card-badge {
+  position: absolute;
+  top: var(--vlp-space-3);
+  left: var(--vlp-space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: var(--vlp-space-1) var(--vlp-space-2-5);
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-color-white);
+  border: var(--vlp-border-width) solid var(--vlp-border-default);
   font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-text-tag);
+  font-size: var(--vlp-text-micro);
   letter-spacing: var(--vlp-tracking-eyebrow);
   text-transform: uppercase;
-  color: var(--vlp-color-text-subtle);
+  color: var(--vlp-color-text-muted);
 }
 
-.vlp .cmp-card-brand--velt {
+.vlp .cmp-card-badge--velt {
   color: var(--vlp-color-accent);
+  border-color: var(--vlp-color-accent);
 }
 
+.vlp .cmp-card-badge .cmp-glyph {
+  width: 13px;
+  height: 13px;
+}
+
+/* ── Card text ──────────────────────────────────────────────── */
 .vlp .cmp-card-title {
   font-size: var(--vlp-text-card);
   line-height: var(--vlp-leading-title-sm);
