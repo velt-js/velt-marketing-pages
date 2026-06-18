@@ -32,10 +32,16 @@
     max-width: var(--vlp-content-prose);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 768px) {
+  /* The grid is laid out with flexbox, so collapse via flex-direction rather
+     than grid-template-columns (the old grid rule was a no-op here). */
   .vlp .problem-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: var(--vlp-space-8);
+  }
+
+  .vlp .problem-inner {
+    padding: var(--vlp-space-16) var(--vlp-gutter);
   }
 }
 

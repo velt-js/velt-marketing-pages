@@ -105,9 +105,9 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-font-heading:        'Urbanist', sans-serif;
   --vlp-font-mono:           'Geist Mono', monospace;
 
-  --vlp-text-hero:           62px;
-  --vlp-text-section:        36px;
-  --vlp-text-card:           24px;
+  --vlp-text-hero:           clamp(34px, 8vw, 62px);
+  --vlp-text-section:        clamp(26px, 5vw, 36px);
+  --vlp-text-card:           clamp(20px, 2.6vw, 24px);
   --vlp-text-body:           16px;
   --vlp-text-body-lg:        18px;
   --vlp-text-label:          14px;
@@ -118,8 +118,8 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-text-micro:          10px;
   --vlp-text-mono-sm:        10.5px;
   --vlp-text-lead:           17px;
-  --vlp-text-quote:          32px;
-  --vlp-text-cta:            54px;
+  --vlp-text-quote:          clamp(24px, 4.5vw, 32px);
+  --vlp-text-cta:            clamp(30px, 7vw, 54px);
 
   --vlp-weight-regular:      400;
   --vlp-weight-medium:       500;
@@ -296,6 +296,15 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-shadow-sm:             0 1px 2px rgba(38, 37, 30, 0.06), 0 1px 1px rgba(38, 37, 30, 0.04);
   --vlp-shadow-md:             0 1px 2px rgba(38, 37, 30, 0.05), 0 8px 24px -8px rgba(38, 37, 30, 0.12);
   --vlp-shadow-lg:             0 2px 4px rgba(38, 37, 30, 0.05), 0 24px 56px -16px rgba(38, 37, 30, 0.2);
+}
+
+/* Mobile gutter overrides. Defined at :root so they cascade to both .vlp and
+   .vfp surfaces wherever the gutter token drives horizontal padding. */
+@media (max-width: 768px) {
+  :root { --vlp-gutter: 20px; }
+}
+@media (max-width: 480px) {
+  :root { --vlp-gutter: 16px; }
 }
 
 .vlp {

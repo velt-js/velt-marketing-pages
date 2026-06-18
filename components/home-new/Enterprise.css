@@ -154,3 +154,20 @@
   border: var(--vlp-btn-outline-dark-border);
   transition: var(--vlp-btn-transition);
 }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .vlp .ent-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .ent-header-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .ent-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+}

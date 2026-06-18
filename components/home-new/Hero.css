@@ -342,3 +342,29 @@
     animation: none;
   }
 }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .vlp .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: var(--vlp-space-12);
+    padding-top: var(--vlp-space-12);
+  }
+
+  /* The webhook intentionally bleeds past the right edge on desktop; on a
+     single-column phone layout that bleed would push the page wider than the
+     viewport, so clip the artifact horizontally and pin the webhook inside. */
+  .vlp .hero-artifact {
+    overflow-x: clip;
+  }
+
+  .vlp .hero-art-stage {
+    margin-bottom: var(--vlp-space-12);
+  }
+
+  .vlp .hero-art-webhook {
+    right: 0;
+    bottom: 0;
+  }
+}

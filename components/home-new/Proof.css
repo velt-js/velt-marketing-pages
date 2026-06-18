@@ -223,3 +223,23 @@
   border-radius: var(--vlp-btn-primary-radius);
   transition: var(--vlp-btn-transition);
 }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .vlp .proof-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Stack the three stat columns and swap the vertical dividers for
+   horizontal ones once the row is too narrow to read across. */
+@media (max-width: 480px) {
+  .vlp .proof-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .proof-stat + .proof-stat {
+    border-left: none;
+    border-top: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+  }
+}

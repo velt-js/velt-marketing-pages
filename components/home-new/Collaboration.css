@@ -572,10 +572,12 @@
   margin-top: 28px;
 }
 
-@media (max-width: 980px) {
+@media (max-width: 1024px) {
   .vlp .collab-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: var(--vlp-content-narrow)) {
+/* Media queries can't read CSS custom properties, so this collapse to a
+   single column needs a literal breakpoint (aligned to the phone width). */
+@media (max-width: 768px) {
   .vlp .collab-grid { grid-template-columns: 1fr; }
 }

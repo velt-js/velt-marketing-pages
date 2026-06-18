@@ -60,6 +60,6 @@
 @media (max-width: 1024px) {
   .vfp .f-hero-grid { grid-template-columns: 1fr; gap: 40px; }
 }
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .vfp .f-hero { padding: 48px 0; }
 }

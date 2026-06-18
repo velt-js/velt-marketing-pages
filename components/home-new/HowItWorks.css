@@ -524,7 +524,7 @@
   transition: var(--vlp-btn-transition);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .vlp .how-tl-track {
     grid-template-columns: 1fr;
     gap: 28px;
@@ -549,5 +549,16 @@
 
   .vlp .how-checks-list {
     grid-template-columns: 1fr;
+  }
+
+  /* The 5-column tab row is too tight on phones — let the tabs wrap onto
+     multiple rows instead of squeezing into fixed fractional columns. */
+  .vlp .how-tab-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .vlp .how-tab {
+    flex: 1 1 auto;
   }
 }

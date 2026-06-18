@@ -239,6 +239,13 @@
 }
 .vfp .fm-link:hover { color: var(--vlp-color-accent-muted); }
 .vfp .fm-link svg { width: 14px; height: 14px; }
+/* Keep the reused homepage primitive cards from widening the page: let the grid
+   tracks shrink and contain any wide preview demo to internal scroll rather than
+   letting it poke out and drive page-level horizontal overflow. */
+.vfp .sc-grid > .fm-card { min-width: 0; }
+.vfp .fm-card .prim-stack,
+.vfp .fm-card .prim-stage { min-width: 0; }
+.vfp .fm-card .prim-stage { overflow-x: auto; }
 
 /* ---------- Agent Action Layer ---------- */
 .vfp .agent-grid {
@@ -279,7 +286,7 @@
 }
 .vfp .case-metric {
   font-family: var(--vlp-font-heading);
-  font-size: 28px;
+  font-size: clamp(22px, 6vw, 28px);
   font-weight: 700;
   color: var(--vlp-color-accent);
   line-height: 1;
@@ -357,11 +364,21 @@
   .vfp .comp-items { grid-template-columns: 1fr; }
   .vfp .reality-close { margin-top: 0; padding-top: 0; }
 }
-@media (max-width: 760px) {
+@media (max-width: 768px) {
+  /* Single column everywhere on phones; tighten the stepped flow + checklist so
+     they read cleanly and reduce oversized section/card padding. */
   .vfp .reality-item { grid-template-columns: 24px 1fr; gap: 12px; padding: 16px; }
-}
-@media (max-width: 640px) {
   .vfp .loop-beat { grid-template-columns: 30px minmax(0, 1fr); gap: 16px; }
   .vfp .loop-beat:not(:last-child)::before { left: 14.5px; }
   .vfp .loop-beat .beat-n { width: 30px; height: 30px; font-size: 12px; }
+  .vfp .comp-strip { padding: 56px 0; }
+  .vfp .comp-head { margin-bottom: 28px; }
+  .vfp .comp-item { padding: 18px; }
+  .vfp .agent-stage,
+  .vfp .case-stage { padding: 16px; }
+}
+@media (max-width: 480px) {
+  .vfp .comp-strip { padding: 48px 0; }
+  .vfp .reality-item { padding: 14px; }
+  .vfp .loop-beat .beat-card { padding: 14px; }
 }

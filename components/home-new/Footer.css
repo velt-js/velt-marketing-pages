@@ -15,6 +15,23 @@
   gap: var(--vlp-space-8);
 }
 
+@media (max-width: 768px) {
+  .vlp .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--vlp-space-8) var(--vlp-space-6);
+  }
+  /* Brand/intro column spans the full row above the link columns. */
+  .vlp .footer-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .vlp .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .vlp .footer-brand-link {
   display: inline-flex;
   align-items: center;

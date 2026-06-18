@@ -276,8 +276,13 @@
 .vlp .vfp-footer .footer-bottom { color: var(--vlp-color-text-subtle); border-top-color: var(--vlp-color-ink-soft); }
 
 /* ---------- Shared responsive ---------- */
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .vfp .wrap { padding: 0 20px; }
   .vfp .band { padding: 64px 0; }
   .vfp .sec-split { grid-template-columns: 1fr; gap: 20px; align-items: start; }
+  .vfp .pc-preview { min-height: 200px; padding: 20px; }
+  .vfp pre.pc-code,
+  .vfp .pc-code { min-height: 200px; }
+  .vfp .audit-row { grid-template-columns: 1fr auto; }
+  .vfp .audit-row .ts { grid-column: 1 / -1; }
 }

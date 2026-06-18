@@ -65,13 +65,13 @@
 }
 
 /* Stack the featured cards two-up, then one-up, on narrow viewports. */
-@media (max-width: 860px) {
+@media (max-width: 1024px) {
   .vlp .trust-featured {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 768px) {
   .vlp .trust-header {
     flex-direction: column;
     align-items: flex-start;

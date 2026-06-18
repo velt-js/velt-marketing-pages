@@ -928,3 +928,32 @@ outline: 2px solid var(--vlp-bg-accent-focus);
 .vlp .prim-code-kw {
   color: var(--vlp-color-amber);
 }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+/* 5-col asymmetric grid collapses to 2 col on tablet (resetting the
+   per-row span pattern so cards don't request implicit tracks), then a
+   single column on phones. */
+@media (max-width: 1024px) {
+  .vlp .prim-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vlp .prim-grid > .prim-card2:nth-child(1),
+  .vlp .prim-grid > .prim-card2:nth-child(2),
+  .vlp .prim-grid > .prim-card2:nth-child(3),
+  .vlp .prim-grid > .prim-card2:nth-child(4),
+  .vlp .prim-grid > .prim-card2:nth-child(5),
+  .vlp .prim-grid > .prim-card2:nth-child(6) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .prim-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .prim-card2 {
+    padding: var(--vlp-space-6);
+  }
+}

@@ -95,3 +95,12 @@
 .vlp .cta-founder-link {
   color: var(--vlp-color-accent);
 }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+/* Single-column, centered content already collapses cleanly; just trim the
+   oversized vertical padding on phones. */
+@media (max-width: 768px) {
+  .vlp .cta-inner {
+    padding: var(--vlp-space-16) var(--vlp-gutter);
+  }
+}

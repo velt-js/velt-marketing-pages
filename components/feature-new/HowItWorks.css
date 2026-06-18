@@ -112,7 +112,7 @@
 @media (max-width: 1024px) {
   .vfp .mech-grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .vfp .int-row { grid-template-columns: 1fr; gap: 12px; }
   .vfp .bvb-list { grid-template-columns: 1fr; }
 }

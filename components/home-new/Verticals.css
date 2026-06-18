@@ -76,3 +76,16 @@
   color: var(--vlp-color-accent);
   margin-top: var(--vlp-space-4);
 }
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .vlp .vert-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .vert-grid {
+    grid-template-columns: 1fr;
+  }
+}
