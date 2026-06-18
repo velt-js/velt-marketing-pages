@@ -105,7 +105,7 @@ function PinnedCell({ cell, children }: { cell: string; children: ReactNode }) {
     >
       <p style={{ margin: 0, fontSize: 12, opacity: 0.7 }}>
         Forecast · pinned to{" "}
-        <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 5px", borderRadius: 4 }}>
+        <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 5px", borderRadius: 4 }}>
           {cell}
         </mark>
       </p>
@@ -132,7 +132,7 @@ function EditorTimeline() {
               background:
                 frame === 0 || frame === 5
                   ? "var(--line, #e7e2d9)"
-                  : "color-mix(in srgb, var(--brand) 30%, var(--line, #e7e2d9))",
+                  : "color-mix(in srgb, var(--vlp-color-accent) 30%, var(--line, #e7e2d9))",
               border: frame === 2 ? "2px solid var(--brand, #ff4f00)" : "1px solid var(--line, #e7e2d9)",
             }}
           />

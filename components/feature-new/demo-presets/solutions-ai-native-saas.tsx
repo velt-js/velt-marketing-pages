@@ -17,17 +17,17 @@ import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarSt
  */
 function Artifact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div style={{ border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", background: "var(--bg)" }}>
+    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "9px 13px",
-          borderBottom: "1px solid var(--line-soft)",
-          fontFamily: "var(--mono)",
+          borderBottom: "1px solid var(--vlp-border-subtle)",
+          fontFamily: "var(--vlp-font-mono)",
           fontSize: 11.5,
-          color: "var(--muted)",
+          color: "var(--vlp-color-text-muted)",
         }}
       >
         <span>{label}</span>
@@ -45,12 +45,12 @@ export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
         style={{
           height: 64,
           borderRadius: 8,
-          background: "linear-gradient(120deg, var(--brand-soft), var(--bg-wash))",
+          background: "linear-gradient(120deg, var(--vlp-color-accent-soft), var(--vlp-bg-wash))",
           display: "grid",
           placeItems: "center",
-          fontFamily: "var(--heading)",
+          fontFamily: "var(--vlp-font-heading)",
           fontWeight: 700,
-          color: "var(--brand-ink)",
+          color: "var(--vlp-color-accent-ink)",
         }}
       >
         Renewal price updated to $4,800/yr
@@ -120,7 +120,7 @@ export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "solutions/ai-native-saas/loop/3": (
-    <div className="sol-panel-body dark" style={{ borderRadius: "var(--r-md)", boxShadow: "none" }}>
+    <div className="sol-panel-body dark" style={{ borderRadius: "var(--vlp-radius-xl)", boxShadow: "none" }}>
       <pre>
         <span className="tk-kw">POST</span>{" /webhooks/velt\n{ "}
         <span className="tk-str">{'"event"'}</span>{": "}

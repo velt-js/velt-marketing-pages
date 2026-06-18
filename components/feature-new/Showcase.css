@@ -23,10 +23,10 @@
 
 /* Syntax tokens re-tinted for the homepage's light (cream) code card. The
    shared `.tk-*` colors are tuned for the dark editors elsewhere on the page. */
-.vfp .prim-pre .tk-cm { color: var(--muted); }
+.vfp .prim-pre .tk-cm { color: var(--vlp-color-text-muted); }
 .vfp .prim-pre .tk-str { color: var(--vlp-color-green-ui, #1f7a4d); }
 .vfp .prim-pre .tk-kw { color: var(--vlp-color-amber, #b26a1a); }
-.vfp .prim-pre .tk-tag { color: var(--brand); }
+.vfp .prim-pre .tk-tag { color: var(--vlp-color-accent); }
 .vfp .prim-pre .tk-attr { color: #2563a8; }
 .vfp .prim-pre .tk-num { color: #2563a8; }
 

@@ -418,7 +418,7 @@ export function resolveDemo(key: string | undefined | null): ReactNode {
 export function resolveIcon(key: string | undefined | null): ReactNode {
   try {
     if (key === "shield") return <ShieldIcon />;
-    if (key === "velt") return <VeltMark size={18} fill="var(--brand)" />;
+    if (key === "velt") return <VeltMark size={18} fill="var(--vlp-color-accent)" />;
     return null;
   } catch (error) {
     console.error("resolveIcon failed", error);

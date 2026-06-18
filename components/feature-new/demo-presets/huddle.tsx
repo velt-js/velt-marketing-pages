@@ -126,7 +126,7 @@ function ShareTile({ label }: { label: string }) {
       style={{
         border: `1.5px dashed ${BRAND}`,
         borderRadius: 10,
-        background: "color-mix(in srgb, var(--brand) 6%, transparent)",
+        background: "color-mix(in srgb, var(--vlp-color-accent) 6%, transparent)",
         padding: "12px 14px",
         fontSize: 12,
         fontWeight: 600,
@@ -311,7 +311,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
       <DocSurface>
         <p style={{ margin: "0 0 10px", fontSize: 13 }}>
           Forecast model —{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>variance on row 18</mark>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>variance on row 18</mark>
         </p>
         <HuddleBar users={[{ initials: "AN", kind: "human", name: "Analyst" }, { initials: "CT", kind: "human", name: "Controller" }]} channel="screen on the model" />
       </DocSurface>

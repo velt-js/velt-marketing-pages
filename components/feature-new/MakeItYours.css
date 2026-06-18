@@ -4,10 +4,10 @@
 /* Drop the cream preview wash in these two cards — preview sits on the card. */
 .vfp .miy-grid .pc-preview { background: transparent; }
 .vfp .theme-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 16px 22px 22px; }
-.vfp .theme-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.vfp .theme-label { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-text-subtle); margin-bottom: 8px; }
 
 /* Dark "themed" preview variant of the thread atom */
-.vfp .thread.themed { background: #2a2924; border-color: #3a3934; }
+.vfp .thread.themed { background: #2a2924; border-color: var(--vlp-color-ink-soft); }
 .vfp .thread.themed .thread-head .who { color: #fff; }
 .vfp .thread.themed .thread-head .when { color: #b6b4ad; }
 .vfp .thread.themed .fb,

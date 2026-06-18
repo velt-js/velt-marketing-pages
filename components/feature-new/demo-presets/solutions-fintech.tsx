@@ -17,17 +17,17 @@ import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from ".
  */
 function Artifact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div style={{ border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", background: "var(--bg)" }}>
+    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "9px 13px",
-          borderBottom: "1px solid var(--line-soft)",
-          fontFamily: "var(--mono)",
+          borderBottom: "1px solid var(--vlp-border-subtle)",
+          fontFamily: "var(--vlp-font-mono)",
           fontSize: 11.5,
-          color: "var(--muted)",
+          color: "var(--vlp-color-text-muted)",
         }}
       >
         <span>{label}</span>
@@ -56,10 +56,10 @@ function ForecastGrid({ flagRow, flagCol }: { flagRow: number; flagCol: number }
       style={{
         display: "grid",
         gridTemplateColumns: "1.1fr 1fr 1fr 1fr",
-        border: "1px solid var(--line-soft)",
+        border: "1px solid var(--vlp-border-subtle)",
         borderRadius: 8,
         overflow: "hidden",
-        fontFamily: "var(--mono)",
+        fontFamily: "var(--vlp-font-mono)",
         fontSize: 11.5,
       }}
     >
@@ -68,9 +68,9 @@ function ForecastGrid({ flagRow, flagCol }: { flagRow: number; flagCol: number }
           key={`head-${column}`}
           style={{
             padding: "6px 9px",
-            background: "var(--bg-wash)",
-            color: "var(--muted)",
-            borderBottom: "1px solid var(--line-soft)",
+            background: "var(--vlp-bg-wash)",
+            color: "var(--vlp-color-text-muted)",
+            borderBottom: "1px solid var(--vlp-border-subtle)",
             textAlign: column ? "right" : "left",
           }}
         >
@@ -82,8 +82,8 @@ function ForecastGrid({ flagRow, flagCol }: { flagRow: number; flagCol: number }
           <div
             style={{
               padding: "6px 9px",
-              color: "var(--ink)",
-              borderTop: rowIndex ? "1px solid var(--line-soft)" : "none",
+              color: "var(--vlp-color-ink)",
+              borderTop: rowIndex ? "1px solid var(--vlp-border-subtle)" : "none",
             }}
           >
             {row.label}
@@ -96,11 +96,11 @@ function ForecastGrid({ flagRow, flagCol }: { flagRow: number; flagCol: number }
                 style={{
                   padding: "6px 9px",
                   textAlign: "right",
-                  color: isFlagged ? "var(--brand)" : "var(--ink)",
+                  color: isFlagged ? "var(--vlp-color-accent)" : "var(--vlp-color-ink)",
                   fontWeight: isFlagged ? 700 : 500,
-                  background: isFlagged ? "var(--brand-soft)" : "transparent",
-                  borderTop: rowIndex ? "1px solid var(--line-soft)" : "none",
-                  borderLeft: "1px solid var(--line-soft)",
+                  background: isFlagged ? "var(--vlp-color-accent-soft)" : "transparent",
+                  borderTop: rowIndex ? "1px solid var(--vlp-border-subtle)" : "none",
+                  borderLeft: "1px solid var(--vlp-border-subtle)",
                 }}
               >
                 {value}
@@ -127,19 +127,19 @@ function SignOffChain() {
   return (
     <div
       style={{
-        border: "1px solid var(--line-soft)",
+        border: "1px solid var(--vlp-border-subtle)",
         borderRadius: 8,
         padding: "10px 12px",
         display: "grid",
         gap: 8,
       }}
     >
-      <p style={{ margin: 0, fontFamily: "var(--mono)", fontSize: 10.5, letterSpacing: 0.4, color: "var(--muted)" }}>
+      <p style={{ margin: 0, fontFamily: "var(--vlp-font-mono)", fontSize: 10.5, letterSpacing: 0.4, color: "var(--vlp-color-text-muted)" }}>
         SIGN-OFF CHAIN
       </p>
       {steps.map((step) => (
         <div key={step.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 12.5, color: "var(--ink)" }}>{step.label}</span>
+          <span style={{ fontSize: 12.5, color: "var(--vlp-color-ink)" }}>{step.label}</span>
           <span className={`chip chip-${step.state}`}>{step.note}</span>
         </div>
       ))}

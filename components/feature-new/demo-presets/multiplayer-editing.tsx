@@ -49,8 +49,8 @@ function SyncBadge({ label = "Connected \u00b7 Synced" }: { label?: string }) {
         fontSize: 11,
         fontWeight: 700,
         color: "var(--ink, #0b353b)",
-        background: "color-mix(in srgb, var(--brand) 12%, transparent)",
-        border: "1px solid color-mix(in srgb, var(--brand) 30%, transparent)",
+        background: "color-mix(in srgb, var(--vlp-color-accent) 12%, transparent)",
+        border: "1px solid color-mix(in srgb, var(--vlp-color-accent) 30%, transparent)",
         borderRadius: 999,
         padding: "3px 9px",
       }}
@@ -134,7 +134,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
           <CursorTag name="Maya" />
         </div>
         <p style={{ margin: "12px 0 0", fontSize: 13, lineHeight: 1.5, opacity: 0.85 }}>
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             Pricing section
           </mark>{" "}
           — rewritten by the agent through the CRDT REST API.

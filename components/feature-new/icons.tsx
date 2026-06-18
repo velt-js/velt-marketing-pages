@@ -43,7 +43,7 @@ export function ShieldIcon() {
  * @param {{ size?: number; fill?: string }} props Optional size and fill.
  * @returns {JSX.Element} Logo SVG.
  */
-export function VeltMark({ size = 22, fill = "var(--brand)" }: { size?: number; fill?: string }) {
+export function VeltMark({ size = 22, fill = "var(--vlp-color-accent)" }: { size?: number; fill?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 22 22" fill="none" aria-hidden="true">
       <path d="M2 3.5 L11 19.5 L20 3.5 H15.6 L11 12.2 L6.4 3.5 Z" fill={fill} />

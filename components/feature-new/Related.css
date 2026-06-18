@@ -10,20 +10,20 @@
 }
 .vfp .related-grid .collab-card:hover {
   transform: translateY(-3px);
-  border-color: var(--brand-wash);
-  box-shadow: var(--shadow-md);
+  border-color: var(--vlp-color-accent-wash);
+  box-shadow: var(--vlp-shadow-md);
 }
 
 .vfp .related-grid .collab-meta { padding: 0; }
-.vfp .related-grid .collab-meta h3 { font-size: 18px; letter-spacing: -0.01em; color: var(--ink); }
-.vfp .related-grid .collab-meta p { margin-top: 8px; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }
+.vfp .related-grid .collab-meta h3 { font-size: 18px; letter-spacing: -0.01em; color: var(--vlp-color-ink); }
+.vfp .related-grid .collab-meta p { margin-top: 8px; font-size: 14.5px; line-height: 1.6; color: var(--vlp-color-ink-soft); text-wrap: pretty; }
 
 /* One clean framed preview box; flatten the inner demo atoms so there's a
    single border (no box-in-a-box) across every card type. */
 .vfp .related-grid .related-preview {
-  border: 1px solid var(--line);
-  border-radius: var(--r-md);
-  background: var(--bg);
+  border: 1px solid var(--vlp-border-default);
+  border-radius: var(--vlp-radius-xl);
+  background: var(--vlp-bg-page);
   padding: 16px 18px;
   display: grid;
   align-items: center;
@@ -35,7 +35,7 @@
 
 /* "Explore →" link anchored to the bottom of the card. */
 .vfp .related-grid .collab-foot { margin-top: auto; padding: 0; }
-.vfp .primitive-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--heading); font-size: 15px; font-weight: 600; color: var(--brand); }
+.vfp .primitive-link { display: inline-flex; align-items: center; gap: 7px; font-family: var(--vlp-font-heading); font-size: 15px; font-weight: 600; color: var(--vlp-color-accent); }
 .vfp .primitive-link svg { transition: transform 0.16s ease; }
 .vfp .related-grid .collab-card:hover .primitive-link svg,
 .vfp .primitive-link:hover svg { transform: translateX(4px); }

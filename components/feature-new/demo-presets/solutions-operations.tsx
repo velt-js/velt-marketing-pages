@@ -16,17 +16,17 @@ import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarSt
  */
 function Record({ label, status = "in review", children }: { label: string; status?: string; children: ReactNode }) {
   return (
-    <div style={{ border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", background: "var(--bg)" }}>
+    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "9px 13px",
-          borderBottom: "1px solid var(--line-soft)",
-          fontFamily: "var(--mono)",
+          borderBottom: "1px solid var(--vlp-border-subtle)",
+          fontFamily: "var(--vlp-font-mono)",
           fontSize: 11.5,
-          color: "var(--muted)",
+          color: "var(--vlp-color-text-muted)",
         }}
       >
         <span>{label}</span>
@@ -46,8 +46,8 @@ function Record({ label, status = "in review", children }: { label: string; stat
 function RecordField({ field, value }: { field: string; value: ReactNode }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12.5 }}>
-      <span style={{ fontFamily: "var(--mono)", color: "var(--muted)" }}>{field}</span>
-      <span style={{ color: "var(--ink)", fontWeight: 600 }}>{value}</span>
+      <span style={{ fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-text-muted)" }}>{field}</span>
+      <span style={{ color: "var(--vlp-color-ink)", fontWeight: 600 }}>{value}</span>
     </div>
   );
 }
@@ -61,8 +61,8 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
           gap: 6,
           padding: "10px 12px",
           borderRadius: 8,
-          background: "var(--bg-wash)",
-          border: "1px solid var(--line-soft)",
+          background: "var(--vlp-bg-wash)",
+          border: "1px solid var(--vlp-border-subtle)",
         }}
       >
         <RecordField field="lane" value="Oakland → Reno" />
@@ -90,7 +90,7 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
         chip={{ label: "shared", kind: "approved" }}
       />
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <span style={{ fontSize: 11.5, color: "var(--muted)" }}>Awaiting counterparty signer</span>
+        <span style={{ fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Awaiting counterparty signer</span>
         <span className="chip chip-approved">Approve on mobile web</span>
       </div>
     </Record>
@@ -112,10 +112,10 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
 
   "solutions/operations/loop/1": (
     <div style={{ display: "grid", gap: 8 }}>
-      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+      <span className="prov-row" style={{ background: "var(--vlp-bg-page)", color: "var(--vlp-color-ink-soft)", borderColor: "var(--vlp-border-default)" }}>
         delivery window <span className="arr">→</span> missed
       </span>
-      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+      <span className="prov-row" style={{ background: "var(--vlp-bg-page)", color: "var(--vlp-color-ink-soft)", borderColor: "var(--vlp-border-default)" }}>
         change order <span className="arr">→</span> filed on SHIP-4127
       </span>
     </div>

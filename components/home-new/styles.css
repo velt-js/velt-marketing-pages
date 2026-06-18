@@ -1,13 +1,15 @@
 /* home-new — global rules ported verbatim from the original bundled page's
    <style> block. Loaded only on this route. */
 
-/* Design tokens scoped to the homepage (.vlp). Values reflect the current
-   editorial palette; semantic names align with DESIGN.md where applicable. */
+/* Design tokens for the whole marketing site, defined once at :root with the
+   --vlp-* prefix (single source of truth for both .vlp and .vfp surfaces).
+   Values reflect the current editorial palette; semantic names align with
+   DESIGN.md where applicable. */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { background: var(--vlp-color-white, #ffffff); }
 
-.vlp {
+:root {
   /* ── Colors: core ───────────────────────────────────────── */
   --vlp-color-ink:           #26251e;
   --vlp-color-ink-soft:      #3a3934;
@@ -269,6 +271,34 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-transition-fast:     0.15s;
   --vlp-z-nav:               50;
 
+  /* ── Feature-page tokens (merged from former .vfp set) ──── */
+  --vlp-bg-wash:               #f1f0ec;
+  --vlp-color-accent-ink:      #8f3208;
+  --vlp-color-accent-soft:     #fdeee6;
+  --vlp-color-accent-wash:     #f7d2bc;
+  --vlp-color-approve-soft:    #dff3e8;
+  --vlp-color-reject:          #c0392b;
+  --vlp-color-reject-soft:     #fde8e0;
+  --vlp-color-amber-soft:      #f6ecd6;
+  --vlp-color-dark-line:       #46443c;
+
+  /* Code syntax */
+  --vlp-code-bg:               #1e1d17;
+  --vlp-code-fg:               #d9d5cf;
+  --vlp-code-tag:              #e0913f;
+  --vlp-code-attr:             #6fa3f7;
+  --vlp-code-str:              #7fcf9f;
+  --vlp-code-cm:               #8a897f;
+  --vlp-code-kw:               #e58fd0;
+
+  /* Feature-page radius & shadow scale */
+  --vlp-radius-lg-feature:     18px;
+  --vlp-shadow-sm:             0 1px 2px rgba(38, 37, 30, 0.06), 0 1px 1px rgba(38, 37, 30, 0.04);
+  --vlp-shadow-md:             0 1px 2px rgba(38, 37, 30, 0.05), 0 8px 24px -8px rgba(38, 37, 30, 0.12);
+  --vlp-shadow-lg:             0 2px 4px rgba(38, 37, 30, 0.05), 0 24px 56px -16px rgba(38, 37, 30, 0.2);
+}
+
+.vlp {
   background: var(--vlp-bg-page);
   color: var(--vlp-color-text);
   font-family: var(--vlp-font-body);

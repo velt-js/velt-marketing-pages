@@ -15,7 +15,7 @@ function PrecedentChips({ items }: { items: { who: string; when: string; kind: "
     <div className="int-chips">
       {items.map((item, index) => (
         <span className="int-chip" key={`${item.who}-${index}`}>
-          <i style={{ background: item.kind === "agent" ? "var(--brand)" : undefined }} />
+          <i style={{ background: item.kind === "agent" ? "var(--vlp-color-accent)" : undefined }} />
           {item.who} · {item.when}
         </span>
       ))}

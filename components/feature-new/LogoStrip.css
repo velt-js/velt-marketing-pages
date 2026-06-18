@@ -1,8 +1,8 @@
 /* Logo strip: label + shared homepage marquee + migration sub-strip.
    Scoped under .vfp. */
 .vfp .logos { padding: 36px 0 64px; }
-.vfp .logos-label { text-align: center; font-size: 13px; color: var(--faint); margin-bottom: 28px; }
+.vfp .logos-label { text-align: center; font-size: 13px; color: var(--vlp-color-text-subtle); margin-bottom: 28px; }
 .vfp .logos-marquee { margin: 0 auto; }
-.vfp .mig-strip { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 26px; font-size: 13px; color: var(--muted); }
-.vfp .mig-strip a { font-weight: 600; color: var(--brand); }
-.vfp .mig-strip .sep { color: var(--faint); }
+.vfp .mig-strip { display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap; margin-top: 26px; font-size: 13px; color: var(--vlp-color-text-muted); }
+.vfp .mig-strip a { font-weight: 600; color: var(--vlp-color-accent); }
+.vfp .mig-strip .sep { color: var(--vlp-color-text-subtle); }

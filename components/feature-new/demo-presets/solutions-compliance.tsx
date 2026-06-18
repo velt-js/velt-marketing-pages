@@ -17,17 +17,17 @@ import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from ".
  */
 function Artifact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div style={{ border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", background: "var(--bg)" }}>
+    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "9px 13px",
-          borderBottom: "1px solid var(--line-soft)",
-          fontFamily: "var(--mono)",
+          borderBottom: "1px solid var(--vlp-border-subtle)",
+          fontFamily: "var(--vlp-font-mono)",
           fontSize: 11.5,
-          color: "var(--muted)",
+          color: "var(--vlp-color-text-muted)",
         }}
       >
         <span>{label}</span>
@@ -46,9 +46,9 @@ function Artifact({ label, children }: { label: string; children: ReactNode }) {
  */
 function MetaField({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--mono)", fontSize: 11.5 }}>
-      <span style={{ color: "var(--muted)" }}>{label}</span>
-      <span style={{ color: "var(--heading)" }}>{value}</span>
+    <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--vlp-font-mono)", fontSize: 11.5 }}>
+      <span style={{ color: "var(--vlp-color-text-muted)" }}>{label}</span>
+      <span style={{ color: "var(--vlp-font-heading)" }}>{value}</span>
     </div>
   );
 }
@@ -56,18 +56,18 @@ function MetaField({ label, value }: { label: string; value: string }) {
 export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
   "solutions/compliance/hero": (
     <Artifact label="Disclosure filing · FIL-2209">
-      <div style={{ display: "grid", gap: 5, paddingBottom: 4, borderBottom: "1px solid var(--line-soft)" }}>
+      <div style={{ display: "grid", gap: 5, paddingBottom: 4, borderBottom: "1px solid var(--vlp-border-subtle)" }}>
         <MetaField label="period" value="Q3 2026" />
         <MetaField label="due" value="Oct 31" />
       </div>
       <div
         style={{
-          borderLeft: "2px solid var(--brand)",
+          borderLeft: "2px solid var(--vlp-color-accent)",
           padding: "7px 10px",
-          background: "var(--bg-wash)",
+          background: "var(--vlp-bg-wash)",
           borderRadius: 6,
           fontSize: 12.5,
-          color: "var(--ink)",
+          color: "var(--vlp-color-ink)",
         }}
       >
         Product class C disclosure line
@@ -164,10 +164,10 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
 
   "solutions/compliance/loop/6": (
     <div style={{ display: "grid", gap: 8 }}>
-      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+      <span className="prov-row" style={{ background: "var(--vlp-bg-page)", color: "var(--vlp-color-ink-soft)", borderColor: "var(--vlp-border-default)" }}>
         examiner request <span className="arr">→</span> filtered API query
       </span>
-      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+      <span className="prov-row" style={{ background: "var(--vlp-bg-page)", color: "var(--vlp-color-ink-soft)", borderColor: "var(--vlp-border-default)" }}>
         the chain <span className="arr">→</span> structured JSON export
       </span>
     </div>

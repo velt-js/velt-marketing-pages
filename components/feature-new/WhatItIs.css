@@ -1,7 +1,7 @@
 /* What it is: mixed humans + agents scene. Scoped under .vfp. */
-.vfp .scene-card { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--bg); box-shadow: var(--shadow-md); overflow: hidden; }
-.vfp .scene-slide { padding: 22px 24px 8px; display: grid; gap: 10px; background: var(--bg-soft); border-bottom: 1px solid var(--line-soft); }
-.vfp .scene-slide .slide-tag { font-family: var(--mono); font-size: 10.5px; color: var(--faint); letter-spacing: 0.08em; text-transform: uppercase; }
+.vfp .scene-card { border: 1px solid var(--vlp-border-default); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-md); overflow: hidden; }
+.vfp .scene-slide { padding: 22px 24px 8px; display: grid; gap: 10px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .scene-slide .slide-tag { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); letter-spacing: 0.08em; text-transform: uppercase; }
 .vfp .scene-thread { margin: 16px; }
-.vfp .webhook-line { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10.5px; color: var(--muted); padding: 10px 16px 14px; }
-.vfp .webhook-line .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--approve); }
+.vfp .webhook-line { display: flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-muted); padding: 10px 16px 14px; }
+.vfp .webhook-line .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-green-approval); }

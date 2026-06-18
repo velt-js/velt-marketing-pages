@@ -16,17 +16,17 @@ import { AuditLog, AvatarStack, NotifItem, Precedent, DarkPanel, ProvRow, ProvAr
  */
 function Artifact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div style={{ border: "1px solid var(--line)", borderRadius: 12, overflow: "hidden", background: "var(--bg)" }}>
+    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
       <div
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           padding: "9px 13px",
-          borderBottom: "1px solid var(--line-soft)",
-          fontFamily: "var(--mono)",
+          borderBottom: "1px solid var(--vlp-border-subtle)",
+          fontFamily: "var(--vlp-font-mono)",
           fontSize: 11.5,
-          color: "var(--muted)",
+          color: "var(--vlp-color-text-muted)",
         }}
       >
         <span>{label}</span>
@@ -48,17 +48,17 @@ function RedlineDiff({ current, proposed }: { current: string; proposed: string 
     <div style={{ display: "grid", gap: 6, fontSize: 12.5, lineHeight: 1.45 }}>
       <span
         style={{
-          color: "var(--muted)",
+          color: "var(--vlp-color-text-muted)",
           textDecoration: "line-through",
-          textDecorationColor: "var(--brand)",
+          textDecorationColor: "var(--vlp-color-accent)",
         }}
       >
         {current}
       </span>
       <span
         style={{
-          color: "var(--ink)",
-          background: "var(--brand-soft)",
+          color: "var(--vlp-color-ink)",
+          background: "var(--vlp-color-accent-soft)",
           borderRadius: 6,
           padding: "4px 7px",
         }}
@@ -85,9 +85,9 @@ function ApprovalChain({ step, total }: { step: number; total: number }) {
         justifyContent: "space-between",
         gap: 6,
         padding: "8px 11px",
-        border: "1px solid var(--line-soft)",
+        border: "1px solid var(--vlp-border-subtle)",
         borderRadius: 8,
-        background: "var(--bg-wash)",
+        background: "var(--vlp-bg-wash)",
       }}
     >
       <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -103,7 +103,7 @@ function ApprovalChain({ step, total }: { step: number; total: number }) {
           </span>
         ))}
       </span>
-      <span style={{ fontFamily: "var(--mono)", fontSize: 11, color: "var(--muted)" }}>
+      <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-text-muted)" }}>
         step {step + 1} of {total}
       </span>
     </div>

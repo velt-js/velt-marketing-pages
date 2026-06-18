@@ -61,7 +61,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13 }}>
           The Provider shall{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             indemnify and hold harmless
           </mark>{" "}
           the Client.
@@ -89,7 +89,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13 }}>
           Clause 7 —{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             selection by Clause Checker
           </mark>
         </p>
@@ -148,7 +148,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
     <div className="pv">
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13 }}>
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>cell B12</mark>{" "}
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>cell B12</mark>{" "}
           selected by Sarah
         </p>
       </DocSurface>
@@ -210,7 +210,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
     <div style={{ padding: 18 }}>
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13 }}>
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>cell B12</mark> — analyst editing
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>cell B12</mark> — analyst editing
         </p>
         <p className="code-microcopy" style={{ marginTop: 8 }}>close week runs without two people in one column</p>
       </DocSurface>

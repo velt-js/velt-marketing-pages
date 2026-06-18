@@ -126,7 +126,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
       <Surface label="Landing page · hero headline">
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: "var(--ink, #0b353b)" }}>
           The fastest way to{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             ship collaboration
           </mark>{" "}
           in your product.
@@ -143,7 +143,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
       <Surface label="Tiptap editor · contract.md">
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "var(--ink, #0b353b)" }}>
           The Provider shall{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             indemnify and hold harmless
           </mark>{" "}
           the Client.
@@ -304,7 +304,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
     <div style={{ padding: 18 }}>
       <Surface label="forecast.xlsx · close week">
         <p style={{ margin: 0, fontSize: 13, color: "var(--ink, #0b353b)" }}>
-          <mark style={{ background: "color-mix(in srgb, var(--brand) 22%, transparent)", padding: "1px 2px" }}>cell B12 · Q3</mark>
+          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>cell B12 · Q3</mark>
         </p>
         <Comment initials="MA" author="Maya" body="Is this the revised Q3 number?" />
         <p className="code-microcopy">attributed, resolved, and on the record</p>
