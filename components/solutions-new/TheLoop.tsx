@@ -17,7 +17,7 @@ type TheLoopProps = {
  */
 export default function TheLoop({ content }: TheLoopProps) {
   return (
-    <section className="band band-soft" id="the-loop" data-section="the-loop">
+    <section className="band loop-stage" id="the-loop" data-section="the-loop">
       <div className="wrap">
         <div className="loop-grid">
           <div className="loop-col-left">
