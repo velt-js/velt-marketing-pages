@@ -110,6 +110,71 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
     />
   ),
 
+  "solutions/operations/loop/1": (
+    <div style={{ display: "grid", gap: 8 }}>
+      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+        delivery window <span className="arr">→</span> missed
+      </span>
+      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+        change order <span className="arr">→</span> filed on SHIP-4127
+      </span>
+    </div>
+  ),
+
+  "solutions/operations/loop/2": (
+    <div className="finding">
+      <div className="fh">
+        <span className="av-c av-agent">AI</span>Ops Agent
+      </div>
+      <p className="fb">Revised rate is 9% over the contracted lane rate.</p>
+    </div>
+  ),
+
+  "solutions/operations/loop/3": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c a1">MK</span>
+        <span className="who">Maya · Ops</span>
+        <span className="when">now</span>
+      </div>
+      <p className="thread-body">
+        Internal: margin holds at 1,450. OK to confirm. <span className="agent-tag">INTERNAL</span>
+      </p>
+    </div>
+  ),
+
+  "solutions/operations/loop/4": (
+    <div className="dag" style={{ padding: 0 }}>
+      <div className="dag-node done" style={{ minWidth: 0 }}>Ops lead · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node done" style={{ minWidth: 0 }}>Commercial · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node" style={{ minWidth: 0 }}>Counterparty · pending</div>
+    </div>
+  ),
+
+  "solutions/operations/loop/5": (
+    <div className="notif-chans" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      <div className="notif-chan"><span className="ci ci-mail">@</span>Email</div>
+      <div className="notif-chan"><span className="ci ci-app">in</span>Mobile web</div>
+    </div>
+  ),
+
+  "solutions/operations/loop/6": (
+    <div className="audit" style={{ boxShadow: "none" }}>
+      <div className="audit-row">
+        <span className="ts">11:02</span>
+        <span className="ev"><strong>Both parties</strong> approved CO-12</span>
+        <span className="chip chip-approved">applied</span>
+      </div>
+      <div className="audit-row">
+        <span className="ts">11:02</span>
+        <span className="ev">webhook → ERP update</span>
+        <span className="chip chip-agent">synced</span>
+      </div>
+    </div>
+  ),
+
   "solutions/operations/agent": (
     <div style={{ display: "grid", gap: 12 }}>
       <NotifItem

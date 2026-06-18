@@ -95,6 +95,57 @@ export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
     />
   ),
 
+  "solutions/ai-native-saas/loop/1": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c av-agent">AI</span>
+        <span className="who">Pricing Agent</span>
+        <span className="when">now</span>
+      </div>
+      <p className="thread-body">
+        Updated renewal price to match the new plan table. Payload attached. <span className="agent-tag">AGENT</span>
+      </p>
+    </div>
+  ),
+
+  "solutions/ai-native-saas/loop/2": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c a2">PR</span>
+        <span className="who">Priya</span>
+        <span className="when">now</span>
+      </div>
+      <p className="thread-body">Yes for the 14 enterprise accounts; hold the rest.</p>
+    </div>
+  ),
+
+  "solutions/ai-native-saas/loop/3": (
+    <div className="sol-panel-body dark" style={{ borderRadius: "var(--r-md)", boxShadow: "none" }}>
+      <pre>
+        <span className="tk-kw">POST</span>{" /webhooks/velt\n{ "}
+        <span className="tk-str">{'"event"'}</span>{": "}
+        <span className="tk-str">{'"change.applied"'}</span>{",\n  "}
+        <span className="tk-str">{'"by"'}</span>{": "}
+        <span className="tk-str">{'"maya@acme.com"'}</span>{" }"}
+      </pre>
+    </div>
+  ),
+
+  "solutions/ai-native-saas/loop/4": (
+    <div className="audit" style={{ boxShadow: "none" }}>
+      <div className="audit-row">
+        <span className="ts">10:21</span>
+        <span className="ev"><strong>Maya</strong> allowed the change</span>
+        <span className="chip chip-approved">human</span>
+      </div>
+      <div className="audit-row">
+        <span className="ts">10:21</span>
+        <span className="ev">agent proposal · 0.94</span>
+        <span className="chip chip-agent">agent</span>
+      </div>
+    </div>
+  ),
+
   "solutions/ai-native-saas/agent": (
     <div style={{ display: "grid", gap: 12 }}>
       <NotifItem

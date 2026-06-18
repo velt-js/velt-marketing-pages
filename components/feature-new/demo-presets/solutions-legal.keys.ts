@@ -6,6 +6,11 @@
 export const SOLUTIONS_LEGAL_DEMO_KEYS: string[] = [
   "solutions/legal/hero",
   "solutions/legal/loop",
+  "solutions/legal/loop/1",
+  "solutions/legal/loop/2",
+  "solutions/legal/loop/3",
+  "solutions/legal/loop/4",
+  "solutions/legal/loop/5",
   "solutions/legal/agent",
   "solutions/legal/in-production",
   "solutions/legal/fm/suggestions",

@@ -189,6 +189,52 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
     />
   ),
 
+  "solutions/fintech/loop/1": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c a4">CF</span>
+        <span className="who">CFO</span>
+        <span className="when">now</span>
+      </div>
+      <p className="thread-body">Why is Q3 travel over plan? @Maya</p>
+    </div>
+  ),
+
+  "solutions/fintech/loop/2": (
+    <div className="finding">
+      <div className="fh">
+        <span className="av-c av-agent">AI</span>Variance Agent
+        <span className="chip chip-pending" style={{ marginLeft: "auto" }}>2 findings</span>
+      </div>
+      <p className="fb">Travel 18% over plan; variance note missing.</p>
+    </div>
+  ),
+
+  "solutions/fintech/loop/3": (
+    <div className="dag" style={{ padding: 0 }}>
+      <div className="dag-node done" style={{ minWidth: 0 }}>FP&amp;A lead · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node done" style={{ minWidth: 0 }}>Committee · 2 of 3</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node" style={{ minWidth: 0 }}>CFO · pending</div>
+    </div>
+  ),
+
+  "solutions/fintech/loop/4": (
+    <div className="audit" style={{ boxShadow: "none" }}>
+      <div className="audit-row">
+        <span className="ts">09:14</span>
+        <span className="ev"><strong>FP&amp;A</strong> approved variance</span>
+        <span className="chip chip-approved">approved</span>
+      </div>
+      <div className="audit-row">
+        <span className="ts">09:15</span>
+        <span className="ev">exported · audit.json</span>
+        <span className="chip chip-agent">json</span>
+      </div>
+    </div>
+  ),
+
   "solutions/fintech/agent": (
     <div style={{ display: "grid", gap: 12 }}>
       <NotifItem

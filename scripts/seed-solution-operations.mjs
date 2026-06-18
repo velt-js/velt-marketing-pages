@@ -111,6 +111,7 @@ const doc = {
           title: "The change order lands",
           body:
             "The carrier cannot meet the delivery window, so the counterparty files a change order against the shipment record inside your product. The thread anchors to the record itself, not to an email about it.",
+          visual: "solutions/operations/loop/1",
           links: keyed([cta("Approval flows", "/approval-flows")]),
         },
         {
@@ -118,6 +119,7 @@ const doc = {
           title: "Agent first pass",
           body:
             "A review agent checks the change order against the contract terms and leaves a comment pinned to the rate line: the revised rate is 9% over the contracted lane rate, flagged for commercial review. Approve and Reject are attached; the finding is advisory, and a human decides.",
+          visual: "solutions/operations/loop/2",
           links: keyed([cta("Review agents", "/review-agents")]),
         },
         {
@@ -125,6 +127,7 @@ const doc = {
           title: "Scoped comments",
           body:
             "Two threads live on the same record. The internal thread, badged internal, debates absorbing the cost versus disputing the rate, and the counterparty cannot see it. The shared thread asks the counterparty to confirm the new delivery date, and they reply in your product instead of in an email chain about it.",
+          visual: "solutions/operations/loop/3",
           links: keyed([cta("Comments", "/comments")]),
         },
         {
@@ -132,6 +135,7 @@ const doc = {
           title: "The approval chain across two orgs",
           body:
             "The workflow routes the record: the ops lead approves, commercial approves the rate exception, then the counterparty's signer records the final decision. Both sides are users your product provisioned with access to this record, and every transition is timestamped and attributed.",
+          visual: "solutions/operations/loop/4",
           links: keyed([cta("Approval flows", "/approval-flows"), cta("Notifications", "/notifications")]),
         },
         {
@@ -139,6 +143,7 @@ const doc = {
           title: "Notifications reach the field",
           body:
             "The site supervisor gets the request by email, opens the record on mobile web, and approves from the yard. The counterparty's signer is notified of the shared thread and their step only, because notifications generate solely for what each user can access.",
+          visual: "solutions/operations/loop/5",
           links: keyed([cta("Notifications", "/notifications")]),
         },
         {
@@ -146,12 +151,14 @@ const doc = {
           title: "The audit record",
           body:
             "The full chain sits in one place: who was asked, who decided, and what changed on the record, queryable by document, user, or time range, and exportable when the customer audit comes.",
+          visual: "solutions/operations/loop/6",
           links: keyed([cta("Audit trail", "/audit-trail")]),
         },
       ],
       "vspLoopBeat",
     ),
-    visual: "solutions/operations/loop",
+    caption:
+      "// one change order, six steps, one record. Both orgs sign off without leaving your product.",
   },
 
   featureMap: {

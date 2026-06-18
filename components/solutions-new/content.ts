@@ -41,6 +41,8 @@ export type LoopBeat = {
   title: string;
   body: string;
   links: CtaLink[];
+  visual: ReactNode;
+  beta?: boolean;
 };
 
 export type TheLoopContent = {
@@ -48,7 +50,7 @@ export type TheLoopContent = {
   heading: string;
   body: string;
   beats: LoopBeat[];
-  visual: ReactNode;
+  caption?: string;
 };
 
 export type FeatureMapCard = {

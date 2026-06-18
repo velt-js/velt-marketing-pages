@@ -6,6 +6,10 @@
 export const SOLUTIONS_FINTECH_DEMO_KEYS: string[] = [
   "solutions/fintech/hero",
   "solutions/fintech/loop",
+  "solutions/fintech/loop/1",
+  "solutions/fintech/loop/2",
+  "solutions/fintech/loop/3",
+  "solutions/fintech/loop/4",
   "solutions/fintech/agent",
   "solutions/fintech/in-production",
   "solutions/fintech/fm/audit-trail",

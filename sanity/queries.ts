@@ -452,8 +452,8 @@ export async function getSolutionPageBySlug(slug: string) {
       },
       theLoop {
         kicker, heading, body,
-        beats[] { num, title, body, links[] },
-        visual
+        beats[] { num, title, body, visual, beta, links[] },
+        caption
       },
       featureMap {
         kicker, heading, support,

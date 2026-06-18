@@ -1,6 +1,6 @@
 .vlp .footer-root {
-  background: var(--vlp-color-white);
-  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  background: var(--vlp-color-dark-2);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-on-dark);
 }
 
 .vlp .footer-inner {
@@ -25,12 +25,13 @@
   display: block;
   height: 22px;
   width: auto;
+  filter: brightness(0) invert(1);
 }
 
 .vlp .footer-tagline {
   font-size: var(--vlp-text-body-sm-plus);
   line-height: var(--vlp-leading-body);
-  color: var(--vlp-color-text-muted);
+  color: var(--vlp-color-text-on-dark-muted);
   max-width: 34ch;
 }
 
@@ -43,8 +44,8 @@
 .vlp .footer-badge {
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-text-micro);
-  color: var(--vlp-color-text-muted);
-  border: var(--vlp-card-border);
+  color: var(--vlp-color-text-on-dark-muted);
+  border: var(--vlp-border-width) solid var(--vlp-border-on-dark);
   padding: 4px 9px;
   border-radius: var(--vlp-chip-radius);
 }
@@ -62,7 +63,7 @@
   flex-direction: column;
   gap: 9px;
   font-size: var(--vlp-text-body-sm-plus);
-  color: var(--vlp-color-text-muted);
+  color: var(--vlp-color-text-on-dark-muted);
 }
 
 .vlp .footer-bottom {
@@ -72,9 +73,9 @@
   gap: var(--vlp-space-3);
   margin-top: var(--vlp-gap-section);
   padding-top: var(--vlp-space-6);
-  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-on-dark);
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-btn-primary-font-micro);
-  color: var(--vlp-color-text-subtle);
+  color: var(--vlp-color-text-on-dark-muted);
   letter-spacing: 0.03em;
 }

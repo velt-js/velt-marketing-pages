@@ -109,35 +109,41 @@ const doc = {
           num: "1",
           title: "The contract lands",
           body: "Counterparty paper, an NDA, is uploaded into your product, and the deal team opens review on the matter.",
+          visual: "solutions/legal/loop/1",
         },
         {
           num: "2",
           title: "Clause comments",
           body: "Threads anchor to the clause, not the page: the indemnification cap gets a thread, the term clause gets another. Deal strategy stays in threads scoped to the internal team; the client never sees the negotiating-position debate.",
+          visual: "solutions/legal/loop/2",
           links: keyed([cta("Comments", "/comments")]),
         },
         {
           num: "3",
           title: "Redlines as suggestions",
           body: "Counsel proposes replacement language on clause 7 inline; an agent proposes a fallback definition on the liability clause with its rationale attached. Each pending redline shows current and proposed language; the reviewer accepts or rejects like a diff, with a reason on reject. Your code applies accepted language; the SDK never mutates the contract.",
+          visual: "solutions/legal/loop/3",
           links: keyed([cta("Suggestions", "/suggestions")]),
         },
         {
           num: "4",
           title: "Counsel to partner to client",
           body: "The workflow routes the contract in order: counsel approves the redlines, the partner approves the position, and the client's approver records the final decision as a user your product provisioned with access to this contract. Approve advances it, reject routes it back with the redlines attached, and every transition is timestamped and attributed.",
+          visual: "solutions/legal/loop/4",
           links: keyed([cta("Approval flows", "/approval-flows"), cta("Notifications", "/notifications")]),
         },
         {
           num: "5",
           title: "Attributed clause history",
           body: "Who proposed the language, who accepted the redline, who approved the version, when, and the note they left: queryable by document, user, or time range. The history of clause 7 reads as one chain, not a stack of file versions.",
+          visual: "solutions/legal/loop/5",
           links: keyed([cta("Audit trail", "/audit-trail")]),
         },
       ],
       "vspLoopBeat",
     ),
-    visual: "solutions/legal/loop",
+    caption:
+      "// one contract, five steps, one attributed clause history. The client never sees the negotiating-position debate.",
   },
 
   featureMap: {

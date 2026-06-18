@@ -50,6 +50,8 @@ interface RawLoopBeat {
   num?: string | null;
   title?: string | null;
   body?: string | null;
+  visual?: string | null;
+  beta?: boolean | null;
   links?: RawCta[] | null;
 }
 interface RawTheLoop {
@@ -57,7 +59,7 @@ interface RawTheLoop {
   heading?: string | null;
   body?: string | null;
   beats?: RawLoopBeat[] | null;
-  visual?: string | null;
+  caption?: string | null;
 }
 interface RawFeatureCard {
   num?: string | null;
@@ -249,9 +251,11 @@ export function toSolutionPageContent(doc: SolutionPageV1Doc): SolutionPageConte
         num: beat.num ?? String(index + 1),
         title: beat.title ?? "",
         body: beat.body ?? "",
+        visual: resolveDemo(beat.visual),
+        beta: beat.beta ?? undefined,
         links: mapCtas(beat.links),
       })),
-      visual: resolveDemo(theLoop.visual),
+      caption: theLoop.caption ?? undefined,
     },
 
     featureMap: {

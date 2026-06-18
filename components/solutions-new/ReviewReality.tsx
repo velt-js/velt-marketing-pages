@@ -28,21 +28,27 @@ export default function ReviewReality({ content }: ReviewRealityProps) {
   return (
     <section className="band" id="review-reality" data-section="review-reality">
       <div className="wrap">
-        <div className="sec-head">
-          <p className="kicker">{content.kicker}</p>
-          <h2>{content.heading}</h2>
+        <div className="reality-grid">
+          <div className="reality-col-left">
+            <div className="sec-head">
+              <p className="kicker">{content.kicker}</p>
+              <h2>{content.heading}</h2>
+            </div>
+            {content.close ? <p className="reality-close">{content.close}</p> : null}
+          </div>
+          <div className="reality-col-right">
+            <ul className="reality-list">
+              {content.items.map((item) => (
+                <li className="reality-item" key={item}>
+                  <span className="reality-mark" aria-hidden="true">
+                    <CheckMark />
+                  </span>
+                  <p>{item}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <ul className="reality-list">
-          {content.items.map((item) => (
-            <li className="reality-item" key={item}>
-              <span className="reality-mark" aria-hidden="true">
-                <CheckMark />
-              </span>
-              <p>{item}</p>
-            </li>
-          ))}
-        </ul>
-        {content.close ? <p className="reality-close">{content.close}</p> : null}
       </div>
     </section>
   );

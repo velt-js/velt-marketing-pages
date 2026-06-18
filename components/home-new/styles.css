@@ -12,6 +12,7 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-color-ink:           #26251e;
   --vlp-color-ink-soft:      #3a3934;
   --vlp-color-ink-hover:     #141414;
+  --vlp-color-dark-2:        #1e1d17;
   --vlp-color-cream:         #f7f7f4;
   --vlp-color-white:         #ffffff;
   --vlp-color-accent:        #f54e00;

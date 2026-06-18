@@ -6,6 +6,12 @@
 export const SOLUTIONS_OPERATIONS_DEMO_KEYS: string[] = [
   "solutions/operations/hero",
   "solutions/operations/loop",
+  "solutions/operations/loop/1",
+  "solutions/operations/loop/2",
+  "solutions/operations/loop/3",
+  "solutions/operations/loop/4",
+  "solutions/operations/loop/5",
+  "solutions/operations/loop/6",
   "solutions/operations/agent",
   "solutions/operations/in-production",
   "solutions/operations/fm/approval-flows",

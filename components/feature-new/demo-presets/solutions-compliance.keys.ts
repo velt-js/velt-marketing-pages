@@ -6,6 +6,12 @@
 export const SOLUTIONS_COMPLIANCE_DEMO_KEYS: string[] = [
   "solutions/compliance/hero",
   "solutions/compliance/loop",
+  "solutions/compliance/loop/1",
+  "solutions/compliance/loop/2",
+  "solutions/compliance/loop/3",
+  "solutions/compliance/loop/4",
+  "solutions/compliance/loop/5",
+  "solutions/compliance/loop/6",
   "solutions/compliance/agent",
   "solutions/compliance/in-production",
   "solutions/compliance/fm/audit-trail",

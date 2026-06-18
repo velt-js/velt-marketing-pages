@@ -108,6 +108,71 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
     />
   ),
 
+  "solutions/compliance/loop/1": (
+    <div className="pv-doc" style={{ padding: "14px 16px" }}>
+      <div className="sk d" style={{ width: "48%", height: 10 }} />
+      <div className="sk" style={{ width: "82%" }} />
+      <div className="sk" style={{ width: "66%" }} />
+    </div>
+  ),
+
+  "solutions/compliance/loop/2": (
+    <div className="finding">
+      <div className="fh">
+        <span className="av-c av-agent">AI</span>Policy Agent
+        <span className="chip chip-pending" style={{ marginLeft: "auto" }}>3 findings</span>
+      </div>
+      <p className="fb">Required risk disclaimer missing for this product class.</p>
+    </div>
+  ),
+
+  "solutions/compliance/loop/3": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c a1">MK</span>
+        <span className="who">Maya · Compliance</span>
+        <span className="when">now</span>
+      </div>
+      <p className="thread-body">Added the Reg-W disclaimer to the product-class section. Resolving.</p>
+    </div>
+  ),
+
+  "solutions/compliance/loop/4": (
+    <div className="dag" style={{ padding: 0 }}>
+      <div className="dag-node done" style={{ minWidth: 0 }}>Compliance officer · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node done" style={{ minWidth: 0 }}>Quorum · 2 of 3 signed</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node" style={{ minWidth: 0 }}>Filing · cleared</div>
+    </div>
+  ),
+
+  "solutions/compliance/loop/5": (
+    <div className="audit" style={{ boxShadow: "none" }}>
+      <div className="audit-row">
+        <span className="ts">09:14</span>
+        <span className="ev"><strong>Officer</strong> approved FIL-2209</span>
+        <span className="chip chip-approved">approved</span>
+      </div>
+      <div className="audit-row">
+        <span className="ts">09:14</span>
+        <span className="ev">statusHistory appended</span>
+        <span className="chip chip-agent">recorded</span>
+      </div>
+    </div>
+  ),
+
+  "solutions/compliance/loop/6": (
+    <div style={{ display: "grid", gap: 8 }}>
+      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+        examiner request <span className="arr">→</span> filtered API query
+      </span>
+      <span className="prov-row" style={{ background: "var(--bg)", color: "var(--ink-2)", borderColor: "var(--line)" }}>
+        the chain <span className="arr">→</span> structured JSON export
+      </span>
+    </div>
+  ),
+
   "solutions/compliance/agent": (
     <div style={{ display: "grid", gap: 12 }}>
       <NotifItem

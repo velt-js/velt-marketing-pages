@@ -154,6 +154,60 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
     />
   ),
 
+  "solutions/legal/loop/1": (
+    <div className="pv-doc" style={{ padding: "14px 16px" }}>
+      <div className="sk d" style={{ width: "44%", height: 10 }} />
+      <div className="sk" style={{ width: "80%" }} />
+      <div className="sk" style={{ width: "62%" }} />
+    </div>
+  ),
+
+  "solutions/legal/loop/2": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c a2">JR</span>
+        <span className="who">Jordan</span>
+        <span className="when">1h</span>
+      </div>
+      <p className="thread-body">
+        Team-only: push back on the 2x cap before we send. <span className="agent-tag">INTERNAL</span>
+      </p>
+    </div>
+  ),
+
+  "solutions/legal/loop/3": (
+    <div className="diff" style={{ fontSize: 12.5, padding: "12px 14px", boxShadow: "none" }}>
+      <p>
+        Liability capped at <del>fees paid</del> <ins>2x fees paid in the prior 12 months</ins>.
+      </p>
+    </div>
+  ),
+
+  "solutions/legal/loop/4": (
+    <div className="dag" style={{ padding: 0 }}>
+      <div className="dag-node done" style={{ minWidth: 0 }}>Counsel · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node done" style={{ minWidth: 0 }}>Partner · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node" style={{ minWidth: 0 }}>Client · pending</div>
+    </div>
+  ),
+
+  "solutions/legal/loop/5": (
+    <div className="audit" style={{ boxShadow: "none" }}>
+      <div className="audit-row">
+        <span className="ts">Mon</span>
+        <span className="ev"><strong>Counsel</strong> proposed clause 7</span>
+        <span className="chip chip-agent">proposed</span>
+      </div>
+      <div className="audit-row">
+        <span className="ts">Tue</span>
+        <span className="ev"><strong>Partner</strong> accepted redline</span>
+        <span className="chip chip-approved">accepted</span>
+      </div>
+    </div>
+  ),
+
   "solutions/legal/agent": (
     <div style={{ display: "grid", gap: 12 }}>
       <NotifItem

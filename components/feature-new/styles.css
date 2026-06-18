@@ -243,6 +243,9 @@
 /* ---------- Demo atoms (audit log, chips, precedent, threads) ---------- */
 .vfp .av-c { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 10.5px; font-weight: 600; color: #fff; flex: none; letter-spacing: 0.02em; }
 .vfp .av-c.a1 { background: #5b7fb8; }
+.vfp .av-c.a2 { background: oklch(0.60 0.13 35); }
+.vfp .av-c.a3 { background: oklch(0.58 0.12 155); }
+.vfp .av-c.a4 { background: oklch(0.55 0.15 310); }
 .vfp .av-agent { background: var(--dark); border: 1.5px solid var(--brand); color: #f7b48f; }
 .vfp .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
 .vfp .chip-agent { background: var(--brand-soft); color: var(--brand-ink); }
@@ -271,6 +274,8 @@
 .vfp .thread-head { display: flex; align-items: center; gap: 9px; }
 .vfp .thread-head .who { font-size: 12.5px; font-weight: 600; white-space: nowrap; }
 .vfp .thread-head .when { font-size: 11px; color: var(--faint); margin-left: auto; }
+.vfp .thread-body { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); text-wrap: pretty; }
+.vfp .agent-tag { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; color: var(--brand-ink); background: var(--brand-soft); border-radius: 4px; padding: 2px 6px; }
 
 .vfp .finding { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg); box-shadow: var(--shadow-sm); padding: 13px 14px; display: grid; gap: 8px; }
 .vfp .finding .fh { display: flex; align-items: center; gap: 9px; font-size: 12.5px; font-weight: 600; }
@@ -283,6 +288,34 @@
 .vfp .sol-audit-line .pulse { width: 6px; height: 6px; border-radius: 50%; background: #6cae92; flex: none; }
 .vfp .sk { height: 8px; border-radius: 4px; background: var(--line-soft); }
 .vfp .sk.d { background: #c9c6bf; }
+
+.vfp .pv-doc { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg); box-shadow: var(--shadow-sm); padding: 20px; display: grid; gap: 11px; position: relative; }
+.vfp .pv-doc .hl { background: var(--brand-wash); border-radius: 4px; height: 8px; }
+
+/* Approval DAG */
+.vfp .dag { display: grid; gap: 0; justify-items: center; padding: 6px 0; }
+.vfp .dag-node { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); background: var(--bg); border-radius: 11px; padding: 10px 14px; box-shadow: var(--shadow-sm); font-size: 12.5px; font-weight: 550; min-width: 168px; }
+.vfp .dag-node .sub { display: block; font-size: 11px; font-weight: 450; color: var(--muted); }
+.vfp .dag-node.agent { border-color: var(--brand-wash); background: oklch(0.985 0.008 276); }
+.vfp .dag-node.done { border-color: oklch(0.84 0.06 155); }
+.vfp .dag-node.reject-branch { border-style: dashed; opacity: 0.75; }
+.vfp .dag-edge { width: 1.5px; height: 22px; background: var(--line); }
+
+/* Diff (suggestions) */
+.vfp .diff { border: 1px solid var(--line); border-radius: var(--r-md); background: var(--bg); box-shadow: var(--shadow-sm); padding: 18px 20px; font-size: 14px; line-height: 1.75; color: var(--ink-2); }
+.vfp .diff del { background: var(--reject-soft); color: oklch(0.45 0.15 25); text-decoration: line-through; text-decoration-thickness: 1px; border-radius: 3px; padding: 0 2px; }
+.vfp .diff ins { background: var(--approve-soft); color: oklch(0.40 0.12 155); text-decoration: none; border-radius: 3px; padding: 0 2px; }
+.vfp .diff-foot { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.vfp .diff-foot .by { font-size: 11.5px; color: var(--muted); margin-left: auto; }
+
+/* Notification channels */
+.vfp .notif-chans { display: grid; gap: 8px; }
+.vfp .notif-chan { display: flex; align-items: center; gap: 9px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); padding: 8px 12px; font-size: 12px; }
+.vfp .notif-chan .ci { width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; flex: none; font-size: 10px; font-weight: 650; color: #fff; }
+.vfp .ci-app { background: var(--brand); }
+.vfp .ci-mail { background: oklch(0.60 0.13 35); }
+.vfp .ci-slack { background: oklch(0.55 0.15 310); }
+.vfp .ci-teams { background: oklch(0.55 0.14 265); }
 
 /* ---------- Dark footer (feature pages only) ----------
    The shared homepage Footer ships white; on feature pages it sits below a

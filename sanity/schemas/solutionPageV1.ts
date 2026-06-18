@@ -169,6 +169,8 @@ export const solutionPageV1 = defineType({
         defineField({
           name: "beats",
           title: "Beats (the composed scene, ~5)",
+          description:
+            "Each beat is a step in the loop, rendered as a card with its own inline artifact in a linear vertical flow.",
           type: "array",
           of: [
             {
@@ -178,6 +180,8 @@ export const solutionPageV1 = defineType({
                 defineField({ name: "num", title: "Number label", type: "string" }),
                 defineField({ name: "title", title: "Title", type: "string", validation: (rule) => rule.required() }),
                 defineField({ name: "body", title: "Body", type: "text", rows: 4 }),
+                demoPresetField("visual", "Beat artifact", "The live demo visual rendered inside this step's card."),
+                defineField({ name: "beta", title: "Beta", type: "boolean", initialValue: false }),
                 defineField({ name: "links", title: "Feature links", type: "array", of: [{ type: "ctaLink" }] }),
               ],
               preview: { select: { title: "title", subtitle: "num" } },
@@ -185,7 +189,13 @@ export const solutionPageV1 = defineType({
           ],
           validation: (rule) => rule.required().min(1),
         }),
-        demoPresetField("visual", "Centerpiece visual", "The artifact walking through the full loop."),
+        defineField({
+          name: "caption",
+          title: "Closing caption (mono)",
+          description: 'Optional one-line summary under the flow, e.g. "// one email, five steps, one record."',
+          type: "text",
+          rows: 2,
+        }),
       ],
     }),
 

@@ -109,30 +109,35 @@ const doc = {
           num: "1",
           title: "Cell comments",
           body: "The analyst submits the forecast. The CFO's question about Q3 lands on the Q3 cell itself: threaded, attributed, resolvable. Threads anchor to spreadsheet cells and tables, so feedback never detaches from the number it is about.",
+          visual: "solutions/fintech/loop/1",
           links: keyed([cta("Comments", "/comments")]),
         },
         {
           num: "2",
           title: "Agent checks",
           body: "A review agent runs the mechanical pass: variance thresholds, tie-outs between sheets, rates against contract, missing variance notes. Findings land as cell comments with Approve and Reject attached. Nothing in the model changes.",
+          visual: "solutions/fintech/loop/2",
           links: keyed([cta("Review agents", "/review-agents")]),
         },
         {
           num: "3",
           title: "Staged sign-off with quorum",
           body: "The forecast enters the approval chain your product's users defined: the FP&A lead first, then a two-of-three finance committee quorum, then the CFO. Comment-gated steps hold the pipeline until every open cell thread resolves, and a reject branches it back with the note attached.",
+          visual: "solutions/fintech/loop/3",
           links: keyed([cta("Approval flows", "/approval-flows"), cta("Notifications", "/notifications")]),
         },
         {
           num: "4",
           title: "Immutable audit record",
           body: "Every transition is timestamped and attributed: who was asked, who responded, what they decided. The auditor's sample request is a filtered API query that returns the complete chain, and the audit package assembles from the trail, not from old email threads.",
+          visual: "solutions/fintech/loop/4",
           links: keyed([cta("Audit trail", "/audit-trail")]),
         },
       ],
       "vspLoopBeat",
     ),
-    visual: "solutions/fintech/loop",
+    caption:
+      "// one forecast, four steps, one immutable record. The committee signs off without leaving your product.",
   },
 
   featureMap: {

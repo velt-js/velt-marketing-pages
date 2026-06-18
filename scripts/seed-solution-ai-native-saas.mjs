@@ -107,30 +107,35 @@ const doc = {
           num: "1",
           title: "Agent proposes",
           body: "The product's own agent posts a comment on the draft it generated: a rationale, the proposed action, and the payload your webhook will apply. The avatar is AI-labeled, so everyone in the document knows an agent is acting. The agent calls the same commenting API a human user would.",
+          visual: "solutions/ai-native-saas/loop/1",
           links: keyed([cta("Comments", "/comments")]),
         },
         {
           num: "2",
           title: "Human decides",
           body: "The owner reviews the proposal, and a teammate thread shows the deliberation: \u201C@Priya ok to apply this to all 14 accounts?\u201D High-stakes proposals route into a staged approval chain instead of a single click, so the consent step matches the stakes of the change.",
+          visual: "solutions/ai-native-saas/loop/2",
           links: keyed([cta("Approval flows", "/approval-flows"), cta("Suggestions", "/suggestions")]),
         },
         {
           num: "3",
           title: "Webhook applies",
           body: "On approve, the POST payload hits the customer's endpoint and the user's data changes only now. The agent proposed the change; the human allowed it; your service applied it. Nothing reached the user's data that a human did not accept.",
+          visual: "solutions/ai-native-saas/loop/3",
           links: keyed([cta("Notifications", "/notifications")]),
         },
         {
           num: "4",
           title: "Audit records",
           body: "An immutable line records who proposed, who allowed, what changed, and when. The trail is the evidence your security questionnaire asks for, written synchronously with the change rather than reconstructed after the fact.",
+          visual: "solutions/ai-native-saas/loop/4",
           links: keyed([cta("Audit trail", "/audit-trail")]),
         },
       ],
       "vspLoopBeat",
     ),
-    visual: "solutions/ai-native-saas/loop",
+    caption:
+      "// agent proposes, human approves, webhook applies, audit records. The agent never holds write access.",
   },
 
   featureMap: {

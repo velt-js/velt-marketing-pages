@@ -94,6 +94,60 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
     />
   ),
 
+  "solutions/sales-enablement/loop/1": (
+    <div className="thread">
+      <div className="thread-head">
+        <span className="av-c a2">JR</span>
+        <span className="who">Jordan</span>
+        <span className="when">now</span>
+      </div>
+      <p className="thread-body">Subject line too close to the competitor’s tagline? @Maya</p>
+    </div>
+  ),
+
+  "solutions/sales-enablement/loop/2": (
+    <div className="finding">
+      <div className="fh">
+        <span className="av-c av-agent">AI</span>Brand Agent
+        <span className="chip chip-pending" style={{ marginLeft: "auto" }}>3 findings</span>
+      </div>
+      <p className="fb">APR claim is missing its required disclaimer.</p>
+    </div>
+  ),
+
+  "solutions/sales-enablement/loop/3": (
+    <div className="diff" style={{ fontSize: 12.5, padding: "12px 14px", boxShadow: "none" }}>
+      <p>
+        Rates from <del>4.9%</del> <ins>4.9% APR. Terms apply.</ins>
+      </p>
+    </div>
+  ),
+
+  "solutions/sales-enablement/loop/4": (
+    <div className="dag" style={{ padding: 0 }}>
+      <div className="dag-node done" style={{ minWidth: 0 }}>Brand · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node done" style={{ minWidth: 0 }}>Legal · approved</div>
+      <div className="dag-edge" style={{ height: 12 }} />
+      <div className="dag-node" style={{ minWidth: 0 }}>Client approver · pending</div>
+    </div>
+  ),
+
+  "solutions/sales-enablement/loop/5": (
+    <div className="audit" style={{ boxShadow: "none" }}>
+      <div className="audit-row">
+        <span className="ts">14:02</span>
+        <span className="ev"><strong>Legal</strong> approved the draft</span>
+        <span className="chip chip-approved">approved</span>
+      </div>
+      <div className="audit-row">
+        <span className="ts">15:40</span>
+        <span className="ev"><strong>Client</strong> signed off</span>
+        <span className="chip chip-approved">sent</span>
+      </div>
+    </div>
+  ),
+
   "solutions/sales-enablement/agent": (
     <div style={{ display: "grid", gap: 12 }}>
       <NotifItem
