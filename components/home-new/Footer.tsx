@@ -1,51 +1,176 @@
 import "./Footer.css";
 
+type FooterLink = {
+  label: string;
+  href: string;
+  /** Opens in a new tab with rel="noopener" (off-site links). */
+  external?: boolean;
+};
+
+type FooterColumn = {
+  heading: string;
+  links: FooterLink[];
+};
+
+const DOCS_URL = "https://velt.dev/docs/";
+const CONSOLE_URL = "https://console.velt.dev/";
+
+// Link columns. Internal routes point at real app pages; off-site docs /
+// status / trust links are flagged external so they open in a new tab.
+const FOOTER_COLUMNS: FooterColumn[] = [
+  {
+    heading: "PRIMITIVES",
+    links: [
+      { label: "Comments", href: "/new-features/comments" },
+      { label: "Approval flows", href: "/new-features/approval-flows" },
+      { label: "Review agents", href: "/new-features/review-agents" },
+      { label: "Suggestions", href: "/new-features/suggestions" },
+      { label: "Audit trail", href: "/new-features/audit-trail" },
+      { label: "Memory", href: "/new-features/memory" },
+      { label: "Notifications", href: "/new-features/notifications" },
+    ],
+  },
+  {
+    heading: "COLLABORATION",
+    links: [
+      { label: "Presence", href: "/new-features/presence" },
+      { label: "Multiplayer editing", href: "/new-features/multiplayer-editing" },
+      { label: "Huddle", href: "/new-features/huddle" },
+      { label: "Recording", href: "/new-features/recording" },
+      {
+        label: "Live cursors",
+        href: "https://velt.dev/docs/realtime-collaboration/cursors/overview",
+        external: true,
+      },
+      {
+        label: "Single editor mode",
+        href: "https://velt.dev/docs/realtime-collaboration/single-editor-mode/overview",
+        external: true,
+      },
+    ],
+  },
+  {
+    heading: "SOLUTIONS",
+    links: [
+      { label: "Sales enablement", href: "/solutions/sales-enablement" },
+      { label: "Fintech & FP&A", href: "/solutions/fintech" },
+      { label: "Operations", href: "/solutions/operations" },
+      { label: "AI-native SaaS", href: "/solutions/ai-native-saas" },
+      { label: "Compliance", href: "/solutions/compliance" },
+      { label: "Legal", href: "/solutions/legal" },
+    ],
+  },
+  {
+    heading: "RESOURCES",
+    links: [
+      { label: "Docs", href: DOCS_URL, external: true },
+      { label: "Pricing", href: "/pricing" },
+      { label: "Customers", href: "/customers" },
+      { label: "Blog", href: "/blog" },
+      { label: "Enterprise", href: "/enterprise" },
+      { label: "vs Liveblocks", href: "/comparison" },
+      { label: "Status", href: "https://status.velt.dev/", external: true },
+    ],
+  },
+];
+
+const LEGAL_LINKS: FooterLink[] = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+];
+
+/**
+ * Renders a single footer link, opening external links in a new tab.
+ * @param link The link descriptor.
+ * @returns The anchor element.
+ */
+function FooterLinkItem({ link }: { link: FooterLink }) {
+  return (
+    <a
+      href={link.href}
+      className="hl"
+      target={link.external ? "_blank" : undefined}
+      rel={link.external ? "noopener" : undefined}
+    >
+      {link.label}
+    </a>
+  );
+}
+
+/**
+ * Site footer for the editorial theme. All link destinations resolve to
+ * real routes or off-site docs/status pages.
+ * @returns The footer element.
+ */
 export default function Footer() {
   return (
-      <footer className="footer-root">
-        <div className="footer-inner">
-          <div className="footer-grid">
-            <div>
-              <a href="#top" className="footer-brand-link" aria-label="Velt home">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/velt-logo.svg" alt="Velt" className="footer-brand-logo" width={59} height={22} />
+    <footer className="footer-root">
+      <div className="footer-inner">
+        <div className="footer-grid">
+          <div>
+            <a href="/" className="footer-brand-link" aria-label="Velt home">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/velt-logo.svg" alt="Velt" className="footer-brand-logo" width={59} height={22} />
+            </a>
+            <p className="footer-tagline">Embeddable review and approval for AI-native apps. Agents do the work, humans decide.</p>
+            <div className="footer-badges">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/security/badge-soc2-footer.png"
+                alt="AICPA SOC 2"
+                className="footer-badge-logo"
+                width={52}
+                height={52}
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/security/badge-hipaa-footer.svg"
+                alt="HIPAA"
+                className="footer-badge-logo footer-badge-logo--hipaa"
+                width={52}
+                height={52}
+              />
+              <a
+                href="https://www.ycombinator.com/companies/velt"
+                target="_blank"
+                rel="noopener"
+                className="footer-badge"
+                aria-label="Y Combinator"
+              >
+                YC
               </a>
-              <p className="footer-tagline">Embeddable review and approval for AI-native apps. Agents do the work, humans decide.</p>
-              <div className="footer-badges">
-                <span className="footer-badge">SOC 2 Type II</span>
-                <span className="footer-badge">HIPAA</span>
-                <span className="footer-badge">YC</span>
-              </div>
-            </div>
-            <div>
-              <h4 className="footer-col-heading">PRIMITIVES</h4>
-              <div className="footer-col-links">
-                <a href="#primitives" className="hl">Comments</a><a href="#primitives" className="hl">Approval flows</a><a href="#primitives" className="hl">Review agents</a><a href="#primitives" className="hl">Suggestions</a><a href="#primitives" className="hl">Audit trail</a><a href="#primitives" className="hl">Memory</a><a href="#primitives" className="hl">Notifications</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="footer-col-heading">COLLABORATION</h4>
-              <div className="footer-col-links">
-                <a href="#" className="hl">Presence</a><a href="#" className="hl">Live cursors</a><a href="#" className="hl">Multiplayer editing</a><a href="#" className="hl">Single editor mode</a><a href="#" className="hl">Recording</a><a href="#" className="hl">Huddle</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="footer-col-heading">VERTICALS</h4>
-              <div className="footer-col-links">
-                <a href="#verticals" className="hl">Sales enablement</a><a href="#verticals" className="hl">Fintech &amp; FP&amp;A</a><a href="#verticals" className="hl">Operations</a><a href="#verticals" className="hl">AI-native SaaS</a><a href="#" className="hl">Governance</a><a href="#" className="hl">Self-hosting</a>
-              </div>
-            </div>
-            <div>
-              <h4 className="footer-col-heading">RESOURCES</h4>
-              <div className="footer-col-links">
-                <a href="#how" className="hl">Docs</a><a href="#how" className="hl">Pricing</a><a href="#proof" className="hl">Customers</a><a href="#faq" className="hl">vs Liveblocks</a><a href="#" className="hl">Status</a>
-              </div>
             </div>
           </div>
-          <div className="footer-bottom">
-            <span>© 2026 Velt, Inc.</span><span>BUILT IN SF · BACKED BY YC</span><span>velt.dev</span>
-          </div>
+          {FOOTER_COLUMNS.map((column) => (
+            <div key={column.heading}>
+              <h4 className="footer-col-heading">{column.heading}</h4>
+              <div className="footer-col-links">
+                {column.links.map((link) => (
+                  <FooterLinkItem key={link.label} link={link} />
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-      </footer>
+        <div className="footer-bottom">
+          <span>© 2026 Velt, Inc.</span>
+          <span className="footer-legal">
+            {LEGAL_LINKS.map((link) => (
+              <a key={link.label} href={link.href} className="hl">
+                {link.label}
+              </a>
+            ))}
+          </span>
+          <a
+            href={CONSOLE_URL}
+            target="_blank"
+            rel="noopener"
+            className="hl"
+          >
+            Get Free API Key
+          </a>
+        </div>
+      </div>
+    </footer>
   );
 }

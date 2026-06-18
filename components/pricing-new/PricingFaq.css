@@ -1,0 +1,85 @@
+.vlp .prf-section {
+  background: var(--vlp-color-cream);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .prf-inner {
+  max-width: var(--vlp-content-medium);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .prf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .prf-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .prf-heading {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-display);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  margin-bottom: 36px;
+}
+
+.vlp .prf-row {
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  padding: var(--vlp-space-5) 0;
+  cursor: pointer;
+}
+
+.vlp .prf-row-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vlp-gap-card);
+}
+
+.vlp .prf-num {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-subtle);
+  padding-top: 3px;
+}
+
+.vlp .prf-question {
+  flex: 1;
+  font-size: var(--vlp-text-lead);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.vlp .prf-toggle {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-lg);
+  color: var(--vlp-color-accent);
+  line-height: 1;
+}
+
+.vlp .prf-answer {
+  font-size: var(--vlp-text-body-md);
+  line-height: 1.6;
+  color: var(--vlp-color-text-muted);
+  margin: 14px 0 0 32px;
+  max-width: 64ch;
+}
+
+.vlp .prf-link {
+  color: var(--vlp-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

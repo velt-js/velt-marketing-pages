@@ -7,7 +7,13 @@ type NavEntry = {
   label: string;
   href: string;
   badge?: string;
+  /** Opens in a new tab with rel="noopener" (used for off-site links). */
+  external?: boolean;
 };
+
+/** Console / docs destinations reused across the bar and the drawer. */
+const CONSOLE_URL = "https://console.velt.dev/";
+const DOCS_URL = "https://velt.dev/docs/";
 
 type NavGroup = {
   label: string;
@@ -47,10 +53,11 @@ const SOLUTIONS: NavEntry[] = [
 
 /** Inline (single) nav links. */
 const INLINE_LINKS: NavEntry[] = [
-  { label: "Pricing", href: "#how" },
-  { label: "Compare", href: "#faq" },
-  { label: "Customers", href: "#proof" },
-  { label: "Docs", href: "#how" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Compare", href: "/comparison" },
+  { label: "Customers", href: "/customers" },
+  { label: "Blog", href: "/blog" },
+  { label: "Docs", href: DOCS_URL, external: true },
 ];
 
 /** Grouped dropdowns, shared by the desktop bar and the mobile drawer. */
@@ -88,7 +95,14 @@ function NavEntryLink({
   onClick?: () => void;
 }) {
   return (
-    <a href={entry.href} className={className} role="menuitem" onClick={onClick}>
+    <a
+      href={entry.href}
+      className={className}
+      role="menuitem"
+      onClick={onClick}
+      target={entry.external ? "_blank" : undefined}
+      rel={entry.external ? "noopener" : undefined}
+    >
       {entry.label}
       {entry.badge ? <span className="nav-badge">{entry.badge}</span> : null}
     </a>
@@ -150,7 +164,7 @@ export default function Nav() {
   return (
     <header className="nav-header">
       <div className="nav-inner">
-        <a href="#top" className="nav-logo" aria-label="Velt home">
+        <a href="/" className="nav-logo" aria-label="Velt home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/velt-logo.svg"
@@ -181,15 +195,21 @@ export default function Nav() {
             </div>
           ))}
           {INLINE_LINKS.map((entry) => (
-            <a href={entry.href} className="nav-link hl" key={entry.label + entry.href}>
+            <a
+              href={entry.href}
+              className="nav-link hl"
+              key={entry.label + entry.href}
+              target={entry.external ? "_blank" : undefined}
+              rel={entry.external ? "noopener" : undefined}
+            >
               {entry.label}
             </a>
           ))}
         </nav>
 
         <div className="nav-right">
-          <a href="#" className="nav-signin houtline">Sign in</a>
-          <a href="#cta" className="nav-cta hdark">Get Free API Key</a>
+          <a href={CONSOLE_URL} target="_blank" rel="noopener" className="nav-signin houtline">Sign in</a>
+          <a href={CONSOLE_URL} target="_blank" rel="noopener" className="nav-cta hdark">Get Free API Key</a>
         </div>
 
         <button
@@ -249,6 +269,8 @@ export default function Nav() {
                 className="nav-drawer-link"
                 key={entry.label + entry.href}
                 onClick={closeDrawer}
+                target={entry.external ? "_blank" : undefined}
+                rel={entry.external ? "noopener" : undefined}
               >
                 {entry.label}
               </a>
@@ -256,8 +278,8 @@ export default function Nav() {
           </div>
 
           <div className="nav-drawer-actions">
-            <a href="#" className="nav-signin houtline" onClick={closeDrawer}>Sign in</a>
-            <a href="#cta" className="nav-cta hdark" onClick={closeDrawer}>Get Free API Key</a>
+            <a href={CONSOLE_URL} target="_blank" rel="noopener" className="nav-signin houtline" onClick={closeDrawer}>Sign in</a>
+            <a href={CONSOLE_URL} target="_blank" rel="noopener" className="nav-cta hdark" onClick={closeDrawer}>Get Free API Key</a>
           </div>
         </div>
       </div>

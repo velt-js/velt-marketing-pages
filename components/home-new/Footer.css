@@ -54,8 +54,25 @@
 
 .vlp .footer-badges {
   display: flex;
-  gap: var(--vlp-space-2);
+  align-items: center;
+  gap: var(--vlp-space-4);
   margin-top: var(--vlp-space-4);
+}
+
+.vlp .footer-badge-logo {
+  display: block;
+  height: 52px;
+  width: 52px;
+  object-fit: contain;
+  /* Dark badge backgrounds add nothing on the dark footer, so only the light
+     marks show — the seals blend seamlessly instead of sitting on a visible disc. */
+  mix-blend-mode: plus-lighter;
+}
+
+/* HIPAA seal reads as a desaturated mark on the dark footer, matching the
+   original libraries footer treatment. */
+.vlp .footer-badge-logo--hipaa {
+  filter: grayscale(1);
 }
 
 .vlp .footer-badge {
@@ -95,4 +112,10 @@
   font-size: var(--vlp-btn-primary-font-micro);
   color: var(--vlp-color-text-on-dark-muted);
   letter-spacing: 0.03em;
+}
+
+.vlp .footer-legal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-4);
 }

@@ -1,0 +1,356 @@
+/* The shared `.vlp-page` wrapper clips horizontal bleed with
+   `overflow-x: hidden`, which turns it into a scroll container and breaks
+   `position: sticky` for descendants (the comparison-table tier header +
+   section headings). `overflow-x: clip` clips the same way but does NOT
+   establish a scroll container, so sticky works relative to the viewport.
+   Scoped to /pricing so the homepage wrapper is untouched. */
+.vlp .vlp-page.pricing-page {
+  overflow-x: clip;
+}
+
+.vlp .prc-section {
+  background: var(--vlp-bg-page);
+}
+
+.vlp .prc-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+/* ── Intro ─────────────────────────────────────────────────── */
+.vlp .prc-intro {
+  max-width: var(--vlp-content-narrow);
+  margin-bottom: var(--vlp-space-10);
+}
+
+.vlp .prc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .prc-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .prc-intro-h2 {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+}
+
+.vlp .prc-intro-p {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
+}
+
+/* ── Desktop table ─────────────────────────────────────────── */
+.vlp .prc-desktop {
+  display: block;
+}
+
+.vlp .prc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr));
+  align-items: center;
+}
+
+.vlp .prc-tier-header-sticky {
+  position: sticky;
+  z-index: 10;
+  background: var(--vlp-bg-page);
+}
+
+.vlp .prc-tier-header {
+  background: var(--vlp-bg-page);
+}
+
+.vlp .prc-row--header {
+  padding: var(--vlp-space-6) 0;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .prc-tier-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  text-align: center;
+}
+
+.vlp .prc-tier-name {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prc-tier-price {
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prc-tier-cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-ink);
+  background: transparent;
+  border: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-radius: var(--vlp-btn-primary-radius);
+  padding: var(--vlp-btn-primary-padding-sm);
+  transition: var(--vlp-btn-transition);
+}
+
+/* ── Section heading (sticky, collapsible) ─────────────────── */
+.vlp .prc-section-head-sticky {
+  position: sticky;
+  z-index: 5;
+  background: var(--vlp-bg-page);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .prc-section-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  width: 100%;
+  padding: var(--vlp-space-5) 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.vlp .prc-section-title {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  font-weight: var(--vlp-weight-medium);
+}
+
+.vlp .prc-caret {
+  width: 12px;
+  height: 8px;
+  flex-shrink: 0;
+  color: var(--vlp-color-text-subtle);
+  transition: transform 180ms ease;
+}
+
+.vlp .prc-caret--open {
+  transform: rotate(180deg);
+}
+
+/* ── Body rows ─────────────────────────────────────────────── */
+.vlp .prc-row--body {
+  padding: var(--vlp-space-4) 0;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-faint);
+  min-height: 56px;
+}
+
+.vlp .prc-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: var(--vlp-space-4);
+}
+
+.vlp .prc-label-main {
+  font-size: var(--vlp-text-body);
+  color: var(--vlp-color-text);
+  line-height: var(--vlp-leading-body);
+}
+
+.vlp .prc-label-sub {
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-subtle);
+  line-height: var(--vlp-leading-body);
+}
+
+.vlp .prc-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.vlp .prc-check {
+  width: 20px;
+  height: 20px;
+  color: var(--vlp-color-green-approval);
+}
+
+.vlp .prc-cross {
+  width: 20px;
+  height: 20px;
+  color: var(--vlp-border-default);
+}
+
+.vlp .prc-cell-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.vlp .prc-cell-value {
+  font-size: var(--vlp-text-body-md);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-ink);
+  line-height: var(--vlp-leading-body);
+}
+
+.vlp .prc-cell-sub {
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-subtle);
+  line-height: var(--vlp-leading-body);
+}
+
+/* ── Mobile accordion ──────────────────────────────────────── */
+.vlp .prc-mobile-wrap {
+  display: none;
+}
+
+.vlp .prc-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .prc-m-tier {
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-xl);
+  overflow: hidden;
+}
+
+.vlp .prc-m-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-3);
+  padding: var(--vlp-space-4) var(--vlp-space-5);
+  cursor: pointer;
+  list-style: none;
+}
+
+.vlp .prc-m-summary::-webkit-details-marker {
+  display: none;
+}
+
+.vlp .prc-m-head {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vlp .prc-m-name {
+  font-size: var(--vlp-text-card);
+  font-weight: var(--vlp-weight-semibold);
+}
+
+.vlp .prc-m-price {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  text-transform: uppercase;
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prc-m-cta {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-ink);
+  border: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-radius: var(--vlp-btn-primary-radius);
+  padding: var(--vlp-btn-primary-padding-sm);
+}
+
+.vlp .prc-m-body {
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .prc-m-section {
+  padding: var(--vlp-space-3) var(--vlp-space-5) var(--vlp-space-2);
+  border-top: 2px solid var(--vlp-border-default);
+}
+
+.vlp .prc-m-section-title {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+}
+
+.vlp .prc-m-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-3);
+  padding: var(--vlp-space-3) var(--vlp-space-5);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-faint);
+  min-height: 48px;
+}
+
+.vlp .prc-m-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.vlp .prc-m-label-main {
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text);
+  line-height: var(--vlp-leading-body);
+}
+
+.vlp .prc-m-label-sub {
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prc-m-value {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vlp .prc-desktop {
+    display: none;
+  }
+  .vlp .prc-mobile-wrap {
+    display: block;
+    max-width: 560px;
+  }
+  .vlp .prc-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter);
+  }
+}

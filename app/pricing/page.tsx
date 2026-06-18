@@ -1,18 +1,20 @@
-// /pricing — Figma node 217:5662 in HqWIZdR6ISJmaG2n4o3gr8.
-// Static page (no Sanity); composition mirrors the live velt.dev/pricing
-// page. Tier copy + comparison-table content live in
-// components/pricing/pricing-data.ts.
+// /pricing — recreated on the editorial home-new theme (scoped under
+// `.vlp`, canonical `--vlp-*` tokens; see design-guides/DESIGN.md).
+// Composition mirrors the live velt.dev/pricing flow but in the warm
+// light palette: hero → tier cards + YC deal → trust marquee →
+// comparison table → FAQ → final CTA. Tier copy + comparison-table
+// content still live in components/pricing/pricing-data.ts.
 
-import { Footer } from "@/components/home/Footer";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { PageHero } from "@/components/library/PageHero";
-import { LibraryFAQ } from "@/components/library/LibraryFAQ";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import { PricingTiers } from "@/components/pricing/PricingTiers";
-import { PricingYCCallout } from "@/components/pricing/PricingYCCallout";
-import { PricingComparisonTable } from "@/components/pricing/PricingComparisonTable";
-import { pricingFAQ } from "@/components/pricing/pricing-faq";
+import Nav from "@/components/home-new/Nav";
+import Footer from "@/components/home-new/Footer";
+import TrustStrip from "@/components/home-new/TrustStrip";
+import PricingHero from "@/components/pricing-new/PricingHero";
+import PricingTiers from "@/components/pricing-new/PricingTiers";
+import PricingTable from "@/components/pricing-new/PricingTable";
+import PricingFaq from "@/components/pricing-new/PricingFaq";
+import PricingCta from "@/components/pricing-new/PricingCta";
 import { TIERS } from "@/components/pricing/pricing-data";
+import "@/components/home-new/styles.css";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
@@ -136,39 +138,29 @@ export const metadata = buildPageMetadata({
 
 export default function PricingPage() {
   return (
-    <>
+    <div className="vlp">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-pricing-product" data={PRICING_PRODUCT_SCHEMA} />
       <JsonLd id="ld-pricing-faq" data={PRICING_FAQ_SCHEMA} />
       <JsonLd id="ld-pricing-breadcrumb" data={PRICING_BREADCRUMB} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated
-          heading="Choose your plan"
-          subheading="Pay only for meaningful collaboration usage."
-          primaryCta={{
-            label: "Get Free API Key",
-            href: "https://console.velt.dev/",
-            newTab: true,
-          }}
-          secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
-        />
 
+      <Nav />
+      <div className="vlp-page pricing-page">
+        <a id="top" />
+        <PricingHero />
         <PricingTiers />
-
-        <PricingYCCallout />
-
-        <TrustedLogos />
-
-        <PricingComparisonTable />
-
-        <FeatureCustomerCarousel />
-
-        <LibraryFAQ items={pricingFAQ} />
-
+        <TrustStrip />
+        <PricingTable />
+        <PricingFaq />
+        <PricingCta />
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
