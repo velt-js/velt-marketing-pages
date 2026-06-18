@@ -68,7 +68,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Customers", href: "/customers" },
       { label: "Blog", href: "/blog" },
       { label: "Enterprise", href: "/enterprise" },
-      { label: "vs Liveblocks", href: "/comparison" },
+      { label: "Comparison", href: "/comparison" },
       { label: "Status", href: "https://status.velt.dev/", external: true },
     ],
   },

@@ -1,28 +1,17 @@
-// /comparison — Figma node 180:72203 in HqWIZdR6ISJmaG2n4o3gr8.
-// Static page; copy and assets pulled from Figma. Sections from top:
-// PageHero (decorated) → TrustedLogos → SixReasonsHeader (dark anchors)
-// → SixReasonsSection (peach card holding the 6 reasons + ComparePricingCTA)
-// → FeatureCustomerCarousel → GetStartedSteps → Footer.
-//
-// Nav theme switch: data-outcomes on SixReasonsSection (flips Nav white when
-// the peach card hits the strip); FeatureCustomerCarousel already carries
-// data-getstarted (flips Nav back to dark).
+// /comparison — recreated on the editorial home-new theme (scoped under
+// `.vlp`, canonical `--vlp-*` tokens; see design-guides/DESIGN.md). Mirrors
+// the /pricing + /blog redesign: hero → trust marquee → six-reason head-to-
+// head cards + pricing-model compare → final CTA. Reason copy lives in
+// components/comparison-new/comparison-data.ts. All SEO/JSON-LD preserved.
 
-import { Footer } from "@/components/home/Footer";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { PageHero } from "@/components/library/PageHero";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import Nav from "@/components/home-new/Nav";
+import Footer from "@/components/home-new/Footer";
+import TrustStrip from "@/components/home-new/TrustStrip";
+import ComparisonHero from "@/components/comparison-new/ComparisonHero";
+import ComparisonReasons from "@/components/comparison-new/ComparisonReasons";
+import ComparisonCta from "@/components/comparison-new/ComparisonCta";
+import "@/components/home-new/styles.css";
 
-import { SixReasonsHeader } from "@/components/comparison/SixReasonsHeader";
-import { SixReasonsSection } from "@/components/comparison/SixReasonsSection";
-import { ComparePricingCTA } from "@/components/comparison/ComparePricingCTA";
-import { ProductMaturity } from "@/components/comparison/reasons/ProductMaturity";
-import { ImplementationCost } from "@/components/comparison/reasons/ImplementationCost";
-import { Scalability } from "@/components/comparison/reasons/Scalability";
-import { UserExperience } from "@/components/comparison/reasons/UserExperience";
-import { Security } from "@/components/comparison/reasons/Security";
-import { Support } from "@/components/comparison/reasons/Support";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
@@ -55,48 +44,30 @@ export const metadata = buildPageMetadata({
 
 export default function ComparisonPage() {
   return (
-    <>
+    <div className="vlp">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-comparison-webpage" data={COMPARISON_WEBPAGE} />
       <JsonLd id="ld-comparison-breadcrumb" data={COMPARISON_BREADCRUMB} />
       {/* Framer-ported bespoke schema (Script 15): adds SDK keywords,
           about SoftwareApplication featureList, and competitor-comparison
           customer mentions. */}
       <JsonLd id="ld-comparison-framer" data={COMPARISON_WEBPAGE_SCHEMA} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated
-          heading="100% better Experience with 90% less Code"
-          subheading="Your developers will do less and your customers will get more!"
-          primaryCta={{
-            label: "Start Free Trial",
-            href: "https://console.velt.dev/",
-            newTab: true,
-          }}
-          secondaryCta={{ label: "View Docs", href: "https://velt.dev/docs/", newTab: true }}
-        />
 
-        <TrustedLogos />
-
-        <SixReasonsHeader />
-
-        <SixReasonsSection>
-          <ProductMaturity />
-          <ImplementationCost />
-          <Scalability />
-          <UserExperience />
-          <Security />
-          <Support />
-          <ComparePricingCTA />
-        </SixReasonsSection>
-
-        <FeatureCustomerCarousel />
-
-        <GetStartedSteps />
-
+      <Nav />
+      <div className="vlp-page">
+        <a id="top" />
+        <ComparisonHero />
+        <TrustStrip />
+        <ComparisonReasons />
+        <ComparisonCta />
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
