@@ -498,7 +498,7 @@ const doc = {
         {
           question: "Which editors does suggesting mode support?",
           answer:
-            "Anything that renders on the web. Suggestion targets are DOM elements, so inputs, selects, table cells, contenteditable surfaces, and your own custom components work through the same attribute and anchor API, and editor libraries connect through their setups.",
+            "Anything that renders on the web. Suggestion targets are DOM elements, so inputs, selects, table cells, contenteditable surfaces, and your own custom components work through the same attribute and anchor API; editor libraries connect through their setups.",
         },
         {
           question: "How do I add suggesting mode to a React app?",
@@ -508,7 +508,7 @@ const doc = {
         {
           question: "Can AI agents propose changes through suggestions?",
           answer:
-            "Yes. An agent\u2019s proposed value is committed as a pending suggestion on the exact target, and a human accepts or rejects it before anything is applied. The agent never holds write access to your data.",
+            "Yes. An agent's proposed value is committed as a pending suggestion on the exact target, and a human accepts or rejects it before anything is applied. The agent never holds write access to your data.",
         },
         {
           question: "What happens when a suggestion is accepted?",
@@ -518,12 +518,12 @@ const doc = {
         {
           question: "What if the content changed before a reviewer accepts?",
           answer:
-            "If the target no longer resolves at accept time, the suggestion goes stale instead of applying. If the live value moved since the proposal was captured, a drift flag is recorded on a best-effort basis when a getter is registered. A stale target never applies.",
+            "If the target no longer resolves at accept time, the suggestion goes stale instead of applying. If the live value moved since the proposal was captured, a drift flag is recorded (best-effort, requires a registered getter); in v1 the accept still applies, with a confirmation prompt planned. A stale target never applies.",
         },
         {
           question: "Do suggestions require Velt Comments?",
           answer:
-            "Yes. A suggestion is stored as a comment annotation of type suggestion, and the accept and reject UI renders on the comment dialog, so Comments must be set up first. See the Comments page.",
+            "Yes. A suggestion is stored as a comment annotation of type suggestion, and the accept and reject UI renders on the comment dialog, so Comments must be set up first. See /comments.",
         },
         {
           question: "Can I build my own suggestion UI?",

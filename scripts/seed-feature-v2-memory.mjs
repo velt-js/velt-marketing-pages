@@ -78,9 +78,9 @@ const doc = {
   slug: { _type: "slug", current: "memory" },
   beta: true,
   breadcrumbLabel: "Memory",
-  metaTitle: "Memory | Reviews that learn from precedent | Velt",
+  metaTitle: "Review Memory | Add memory to your reviews | Velt",
   metaDescription:
-    "A learning layer over your review history. Past approvals surface as precedent to humans and agents, so the tenth review is consistent with the first.",
+    "Velt learns from past reviews. Previous approvals surface as precedent, so the tenth review is consistent with the first.",
 
   hero: {
     kicker: "Memory",
@@ -519,7 +519,7 @@ const doc = {
         {
           question: "How do I add review memory to a React app?",
           answer:
-            "Install @veltdev/react, wrap your app in VeltProvider with your API key, and your review activity is recorded as structured records. Enable Memory and surface the inline context panel where reviews happen; precedent and suggestions appear automatically.",
+            "Install @veltdev/react, wrap your app in VeltProvider with your API key, and your review activity is recorded as structured records. Enable Memory and mount the inline context panel where reviews happen; precedent and suggestions surface automatically.",
         },
         {
           question: "Is our review data used to train models for other customers?",
@@ -549,7 +549,7 @@ const doc = {
         {
           question: "What does Memory know on day one?",
           answer:
-            "Nothing, by design. Once you enable Memory in your workspace, judgments are created automatically from review activity, not imported or written by hand, so it starts empty and gets richer as reviews happen.",
+            "Nothing, by design. Once you enable Memory in your workspace, judgments are created automatically from review activity, not imported or written by hand, so it starts empty and gets richer as reviews happen. Until then, questions return an empty answer rather than a guess, and suggestions stay sparse.",
         },
         {
           question: "What does Beta mean for Memory?",

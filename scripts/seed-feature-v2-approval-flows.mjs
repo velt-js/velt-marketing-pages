@@ -552,7 +552,7 @@ const doc = {
         {
           question: "Do you support group approvals and quorum, like two of three reviewers?",
           answer:
-            "Yes. A step declares its reviewer list with mandatory and optional members, and a parallel group runs steps simultaneously with an N-of-M threshold that can require specific approvers. When quorum is met the group resolves and remaining assignments are released.",
+            "Yes. A step declares its reviewer list with mandatory and optional members, and a parallel group runs steps simultaneously with an N-of-M threshold that can require specific approvers. When quorum is met the group resolves and remaining assignments are released; resolving \"whoever is on call\" happens in your backend, which passes the chosen userIds in.",
         },
         {
           question: "What happens when a reviewer doesn\u2019t respond?",
@@ -578,6 +578,11 @@ const doc = {
           question: "Does Velt ship a prebuilt workflow builder UI?",
           answer:
             "No. Velt ships the engine, the definition APIs, and the review-surface components; you build the builder UI that fits your product, and your users define workflows through it.",
+        },
+        {
+          question: "What does Beta mean for approval flows?",
+          answer:
+            "Beta means the feature is real and running in production with two caveats: API contracts may still change between releases, and access requires being added to the beta list. Ask through Book Demo or your existing Velt contact.",
         },
         {
           question: "What does it cost to add approval workflows?",

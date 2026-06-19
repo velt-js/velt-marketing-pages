@@ -547,7 +547,7 @@ const doc = {
         {
           question: "Which features support self-hosted data?",
           answer:
-            "Comments at the thread level, reactions, recordings including the files themselves, custom notifications, activity logs, comment attachments, user PII, and anonymous user resolution for email mentions. You can self-host some and leave the rest Velt-hosted.",
+            "Comments (thread level), reactions, recordings including the files themselves, custom notifications, activity logs, comment attachments, user PII, and anonymous user resolution for email mentions. You can self-host some and leave the rest Velt-hosted.",
         },
         {
           question: "What happens if our backend goes down?",
@@ -557,7 +557,7 @@ const doc = {
         {
           question: "Does self-hosted data cost extra?",
           answer:
-            "Velt is priced on usage, not seats: you pay for documents with review activity in a month, and there is a free tier for development and early production.",
+            "Velt is priced on usage, not seats: you pay for documents with review activity in a month, with a free tier for development and early production.",
         },
       ],
       "faqItem",

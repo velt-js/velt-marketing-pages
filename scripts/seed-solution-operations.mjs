@@ -277,7 +277,7 @@ const doc = {
         {
           question: "Can an approval run across two companies, our customer's team and their counterparty?",
           answer:
-            "Yes, when both sides are users in your product. Your product provisions the counterparty's reviewers as users with access to the shared record, the workflow routes steps to either side's people in order, and every decision is timestamped and attributed. Internal-only threads and notifications never reach them.",
+            "Yes, when both sides are users in your product. Your product provisions the counterparty's reviewers as users with access to the shared record; the workflow routes steps to either side's people in order, and every decision is timestamped and attributed. Internal-only threads and notifications never reach them.",
         },
         {
           question: "Can we keep internal comments invisible to the counterparty?",
@@ -292,12 +292,12 @@ const doc = {
         {
           question: "We review orders and work orders, not documents. Does the model fit?",
           answer:
-            "Yes. A document in Velt is any unit of work your product renders: an order, a shipment record, a work order, or an inspection. Comments anchor to records and fields, approvals attach to the record, and the audit trail follows it.",
+            "Yes. A document in Velt is any unit of work your product renders: an order, a shipment record, a work order, an inspection. Comments anchor to records and fields, approvals attach to the record, and the audit trail follows it.",
         },
         {
           question: "What do we show the customer's auditors when they ask who released a hold?",
           answer:
-            "The record. Every comment, approval, and rejection is captured automatically with who, what, and when, queryable by document, user, or time range, and exportable. The answer to who approved the substitution is a query, not an archaeology project.",
+            "The record. Every comment, approval, and rejection is captured automatically with who, what, and when, queryable by document, user, or time range, and exportable. The answer to \"who approved the substitution\" is a query, not an archaeology project.",
         },
         {
           question: "How does pricing work when thousands of counterparty users touch a record once a month?",

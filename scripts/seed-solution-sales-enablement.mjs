@@ -287,7 +287,7 @@ const doc = {
         {
           question: "Our emails and landing pages are built in a custom drag-and-drop builder. Does this work there?",
           answer:
-            "Yes. Comments, suggestions, and approvals anchor to elements, not to editors, so they work in custom builders and canvases, with prebuilt setups for Tiptap, CodeMirror, and other editor libraries.",
+            "Yes. Comments, suggestions, and approvals anchor to elements, not to editors, so they work in custom builders and canvases, with prebuilt setups for Tiptap, CodeMirror, and 10 other editor libraries.",
         },
         {
           question: "How does pricing work for a platform with thousands of campaign assets?",

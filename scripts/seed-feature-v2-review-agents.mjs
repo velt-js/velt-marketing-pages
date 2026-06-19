@@ -77,9 +77,9 @@ const doc = {
   slug: { _type: "slug", current: "review-agents" },
   beta: false,
   breadcrumbLabel: "Review Agents",
-  metaTitle: "Review Agents | AI reviewers for the content in your product | Velt",
+  metaTitle: "Review Agents | AI that reviews content and data | Velt",
   metaDescription:
-    "Add AI review agents that check the content and data in your product before a human looks. Findings land as comments a human accepts or rejects.",
+    "Built-in or custom AI review agents from plain English instructions. Findings land as comments a human accepts or rejects.",
 
   hero: {
     kicker: "Review agents",
@@ -544,7 +544,7 @@ const doc = {
         {
           question: "What are the built-in review agents in Velt?",
           answer:
-            "Seven, each individually toggleable: Spell Check, Grammar Check, and Broken Links for quality; PII Detection, Profanity Filter, and Sensitive Data for sensitivity; and Consistency Check, which uses Memory and stays off until Memory has data. Built-ins use the same framework as custom agents, so disabling one never affects another.",
+            "Seven, each individually toggleable: Spell Check, Grammar Check, and Broken Links for quality; PII Detection, Profanity Filter, and Sensitive Data for sensitivity; Consistency Check, which uses Memory and stays off until Memory has data. Built-ins use the same framework as custom agents, so disabling one never affects another.",
         },
         {
           question: "How do I add AI review agents to a React app?",
@@ -584,7 +584,7 @@ const doc = {
         {
           question: "What do review agents cost?",
           answer:
-            "Velt is priced on usage, not seats: you pay for documents with review activity in a month, with a free tier for development and early production.",
+            "Velt is priced on usage, not seats: you pay for documents with review activity in a month, with a free tier for development and early production. How built-in and custom agents are packaged within that is being finalized.",
         },
       ],
       "faqItem",

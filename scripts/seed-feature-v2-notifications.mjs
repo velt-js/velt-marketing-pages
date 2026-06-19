@@ -73,9 +73,9 @@ const doc = {
   slug: { _type: "slug", current: "notifications" },
   beta: false,
   breadcrumbLabel: "Notifications",
-  metaTitle: "Notifications | Real-time, cross-channel notifications | Velt",
+  metaTitle: "Notifications | Real-time, cross-channel | Velt",
   metaDescription:
-    "Add real-time notifications to your product: in-app feeds, email, and your own channels, with batching, per-user preferences, and a REST API for custom events.",
+    "Cross-channel out of the box: in-app, email, Slack, and Teams with batching, routing, broadcasts, and per-user preferences.",
 
   hero: {
     kicker: "Notifications",
@@ -532,7 +532,7 @@ const doc = {
         {
           question: "How is this different from notification infrastructure like Knock?",
           answer:
-            "Knock is general-purpose notification infrastructure: you send it events and it orchestrates delivery at scale. Velt notifications come pre-wired to the review layer: comments, mentions, and review activity generate notifications automatically, the inbox components are included, and your backend adds custom events via REST API. If you need a standalone notification platform for your whole product, that is infrastructure like Knock; if you need your review loop noticed without building the pipeline, that is Velt.",
+            "Knock is general-purpose notification infrastructure: you send it events and it orchestrates delivery across channels at scale. Velt notifications come pre-wired to the review layer: comments, mentions, and review activity generate notifications automatically, the inbox components are included, and your backend adds custom events via REST API. If you need a standalone notification platform for your whole product, that is infrastructure like Knock; if you need your review loop noticed without building the pipeline, that is Velt.",
         },
         {
           question: "Can notification data stay on our infrastructure?",

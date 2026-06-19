@@ -14,7 +14,7 @@ export const ORG_LOGO_WIDTH = 1200;
 export const ORG_LOGO_HEIGHT = 512;
 export const ORG_OG_IMAGE = `${SITE_URL}/opengraph-image.png`;
 export const ORG_DESCRIPTION =
-  "Velt is a collaboration SDK for B2B SaaS — add real-time multiplayer features like comments, live cursors, notifications, and presence to your product in minutes.";
+  "Velt is embeddable review and approval for AI-native apps: comments, approval flows, review agents, suggestions, audit trails, memory, and notifications in one SDK.";
 
 // Stable `@id` URIs. Schema.org recommends a hash fragment so the
 // identifier is namespaced under the canonical URL.

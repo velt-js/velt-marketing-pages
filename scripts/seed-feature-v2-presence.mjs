@@ -520,7 +520,7 @@ const doc = {
         {
           question: "How does follow mode work?",
           answer:
-            "One user clicks another\u2019s avatar to start a session. Whatever the leader does, clicking, scrolling, or navigating, happens on every follower\u2019s screen, with a callback to drive your own router.",
+            "One user clicks another\u2019s avatar to start a session (docs call it Follow Me Mode). Whatever the leader does, clicking, scrolling, or navigating, happens on every follower\u2019s screen, with a callback to drive your own router.",
         },
         {
           question: "Can I build my own presence UI?",

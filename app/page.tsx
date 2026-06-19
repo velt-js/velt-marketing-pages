@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import "@/components/home-new/styles.css";
 
 import { JsonLd } from "./_seo/JsonLd";
-import { ORG_ID, ORG_OG_IMAGE, SITE_URL } from "./_seo/schema";
+import {
+  ORG_ID,
+  ORG_OG_IMAGE,
+  SITE_URL,
+  buildFaqPageSchema,
+} from "./_seo/schema";
 import {
   HOMEPAGE_PRODUCT_SCHEMA,
   HOMEPAGE_SOFTWARE_APPLICATION_SCHEMA,
@@ -21,6 +26,7 @@ import Integrations from "@/components/home-new/Integrations";
 import Enterprise from "@/components/home-new/Enterprise";
 import Verticals from "@/components/home-new/Verticals";
 import Faq from "@/components/home-new/Faq";
+import { FAQS } from "@/components/home-new/faq-data";
 import Proof from "@/components/home-new/Proof";
 import FinalCta from "@/components/home-new/FinalCta";
 import Footer from "@/components/home-new/Footer";
@@ -64,6 +70,14 @@ const HOME_SOFTWARE_APPLICATION = {
   },
 };
 
+// FAQPage schema built from the SAME source the on-page accordion
+// renders (the exported `FAQS`), so the rendered text and the JSON-LD
+// mirror each other exactly (spec Part 3.5 + Part 5.7 gate 6). All
+// rendered questions are emitted, not just the spec's minimum set.
+const HOME_FAQ_SCHEMA = buildFaqPageSchema(
+  FAQS.map((item) => ({ question: item.q, answer: item.a })),
+);
+
 export default function Home() {
   return (
     <div className="vlp">
@@ -86,6 +100,10 @@ export default function Home() {
       {/* Framer-ported Product schema (Script 22) — sits alongside the
           SoftwareApplication entities above. */}
       <JsonLd id="ld-home-product-framer" data={HOMEPAGE_PRODUCT_SCHEMA} />
+      {/* FAQPage mirroring the rendered FAQ accordion exactly. Built from
+          the same `FAQS` source the <Faq /> section renders, so the two
+          can never drift (spec Part 5.7 gate 6). */}
+      <JsonLd id="ld-home-faq" data={HOME_FAQ_SCHEMA} />
 
       <Nav />
       <div className="vlp-page">

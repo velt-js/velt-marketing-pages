@@ -524,7 +524,7 @@ const doc = {
         {
           question: "How do I add Loom-style recording to a React app?",
           answer:
-            "Install @veltdev/react, wrap your app in VeltProvider with your API key, and add the recorder components: VeltRecorderNotes for pinned recordings, VeltRecorderTool to start one, and VeltRecorderControlPanel and VeltRecorderPlayer for control and playback. Voice, video, and screen recording work out of the box; the quickstart walks through it.",
+            "Install @veltdev/react, wrap your app in VeltProvider with your API key, and add the recorder components: VeltRecorderNotes for pinned recordings, VeltRecorderTool to start one, VeltRecorderControlPanel and VeltRecorderPlayer for control and playback. Voice, video, and screen recording work out of the box; the quickstart walks through it.",
         },
         {
           question: "Can users record voice, video, and screen?",
@@ -544,12 +544,12 @@ const doc = {
         {
           question: "Where are recordings stored? Can they stay on our infrastructure?",
           answer:
-            "By default Velt stores them. With the recorder data provider, recorded files, user identity, transcription, and attachment URLs stay on your storage (any provider: S3, Google Cloud Storage, Azure Blob, or your own servers) while Velt keeps only minimal identifiers. See the self-hosting page.",
+            "By default Velt stores them. With the recorder data provider, recorded files, user identity, transcription, and attachment URLs stay on your storage (any provider: S3, Google Cloud Storage, Azure Blob, or your own servers) while Velt keeps only minimal identifiers. See /self-hosting.",
         },
         {
           question: "Can recordings be attached to comments?",
           answer:
-            "Yes. Voice, video, and screen recordings attach to comment threads, and a recording links to a comment annotation under the hood, so feedback about a recording stays with the recording. See the comments page.",
+            "Yes. Voice, video, and screen recordings attach to comment threads, and a recording links to a comment annotation under the hood, so feedback about a recording stays with the recording. See /comments.",
         },
         {
           question: "Does recording work on mobile?",

@@ -544,7 +544,7 @@ const doc = {
         {
           question: "Can this serve as evidence for EU AI Act Article 14 human oversight?",
           answer:
-            "Article 14 applies to high-risk AI systems defined in Annex III (credit, insurance, hiring, critical infrastructure, and essential services among them), enforceable from August 2, 2026; it is not a universal obligation on every AI feature. If your product or your customers operate in that scope, Velt provides the mechanism (approval before action) and the evidence (a record of who approved what, when, and why). Talk to your counsel about whether you are in scope.",
+            "Article 14 applies to high-risk AI systems defined in Annex III (credit, insurance, hiring, critical infrastructure, and essential services among them), enforceable from August 2, 2026; it is not a universal obligation on every AI feature. If your product or your customers operate in that scope, Velt provides the mechanism (approval before action) and the evidence (a record of who approved what, when, and why). Talk to your counsel about whether you are in scope; see /governance.",
         },
         {
           question: "Can records be edited or deleted after the fact?",
@@ -564,7 +564,7 @@ const doc = {
         {
           question: "Can audit data stay on our infrastructure?",
           answer:
-            "Yes. The self-host activity data provider keeps log content, entity snapshots, and custom fields on your infrastructure while Velt stores only minimal identifiers. See the self-hosting page.",
+            "Yes. The self-host activity data provider keeps log content, entity snapshots, and custom fields on your infrastructure while Velt stores only minimal identifiers. See /self-hosting.",
         },
         {
           question: "What does an audit trail cost?",

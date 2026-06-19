@@ -78,9 +78,9 @@ const doc = {
   slug: { _type: "slug", current: "comments" },
   beta: false,
   breadcrumbLabel: "Comments",
-  metaTitle: "Comments | Contextual threads from humans or agents | Velt",
+  metaTitle: "Comments SDK | Add comments to your product | Velt",
   metaDescription:
-    "Add contextual comment threads to any element, doc, cell, or canvas. Humans and agents comment through the same API, so feedback stops scattering.",
+    "Contextual threads from humans or agents on any element, doc, cell, or canvas. The feedback layer your users already expect.",
 
   hero: {
     kicker: "Comments",
@@ -526,12 +526,12 @@ const doc = {
         {
           question: "How do comments survive content changes?",
           answer:
-            "Velt handles anchoring so threads stay attached when content moves or changes; the anchor model is robust against content changes.",
+            "Velt handles anchoring so threads stay attached when content moves or changes.",
         },
         {
           question: "Can comment data stay on our infrastructure?",
           answer:
-            "Yes. The comments data provider keeps comment content on your infrastructure while Velt stores only minimal identifiers. See the self-hosting page.",
+            "Yes. The comments data provider keeps comment content on your infrastructure while Velt stores only minimal identifiers. See /self-hosting.",
         },
         {
           question: "How do I add comments to a React app?",
