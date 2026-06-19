@@ -4,6 +4,8 @@ type IntegrationItem = {
   name: string;
   logoSrc: string;
   wide?: boolean;
+  /** Logo is a wordmark that already contains the brand name, so the text label is hidden. */
+  nameInLogo?: boolean;
 };
 
 type IntegrationCategory = {
@@ -26,6 +28,15 @@ const integrationCards: IntegrationCategory[][] = [
         { name: "CodeMirror", logoSrc: `${LOGO}/logo-codemirror-icon.svg` },
         { name: "ProseMirror", logoSrc: `${ICON}/prosemirror.svg` },
         { name: "Quill", logoSrc: `${ICON}/quill.svg` },
+        { name: "TinyMCE", logoSrc: `${ICON}/tinymce.svg`, wide: true, nameInLogo: true },
+        { name: "CKEditor", logoSrc: `${ICON}/ckeditor.svg`, wide: true, nameInLogo: true },
+        { name: "Monaco", logoSrc: `${ICON}/monaco.svg` },
+        { name: "Ace", logoSrc: `${ICON}/ace.png` },
+        { name: "Draft.js", logoSrc: `${ICON}/draftjs.svg` },
+        { name: "Apryse", logoSrc: `${ICON}/apryse.svg`, wide: true, nameInLogo: true },
+        { name: "Nutrient", logoSrc: `${ICON}/nutrient.svg`, wide: true, nameInLogo: true },
+        { name: "SuperDoc", logoSrc: `${ICON}/superdoc.png` },
+        { name: "Plate", logoSrc: `${ICON}/plate.svg` },
       ],
     },
   ],
@@ -46,6 +57,9 @@ const integrationCards: IntegrationCategory[][] = [
         { name: "Chart.js", logoSrc: `${ICON}/chartjs.svg` },
         { name: "Highcharts", logoSrc: `${LOGO}/logo-highcharts-symbol.svg` },
         { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg` },
+        { name: "TanStack", logoSrc: `${ICON}/tanstack.svg` },
+        { name: "AG Grid", logoSrc: `${ICON}/aggrid.svg` },
+        { name: "SpreadJS", logoSrc: `${ICON}/spreadjs.svg`, wide: true },
       ],
     },
   ],
@@ -71,22 +85,28 @@ const integrationCards: IntegrationCategory[][] = [
         { name: "YJS", logoSrc: `${LOGO}/logo-yjs.svg` },
       ],
     },
+    {
+      label: "CHAT SDK",
+      items: [
+        { name: "Vercel", logoSrc: `${ICON}/vercel.svg` },
+      ],
+    },
   ],
 ];
 
 /**
  * Renders a single integration chip with brand logo and label.
  */
-function IntegrationTag({ name, logoSrc, wide }: IntegrationItem) {
+function IntegrationTag({ name, logoSrc, wide, nameInLogo }: IntegrationItem) {
   return (
     <span className="integ-tag">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className={wide ? "integ-tag-logo integ-tag-logo-wide" : "integ-tag-logo"}
         src={logoSrc}
-        alt=""
+        alt={nameInLogo ? name : ""}
       />
-      <span className="integ-tag-label">{name}</span>
+      {!nameInLogo && <span className="integ-tag-label">{name}</span>}
     </span>
   );
 }
