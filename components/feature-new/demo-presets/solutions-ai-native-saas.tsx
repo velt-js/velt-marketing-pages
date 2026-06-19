@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarStack, CursorTag } from "../demos";
 
-// Simulated-UI demo nodes for the /solutions/ai-native-saas page. Keys are
+// Simulated-UI demo nodes for the /for/ai-native-saas page. Keys are
 // listed (pure-data) in ./solutions-ai-native-saas.keys.ts and merged into the
 // shared registry by ../demo-registry.tsx. Visuals are simulated, not live SDK
 // instances. Voice is AI-native SaaS: the generated draft, the agent's output,

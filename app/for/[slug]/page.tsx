@@ -1,5 +1,5 @@
 // Dynamic v1 Solutions (vertical) page driven by Sanity (`solutionPageV1`).
-// Rendered at /solutions/<slug> by the shared SolutionPageView. Answers "does
+// Rendered at /for/<slug> by the shared SolutionPageView. Answers "does
 // Velt understand MY business" in the vertical's own artifact nouns.
 
 import type { Metadata } from "next";
@@ -20,7 +20,7 @@ import { getAllSolutionSlugs, getSolutionPageBySlug } from "@/sanity/queries";
 
 export const revalidate = 60;
 
-const BASE_PATH = "/solutions";
+const BASE_PATH = "/for";
 
 export async function generateStaticParams() {
   try {
@@ -79,7 +79,7 @@ export default async function SolutionPage({
 
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
-    { name: "Solutions", url: `${SITE_URL}/solutions` },
+    { name: "Solutions", url: `${SITE_URL}/for` },
     { name: pageTitle, url: pageUrl },
   ]);
 

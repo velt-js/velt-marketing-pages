@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Seed the solutionPageV1-fintech document in Sanity so it renders at
- * /solutions/fintech via app/solutions/[slug]/page.tsx.
+ * /for/fintech via app/for/[slug]/page.tsx.
  *
  * Usage:
  *   node --env-file=.env.local scripts/seed-solution-fintech.mjs

@@ -1,4 +1,4 @@
-// Pure-data demo-preset keys for the /solutions/compliance page. Mirrors the
+// Pure-data demo-preset keys for the /for/compliance page. Mirrors the
 // keys defined in ./solutions-compliance.tsx. Imported by the keys aggregator
 // (../demo-keys.ts) so the Sanity Studio dropdown lists them without pulling
 // React into the Studio bundle.

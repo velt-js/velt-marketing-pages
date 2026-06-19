@@ -2,7 +2,7 @@ import { Fragment, type ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
 
-// Simulated-UI demo nodes for the /solutions/fintech page. Keys are listed
+// Simulated-UI demo nodes for the /for/fintech page. Keys are listed
 // (pure-data) in ./solutions-fintech.keys.ts and merged into the shared
 // registry by ../demo-registry.tsx. Visuals are simulated, not live SDK
 // instances. Voice is fintech and FP&A: budgets, forecasts, models, cells, the

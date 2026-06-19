@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
 
-// Simulated-UI demo nodes for the /solutions/compliance page. Keys are listed
+// Simulated-UI demo nodes for the /for/compliance page. Keys are listed
 // (pure-data) in ./solutions-compliance.keys.ts and merged into the shared
 // registry by ../demo-registry.tsx. Visuals are simulated, not live SDK
 // instances. Voice is compliance: policies, filings, attestations, controls,

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Seed the solutionPageV1-operations document in Sanity so it renders at
- * /solutions/operations via app/solutions/[slug]/page.tsx.
+ * /for/operations via app/for/[slug]/page.tsx.
  *
  * Usage:
  *   node --env-file=.env.local scripts/seed-solution-operations.mjs

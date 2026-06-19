@@ -6,7 +6,7 @@ import {
 
 // Schema for v1 Solutions (vertical) pages: sales-enablement, fintech,
 // operations, ai-native-saas, compliance, legal. One document per vertical,
-// rendered at /solutions/<slug> by app/solutions/[slug]/page.tsx via the shared
+// rendered at /for/<slug> by app/for/[slug]/page.tsx via the shared
 // SolutionPageView.
 //
 // Where the feature-page template (featurePageV2) answers "what is this
@@ -70,7 +70,7 @@ export const solutionPageV1 = defineType({
     defineField({
       name: "slug",
       title: "Slug",
-      description: "URL segment. e.g. 'sales-enablement' -> /solutions/sales-enablement.",
+      description: "URL segment. e.g. 'sales-enablement' -> /for/sales-enablement.",
       type: "slug",
       group: "identity",
       options: { source: "title", maxLength: 80 },
@@ -350,7 +350,7 @@ export const solutionPageV1 = defineType({
     select: { title: "title", subtitle: "slug.current" },
     prepare: ({ title, subtitle }) => ({
       title: title ?? "(untitled)",
-      subtitle: subtitle ? `/solutions/${subtitle}` : "vertical solutions page",
+      subtitle: subtitle ? `/for/${subtitle}` : "vertical solutions page",
     }),
   },
 });

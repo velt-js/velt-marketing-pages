@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Seed the solutionPageV1-sales-enablement document in Sanity so it renders at
- * /solutions/sales-enablement via app/solutions/[slug]/page.tsx.
+ * /for/sales-enablement via app/for/[slug]/page.tsx.
  *
  * Usage:
  *   node --env-file=.env.local scripts/seed-solution-sales-enablement.mjs

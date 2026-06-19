@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Seed the solutionPageV1-ai-native-saas document in Sanity so it renders at
- * /solutions/ai-native-saas via app/solutions/[slug]/page.tsx.
+ * /for/ai-native-saas via app/for/[slug]/page.tsx.
  *
  * Usage:
  *   node --env-file=.env.local scripts/seed-solution-ai-native-saas.mjs

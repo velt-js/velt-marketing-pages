@@ -16,6 +16,77 @@ import type {
 
 const FALLBACK_CTA: CtaLink = { label: "", href: "#" };
 
+// Canonical destinations used by the href normalizer below. Authored Sanity
+// content (seeded from scripts/seed-feature-v2-*.mjs) still uses several stale
+// URL conventions that 404 on the live site — e.g. bare feature slugs missing
+// the `/new-features/` prefix, `/compare/*` and `/vs/*` (real route is
+// `/comparison`), `/governance` (no such route), and `docs.velt.dev/quickstart/*`
+// (moved to `/get-started/quickstart`). Normalizing here — the single point all
+// feature-page links flow through — corrects every page at once without a
+// destructive Sanity re-seed.
+const FEATURE_BASE = "/new-features";
+const COMPARISON_PATH = "/comparison";
+const ENTERPRISE_PATH = "/enterprise";
+const DOCS_QUICKSTART_URL = "https://docs.velt.dev/get-started/quickstart";
+const DOCS_API_REFERENCE_URL = "https://docs.velt.dev/api-reference";
+
+// The twelve v2 feature slugs. A bare `/<slug>` link (e.g. `/huddle`) is a stale
+// reference that must carry the `/new-features/` prefix to resolve.
+const FEATURE_SLUGS = new Set([
+  "comments",
+  "presence",
+  "multiplayer-editing",
+  "huddle",
+  "recording",
+  "suggestions",
+  "approval-flows",
+  "review-agents",
+  "audit-trail",
+  "notifications",
+  "memory",
+  "self-hosting",
+]);
+
+/**
+ * Rewrite a stale authored href to its canonical, resolvable destination.
+ * Deterministic and idempotent: hrefs that are already correct (or unrelated)
+ * pass through unchanged.
+ * @param {Nullable<string>} href The raw href from Sanity content.
+ * @returns {string} The normalized href.
+ */
+function normalizeHref(href: Nullable<string>): string {
+  try {
+    if (!href || href === "#") return href ?? "#";
+
+    // `/compare/<slug>` and `/vs/<slug>` -> the real comparison page.
+    if (/^\/(compare|vs)\/[^/?#]+\/?$/.test(href)) return COMPARISON_PATH;
+
+    // `/governance` has no route; point at the enterprise page.
+    if (href === "/governance") return ENTERPRISE_PATH;
+
+    // Bare feature slug missing the `/new-features/` prefix.
+    const bareSlugMatch = href.match(/^\/([^/?#]+)\/?$/);
+    if (bareSlugMatch && FEATURE_SLUGS.has(bareSlugMatch[1])) {
+      return `${FEATURE_BASE}/${bareSlugMatch[1]}`;
+    }
+
+    // Relocated docs quickstart (any per-framework subpath, either docs domain).
+    if (/^https?:\/\/(docs\.velt\.dev|velt\.dev\/docs)\/quickstart(\/|$)/.test(href)) {
+      return DOCS_QUICKSTART_URL;
+    }
+
+    // `api-reference/webhooks(/advanced)` 404s; fall back to the api-reference root.
+    if (/^https?:\/\/docs\.velt\.dev\/api-reference\/webhooks(\/.*)?$/.test(href)) {
+      return DOCS_API_REFERENCE_URL;
+    }
+
+    return href;
+  } catch (error) {
+    console.error("normalizeHref failed", error);
+    return href ?? "#";
+  }
+}
+
 type Nullable<T> = T | null | undefined;
 
 interface RawCta {
@@ -228,7 +299,7 @@ function mapCta(raw: Nullable<RawCta>): CtaLink {
     if (!raw) return FALLBACK_CTA;
     return {
       label: raw.label ?? "",
-      href: raw.href ?? "#",
+      href: normalizeHref(raw.href),
       newTab: raw.newTab ?? undefined,
     };
   } catch (error) {

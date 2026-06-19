@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarStack } from "../demos";
 
-// Simulated-UI demo nodes for the /solutions/operations page. Keys are listed
+// Simulated-UI demo nodes for the /for/operations page. Keys are listed
 // (pure-data) in ./solutions-operations.keys.ts and merged into the shared
 // registry by ../demo-registry.tsx. Visuals are simulated, not live SDK
 // instances. Voice is physical-world operations: orders, shipments, work

@@ -52,12 +52,12 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: "SOLUTIONS",
     links: [
-      { label: "Sales enablement", href: "/solutions/sales-enablement" },
-      { label: "Fintech & FP&A", href: "/solutions/fintech" },
-      { label: "Operations", href: "/solutions/operations" },
-      { label: "AI-native SaaS", href: "/solutions/ai-native-saas" },
-      { label: "Compliance", href: "/solutions/compliance" },
-      { label: "Legal", href: "/solutions/legal" },
+      { label: "Sales enablement", href: "/for/sales-enablement" },
+      { label: "Fintech & FP&A", href: "/for/fintech" },
+      { label: "Operations", href: "/for/operations" },
+      { label: "AI-native SaaS", href: "/for/ai-native-saas" },
+      { label: "Compliance", href: "/for/compliance" },
+      { label: "Legal", href: "/for/legal" },
     ],
   },
   {

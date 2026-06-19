@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Seed the solutionPageV1-legal document in Sanity so it renders at
- * /solutions/legal via app/solutions/[slug]/page.tsx.
+ * /for/legal via app/for/[slug]/page.tsx.
  *
  * Usage:
  *   node --env-file=.env.local scripts/seed-solution-legal.mjs

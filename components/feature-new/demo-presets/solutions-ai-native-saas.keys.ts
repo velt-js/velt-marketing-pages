@@ -1,4 +1,4 @@
-// Pure-data demo-preset keys for the /solutions/ai-native-saas page. Mirrors
+// Pure-data demo-preset keys for the /for/ai-native-saas page. Mirrors
 // the keys defined in ./solutions-ai-native-saas.tsx. Imported by the keys
 // aggregator (../demo-keys.ts) so the Sanity Studio dropdown lists them without
 // pulling React into the Studio bundle.

@@ -25,7 +25,7 @@ type SolutionPageViewProps = {
 
 /**
  * Renders the full v1 Solutions (vertical) page from a typed content object.
- * Used by the Sanity-backed /solutions/[slug] route. Reuses the logo strip,
+ * Used by the Sanity-backed /for/[slug] route. Reuses the logo strip,
  * FAQ, and final CTA from the feature-page system; the vertical-specific
  * sections are solutions-new components.
  * @param {SolutionPageViewProps} props The page content.

@@ -185,6 +185,19 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Vertical "solutions" pages moved from /solutions/:slug to the
+      // canonical /for/:slug route (see app/for/[slug]/page.tsx). Keep the
+      // old URLs alive for SEO and any external links.
+      {
+        source: "/solutions/:slug",
+        destination: "/for/:slug",
+        permanent: true,
+      },
+      {
+        source: "/solutions",
+        destination: "/for",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

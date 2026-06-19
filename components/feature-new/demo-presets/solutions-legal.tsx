@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { AuditLog, AvatarStack, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
 
-// Simulated-UI demo nodes for the /solutions/legal page. Keys are listed
+// Simulated-UI demo nodes for the /for/legal page. Keys are listed
 // (pure-data) in ./solutions-legal.keys.ts and merged into the shared registry
 // by ../demo-registry.tsx. Visuals are simulated, not live SDK instances. Voice
 // is legal: contracts, clauses, redlines, the counterparty, the client

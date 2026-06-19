@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
 
-// Simulated-UI demo nodes for the /solutions/sales-enablement page. Keys are
+// Simulated-UI demo nodes for the /for/sales-enablement page. Keys are
 // listed (pure-data) in ./solutions-sales-enablement.keys.ts and merged into
 // the shared registry by ../demo-registry.tsx. Visuals are simulated, not live
 // SDK instances. Voice is sales-enablement: decks, emails, landing pages,

@@ -1,4 +1,4 @@
-// Pure-data demo-preset keys for the /solutions/legal page. Mirrors the keys
+// Pure-data demo-preset keys for the /for/legal page. Mirrors the keys
 // defined in ./solutions-legal.tsx. Imported by the keys aggregator
 // (../demo-keys.ts) so the Sanity Studio dropdown lists them without pulling
 // React into the Studio bundle.
