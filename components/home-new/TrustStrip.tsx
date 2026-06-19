@@ -1,49 +1,45 @@
 import "./TrustStrip.css";
 import LogoCarousel, { type LogoCarouselItem } from "./LogoCarousel";
 
-// `w` is the display width (px) at 22px tall, matching each SVG's viewBox
-// ratio. These brand SVGs use preserveAspectRatio="none", so they stretch
-// to fill their box — pinning the width keeps the box at the right ratio.
-// PNGs (no `w`) size from their natural aspect via CSS width: auto.
-// Full trusted-by set, ported from the legacy TrustedLogos grid
-// (components/home/TrustedLogos.tsx `defaultTiles`). `w` is the display
-// width (px) at 22px tall, matching each SVG's viewBox ratio — required
-// because these brand SVGs use preserveAspectRatio="none" and would
-// otherwise stretch to fill their box. PNGs omit `w` and size from their
-// natural aspect via CSS width: auto.
+// Logos exported from the Figma "logos" frame (file HqWIZdR6ISJmaG2n4o3gr8,
+// node 866:2844). Each asset is a 2× export of a Figma cell that is a uniform
+// 72px tall with a consistent 24px horizontal pad; the cell width hugs the
+// mark, so the designer has already balanced every logo's optical size. We
+// render them all at the same height, so `ratio` (width / height, measured from
+// the exported PNG) is what gives each its correct width.
+const LOGO_DIR = "/images/logos/grid";
+
 export const LOGOS: LogoCarouselItem[] = [
-  { src: "/images/logos/google.svg", alt: "Google", w: 75 },
-  { src: "/images/logos/openenvoy.svg", alt: "OpenEnvoy", w: 93 },
-  { src: "/images/logos/varonis.svg", alt: "Varonis", w: 131 },
-  { src: "/images/logos/pendo.svg", alt: "Pendo", w: 95 },
-  { src: "/images/logos/bigtincan.svg", alt: "Bigtincan", w: 75 },
-  { src: "/images/logos/heygen.svg", alt: "HeyGen", w: 79 },
-  { src: "/images/logos/flyr.svg", alt: "FLYR", w: 125 },
-  { src: "/images/logos/runway.svg", alt: "Runway", w: 110 },
-  { src: "/images/logos/lambdatest.svg", alt: "LambdaTest", w: 93 },
-  { src: "/images/logos/datarails.svg", alt: "Datarails", w: 98 },
-  { src: "/images/logos/firehydrant.svg", alt: "FireHydrant", w: 82 },
-  { src: "/images/logos/leadpages.png", alt: "Leadpages" },
-  { src: "/images/logos/vellum.svg", alt: "Vellum", w: 79 },
-  { src: "/images/logos/safetykit.png", alt: "SafetyKit" },
-  { src: "/images/logos/qloo.png", alt: "Qloo" },
-  { src: "/images/logos/lacoustics.png", alt: "L-Acoustics" },
-  { src: "/images/logos/cloudfactory.svg", alt: "CloudFactory", w: 136 },
-  { src: "/images/logos/trumpet.svg", alt: "Trumpet", w: 106 },
-  { src: "/images/logos/cofactr.png", alt: "Cofactr" },
-  { src: "/images/logos/butter.svg", alt: "Butter", w: 60 },
-  { src: "/images/logos/colossyan.svg", alt: "Colossyan", w: 108 },
-  { src: "/images/logos/classwallet.png", alt: "ClassWallet" },
+  { src: `${LOGO_DIR}/google.png`, alt: "Google", ratio: 1.944 },
+  { src: `${LOGO_DIR}/openenvoy.png`, alt: "OpenEnvoy", ratio: 2.306 },
+  { src: `${LOGO_DIR}/varonis.png`, alt: "Varonis", ratio: 2.472 },
+  { src: `${LOGO_DIR}/pendo.png`, alt: "Pendo", ratio: 1.993 },
+  { src: `${LOGO_DIR}/bigtincan.png`, alt: "Bigtincan", ratio: 2.076 },
+  { src: `${LOGO_DIR}/heygen.png`, alt: "HeyGen", ratio: 1.944 },
+  { src: `${LOGO_DIR}/flyr.png`, alt: "FLYR", ratio: 2.056 },
+  { src: `${LOGO_DIR}/runway.png`, alt: "Runway", ratio: 1.729 },
+  { src: `${LOGO_DIR}/lambdatest.png`, alt: "LambdaTest", ratio: 2.347 },
+  { src: `${LOGO_DIR}/datarails.png`, alt: "Datarails", ratio: 1.847 },
+  { src: `${LOGO_DIR}/firehydrant.png`, alt: "FireHydrant", ratio: 2.069 },
+  { src: `${LOGO_DIR}/leadpages.png`, alt: "Leadpages", ratio: 2.639 },
+  { src: `${LOGO_DIR}/vellum.png`, alt: "Vellum", ratio: 1.917 },
+  { src: `${LOGO_DIR}/safetykit.png`, alt: "SafetyKit", ratio: 2.222 },
+  { src: `${LOGO_DIR}/qloo.png`, alt: "Qloo", ratio: 1.472 },
+  { src: `${LOGO_DIR}/lacoustics.png`, alt: "L-Acoustics", ratio: 2.458 },
+  { src: `${LOGO_DIR}/cloudfactory.png`, alt: "CloudFactory", ratio: 2.361 },
+  { src: `${LOGO_DIR}/trumpet.png`, alt: "Trumpet", ratio: 2.306 },
+  { src: `${LOGO_DIR}/cofactr.png`, alt: "Cofactr", ratio: 2.306 },
+  { src: `${LOGO_DIR}/butter.png`, alt: "Butter", ratio: 2.243 },
+  { src: `${LOGO_DIR}/colossyan.png`, alt: "Colossyan", ratio: 2.306 },
+  { src: `${LOGO_DIR}/classwallet.png`, alt: "ClassWallet", ratio: 2.694 },
 ];
 
-// The first four lead the section as larger static cards; the full set scrolls
-// in the marquee below.
-const FEATURED = LOGOS.slice(0, 4);
-
-// The `w` widths are calibrated at this tall; scale both dimensions together so
-// the preserveAspectRatio="none" SVGs don't distort at a different height.
-const RATIO_BASE_HEIGHT = 22;
-const FEATURED_LOGO_HEIGHT = 30;
+// The homepage shows two marquees (TrustStrip near the top, Proof near the
+// bottom). Splitting the set across them — even indices here, odd indices in
+// PROOF_LOGOS — means no brand appears twice on the same page, while both
+// strips still get a varied, full-width mix.
+export const TRUST_LOGOS: LogoCarouselItem[] = LOGOS.filter((_, index) => index % 2 === 0);
+export const PROOF_LOGOS: LogoCarouselItem[] = LOGOS.filter((_, index) => index % 2 === 1);
 
 export default function TrustStrip() {
   return (
@@ -56,7 +52,7 @@ export default function TrustStrip() {
         <div className="trust-sub">// 2M+ review decisions</div>
       </div>
 
-        <LogoCarousel logos={LOGOS} card className="trust-logos" />
+        <LogoCarousel logos={TRUST_LOGOS} monochrome className="trust-logos" />
     </section>
   );
 }

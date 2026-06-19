@@ -35,10 +35,22 @@
   flex-shrink: 0;
 }
 
+/* Width and height are set inline per logo (contained into a uniform box) so
+   optical sizes stay balanced; object-fit guards natural-ratio raster logos. */
 .lc-logo {
-  height: var(--lc-logo-height, 22px);
-  width: auto;
+  display: block;
+  object-fit: contain;
   flex-shrink: 0;
+}
+
+/* Non-card slot: a fixed-height, centered box so every logo shares the same
+   vertical footprint even when ratio-capping shortens a wide wordmark. */
+.lc-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--lc-slot-height, 26px);
 }
 
 /* Card-chip variant: each logo sits in a padded, rounded container. */
@@ -47,14 +59,17 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  height: calc(var(--lc-slot-height, 26px) + 2 * var(--vlp-space-4));
   padding: var(--vlp-space-4) 28px;
   border-radius: var(--vlp-radius-xl);
 }
 
-/* Muted gray silhouettes for light backgrounds (brand logos ship white). */
+/* Muted ink silhouettes for light backgrounds. The exported cells are already
+   ink-on-transparent, so brightness(0) just normalises any stray color and the
+   opacity gives the understated trusted-by look. */
 .lc-viewport--mono .lc-logo {
   filter: brightness(0);
-  opacity: 0.4;
+  opacity: 0.55;
 }
 
 @keyframes lc-scroll {

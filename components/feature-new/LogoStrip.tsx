@@ -19,7 +19,7 @@ export default function LogoStrip({ content }: LogoStripProps) {
     <section className="logos" id="logo-strip" data-section="logo-strip">
       <div className="wrap">
         <p className="logos-label">{content.label}</p>
-        <LogoCarousel logos={LOGOS} card className="logos-marquee" />
+        <LogoCarousel logos={LOGOS} monochrome className="logos-marquee" />
         <div className="mig-strip">
           <span>{content.migration.label}</span>
           {content.migration.links.map((link, index) => (

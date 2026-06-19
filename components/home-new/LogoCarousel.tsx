@@ -1,12 +1,15 @@
 import type { CSSProperties } from "react";
 import "./LogoCarousel.css";
 
-/** A single brand logo. `w` pins the display width (px) for SVGs that use
- *  preserveAspectRatio="none"; omit it for natural-ratio images (e.g. PNGs). */
+/** A single brand logo. `ratio` is the logo's intrinsic aspect ratio
+ *  (width / height) — used to contain every logo inside one uniform box so
+ *  optical sizes stay balanced regardless of how wide a wordmark is. These
+ *  brand SVGs use preserveAspectRatio="none", so we size the <img> box to the
+ *  ratio rather than relying on object-fit. */
 export interface LogoCarouselItem {
   src: string;
   alt: string;
-  w?: number;
+  ratio: number;
 }
 
 interface LogoCarouselProps {
@@ -15,8 +18,10 @@ interface LogoCarouselProps {
   gap?: number;
   /** Duration of one full loop in seconds (lower = faster). */
   durationSeconds?: number;
-  /** Logo render height in px. */
+  /** Target logo height in px (the box height each logo is contained into). */
   logoHeight?: number;
+  /** Max logo width in px — caps ultra-wide wordmarks so they don't dominate. */
+  maxLogoWidth?: number;
   /** Render logos as muted gray silhouettes (for light backgrounds). */
   monochrome?: boolean;
   /** Break the marquee out to full viewport width (parent must be centered). */
@@ -27,9 +32,38 @@ interface LogoCarouselProps {
   className?: string;
 }
 
-const DEFAULT_GAP = 96;
+const DEFAULT_GAP = 16;
 const DEFAULT_DURATION = 45;
-const DEFAULT_LOGO_HEIGHT = 22;
+// Logos ship as uniform pre-padded cells, so the box height can be generous —
+// the designer's internal padding keeps the actual marks at a consistent size.
+const DEFAULT_LOGO_HEIGHT = 60;
+const DEFAULT_MAX_LOGO_WIDTH = 240;
+
+/**
+ * Contain a logo inside a uniform box, preserving its aspect ratio. The logo
+ * fills the box height unless that would exceed the max width, in which case it
+ * is clamped to the max width and its height shrinks to keep the ratio. This
+ * keeps every brand at a balanced optical size.
+ * @param ratio - the logo's intrinsic width / height
+ * @param boxHeight - the target box height in px
+ * @param maxWidth - the maximum allowed width in px
+ * @returns the rounded display width and height in px
+ */
+function fitLogo(ratio: number, boxHeight: number, maxWidth: number): { width: number; height: number } {
+  try {
+    const safeRatio = ratio > 0 ? ratio : 4;
+    let height = boxHeight;
+    let width = height * safeRatio;
+    if (width > maxWidth) {
+      width = maxWidth;
+      height = maxWidth / safeRatio;
+    }
+    return { width: Math.round(width), height: Math.round(height) };
+  } catch (error) {
+    console.error("fitLogo failed", error);
+    return { width: maxWidth, height: boxHeight };
+  }
+}
 
 /**
  * Render one set of logos. Two identical sets sit back-to-back in the track so
@@ -39,7 +73,19 @@ const DEFAULT_LOGO_HEIGHT = 22;
  * @param card - when true, wrap each logo in a bordered card chip
  * @returns the set element, or null when no logos were provided
  */
-function LogoSet({ logos, hidden = false, card = false }: { logos: LogoCarouselItem[]; hidden?: boolean; card?: boolean }) {
+function LogoSet({
+  logos,
+  hidden = false,
+  card = false,
+  boxHeight,
+  maxWidth,
+}: {
+  logos: LogoCarouselItem[];
+  hidden?: boolean;
+  card?: boolean;
+  boxHeight: number;
+  maxWidth: number;
+}) {
   try {
     if (!logos?.length) {
       return null;
@@ -47,28 +93,20 @@ function LogoSet({ logos, hidden = false, card = false }: { logos: LogoCarouselI
     return (
       <div className={hidden ? "lc-set lc-set--dup" : "lc-set"} aria-hidden={hidden || undefined}>
         {logos.map((logo) => {
+          const { width, height } = fitLogo(logo.ratio, boxHeight, maxWidth);
           // eslint-disable-next-line @next/next/no-img-element
           const image = (
             <img
               className="lc-logo"
               src={logo.src}
               alt={hidden ? "" : logo.alt}
-              style={logo.w ? { width: `${logo.w}px` } : undefined}
+              style={{ width: `${width}px`, height: `${height}px` }}
             />
           );
           if (card) {
             return <span key={logo.alt} className="lc-card">{image}</span>;
           }
-          // eslint-disable-next-line @next/next/no-img-element
-          return (
-            <img
-              key={logo.alt}
-              className="lc-logo"
-              src={logo.src}
-              alt={hidden ? "" : logo.alt}
-              style={logo.w ? { width: `${logo.w}px` } : undefined}
-            />
-          );
+          return <span key={logo.alt} className="lc-slot">{image}</span>;
         })}
       </div>
     );
@@ -114,18 +152,20 @@ export default function LogoCarousel({
   gap = DEFAULT_GAP,
   durationSeconds = DEFAULT_DURATION,
   logoHeight = DEFAULT_LOGO_HEIGHT,
+  maxLogoWidth = DEFAULT_MAX_LOGO_WIDTH,
   monochrome = true,
   fullBleed = false,
   card = false,
   className,
 }: LogoCarouselProps) {
   const { rootClass, styleVars } = buildRootProps(durationSeconds, monochrome, fullBleed, className);
+  const trackStyle = { ...styleVars, "--lc-gap": `${gap}px`, "--lc-slot-height": `${logoHeight}px` } as CSSProperties;
 
   return (
-    <div className={rootClass} style={styleVars}>
+    <div className={rootClass} style={trackStyle}>
       <div className="lc-track">
-        <LogoSet logos={logos} card={card} />
-        <LogoSet logos={logos} card={card} hidden />
+        <LogoSet logos={logos} card={card} boxHeight={logoHeight} maxWidth={maxLogoWidth} />
+        <LogoSet logos={logos} card={card} boxHeight={logoHeight} maxWidth={maxLogoWidth} hidden />
       </div>
     </div>
   );
