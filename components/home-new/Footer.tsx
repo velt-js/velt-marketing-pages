@@ -21,22 +21,22 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   {
     heading: "PRIMITIVES",
     links: [
-      { label: "Comments", href: "/new-features/comments" },
-      { label: "Approval flows", href: "/new-features/approval-flows" },
-      { label: "Review agents", href: "/new-features/review-agents" },
-      { label: "Suggestions", href: "/new-features/suggestions" },
-      { label: "Audit trail", href: "/new-features/audit-trail" },
-      { label: "Memory", href: "/new-features/memory" },
-      { label: "Notifications", href: "/new-features/notifications" },
+      { label: "Comments", href: "/comments" },
+      { label: "Approval flows", href: "/approval-flows" },
+      { label: "Review agents", href: "/review-agents" },
+      { label: "Suggestions", href: "/suggestions" },
+      { label: "Audit trail", href: "/audit-trail" },
+      { label: "Memory", href: "/memory" },
+      { label: "Notifications", href: "/notifications" },
     ],
   },
   {
     heading: "COLLABORATION",
     links: [
-      { label: "Presence", href: "/new-features/presence" },
-      { label: "Multiplayer editing", href: "/new-features/multiplayer-editing" },
-      { label: "Huddle", href: "/new-features/huddle" },
-      { label: "Recording", href: "/new-features/recording" },
+      { label: "Presence", href: "/presence" },
+      { label: "Multiplayer editing", href: "/multiplayer-editing" },
+      { label: "Huddle", href: "/huddle" },
+      { label: "Recording", href: "/recording" },
       {
         label: "Live cursors",
         href: "https://velt.dev/docs/realtime-collaboration/cursors/overview",

@@ -1,16 +1,15 @@
 // Maps between URL slugs (what users see in their address bar) and the slug
-// stored on the Sanity featurePage document. The two diverge for three
-// pages where we want to keep the legacy velt.dev URL but the Sanity doc
-// was authored with a different slug. Keep this list small — every entry
-// is a place where the URL and the CMS disagree, which is a debugging
-// hazard. To remove an entry, rename the Sanity slug in Studio and drop
-// the line here.
+// stored on the legacy Sanity featurePage (v1) document. Only the two v1-only
+// pages whose URL and CMS slug disagree remain here (/platform -> admin-console,
+// /devtools -> dev-tools). The /recording and /multiplayer-editing URLs are now
+// owned by featurePageV2 documents authored with matching slugs, so they no
+// longer need a mapping. Keep this list small — every entry is a place where
+// the URL and the CMS disagree, which is a debugging hazard. To remove an
+// entry, rename the Sanity slug in Studio and drop the line here.
 
 const URL_TO_SANITY: Record<string, string> = {
   platform: "admin-console",
   devtools: "dev-tools",
-  "multiplayer-editing": "multiplayer",
-  recording: "recordings",
 };
 
 const SANITY_TO_URL: Record<string, string> = Object.fromEntries(

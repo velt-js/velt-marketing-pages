@@ -127,6 +127,14 @@ const nextConfig: NextConfig = {
         destination: "/:slug",
         permanent: true,
       },
+      // v2 feature pages moved from /new-features/:slug to the canonical root
+      // URL (see app/(features)/[slug]/page.tsx). Fold the old prefixed URLs
+      // and any external links onto the flat route.
+      {
+        source: "/new-features/:slug",
+        destination: "/:slug",
+        permanent: true,
+      },
       // Sanity slug for the recordings feature is plural; canonical URL
       // is the singular /recording (matches legacy velt.dev).
       {
@@ -163,13 +171,10 @@ const nextConfig: NextConfig = {
       },
       // Cole's 404 list (Slack, May 2026): non-blog routes that 404'd
       // in Search Console. /use-cases and /implementation-comparison
-      // have no app routes — sent to home per Cole. /notifications →
-      // the quick-start landing. /blog/velt.dev was an invalid blog slug.
-      {
-        source: "/notifications",
-        destination: "/add-notifications-quick",
-        permanent: true,
-      },
+      // have no app routes — sent to home per Cole. /blog/velt.dev was an
+      // invalid blog slug. (/notifications is now a real v2 feature page at
+      // the root, so its former redirect to /add-notifications-quick was
+      // removed; /add-notifications-quick remains a standalone landing.)
       {
         source: "/use-cases",
         destination: "/",

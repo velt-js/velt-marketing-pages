@@ -6,7 +6,12 @@
 // To create another SEO duplicate that shadows an existing feature page,
 // render <FeaturePageBody sanitySlug="..." pageUrlPath="..." /> from a
 // new route. Keep slug-specific composition rules (NotificationsDemoSidebar,
-// MultiplayerYourDataSection, etc.) here so duplicates inherit them.
+// AdminConsoleHighlights, etc.) here so duplicates inherit them.
+//
+// Only legacy v1 pages with no v2 equivalent flow through here now
+// (/platform, /devtools, /webhooks-and-api) plus the notifications SEO
+// landings. The 12 current feature pages are served from Sanity featurePageV2
+// at the site root by app/(features)/[slug]/page.tsx.
 
 import { notFound } from "next/navigation";
 
@@ -15,8 +20,6 @@ import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
 import { TrustedLogos } from "@/components/home/TrustedLogos";
 import { CustomerUI } from "@/components/home/CustomerUI";
-import { StealFeatures } from "@/components/home/StealFeatures";
-import { LibrarySupport } from "@/components/home/LibrarySupport";
 import { PageHero } from "@/components/library/PageHero";
 import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
 import { sharedFAQ } from "@/components/library/shared-content";
@@ -25,13 +28,8 @@ import {
   type FeatureSectionDoc,
 } from "@/components/feature/FeatureSections";
 import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import { CommentsDemoSidebar } from "@/components/feature/CommentsDemoSidebar";
-import { RecordingsDemoSidebar } from "@/components/feature/RecordingsDemoSidebar";
 import { NotificationsDemoSidebar } from "@/components/feature/NotificationsDemoSidebar";
-import { MultiplayerDemoSidebar } from "@/components/feature/MultiplayerDemoSidebar";
-import { MultiplayerYourDataSection } from "@/components/feature/MultiplayerYourDataSection";
 import { NotificationsHighlights } from "@/components/feature/NotificationsHighlights";
-import { ActivityLogsHighlights } from "@/components/feature/ActivityLogsHighlights";
 import { AdminConsoleAnalyticsPanel } from "@/components/feature/AdminConsoleAnalyticsPanel";
 import { AdminConsoleHighlights } from "@/components/feature/AdminConsoleHighlights";
 import { WebhooksAndApiDemoSidebar } from "@/components/feature/WebhooksAndApiDemoSidebar";
@@ -157,53 +155,14 @@ export async function FeaturePageBody({
           secondaryCta={doc.hero.secondaryCta}
         />
 
-        {sanitySlug === "comments" ? <CommentsDemoSidebar /> : null}
-        {sanitySlug === "recordings" ? <RecordingsDemoSidebar /> : null}
         {sanitySlug === "notifications" ? <NotificationsDemoSidebar /> : null}
-        {sanitySlug === "multiplayer" ? <MultiplayerDemoSidebar /> : null}
 
         {showTrustedLogos ? <TrustedLogos /> : null}
 
         {sanitySlug === "admin-console" ? <AdminConsoleAnalyticsPanel /> : null}
         {sanitySlug === "webhooks-and-api" ? <WebhooksAndApiDemoSidebar /> : null}
 
-        {sanitySlug === "multiplayer" ? (
-          // Reuses the homepage's "Steal Features" marquee (Figma node
-          // 32:2588). Wrapped in a topAccent shell that mirrors
-          // FeatureSectionShell's first-light treatment (80px margin,
-          // 48px rounded top, full-bleed white) so it sits cleanly under
-          // the dark hero/trusted-logos strip. `disableFirstAccent` on
-          // FeatureSections below stops the next light card from also
-          // applying the transition.
-          <section
-            data-outcomes
-            className="bg-white full-bleed-bg"
-            style={{
-              padding: "100px 80px",
-              marginTop: 80,
-              borderTopLeftRadius: 48,
-              borderTopRightRadius: 48,
-            }}
-          >
-            <StealFeatures />
-          </section>
-        ) : null}
-
-        {sanitySlug === "multiplayer" ? (
-          <>
-            <FeatureSections
-              sections={doc.sections.slice(0, 1)}
-              disableFirstAccent
-            />
-            <CustomerUI />
-            <MultiplayerYourDataSection />
-            <LibrarySupport />
-            <FeatureSections
-              sections={doc.sections.slice(1)}
-              disableFirstAccent
-            />
-          </>
-        ) : sanitySlug === "admin-console" || sanitySlug === "webhooks-and-api" ? (
+        {sanitySlug === "admin-console" || sanitySlug === "webhooks-and-api" ? (
           <div style={{ marginTop: -120, position: "relative", zIndex: 1, borderTopLeftRadius: 48, borderTopRightRadius: 48, overflow: "hidden" }}>
             <FeatureSections sections={doc.sections} disableFirstAccent />
           </div>
@@ -212,7 +171,6 @@ export async function FeaturePageBody({
         )}
 
         {sanitySlug === "notifications" ? <NotificationsHighlights /> : null}
-        {sanitySlug === "activity-logs" ? <ActivityLogsHighlights /> : null}
         {sanitySlug === "admin-console" ? <AdminConsoleHighlights /> : null}
         {sanitySlug === "webhooks-and-api" ? <WebhooksAndApiHighlights /> : null}
 

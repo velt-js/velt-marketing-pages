@@ -18,34 +18,17 @@ const FALLBACK_CTA: CtaLink = { label: "", href: "#" };
 
 // Canonical destinations used by the href normalizer below. Authored Sanity
 // content (seeded from scripts/seed-feature-v2-*.mjs) still uses several stale
-// URL conventions that 404 on the live site — e.g. bare feature slugs missing
-// the `/new-features/` prefix, `/compare/*` and `/vs/*` (real route is
-// `/comparison`), `/governance` (no such route), and `docs.velt.dev/quickstart/*`
-// (moved to `/get-started/quickstart`). Normalizing here — the single point all
-// feature-page links flow through — corrects every page at once without a
-// destructive Sanity re-seed.
+// URL conventions that 404 (or redirect-hop) on the live site — e.g. the legacy
+// `/new-features/<slug>` prefix (feature pages now live at the root), `/compare/*`
+// and `/vs/*` (real route is `/comparison`), `/governance` (no such route), and
+// `docs.velt.dev/quickstart/*` (moved to `/get-started/quickstart`). Normalizing
+// here — the single point all feature-page links flow through — corrects every
+// page at once without a destructive Sanity re-seed.
 const FEATURE_BASE = "/new-features";
 const COMPARISON_PATH = "/comparison";
 const ENTERPRISE_PATH = "/enterprise";
 const DOCS_QUICKSTART_URL = "https://docs.velt.dev/get-started/quickstart";
 const DOCS_API_REFERENCE_URL = "https://docs.velt.dev/api-reference";
-
-// The twelve v2 feature slugs. A bare `/<slug>` link (e.g. `/huddle`) is a stale
-// reference that must carry the `/new-features/` prefix to resolve.
-const FEATURE_SLUGS = new Set([
-  "comments",
-  "presence",
-  "multiplayer-editing",
-  "huddle",
-  "recording",
-  "suggestions",
-  "approval-flows",
-  "review-agents",
-  "audit-trail",
-  "notifications",
-  "memory",
-  "self-hosting",
-]);
 
 /**
  * Rewrite a stale authored href to its canonical, resolvable destination.
@@ -64,10 +47,10 @@ function normalizeHref(href: Nullable<string>): string {
     // `/governance` has no route; point at the enterprise page.
     if (href === "/governance") return ENTERPRISE_PATH;
 
-    // Bare feature slug missing the `/new-features/` prefix.
-    const bareSlugMatch = href.match(/^\/([^/?#]+)\/?$/);
-    if (bareSlugMatch && FEATURE_SLUGS.has(bareSlugMatch[1])) {
-      return `${FEATURE_BASE}/${bareSlugMatch[1]}`;
+    // Legacy `/new-features/<slug>` prefix -> canonical root URL (the feature
+    // pages now live at the site root). Bare `/<slug>` links pass through.
+    if (href.startsWith(`${FEATURE_BASE}/`)) {
+      return href.slice(FEATURE_BASE.length);
     }
 
     // Relocated docs quickstart (any per-framework subpath, either docs domain).

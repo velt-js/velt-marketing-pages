@@ -23,22 +23,22 @@ type NavGroup = {
 
 /** Product links — collaboration column. */
 const PRODUCT_COLLABORATION: NavEntry[] = [
-  { label: "Comments", href: "/new-features/comments" },
-  { label: "Presence", href: "/new-features/presence" },
-  { label: "Multiplayer editing", href: "/new-features/multiplayer-editing" },
-  { label: "Huddle", href: "/new-features/huddle" },
-  { label: "Recording", href: "/new-features/recording" },
-  { label: "Suggestions", href: "/new-features/suggestions", badge: "Beta" },
+  { label: "Comments", href: "/comments" },
+  { label: "Presence", href: "/presence" },
+  { label: "Multiplayer editing", href: "/multiplayer-editing" },
+  { label: "Huddle", href: "/huddle" },
+  { label: "Recording", href: "/recording" },
+  { label: "Suggestions", href: "/suggestions", badge: "Beta" },
 ];
 
 /** Product links — review & governance column. */
 const PRODUCT_GOVERNANCE: NavEntry[] = [
-  { label: "Approval flows", href: "/new-features/approval-flows", badge: "Beta" },
-  { label: "Review agents", href: "/new-features/review-agents" },
-  { label: "Audit trail", href: "/new-features/audit-trail" },
-  { label: "Notifications", href: "/new-features/notifications" },
-  { label: "Memory", href: "/new-features/memory", badge: "Beta" },
-  { label: "Self-hosting", href: "/new-features/self-hosting" },
+  { label: "Approval flows", href: "/approval-flows", badge: "Beta" },
+  { label: "Review agents", href: "/review-agents" },
+  { label: "Audit trail", href: "/audit-trail" },
+  { label: "Notifications", href: "/notifications" },
+  { label: "Memory", href: "/memory", badge: "Beta" },
+  { label: "Self-hosting", href: "/self-hosting" },
 ];
 
 /** Solutions links — by industry. */

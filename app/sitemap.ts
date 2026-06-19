@@ -3,6 +3,7 @@ import {
   getAllBlogPosts,
   getAllDemoSlugs,
   getAllFeatureSlugs,
+  getAllFeatureV2Slugs,
   getAllIntegrationSlugs,
   getAllLibrarySlugs,
   getAllMigrationSlugs,
@@ -83,6 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [
     blogPosts,
     demoSlugs,
+    featureV2Slugs,
     featureSlugs,
     librarySlugs,
     migrationSlugs,
@@ -92,6 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
     getAllDemoSlugs().catch(() => []),
+    getAllFeatureV2Slugs().catch(() => []),
     getAllFeatureSlugs().catch(() => []),
     getAllLibrarySlugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
@@ -118,9 +121,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const featureEntries: MetadataRoute.Sitemap = (featureSlugs as string[]).map(
-    (slug) => ({
-      url: `${BASE}/${sanitySlugToUrl(slug)}`,
+  // Feature pages live at the site root. v2 (featurePageV2) slugs are already
+  // the canonical URL. The remaining v1 (featurePage) docs are the legacy
+  // pages with no v2 equivalent (/platform, /devtools, /webhooks-and-api);
+  // map them through sanitySlugToUrl and dedupe against the v2 set so a slug
+  // owned by both generations (e.g. notifications) is only emitted once.
+  //
+  // These v1 docs still exist in the CMS but were superseded by v2 pages; their
+  // URLs are now 301 redirects (see next.config.ts), so they must not appear in
+  // the sitemap: comments/notifications -> served by v2 at the same URL,
+  // recordings -> /recording, multiplayer -> /multiplayer-editing,
+  // activity-logs -> /audit-trail.
+  const SUPERSEDED_V1_SLUGS = new Set([
+    "comments",
+    "recordings",
+    "multiplayer",
+    "activity-logs",
+  ]);
+  const featureUrlPaths = new Set<string>(featureV2Slugs as string[]);
+  for (const slug of featureSlugs as string[]) {
+    if (SUPERSEDED_V1_SLUGS.has(slug)) continue;
+    featureUrlPaths.add(sanitySlugToUrl(slug));
+  }
+  const featureEntries: MetadataRoute.Sitemap = [...featureUrlPaths].map(
+    (urlPath) => ({
+      url: `${BASE}/${urlPath}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,

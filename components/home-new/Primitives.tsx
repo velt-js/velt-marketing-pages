@@ -27,7 +27,7 @@ export default function Primitives() {
             headline="Contextual threads from humans or agents, on any element, doc, cell, or canvas."
             support="The feedback layer your users already expect."
             exploreLabel="Explore Comments"
-            exploreHref="/new-features/comments"
+            exploreHref="/comments"
             quote={{ text: "Full collaboration features shipped in under 1 week.", attribution: "Chris Bakke · Head of Product @X", avatar: `${TRUST_AVATARS}/avatar-chris-bakke.png` }}
             preview={
               <div className="prim-thread">
@@ -73,7 +73,7 @@ export default function Primitives() {
             headline="Propose edits inline, accept or reject like a diff."
             support="In any editor, or your own custom components."
             exploreLabel="Explore Suggestions"
-            exploreHref="/new-features/suggestions"
+            exploreHref="/suggestions"
             quote={{ text: "We were able to launch 5x faster than building from scratch.", attribution: "Roman Sevast · CEO @Awesomic", avatar: `${TRUST_AVATARS}/avatar-roman.png` }}
             preview={
               <div className="prim-card">
@@ -104,7 +104,7 @@ export default function Primitives() {
             headline="Staged sign-off before anything ships."
             support="Routing, conditions, and a timestamped record."
             exploreLabel="Explore Approval flows"
-            exploreHref="/new-features/approval-flows"
+            exploreHref="/approval-flows"
             quote={{ text: "Saved 3 FTEs and will boost retention.", attribution: "Hope Callaway · Senior PM @Leadpages", avatar: `${TRUST_AVATARS}/avatar-hope.png` }}
             preview={
               <div className="prim-card-col">
@@ -175,7 +175,7 @@ export default function Primitives() {
             headline="An immutable record of every action in your product."
             support="Audit-ready by default."
             exploreLabel="Explore Audit trail"
-            exploreHref="/new-features/audit-trail"
+            exploreHref="/audit-trail"
             quote={{ text: "With Velt we turned months of development into weeks of delivery.", attribution: "Gavin McIver · Senior PM @Bigtincan", avatar: `${TRUST_AVATARS}/avatar-gavin.png` }}
             preview={
               <div className="prim-card-overflow">
@@ -206,7 +206,7 @@ export default function Primitives() {
             name="NOTIFICATIONS"
             headline="Reach reviewers in-app, by email, in Slack and Teams, before the deadline slips."
             exploreLabel="Explore Notifications"
-            exploreHref="/new-features/notifications"
+            exploreHref="/notifications"
             quote={{ text: "Velt's commenting and notification features are bundled with a lot of magic.", attribution: "Yuri Kleban · Sr. Product Manager @Google", avatar: `${TRUST_AVATARS}/avatar-yuri.png` }}
             preview={
               <div className="prim-card">
@@ -241,7 +241,7 @@ export default function Primitives() {
             isNew
             headline="Past decisions surface as precedent, so reviews stay consistent as teams grow."
             exploreLabel="Explore Memory"
-            exploreHref="/new-features/memory"
+            exploreHref="/memory"
             preview={
               <div className="prim-card">
                 <div className="prim-mem-precedent">PRECEDENT</div>
@@ -274,7 +274,7 @@ export default function Primitives() {
             headline="AI flags issues and proposes fixes as comments, before a human looks."
             support="The first-pass reviewer that never gets tired."
             exploreLabel="Explore Review agents"
-            exploreHref="/new-features/review-agents"
+            exploreHref="/review-agents"
             quote={{ text: "Increased engagement by 10% and helped ship 5x faster.", attribution: "William Angel · Lead PM @Trumpet", avatar: `${TRUST_AVATARS}/avatar-william.png` }}
             preview={
               <div className="prim-card">
