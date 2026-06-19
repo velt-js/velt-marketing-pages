@@ -178,6 +178,26 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // Broken-link audit (Jun 2026): several blog post bodies link to the
+      // "-quickly" spelling of the quick-start landings, but the actual
+      // routes are "-quick" (see app/add-*-quick/). Fold the stale spelling
+      // onto the canonical route so the in-body links stop 404'ing. The
+      // links themselves should also be corrected in the Sanity blog bodies.
+      {
+        source: "/add-comments-quickly",
+        destination: "/add-comments-quick",
+        permanent: true,
+      },
+      {
+        source: "/add-recording-quickly",
+        destination: "/add-recording-quick",
+        permanent: true,
+      },
+      {
+        source: "/add-notifications-quickly",
+        destination: "/add-notifications-quick",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {

@@ -16,8 +16,18 @@ const INTEGRATION_SLUGS = JSON.parse(
 ).map((entry) => entry.slug);
 
 export const DOC_IDS = [
+  // All featurePage docs. These are CMS-only (no code trail), so a full
+  // list here ensures a deletion/re-seed can always be backed up and
+  // restored. In Jun 2026 four of these were hard-deleted from production
+  // and had to be rebuilt from the seed scripts.
+  "featurePage-admin-console",
+  "featurePage-comments",
   "featurePage-dev-tools",
+  "featurePage-activity-logs",
   "featurePage-multiplayer",
+  "featurePage-notifications",
+  "featurePage-recordings",
+  "featurePage-webhooks-and-api",
   "libraryPage-blocknote",
   "libraryPage-codemirror",
   "libraryPage-lexical",
