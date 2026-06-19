@@ -188,7 +188,7 @@ export default function Collaboration() {
         </div>
       </div>
 
-      <a href="#" className="collab-link">See the full collaboration layer</a>
+      <a href="https://velt.dev/docs/realtime-collaboration" target="_blank" rel="noopener" className="collab-link">See the full collaboration layer</a>
     </section>
   );
 }

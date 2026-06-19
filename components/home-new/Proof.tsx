@@ -1,6 +1,6 @@
 import "./Proof.css";
 import LogoCarousel from "./LogoCarousel";
-import { LOGOS } from "./TrustStrip";
+import { PROOF_LOGOS } from "./TrustStrip";
 
 export default function Proof() {
   return (
@@ -14,7 +14,7 @@ export default function Proof() {
             <h3 className="proof-dark-card-title">500k+ comments processed without adding headcount.</h3>
             <p className="proof-dark-card-body">OpenEnvoy gives every invoice review a timestamped, attributed audit trail. The migration took 3 days. Zero failed audits since.</p>
             <div className="proof-attribution"><span className="proof-avatar-dm">DM</span><div className="proof-attribution-name">Daniel Mejia<span className="proof-attribution-role">VP Engineering · OpenEnvoy</span></div></div>
-            <a href="#" className="proof-case-study-link">Read the case study</a>
+            <a href="/customers" className="proof-case-study-link">Read the case study</a>
             <div className="proof-stats-row">
               <div className="proof-stat"><div className="proof-stat-number">500k+</div><div className="proof-stat-label">COMMENTS</div></div>
               <div className="proof-stat"><div className="proof-stat-number">0</div><div className="proof-stat-label">AUDITS FAILED</div></div>
@@ -40,7 +40,7 @@ export default function Proof() {
             </div>
           </div>
         </div>
-        <LogoCarousel logos={LOGOS} className="proof-logos" monochrome />
+        <LogoCarousel logos={PROOF_LOGOS} className="proof-logos" monochrome />
         <div className="proof-cta-row">
           <span className="proof-cta-microcopy">30 MINUTES, WITH AN ENGINEER, NOT A SALES DECK</span>
           <a href="#cta" className="proof-cta-btn hdark">Book Demo</a>

@@ -42,7 +42,7 @@ export default function Enterprise() {
           </div>
           <div className="ent-actions">
             <a href="#proof" className="ent-btn-light hfade">Book Demo</a>
-            <a href="#" className="ent-btn-outline houtline">Governance</a>
+            <a href="/enterprise" className="ent-btn-outline houtline">Governance</a>
           </div>
         </div>
       </section>
