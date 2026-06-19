@@ -28,6 +28,7 @@ import Verticals from "@/components/home-new/Verticals";
 import Faq from "@/components/home-new/Faq";
 import { FAQS } from "@/components/home-new/faq-data";
 import Proof from "@/components/home-new/Proof";
+import CustomerShowcase from "@/components/home-new/CustomerShowcase";
 import FinalCta from "@/components/home-new/FinalCta";
 import Footer from "@/components/home-new/Footer";
 
@@ -120,6 +121,7 @@ export default function Home() {
         <Verticals />
         <Faq />
         <Proof />
+        <CustomerShowcase />
         <FinalCta />
         <Footer />
       </div>
