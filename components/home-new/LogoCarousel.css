@@ -68,8 +68,7 @@
    ink-on-transparent, so brightness(0) just normalises any stray color and the
    opacity gives the understated trusted-by look. */
 .lc-viewport--mono .lc-logo {
-  filter: brightness(0);
-  opacity: 0.55;
+  opacity: 0.5;
 }
 
 @keyframes lc-scroll {

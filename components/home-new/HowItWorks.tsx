@@ -49,9 +49,9 @@ const STEPS: InstallStep[] = [
       <>
         <span className="how-code-tag">&lt;VeltComments /&gt;</span>
         {"\n"}
-        <span className="how-code-tag">&lt;VeltApprovalSteps /&gt;</span>
+        <span className="how-code-tag">&lt;VeltCommentsSidebar /&gt;</span>
         {"\n"}
-        <span className="how-code-tag">&lt;VeltNotifications /&gt;</span>
+        <span className="how-code-tag">&lt;VeltNotificationsTool /&gt;</span>
       </>
     ),
   },

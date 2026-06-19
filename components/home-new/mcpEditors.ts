@@ -1,4 +1,4 @@
-export const VELT_MCP_SERVER_URL = "https://mcp.velt.dev";
+export const VELT_MCP_INSTALLER_PACKAGE = "@velt-js/mcp-installer";
 
 export type McpEditorKey = "cursor" | "claude" | "windsurf" | "copilot" | "zed";
 
@@ -31,13 +31,13 @@ export const MCP_EDITORS: Record<McpEditorKey, McpEditorConfig> = {
     tabLabel: "Cursor",
     terminal: {
       prompt: "cursor ›",
-      cmd: "@velt install --workspace=acme --component=comments",
+      cmd: `npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
     },
-    mcpPrompt: "@velt install --workspace=acme --component=comments",
+    mcpPrompt: "install velt",
     manualPrompts: {
       install: "Install @veltdev/react in my React app and verify the package is in package.json.",
       wrap: "Wrap my React app with VeltProvider from @veltdev/react. Use a placeholder apiKey prop.",
-      configure: "Mount VeltComments, VeltApprovalSteps, and VeltNotifications from @veltdev/react in my app.",
+      configure: "Mount VeltComments, VeltCommentsSidebar, and VeltNotificationsTool from @veltdev/react in my app.",
     },
   },
   claude: {
@@ -45,13 +45,13 @@ export const MCP_EDITORS: Record<McpEditorKey, McpEditorConfig> = {
     tabLabel: "Claude Code",
     terminal: {
       prompt: "$",
-      cmd: `claude mcp add velt ${VELT_MCP_SERVER_URL}`,
+      cmd: `claude mcp add velt-installer -- npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
     },
-    mcpPrompt: `Add the Velt MCP server, then install comments: claude mcp add velt ${VELT_MCP_SERVER_URL}`,
+    mcpPrompt: `Add the Velt MCP server, then say: install velt — claude mcp add velt-installer -- npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
     manualPrompts: {
       install: "Install @veltdev/react in my React app and verify the package is in package.json.",
       wrap: "Wrap my React app with VeltProvider from @veltdev/react. Use a placeholder apiKey prop.",
-      configure: "Mount VeltComments, VeltApprovalSteps, and VeltNotifications from @veltdev/react in my app.",
+      configure: "Mount VeltComments, VeltCommentsSidebar, and VeltNotificationsTool from @veltdev/react in my app.",
     },
   },
   windsurf: {
@@ -59,13 +59,13 @@ export const MCP_EDITORS: Record<McpEditorKey, McpEditorConfig> = {
     tabLabel: "Windsurf",
     terminal: {
       prompt: "windsurf ›",
-      cmd: "/mcp add @veltdev/mcp",
+      cmd: `npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
     },
-    mcpPrompt: "Add the Velt MCP server (@veltdev/mcp) and install @veltdev/react with VeltComments.",
+    mcpPrompt: "install velt",
     manualPrompts: {
       install: "Install @veltdev/react in my React app and verify the package is in package.json.",
       wrap: "Wrap my React app with VeltProvider from @veltdev/react. Use a placeholder apiKey prop.",
-      configure: "Mount VeltComments, VeltApprovalSteps, and VeltNotifications from @veltdev/react in my app.",
+      configure: "Mount VeltComments, VeltCommentsSidebar, and VeltNotificationsTool from @veltdev/react in my app.",
     },
   },
   copilot: {
@@ -79,7 +79,7 @@ export const MCP_EDITORS: Record<McpEditorKey, McpEditorConfig> = {
     manualPrompts: {
       install: "Install @veltdev/react in my React app and verify the package is in package.json.",
       wrap: "Wrap my React app with VeltProvider from @veltdev/react. Use a placeholder apiKey prop.",
-      configure: "Mount VeltComments, VeltApprovalSteps, and VeltNotifications from @veltdev/react in my app.",
+      configure: "Mount VeltComments, VeltCommentsSidebar, and VeltNotificationsTool from @veltdev/react in my app.",
     },
   },
   zed: {
@@ -93,7 +93,7 @@ export const MCP_EDITORS: Record<McpEditorKey, McpEditorConfig> = {
     manualPrompts: {
       install: "Install @veltdev/react in my React app and verify the package is in package.json.",
       wrap: "Wrap my React app with VeltProvider from @veltdev/react. Use a placeholder apiKey prop.",
-      configure: "Mount VeltComments, VeltApprovalSteps, and VeltNotifications from @veltdev/react in my app.",
+      configure: "Mount VeltComments, VeltCommentsSidebar, and VeltNotificationsTool from @veltdev/react in my app.",
     },
   },
 };

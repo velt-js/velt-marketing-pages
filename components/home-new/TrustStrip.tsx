@@ -20,7 +20,7 @@ export const LOGOS: LogoCarouselItem[] = [
   { src: `${LOGO_DIR}/runway.png`, alt: "Runway", ratio: 1.729 },
   { src: `${LOGO_DIR}/lambdatest.png`, alt: "LambdaTest", ratio: 2.347 },
   { src: `${LOGO_DIR}/datarails.png`, alt: "Datarails", ratio: 1.847 },
-  { src: `${LOGO_DIR}/firehydrant.png`, alt: "FireHydrant", ratio: 2.069 },
+  { src: `${LOGO_DIR}/firehydrant.png`, alt: "FireHydrant", ratio: 2.417 },
   { src: `${LOGO_DIR}/leadpages.png`, alt: "Leadpages", ratio: 2.639 },
   { src: `${LOGO_DIR}/vellum.png`, alt: "Vellum", ratio: 1.917 },
   { src: `${LOGO_DIR}/safetykit.png`, alt: "SafetyKit", ratio: 2.222 },

@@ -225,7 +225,7 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">App.tsx<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltNotifications
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltNotificationsTool
       channels={[<span class="prim-code-str">"inbox"</span>, <span class="prim-code-str">"email"</span>, <span class="prim-code-str">"slack"</span>]}
       routeBy=<span class="prim-code-str">"mention"</span>
       slackWebhook={env.SLACK_URL}
