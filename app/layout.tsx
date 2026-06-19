@@ -99,10 +99,16 @@ export default function RootLayout({
         <JsonLd id="ld-organization" data={buildOrganizationSchema()} />
         <JsonLd id="ld-website" data={buildWebSiteSchema()} />
       </body>
-      <Script
+      {/* <Script
         id="superflowToolbarScript"
         data-sf-platform="other-manual"
         src="https://cdn.velt.dev/lib/superflow.js?apiKey=aU1MxKP0rca2UXwKi8bl&projectId=620866069199868"
+        strategy="afterInteractive"
+      /> */}
+      <Script
+        id="superflowToolbarScript"
+        data-sf-platform="other-manual"
+              src="https://cdn.velt.dev/lib/superflow.js?apiKey=aU1MxKP0rca2UXwKi8bl&projectId=4748301242587831"
         strategy="afterInteractive"
       />
       {/* Site-wide third-party analytics ported from the legacy
