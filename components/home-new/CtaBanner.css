@@ -1,0 +1,137 @@
+/* Standalone conversion CTA banner (spec Part 5.3). Full-width, rendered twice
+   on the homepage. Light default (banner #1) and dark variant (banner #2). All
+   values pull from the shared --vlp-* token set in styles.css. */
+
+.vlp .ctab-section {
+  background: var(--vlp-bg-section-alt);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .ctab-section--dark {
+  background: var(--vlp-bg-card-dark);
+  color: var(--vlp-color-cream);
+  border-color: var(--vlp-border-on-dark);
+}
+
+.vlp .ctab-inner {
+  max-width: var(--vlp-content-medium);
+  margin: 0 auto;
+  padding: var(--vlp-space-16) var(--vlp-gutter);
+  text-align: center;
+}
+
+.vlp .ctab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .ctab-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .ctab-heading {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 22ch;
+  margin: 0 auto;
+}
+
+.vlp .ctab-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-space-4);
+  margin-top: var(--vlp-space-8);
+}
+
+.vlp .ctab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-btn-gap);
+  min-height: 44px;
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+/* Banner #1 on light surface: filled ink button. */
+.vlp .ctab-btn--dark {
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  font-size: var(--vlp-btn-primary-font-lg);
+  padding: var(--vlp-btn-light-padding-lg);
+}
+
+/* Banner #2 on dark surface: inverted light fill. */
+.vlp .ctab-btn--light {
+  background: var(--vlp-btn-light-bg);
+  color: var(--vlp-btn-light-text);
+  font-size: var(--vlp-btn-light-font-lg);
+  padding: var(--vlp-btn-light-padding-lg);
+}
+
+.vlp .ctab-microcopy {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  letter-spacing: var(--vlp-tracking-mono);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+}
+
+.vlp .ctab-frameworks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-space-3) var(--vlp-space-6);
+  margin-top: var(--vlp-space-8);
+}
+
+.vlp .ctab-fw {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .ctab-fw-logo {
+  width: var(--vlp-integ-logo-size);
+  height: var(--vlp-integ-logo-size);
+  object-fit: contain;
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .vlp .ctab-inner {
+    padding: var(--vlp-space-12) var(--vlp-gutter);
+  }
+
+  /* Stack the action and microcopy; full-width tap target. */
+  .vlp .ctab-actions {
+    flex-direction: column;
+    gap: var(--vlp-space-4);
+  }
+
+  .vlp .ctab-btn {
+    width: 100%;
+  }
+}

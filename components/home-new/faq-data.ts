@@ -51,4 +51,14 @@ export const FAQS: HomeFaq[] = [
     q: "How long does integration take?",
     a: "Days, not quarters. Install the SDK, wrap your app, and turn on features individually. Most teams render their first comment the same day and launch their first approval workflow within a week.",
   },
+  {
+    num: "09",
+    q: "Can I migrate from Liveblocks or Cord?",
+    a: "Yes. Velt ships documented migration guides for both: /migrate-from-liveblocks-to-velt and /migrate-from-cord-to-velt. The guides cover SDK swap, data model mapping, and feature parity notes so you know what carries over and what to rebuild.",
+  },
+  {
+    num: "10",
+    q: "What happens to my data when review agents run?",
+    a: "Each customer's data runs in isolated per-tenant storage. Velt does not use content from one customer to train models for another, and agent activity is never used for cross-customer model training. Audit records of every agent action are retained in your tenant only.",
+  },
 ];

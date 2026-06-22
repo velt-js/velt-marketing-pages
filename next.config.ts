@@ -3,6 +3,55 @@ import type { NextConfig } from "next";
 import { buildBlogRedirectEntries } from "./lib/blog-redirects";
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          // Report-only CSP: the site loads scripts from many third-party
+          // origins (Mixpanel, Amplitude, gtag/Google, Reddit, Twitter,
+          // Apollo, reb2b, Common Room, Intercom, Calendly, Sanity, Vercel,
+          // Superflow CDN). An enforcing Content-Security-Policy would break
+          // these integrations without an exhaustive allowlist audit.
+          // Report-Only lets us observe violations without breaking anything.
+          {
+            key: "Content-Security-Policy-Report-Only",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: blob:",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "img-src 'self' data: blob: https:",
+              "connect-src 'self' https: wss:",
+              "frame-src 'self' https:",
+              "media-src 'self' https: blob:",
+              "worker-src 'self' blob:",
+            ].join("; "),
+          },
+        ],
+      },
+    ];
+  },
   reactStrictMode: false,
   turbopack: {
     root: path.join(__dirname),

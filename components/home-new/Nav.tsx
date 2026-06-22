@@ -1,7 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import Image from "next/image";
 import "./Nav.css";
+
+type NavSubEntry = {
+  label: string;
+  href: string;
+};
 
 type NavEntry = {
   label: string;
@@ -9,6 +15,8 @@ type NavEntry = {
   badge?: string;
   /** Opens in a new tab with rel="noopener" (used for off-site links). */
   external?: boolean;
+  /** Folded features rendered as small anchored sub-links under the parent. */
+  children?: NavSubEntry[];
 };
 
 /** Console / docs destinations reused across the bar and the drawer. */
@@ -21,25 +29,46 @@ type NavGroup = {
   wide?: boolean;
 };
 
-/** Product links — collaboration column. */
-const PRODUCT_COLLABORATION: NavEntry[] = [
+/** Product links — primitives column. */
+const PRODUCT_PRIMITIVES: NavEntry[] = [
   { label: "Comments", href: "/comments" },
-  { label: "Presence", href: "/presence" },
-  { label: "Multiplayer editing", href: "/multiplayer-editing" },
-  { label: "Huddle", href: "/huddle" },
-  { label: "Recording", href: "/recording" },
-  { label: "Suggestions", href: "/suggestions", badge: "Beta" },
-];
-
-/** Product links — review & governance column. */
-const PRODUCT_GOVERNANCE: NavEntry[] = [
   { label: "Approval flows", href: "/approval-flows", badge: "Beta" },
   { label: "Review agents", href: "/review-agents" },
+  { label: "Suggestions", href: "/suggestions", badge: "Beta" },
   { label: "Audit trail", href: "/audit-trail" },
-  { label: "Notifications", href: "/notifications" },
   { label: "Memory", href: "/memory", badge: "Beta" },
-  { label: "Self-hosting", href: "/self-hosting" },
+  { label: "Notifications", href: "/notifications" },
 ];
+
+/** Product links — collaboration column. Folded features render as anchored sub-links. */
+const PRODUCT_COLLABORATION: NavEntry[] = [
+  {
+    label: "Presence",
+    href: "/presence",
+    children: [
+      { label: "Live cursors", href: "/presence#cursors" },
+      { label: "Live selection", href: "/presence#selection" },
+      { label: "Follow mode", href: "/presence#follow" },
+    ],
+  },
+  {
+    label: "Multiplayer editing",
+    href: "/multiplayer-editing",
+    children: [
+      { label: "Single editor mode", href: "/multiplayer-editing#single-editor" },
+      { label: "Live state sync", href: "/multiplayer-editing#state-sync" },
+    ],
+  },
+  {
+    label: "Recording",
+    href: "/recording",
+    children: [{ label: "Video editor", href: "/recording#video-editor" }],
+  },
+  { label: "Huddle", href: "/huddle" },
+];
+
+/** Product links — platform column. */
+const PRODUCT_PLATFORM: NavEntry[] = [{ label: "Self-hosting", href: "/self-hosting" }];
 
 /** Solutions links — by industry. */
 const SOLUTIONS: NavEntry[] = [
@@ -66,8 +95,9 @@ const NAV_GROUPS: NavGroup[] = [
     label: "Products",
     wide: true,
     columns: [
+      { label: "Primitives", items: PRODUCT_PRIMITIVES },
       { label: "Collaboration", items: PRODUCT_COLLABORATION },
-      { label: "Review & governance", items: PRODUCT_GOVERNANCE },
+      { label: "Platform", items: PRODUCT_PLATFORM },
     ],
   },
   {
@@ -79,22 +109,26 @@ const NAV_GROUPS: NavGroup[] = [
 const MOBILE_DRAWER_ID = "nav-mobile-drawer";
 
 /**
- * Renders a single nav entry link, optionally with a "Beta" style badge.
+ * Renders a single nav entry link, optionally with a "Beta" style badge and a
+ * nested list of folded-feature sub-links rendered as small secondary anchors.
  * @param entry The link data.
  * @param className The anchor class name.
+ * @param subClassName Class name for any folded-feature sub-links.
  * @param onClick Optional click handler (used to close the mobile drawer).
- * @returns The anchor element.
+ * @returns The anchor element, wrapped with its sub-links when present.
  */
 function NavEntryLink({
   entry,
   className,
+  subClassName,
   onClick,
 }: {
   entry: NavEntry;
   className: string;
+  subClassName: string;
   onClick?: () => void;
 }) {
-  return (
+  const link = (
     <a
       href={entry.href}
       className={className}
@@ -107,14 +141,42 @@ function NavEntryLink({
       {entry.badge ? <span className="nav-badge">{entry.badge}</span> : null}
     </a>
   );
+
+  const children = entry.children;
+  if (!children?.length) {
+    return link;
+  }
+
+  return (
+    <div className="nav-entry-group">
+      {link}
+      <div className="nav-sublinks">
+        {children.map((child) => (
+          <a
+            key={child.href + child.label}
+            href={child.href}
+            className={subClassName}
+            role="menuitem"
+            onClick={onClick}
+          >
+            {child.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 /**
  * Site navigation header with a desktop bar and a mobile slide-in drawer.
  * @returns The navigation header.
  */
+/** Scroll distance (px) past which the nav gains its blurred state. */
+const SCROLL_THRESHOLD = 8;
+
 export default function Nav() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   /** Closes the mobile drawer. */
   const closeDrawer = useCallback(() => {
@@ -161,17 +223,39 @@ export default function Nav() {
     }
   }, [isDrawerOpen, closeDrawer]);
 
+  useEffect(() => {
+    try {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+      };
+
+      // Sync immediately in case the page loads already scrolled.
+      handleScroll();
+      window.addEventListener("scroll", handleScroll, { passive: true });
+
+      return () => {
+        try {
+          window.removeEventListener("scroll", handleScroll);
+        } catch {
+          // no-op
+        }
+      };
+    } catch {
+      return undefined;
+    }
+  }, []);
+
   return (
-    <header className="nav-header">
+    <header className={isScrolled ? "nav-header is-scrolled" : "nav-header"}>
       <div className="nav-inner">
         <a href="/" className="nav-logo" aria-label="Velt home">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/velt-logo.svg"
             alt=""
             className="nav-logo-img"
             width={59}
             height={22}
+            unoptimized
           />
         </a>
 
@@ -187,7 +271,12 @@ export default function Nav() {
                   <div className="nav-menu-col" key={column.label}>
                     <p className="nav-menu-label">{column.label}</p>
                     {column.items.map((entry) => (
-                      <NavEntryLink key={entry.href + entry.label} entry={entry} className="nav-menu-link" />
+                      <NavEntryLink
+                        key={entry.href + entry.label}
+                        entry={entry}
+                        className="nav-menu-link"
+                        subClassName="nav-menu-sublink"
+                      />
                     ))}
                   </div>
                 ))}
@@ -253,6 +342,7 @@ export default function Nav() {
                       key={entry.href + entry.label}
                       entry={entry}
                       className="nav-drawer-link"
+                      subClassName="nav-drawer-sublink"
                       onClick={closeDrawer}
                     />
                   ))}

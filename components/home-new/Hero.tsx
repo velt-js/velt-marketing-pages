@@ -24,12 +24,13 @@ export default function Hero() {
               <span className="hero-badge-label">EU data residency</span>
             </span>
           </div>
-          <h1 className="hero-title">Add a pull request to your product.</h1>
-          <p className="hero-sub">Embeddable review and approval for AI-native apps. Add governance to the work that can't ship unapproved.</p>
+          <h1 className="hero-title">Review and Approval for AI-Native Apps</h1>
+          <p className="hero-sub">Add a pull request to your product. Governance for work that can't ship unapproved.</p>
           <div className="hero-actions">
             <a href="#cta" className="hero-btn-primary hdark">Get Free API Key</a>
             <a href="#proof" className="hero-btn-secondary hsoft">Book Demo</a>
           </div>
+          <p className="hero-feature-strip">Comments · Approvals · Review agents · Memory · Audit trails</p>
         </div>
 
 

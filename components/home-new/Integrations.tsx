@@ -59,7 +59,6 @@ const integrationCards: IntegrationCategory[][] = [
         { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg` },
         { name: "TanStack", logoSrc: `${ICON}/tanstack.svg` },
         { name: "AG Grid", logoSrc: `${ICON}/aggrid.svg` },
-        { name: "SpreadJS", logoSrc: `${ICON}/spreadjs.svg`, wide: true },
       ],
     },
   ],

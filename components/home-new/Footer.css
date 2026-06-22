@@ -76,12 +76,24 @@
 }
 
 .vlp .footer-badge {
-  font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-text-micro);
-  color: var(--vlp-color-text-on-dark-muted);
-  border: var(--vlp-border-width) solid var(--vlp-border-on-dark);
-  padding: 4px 9px;
-  border-radius: var(--vlp-chip-radius);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Official Y Combinator square mark (orange #FB651E / white Y). Sized and
+   rounded to read as a tidy badge alongside the circular SOC 2 / HIPAA seals.
+   Luminosity blend + lowered opacity desaturate the orange so it matches the
+   muted seal treatment on the dark footer. */
+.vlp .footer-badge-yc-logo {
+  display: block;
+  box-sizing: border-box;
+  height: 48px;
+  width: 48px;
+  padding: 6px;
+  object-fit: contain;
+  border-radius: var(--vlp-radius-sm, 6px);
+  mix-blend-mode: luminosity;
+  opacity: 0.6;
 }
 
 .vlp .footer-col-heading {
@@ -118,4 +130,22 @@
   display: inline-flex;
   align-items: center;
   gap: var(--vlp-space-4);
+}
+
+.vlp .footer-socials {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vlp-color-text-on-dark-muted);
+  transition: color 0.15s ease;
+}
+
+.vlp .footer-social-link:hover {
+  color: var(--vlp-color-text-on-dark);
 }

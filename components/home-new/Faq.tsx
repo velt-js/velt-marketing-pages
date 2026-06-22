@@ -19,7 +19,7 @@ export default function Faq() {
               <div key={item.num} onClick={() => setFaqOpen(isOpen ? -1 : index)} className="faq-row">
                 <div className="faq-row-header">
                   <span className="faq-num">{item.num}</span>
-                  <span className="faq-question">{item.q}</span>
+                  <h3 className="faq-question">{item.q}</h3>
                   <span className="faq-toggle">{isOpen ? "−" : "+"}</span>
                 </div>
                 {isOpen && (

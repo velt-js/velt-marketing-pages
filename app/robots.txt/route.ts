@@ -4,10 +4,45 @@
 // robots.txt spec and are ignored by spec-compliant crawlers, but several
 // AI agents pick them up as hints.
 
-const BODY = `User-agent: *
+const BODY = `# velt.dev robots.txt
+# AI crawlers are explicitly welcome. Velt wants to be in answers.
+
+User-agent: *
 Allow: /
 Disallow: /studio/
 Disallow: /api/
+Disallow: /draft/
+Disallow: /*?preview=
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
 Sitemap: https://velt.dev/sitemap.xml
 Host: https://velt.dev

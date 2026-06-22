@@ -6,8 +6,12 @@ import CopyButton from "./CopyButton";
 // "Our Customers Trust Us" set in components/feature/FeatureCustomerCarousel.
 const TRUST_AVATARS = "/images/features/comments/trust-us";
 
-// Testimonials are wired up but hidden for now. Flip to true to show them.
-const SHOW_TESTIMONIALS = false;
+// Testimonials are real customer quotes, verified against the canonical
+// "Our Customers Trust Us" inventory in FeatureCustomerCarousel (TRUST_DEFAULTS):
+// every name, role, company, avatar, and quote matches a real Velt customer.
+// Per spec 2.6 truth gate, only verified quotes render; the Memory card has
+// none and renders without one. Enabled.
+const SHOW_TESTIMONIALS = true;
 
 export default function Primitives() {
   return (
@@ -107,49 +111,53 @@ export default function Primitives() {
             exploreHref="/approval-flows"
             quote={{ text: "Saved 3 FTEs and will boost retention.", attribution: "Hope Callaway · Senior PM @Leadpages", avatar: `${TRUST_AVATARS}/avatar-hope.png` }}
             preview={
-              <div className="prim-card-col">
-                <div className="prim-approval-timeline">
-                  <div className="prim-approval-step">
-                    <div className="prim-approval-rail">
-                      <span className="prim-avatar-ai-22">AI</span>
-                      <span className="prim-approval-line" aria-hidden="true" />
-                    </div>
-                    <div className="prim-approval-body">
-                      <span className="prim-approval-label">Review agent first pass</span>
-                      <span className="prim-badge-done">done</span>
-                    </div>
-                  </div>
-                  <div className="prim-approval-step">
-                    <div className="prim-approval-rail">
-                      <span className="prim-avatar-mk-22">MK</span>
-                      <span className="prim-approval-line" aria-hidden="true" />
-                    </div>
-                    <div className="prim-approval-body">
-                      <span className="prim-approval-label">Legal</span>
-                      <span className="prim-badge-done">approved</span>
-                    </div>
-                  </div>
-                  <div className="prim-approval-step">
-                    <div className="prim-approval-rail">
-                      <span className="prim-avatar-jr-22">JR</span>
-                      <span className="prim-approval-line" aria-hidden="true" />
-                    </div>
-                    <div className="prim-approval-body">
-                      <span className="prim-approval-label">Brand</span>
-                      <span className="prim-badge-pending">pending</span>
-                    </div>
-                  </div>
-                  <div className="prim-approval-step prim-approval-step--muted">
-                    <div className="prim-approval-rail">
-                      <span className="prim-avatar-sp-22">SP</span>
-                    </div>
-                    <div className="prim-approval-body">
-                      <span className="prim-approval-label">Exec sponsor</span>
-                      <span className="prim-badge-waiting">waiting on quorum</span>
-                    </div>
+              /* Workflow DAG (Altana demo): an Agent node fans out to two
+                 PARALLEL human reviewers (Legal + Brand) that converge into an
+                 exec sponsor, with a visible reject branch returning to the
+                 author. The structure reads as a graph, not a linear list. */
+              <div className="prim-dag" role="img" aria-label="Approval workflow: review agent feeds parallel Legal and Brand reviewers, converging into an exec sponsor, with a reject branch back to the author.">
+                <div className="prim-dag-row prim-dag-row--source">
+                  <div className="prim-dag-node">
+                    <span className="prim-avatar-ai-22">AI</span>
+                    <span className="prim-dag-node-label">Review agent</span>
+                    <span className="prim-badge-done">done</span>
                   </div>
                 </div>
-                <div className="prim-approval-footer">On reject: return to author</div>
+                <div className="prim-dag-fan" aria-hidden="true">
+                  <span className="prim-dag-fan-trunk" />
+                  <span className="prim-dag-fan-split" />
+                  <span className="prim-dag-fan-arm prim-dag-fan-arm--left" />
+                  <span className="prim-dag-fan-arm prim-dag-fan-arm--right" />
+                </div>
+                <div className="prim-dag-row prim-dag-row--parallel">
+                  <div className="prim-dag-node">
+                    <span className="prim-avatar-mk-22">MK</span>
+                    <span className="prim-dag-node-label">Legal</span>
+                    <span className="prim-badge-done">approved</span>
+                  </div>
+                  <div className="prim-dag-node prim-dag-node--reject">
+                    <span className="prim-avatar-jr-22">JR</span>
+                    <span className="prim-dag-node-label">Brand</span>
+                    <span className="prim-badge-pending">pending</span>
+                  </div>
+                </div>
+                <div className="prim-dag-merge" aria-hidden="true">
+                  <span className="prim-dag-merge-arm prim-dag-merge-arm--left" />
+                  <span className="prim-dag-merge-arm prim-dag-merge-arm--right" />
+                  <span className="prim-dag-merge-split" />
+                  <span className="prim-dag-merge-trunk" />
+                </div>
+                <div className="prim-dag-row prim-dag-row--sink">
+                  <div className="prim-dag-node prim-dag-node--muted">
+                    <span className="prim-avatar-sp-22">SP</span>
+                    <span className="prim-dag-node-label">Exec sponsor</span>
+                    <span className="prim-badge-waiting">on quorum</span>
+                  </div>
+                </div>
+                <div className="prim-dag-reject">
+                  <span className="prim-dag-reject-branch" aria-hidden="true" />
+                  <span className="prim-dag-reject-label">On reject: return to author</span>
+                </div>
               </div>
             }
             code={

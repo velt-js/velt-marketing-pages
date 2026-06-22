@@ -68,6 +68,15 @@
   margin-top: var(--vlp-space-8);
 }
 
+.vlp .hero-feature-strip {
+  margin-top: var(--vlp-space-5);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-subtle);
+}
+
 .vlp .hero-btn-primary {
   display: inline-flex;
   align-items: center;

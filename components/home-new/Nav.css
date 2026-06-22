@@ -4,6 +4,14 @@
   z-index: var(--vlp-z-nav);
   background: var(--vlp-bg-nav);
   border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+  transition: background var(--vlp-transition-fast), box-shadow var(--vlp-transition-fast);
+}
+
+/* A subtle shadow kicks in once the page is scrolled past the threshold; the
+   background stays solid (no translucency) so content never shows through. */
+.vlp .nav-header.is-scrolled {
+  background: var(--vlp-bg-nav);
+  box-shadow: 0 1px 0 var(--vlp-border-default);
 }
 
 .vlp .nav-inner {
@@ -97,8 +105,9 @@
 }
 
 .vlp .nav-menu-wide {
-  min-width: 460px;
+  min-width: 580px;
   flex-direction: row;
+  align-items: flex-start;
   gap: var(--vlp-space-4);
   padding: var(--vlp-space-3);
 }
@@ -132,6 +141,35 @@
 }
 
 .vlp .nav-menu-link:hover {
+  background: var(--vlp-bg-wash, rgba(0, 0, 0, 0.04));
+}
+
+.vlp .nav-entry-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Folded features: small, indented secondary anchors under their parent. */
+.vlp .nav-sublinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-left: var(--vlp-space-3);
+}
+
+.vlp .nav-menu-sublink {
+  display: flex;
+  align-items: center;
+  padding: 5px var(--vlp-space-2-5);
+  border-radius: var(--vlp-radius-sm);
+  font-size: 12px;
+  color: var(--vlp-color-text-muted);
+  white-space: nowrap;
+  transition: background var(--vlp-transition-fast), color var(--vlp-transition-fast);
+}
+
+.vlp .nav-menu-sublink:hover {
+  color: var(--vlp-color-text);
   background: var(--vlp-bg-wash, rgba(0, 0, 0, 0.04));
 }
 
@@ -309,6 +347,16 @@
   padding: var(--vlp-space-2-5) 0;
   font-size: var(--vlp-text-body-lg);
   color: var(--vlp-color-text);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-faint);
+}
+
+/* Folded features inside the drawer: small, indented secondary anchors. */
+.vlp .nav-drawer-sublink {
+  display: flex;
+  align-items: center;
+  padding: var(--vlp-space-2) 0 var(--vlp-space-2) var(--vlp-space-4);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-muted);
   border-bottom: var(--vlp-border-width) solid var(--vlp-border-faint);
 }
 

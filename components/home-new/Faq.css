@@ -61,6 +61,8 @@
   font-size: var(--vlp-text-lead);
   line-height: 1.35;
   letter-spacing: -0.01em;
+  margin: 0;
+  font-weight: inherit;
 }
 
 .vlp .faq-toggle {

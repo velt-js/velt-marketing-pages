@@ -15,6 +15,7 @@
 
 import { notFound } from "next/navigation";
 
+import { FixedNavLayout } from "@/components/home/FixedNavLayout";
 import { Footer } from "@/components/home/Footer";
 import { Security } from "@/components/home/Security";
 import { GetStartedSteps } from "@/components/home/GetStartedSteps";
@@ -129,7 +130,7 @@ export async function FeaturePageBody({
   const faqSchema = buildFaqPageSchemaFromEntries(faqItems);
 
   return (
-    <>
+    <FixedNavLayout>
       <JsonLd id="ld-feature-webpage" data={webpage} />
       <JsonLd id="ld-feature-breadcrumb" data={breadcrumb} />
       <JsonLd id="ld-feature-faq" data={faqSchema} />
@@ -186,6 +187,6 @@ export async function FeaturePageBody({
 
         <Footer />
       </div>
-    </>
+    </FixedNavLayout>
   );
 }

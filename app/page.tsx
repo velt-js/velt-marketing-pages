@@ -22,6 +22,7 @@ import WhyNow from "@/components/home-new/WhyNow";
 import Primitives from "@/components/home-new/Primitives";
 import Collaboration from "@/components/home-new/Collaboration";
 import HowItWorks from "@/components/home-new/HowItWorks";
+import CtaBanner from "@/components/home-new/CtaBanner";
 import Integrations from "@/components/home-new/Integrations";
 import Enterprise from "@/components/home-new/Enterprise";
 import Verticals from "@/components/home-new/Verticals";
@@ -79,16 +80,23 @@ const HOME_FAQ_SCHEMA = buildFaqPageSchema(
   FAQS.map((item) => ({ question: item.q, answer: item.a })),
 );
 
+// Public signup / console URL. Mirrors FinalCta's CONSOLE_URL so every
+// "Get Free API Key" action across the page points at the same destination.
+const CONSOLE_URL = "https://console.velt.dev/";
+
+// Framework logos for CTA banner #1. Logos reused from the Integrations
+// nav-icons set; HTML has no brand asset, so it renders as a text label.
+const CTA_FRAMEWORKS = [
+  { name: "React", logoSrc: "/images/home/nav-icons/react.svg" },
+  { name: "Next.js", logoSrc: "/images/home/nav-icons/nextdotjs.svg" },
+  { name: "Vue", logoSrc: "/images/home/nav-icons/vuedotjs.svg" },
+  { name: "Angular", logoSrc: "/images/home/nav-icons/angular.svg" },
+  { name: "HTML" },
+];
+
 export default function Home() {
   return (
     <div className="vlp">
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
-
       <JsonLd id="ld-home-software" data={HOME_SOFTWARE_APPLICATION} />
       {/* Framer-ported bespoke SoftwareApplication (Script 20) — adds
           aggregateRating, named Review entities, Offer tiers, full
@@ -116,12 +124,29 @@ export default function Home() {
         <Primitives />
         <Collaboration />
         <HowItWorks />
+        <CtaBanner
+          kicker="Start free"
+          heading="Get your API key and ship the first review surface today."
+          ctaLabel="Get Free API Key"
+          ctaHref={CONSOLE_URL}
+          ctaExternal
+          microcopy="No credit card."
+          frameworks={CTA_FRAMEWORKS}
+        />
         <Integrations />
         <Enterprise />
         <Verticals />
         <Faq />
         <Proof />
         <CustomerShowcase />
+        <CtaBanner
+          dark
+          kicker="See it live"
+          heading="Watch Velt run on your own product."
+          ctaLabel="Book Demo"
+          ctaHref="/book-demo"
+          microcopy="30 minutes, with an engineer, not a sales deck."
+        />
         <FinalCta />
         <Footer />
       </div>

@@ -315,10 +315,15 @@ outline: 2px solid var(--vlp-bg-accent-focus);
 }
 
 /* ── Customer quote block ──────────────────────────────────── */
+/* Spec 2.6 card anatomy: the attributed customer quote sits behind a left
+   rule. The rule is an accent-tinted 2px border with padding so the avatar
+   and text clear it. */
 .vlp .prim-quote {
   display: flex;
   gap: var(--vlp-gap-card);
   align-items: flex-start;
+  padding-left: var(--vlp-space-4);
+  border-left: 2px solid var(--vlp-color-accent);
 }
 
 .vlp .prim-quote-avatar {
@@ -356,13 +361,6 @@ outline: 2px solid var(--vlp-bg-accent-focus);
 /* ── Demo mocks (flattened: sit directly on the card) ──────── */
 .vlp .prim-card {
   background: transparent;
-}
-
-/* Approval-flow mock: timeline steps + footer */
-.vlp .prim-card-col {
-  display: flex;
-  flex-direction: column;
-  gap: var(--vlp-gap-tight);
 }
 
 /* Audit-trail mock */
@@ -552,65 +550,173 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   flex: 1;
 }
 
-/* ── Approval timeline (vertical spine + step rows) ────────── */
-.vlp .prim-approval-timeline {
+/* ── Approval flows: workflow DAG (Altana demo) ────────────── */
+/* Vertical graph: a single Agent source node fans out to two PARALLEL human
+   reviewers, which merge into one exec-sponsor sink, plus a reject branch.
+   Connectors are thin dashed segments drawn with bordered spans so the
+   parallel structure reads at card size without any new dependency. */
+.vlp .prim-dag {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 
-.vlp .prim-approval-step {
+.vlp .prim-dag-row {
   display: flex;
+}
+
+.vlp .prim-dag-row--source,
+.vlp .prim-dag-row--sink {
+  justify-content: center;
+}
+
+.vlp .prim-dag-row--parallel {
   gap: var(--vlp-space-2-5);
 }
 
-.vlp .prim-approval-step--muted .prim-approval-label {
-  color: var(--vlp-color-text-muted);
-}
-
-.vlp .prim-approval-rail {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-self: stretch;
-  width: var(--vlp-size-logomark);
-  flex-shrink: 0;
-}
-
-.vlp .prim-approval-line {
-  flex: 1;
-  width: 2px;
-  margin-top: var(--vlp-space-1-5);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    var(--vlp-color-timeline-dash) 0 4px,
-    transparent 4px 9px
-  );
-  animation: prim-approval-march-y 0.7s linear infinite;
-}
-
-@keyframes prim-approval-march-y {
-  to {
-    background-position: 0 9px;
-  }
-}
-
-.vlp .prim-approval-body {
+/* Each leaf in the parallel row shares the width evenly. */
+.vlp .prim-dag-row--parallel > .prim-dag-node {
   flex: 1;
   min-width: 0;
+}
+
+/* Node card — avatar + label + status badge, stacked. */
+.vlp .prim-dag-node {
   display: flex;
   align-items: center;
   gap: var(--vlp-space-2-5);
   font-size: var(--vlp-text-body-sm-plus);
-  padding-bottom: 14px;
+  padding: var(--vlp-space-2) var(--vlp-space-3);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-xl);
+  background: var(--vlp-bg-card);
 }
 
-.vlp .prim-approval-step:last-child .prim-approval-body {
-  padding-bottom: 0;
+.vlp .prim-dag-row--source > .prim-dag-node,
+.vlp .prim-dag-row--sink > .prim-dag-node {
+  min-width: 60%;
 }
 
-.vlp .prim-approval-label {
+.vlp .prim-dag-node--muted .prim-dag-node-label {
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-dag-node-label {
   flex: 1;
   min-width: 0;
+}
+
+/* The badge tokens (prim-badge-done/pending/waiting) carry margin-left:auto,
+   which lands them on the right of each node — keep that. */
+
+/* Fan-out connector: a center trunk drops from the source, a horizontal split
+   spreads to two arms feeding the parallel reviewers. */
+.vlp .prim-dag-fan {
+  position: relative;
+  height: 20px;
+}
+
+.vlp .prim-dag-fan-trunk {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-fan-split {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-fan-arm {
+  position: absolute;
+  top: 10px;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-fan-arm--left {
+  left: 25%;
+}
+
+.vlp .prim-dag-fan-arm--right {
+  left: 75%;
+}
+
+/* Merge connector: mirror of the fan, two arms rise from the reviewers into a
+   center trunk that drops to the sink. */
+.vlp .prim-dag-merge {
+  position: relative;
+  height: 20px;
+}
+
+.vlp .prim-dag-merge-arm {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-merge-arm--left {
+  left: 25%;
+}
+
+.vlp .prim-dag-merge-arm--right {
+  left: 75%;
+}
+
+.vlp .prim-dag-merge-split {
+  position: absolute;
+  top: 8px;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-merge-trunk {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+/* Reject branch: a dashed accent line peeling off below the graph, returning
+   to the author. Marked with the accent color so it reads as the failure path. */
+.vlp .prim-dag-reject {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  margin-top: var(--vlp-space-3-5);
+  padding-top: var(--vlp-space-3-5);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .prim-dag-reject-branch {
+  flex-shrink: 0;
+  width: 28px;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--vlp-color-accent) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.vlp .prim-dag-reject-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-accent-muted);
 }
 
 /* Status badge — done/approved (green fill) */
@@ -641,15 +747,6 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-text-micro);
   color: var(--vlp-color-text-subtle);
-}
-
-/* Reject footer note inside approval card */
-.vlp .prim-approval-footer {
-  font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-btn-primary-font-micro);
-  color: var(--vlp-color-text-subtle);
-  padding-top: 10px;
-  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
 }
 
 /* ── Audit trail card internals ────────────────────────────── */
