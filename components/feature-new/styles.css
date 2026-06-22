@@ -372,11 +372,11 @@
 
 /* Anchored chart (freestyle tab). */
 .vfp .cmh-chart { position: relative; }
-.vfp .cmh-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 116px; padding: 24px 12px 0; border-bottom: 2px solid var(--vlp-border-default); }
+.vfp .cmh-bars { display: flex; align-items: flex-end; justify-content: center; gap: 44px; height: 116px; padding: 24px 12px 0; border-bottom: 2px solid var(--vlp-border-default); }
 .vfp .cmh-bars .bar { flex: none; width: 60px; border-radius: 2px 2px 0 0; background: #2f7ce0; }
 .vfp .cmh-bars .bar.hot { position: relative; }
 .vfp .cmh-bars .bar.hot .cmh-pin { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); }
-.vfp .cmh-xrow { display: flex; justify-content: space-between; margin-top: 10px; padding: 0 12px; }
+.vfp .cmh-xrow { display: flex; justify-content: center; gap: 44px; margin-top: 10px; padding: 0 12px; }
 .vfp .cmh-xrow span { width: 60px; text-align: center; font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
 
 /* Editor toolbar (text tab). */
