@@ -96,7 +96,7 @@ const doc = {
       "An enterprise buyer asked for approval workflows on budgets, and the close calendar could not wait for the quarter it would take to build.",
     ],
     close:
-      "If review is your product itself, policy management, regulatory filing, risk and attestation platforms, that page is /for/compliance. This page is for products where the numbers are the work: budgets, forecasts, models, the close.",
+      "If your product is a review, policy management, regulatory filing, or risk and attestation platform, that page is /for/compliance. This page is for products where the numbers are the work: budgets, forecasts, models, the close.",
   },
 
   theLoop: {
@@ -276,7 +276,7 @@ const doc = {
         {
           question: "Can sign-off require more than one approver?",
           answer:
-            "Yes. Workflows support sequential and parallel steps and quorum rules, two of three must approve, with rejection paths and a full history per run. Approval flows is in beta. See /approval-flows.",
+            "Yes. Workflows support sequential and parallel steps and quorum rules (where two of three must approve), with rejection paths and a full history per run. Approval flows is in beta. See /approval-flows.",
         },
         {
           question: "Does this satisfy EU AI Act Article 14?",
