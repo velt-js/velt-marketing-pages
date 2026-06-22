@@ -20,15 +20,19 @@ import {
   getAllBlogPosts,
   getAllDemoPages,
   getAllFeaturePages,
+  getAllFeatureV2Slugs,
   getAllIntegrationSlugs,
   getAllLibraryPages,
+  getAllSolutionSlugs,
   getAllUseCasePages,
   getBlogPostBySlug,
   getDemoPageBySlug,
   getFeaturePageBySlug,
+  getFeaturePageV2BySlug,
   getIntegrationPageBySlug,
   getLibraryPageBySlug,
   getMigrationPageBySlug,
+  getSolutionPageBySlug,
   getUseCasePageBySlug,
 } from "@/sanity/queries";
 import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
@@ -214,6 +218,43 @@ function bullet(label: string, href?: string | null): string {
 
 function joinSections(parts: Array<string | null | undefined>): string {
   return parts.filter((p): p is string => Boolean(p && p.trim())).join("\n\n");
+}
+
+// ---------------------------------------------------------------------------
+// CTA strip — removes marketing call-to-action links/text from .md mirrors.
+// Goal: zero occurrences of "Get Free API Key" or "Book Demo" in any output.
+// Does NOT touch the rendered HTML pages.
+// ---------------------------------------------------------------------------
+
+/**
+ * Remove CTA links and bare CTA text from a markdown string. Also collapses
+ * dangling " · " separators and 3+ consecutive blank lines to 2.
+ *
+ * @param md - Raw markdown string produced by a page serializer.
+ * @returns Cleaned markdown with no CTA phrases.
+ */
+function stripCtas(md: string): string {
+  const CTA_PATTERN =
+    /get free api key|get api key|book a demo|book demo|book a slot|book a consult|book a migration call|apply now/i;
+
+  // Remove markdown links whose visible text matches CTA_PATTERN
+  let result = md.replace(/\[([^\]]+)\]\([^)]+\)/g, (match, label: string) => {
+    if (CTA_PATTERN.test(label)) return "";
+    return match;
+  });
+
+  // Remove bare standalone CTA strings that survived as plain text
+  result = result.replace(/\bGet Free API Key\b/g, "");
+  result = result.replace(/\bBook Demo\b/g, "");
+
+  // Clean up leftover " · " separators at the start or end of lines
+  result = result.replace(/^ ?· ?/gm, "");
+  result = result.replace(/ ?· ?$/gm, "");
+
+  // Collapse 3+ consecutive blank lines to 2
+  result = result.replace(/\n{4,}/g, "\n\n\n");
+
+  return result.trim();
 }
 
 // ---------------------------------------------------------------------------
@@ -430,6 +471,301 @@ async function featureMarkdown(urlSlug: string): Promise<PageMarkdown | null> {
       sectionsMarkdown(doc.sections),
       faqMarkdown(doc.faq),
     ]),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// v2 feature page serializer
+// ---------------------------------------------------------------------------
+
+/**
+ * Serialize a v2 feature page (featurePageV2 Sanity type) to markdown.
+ * Returns null when the document is missing or has no hero title.
+ *
+ * @param slug - The URL slug, used verbatim for the canonical URL.
+ */
+async function featureV2Markdown(slug: string): Promise<PageMarkdown | null> {
+  const doc = await getFeaturePageV2BySlug(slug) as {
+    title?: string;
+    hero?: {
+      title?: string;
+      secondary?: string;
+      kicker?: string;
+    };
+    whatItIs?: { heading?: string; body?: string };
+    howItWorks?: {
+      heading?: string;
+      support?: string;
+      steps?: Array<{ title?: string; code?: string; filename?: string }>;
+      mechanics?: { body?: string };
+      buildVsBuy?: { items?: string[] };
+    };
+    showcase?: {
+      heading?: string;
+      support?: string;
+      cards?: Array<{ name?: string; headline?: string; code?: string }>;
+      interstitial?: { quote?: string; who?: string };
+    };
+    details?: {
+      heading?: string;
+      support?: string;
+      items?: Array<{ label?: string; soon?: boolean }>;
+    };
+    makeItYours?: {
+      heading?: string;
+      support?: string;
+      cards?: Array<{ title?: string; body?: string; code?: string }>;
+    };
+    inProduction?: {
+      heading?: string;
+      support?: string;
+      tabs?: Array<{ caption?: string }>;
+      whereItFits?: { links?: Array<{ label?: string; href?: string }> };
+    };
+    testimonials?: {
+      heading?: string;
+      cards?: Array<{ metric?: string; quote?: string; who?: string }>;
+    };
+    faq?: { items?: Array<{ question?: string; answer?: string }> };
+  } | null;
+
+  if (!doc?.hero?.title) return null;
+
+  const parts: string[] = [];
+
+  // Lead paragraph from hero
+  if (doc.hero?.secondary) parts.push(clean(doc.hero.secondary));
+
+  // What it is
+  const wii = doc.whatItIs;
+  if (wii?.heading || wii?.body) {
+    if (wii?.heading) parts.push(heading(2, clean(wii.heading)));
+    if (wii?.body) parts.push(clean(wii.body));
+  }
+
+  // How it works
+  const hiw = doc.howItWorks;
+  if (hiw?.heading || hiw?.support) {
+    if (hiw?.heading) parts.push(heading(2, clean(hiw.heading)));
+    if (hiw?.support) parts.push(clean(hiw.support));
+    for (const step of hiw?.steps ?? []) {
+      if (step?.title) parts.push(heading(3, clean(step.title)));
+      if (step?.code) parts.push("```\n" + step.code + "\n```");
+    }
+    if (hiw?.mechanics?.body) parts.push(clean(hiw.mechanics.body));
+    const bvbItems = hiw?.buildVsBuy?.items ?? [];
+    if (bvbItems.length > 0) {
+      parts.push(
+        bvbItems
+          .map((item) => bullet(clean(typeof item === "string" ? item : String(item))))
+          .filter(Boolean)
+          .join("\n")
+      );
+    }
+  }
+
+  // Showcase
+  const sc = doc.showcase;
+  if (sc?.heading || sc?.support) {
+    if (sc?.heading) parts.push(heading(2, clean(sc.heading)));
+    if (sc?.support) parts.push(clean(sc.support));
+    for (const card of sc?.cards ?? []) {
+      const cardTitle = clean(card?.headline ?? card?.name ?? "");
+      if (cardTitle) parts.push(heading(3, cardTitle));
+      if (card?.code) parts.push("```\n" + card.code + "\n```");
+    }
+    if (sc?.interstitial?.quote) {
+      parts.push(`> ${clean(sc.interstitial.quote)}`);
+    }
+  }
+
+  // Details
+  const det = doc.details;
+  if (det?.heading || det?.support) {
+    if (det?.heading) parts.push(heading(2, clean(det.heading)));
+    if (det?.support) parts.push(clean(det.support));
+    const detItems = (det?.items ?? [])
+      .map((item) => {
+        const label = clean(item?.label ?? "");
+        if (!label) return "";
+        return bullet(item?.soon ? `${label} (coming soon)` : label);
+      })
+      .filter(Boolean);
+    if (detItems.length > 0) parts.push(detItems.join("\n"));
+  }
+
+  // Make it yours
+  const miy = doc.makeItYours;
+  if (miy?.heading || miy?.support) {
+    if (miy?.heading) parts.push(heading(2, clean(miy.heading)));
+    if (miy?.support) parts.push(clean(miy.support));
+    for (const card of miy?.cards ?? []) {
+      if (card?.title) parts.push(heading(3, clean(card.title)));
+      if (card?.body) parts.push(clean(card.body));
+      if (card?.code) parts.push("```\n" + card.code + "\n```");
+    }
+  }
+
+  // In production (no ctaBanner)
+  const inp = doc.inProduction;
+  if (inp?.heading || inp?.support) {
+    if (inp?.heading) parts.push(heading(2, clean(inp.heading)));
+    if (inp?.support) parts.push(clean(inp.support));
+    for (const tab of inp?.tabs ?? []) {
+      if (tab?.caption) parts.push(clean(tab.caption));
+    }
+    const fitLinks = (inp?.whereItFits?.links ?? [])
+      .map((link) => bullet(clean(link?.label ?? ""), link?.href ?? undefined))
+      .filter(Boolean);
+    if (fitLinks.length > 0) parts.push(fitLinks.join("\n"));
+  }
+
+  // Testimonials
+  const test = doc.testimonials;
+  if (test?.heading) {
+    parts.push(heading(2, clean(test.heading)));
+    for (const card of test?.cards ?? []) {
+      if (!card?.quote) continue;
+      const prefix = card?.metric ? `${clean(card.metric)}: ` : "";
+      parts.push(`> ${prefix}${clean(card.quote)}`);
+      if (card?.who) parts.push(`- ${clean(card.who)}`);
+    }
+  }
+
+  // FAQ
+  const faqMd = faqMarkdown(doc.faq);
+  if (faqMd) parts.push(faqMd);
+
+  return {
+    url: `${SITE_URL}/${slug}`,
+    title: clean(doc.title ?? doc.hero.title ?? ""),
+    markdown: joinSections(parts),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Solution page serializer
+// ---------------------------------------------------------------------------
+
+/**
+ * Serialize a v1 solution/vertical page (solutionPageV1 Sanity type) to markdown.
+ * Returns null when the document is missing or has no hero title.
+ *
+ * @param slug - The URL slug; the canonical URL will be /for/{slug}.
+ */
+async function solutionMarkdown(slug: string): Promise<PageMarkdown | null> {
+  const doc = await getSolutionPageBySlug(slug) as {
+    title?: string;
+    hero?: { title?: string; secondary?: string };
+    reviewReality?: { heading?: string; items?: string[]; close?: string };
+    theLoop?: {
+      heading?: string;
+      body?: string;
+      beats?: Array<{ title?: string; body?: string; beta?: boolean }>;
+    };
+    featureMap?: {
+      heading?: string;
+      support?: string;
+      cards?: Array<{ name?: string; oneLiner?: string; code?: string }>;
+    };
+    agentLayer?: { heading?: string; body?: string };
+    inProduction?: {
+      heading?: string;
+      body?: string;
+      metric?: string;
+      quote?: string;
+      who?: string;
+    };
+    compliance?: {
+      heading?: string;
+      lead?: string;
+      items?: Array<{ title?: string; body?: string }>;
+    };
+    faq?: { items?: Array<{ question?: string; answer?: string }> };
+  } | null;
+
+  if (!doc?.hero?.title) return null;
+
+  const parts: string[] = [];
+
+  // Lead paragraph from hero
+  if (doc.hero?.secondary) parts.push(clean(doc.hero.secondary));
+
+  // Review reality
+  const rr = doc.reviewReality;
+  if (rr?.heading) {
+    parts.push(heading(2, clean(rr.heading)));
+    const rrItems = (rr?.items ?? [])
+      .map((item) => bullet(clean(typeof item === "string" ? item : String(item))))
+      .filter(Boolean);
+    if (rrItems.length > 0) parts.push(rrItems.join("\n"));
+    if (rr?.close) parts.push(clean(rr.close));
+  }
+
+  // The loop
+  const tl = doc.theLoop;
+  if (tl?.heading || tl?.body) {
+    if (tl?.heading) parts.push(heading(2, clean(tl.heading)));
+    if (tl?.body) parts.push(clean(tl.body));
+    for (const beat of tl?.beats ?? []) {
+      if (beat?.title) {
+        const beatTitle = beat?.beta ? `${clean(beat.title)} (beta)` : clean(beat.title);
+        parts.push(heading(3, beatTitle));
+      }
+      if (beat?.body) parts.push(clean(beat.body));
+    }
+  }
+
+  // Feature map
+  const fm = doc.featureMap;
+  if (fm?.heading || fm?.support) {
+    if (fm?.heading) parts.push(heading(2, clean(fm.heading)));
+    if (fm?.support) parts.push(clean(fm.support));
+    for (const card of fm?.cards ?? []) {
+      if (card?.name) parts.push(heading(3, clean(card.name)));
+      if (card?.oneLiner) parts.push(clean(card.oneLiner));
+      if (card?.code) parts.push("```\n" + card.code + "\n```");
+    }
+  }
+
+  // Agent layer
+  const al = doc.agentLayer;
+  if (al?.heading || al?.body) {
+    if (al?.heading) parts.push(heading(2, clean(al.heading)));
+    if (al?.body) parts.push(clean(al.body));
+  }
+
+  // In production (no ctaBanner)
+  const inp = doc.inProduction;
+  if (inp?.heading || inp?.body) {
+    if (inp?.heading) parts.push(heading(2, clean(inp.heading)));
+    if (inp?.body) parts.push(clean(inp.body));
+    if (inp?.metric) parts.push(clean(inp.metric));
+    if (inp?.quote) {
+      parts.push(`> ${clean(inp.quote)}`);
+      if (inp?.who) parts.push(`- ${clean(inp.who)}`);
+    }
+  }
+
+  // Compliance
+  const comp = doc.compliance;
+  if (comp?.heading || comp?.lead) {
+    if (comp?.heading) parts.push(heading(2, clean(comp.heading)));
+    if (comp?.lead) parts.push(clean(comp.lead));
+    for (const item of comp?.items ?? []) {
+      if (item?.title) parts.push(heading(3, clean(item.title)));
+      if (item?.body) parts.push(clean(item.body));
+    }
+  }
+
+  // FAQ
+  const faqMd = faqMarkdown(doc.faq);
+  if (faqMd) parts.push(faqMd);
+
+  return {
+    url: `${SITE_URL}/for/${slug}`,
+    title: clean(doc.title ?? doc.hero.title ?? ""),
+    markdown: joinSections(parts),
   };
 }
 
@@ -1414,13 +1750,15 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
   let path = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
   if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   if (path === "" || path === "/") {
-    return STATIC_BY_PATH.get("/") ?? null;
+    const home = STATIC_BY_PATH.get("/");
+    if (!home) return null;
+    return { ...home, markdown: stripCtas(home.markdown) };
   }
   if (isExcludedPath(path)) return null;
 
   // Static-page registry first (covers /pricing, /enterprise, etc.)
   const staticMatch = STATIC_BY_PATH.get(path);
-  if (staticMatch) return staticMatch;
+  if (staticMatch) return { ...staticMatch, markdown: stripCtas(staticMatch.markdown) };
 
   // Index pages — dynamically built from Sanity data
   try {
@@ -1462,10 +1800,18 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
     if (path === "/migrate-from-liveblocks-to-velt") {
       return await migrationMarkdown("liveblocks", path);
     }
+    // Solution/vertical pages at /for/<slug>
+    if (segments[0] === "for" && segments.length === 2) {
+      const sol = await solutionMarkdown(segments[1]);
+      if (sol) return { ...sol, markdown: stripCtas(sol.markdown) };
+    }
     // Top-level dynamic feature pages (/comments, /notifications, etc.)
+    // Try v2 first, fall back to v1 if not found.
     if (segments.length === 1) {
-      const feature = await featureMarkdown(segments[0]);
-      if (feature) return feature;
+      const v2 = await featureV2Markdown(segments[0]);
+      if (v2) return { ...v2, markdown: stripCtas(v2.markdown) };
+      const v1 = await featureMarkdown(segments[0]);
+      if (v1) return { ...v1, markdown: stripCtas(v1.markdown) };
     }
   } catch {
     return null;
@@ -1496,7 +1842,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
   ];
   for (const p of priorityPaths) {
     const md = STATIC_BY_PATH.get(p);
-    if (md) results.push(md);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 
   // 2) Static SEO/landing pages (lower priority)
@@ -1513,7 +1859,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
   ];
   for (const p of seoPaths) {
     const md = STATIC_BY_PATH.get(p);
-    if (md) results.push(md);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 
   // 3) Index pages built from Sanity listings (includes /integrations)
@@ -1544,13 +1890,15 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
   ];
   for (const p of lowPriorityPaths) {
     const md = STATIC_BY_PATH.get(p);
-    if (md) results.push(md);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 
   // 5) Sanity-backed dynamic pages
   const [
     blogPosts,
+    featureV2Slugs,
     featurePages,
+    solutionSlugs,
     libraryPages,
     demoPages,
     useCasePages,
@@ -1558,7 +1906,9 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     integrationSlugs,
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
+    getAllFeatureV2Slugs().catch(() => [] as string[]),
     getAllFeaturePages().catch(() => []),
+    getAllSolutionSlugs().catch(() => [] as string[]),
     getAllLibraryPages().catch(() => []),
     getAllDemoPages().catch(() => []),
     getAllUseCasePages().catch(() => []),
@@ -1577,6 +1927,16 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
       if (md) results.push(md);
     } catch {
       // Skip failing post.
+    }
+  }
+  // v2 feature pages (before v1 so v2 wins the URL de-dupe below)
+  for (const slug of featureV2Slugs) {
+    if (!slug) continue;
+    try {
+      const md = await featureV2Markdown(slug);
+      if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
+    } catch {
+      // Skip.
     }
   }
   for (const feat of featurePages as Array<{ slug: string }>) {
@@ -1637,12 +1997,27 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
       // Skip.
     }
   }
+  // Solution/vertical pages at /for/<slug>
+  for (const slug of solutionSlugs) {
+    if (!slug) continue;
+    try {
+      const md = await solutionMarkdown(slug);
+      if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
+    } catch {
+      // Skip.
+    }
+  }
 
   // De-dupe by URL — guards against any registry/sanity overlap.
   const seen = new Set<string>();
-  return results.filter((r) => {
+  const deduped = results.filter((r) => {
     if (seen.has(r.url)) return false;
     seen.add(r.url);
     return true;
   });
+
+  // Final mirror-purity pass: strip CTA strings from every page type in one
+  // place, so llms-full.txt stays CTA-free even for page types whose
+  // serializers do not strip individually. stripCtas is idempotent.
+  return deduped.map((r) => ({ ...r, markdown: stripCtas(r.markdown) }));
 }
