@@ -191,7 +191,8 @@
 .vfp .av-c.a2 { background: oklch(0.60 0.13 35); }
 .vfp .av-c.a3 { background: oklch(0.58 0.12 155); }
 .vfp .av-c.a4 { background: oklch(0.55 0.15 310); }
-.vfp .av-agent { background: var(--vlp-color-ink); border: 1.5px solid var(--vlp-color-accent); color: #f7b48f; }
+.vfp .av-agent { background: radial-gradient(125% 125% at 30% 22%, #5b8def 0%, #2f6fed 45%, #1d4ed8 100%); border: 1.5px solid #9cc0ff; color: #fff; box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 1px 2px rgba(38, 37, 30, 0.18); }
+.vfp .av-c.av-photo { background-size: cover; background-position: center; background-repeat: no-repeat; color: transparent; box-shadow: inset 0 0 0 1px rgba(38, 37, 30, 0.08); }
 .vfp .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
 .vfp .chip-agent { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
 .vfp .chip-pending { background: var(--vlp-color-amber-soft); color: #8a5a13; }
@@ -261,6 +262,110 @@
 .vfp .ci-mail { background: oklch(0.60 0.13 35); }
 .vfp .ci-slack { background: oklch(0.55 0.15 310); }
 .vfp .ci-teams { background: oklch(0.55 0.14 265); }
+
+/* ---------- Comments hero demo (product-surface artifacts) ----------
+   Used only by the four /comments hero tabs (demo-presets/comments.tsx).
+   A thin "embedded in your product" frame (breadcrumb + live presence) wraps
+   on-brand thread/finding/diff atoms so the hero reads as a real surface, not
+   a wireframe. Prefixed .cmh- to stay isolated from other feature pages. */
+.vfp .cmh { border: 1px solid var(--vlp-border-default); border-radius: 14px; background: var(--vlp-bg-page); overflow: hidden; box-shadow: var(--vlp-shadow-md); margin-bottom: 34px; }
+.vfp .cmh-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 13px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); }
+.vfp .cmh-crumb { display: flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-text-muted); min-width: 0; }
+.vfp .cmh-crumb .app { width: 16px; height: 16px; border-radius: 5px; display: grid; place-items: center; color: #fff; background: var(--vlp-color-accent); font-size: 9px; font-weight: 800; flex: none; }
+.vfp .cmh-crumb b { color: var(--vlp-color-ink); font-weight: 600; }
+.vfp .cmh-crumb .sep { opacity: 0.45; }
+.vfp .cmh-crumb .file { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .cmh-body { padding: 16px; display: grid; gap: 13px; }
+
+/* Live presence: overlapping avatars + a pulsing "live" tag. */
+.vfp .cmh-present { display: flex; align-items: center; gap: 9px; flex: none; }
+.vfp .cmh-present .stack { display: flex; }
+.vfp .cmh-present .stack .av-c { width: 24px; height: 24px; margin-left: -7px; border: 2px solid var(--vlp-bg-section-alt); font-size: 9.5px; }
+.vfp .cmh-present .stack .av-c:first-child { margin-left: 0; }
+.vfp .cmh-live { display: inline-flex; align-items: center; gap: 5px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--vlp-color-green-approval); }
+.vfp .cmh-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-green-approval); flex: none; animation: cmh-pulse 2.4s ease-out infinite; }
+@keyframes cmh-pulse { 0% { box-shadow: 0 0 0 0 rgba(18, 131, 82, 0.5); } 70% { box-shadow: 0 0 0 5px rgba(18, 131, 82, 0); } 100% { box-shadow: 0 0 0 0 rgba(18, 131, 82, 0); } }
+@media (prefers-reduced-motion: reduce) { .vfp .cmh-live i { animation: none; } }
+
+/* Anchor pin — the marker that ties a thread to a spot on the surface. */
+.vfp .cmh-pin { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; line-height: 1; color: #fff; background: var(--vlp-color-accent); border-radius: 999px; padding: 4px 9px; box-shadow: var(--vlp-shadow-sm); white-space: nowrap; }
+.vfp .cmh-pin svg { width: 11px; height: 11px; }
+.vfp .cmh-pin.ghost { color: var(--vlp-color-accent-ink); background: var(--vlp-color-accent-soft); border: 1px solid var(--vlp-color-accent-wash); box-shadow: none; }
+
+/* Thread head extras: timestamp pushed right, an agent/role tag, a kebab. */
+.vfp .cmh-when { margin-left: auto; font-size: 10.5px; color: var(--vlp-color-text-subtle); font-family: var(--vlp-font-mono); }
+.vfp .cmh-kebab { color: var(--vlp-color-text-subtle); font-size: 14px; line-height: 1; letter-spacing: 1px; }
+.vfp .cmh-role { font-size: 10px; font-weight: 600; color: var(--vlp-color-text-muted); }
+
+/* Minimal agent finding: lighter card, no drop shadow. */
+.vfp .finding.cmh-finding { box-shadow: none; gap: 10px; }
+
+/* Suggested edit — one quiet inline row (label + diff), no box. */
+.vfp .cmh-suggest { margin: 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.vfp .cmh-suggest .lbl { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); flex: none; }
+.vfp .cmh-suggest .body { font-size: 12.5px; line-height: 1.5; color: var(--vlp-color-ink-soft); }
+
+/* Approve / Reject: one accented action, one quiet ghost. */
+.vfp .cmh-acts { display: flex; gap: 6px; }
+.vfp .cmh-btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--vlp-font-heading); font-size: 11.5px; font-weight: 600; padding: 5px 12px; border-radius: 8px; border: 1px solid transparent; transition: filter 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
+.vfp .cmh-btn svg { width: 11px; height: 11px; }
+.vfp .cmh-btn.approve { background: none; color: var(--vlp-color-green-approval); padding: 5px 8px; }
+.vfp .cmh-btn.approve:hover { background: var(--vlp-color-approve-soft); }
+.vfp .cmh-btn.reject { background: none; color: var(--vlp-color-text-muted); padding: 5px 8px; }
+.vfp .cmh-btn.reject:hover { color: var(--vlp-color-reject); }
+
+/* Reactions + reply affordance row. */
+.vfp .cmh-foot { display: flex; align-items: center; gap: 7px; }
+.vfp .cmh-rx { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; color: var(--vlp-color-ink-soft); background: var(--vlp-bg-wash); border: 1px solid var(--vlp-border-subtle); border-radius: 999px; padding: 2px 8px; }
+.vfp .cmh-rx.on { background: var(--vlp-color-accent-soft); border-color: var(--vlp-color-accent-wash); color: var(--vlp-color-accent-ink); }
+.vfp .cmh-reply { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; color: var(--vlp-color-text-muted); }
+.vfp .cmh-reply svg { width: 12px; height: 12px; }
+
+/* Composer — the always-present "this is live" input row. */
+.vfp .cmh-composer { display: flex; align-items: center; gap: 9px; border: 1px solid var(--vlp-border-default); border-radius: 999px; padding: 5px 5px 5px 7px; background: var(--vlp-bg-page); }
+.vfp .cmh-composer .ph { flex: 1; font-size: 12.5px; color: var(--vlp-color-text-subtle); }
+.vfp .cmh-composer .at { font-size: 13px; font-weight: 700; color: var(--vlp-color-text-muted); }
+.vfp .cmh-send { width: 28px; height: 28px; border-radius: 50%; background: var(--vlp-color-accent); color: #fff; display: grid; place-items: center; flex: none; }
+.vfp .cmh-send svg { width: 13px; height: 13px; }
+
+/* Anchored chart (freestyle tab). */
+.vfp .cmh-chart { position: relative; }
+.vfp .cmh-bars { display: flex; align-items: flex-end; gap: 11px; height: 92px; padding-top: 18px; border-bottom: 1px solid var(--vlp-border-default); }
+.vfp .cmh-bars .bar { flex: 1; border-radius: 5px 5px 0 0; background: var(--vlp-bg-wash); border: 1px solid var(--vlp-border-subtle); border-bottom: none; }
+.vfp .cmh-bars .bar.hot { background: linear-gradient(180deg, var(--vlp-color-accent), var(--vlp-color-accent-muted)); border-color: transparent; position: relative; }
+.vfp .cmh-bars .bar.hot .cmh-pin { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); }
+.vfp .cmh-xrow { display: flex; gap: 11px; margin-top: 7px; }
+.vfp .cmh-xrow span { flex: 1; text-align: center; font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .cmh-xrow span.hot { color: var(--vlp-color-accent); font-weight: 700; }
+
+/* Editor toolbar (text tab). */
+.vfp .cmh-toolbar { display: flex; align-items: center; gap: 2px; margin: -2px 0 2px; }
+.vfp .cmh-toolbar .tb { min-width: 24px; height: 24px; padding: 0 5px; border-radius: 6px; display: grid; place-items: center; font-size: 12px; font-weight: 700; color: var(--vlp-color-text-muted); }
+.vfp .cmh-toolbar .tb:hover { background: var(--vlp-bg-wash); color: var(--vlp-color-ink); }
+.vfp .cmh-toolbar .vbar { width: 1px; height: 15px; background: var(--vlp-border-subtle); margin: 0 5px; }
+.vfp .cmh-doc { font-size: 13px; line-height: 1.65; color: var(--vlp-color-ink-soft); }
+
+/* Inline highlight + popover pointer (popover / text tabs). */
+.vfp .cmh-mark { background: var(--vlp-color-accent-soft); box-shadow: inset 0 -2px 0 var(--vlp-color-accent-wash); border-radius: 3px; padding: 1px 3px; }
+.vfp .cmh-pop { position: relative; }
+.vfp .cmh-pop::before { content: ""; position: absolute; top: -6px; left: 24px; width: 11px; height: 11px; background: var(--vlp-bg-page); border-left: 1px solid var(--vlp-border-default); border-top: 1px solid var(--vlp-border-default); transform: rotate(45deg); }
+
+/* Inbox tab: filters, search, richer rows. */
+.vfp .cmh-filters { display: flex; align-items: center; gap: 5px; }
+.vfp .cmh-ft { font-size: 11.5px; font-weight: 600; color: var(--vlp-color-text-muted); padding: 4px 11px; border-radius: 999px; }
+.vfp .cmh-ft.on { background: var(--vlp-color-ink); color: #fff; }
+.vfp .cmh-search { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; color: var(--vlp-color-text-subtle); border: 1px solid var(--vlp-border-default); border-radius: 8px; padding: 5px 10px; }
+.vfp .cmh-search svg { width: 12px; height: 12px; }
+.vfp .cmh-group { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-text-subtle); margin: 2px 0; }
+.vfp .cmh-inrow { display: flex; gap: 11px; align-items: flex-start; padding: 11px 2px; }
+.vfp .cmh-inrow + .cmh-inrow { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .cmh-unread { width: 7px; height: 7px; border-radius: 50%; background: var(--vlp-color-accent); margin-top: 8px; flex: none; }
+.vfp .cmh-unread.read { background: var(--vlp-border-default); }
+.vfp .cmh-inmain { flex: 1; min-width: 0; }
+.vfp .cmh-inmain .t { font-size: 12.5px; line-height: 1.4; color: var(--vlp-color-ink-soft); }
+.vfp .cmh-inmain .t b { font-weight: 700; color: var(--vlp-color-ink); }
+.vfp .cmh-inmain .m { margin-top: 3px; display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--vlp-color-text-subtle); }
+.vfp .cmh-inmain .m .quote { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-style: italic; }
 
 /* ---------- Dark footer (feature pages only) ----------
    The shared homepage Footer ships white; on feature pages it sits below a

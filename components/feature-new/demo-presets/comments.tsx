@@ -1,6 +1,27 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, CursorTag, DarkPanel, NotifItem, ProvRow, ProvArrow } from "../demos";
+import { AvatarStack, Chip, DarkPanel, NotifItem, ProvRow, ProvArrow } from "../demos";
+import {
+  Av,
+  Composer,
+  DEL_STYLE,
+  FACES,
+  Frame,
+  IconBubble,
+  IconCheck,
+  IconReply,
+  IconSearch,
+  IconX,
+  INS_STYLE,
+} from "./hero-surface";
+
+// Comments-page personas mapped to shared headshots.
+const FACE = {
+  maya: FACES.fenne,
+  sarah: FACES.hope,
+  dev: FACES.ethan,
+  you: FACES.jeff,
+} as const;
 
 // Simulated-UI demo nodes for the /new-features/comments page. Keys match
 // components/feature-new/demo-presets/comments.keys.ts; resolved by
@@ -65,117 +86,172 @@ function Comment({
   );
 }
 
-/**
- * Compact bar chart used to anchor a freestyle comment to a datapoint.
- * @returns {JSX.Element} Mini chart with a pinned comment marker.
- */
-function MiniChart() {
-  const bars = [44, 70, 54, 86, 62];
-  return (
-    <div style={{ position: "relative", display: "flex", alignItems: "flex-end", gap: 8, height: 84 }}>
-      {bars.map((height, index) => (
-        <div
-          key={`bar-${index}`}
-          style={{
-            flex: 1,
-            height: `${height}%`,
-            borderRadius: "4px 4px 0 0",
-            background: index === 3 ? "var(--brand, #ff4f00)" : "var(--line, #e7e2d9)",
-          }}
-        />
-      ))}
-      <span
-        style={{
-          position: "absolute",
-          top: -6,
-          left: "62%",
-          fontSize: 11,
-          fontWeight: 700,
-          color: "#fff",
-          background: "var(--brand, #ff4f00)",
-          padding: "2px 7px",
-          borderRadius: 999,
-        }}
-      >
-        Q3 · 💬
-      </span>
-    </div>
-  );
-}
-
 export const COMMENTS_DEMOS: Record<string, ReactNode> = {
   "comments/hero/freestyle": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <Surface label="Sales deck · slide 4 — pricing chart">
-        <MiniChart />
-        <Comment
-          initials="BA"
-          author="Brand Agent"
-          agent
-          body="This pricing claim conflicts with the rate table in slide 4. Suggested fix attached."
-          actions
-        />
-        <Comment initials="MA" author="Maya" body="@Sarah can you confirm the Q3 number?" />
-        <p className="code-microcopy">freestyle · pinned to a chart datapoint · one comment, both actors</p>
-      </Surface>
-    </div>
+    <Frame
+      app="SD"
+      crumb={<><b>Sales deck</b> <span className="sep">/</span> slide 4 · pricing</>}
+      users={[{ initials: "SR", tone: "a3", img: FACE.sarah }, { initials: "MA", tone: "a2", img: FACE.maya }, { initials: "BA", agent: true }]}
+    >
+      <div className="cmh-chart">
+        <div className="cmh-bars">
+          <div className="bar" style={{ height: "46%" }} />
+          <div className="bar" style={{ height: "64%" }} />
+          <div className="bar hot" style={{ height: "90%" }}>
+            <span className="cmh-pin"><IconBubble />2</span>
+          </div>
+          <div className="bar" style={{ height: "72%" }} />
+        </div>
+        <div className="cmh-xrow">
+          <span>Q1</span>
+          <span>Q2</span>
+          <span className="hot">Q3</span>
+          <span>Q4</span>
+        </div>
+      </div>
+
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="BA" agent />
+          Brand Agent
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">2m</span>
+        </div>
+        <p className="fb">This pricing claim conflicts with the rate table on slide 4.</p>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested fix</span>
+          <span className="body">
+            <del style={DEL_STYLE}>$18 / seat</del> <span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
+            <ins style={INS_STYLE}>$24 / seat</ins>
+          </span>
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
+      </div>
+
+      <div className="cmh-foot">
+        <span className="cmh-rx on">👍 2</span>
+        <span className="cmh-rx">✅ 1</span>
+        <span className="cmh-reply"><IconReply />Maya replied</span>
+      </div>
+
+      <Composer placeholder="Reply or @mention…" />
+    </Frame>
   ),
 
   "comments/hero/popover": (
-    <div style={{ padding: 18 }}>
-      <Surface label="Landing page · hero headline">
-        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5, color: "var(--ink, #0b353b)" }}>
-          The fastest way to{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
-            ship collaboration
-          </mark>{" "}
-          in your product.
-        </p>
-        <div style={{ marginTop: 4 }}>
-          <Comment initials="SR" author="Sarah" body="Popover thread, anchored to the highlighted phrase." />
+    <Frame
+      app="LP"
+      crumb={<><b>velt.dev</b> <span className="sep">/</span> hero headline</>}
+      users={[{ initials: "SR", tone: "a3", img: FACE.sarah }, { initials: "DV", tone: "a1", img: FACE.dev }]}
+    >
+      <p className="cmh-doc" style={{ fontFamily: "var(--vlp-font-heading)", fontSize: 19, lineHeight: 1.35, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--vlp-color-ink)" }}>
+        The fastest way to <span className="cmh-mark">ship collaboration</span> in your product.
+      </p>
+
+      <div className="thread cmh-pop">
+        <div className="thread-head">
+          <Av initials="SR" tone="a3" img={FACE.sarah} />
+          <span className="who">Sarah</span>
+          <span className="cmh-role">· Design</span>
+          <span className="cmh-when">just now</span>
         </div>
-      </Surface>
-    </div>
+        <p className="thread-body">Can we A/B this against “add collaboration in an afternoon”? @Dev</p>
+        <div className="cmh-foot">
+          <span className="cmh-rx on">👍 3</span>
+          <span className="cmh-reply"><IconReply />1 reply</span>
+        </div>
+      </div>
+
+      <Composer placeholder="Reply to Sarah…" />
+    </Frame>
   ),
 
   "comments/hero/text": (
-    <div style={{ padding: 18 }}>
-      <Surface label="Tiptap editor · contract.md">
-        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: "var(--ink, #0b353b)" }}>
-          The Provider shall{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
-            indemnify and hold harmless
-          </mark>{" "}
-          the Client.
-        </p>
-        <Comment initials="MA" author="Maya" body="Inline comment on the selected clause." />
-      </Surface>
-    </div>
+    <Frame
+      app="TT"
+      crumb={<><b>contract.md</b> <span className="sep">/</span> Tiptap</>}
+      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
+    >
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">❝</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
+      </div>
+
+      <p className="cmh-doc">
+        7.2 The Provider shall <span className="cmh-mark">indemnify and hold harmless</span> the Client against all claims arising from the Services.
+      </p>
+
+      <div className="thread cmh-pop">
+        <div className="thread-head">
+          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <span className="who">Maya</span>
+          <span className="cmh-role">· Legal</span>
+          <span className="cmh-when">14m</span>
+        </div>
+        <p className="thread-body">This clause needs a liability cap before we send. @Sarah can you confirm scope?</p>
+        <div className="cmh-foot">
+          <span className="cmh-rx">✅ 1</span>
+          <span className="cmh-reply"><IconReply />2 replies</span>
+        </div>
+      </div>
+
+      <Composer placeholder="Comment on the selection…" />
+    </Frame>
   ),
 
   "comments/hero/inbox": (
-    <div style={{ padding: 18 }}>
-      <Surface label="Comments inbox · filters: all · unresolved">
-        <NotifItem
-          avatar={{ initials: "BA", kind: "agent" }}
-          title={<><strong>Brand Agent</strong> flagged a pricing claim</>}
-          meta="slide 4 · 2m ago"
-          chip={{ label: "agent", kind: "agent" }}
-        />
-        <NotifItem
-          avatar={{ initials: "MA", kind: "human" }}
-          title={<><strong>Maya</strong> mentioned you on Clause 7</>}
-          meta="contract.md · 14m ago"
-          chip={{ label: "mention", kind: "pending" }}
-        />
-        <NotifItem
-          avatar={{ initials: "SR", kind: "human" }}
-          title={<><strong>Sarah</strong> resolved the Q3 thread</>}
-          meta="forecast.xlsx · 1h ago"
-          chip={{ label: "resolved", kind: "approved" }}
-        />
-      </Surface>
-    </div>
+    <Frame
+      app="VC"
+      crumb={<><b>Comments</b> <span className="sep">/</span> inbox</>}
+      right={<span className="cmh-search"><IconSearch />Search threads</span>}
+    >
+      <div className="cmh-filters">
+        <span className="cmh-ft on">All</span>
+        <span className="cmh-ft">Unresolved</span>
+        <span className="cmh-ft">Mentions</span>
+        <span className="cmh-ft">Agents</span>
+      </div>
+
+      <div className="cmh-group">Today</div>
+      <div className="cmh-inrow">
+        <span className="cmh-unread" />
+        <Av initials="BA" agent />
+        <div className="cmh-inmain">
+          <p className="t"><b>Brand Agent</b> flagged a pricing claim <span className="chip chip-agent" style={{ marginLeft: 4 }}>agent</span></p>
+          <p className="m"><span className="quote">“conflicts with the rate table on slide 4”</span></p>
+        </div>
+        <span className="cmh-when">2m</span>
+      </div>
+      <div className="cmh-inrow">
+        <span className="cmh-unread" />
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <div className="cmh-inmain">
+          <p className="t"><b>Maya</b> mentioned you on Clause 7 <span className="chip chip-pending" style={{ marginLeft: 4 }}>mention</span></p>
+          <p className="m"><span className="quote">“needs a liability cap before we send”</span></p>
+        </div>
+        <span className="cmh-when">14m</span>
+      </div>
+
+      <div className="cmh-group">Earlier</div>
+      <div className="cmh-inrow">
+        <span className="cmh-unread read" />
+        <Av initials="SR" tone="a3" img={FACE.sarah} />
+        <div className="cmh-inmain">
+          <p className="t"><b>Sarah</b> resolved the Q3 forecast thread <span className="chip chip-approved" style={{ marginLeft: 4 }}>resolved</span></p>
+          <p className="m">forecast.xlsx · cell B12</p>
+        </div>
+        <span className="cmh-when">1h</span>
+      </div>
+    </Frame>
   ),
 
   "comments/what-it-is/scene": (

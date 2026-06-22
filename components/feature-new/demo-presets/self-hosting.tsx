@@ -1,52 +1,243 @@
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 
 import { AuditLog, Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
+import { Frame } from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/self-hosting page. Keys match
 // components/feature-new/demo-presets/self-hosting.keys.ts. Self-hosting is a
 // deployment/governance capability, so these visuals lean on architecture and
-// data-flow diagrams (DarkPanel, ProvRow/ProvArrow, int-chips) rather than
-// avatar or comment UI. Visuals are simulated, not live SDK instances.
+// data-flow diagrams (DarkPanel, ProvRow/ProvArrow, NodeBox) rather than
+// avatar or comment UI. No human faces — infra-focused page.
+
+// ─── Local helpers ────────────────────────────────────────────────────────────
+
+/**
+ * A labeled architecture node box used in the ARCHITECTURE diagram.
+ * Renders a bordered card with a small mono label and a subtitle line.
+ * Uses --vlp-* tokens only.
+ * @param {{ label: string; sub: string; accent?: boolean }} props Box label, subtitle, and optional accent border.
+ * @returns {JSX.Element} Architecture node card.
+ */
+function NodeBox({ label, sub, accent }: { label: string; sub: string; accent?: boolean }) {
+  return (
+    <div
+      style={{
+        border: `1.5px solid ${accent ? "var(--vlp-color-accent)" : "var(--vlp-border-default)"}`,
+        borderRadius: 10,
+        background: accent ? "var(--vlp-color-accent-soft)" : "var(--vlp-bg-page)",
+        padding: "10px 14px",
+        display: "grid",
+        gap: 3,
+        flex: 1,
+        minWidth: 0,
+      }}
+    >
+      <span
+        style={{
+          fontFamily: "var(--vlp-font-mono)",
+          fontSize: 11,
+          fontWeight: 700,
+          color: accent ? "var(--vlp-color-accent-ink)" : "var(--vlp-color-ink)",
+          letterSpacing: 0.2,
+        }}
+      >
+        {label}
+      </span>
+      <span style={{ fontSize: 10.5, color: "var(--vlp-color-text-muted)", lineHeight: 1.4 }}>{sub}</span>
+    </div>
+  );
+}
+
+/**
+ * Vertical connector arrow between NodeBox rows in architecture diagrams.
+ * @returns {JSX.Element} Thin vertical connector with an arrowhead label.
+ */
+function NodeConnector({ label }: { label: string }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2,
+        padding: "2px 0",
+      }}
+    >
+      <div style={{ width: 1.5, height: 10, background: "var(--vlp-border-default)" }} />
+      <span
+        style={{
+          fontFamily: "var(--vlp-font-mono)",
+          fontSize: 10,
+          color: "var(--vlp-color-text-subtle)",
+          letterSpacing: 0.3,
+          padding: "0 6px",
+        }}
+      >
+        {label}
+      </span>
+      <div style={{ width: 1.5, height: 10, background: "var(--vlp-border-default)" }} />
+    </div>
+  );
+}
+
+/**
+ * A small status chip for the field-inventory table header cells.
+ * Colors use --vlp-* tokens only.
+ * @param {{ kind: "yours" | "velt" }} props Which storage owner to represent.
+ * @returns {JSX.Element} Ownership chip.
+ */
+function OwnerChip({ kind }: { kind: "yours" | "velt" }) {
+  const isYours = kind === "yours";
+  return (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        fontFamily: "var(--vlp-font-mono)",
+        fontSize: 10,
+        fontWeight: 700,
+        letterSpacing: 0.3,
+        padding: "2px 8px",
+        borderRadius: 999,
+        background: isYours ? "var(--vlp-color-approve-soft)" : "var(--vlp-color-accent-soft)",
+        color: isYours ? "#0c6a41" : "var(--vlp-color-accent-ink)",
+        whiteSpace: "nowrap" as const,
+      }}
+    >
+      {isYours ? "your DB" : "Velt"}
+    </span>
+  );
+}
+
+// Field inventory rows: field name + which owner(s) store it.
+const FIELD_ROWS: Array<{ field: string; yours: boolean; velt: boolean; note: string }> = [
+  { field: "commentText", yours: true, velt: false, note: "full content" },
+  { field: "userId", yours: false, velt: true, note: "opaque identifier" },
+  { field: "name / email", yours: true, velt: false, note: "PII — your directory" },
+  { field: "documentId", yours: true, velt: true, note: "shared key" },
+  { field: "status / ts", yours: false, velt: true, note: "structural metadata" },
+  { field: "attachments", yours: true, velt: false, note: "S3 / GCS URL only" },
+];
 
 export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
   "self-hosting/hero/architecture": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <div className="int-chips">
-        <span className="int-chip"><i />your app</span>
-        <span className="int-chip"><i />your database</span>
-        <span className="int-chip"><i />your bucket</span>
+    <Frame
+      app="YA"
+      crumb={<><b>your-infra</b> <span className="sep">/</span> architecture</>}
+      right={<span className="chip chip-approved" style={{ fontSize: 10, padding: "2px 9px" }}>data residency ✓</span>}
+    >
+      {/* Top row: Your App + Your Database side by side */}
+      <div style={{ display: "flex", gap: 8 }}>
+        <NodeBox label="Your App" sub="SDK runs here · strips PII before write" />
+        <NodeBox label="Your Database" sub="content · PII · attachments" accent />
       </div>
-      <ProvRow>
-        provider boundary <ProvArrow /> Velt cloud holds the structural record only
-      </ProvRow>
-      <p className="code-microcopy">your content and PII on your infrastructure · Velt keeps minimal identifiers</p>
-    </div>
+
+      <NodeConnector label="identifiers only ↓" />
+
+      {/* Bottom: Velt node */}
+      <div style={{ display: "flex", gap: 8 }}>
+        <NodeBox label="Velt Cloud" sub="thread structure · document IDs · timestamps" />
+      </div>
+
+      <DarkPanel footer="velt.setDataProvider() — one call, full control">
+        {"velt.setDataProvider(\"comments\", {\n  get:    (ids) => myDb.fetch(ids),\n  save:   (data) => myDb.insert(data),\n  delete: (id)   => myDb.remove(id),\n});"}
+      </DarkPanel>
+    </Frame>
   ),
 
   "self-hosting/hero/data-flow": (
-    <div style={{ display: "grid", gap: 10, padding: 22 }}>
+    <Frame
+      app="DF"
+      crumb={<><b>your-infra</b> <span className="sep">/</span> data-flow</>}
+      right={<span className="chip chip-agent" style={{ fontSize: 10, padding: "2px 9px" }}>strip-on-write</span>}
+    >
       <ProvRow>
-        comment written <ProvArrow /> PII stripped on the device
+        user types comment <ProvArrow /> PII stripped on the client
       </ProvRow>
       <ProvRow>
-        structure <ProvArrow /> Velt cloud
+        content + PII <ProvArrow /> <strong>your database</strong>
       </ProvRow>
       <ProvRow>
-        content <ProvArrow /> your database
+        identifiers + timestamps <ProvArrow /> Velt Cloud
       </ProvRow>
       <ProvRow>
-        on read <ProvArrow /> the two merge into one rendered thread
+        on read: Velt IDs + your content <ProvArrow /> merged thread
       </ProvRow>
-      <p className="code-microcopy">strip-on-write · merge-on-read · your database first</p>
-    </div>
+
+      <DarkPanel footer="what Velt actually stores">
+        {"// Velt record (no PII, no content)\n{\n  \"threadId\":   \"thr_8kx2\",\n  \"documentId\": \"doc-q3\",\n  \"userId\":     \"usr_a71f\",\n  \"status\":     \"open\",\n  \"createdAt\":  1718000000\n}"}
+      </DarkPanel>
+    </Frame>
   ),
 
   "self-hosting/hero/field-inventory": (
-    <div style={{ padding: 18 }}>
-      <DarkPanel footer="docs.velt.dev/self-host-data/field-inventory">
-        {"field            Velt DB   your DB\ncommentText      —         ✓\nuserId           ✓         —\nname / email      —         ✓\ndocumentId       ✓         ✓\nstatus / ts      ✓         —"}
-      </DarkPanel>
-    </div>
+    <Frame
+      app="FI"
+      crumb={<><b>your-infra</b> <span className="sep">/</span> field-inventory</>}
+      right={<span className="chip chip-pending" style={{ fontSize: 10, padding: "2px 9px" }}>security review ready</span>}
+    >
+      {/* Header row */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1.6fr 70px 60px 1.2fr",
+          gap: "0 8px",
+          padding: "6px 10px",
+          background: "var(--vlp-bg-wash)",
+          borderRadius: 8,
+          fontFamily: "var(--vlp-font-mono)",
+          fontSize: 10,
+          fontWeight: 700,
+          color: "var(--vlp-color-text-muted)",
+          letterSpacing: 0.4,
+        }}
+      >
+        <span>FIELD</span>
+        <span style={{ textAlign: "center" }}>YOUR DB</span>
+        <span style={{ textAlign: "center" }}>VELT</span>
+        <span>NOTE</span>
+      </div>
+
+      {/* Data rows */}
+      <div
+        style={{
+          border: "1px solid var(--vlp-border-subtle)",
+          borderRadius: 9,
+          overflow: "hidden",
+        }}
+      >
+        {FIELD_ROWS.map((row, idx) => (
+          <Fragment key={row.field}>
+            {idx > 0 && (
+              <div style={{ height: 1, background: "var(--vlp-border-subtle)" }} />
+            )}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1.6fr 70px 60px 1.2fr",
+                gap: "0 8px",
+                padding: "7px 10px",
+                alignItems: "center",
+                background: "var(--vlp-bg-page)",
+              }}
+            >
+              <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, fontWeight: 600, color: "var(--vlp-color-ink)" }}>
+                {row.field}
+              </span>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {row.yours ? <OwnerChip kind="yours" /> : <span style={{ color: "var(--vlp-color-text-subtle)", fontSize: 11 }}>—</span>}
+              </div>
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                {row.velt ? <OwnerChip kind="velt" /> : <span style={{ color: "var(--vlp-color-text-subtle)", fontSize: 11 }}>—</span>}
+              </div>
+              <span style={{ fontSize: 11, color: "var(--vlp-color-text-muted)" }}>{row.note}</span>
+            </div>
+          </Fragment>
+        ))}
+      </div>
+
+      <p className="code-microcopy">hand this table to your security reviewer · no call needed</p>
+    </Frame>
   ),
 
   "self-hosting/what-it-is/scene": (

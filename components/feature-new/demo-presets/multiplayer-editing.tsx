@@ -1,19 +1,154 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
-import { AvatarStack, CursorTag, ProvRow, ProvArrow, DarkPanel, Chip, Precedent } from "../demos";
+import { ProvRow, ProvArrow, DarkPanel, Chip, Precedent, AvatarStack, CursorTag } from "../demos";
+import { Av, Frame, FACES } from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/multiplayer-editing page. Keys
 // match components/feature-new/demo-presets/multiplayer-editing.keys.ts;
 // resolved by demo-registry.tsx. Visuals are simulated, not live SDK instances.
 
-const EDIT_TEAM = [
-  { initials: "MA", kind: "human" as const, name: "Maya" },
-  { initials: "SR", kind: "human" as const, name: "Sarah" },
-  { initials: "AG", kind: "agent" as const, name: "Agent" },
-];
+/** Multiplayer-editing page personas mapped to shared headshots. */
+const FACE = {
+  hope: FACES.hope,
+  ethan: FACES.ethan,
+  you: FACES.jeff,
+} as const;
+
+/** Cursor color palette — two distinct on-brand hues, --vlp tokens where available. */
+const CURSOR_HOPE: CSSProperties = { color: "oklch(0.60 0.13 35)", background: "oklch(0.60 0.13 35)" };
+const CURSOR_ETHAN: CSSProperties = { color: "#5b7fb8", background: "#5b7fb8" };
 
 /**
- * A framed "editor document" surface used to host co-editing demos.
+ * Inline live-cursor: a 2px caret line + a floating colored name pill above it.
+ * Renders inline so it flows naturally within a .cmh-doc paragraph.
+ * @param {{ name: string; tone: CSSProperties }} props Person name and brand-color object (color key used for both).
+ * @returns {JSX.Element} Cursor tag.
+ */
+function LiveCursor({ name, tone }: { name: string; tone: CSSProperties }) {
+  return (
+    <span style={{ display: "inline-flex", alignItems: "flex-end", gap: 0, position: "relative", verticalAlign: "bottom", userSelect: "none" }}>
+      <span style={{ display: "inline-block", width: 2, height: 16, borderRadius: 1, background: tone.color as string, flexShrink: 0 }} />
+      <span style={{
+        position: "absolute",
+        bottom: "100%",
+        left: 0,
+        whiteSpace: "nowrap",
+        fontSize: 10,
+        fontWeight: 700,
+        color: "#fff",
+        background: tone.color as string,
+        borderRadius: "4px 4px 4px 0",
+        padding: "2px 6px",
+        lineHeight: 1.4,
+        boxShadow: "0 1px 3px rgba(0,0,0,0.18)",
+        marginBottom: 2,
+      }}>
+        {name}
+      </span>
+    </span>
+  );
+}
+
+/**
+ * Colored selection-highlight span for simulating co-editing text selections.
+ * Uses color-mix against the person's cursor tone at 18% opacity.
+ * @param {{ children: ReactNode; tone: CSSProperties }} props Selected content and color object.
+ * @returns {JSX.Element} Highlighted text span.
+ */
+function Sel({ children, tone }: { children: ReactNode; tone: CSSProperties }) {
+  return (
+    <span style={{
+      background: `color-mix(in srgb, ${tone.color as string} 18%, transparent)`,
+      borderRadius: 3,
+      padding: "1px 1px",
+    }}>
+      {children}
+    </span>
+  );
+}
+
+/**
+ * Green lock badge row showing who currently holds the editing pen.
+ * @param {{ name: string; img: string }} props Editor display name and headshot URL.
+ * @returns {JSX.Element} Lock badge.
+ */
+function LockBadge({ name, img }: { name: string; img: string }) {
+  return (
+    <div style={{
+      display: "inline-flex",
+      alignItems: "center",
+      gap: 7,
+      background: "var(--vlp-color-approve-soft)",
+      border: "1px solid color-mix(in srgb, var(--vlp-color-green-approval) 30%, transparent)",
+      borderRadius: 999,
+      padding: "4px 10px 4px 5px",
+      fontSize: 11.5,
+      fontWeight: 700,
+      color: "#0c6a41",
+    }}>
+      <Av initials={name.slice(0, 2).toUpperCase()} img={img} />
+      <span style={{ fontSize: 12 }}>&#x1F512;</span>
+      {name} is editing
+    </div>
+  );
+}
+
+/**
+ * Mini "client tab" pane used in pairs to show two clients sharing the same
+ * live state value. Highlighted variant signals the pane that was just updated.
+ * @param {{ label: string; value: string; highlight?: boolean }} props Tab label, state value string, and optional active highlight.
+ * @returns {JSX.Element} Client pane.
+ */
+function ClientPane({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+  return (
+    <div style={{
+      flex: 1,
+      border: `1.5px solid ${highlight ? "color-mix(in srgb, var(--vlp-color-accent) 45%, transparent)" : "var(--vlp-border-default)"}`,
+      borderRadius: 10,
+      background: highlight ? "var(--vlp-color-accent-soft)" : "var(--vlp-bg-page)",
+      padding: "10px 12px",
+      display: "grid",
+      gap: 6,
+    }}>
+      <span style={{ fontSize: 10, fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-text-subtle)", letterSpacing: "0.05em", textTransform: "uppercase" }}>{label}</span>
+      <span style={{
+        fontSize: 12.5,
+        fontWeight: 700,
+        color: highlight ? "var(--vlp-color-accent-ink)" : "var(--vlp-color-ink)",
+        fontFamily: "var(--vlp-font-mono)",
+      }}>{value}</span>
+    </div>
+  );
+}
+
+/**
+ * Bidirectional sync-pulse arrow column rendered between two ClientPane elements.
+ * Uses --vlp-color-green-approval to convey "live and healthy".
+ * @returns {JSX.Element} Sync indicator.
+ */
+function SyncPulse() {
+  return (
+    <div style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 4,
+      flexShrink: 0,
+      color: "var(--vlp-color-green-approval)",
+    }}>
+      <svg viewBox="0 0 20 20" width={15} height={15} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 10h12M12 6l4 4-4 4" />
+      </svg>
+      <svg viewBox="0 0 20 20" width={15} height={15} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M16 10H4M8 14l-4-4 4-4" />
+      </svg>
+    </div>
+  );
+}
+
+/**
+ * A framed "editor document" surface used to host non-hero co-editing demos.
  * @param {{ children: ReactNode }} props Surface content.
  * @returns {JSX.Element} Document surface.
  */
@@ -35,11 +170,11 @@ function DocSurface({ children }: { children: ReactNode }) {
 }
 
 /**
- * Small "Connected · Synced" status pill used to mark live co-editing.
+ * Small "Connected · Synced" status pill used in non-hero scenes.
  * @param {{ label?: string }} props Optional label override.
  * @returns {JSX.Element} Sync badge.
  */
-function SyncBadge({ label = "Connected \u00b7 Synced" }: { label?: string }) {
+function SyncBadge({ label = "Connected · Synced" }: { label?: string }) {
   return (
     <span
       style={{
@@ -61,63 +196,116 @@ function SyncBadge({ label = "Connected \u00b7 Synced" }: { label?: string }) {
   );
 }
 
+const EDIT_TEAM = [
+  { initials: "MA", kind: "human" as const, name: "Maya" },
+  { initials: "SR", kind: "human" as const, name: "Sarah" },
+  { initials: "AG", kind: "agent" as const, name: "Agent" },
+];
+
 export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
+  /**
+   * CO-EDITING: A document being edited simultaneously by Hope and Ethan.
+   * Each person has a live labeled cursor and a colored text selection highlight.
+   */
   "multiplayer-editing/hero/co-editing": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <AvatarStack users={EDIT_TEAM} />
-        <SyncBadge />
+    <Frame
+      app="ME"
+      crumb={<><b>brief-q3.md</b> <span className="sep">/</span> Tiptap</>}
+      users={[
+        { initials: "HO", tone: "a2", img: FACE.hope },
+        { initials: "ET", tone: "a1", img: FACE.ethan },
+        { initials: "JF", img: FACE.you },
+      ]}
+    >
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">H2</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
       </div>
-      <DocSurface>
-        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-          Q3 campaign brief. The launch narrative leads with the migration story
-          <span style={{ display: "inline-block", width: 1.5, height: 14, background: "var(--ink, #0b353b)", verticalAlign: "-2px", marginLeft: 2 }} />
-        </p>
-        <div style={{ position: "absolute", top: 12, left: 230 }}>
-          <CursorTag name="Maya" />
-        </div>
-        <p style={{ margin: "12px 0 0", fontSize: 13, lineHeight: 1.5, opacity: 0.85 }}>
-          Pricing: three usage tiers, no per-seat cost
-        </p>
-        <div style={{ position: "absolute", bottom: 12, right: 18 }}>
-          <CursorTag name="Agent" kind="agent" />
-        </div>
-      </DocSurface>
-      <p className="code-microcopy">two cursors, one Tiptap document · Yjs merges both streams, zero conflict</p>
-    </div>
+
+      <p className="cmh-doc" style={{ margin: 0 }}>
+        The Q3 campaign centers on the <Sel tone={CURSOR_HOPE}>migration story</Sel> &mdash; moving teams
+        from async reviews to <LiveCursor name="Hope" tone={CURSOR_HOPE} /> live collaboration inside the product itself.
+      </p>
+
+      <p className="cmh-doc" style={{ margin: "6px 0 0" }}>
+        Pricing: <Sel tone={CURSOR_ETHAN}>three usage tiers, starting at $0</Sel> &mdash; no per-seat cost.{" "}
+        <LiveCursor name="Ethan" tone={CURSOR_ETHAN} />
+      </p>
+
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>two cursors, one document &middot; Yjs merges both streams, zero conflict</p>
+    </Frame>
   ),
 
+  /**
+   * SINGLE-EDITOR: Hope holds the pen; Ethan is watching live and can request access.
+   * Lock badge + queued-editor finding card model the SDK's single-editor mode.
+   */
   "multiplayer-editing/hero/single-editor": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <AvatarStack users={[{ initials: "SR", kind: "human", name: "Sarah (editing)" }, { initials: "MA", kind: "human", name: "Maya (viewing)" }, { initials: "DV", kind: "human", name: "Dev (viewing)" }]} />
-        <Chip kind="approved">Sarah holds the pen</Chip>
+    <Frame
+      app="ME"
+      crumb={<><b>quarterly-filing.md</b> <span className="sep">/</span> Single-editor mode</>}
+      users={[
+        { initials: "HO", tone: "a2", img: FACE.hope },
+        { initials: "ET", tone: "a1", img: FACE.ethan },
+      ]}
+    >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10 }}>
+        <LockBadge name="Hope" img={FACE.hope} />
+        <span style={{ fontSize: 11, color: "var(--vlp-color-text-subtle)", fontFamily: "var(--vlp-font-mono)" }}>read-only for others</span>
       </div>
-      <DocSurface>
-        <p style={{ margin: 0, fontSize: 13 }}>
-          One person edits, everyone else watches live. Read-only enforced by the SDK.
-        </p>
-        <div style={{ marginTop: 12 }}>
-          <ProvRow>
-            Maya requests access <ProvArrow /> Sarah accepts <ProvArrow /> the pen passes
-          </ProvRow>
+
+      <p className="cmh-doc" style={{ margin: 0 }}>
+        Section 4.2 &mdash; Revenue recognition. Hope is revising the opening clause.
+        <span style={{ display: "inline-block", width: 2, height: 14, borderRadius: 1, background: CURSOR_HOPE.color as string, verticalAlign: "-2px", marginLeft: 2 }} />
+      </p>
+
+      <div className="finding" style={{ boxShadow: "none", gap: 8, padding: "10px 12px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+          <Av initials="ET" tone="a1" img={FACE.ethan} />
+          <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--vlp-color-ink)" }}>Ethan</span>
+          <span style={{ fontSize: 11, color: "var(--vlp-color-text-muted)" }}>&middot; watching live</span>
+          <span className="cmh-when" style={{ marginLeft: "auto" }}>queued</span>
         </div>
-      </DocSurface>
-      <p className="code-microcopy">passing the pen is a request-and-accept, never a race</p>
-    </div>
+        <div style={{ display: "flex", gap: 6, paddingLeft: 35 }}>
+          <button type="button" className="cmh-btn approve" style={{ fontSize: 11 }}>Request the pen</button>
+        </div>
+      </div>
+
+      <p className="code-microcopy" style={{ margin: 0 }}>pen passes on accept &mdash; no racing, no overwrite</p>
+    </Frame>
   ),
 
+  /**
+   * STATE-SYNC: Two mini client panes showing identical live state, plus a
+   * useLiveState code snippet. A SyncPulse arrow between them signals real-time sync.
+   */
   "multiplayer-editing/hero/state-sync": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <div className="int-chips">
-        <span className="int-chip"><i />Filter: open</span>
-        <span className="int-chip"><i />Sort: newest</span>
-        <span className="int-chip"><i />Group: owner</span>
+    <Frame
+      app="ME"
+      crumb={<><b>board</b> <span className="sep">/</span> useLiveState</>}
+      users={[
+        { initials: "HO", tone: "a2", img: FACE.hope },
+        { initials: "ET", tone: "a1", img: FACE.ethan },
+      ]}
+    >
+      <div style={{ display: "flex", gap: 8, alignItems: "stretch" }}>
+        <ClientPane label="Tab A &middot; Hope" value='status: "open"' highlight />
+        <SyncPulse />
+        <ClientPane label="Tab B &middot; Ethan" value='status: "open"' />
       </div>
-      <DarkPanel footer="local-first · offline-safe · last-write-wins">
-        {"const [filters, setFilters] = useLiveState(\n  \"board-filters\", defaultFilters,\n);\n// any JSON, synced across every client"}
+
+      <DarkPanel footer="local-first &middot; offline-safe &middot; any JSON">
+        {"const [filters, setFilters] = useLiveState(\n  \"board-filters\", { status: \"all\" },\n);\n// every connected client reflects the change"}
       </DarkPanel>
-    </div>
+
+      <p className="code-microcopy" style={{ margin: 0 }}>Hope changes the filter &mdash; Ethan&apos;s tab updates instantly, no refresh</p>
+    </Frame>
   ),
 
   "multiplayer-editing/what-it-is/scene": (
@@ -128,7 +316,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       </div>
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-          Campaign brief — Maya is typing the opening paragraph.
+          Campaign brief &mdash; Maya is typing the opening paragraph.
         </p>
         <div style={{ position: "absolute", top: 12, right: 20 }}>
           <CursorTag name="Maya" />
@@ -137,13 +325,13 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
           <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             Pricing section
           </mark>{" "}
-          — rewritten by the agent through the CRDT REST API.
+          &mdash; rewritten by the agent through the CRDT REST API.
         </p>
         <div style={{ position: "absolute", bottom: 12, left: 18 }}>
           <CursorTag name="Agent" kind="agent" />
         </div>
       </DocSurface>
-      <p className="code-microcopy">both streams live and interleaved, zero conflict · consent-gated edits go through Suggestions</p>
+      <p className="code-microcopy">both streams live and interleaved, zero conflict &middot; consent-gated edits go through Suggestions</p>
     </div>
   ),
 
@@ -169,7 +357,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
     <div className="pv">
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-          Forecast narrative — two analysts typing at once
+          Forecast narrative &mdash; two analysts typing at once
         </p>
         <div style={{ position: "absolute", top: 14, left: 36 }}>
           <CursorTag name="Maya" />
@@ -177,7 +365,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
         <div style={{ position: "absolute", bottom: 14, right: 20 }}>
           <CursorTag name="Sarah" />
         </div>
-        <p className="code-microcopy" style={{ marginTop: 28 }}>Yjs merges concurrent edits · neither loses a keystroke</p>
+        <p className="code-microcopy" style={{ marginTop: 28 }}>Yjs merges concurrent edits &middot; neither loses a keystroke</p>
       </DocSurface>
     </div>
   ),
@@ -187,7 +375,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       <div style={{ padding: 14, display: "grid", gap: 10 }}>
         <AvatarStack users={EDIT_TEAM} />
         <ProvRow>
-          avatars · named cursors · live selection <ProvArrow /> inside the editor
+          avatars &middot; named cursors &middot; live selection <ProvArrow /> inside the editor
         </ProvRow>
       </div>
     </div>
@@ -198,7 +386,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       <Precedent
         style={{ width: "100%" }}
         heading="Version checkpoint"
-        body={"\u201CBefore pricing rewrite\u201D \u00b7 saved 09:14 \u00b7 restore broadcasts to every client"}
+        body={"“Before pricing rewrite” · saved 09:14 · restore broadcasts to every client"}
         meta="named snapshots, saved and restored by API"
       />
     </div>
@@ -250,7 +438,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
           <span className="int-chip"><i />array</span>
           <span className="int-chip"><i />xml</span>
         </div>
-        <p className="code-microcopy" style={{ marginTop: 10 }}>framework-agnostic CRDT stores · subscriptions · typed React hook</p>
+        <p className="code-microcopy" style={{ marginTop: 10 }}>framework-agnostic CRDT stores &middot; subscriptions &middot; typed React hook</p>
       </div>
     </div>
   ),
@@ -263,17 +451,17 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
 
   "multiplayer-editing/make-it-yours/look": (
     <div style={{ padding: 18 }}>
-      <ProvRow>single editor mode panel · restyle via wireframes</ProvRow>
-      <ProvRow>collaboration cursors · caret + label CSS classes</ProvRow>
-      <ProvRow>global styles · dark mode</ProvRow>
+      <ProvRow>single editor mode panel &middot; restyle via wireframes</ProvRow>
+      <ProvRow>collaboration cursors &middot; caret + label CSS classes</ProvRow>
+      <ProvRow>global styles &middot; dark mode</ProvRow>
     </div>
   ),
 
   "multiplayer-editing/make-it-yours/behavior": (
     <div style={{ padding: 18 }}>
-      <ProvRow>customMode · container scoping · tab locking</ProvRow>
-      <ProvRow>debounceMs · syncDuration · merge config</ProvRow>
-      <ProvRow>custom encryption · CRDT + live state REST · Redux middleware</ProvRow>
+      <ProvRow>customMode &middot; container scoping &middot; tab locking</ProvRow>
+      <ProvRow>debounceMs &middot; syncDuration &middot; merge config</ProvRow>
+      <ProvRow>custom encryption &middot; CRDT + live state REST &middot; Redux middleware</ProvRow>
     </div>
   ),
 
@@ -291,7 +479,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
           <p style={{ margin: 0, fontSize: 13, fontWeight: 600 }}>Quarterly filing</p>
           <Chip kind="approved">analyst holds the pen</Chip>
         </div>
-        <p className="code-microcopy" style={{ marginTop: 10 }}>reviewers watch the cells change live · the handoff is requested, accepted, on the record</p>
+        <p className="code-microcopy" style={{ marginTop: 10 }}>reviewers watch the cells change live &middot; the handoff is requested, accepted, on the record</p>
       </DocSurface>
     </div>
   ),
@@ -311,7 +499,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   "multiplayer-editing/in-production/ai": (
     <div style={{ display: "grid", gap: 12, padding: 22 }}>
       <AvatarStack users={[{ initials: "MA", kind: "human", name: "Maya" }, { initials: "AG", kind: "agent", name: "Agent" }]} />
-      <p className="code-microcopy">the agent rewrites one section while the human drafts another · Yjs merges both streams</p>
+      <p className="code-microcopy">the agent rewrites one section while the human drafts another &middot; Yjs merges both streams</p>
     </div>
   ),
 

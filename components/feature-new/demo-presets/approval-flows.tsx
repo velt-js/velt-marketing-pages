@@ -1,126 +1,360 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, Chip, Precedent, ProvRow, ProvArrow, AvatarStack, DarkPanel } from "../demos";
+import { AuditLog, Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
+import {
+  Av,
+  Composer,
+  FACES,
+  Frame,
+  IconCheck,
+  IconX,
+} from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/approval-flows page. Keys match
 // components/feature-new/demo-presets/approval-flows.keys.ts; resolved by
 // demo-registry.tsx. Visuals are simulated, not live SDK instances.
 
-const WORKFLOW_DEF = `POST /v2/workflow/definitions/create
-{
-  "steps": [
-    { "id": "brand",  "type": "agent" },
-    { "id": "legal",  "type": "human" },
-    { "id": "exec",   "type": "human" }
-  ],
-  "onReject": "loop-to-author"
-}`;
-
-const RUN_EVENT = `POST https://your-app.com/hooks
-{
-  "event": "step.completed",
-  "executionId": "exec_8842",
-  "step": "legal",
-  "decision": "approved",
-  "by": "sarah@acme.com"
-}`;
-
-const RUN_STATUS = `GET /v2/workflow/executions/exec_8842
-{
-  "status": "in-progress",
-  "pendingStep": "exec",
-  "decisions": [
-    { "step": "brand", "result": "failed" },
-    { "step": "legal", "result": "approved" }
-  ]
-}`;
+// Approval-flows personas mapped to shared headshots. Keep the same face per
+// person across all four hero tabs.
+const FACE = {
+  sarah: FACES.hope,
+  maya: FACES.fenne,
+  ethan: FACES.ethan,
+  roman: FACES.roman,
+  chris: FACES.chris,
+} as const;
 
 /**
- * Compact node-type + status row used by approval-flow scenes.
- * @param {{ children: ReactNode }} props Row content.
- * @returns {JSX.Element} Flow row.
+ * A vertical DAG chain node: avatar, role label, and a status chip.
+ * Used in the builder and run hero tabs.
+ * @param {{ av: ReactNode; role: string; sub?: string; chip?: ReactNode; isAgent?: boolean }} props Node content.
+ * @returns {JSX.Element} DAG node row.
  */
-function FlowRow({ children }: { children: ReactNode }) {
+function ChainNode({
+  av,
+  role,
+  sub,
+  chip,
+  isAgent,
+}: {
+  av: ReactNode;
+  role: string;
+  sub?: string;
+  chip?: ReactNode;
+  isAgent?: boolean;
+}) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "var(--ink, #0b353b)" }}>
-      {children}
+    <div
+      className={`dag-node${isAgent ? " agent" : ""}`}
+      style={{ display: "flex", alignItems: "center", gap: 10, width: "100%" }}
+    >
+      {av}
+      <span style={{ flex: 1, minWidth: 0 }}>
+        <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--vlp-color-ink)" }}>{role}</span>
+        {sub ? <span className="sub">{sub}</span> : null}
+      </span>
+      {chip}
+    </div>
+  );
+}
+
+/**
+ * A DAG connector edge between chain nodes.
+ * @returns {JSX.Element} Vertical hairline connector.
+ */
+function ChainEdge() {
+  return <div className="dag-edge" style={{ height: 16 }} />;
+}
+
+/**
+ * An "add step" affordance row at the bottom of the builder DAG.
+ * @returns {JSX.Element} Dashed add-step row.
+ */
+function AddStepAffordance() {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        border: "1.5px dashed var(--vlp-border-default)",
+        borderRadius: 11,
+        padding: "9px 14px",
+        width: "100%",
+        fontSize: 12,
+        color: "var(--vlp-color-text-muted)",
+        background: "var(--vlp-bg-wash)",
+      }}
+    >
+      <span
+        style={{
+          width: 20,
+          height: 20,
+          borderRadius: "50%",
+          border: "1.5px dashed var(--vlp-border-default)",
+          display: "grid",
+          placeItems: "center",
+          fontSize: 14,
+          lineHeight: 1,
+          color: "var(--vlp-color-text-subtle)",
+          flex: "none",
+        }}
+      >
+        +
+      </span>
+      Add a step
+    </div>
+  );
+}
+
+/**
+ * A quorum approver row: avatar, name, and approved/pending chip.
+ * @param {{ av: ReactNode; name: string; approved: boolean }} props Quorum member content.
+ * @returns {JSX.Element} Quorum member row.
+ */
+function QuorumMember({
+  av,
+  name,
+  approved,
+}: {
+  av: ReactNode;
+  name: string;
+  approved: boolean;
+}) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      {av}
+      <span style={{ flex: 1, fontSize: 12.5, fontWeight: 550, color: "var(--vlp-color-ink)" }}>{name}</span>
+      <span className={`chip chip-${approved ? "approved" : "pending"}`}>
+        {approved ? "approved" : "pending"}
+      </span>
     </div>
   );
 }
 
 export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
+  // ── BUILDER ─────────────────────────────────────────────────────────────────
+  // Composing an approval chain: three role nodes (FP&A lead → Committee → CFO)
+  // plus an "add step" affordance, all inside a product-surface frame.
   "approval-flows/hero/builder": (
-    <DarkPanel footer="your builder UI · Velt's definition API">{WORKFLOW_DEF}</DarkPanel>
-  ),
-
-  "approval-flows/hero/run": (
-    <AuditLog
-      head={{ left: "Run · Q3 campaign email", right: "execution exec_8842" }}
-      rows={[
-        {
-          ts: "Step 1",
-          ev: (
-            <>
-              <strong>Brand Agent</strong> flagged the headline claim
-            </>
-          ),
-          chip: { label: "agent", kind: "agent" },
-        },
-        {
-          ts: "Step 2",
-          ev: (
-            <>
-              <strong>Sarah</strong> approved · redline on the CTA
-            </>
-          ),
-          chip: { label: "approved", kind: "approved" },
-        },
-        {
-          ts: "Step 3",
-          ev: (
-            <>
-              <strong>Compliance Agent</strong> running
-            </>
-          ),
-          chip: { label: "agent", kind: "agent" },
-        },
-        {
-          ts: "Step 4",
-          ev: (
-            <>
-              <strong>Final approval</strong> · team lead
-            </>
-          ),
-          chip: { label: "pending", kind: "pending" },
-        },
+    <Frame
+      app="AF"
+      crumb={<><b>Q3 forecast</b> <span className="sep">/</span> approval chain</>}
+      users={[
+        { initials: "SR", tone: "a3", img: FACE.sarah },
+        { initials: "MA", tone: "a2", img: FACE.maya },
       ]}
-    />
+    >
+      <p
+        style={{
+          margin: 0,
+          fontFamily: "var(--vlp-font-mono)",
+          fontSize: 10.5,
+          letterSpacing: 0.4,
+          color: "var(--vlp-color-text-muted)",
+          textTransform: "uppercase",
+        }}
+      >
+        Approval chain
+      </p>
+
+      <div className="dag" style={{ width: "100%" }}>
+        <ChainNode
+          av={<Av initials="ET" tone="a1" img={FACE.ethan} />}
+          role="FP&A lead"
+          sub="mandatory · 1 of 1"
+          chip={<span className="chip chip-approved">passed</span>}
+        />
+        <ChainEdge />
+        <ChainNode
+          av={
+            <div style={{ display: "flex" }}>
+              <Av initials="ET" tone="a1" img={FACE.ethan} />
+              <span style={{ marginLeft: -7 }}><Av initials="RC" tone="a4" img={FACE.roman} /></span>
+              <span style={{ marginLeft: -7 }}><Av initials="CR" tone="a2" img={FACE.chris} /></span>
+            </div>
+          }
+          role="Committee"
+          sub="2 of 3 · quorum"
+          chip={<span className="chip chip-pending">pending</span>}
+        />
+        <ChainEdge />
+        <ChainNode
+          av={<Av initials="SR" tone="a3" img={FACE.sarah} />}
+          role="CFO"
+          sub="mandatory · final"
+          chip={<span className="chip chip-pending">waiting</span>}
+        />
+        <ChainEdge />
+        <AddStepAffordance />
+      </div>
+    </Frame>
   ),
 
+  // ── RUN ─────────────────────────────────────────────────────────────────────
+  // A live run mid-approval: chain nodes with statuses, current step highlighted.
+  "approval-flows/hero/run": (
+    <Frame
+      app="AF"
+      crumb={<><b>Q3 forecast</b> <span className="sep">/</span> run #8842</>}
+      users={[
+        { initials: "ET", tone: "a1", img: FACE.ethan },
+        { initials: "RC", tone: "a4", img: FACE.roman },
+        { initials: "CR", tone: "a2", img: FACE.chris },
+        { initials: "SR", tone: "a3", img: FACE.sarah },
+      ]}
+    >
+      <p
+        style={{
+          margin: 0,
+          fontFamily: "var(--vlp-font-mono)",
+          fontSize: 10.5,
+          letterSpacing: 0.4,
+          color: "var(--vlp-color-text-muted)",
+          textTransform: "uppercase",
+        }}
+      >
+        Live run · step 2 of 3
+      </p>
+
+      <div className="dag" style={{ width: "100%" }}>
+        <ChainNode
+          av={<Av initials="ET" tone="a1" img={FACE.ethan} />}
+          role="FP&A lead"
+          sub="Ethan · approved 09:14"
+          chip={<span className="chip chip-approved">approved</span>}
+        />
+        <ChainEdge />
+        <ChainNode
+          av={
+            <div style={{ display: "flex" }}>
+              <Av initials="RC" tone="a4" img={FACE.roman} />
+              <span style={{ marginLeft: -7 }}><Av initials="CR" tone="a2" img={FACE.chris} /></span>
+              <span style={{ marginLeft: -7 }}><Av initials="MA" tone="a2" img={FACE.maya} /></span>
+            </div>
+          }
+          role="Committee · 1 of 3"
+          sub="Roman approved · 2 pending"
+          chip={<span className="chip chip-pending">in progress</span>}
+        />
+        <ChainEdge />
+        <ChainNode
+          av={<Av initials="SR" tone="a3" img={FACE.sarah} />}
+          role="CFO"
+          sub="Sarah · waiting"
+          chip={<span className="chip chip-pending">waiting</span>}
+        />
+      </div>
+
+      <Composer placeholder="Leave a note on this run…" />
+    </Frame>
+  ),
+
+  // ── QUORUM ──────────────────────────────────────────────────────────────────
+  // Committee quorum step: three approvers, 2 approved 1 pending.
   "approval-flows/hero/quorum": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack
-        users={[
-          { initials: "LE", kind: "human", name: "Legal" },
-          { initials: "FI", kind: "human", name: "Finance" },
-          { initials: "BR", kind: "away", name: "Brand (waiting)" },
-        ]}
-      />
-      <FlowRow>
-        2 of 3 approved <ProvArrow /> <Chip kind="approved">quorum met</Chip>
-      </FlowRow>
-      <p className="code-microcopy">parallel group · N-of-M threshold · waiting siblings released</p>
-    </div>
+    <Frame
+      app="AF"
+      crumb={<><b>Committee</b> <span className="sep">/</span> 2 of 3</>}
+      users={[
+        { initials: "RC", tone: "a4", img: FACE.roman },
+        { initials: "CR", tone: "a2", img: FACE.chris },
+        { initials: "MA", tone: "a2", img: FACE.maya },
+      ]}
+    >
+      <div
+        style={{
+          border: "1px solid var(--vlp-border-subtle)",
+          borderRadius: 10,
+          padding: "10px 13px",
+          display: "grid",
+          gap: 4,
+          background: "var(--vlp-bg-section-alt)",
+        }}
+      >
+        <p
+          style={{
+            margin: 0,
+            fontFamily: "var(--vlp-font-mono)",
+            fontSize: 10.5,
+            letterSpacing: 0.4,
+            color: "var(--vlp-color-text-muted)",
+            textTransform: "uppercase",
+          }}
+        >
+          Committee · quorum step
+        </p>
+        <p style={{ margin: 0, fontSize: 12, color: "var(--vlp-color-text-muted)" }}>
+          Threshold: <strong style={{ color: "var(--vlp-color-ink)" }}>2 of 3</strong> · Q3 forecast approval
+        </p>
+      </div>
+
+      <div style={{ display: "grid", gap: 8 }}>
+        <QuorumMember av={<Av initials="RC" tone="a4" img={FACE.roman} />} name="Roman" approved />
+        <QuorumMember av={<Av initials="CR" tone="a2" img={FACE.chris} />} name="Chris" approved />
+        <QuorumMember av={<Av initials="MA" tone="a2" img={FACE.maya} />} name="Maya" approved={false} />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          padding: "8px 12px",
+          border: "1px solid var(--vlp-color-accent-wash)",
+          borderRadius: 9,
+          background: "var(--vlp-color-approve-soft)",
+        }}
+      >
+        <span className="chip chip-approved">quorum met</span>
+        <span style={{ fontSize: 12, color: "#0c6a41" }}>
+          2 of 3 approved · chain advancing to CFO
+        </span>
+      </div>
+    </Frame>
   ),
 
+  // ── AGENT ───────────────────────────────────────────────────────────────────
+  // An agent step auto-checks a policy; human gate downstream with Approve/Reject.
   "approval-flows/hero/agent": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack users={[{ initials: "BA", kind: "agent", name: "Brand Agent" }, { initials: "SA", kind: "human", name: "Sarah" }]} />
-      <ProvRow>
-        agent node runs <ProvArrow /> reports pass / fail <ProvArrow /> human gate downstream
-      </ProvRow>
-      <p className="code-microcopy">agent and human nodes compose one pipeline through one API</p>
-    </div>
+    <Frame
+      app="AF"
+      crumb={<><b>Policy check</b> <span className="sep">/</span> agent step</>}
+      users={[{ initials: "SR", tone: "a3", img: FACE.sarah }]}
+    >
+      <div className="dag" style={{ width: "100%" }}>
+        <ChainNode
+          av={<Av agent initials="PA" />}
+          role="Policy Agent"
+          sub="auto · checks spend limits"
+          chip={<span className="chip chip-approved">passed</span>}
+          isAgent
+        />
+        <ChainEdge />
+        <ChainNode
+          av={<Av initials="SR" tone="a3" img={FACE.sarah} />}
+          role="CFO"
+          sub="Sarah · human gate"
+          chip={<span className="chip chip-pending">awaiting</span>}
+        />
+      </div>
+
+      <div
+        className="finding"
+        style={{ boxShadow: "none", gap: 9, border: "1px solid var(--vlp-color-accent-wash)", background: "oklch(0.985 0.008 276)" }}
+      >
+        <div className="fh">
+          <Av agent initials="PA" />
+          <span>Policy Agent</span>
+          <span className="chip chip-agent" style={{ marginLeft: "auto" }}>agent</span>
+        </div>
+        <p className="fb">Invoice $22,400 — within the $25k pre-approval limit. All policy rules passed.</p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
+      </div>
+    </Frame>
   ),
 
   "approval-flows/what-it-is/scene": (

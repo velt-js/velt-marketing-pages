@@ -1,9 +1,18 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import { Av, Composer, FACES, Frame, IconCheck, IconX } from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/memory page. Keys match
 // components/feature-new/demo-keys.ts; resolved by demo-registry.tsx.
+
+// Memory-page personas mapped to shared headshots.
+const MEM_FACE = {
+  maya: FACES.fenne,
+  sarah: FACES.hope,
+  dev: FACES.ethan,
+  roman: FACES.roman,
+} as const;
 
 /**
  * A compact list of "precedent" chips (who / when / decision).
@@ -23,51 +32,163 @@ function PrecedentChips({ items }: { items: { who: string; when: string; kind: "
   );
 }
 
+/**
+ * A single line in the grounding context stack — shows a prior decision or
+ * reference item the agent is pulling into scope before acting.
+ * @param {{ label: string; meta: string; initials: string; tone?: string; img?: string; agent?: boolean }} props Row content.
+ * @returns {JSX.Element} Context row.
+ */
+function ContextRow({
+  label,
+  meta,
+  initials,
+  tone,
+  img,
+  agent,
+}: {
+  label: string;
+  meta: string;
+  initials: string;
+  tone?: string;
+  img?: string;
+  agent?: boolean;
+}) {
+  const rowStyle: CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    gap: 9,
+    padding: "8px 10px",
+    border: "1px solid var(--vlp-border-subtle)",
+    borderRadius: 9,
+    background: "var(--vlp-bg-wash)",
+  };
+  const labelStyle: CSSProperties = {
+    flex: 1,
+    minWidth: 0,
+    fontSize: 12,
+    color: "var(--vlp-color-ink-soft)",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+  };
+  const metaStyle: CSSProperties = {
+    fontSize: 10.5,
+    fontFamily: "var(--vlp-font-mono)",
+    color: "var(--vlp-color-text-subtle)",
+    flexShrink: 0,
+  };
+  return (
+    <div style={rowStyle}>
+      <Av initials={initials} tone={tone} img={img} agent={agent} />
+      <span style={labelStyle}>{label}</span>
+      <span style={metaStyle}>{meta}</span>
+    </div>
+  );
+}
+
 export const MEMORY_DEMOS: Record<string, ReactNode> = {
   "memory/hero/precedent": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <Precedent
-        heading="Context · marketing email under review"
-        body="3 similar emails approved last month · Maya, Sarah, Dev"
-        meta="brand guide §3.1: headers use sentence case"
-      />
-      <Precedent
-        heading="AI suggestion"
-        body="Recommend approve · Confidence 94% · based on 200 similar judgments"
-        meta="source records one tap away"
-      />
-    </div>
+    <Frame
+      app="MA"
+      crumb={<><b>contract-v3.pdf</b> <span className="sep">/</span> clause 12</>}
+      users={[
+        { initials: "MA", agent: true },
+        { initials: "MY", tone: "a2", img: MEM_FACE.maya },
+      ]}
+    >
+      {/* Agent message surfacing prior decision before re-flagging */}
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="MA" agent />
+          Memory Agent
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">now</span>
+        </div>
+        <p className="fb">
+          I found a prior decision on this clause — indemnity cap was reviewed and approved in March. Not re-flagging.
+        </p>
+      </div>
+
+      {/* Precedent card: who approved, when, real face */}
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+        <Av initials="MY" tone="a2" img={MEM_FACE.maya} />
+        <Precedent
+          style={{ flex: 1, minWidth: 0 }}
+          heading="precedent · clause 12 indemnity"
+          body="Approved by Maya (Legal) · 14 Mar 2026 · cap set at 2× annual fees; no further liability."
+          meta="source: contract-v1.pdf · thread #2281"
+        />
+      </div>
+
+      <Composer placeholder="Add context or override…" you={MEM_FACE.sarah} />
+    </Frame>
   ),
 
   "memory/hero/grounding": (
-    <AuditLog
-      head={{ left: "Review agent · run #4471", right: "grounded on memory" }}
-      rows={[
-        {
-          ts: "00:01",
-          ev: (
-            <>
-              <strong>Indemnity clause</strong> · settled by precedent, not re-flagged
-            </>
-          ),
-          chip: { label: "skipped", kind: "approved" },
-        },
-        {
-          ts: "00:02",
-          ev: (
-            <>
-              <strong>New pricing claim</strong> · no precedent found
-            </>
-          ),
-          chip: { label: "review", kind: "pending" },
-        },
-        {
-          ts: "00:02",
-          ev: <>Human decides: Approve / Reject</>,
-          chip: { label: "human", kind: "agent" },
-        },
+    <Frame
+      app="RA"
+      crumb={<><b>Agent run #4471</b> <span className="sep">/</span> grounding</>}
+      users={[
+        { initials: "RA", agent: true },
+        { initials: "RO", tone: "a1", img: MEM_FACE.roman },
       ]}
-    />
+    >
+      {/* Context stack — prior threads the agent read before acting */}
+      <div style={{ display: "grid", gap: 6 }}>
+        <p
+          style={{
+            margin: 0,
+            fontSize: 10.5,
+            fontFamily: "var(--vlp-font-mono)",
+            letterSpacing: "0.04em",
+            textTransform: "uppercase",
+            color: "var(--vlp-color-text-subtle)",
+          }}
+        >
+          context loaded · 3 items
+        </p>
+        <ContextRow
+          initials="MY"
+          tone="a2"
+          img={MEM_FACE.maya}
+          label="Clause 7 indemnity — approved with liability cap"
+          meta="Mar 14"
+        />
+        <ContextRow
+          initials="DV"
+          tone="a1"
+          img={MEM_FACE.dev}
+          label="Pricing claim on slide 4 — rejected, re-written"
+          meta="Apr 02"
+        />
+        <ContextRow
+          initials="RA"
+          agent
+          label="Brand guide §3.1: headers in sentence case"
+          meta="ingested"
+        />
+      </div>
+
+      {/* Agent grounded finding — minimal, confident */}
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="RA" agent />
+          Review Agent
+          <span className="chip chip-agent">grounded</span>
+        </div>
+        <p className="fb">
+          Indemnity clause matches the Mar 14 approval — skipping. New pricing claim on slide 6 has no precedent.
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve">
+            <IconCheck />Approve
+          </button>
+          <button type="button" className="cmh-btn reject">
+            <IconX />Reject
+          </button>
+        </div>
+      </div>
+    </Frame>
   ),
 
   "memory/what-it-is/scene": (

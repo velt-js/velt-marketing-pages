@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 import { AvatarStack, ProvRow, ProvArrow, DarkPanel, NotifItem } from "../demos";
 import type { AvatarUser } from "../demos";
+import { Av, Composer, FACES, Frame, IconCheck } from "./hero-surface";
+import type { PresenceUser } from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/huddle page. Keys match
 // components/feature-new/demo-presets/huddle.keys.ts; the matching record is
@@ -14,6 +16,13 @@ const SURFACE_BG = "var(--bg, #fff)";
 const BRAND = "var(--brand, #ff4f00)";
 const INK = "var(--ink, #0b353b)";
 
+// Huddle-page personas mapped to shared headshots.
+const FACE = {
+  maya: FACES.fenne,
+  sarah: FACES.hope,
+  ethan: FACES.ethan,
+} as const;
+
 const CALL_TEAM: AvatarUser[] = [
   { initials: "MA", kind: "human", name: "Maya" },
   { initials: "SR", kind: "human", name: "Sarah" },
@@ -24,6 +33,13 @@ const REVIEW_TEAM: AvatarUser[] = [
   { initials: "SR", kind: "human", name: "Sarah" },
   { initials: "JD", kind: "human", name: "Jordan" },
   { initials: "CC", kind: "agent", name: "Clause Checker" },
+];
+
+// Presence users for Frame headers — real faces + AI notetaker.
+const HUDDLE_PRESENCE: PresenceUser[] = [
+  { initials: "MA", tone: "a2", img: FACE.maya },
+  { initials: "SR", tone: "a3", img: FACE.sarah },
+  { initials: "NA", agent: true },
 ];
 
 /**
@@ -89,33 +105,6 @@ function HuddleBar({ users, channel }: { users: AvatarUser[]; channel?: string }
 }
 
 /**
- * A faux toolbar button. The "Start huddle" instance is the huddle tool.
- * @param {{ children: ReactNode; primary?: boolean }} props Button content.
- * @returns {JSX.Element} Toolbar button.
- */
-function ToolBtn({ children, primary }: { children: ReactNode; primary?: boolean }) {
-  return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 6,
-        fontSize: 12,
-        fontWeight: 700,
-        padding: "6px 12px",
-        borderRadius: 8,
-        border: LINE,
-        color: primary ? "#fff" : INK,
-        background: primary ? BRAND : SURFACE_BG,
-      }}
-    >
-      {primary ? <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block" }} /> : null}
-      {children}
-    </span>
-  );
-}
-
-/**
  * A simulated screen-share tile inside a huddle.
  * @param {{ label: string }} props Tile label.
  * @returns {JSX.Element} Screen-share tile.
@@ -142,57 +131,285 @@ function ShareTile({ label }: { label: string }) {
   );
 }
 
+/**
+ * A single participant video tile with real face, name, and optional
+ * speaking indicator ring.
+ * @param {{ initials: string; name: string; img?: string; tone?: string; speaking?: boolean; agent?: boolean }} props Tile props.
+ * @returns {JSX.Element} Participant tile.
+ */
+function ParticipantTile({
+  initials,
+  name,
+  img,
+  tone,
+  speaking,
+  agent,
+}: {
+  initials: string;
+  name: string;
+  img?: string;
+  tone?: string;
+  speaking?: boolean;
+  agent?: boolean;
+}) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 5,
+      }}
+    >
+      <div
+        style={{
+          padding: 3,
+          borderRadius: "50%",
+          border: speaking ? `2px solid var(--vlp-color-green-approval)` : "2px solid transparent",
+          background: speaking ? "color-mix(in srgb, var(--vlp-color-green-approval) 12%, transparent)" : "transparent",
+        }}
+      >
+        <Av initials={initials} tone={tone} img={img} agent={agent} />
+      </div>
+      <span style={{ fontSize: 10, fontWeight: 600, color: "var(--vlp-color-text-muted)" }}>{name}</span>
+    </div>
+  );
+}
+
+/**
+ * Mic/cam toggle call-control button with icon glyph and active state.
+ * @param {{ label: string; icon: ReactNode; active?: boolean }} props Control props.
+ * @returns {JSX.Element} Call-control button.
+ */
+function CallCtrl({ label, icon, active = true }: { label: string; icon: ReactNode; active?: boolean }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+      <span
+        aria-label={label}
+        style={{
+          width: 36,
+          height: 36,
+          borderRadius: "50%",
+          display: "grid",
+          placeItems: "center",
+          background: active ? "var(--vlp-bg-wash)" : "var(--vlp-color-reject-soft)",
+          border: `1px solid ${active ? "var(--vlp-border-default)" : "var(--vlp-color-reject)"}`,
+          color: active ? "var(--vlp-color-ink)" : "var(--vlp-color-reject)",
+        }}
+      >
+        {icon}
+      </span>
+      <span style={{ fontSize: 9.5, fontWeight: 600, color: "var(--vlp-color-text-subtle)" }}>{label}</span>
+    </div>
+  );
+}
+
+/** @returns {JSX.Element} Microphone SVG glyph. */
+function IconMic() {
+  return (
+    <svg viewBox="0 0 16 16" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5.5" y="1.5" width="5" height="8" rx="2.5" />
+      <path d="M3 8a5 5 0 0 0 10 0" />
+      <line x1="8" y1="13" x2="8" y2="15" />
+      <line x1="5.5" y1="15" x2="10.5" y2="15" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Camera SVG glyph. */
+function IconCam() {
+  return (
+    <svg viewBox="0 0 16 16" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="1.5" y="4.5" width="9" height="7" rx="1.5" />
+      <path d="M10.5 7l4-2v6l-4-2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Screen-share monitor SVG glyph. */
+function IconScreen() {
+  return (
+    <svg viewBox="0 0 16 16" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="1.5" y="2.5" width="13" height="9" rx="1.5" />
+      <path d="M5.5 14.5h5M8 11.5v3" />
+    </svg>
+  );
+}
+
 export const HUDDLE_DEMOS: Record<string, ReactNode> = {
   "huddle/hero/start": (
-    <div style={{ display: "grid", gap: 14, padding: 22 }}>
-      <p className="code-microcopy">Contract under review · toolbar</p>
-      <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
-        <ToolBtn primary>Start huddle</ToolBtn>
-        <ToolBtn>Comment</ToolBtn>
-        <ToolBtn>Share</ToolBtn>
+    <Frame
+      app="HD"
+      crumb={<><b>contract.md</b> <span className="sep">/</span> Clause 7 · vendor rate</>}
+      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
+    >
+      {/* Document excerpt */}
+      <p className="cmh-doc">
+        7.2 The vendor rate shall not exceed <span className="cmh-mark">12% of base contract value</span> per annum.
+      </p>
+
+      {/* Call-control bar */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "flex-end",
+          gap: 10,
+          padding: "12px 14px",
+          borderRadius: 14,
+          background: "var(--vlp-bg-section-alt)",
+          border: "1px solid var(--vlp-border-subtle)",
+        }}
+      >
+        <CallCtrl label="Mic" icon={<IconMic />} active />
+        <CallCtrl label="Cam" icon={<IconCam />} active />
+        <CallCtrl label="Share" icon={<IconScreen />} active />
+        <div style={{ flex: 1 }} />
+        <button
+          type="button"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 7,
+            fontSize: 12.5,
+            fontWeight: 700,
+            padding: "8px 16px",
+            borderRadius: 999,
+            border: "none",
+            color: "#fff",
+            background: "var(--vlp-color-accent)",
+            cursor: "default",
+          }}
+        >
+          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block" }} />
+          Start huddle
+        </button>
       </div>
-      <p className="code-microcopy">one click in the toolbar — no link, no invite, no calendar</p>
-    </div>
+
+      <p className="code-microcopy">one click — no link, no invite, no calendar</p>
+    </Frame>
   ),
 
   "huddle/hero/join": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <HuddleBar users={CALL_TEAM} channel="audio + video" />
-      <ProvRow>
-        teammate in the document <ProvArrow /> joins in place
-      </ProvRow>
-      <p className="code-microcopy">users already on the document see the active huddle and join from where they are</p>
-    </div>
+    <Frame
+      app="HD"
+      crumb={<><b>contract.md</b> <span className="sep">/</span> huddle active</>}
+      users={HUDDLE_PRESENCE}
+    >
+      {/* Participant tiles */}
+      <div style={{ display: "flex", gap: 14, alignItems: "flex-end" }}>
+        <ParticipantTile initials="MA" name="Maya" img={FACE.maya} tone="a2" speaking />
+        <ParticipantTile initials="SR" name="Sarah" img={FACE.sarah} tone="a3" />
+        <ParticipantTile initials="NA" name="Notetaker" agent />
+      </div>
+
+      {/* Live indicator pill */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <HuddleBar users={CALL_TEAM} channel="audio + video" />
+        <span className="chip chip-agent" style={{ fontSize: 10 }}>AI notetaker</span>
+      </div>
+
+      <p className="code-microcopy">teammates in the doc see the live huddle and join in place</p>
+    </Frame>
   ),
 
   "huddle/hero/share": (
-    <div style={{ padding: 18 }}>
-      <DocSurface>
-        <p style={{ margin: "0 0 10px", fontSize: 13, opacity: 0.7 }}>Clause 7 — Vendor rate</p>
-        <ShareTile label="Sarah is sharing clause 7" />
-        <div style={{ marginTop: 12 }}>
-          <HuddleBar users={CALL_TEAM} channel="screen" />
+    <Frame
+      app="HD"
+      crumb={<><b>contract.md</b> <span className="sep">/</span> screen sharing</>}
+      users={HUDDLE_PRESENCE}
+    >
+      {/* Shared screen rectangle */}
+      <div
+        style={{
+          border: `2px solid var(--vlp-color-accent)`,
+          borderRadius: 10,
+          background: "color-mix(in srgb, var(--vlp-color-accent) 5%, transparent)",
+          padding: "14px 16px",
+          display: "grid",
+          gap: 6,
+          position: "relative",
+        }}
+      >
+        <span
+          className="chip chip-agent"
+          style={{
+            position: "absolute",
+            top: -11,
+            left: 12,
+            fontSize: 10,
+            fontWeight: 800,
+            letterSpacing: 0.5,
+            background: "var(--vlp-color-accent)",
+            color: "#fff",
+          }}
+        >
+          ● SHARING
+        </span>
+        <p className="cmh-doc" style={{ margin: 0 }}>
+          7.2 The vendor rate shall not exceed <span className="cmh-mark">12% of base contract value</span> per annum.
+        </p>
+        <div className="sk" style={{ width: "70%" }} />
+        <div className="sk" style={{ width: "50%" }} />
+      </div>
+
+      {/* Overlaid participant strip */}
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", gap: 8 }}>
+          <ParticipantTile initials="SR" name="Sarah (sharing)" img={FACE.sarah} tone="a3" speaking />
+          <ParticipantTile initials="MA" name="Maya" img={FACE.maya} tone="a2" />
         </div>
-      </DocSurface>
-    </div>
+        <HuddleBar users={CALL_TEAM} channel="screen" />
+      </div>
+    </Frame>
   ),
 
   "huddle/hero/decide": (
-    <div style={{ display: "grid", gap: 10, padding: 18 }}>
-      <DocSurface>
-        <NotifItem
-          avatar={{ initials: "SR", kind: "human", name: "Sarah" }}
-          title={<>Corrected rate is 9%, not 12% — sending the line now</>}
-          meta="huddle chat · ephemeral"
-        />
-        <NotifItem
-          avatar={{ initials: "MA", kind: "human", name: "Maya" }}
-          title={<>Agreed. Marking clause 7 approved.</>}
-          chip={{ label: "resolved", kind: "approved" }}
-        />
-      </DocSurface>
-      <p className="code-microcopy">the conversation attached to the work resolves what the thread could not</p>
-    </div>
+    <Frame
+      app="HD"
+      crumb={<><b>contract.md</b> <span className="sep">/</span> decision captured</>}
+      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }, { initials: "NA", agent: true }]}
+    >
+      {/* AI-generated summary card */}
+      <div
+        style={{
+          border: LINE,
+          borderRadius: 12,
+          background: "var(--vlp-bg-section-alt)",
+          padding: "12px 14px",
+          display: "grid",
+          gap: 8,
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <Av initials="NA" agent />
+          <span style={{ fontSize: 12, fontWeight: 700, color: INK }}>Notetaker</span>
+          <span className="chip chip-agent" style={{ fontSize: 10 }}>agent</span>
+          <span className="cmh-when">just now</span>
+        </div>
+        <p style={{ margin: 0, fontSize: 12.5, fontWeight: 600, color: INK }}>Huddle summary — Clause 7 review</p>
+        <div style={{ display: "grid", gap: 5 }}>
+          {[
+            "Agreed: vendor rate corrected to 9%, not 12%",
+            "Maya to update contract and re-send",
+            "Sarah to confirm counterparty acceptance",
+          ].map((item) => (
+            <div key={item} style={{ display: "flex", alignItems: "flex-start", gap: 7, fontSize: 12, color: "var(--vlp-color-ink-soft)" }}>
+              <span style={{ color: "var(--vlp-color-green-approval)", marginTop: 1 }}><IconCheck /></span>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Human confirming */}
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <span style={{ fontSize: 12.5, color: INK, flex: 1 }}>Looks right — marking clause 7 approved.</span>
+        <span className="chip chip-approved">resolved</span>
+      </div>
+
+      <Composer placeholder="Add a follow-up…" you={FACE.sarah} />
+    </Frame>
   ),
 
   "huddle/what-it-is/scene": (

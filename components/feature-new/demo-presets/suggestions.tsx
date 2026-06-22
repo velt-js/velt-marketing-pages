@@ -1,10 +1,28 @@
 import type { ReactNode } from "react";
 
 import { AvatarStack, Chip, ProvRow, ProvArrow, DarkPanel, Precedent } from "../demos";
+import {
+  Av,
+  Composer,
+  DEL_STYLE,
+  FACES,
+  Frame,
+  IconCheck,
+  IconX,
+  INS_STYLE,
+} from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/suggestions page. Keys match
 // components/feature-new/demo-presets/suggestions.keys.ts and are merged into
 // the registry by demo-registry.tsx. Visuals are simulated, not live SDK.
+
+// Suggestions-page personas mapped to shared headshots.
+const FACE = {
+  sarah: FACES.hope,
+  maya: FACES.fenne,
+  roman: FACES.roman,
+  you: FACES.jeff,
+} as const;
 
 type AvatarKind = "human" | "agent" | "away";
 
@@ -97,47 +115,161 @@ function SuggestionCard({
 
 export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
   "suggestions/hero/editor": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <p className="code-microcopy">Contract · Clause 4 · suggesting mode on</p>
-      <FieldSurface>
-        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-          The Provider shall deliver within{" "}
-          <span style={{ textDecoration: "line-through", opacity: 0.5 }}>30</span>{" "}
-          <span style={{ fontWeight: 700, color: "var(--brand, #ff4f00)" }}>14</span> days.
-        </p>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 4 }}>
-          <AvatarStack users={[{ initials: "SR", kind: "human", name: "Sarah" }]} />
-          <Chip kind="approved">Accept</Chip>
-          <Chip kind="rejected">Reject</Chip>
+    <Frame
+      app="CT"
+      crumb={<><b>contract.md</b> <span className="sep">/</span> Clause 4</>}
+      users={[
+        { initials: "SR", tone: "a3", img: FACE.sarah },
+        { initials: "RN", tone: "a1", img: FACE.roman },
+      ]}
+    >
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">❝</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
+      </div>
+
+      <p className="cmh-doc">
+        The Provider shall deliver the project within{" "}
+        <span className="cmh-mark">
+          <del style={DEL_STYLE}>30 calendar days</del>{" "}
+          <ins style={INS_STYLE}>14 business days</ins>
+        </span>{" "}
+        of the signed order.
+      </p>
+
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="SR" tone="a3" img={FACE.sarah} />
+          Sarah
+          <span className="cmh-role">· Legal</span>
+          <span className="cmh-when">just now</span>
         </div>
-      </FieldSurface>
-    </div>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested edit</span>
+          <span className="body">
+            <del style={DEL_STYLE}>30 calendar days</del>
+            {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
+            <ins style={INS_STYLE}>14 business days</ins>
+          </span>
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
+      </div>
+
+      <Composer placeholder="Reply to Sarah…" you={FACE.you} />
+    </Frame>
   ),
 
   "suggestions/hero/custom": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <p className="code-microcopy">Invoice #INV-2043 · line 3 · Qty field</p>
-      <SuggestionCard
-        author={{ initials: "MA", kind: "human", name: "Maya" }}
-        target="Qty"
-        from="12.0"
-        to="10.5"
-        rationale="Matches the contracted cap"
-      />
-    </div>
+    <Frame
+      app="IN"
+      crumb={<><b>INV-2043</b> <span className="sep">/</span> line items</>}
+      users={[
+        { initials: "MA", tone: "a2", img: FACE.maya },
+        { initials: "RN", tone: "a1", img: FACE.roman },
+      ]}
+    >
+      {/* A field-level suggestion card: old value → new value with accept/reject */}
+      <div
+        style={{
+          border: "1px solid var(--vlp-border-default)",
+          borderRadius: 10,
+          background: "var(--vlp-bg-section-alt)",
+          padding: "10px 13px",
+          display: "grid",
+          gap: 6,
+          fontSize: 12.5,
+          color: "var(--vlp-color-ink-soft)",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--vlp-color-text-subtle)" }}>Field · Qty</span>
+          <span className="chip chip-pending" style={{ fontSize: 10 }}>pending</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 14 }}>
+          <span style={DEL_STYLE}>12.0</span>
+          <span style={{ color: "var(--vlp-color-text-subtle)", fontWeight: 400, fontSize: 12 }}>→</span>
+          <ins style={INS_STYLE}>10.5</ins>
+        </div>
+        <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Matches the contracted unit cap — Maya</p>
+      </div>
+
+      <div
+        style={{
+          border: "1px solid var(--vlp-border-default)",
+          borderRadius: 10,
+          background: "var(--vlp-bg-section-alt)",
+          padding: "10px 13px",
+          display: "grid",
+          gap: 6,
+          fontSize: 12.5,
+          color: "var(--vlp-color-ink-soft)",
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--vlp-color-text-subtle)" }}>Field · Status</span>
+          <span className="chip chip-pending" style={{ fontSize: 10 }}>pending</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, fontWeight: 600, fontSize: 14 }}>
+          <span style={DEL_STYLE}>Draft</span>
+          <span style={{ color: "var(--vlp-color-text-subtle)", fontWeight: 400, fontSize: 12 }}>→</span>
+          <ins style={INS_STYLE}>In Review</ins>
+        </div>
+        <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Ready for controller sign-off — Maya</p>
+      </div>
+
+      <div className="cmh-acts">
+        <button type="button" className="cmh-btn approve"><IconCheck />Accept all</button>
+        <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+      </div>
+
+      <Composer placeholder="Comment on changes…" you={FACE.you} />
+    </Frame>
   ),
 
   "suggestions/hero/agent": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <p className="code-microcopy">Invoice #INV-2043 · line 3 · agent proposal</p>
-      <SuggestionCard
-        author={{ initials: "RC", kind: "agent", name: "Rate Checker" }}
-        target="Qty"
-        from="12.0"
-        to="10.5"
-        rationale="Vendor rate is 12% over the contracted cap"
-      />
-    </div>
+    <Frame
+      app="RC"
+      crumb={<><b>rates.csv</b> <span className="sep">/</span> row 14</>}
+      users={[
+        { initials: "RN", tone: "a1", img: FACE.roman },
+        { initials: "RA", agent: true },
+      ]}
+    >
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="RA" agent />
+          Rate Checker
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">now</span>
+        </div>
+        <p className="fb">
+          Vendor rate on row 14 is 12% above the contracted cap. Proposing a corrected value.
+        </p>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested fix</span>
+          <span className="body">
+            <del style={DEL_STYLE}>8.25%</del>
+            {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
+            <ins style={INS_STYLE}>7.35%</ins>
+          </span>
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
+      </div>
+
+      <Composer placeholder="Reply or override…" you={FACE.you} />
+    </Frame>
   ),
 
   "suggestions/what-it-is/scene": (
