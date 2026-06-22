@@ -106,61 +106,102 @@ function summarizePayload(payload: SanityAuditPayload, request: Request) {
   };
 }
 
-function getOperationColor(operation: string) {
-  if (operation === "delete") return "#E5484D";
-  if (operation === "create") return "#30A46C";
-  if (operation === "update") return "#F5A524";
-  return "#8E8E93";
+function formatValue(value: string | undefined) {
+  if (!value) return "_empty_";
+  return `\`${value.replace(/`/g, "\\`")}\``;
 }
 
-async function postToSlack(summary: ReturnType<typeof summarizePayload>) {
+function getAuditValue(
+  value: SanityAuditPayload["before"] | SanityAuditPayload["after"],
+  field: "title" | "name" | "slug",
+) {
+  if (field === "slug") return getSlug(value);
+  return value?.[field];
+}
+
+function getDiffLines(payload: SanityAuditPayload, operation: string) {
+  const fields = ["title", "name", "slug"] as const;
+
+  if (operation === "create") {
+    return fields
+      .map((field) => {
+        const afterValue = getAuditValue(payload.after, field);
+        return afterValue ? `• ${field}: ${formatValue(afterValue)}` : undefined;
+      })
+      .filter(Boolean);
+  }
+
+  if (operation === "delete") {
+    return fields
+      .map((field) => {
+        const beforeValue = getAuditValue(payload.before, field);
+        return beforeValue ? `• ${field}: ${formatValue(beforeValue)}` : undefined;
+      })
+      .filter(Boolean);
+  }
+
+  const changes = fields
+    .map((field) => {
+      const beforeValue = getAuditValue(payload.before, field);
+      const afterValue = getAuditValue(payload.after, field);
+
+      if (beforeValue === afterValue) return undefined;
+      return `• ${field}: ${formatValue(beforeValue)} → ${formatValue(afterValue)}`;
+    })
+    .filter(Boolean);
+
+  return changes.length > 0
+    ? changes
+    : ["• Tracked fields unchanged; edit was likely in body/content metadata."];
+}
+
+async function postToSlack(
+  summary: ReturnType<typeof summarizePayload>,
+  payload: SanityAuditPayload,
+) {
   const webhookUrl = process.env.SANITY_AUDIT_SLACK_WEBHOOK_URL;
   if (!webhookUrl) return { skipped: true };
 
-  const slugLine = summary.slug ? `\n*Slug:* \`${summary.slug}\`` : "";
-  const text = [
-    `Sanity ${summary.operation.toUpperCase()}: ${summary.documentType}`,
-    `Title: ${summary.title}`,
-    summary.slug ? `Slug: ${summary.slug}` : undefined,
-    summary.documentId ? `ID: ${summary.documentId}` : undefined,
-  ]
-    .filter(Boolean)
-    .join("\n");
+  const diffLines = getDiffLines(payload, summary.operation);
+  const fallback = `Sanity ${summary.operation.toUpperCase()} ${summary.documentType}: ${summary.title}`;
 
   const response = await fetch(webhookUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      text,
-      attachments: [
+      text: fallback,
+      blocks: [
         {
-          color: getOperationColor(summary.operation),
-          blocks: [
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: `Sanity ${summary.operation.toUpperCase()}: ${summary.documentType}`,
+            emoji: false,
+          },
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: diffLines.join("\n"),
+          },
+        },
+        {
+          type: "context",
+          elements: [
             {
-              type: "section",
-              text: {
-                type: "mrkdwn",
-                text: `*Sanity ${summary.operation.toUpperCase()}* on \`${summary.documentType}\`\n*Title:* ${summary.title}${slugLine}`,
-              },
-            },
-            {
-              type: "context",
-              elements: [
-                {
-                  type: "mrkdwn",
-                  text: [
-                    summary.documentId ? `ID: \`${summary.documentId}\`` : undefined,
-                    `Project: \`${summary.projectId}\``,
-                    `Dataset: \`${summary.dataset}\``,
-                    summary.transactionId
-                      ? `Transaction: \`${summary.transactionId}\``
-                      : undefined,
-                    `Time: ${summary.transactionTime}`,
-                  ]
-                    .filter(Boolean)
-                    .join(" • "),
-                },
-              ],
+              type: "mrkdwn",
+              text: [
+                summary.documentId ? `ID: \`${summary.documentId}\`` : undefined,
+                `Project: \`${summary.projectId}\``,
+                `Dataset: \`${summary.dataset}\``,
+                summary.transactionId
+                  ? `Transaction: \`${summary.transactionId}\``
+                  : undefined,
+                `Time: ${summary.transactionTime}`,
+              ]
+                .filter(Boolean)
+                .join(" • "),
             },
           ],
         },
@@ -195,7 +236,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const slack = await postToSlack(summary);
+    const slack = await postToSlack(summary, payload);
     console.log("[sanity-audit]", JSON.stringify(summary));
 
     return NextResponse.json({ ok: true, slack, summary });
