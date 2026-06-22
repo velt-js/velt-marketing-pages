@@ -1,9 +1,9 @@
-// /llms.txt — curated index of the velt.dev marketing site for LLMs.
+// /llms.txt: curated index of the velt.dev marketing site for LLMs.
 // Follows the llmstxt.org convention: a hand-authored, opinionated table of
 // contents pointing at the most useful pages and their .md siblings. Bots
 // that fetch /llms.txt get a quick map; from there they fetch /llms-full.txt
 // or individual /:slug.md endpoints. Mintlify already serves /docs/llms.txt
-// and /docs/llms-full.txt for docs content — this file covers everything
+// and /docs/llms-full.txt for docs content, this file covers everything
 // outside /docs/*.
 
 const BODY = `# Velt
@@ -53,7 +53,7 @@ Velt is built for products where work cannot ship unapproved: sales enablement, 
 - [Blog](https://velt.dev/blog): articles and announcements
 `;
 
-// 24h revalidate — the curated list rarely changes. Cache-Control mirrors
+// 24h revalidate: the curated list rarely changes. Cache-Control mirrors
 // the revalidate window with a longer stale-while-revalidate so the CDN
 // keeps serving while a background refresh lands.
 export const revalidate = 86400;

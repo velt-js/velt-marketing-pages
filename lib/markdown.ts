@@ -1,16 +1,16 @@
 // Shared helpers for LLM-friendly text endpoints. Consumed by:
-//   - app/llms.txt/route.ts         — curated index
-//   - app/llms-full.txt/route.ts    — full concatenated content
-//   - app/api/md/[[...slug]]/route.ts — per-page .md endpoint
+//   - app/llms.txt/route.ts         : curated index
+//   - app/llms-full.txt/route.ts    : full concatenated content
+//   - app/api/md/[[...slug]]/route.ts : per-page .md endpoint
 //     (reached via middleware.ts which rewrites velt.dev/foo.md → here)
 //
 // Two responsibilities:
-//   1. portableTextToMarkdown — serialize Sanity Portable Text blocks to
+//   1. portableTextToMarkdown: serialize Sanity Portable Text blocks to
 //      CommonMark. Handles headings (h1-h4), paragraphs, ordered/bullet
 //      lists with nesting, blockquotes, code blocks, inline marks
 //      (strong/em/code/link), and Sanity's `code` + `image` + `table`
 //      block types.
-//   2. getPageMarkdown / getAllPageMarkdowns — central lookup that
+//   2. getPageMarkdown / getAllPageMarkdowns: central lookup that
 //      returns { url, title, markdown } for every marketing-site URL.
 //      Static React pages have hand-authored markdown summaries; Sanity
 //      docs are fetched fresh and serialized on demand.
@@ -221,7 +221,7 @@ function joinSections(parts: Array<string | null | undefined>): string {
 }
 
 // ---------------------------------------------------------------------------
-// CTA strip — removes marketing call-to-action links/text from .md mirrors.
+// CTA strip: removes marketing call-to-action links/text from .md mirrors.
 // Goal: zero occurrences of "Get Free API Key" or "Book Demo" in any output.
 // Does NOT touch the rendered HTML pages.
 // ---------------------------------------------------------------------------
@@ -941,7 +941,7 @@ async function useCaseMarkdown(slug: string): Promise<PageMarkdown | null> {
       .map((s) => clean(s ?? ""))
       .filter(Boolean)
       .join(", ");
-    if (attribution) parts.push(`— ${attribution}`);
+    if (attribution) parts.push(`- ${attribution}`);
   }
   parts.push(faqMarkdown(doc.faq));
   return {
@@ -979,7 +979,7 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
   if (subheading) parts.push(clean(subheading));
 
   // Three optional content slots from the Sanity schema (connect / payload /
-  // unified) — these mirror the on-page sections rendered by
+  // unified) -- these mirror the on-page sections rendered by
   // IntegrationConnectSection.
   if (doc.connectBody) {
     parts.push(heading(2, `Connect ${doc.name}`));
@@ -1013,7 +1013,7 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
 }
 
 // ---------------------------------------------------------------------------
-// Static-page registry — hand-authored markdown summaries for React pages
+// Static-page registry: hand-authored markdown summaries for React pages
 // whose meaningful content is buried in JSX. Order is the ordering the
 // llms-full.txt route emits (high-priority pages first).
 // ---------------------------------------------------------------------------
@@ -1021,21 +1021,21 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
 const STATIC_PAGES: PageMarkdown[] = [
   {
     url: `${SITE_URL}/`,
-    title: "Velt — The Collaboration Stack for B2B",
+    title: "Velt: The Collaboration Stack for B2B",
     markdown: `Velt is the review and approval infrastructure layer for AI-generated work. Add powerful real-time and multiplayer features to your product with an embeddable SDK for comments, presence, annotations, notifications, recordings, and approval workflows.
 
 ## What you get
 
-- **Comments** — block-anchored inline comments, threaded replies, reactions
-- **Notifications** — in-app, email, and Slack delivery with native UI
-- **Recordings** — Loom-style screen and webcam recording with auto-generated links
-- **Presence & multiplayer** — live cursors, avatars, follow-me mode, shared state
-- **Approval workflows** — review queues, status tracking, approve/reject UI
-- **Admin console & analytics** — moderation, analytics, audit logs out of the box
+- **Comments**: block-anchored inline comments, threaded replies, reactions
+- **Notifications**: in-app, email, and Slack delivery with native UI
+- **Recordings**: Loom-style screen and webcam recording with auto-generated links
+- **Presence & multiplayer**: live cursors, avatars, follow-me mode, shared state
+- **Approval workflows**: review queues, status tracking, approve/reject UI
+- **Admin console & analytics**: moderation, analytics, audit logs out of the box
 
 ## Built for B2B SaaS
 
-Used by Stensul, trumpet, Privado, Cofactr, OpenEnvoy, and others. SOC 2 Type II and HIPAA compliant. Pre-built drop-in components for React, Next.js, Angular, Vue, and Vanilla JS — or use the headless APIs.
+Used by Stensul, trumpet, Privado, Cofactr, OpenEnvoy, and others. SOC 2 Type II and HIPAA compliant. Pre-built drop-in components for React, Next.js, Angular, Vue, and Vanilla JS, or use the headless APIs.
 
 ## Integration in minutes
 
@@ -1045,12 +1045,12 @@ Most teams ship a working integration in under 30 minutes. The free Hacker plan 
   },
   {
     url: `${SITE_URL}/pricing`,
-    title: "Velt Pricing — Collaboration SDK Plans",
-    markdown: `Pay only for meaningful collaboration usage. Velt bills on MADs (Monthly Active Documents) — a document only counts when it has active CRUD operations from a Velt feature like comments, notifications, or CRDT. Documents that are merely initialized don't count.
+    title: "Velt Pricing: Collaboration SDK Plans",
+    markdown: `Pay only for meaningful collaboration usage. Velt bills on MADs (Monthly Active Documents): a document only counts when it has active CRUD operations from a Velt feature like comments, notifications, or CRDT. Documents that are merely initialized don't count.
 
 ## Plans
 
-### Hacker — Free
+### Hacker: Free
 For hackathon or side projects.
 - 100 MADs
 - All Features (15+)
@@ -1060,7 +1060,7 @@ For hackathon or side projects.
 - Real-time infrastructure
 - Dev environments only (no production deployment)
 
-### Growth — Contract-based
+### Growth: Contract-based
 For teams shipping collaboration features to production.
 - Everything in Hacker
 - Production deployment
@@ -1068,7 +1068,7 @@ For teams shipping collaboration features to production.
 - Priority support
 - Advanced webhooks and APIs
 
-### Enterprise — Contract-based
+### Enterprise: Contract-based
 For organizations with security, compliance, or self-hosting needs.
 - Everything in Growth
 - SOC 2 Type II / HIPAA
@@ -1078,32 +1078,32 @@ For organizations with security, compliance, or self-hosting needs.
 
 ## Why MAD-based pricing?
 
-Most collaboration vendors charge per MAR (Monthly Active Room) — a room counts as active when any user connects, even if nothing happens. Velt only charges for documents where users actually use collaboration features. Typically about 20% of MARs perform meaningful collaboration actions, so MAD-based pricing is significantly cheaper for most workloads.
+Most collaboration vendors charge per MAR (Monthly Active Room): a room counts as active when any user connects, even if nothing happens. Velt only charges for documents where users actually use collaboration features. Typically about 20% of MARs perform meaningful collaboration actions, so MAD-based pricing is significantly cheaper for most workloads.
 
 ## Discounts
 
-Special deals for early-stage startups (apply via the startup discount form). Volume discounts on Growth and Enterprise — book a demo to discuss.
+Special deals for early-stage startups (apply via the startup discount form). Volume discounts on Growth and Enterprise, book a demo to discuss.
 
 [Get Free API Key](https://console.velt.dev/) · [Book a Demo](${SITE_URL}/book-demo)`,
   },
   {
     url: `${SITE_URL}/features`,
-    title: "Velt Features — Full List",
-    markdown: `Velt ships 15+ collaboration features as drop-in components or headless APIs. Mix and match — install the package, drop in the React components you need, and the rest of the SDK stays dormant.
+    title: "Velt Features: Full List",
+    markdown: `Velt ships 15+ collaboration features as drop-in components or headless APIs. Mix and match: install the package, drop in the React components you need, and the rest of the SDK stays dormant.
 
 ## Core features
 
-- **Comments** — block-anchored, threaded, with replies and reactions
-- **Notifications** — in-app, email, Slack delivery with native UI
-- **Recordings** — Loom-style screen + webcam capture
-- **Multiplayer** — live cursors, avatars, follow-me mode
-- **Presence** — see who's online and where
-- **Reactions** — emoji reactions on any element
-- **Mentions** — @-mentions with notifications and permissions
-- **Tasks** — turn comments into tasks with assignees and statuses
-- **Activity logs** — full audit trail of every action
-- **Admin console** — moderate content, view analytics, manage users
-- **Webhooks & API** — sync events into your backend or other tools
+- **Comments**: block-anchored, threaded, with replies and reactions
+- **Notifications**: in-app, email, Slack delivery with native UI
+- **Recordings**: Loom-style screen + webcam capture
+- **Multiplayer**: live cursors, avatars, follow-me mode
+- **Presence**: see who's online and where
+- **Reactions**: emoji reactions on any element
+- **Mentions**: @-mentions with notifications and permissions
+- **Tasks**: turn comments into tasks with assignees and statuses
+- **Activity logs**: full audit trail of every action
+- **Admin console**: moderate content, view analytics, manage users
+- **Webhooks & API**: sync events into your backend or other tools
 
 ## Platforms
 
@@ -1162,7 +1162,7 @@ Every component is themeable via design tokens, or run headless and render your 
 
 ## Velt vs. Liveblocks
 
-Velt ships ready-to-use UI components for comments, notifications, recordings, and approvals out of the box. Liveblocks focuses on primitives (presence, storage, broadcast) — you build the UI yourself. Velt also includes recordings, an admin console, approval workflows, and email/Slack notifications natively. Liveblocks doesn't.
+Velt ships ready-to-use UI components for comments, notifications, recordings, and approvals out of the box. Liveblocks focuses on primitives (presence, storage, broadcast), and you build the UI yourself. Velt also includes recordings, an admin console, approval workflows, and email/Slack notifications natively. Liveblocks doesn't.
 
 Velt's MAD-based pricing typically runs ~5x cheaper than Liveblocks' MAR pricing for the same workload.
 
@@ -1170,7 +1170,7 @@ Velt's MAD-based pricing typically runs ~5x cheaper than Liveblocks' MAR pricing
 
 ## Velt vs. Cord
 
-Cord shut down in 2024. Velt offers a drop-in replacement with similar comment APIs plus the rest of the collaboration stack — notifications, recordings, presence, admin console.
+Cord shut down in 2024. Velt offers a drop-in replacement with similar comment APIs plus the rest of the collaboration stack: notifications, recordings, presence, admin console.
 
 [Migrate from Cord](${SITE_URL}/migrate-from-cord-to-velt)
 
@@ -1182,19 +1182,19 @@ Building a production-grade comments system takes 3-6 engineering months and ~5 
   },
   {
     url: `${SITE_URL}/customers`,
-    title: "Velt Customers — Trusted by Google, Pendo & More",
+    title: "Velt Customers: Trusted by Google, Pendo & More",
     markdown: `Velt powers collaboration features for B2B SaaS products across enterprise, growth-stage, and high-velocity teams. Customers report 26% engagement increase, 3 FTEs saved, and 5x faster shipping after adopting Velt.
 
 ## Featured customers
 
-- **Google** — collaboration features inside internal tools
-- **Pendo** — in-app commenting on product analytics
-- **Runway** — collaborative review on AI video edits
-- **Stensul** — comments and approvals on marketing emails
-- **trumpet** — buyer collaboration on B2B sales rooms
-- **Privado** — comments on privacy assessments
-- **Cofactr** — collaboration on supply-chain workflows
-- **OpenEnvoy** — collaborative invoice review
+- **Google**: collaboration features inside internal tools
+- **Pendo**: in-app commenting on product analytics
+- **Runway**: collaborative review on AI video edits
+- **Stensul**: comments and approvals on marketing emails
+- **trumpet**: buyer collaboration on B2B sales rooms
+- **Privado**: comments on privacy assessments
+- **Cofactr**: collaboration on supply-chain workflows
+- **OpenEnvoy**: collaborative invoice review
 
 ## Stories
 
@@ -1209,7 +1209,7 @@ Customers use Velt to add comments to product analytics dashboards, marketing em
 
 ## Themed mode
 
-Drop in the React components and override CSS custom properties to match your brand — colors, typography, spacing, border radius. Components inherit your tokens by default.
+Drop in the React components and override CSS custom properties to match your brand: colors, typography, spacing, border radius. Components inherit your tokens by default.
 
 ## Composable mode
 
@@ -1217,7 +1217,7 @@ Compose smaller UI primitives (CommentBubble, NotificationItem, ReactionPicker) 
 
 ## Headless mode
 
-Use the Velt hooks and APIs without rendering any of our UI. Build your own React, Angular, Vue, or Vanilla JS components on top — Velt handles the data, real-time sync, and storage.
+Use the Velt hooks and APIs without rendering any of our UI. Build your own React, Angular, Vue, or Vanilla JS components on top; Velt handles the data, real-time sync, and storage.
 
 ## Server-side customization
 
@@ -1227,15 +1227,15 @@ Customize comment metadata, notification copy, recipient lists, email templates,
   },
   {
     url: `${SITE_URL}/liveblocks-alternative`,
-    title: "Liveblocks Alternative — Why Teams Pick Velt",
-    markdown: `Velt is a Liveblocks alternative for B2B SaaS teams that want a full collaboration stack — not just primitives.
+    title: "Liveblocks Alternative: Why Teams Pick Velt",
+    markdown: `Velt is a Liveblocks alternative for B2B SaaS teams that want a full collaboration stack, not just primitives.
 
 ## What's different
 
-- **Drop-in UI** — Velt ships components for comments, notifications, recordings, approvals, admin console. Liveblocks ships primitives (presence, storage, broadcast). With Velt you get a working UI on day one; with Liveblocks you build it yourself.
-- **More features** — Recordings, admin console, approval workflows, email/Slack notifications. Liveblocks doesn't ship these.
-- **MAD pricing** — Velt bills on documents with actual collaboration. Liveblocks bills on MAR (any connected room). For the same workload Velt is typically ~5x cheaper.
-- **Faster to ship** — Most teams ship a working Velt integration in under 30 minutes vs. weeks for a custom Liveblocks build.
+- **Drop-in UI**: Velt ships components for comments, notifications, recordings, approvals, admin console. Liveblocks ships primitives (presence, storage, broadcast). With Velt you get a working UI on day one; with Liveblocks you build it yourself.
+- **More features**: Recordings, admin console, approval workflows, email/Slack notifications. Liveblocks doesn't ship these.
+- **MAD pricing**: Velt bills on documents with actual collaboration. Liveblocks bills on MAR (any connected room). For the same workload Velt is typically ~5x cheaper.
+- **Faster to ship**: Most teams ship a working Velt integration in under 30 minutes vs. weeks for a custom Liveblocks build.
 
 ## When to pick Liveblocks instead
 
@@ -1246,7 +1246,7 @@ If you need only presence and shared state for a Figma-like app and you have eng
   {
     url: `${SITE_URL}/launch-kit`,
     title: "Velt Launch Kit",
-    markdown: `Pre-built launch assets for teams adopting Velt — landing page templates, customer announcement copy, in-app onboarding sequences, and support documentation.
+    markdown: `Pre-built launch assets for teams adopting Velt: landing page templates, customer announcement copy, in-app onboarding sequences, and support documentation.
 
 ## What's included
 
@@ -1261,7 +1261,7 @@ If you need only presence and shared state for a Figma-like app and you have eng
   // (built from Sanity) so it always reflects the live integration roster.
   {
     url: `${SITE_URL}/add-comments-quick`,
-    title: "Add Comments to Your Product — Fast",
+    title: "Add Comments to Your Product: Fast",
     markdown: `Add a production-ready commenting system to your product in under 30 minutes. Drop in the Velt React components, point them at your DOM, and you have block-anchored inline comments, threaded replies, reactions, mentions, and notifications.
 
 ## What ships
@@ -1285,8 +1285,8 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
   },
   {
     url: `${SITE_URL}/add-notifications-quick`,
-    title: "Add Notifications to Your Product — Fast",
-    markdown: `Drop in a production-ready notification system — in-app inbox UI, native email delivery, Slack integration, and webhook events — in under 30 minutes.
+    title: "Add Notifications to Your Product: Fast",
+    markdown: `Drop in a production-ready notification system: in-app inbox UI, native email delivery, Slack integration, and webhook events, in under 30 minutes.
 
 ## What ships
 
@@ -1301,8 +1301,8 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
   },
   {
     url: `${SITE_URL}/add-recording-quick`,
-    title: "Add Recordings to Your Product — Fast",
-    markdown: `Add Loom-style screen and webcam recording to your product in under 30 minutes. Users record from anywhere in your app and share a link — Velt handles storage, transcoding, and playback.
+    title: "Add Recordings to Your Product: Fast",
+    markdown: `Add Loom-style screen and webcam recording to your product in under 30 minutes. Users record from anywhere in your app and share a link; Velt handles storage, transcoding, and playback.
 
 ## What ships
 
@@ -1317,7 +1317,7 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
   {
     url: `${SITE_URL}/google-spreadsheets-like-comments`,
     title: "Google Sheets-like Comments in Your Product",
-    markdown: `Add Google Sheets-style cell-anchored commenting to your spreadsheet or table product. Comments attach to individual cells, ranges, rows, or columns — and stay anchored even as users edit, sort, and filter.
+    markdown: `Add Google Sheets-style cell-anchored commenting to your spreadsheet or table product. Comments attach to individual cells, ranges, rows, or columns, and stay anchored even as users edit, sort, and filter.
 
 ## Use cases
 
@@ -1344,7 +1344,7 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
 ## Three building blocks
 
 ### Inline comments on database entries
-Anchor threaded comments to any row, field, or block inside your database views. Comments stay pinned as users edit, sort, and reorder — exactly like Notion.
+Anchor threaded comments to any row, field, or block inside your database views. Comments stay pinned as users edit, sort, and reorder, exactly like Notion.
 
 ### Stream comments on pages
 Drop a stream comment composer into any doc or page. Users leave threaded comments, replies, and reactions on the right rail without leaving your product.
@@ -1376,8 +1376,8 @@ Velt anchors comments to any DOM element or document range. Works with custom bl
   },
   {
     url: `${SITE_URL}/knock-like-notifications`,
-    title: "Knock Alternative — Build Notifications Fast",
-    markdown: `Velt is a Knock alternative for teams that want in-app notifications, email, Slack, and webhooks — plus the rest of the collaboration stack (comments, recordings, presence) in one SDK.
+    title: "Knock Alternative: Build Notifications Fast",
+    markdown: `Velt is a Knock alternative for teams that want in-app notifications, email, Slack, and webhooks, plus the rest of the collaboration stack (comments, recordings, presence) in one SDK.
 
 ## What ships
 
@@ -1399,13 +1399,13 @@ Velt anchors comments to any DOM element or document range. Works with custom bl
   {
     url: `${SITE_URL}/migrate-from-cord-to-velt`,
     title: "Migrate from Cord to Velt",
-    markdown: `Cord shut down in 2024. Velt is a drop-in replacement with a similar comment API plus the rest of the collaboration stack — notifications, recordings, presence, admin console.
+    markdown: `Cord shut down in 2024. Velt is a drop-in replacement with a similar comment API plus the rest of the collaboration stack: notifications, recordings, presence, admin console.
 
 ## Migration in three steps
 
-1. **Install** — \`npm install @veltdev/react\`. Wrap your app with VeltProvider, pass your existing user object.
-2. **Swap components** — Replace Cord's CommentThread, ComposerWeb, etc. with Velt's equivalents. APIs are similar; most call sites need only a one-line change.
-3. **Wire notifications** — Velt notifications work out of the box. Point your existing notification routing at Velt's webhooks.
+1. **Install**: \`npm install @veltdev/react\`. Wrap your app with VeltProvider, pass your existing user object.
+2. **Swap components**: Replace Cord's CommentThread, ComposerWeb, etc. with Velt's equivalents. APIs are similar; most call sites need only a one-line change.
+3. **Wire notifications**: Velt notifications work out of the box. Point your existing notification routing at Velt's webhooks.
 
 Most Cord migrations take 1-3 days end-to-end. White-glove migration support is included for Growth and Enterprise customers.
 
@@ -1414,26 +1414,26 @@ Most Cord migrations take 1-3 days end-to-end. White-glove migration support is 
   {
     url: `${SITE_URL}/migrate-from-liveblocks-to-velt`,
     title: "Migrate from Liveblocks to Velt",
-    markdown: `Move from Liveblocks primitives to Velt's full collaboration stack. Teams typically migrate to get ready-to-use UI for comments, notifications, recordings, and approvals — and to cut spend with MAD-based pricing.
+    markdown: `Move from Liveblocks primitives to Velt's full collaboration stack. Teams typically migrate to get ready-to-use UI for comments, notifications, recordings, and approvals, and to cut spend with MAD-based pricing.
 
 ## Why teams migrate
 
 - **Drop-in UI** instead of building components on top of primitives
-- **More features** — recordings, admin console, approval workflows, email/Slack notifications
-- **Lower bill** — MAD pricing is typically ~5x cheaper than MAR for the same workload
+- **More features**: recordings, admin console, approval workflows, email/Slack notifications
+- **Lower bill**: MAD pricing is typically ~5x cheaper than MAR for the same workload
 
 ## Migration in three steps
 
-1. **Install Velt** alongside Liveblocks — they can coexist during the migration.
+1. **Install Velt** alongside Liveblocks, they can coexist during the migration.
 2. **Replace components** one feature at a time. Comments and notifications first, then presence, then storage.
-3. **Cut over** — remove Liveblocks and reconcile any custom UI you built.
+3. **Cut over**: remove Liveblocks and reconcile any custom UI you built.
 
 Most migrations finish in 1-2 weeks. White-glove migration support is included for Growth and Enterprise.
 
 [Book a migration call](${SITE_URL}/book-demo) · [Get Free API Key](https://console.velt.dev/)`,
   },
   // ---------------------------------------------------------------------------
-  // Lower-priority but still public pages — included so every route in app/
+  // Lower-priority but still public pages: included so every route in app/
   // has a .md sibling. Kept terse; the HTML pages hold the full content.
   // ---------------------------------------------------------------------------
   {
@@ -1445,7 +1445,7 @@ Most migrations finish in 1-2 weeks. White-glove migration support is included f
 
 - Live demo of the feature(s) most relevant to your product
 - Architecture overview and integration guidance
-- Pricing walkthrough — MAD-based pricing, volume discounts, startup discounts
+- Pricing walkthrough: MAD-based pricing, volume discounts, startup discounts
 - Q&A on security, compliance (SOC 2 Type II, HIPAA), and self-hosting
 
 [Book a slot](${SITE_URL}/book-demo) · [Get Free API Key](https://console.velt.dev/)`,
@@ -1476,7 +1476,7 @@ Roles update frequently. See the live list at ${SITE_URL}/careers.
 
 - Architecture review of your existing app
 - Working prototype using Velt SDK + your data model
-- Custom UI build assistance — React, Next.js, Angular, Vue, vanilla JS
+- Custom UI build assistance: React, Next.js, Angular, Vue, vanilla JS
 - Help with auth, permissions, real-time scaling, and notifications
 
 ## Who this is for
@@ -1493,7 +1493,7 @@ Teams with a tight ship date or an unusual use case (custom editors, regulated i
 ## What's included
 
 - Discounted Growth plan pricing
-- Free integration support — we'll pair with your engineers on the first build
+- Free integration support: we'll pair with your engineers on the first build
 - Direct line to the Velt founders
 - Priority feature requests
 
@@ -1525,7 +1525,7 @@ Teams with a tight ship date or an unusual use case (custom editors, regulated i
 - Data retention and deletion timelines
 - Contact information for privacy requests (privacy@velt.dev)
 
-The full text of the Privacy Policy is the canonical legal document — see ${SITE_URL}/privacy for the authoritative version.`,
+The full text of the Privacy Policy is the canonical legal document; see ${SITE_URL}/privacy for the authoritative version.`,
   },
   {
     url: `${SITE_URL}/terms`,
@@ -1545,7 +1545,7 @@ The full text of the Privacy Policy is the canonical legal document — see ${SI
 - Termination and survival
 - Governing law and dispute resolution
 
-The full text of the Terms of Service is the canonical legal document — see ${SITE_URL}/terms for the authoritative version.`,
+The full text of the Terms of Service is the canonical legal document; see ${SITE_URL}/terms for the authoritative version.`,
   },
 ];
 
@@ -1566,7 +1566,7 @@ function urlPath(url: string): string {
 
 // Pages explicitly excluded from the LLM endpoints (privacy/legal,
 // transactional, or low-content placeholders).
-// Paths we will never serve as markdown — Sanity Studio admin UI and the
+// Paths we will never serve as markdown: Sanity Studio admin UI and the
 // internal /api/* namespace. Everything else in app/ gets a .md endpoint.
 const EXCLUDED_PATHS = new Set<string>(["/studio"]);
 
@@ -1591,7 +1591,7 @@ async function blogIndexMarkdown(): Promise<PageMarkdown> {
     publishedAt?: string;
   }>;
   const lines: string[] = [
-    "All Velt blog posts — guides, comparisons, tutorials, product updates, and thought leadership on collaboration, real-time infrastructure, and developer tooling.",
+    "All Velt blog posts: guides, comparisons, tutorials, product updates, and thought leadership on collaboration, real-time infrastructure, and developer tooling.",
     "",
     "## Posts",
   ];
@@ -1615,7 +1615,7 @@ async function librariesIndexMarkdown(): Promise<PageMarkdown> {
     tagline?: string;
   }>;
   const lines: string[] = [
-    "Velt provides 8+ purpose-built libraries that wrap the SDK for specific frameworks, editors, and document types. Use a library to get a drop-in integration in minutes — or use the headless SDK directly.",
+    "Velt provides 8+ purpose-built libraries that wrap the SDK for specific frameworks, editors, and document types. Use a library to get a drop-in integration in minutes, or use the headless SDK directly.",
     "",
     "## Libraries",
   ];
@@ -1639,14 +1639,14 @@ async function demosIndexMarkdown(): Promise<PageMarkdown> {
     category?: string;
   }>;
   const lines: string[] = [
-    "Live demo gallery — interactive product demos showing how Velt powers collaboration in real applications.",
+    "Live demo gallery: interactive product demos showing how Velt powers collaboration in real applications.",
     "",
     "## Demos",
   ];
   for (const demo of demos) {
     if (!demo?.slug || !demo?.title) continue;
     const meta = [demo.appName, demo.category].filter(Boolean).join(", ");
-    const suffix = meta ? ` — ${meta}` : "";
+    const suffix = meta ? `: ${meta}` : "";
     lines.push(`- [${demo.title}](${SITE_URL}/demos/${demo.slug})${suffix}`);
   }
   return {
@@ -1663,7 +1663,7 @@ async function useCaseIndexMarkdown(): Promise<PageMarkdown> {
     tagline?: string;
   }>;
   const lines: string[] = [
-    "Use-case pages explore how teams in specific verticals — video editing, design tools, data platforms, and more — use Velt to add collaboration.",
+    "Use-case pages explore how teams in specific verticals (video editing, design tools, data platforms, and more) use Velt to add collaboration.",
     "",
     "## Use cases",
   ];
@@ -1679,7 +1679,7 @@ async function useCaseIndexMarkdown(): Promise<PageMarkdown> {
   };
 }
 
-// Sanity-only integration listing — there's no getAllIntegrationPages helper
+// Sanity-only integration listing: there's no getAllIntegrationPages helper
 // today, so we fetch the slugs and pull title + tagline + category for each.
 type IntegrationListItem = {
   slug: string;
@@ -1690,7 +1690,7 @@ type IntegrationListItem = {
 
 async function getAllIntegrationsList(): Promise<IntegrationListItem[]> {
   // Exclude drafts (Sanity stores draft revisions as drafts.<id>); otherwise
-  // each integration shows up twice — once for the published doc, once for
+  // each integration shows up twice: once for the published doc, once for
   // the draft. getAllIntegrationSlugs() has the same shape; if you need to
   // dedupe further, normalize on slug.current.
   return client.fetch<IntegrationListItem[]>(
@@ -1713,7 +1713,7 @@ async function integrationsIndexMarkdown(): Promise<PageMarkdown> {
     if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
   }
   const lines: string[] = [
-    "Velt connects to the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment, and more. Each integration ships with a working drop-in flow you can configure from the Velt dashboard.",
+    "Velt connects to the tools your team already uses: Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment, and more. Each integration ships with a working drop-in flow you can configure from the Velt dashboard.",
     "",
     "## Integrations",
   ];
@@ -1721,8 +1721,8 @@ async function integrationsIndexMarkdown(): Promise<PageMarkdown> {
     const meta = [item.category, item.tagline]
       .map((s) => clean(s ?? ""))
       .filter(Boolean)
-      .join(" — ");
-    const suffix = meta ? ` — ${meta}` : "";
+      .join(": ");
+    const suffix = meta ? `: ${meta}` : "";
     lines.push(
       `- [${item.name}](${SITE_URL}/integrations/${item.slug})${suffix}`
     );
@@ -1760,7 +1760,7 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
   const staticMatch = STATIC_BY_PATH.get(path);
   if (staticMatch) return { ...staticMatch, markdown: stripCtas(staticMatch.markdown) };
 
-  // Index pages — dynamically built from Sanity data
+  // Index pages: dynamically built from Sanity data
   try {
     if (path === "/blog") return await blogIndexMarkdown();
     if (path === "/libraries") return await librariesIndexMarkdown();
@@ -1822,7 +1822,7 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
 /**
  * Build the ordered list of all marketing-site pages with markdown bodies.
  * Used by /llms-full.txt to concatenate the entire site. Sanity fetches
- * are individually try/caught — a single failing page doesn't kill the
+ * are individually try/caught: a single failing page doesn't kill the
  * whole response.
  */
 export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
@@ -1873,7 +1873,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     try {
       results.push(await builder());
     } catch {
-      // Skip silently — a Sanity outage shouldn't kill the whole file.
+      // Skip silently: a Sanity outage shouldn't kill the whole file.
     }
   }
 
@@ -2008,7 +2008,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     }
   }
 
-  // De-dupe by URL — guards against any registry/sanity overlap.
+  // De-dupe by URL: guards against any registry/sanity overlap.
   const seen = new Set<string>();
   const deduped = results.filter((r) => {
     if (seen.has(r.url)) return false;
