@@ -1,6 +1,16 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarStack, CursorTag } from "../demos";
+import {
+  Av,
+  Composer,
+  DEL_STYLE,
+  FACES,
+  Frame,
+  IconCheck,
+  IconX,
+  INS_STYLE,
+} from "./hero-surface";
 
 // Simulated-UI demo nodes for the /for/ai-native-saas page. Keys are
 // listed (pure-data) in ./solutions-ai-native-saas.keys.ts and merged into the
@@ -9,77 +19,92 @@ import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarSt
 // the model-produced change, the run, the user's data. Agents propose through
 // the customer's own API; humans approve; the webhook applies the change.
 
+// Solutions AI-native-saas hero personas mapped to shared headshots.
+// Dana = the human operator reviewing generated output; RA = the blue Review Agent.
+const FACE = {
+  dana: FACES.hope,
+} as const;
+
 /**
- * Compact framed "artifact" panel (a generated draft awaiting approval) with a
- * label header. Keeps the AI-native artifact visible across hero and the loop.
- * @param {{ label: string; children: ReactNode }} props Panel label + body.
- * @returns {JSX.Element} The artifact panel.
+ * A single doc field row inside the generated-draft surface: label on the left,
+ * value on the right. Used to render the AI-generated refund record inline.
+ * @param {{ label: string; value: ReactNode; highlight?: boolean }} props Row content and optional highlight flag.
+ * @returns {JSX.Element} Doc field row.
  */
-function Artifact({ label, children }: { label: string; children: ReactNode }) {
+function DocField({ label, value, highlight }: { label: string; value: ReactNode; highlight?: boolean }) {
   return (
-    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
-      <div
+    <div
+      style={{
+        display: "flex",
+        alignItems: "baseline",
+        justifyContent: "space-between",
+        gap: 10,
+        padding: "6px 0",
+        borderBottom: highlight ? "1px solid transparent" : "1px solid var(--vlp-border-subtle)",
+        background: highlight ? "var(--vlp-color-accent-soft)" : "transparent",
+        borderRadius: highlight ? 7 : 0,
+        boxShadow: highlight ? "inset 3px 0 0 var(--vlp-color-accent)" : "none",
+        paddingLeft: highlight ? 9 : 0,
+        paddingRight: highlight ? 9 : 0,
+      }}
+    >
+      <span
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "9px 13px",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
           fontFamily: "var(--vlp-font-mono)",
-          fontSize: 11.5,
+          fontSize: 10.5,
           color: "var(--vlp-color-text-muted)",
+          letterSpacing: "0.03em",
+          flexShrink: 0,
         }}
       >
-        <span>{label}</span>
-        <span className="chip chip-pending">awaiting approval</span>
-      </div>
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>{children}</div>
+        {label}
+      </span>
+      <span style={{ fontSize: 12.5, color: "var(--vlp-color-ink)", fontWeight: highlight ? 600 : 400 }}>
+        {value}
+      </span>
     </div>
   );
 }
 
 export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
   "solutions/ai-native-saas/hero": (
-    <Artifact label="Renewal email · generated draft">
-      <div
-        style={{
-          height: 64,
-          borderRadius: 8,
-          background: "linear-gradient(120deg, var(--vlp-color-accent-soft), var(--vlp-bg-wash))",
-          display: "grid",
-          placeItems: "center",
-          fontFamily: "var(--vlp-font-heading)",
-          fontWeight: 700,
-          color: "var(--vlp-color-accent-ink)",
-        }}
-      >
-        Renewal price updated to $4,800/yr
+    <Frame
+      app="RF"
+      crumb={<><b>Generated draft</b> <span className="sep">/</span> run #8842</>}
+      users={[{ initials: "DV", tone: "a1", img: FACE.dana }, { initials: "RA", agent: true }]}
+    >
+      <div className="cmh-doc" style={{ display: "grid", gap: 0 }}>
+        <DocField label="CUSTOMER" value="Acme Corp" />
+        <DocField label="REQUEST TYPE" value="Refund" />
+        <DocField label="ORDER" value="ORD-20814 · $340.00" />
+        <DocField label="AI REFUND AMOUNT" value={<><del style={DEL_STYLE}>$340.00</del> <ins style={INS_STYLE}>$300.00</ins></>} highlight />
+        <DocField label="POLICY LIMIT" value="$300.00 / order" />
       </div>
-      <NotifItem
-        avatar={{ initials: "PA", kind: "agent", name: "Pricing Agent" }}
-        title={
-          <>
-            <strong>Pricing Agent</strong> · Updated the renewal price to match the new plan table. Payload attached.
-          </>
-        }
-        meta="anchored to the price field · proposed, not applied"
-        chip={{ label: "agent", kind: "agent" }}
-        actions
-      />
-      <NotifItem
-        avatar={{ initials: "DV", kind: "human", name: "Dana · Account owner" }}
-        title={
-          <>
-            <strong>Dana</strong> · Approved. Fire the webhook for this account.
-          </>
-        }
-        meta="human approver"
-        chip={{ label: "human", kind: "pending" }}
-      />
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <span className="chip chip-approved">webhook 200 · change applied</span>
+
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="RA" agent />
+          Review Agent
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">just now</span>
+        </div>
+        <p className="fb">Refund exceeds policy by $40 &mdash; recommend partial approval of $300.00.</p>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested fix</span>
+          <span className="body">
+            <del style={DEL_STYLE}>$340.00</del>{" "}
+            <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>{" "}
+            <ins style={INS_STYLE}>$300.00</ins>
+          </span>
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Approve $300</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
       </div>
-    </Artifact>
+
+      <Composer placeholder="Add a note before approving&hellip;" you={FACE.dana} />
+    </Frame>
   ),
 
   "solutions/ai-native-saas/loop": (

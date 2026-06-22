@@ -2,17 +2,14 @@ import type { ReactNode } from "react";
 
 import { AvatarStack, Chip, DarkPanel, NotifItem, ProvRow, ProvArrow } from "../demos";
 import {
+  AgentFindingCard,
   Av,
   Composer,
-  DEL_STYLE,
   FACES,
   Frame,
   IconBubble,
-  IconCheck,
   IconReply,
   IconSearch,
-  IconX,
-  INS_STYLE,
 } from "./hero-surface";
 
 // Comments-page personas mapped to shared headshots.
@@ -95,47 +92,29 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
     >
       <div className="cmh-chart">
         <div className="cmh-bars">
-          <div className="bar" style={{ height: "46%" }} />
-          <div className="bar" style={{ height: "64%" }} />
-          <div className="bar hot" style={{ height: "90%" }}>
+          <div className="bar" style={{ height: "58%" }} />
+          <div className="bar" style={{ height: "44%" }} />
+          <div className="bar hot" style={{ height: "82%" }}>
             <span className="cmh-pin"><IconBubble />2</span>
           </div>
-          <div className="bar" style={{ height: "72%" }} />
+          <div className="bar" style={{ height: "50%" }} />
         </div>
         <div className="cmh-xrow">
           <span>Q1</span>
           <span>Q2</span>
-          <span className="hot">Q3</span>
+          <span>Q3</span>
           <span>Q4</span>
         </div>
       </div>
 
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="BA" agent />
-          Brand Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">2m</span>
-        </div>
-        <p className="fb">This pricing claim conflicts with the rate table on slide 4.</p>
-        <p className="cmh-suggest">
-          <span className="lbl">Suggested fix</span>
-          <span className="body">
-            <del style={DEL_STYLE}>$18 / seat</del> <span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
-            <ins style={INS_STYLE}>$24 / seat</ins>
-          </span>
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
-        </div>
-      </div>
-
-      <div className="cmh-foot">
-        <span className="cmh-rx on">👍 2</span>
-        <span className="cmh-rx">✅ 1</span>
-        <span className="cmh-reply"><IconReply />Maya replied</span>
-      </div>
+      <AgentFindingCard
+        name="Brand Agent"
+        time="2m"
+        body="This pricing claim conflicts with the rate table on slide 4."
+        delText="$18/seat"
+        insText="$24/seat"
+        replies={2}
+      />
 
       <Composer placeholder="Reply or @mention…" />
     </Frame>

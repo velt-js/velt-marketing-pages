@@ -191,7 +191,8 @@
 .vfp .av-c.a2 { background: oklch(0.60 0.13 35); }
 .vfp .av-c.a3 { background: oklch(0.58 0.12 155); }
 .vfp .av-c.a4 { background: oklch(0.55 0.15 310); }
-.vfp .av-agent { background: radial-gradient(125% 125% at 30% 22%, #5b8def 0%, #2f6fed 45%, #1d4ed8 100%); border: 1.5px solid #9cc0ff; color: #fff; box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35), 0 1px 2px rgba(38, 37, 30, 0.18); }
+.vfp .av-agent { background: linear-gradient(180deg, #92b4ff 0%, #2b66e9 100%); color: #fff; }
+.vfp .av-agent svg { width: 100%; height: 100%; }
 .vfp .av-c.av-photo { background-size: cover; background-position: center; background-repeat: no-repeat; color: transparent; box-shadow: inset 0 0 0 1px rgba(38, 37, 30, 0.08); }
 .vfp .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
 .vfp .chip-agent { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
@@ -247,6 +248,31 @@
 .vfp .dag-node.reject-branch { border-style: dashed; opacity: 0.75; }
 .vfp .dag-edge { width: 1.5px; height: 22px; background: var(--vlp-border-default); }
 
+/* Approval-chain rows (Figma node 882:2418) — builder + run hero tabs */
+.vfp .apc-label { margin: 0; font-family: var(--vlp-font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: -0.24px; color: rgba(0, 0, 0, 0.52); }
+.vfp .apc-chain { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+.vfp .apc-row { display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: var(--vlp-bg-page); padding: 12px 16px 12px 12px; }
+.vfp .apc-left { display: flex; align-items: center; gap: 14px; }
+.vfp .apc-text { display: flex; flex-direction: column; gap: 3px; }
+.vfp .apc-name { font-family: var(--vlp-font-heading); font-weight: 700; font-size: 16px; letter-spacing: -0.32px; color: #000; }
+.vfp .apc-sub { font-family: var(--vlp-font-body); font-weight: 400; font-size: 14px; letter-spacing: -0.28px; color: rgba(0, 0, 0, 0.4); }
+.vfp .apc-meta { display: inline-flex; align-items: baseline; gap: 7px; font-family: var(--vlp-font-body); font-size: 15px; letter-spacing: -0.3px; white-space: nowrap; }
+.vfp .apc-rule { color: rgba(0, 0, 0, 0.5); }
+.vfp .apc-dot { color: rgba(0, 0, 0, 0.28); }
+.vfp .apc-count { font-weight: 700; color: rgba(0, 0, 0, 0.85); }
+.vfp .apc-avatar { position: relative; width: 40px; height: 40px; border-radius: 50%; flex: none; display: grid; place-items: center; }
+.vfp .apc-avatar.passed { background-size: cover; background-position: center; }
+.vfp .apc-avatar.pending { background: #f6edd6; }
+.vfp .apc-avatar.waiting { background: #eaeaea; }
+.vfp .apc-avatar.agent { background: linear-gradient(180deg, #92b4ff 0%, #2b66e9 100%); color: #fff; }
+.vfp .apc-avatar.agent > svg { width: 22px; height: 22px; }
+.vfp .apc-badge { position: absolute; top: -3px; right: -3px; border-radius: 50%; padding: 4px; display: grid; place-items: center; box-shadow: 0 0 0 2px var(--vlp-bg-page); }
+.vfp .apc-badge.approved { background: #dff4e9; }
+.vfp .apc-badge.pending { background: #f6edd6; }
+.vfp .apc-badge svg { width: 10px; height: 10px; }
+.vfp .apc-add { display: flex; align-items: center; gap: 10px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; padding: 12px 16px 12px 12px; }
+.vfp .apc-add-text { font-family: var(--vlp-font-heading); font-weight: 400; font-size: 16px; letter-spacing: -0.32px; color: rgba(0, 0, 0, 0.52); }
+
 /* Diff (suggestions) */
 .vfp .diff { border: 1px solid var(--vlp-border-default); border-radius: var(--vlp-radius-xl); background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); padding: 18px 20px; font-size: 14px; line-height: 1.75; color: var(--vlp-color-ink-soft); }
 .vfp .diff del { background: var(--vlp-color-reject-soft); color: oklch(0.45 0.15 25); text-decoration: line-through; text-decoration-thickness: 1px; border-radius: 3px; padding: 0 2px; }
@@ -288,8 +314,8 @@
 @media (prefers-reduced-motion: reduce) { .vfp .cmh-live i { animation: none; } }
 
 /* Anchor pin — the marker that ties a thread to a spot on the surface. */
-.vfp .cmh-pin { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 700; line-height: 1; color: #fff; background: var(--vlp-color-accent); border-radius: 999px; padding: 4px 9px; box-shadow: var(--vlp-shadow-sm); white-space: nowrap; }
-.vfp .cmh-pin svg { width: 11px; height: 11px; }
+.vfp .cmh-pin { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; line-height: 1; color: #fff; background: var(--vlp-color-accent); border-radius: 999px; padding: 5px 11px; box-shadow: var(--vlp-shadow-sm); white-space: nowrap; }
+.vfp .cmh-pin svg { width: 14px; height: 14px; }
 .vfp .cmh-pin.ghost { color: var(--vlp-color-accent-ink); background: var(--vlp-color-accent-soft); border: 1px solid var(--vlp-color-accent-wash); box-shadow: none; }
 
 /* Thread head extras: timestamp pushed right, an agent/role tag, a kebab. */
@@ -306,13 +332,29 @@
 .vfp .cmh-suggest .body { font-size: 12.5px; line-height: 1.5; color: var(--vlp-color-ink-soft); }
 
 /* Approve / Reject: one accented action, one quiet ghost. */
-.vfp .cmh-acts { display: flex; gap: 6px; }
-.vfp .cmh-btn { display: inline-flex; align-items: center; gap: 6px; font-family: var(--vlp-font-heading); font-size: 11.5px; font-weight: 600; padding: 5px 12px; border-radius: 8px; border: 1px solid transparent; transition: filter 0.15s ease, background 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
-.vfp .cmh-btn svg { width: 11px; height: 11px; }
-.vfp .cmh-btn.approve { background: none; color: var(--vlp-color-green-approval); padding: 5px 8px; }
-.vfp .cmh-btn.approve:hover { background: var(--vlp-color-approve-soft); }
-.vfp .cmh-btn.reject { background: none; color: var(--vlp-color-text-muted); padding: 5px 8px; }
-.vfp .cmh-btn.reject:hover { color: var(--vlp-color-reject); }
+.vfp .cmh-acts { display: flex; align-items: center; gap: 12px; }
+.vfp .cmh-btn { display: inline-flex; align-items: center; justify-content: center; font-family: var(--vlp-font-body); font-size: 14px; font-weight: 500; letter-spacing: -0.28px; padding: 4px 12px; border-radius: 32px; border: 1px solid transparent; transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease; }
+.vfp .cmh-btn svg { display: none; }
+.vfp .cmh-btn.approve { background: #111; color: #feffff; }
+.vfp .cmh-btn.approve:hover { background: #000; }
+.vfp .cmh-btn.reject { background: transparent; color: #111; border-color: #111; }
+.vfp .cmh-btn.reject:hover { background: rgba(17, 17, 17, 0.06); }
+
+/* Agent finding card (AgentFindingCard) — exact Figma spec. */
+.vfp .afc { display: flex; align-items: flex-start; gap: 11px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; padding: 16px; background: var(--vlp-bg-page); }
+.vfp .afc > .av-c { width: 28px; height: 28px; flex: none; }
+.vfp .afc-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 12px; padding: 0; }
+.vfp .afc-text { display: flex; flex-direction: column; gap: 4px; }
+.vfp .afc-head { display: flex; align-items: baseline; gap: 8px; }
+.vfp .afc-name { font-family: var(--vlp-font-body); font-weight: 600; font-size: 16px; letter-spacing: -0.32px; color: #000; }
+.vfp .afc-time { font-family: var(--vlp-font-body); font-weight: 500; font-size: 14px; letter-spacing: -0.28px; color: rgba(0, 0, 0, 0.52); }
+.vfp .afc-body { font-family: var(--vlp-font-body); font-weight: 400; font-size: 14px; line-height: 1.4; letter-spacing: -0.28px; color: rgba(0, 0, 0, 0.75); }
+.vfp .afc-diff { display: flex; align-items: center; gap: 8px; }
+.vfp .afc-arrow { width: 16px; height: 16px; flex: none; color: rgba(0, 0, 0, 0.45); }
+.vfp .afc-arrow svg { display: block; width: 100%; height: 100%; }
+.vfp .afc-actions { display: flex; align-items: center; gap: 8px; }
+.vfp .afc-replies { flex: 1; display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 12px; letter-spacing: -0.24px; color: rgba(0, 0, 0, 0.52); white-space: nowrap; }
+.vfp .afc-replies svg { width: 14px; height: 14px; flex: none; }
 
 /* Reactions + reply affordance row. */
 .vfp .cmh-foot { display: flex; align-items: center; gap: 7px; }
@@ -330,13 +372,12 @@
 
 /* Anchored chart (freestyle tab). */
 .vfp .cmh-chart { position: relative; }
-.vfp .cmh-bars { display: flex; align-items: flex-end; gap: 11px; height: 92px; padding-top: 18px; border-bottom: 1px solid var(--vlp-border-default); }
-.vfp .cmh-bars .bar { flex: 1; border-radius: 5px 5px 0 0; background: var(--vlp-bg-wash); border: 1px solid var(--vlp-border-subtle); border-bottom: none; }
-.vfp .cmh-bars .bar.hot { background: linear-gradient(180deg, var(--vlp-color-accent), var(--vlp-color-accent-muted)); border-color: transparent; position: relative; }
-.vfp .cmh-bars .bar.hot .cmh-pin { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); }
-.vfp .cmh-xrow { display: flex; gap: 11px; margin-top: 7px; }
-.vfp .cmh-xrow span { flex: 1; text-align: center; font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
-.vfp .cmh-xrow span.hot { color: var(--vlp-color-accent); font-weight: 700; }
+.vfp .cmh-bars { display: flex; align-items: flex-end; justify-content: space-between; height: 116px; padding: 24px 12px 0; border-bottom: 2px solid var(--vlp-border-default); }
+.vfp .cmh-bars .bar { flex: none; width: 60px; border-radius: 2px 2px 0 0; background: #2f7ce0; }
+.vfp .cmh-bars .bar.hot { position: relative; }
+.vfp .cmh-bars .bar.hot .cmh-pin { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); }
+.vfp .cmh-xrow { display: flex; justify-content: space-between; margin-top: 10px; padding: 0 12px; }
+.vfp .cmh-xrow span { width: 60px; text-align: center; font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
 
 /* Editor toolbar (text tab). */
 .vfp .cmh-toolbar { display: flex; align-items: center; gap: 2px; margin: -2px 0 2px; }

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, AvatarStack, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import { Av, Composer, DEL_STYLE, FACES, Frame, IconCheck, IconX, INS_STYLE } from "./hero-surface";
 
 // Simulated-UI demo nodes for the /for/legal page. Keys are listed
 // (pure-data) in ./solutions-legal.keys.ts and merged into the shared registry
@@ -8,137 +9,68 @@ import { AuditLog, AvatarStack, NotifItem, Precedent, DarkPanel, ProvRow, ProvAr
 // is legal: contracts, clauses, redlines, the counterparty, the client
 // approver, the matter.
 
-/**
- * Compact framed "artifact" panel (a contract / NDA under review) with a label
- * header. Keeps the vertical artifact visible across hero and the loop.
- * @param {{ label: string; children: ReactNode }} props Panel label + body.
- * @returns {JSX.Element} The artifact panel.
- */
-function Artifact({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "9px 13px",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
-          fontFamily: "var(--vlp-font-mono)",
-          fontSize: 11.5,
-          color: "var(--vlp-color-text-muted)",
-        }}
-      >
-        <span>{label}</span>
-        <span className="chip chip-pending">in review</span>
-      </div>
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>{children}</div>
-    </div>
-  );
-}
 
-/**
- * Diff-style redline block: current language struck through, proposed language
- * highlighted. Mirrors how a suggestion renders on the exact clause.
- * @param {{ current: string; proposed: string }} props Current + proposed clause text.
- * @returns {JSX.Element} The redline diff block.
- */
-function RedlineDiff({ current, proposed }: { current: string; proposed: string }) {
-  return (
-    <div style={{ display: "grid", gap: 6, fontSize: 12.5, lineHeight: 1.45 }}>
-      <span
-        style={{
-          color: "var(--vlp-color-text-muted)",
-          textDecoration: "line-through",
-          textDecorationColor: "var(--vlp-color-accent)",
-        }}
-      >
-        {current}
-      </span>
-      <span
-        style={{
-          color: "var(--vlp-color-ink)",
-          background: "var(--vlp-color-accent-soft)",
-          borderRadius: 6,
-          padding: "4px 7px",
-        }}
-      >
-        {proposed}
-      </span>
-    </div>
-  );
-}
-
-/**
- * Right-rail approval chain row (counsel to partner to client) with a step
- * marker. Each node is a stage the contract routes through in order.
- * @param {{ step: number; total: number }} props Current step + total steps.
- * @returns {JSX.Element} The approval chain strip.
- */
-function ApprovalChain({ step, total }: { step: number; total: number }) {
-  const stages = ["counsel", "partner", "client"];
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 6,
-        padding: "8px 11px",
-        border: "1px solid var(--vlp-border-subtle)",
-        borderRadius: 8,
-        background: "var(--vlp-bg-wash)",
-      }}
-    >
-      <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        {stages.map((stage, index) => (
-          <span key={stage} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-            <span
-              className={`chip ${index < step ? "chip-approved" : index === step ? "chip-pending" : ""}`}
-              style={index > step ? { opacity: 0.5 } : undefined}
-            >
-              {stage}
-            </span>
-            {index < stages.length - 1 ? <ProvArrow /> : null}
-          </span>
-        ))}
-      </span>
-      <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-text-muted)" }}>
-        step {step + 1} of {total}
-      </span>
-    </div>
-  );
-}
+// Legal-page personas mapped to shared headshots.
+const LEGAL_FACE = {
+  maya: FACES.hope,
+} as const;
 
 export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
   "solutions/legal/hero": (
-    <Artifact label="Mutual NDA · clause 7">
-      <RedlineDiff
-        current="The receiving party shall indemnify for all losses."
-        proposed="The receiving party shall indemnify for direct losses, capped at fees paid."
-      />
-      <NotifItem
-        avatar={{ initials: "RA", kind: "agent", name: "Redline Agent" }}
-        title={
-          <>
-            <strong>Redline Agent</strong> · Proposes a liability cap matching your fallback playbook. Rationale attached.
-          </>
-        }
-        meta="suggestion anchored to clause 7"
-        chip={{ label: "agent", kind: "agent" }}
-        actions
-      />
-      <NotifItem
-        title={
-          <>
-            Thread on the <strong>indemnification clause</strong> · deal-team strategy
-          </>
-        }
-        meta="collapsed"
-        chip={{ label: "internal", kind: "pending" }}
-      />
-      <ApprovalChain step={1} total={3} />
-    </Artifact>
+    <Frame
+      app="ND"
+      crumb={<><b>Mutual NDA</b> <span className="sep">/</span> clause&nbsp;7</>}
+      users={[
+        { initials: "MA", tone: "a2", img: LEGAL_FACE.maya },
+        { initials: "RA", agent: true },
+      ]}
+    >
+      <p className="cmh-doc" style={{ fontSize: 13, lineHeight: 1.55, color: "var(--vlp-color-ink)", margin: 0 }}>
+        7.3&nbsp; The receiving party shall indemnify the disclosing party against{" "}
+        <span className="cmh-mark">any and all losses</span> arising from any breach.
+      </p>
+
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="RA" agent />
+          Review Agent
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">now</span>
+        </div>
+        <p className="fb">
+          No liability cap &mdash; &ldquo;any and all losses&rdquo; is unbounded. Playbook caps at fees paid.
+        </p>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested fix</span>
+          <span className="body">
+            <del style={DEL_STYLE}>any and all losses</del>{" "}
+            <span style={{ color: "var(--vlp-color-text-subtle)" }}>&rarr;</span>{" "}
+            <ins style={INS_STYLE}>direct losses, capped at fees paid</ins>
+          </span>
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
+      </div>
+
+      <div className="thread cmh-pop">
+        <div className="thread-head">
+          <Av initials="MA" tone="a2" img={LEGAL_FACE.maya} />
+          <span className="who">Maya</span>
+          <span className="cmh-role">&middot; Counsel</span>
+          <span className="cmh-when">3m</span>
+        </div>
+        <p className="thread-body">
+          Agreed &mdash; accepting the cap. I&rsquo;ll note the rationale before we countersign.
+        </p>
+        <div style={{ marginTop: 2 }}>
+          <span className="chip chip-approved">counsel approved</span>
+        </div>
+      </div>
+
+      <Composer placeholder="Add a note to the matter&hellip;" you={LEGAL_FACE.maya} />
+    </Frame>
   ),
 
   "solutions/legal/loop": (

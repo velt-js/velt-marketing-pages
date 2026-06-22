@@ -1,6 +1,14 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import {
+  Av,
+  Composer,
+  FACES,
+  Frame,
+  IconCheck,
+  IconX,
+} from "./hero-surface";
 
 // Simulated-UI demo nodes for the /for/compliance page. Keys are listed
 // (pure-data) in ./solutions-compliance.keys.ts and merged into the shared
@@ -8,90 +16,109 @@ import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from ".
 // instances. Voice is compliance: policies, filings, attestations, controls,
 // the examiner, and the regulated review itself.
 
+// Compliance hero personas mapped to shared headshots.
+// Nina = Compliance Officer (real face); Review Agent = blue agent avatar.
+const COMPLIANCE_FACE = {
+  nina: FACES.hope,
+} as const;
+
 /**
- * Compact framed "artifact" panel (a filing / policy / attestation under
- * review) with a label header. Keeps the regulated artifact visible across the
- * hero and the loop.
- * @param {{ label: string; children: ReactNode }} props Panel label + body.
- * @returns {JSX.Element} The artifact panel.
+ * A single labeled field/value row inside the disclosure filing artifact.
+ * Renders a label on the left and the value on the right, monospaced.
+ * @param {{ label: string; value: ReactNode; flagged?: boolean }} props Field content and optional flag highlight.
+ * @returns {JSX.Element} The field row.
  */
-function Artifact({ label, children }: { label: string; children: ReactNode }) {
+function FilingField({ label, value, flagged }: { label: string; value: ReactNode; flagged?: boolean }) {
   return (
-    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        fontFamily: "var(--vlp-font-mono)",
+        fontSize: 11.5,
+        padding: "5px 8px",
+        borderRadius: 6,
+        background: flagged ? "var(--vlp-color-accent-soft)" : "transparent",
+        border: flagged ? "1px solid var(--vlp-border-default)" : "1px solid transparent",
+      }}
+    >
+      <span style={{ color: "var(--vlp-color-text-muted)" }}>{label}</span>
+      <span
+        style={{
+          color: flagged ? "var(--vlp-color-accent)" : "var(--vlp-color-ink)",
+          fontWeight: flagged ? 700 : 500,
+        }}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
+
+
+export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
+  "solutions/compliance/hero": (
+    <Frame
+      app="FL"
+      crumb={<><b>Disclosure filing</b> <span className="sep">/</span> FIL-2209</>}
+      users={[
+        { initials: "NI", tone: "a3", img: COMPLIANCE_FACE.nina },
+        { initials: "RA", agent: true },
+      ]}
+    >
+      {/* Filing field grid */}
+      <div
+        style={{
+          display: "grid",
+          gap: 3,
+          padding: "8px 0",
+          borderBottom: "1px solid var(--vlp-border-subtle)",
+          marginBottom: 4,
+        }}
+      >
+        <FilingField label="Reporting period" value="Q3 2026" />
+        <FilingField label="Filing type" value="Form ADV-W" />
+        <FilingField label="Threshold" value="$500 M AUM" />
+        <FilingField label="Attestation" value="missing" flagged />
+      </div>
+
+      {/* Agent finding anchored to the flagged attestation field */}
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="RA" agent />
+          Review Agent
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">now</span>
+        </div>
+        <p className="fb">
+          Officer attestation is required before filing. No signature on record for this reporting period.
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+        </div>
+      </div>
+
+      {/* Officer sign-off row */}
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
-          padding: "9px 13px",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
+          gap: 8,
+          paddingTop: 6,
           fontFamily: "var(--vlp-font-mono)",
           fontSize: 11.5,
           color: "var(--vlp-color-text-muted)",
         }}
       >
-        <span>{label}</span>
-        <span className="chip chip-pending">in review</span>
+        <Av initials="NI" tone="a3" img={COMPLIANCE_FACE.nina} />
+        <span>Nina &mdash; Compliance Officer</span>
+        <span className="chip chip-approved" style={{ marginLeft: "auto" }}>signed off</span>
       </div>
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>{children}</div>
-    </div>
-  );
-}
 
-/**
- * Small labeled metadata row used inside the filing artifact header band
- * (period, due date) so the regulated record reads as a real document.
- * @param {{ label: string; value: string }} props Field label + value.
- * @returns {JSX.Element} The metadata row.
- */
-function MetaField({ label, value }: { label: string; value: string }) {
-  return (
-    <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "var(--vlp-font-mono)", fontSize: 11.5 }}>
-      <span style={{ color: "var(--vlp-color-text-muted)" }}>{label}</span>
-      <span style={{ color: "var(--vlp-font-heading)" }}>{value}</span>
-    </div>
-  );
-}
-
-export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
-  "solutions/compliance/hero": (
-    <Artifact label="Disclosure filing · FIL-2209">
-      <div style={{ display: "grid", gap: 5, paddingBottom: 4, borderBottom: "1px solid var(--vlp-border-subtle)" }}>
-        <MetaField label="period" value="Q3 2026" />
-        <MetaField label="due" value="Oct 31" />
-      </div>
-      <div
-        style={{
-          borderLeft: "2px solid var(--vlp-color-accent)",
-          padding: "7px 10px",
-          background: "var(--vlp-bg-wash)",
-          borderRadius: 6,
-          fontSize: 12.5,
-          color: "var(--vlp-color-ink)",
-        }}
-      >
-        Product class C disclosure line
-      </div>
-      <NotifItem
-        avatar={{ initials: "RA", kind: "agent", name: "Review Agent" }}
-        title={
-          <>
-            <strong>Review Agent</strong> · Required risk disclaimer missing for this product class.
-          </>
-        }
-        meta="anchored to the disclosure line"
-        chip={{ label: "agent", kind: "agent" }}
-        actions
-      />
-      <Precedent
-        heading="approval chain · quorum step"
-        body={"2 of 3 compliance officers signed"}
-        meta="reject routes it back · every transition timestamped and attributed"
-      />
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <span className="chip chip-pending">Export record</span>
-      </div>
-    </Artifact>
+      <Composer placeholder="Add a note to the filing record&hellip;" you={COMPLIANCE_FACE.nina} />
+    </Frame>
   ),
 
   "solutions/compliance/loop": (

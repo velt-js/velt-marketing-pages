@@ -247,15 +247,13 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
       <div className="finding cmh-finding">
         <div className="fh">
           <Av initials="RA" agent />
-          Rate Checker
-          <span className="chip chip-agent">agent</span>
+          Rate Checker Agent
           <span className="cmh-when">now</span>
         </div>
         <p className="fb">
           Vendor rate on row 14 is 12% above the contracted cap. Proposing a corrected value.
         </p>
         <p className="cmh-suggest">
-          <span className="lbl">Suggested fix</span>
           <span className="body">
             <del style={DEL_STYLE}>8.25%</del>
             {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}

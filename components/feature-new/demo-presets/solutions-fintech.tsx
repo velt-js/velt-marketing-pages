@@ -1,42 +1,27 @@
 import { Fragment, type ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import {
+  Av,
+  Composer,
+  DEL_STYLE,
+  FACES,
+  Frame,
+  IconCheck,
+  IconX,
+} from "./hero-surface";
+
+// Fintech hero personas mapped to shared headshots.
+const FINTECH_FACE = {
+  priya: FACES.fenne,
+  you: FACES.hope,
+} as const;
 
 // Simulated-UI demo nodes for the /for/fintech page. Keys are listed
 // (pure-data) in ./solutions-fintech.keys.ts and merged into the shared
 // registry by ../demo-registry.tsx. Visuals are simulated, not live SDK
 // instances. Voice is fintech and FP&A: budgets, forecasts, models, cells, the
 // close, maker-checker, committee quorum, auditors and regulators.
-
-/**
- * Compact framed "artifact" panel (a budget grid / forecast / model under
- * review) with a label header. Keeps the vertical artifact visible across the
- * hero and the loop.
- * @param {{ label: string; children: ReactNode }} props Panel label + body.
- * @returns {JSX.Element} The artifact panel.
- */
-function Artifact({ label, children }: { label: string; children: ReactNode }) {
-  return (
-    <div style={{ border: "1px solid var(--vlp-border-default)", borderRadius: 12, overflow: "hidden", background: "var(--vlp-bg-page)" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "9px 13px",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
-          fontFamily: "var(--vlp-font-mono)",
-          fontSize: 11.5,
-          color: "var(--vlp-color-text-muted)",
-        }}
-      >
-        <span>{label}</span>
-        <span className="chip chip-pending">in review</span>
-      </div>
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>{children}</div>
-    </div>
-  );
-}
 
 /**
  * Small quarterly forecast grid with one cell flagged for review. Renders the
@@ -113,67 +98,53 @@ function ForecastGrid({ flagRow, flagCol }: { flagRow: number; flagCol: number }
   );
 }
 
-/**
- * Right-rail sign-off chain showing a quorum mid-approval: two committee steps
- * passed, the CFO step still pending.
- * @returns {JSX.Element} The sign-off chain.
- */
-function SignOffChain() {
-  const steps = [
-    { label: "FP&A lead", state: "approved" as const, note: "passed" },
-    { label: "Committee · 2 of 3", state: "approved" as const, note: "quorum met" },
-    { label: "CFO", state: "pending" as const, note: "pending" },
-  ];
-  return (
-    <div
-      style={{
-        border: "1px solid var(--vlp-border-subtle)",
-        borderRadius: 8,
-        padding: "10px 12px",
-        display: "grid",
-        gap: 8,
-      }}
-    >
-      <p style={{ margin: 0, fontFamily: "var(--vlp-font-mono)", fontSize: 10.5, letterSpacing: 0.4, color: "var(--vlp-color-text-muted)" }}>
-        SIGN-OFF CHAIN
-      </p>
-      {steps.map((step) => (
-        <div key={step.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 12.5, color: "var(--vlp-color-ink)" }}>{step.label}</span>
-          <span className={`chip chip-${step.state}`}>{step.note}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
   "solutions/fintech/hero": (
-    <Artifact label="Q3 forecast · FY26 plan">
+    <Frame
+      app="FP"
+      crumb={<><b>Q3 forecast</b> <span className="sep">/</span> FY26 plan</>}
+      users={[
+        { initials: "PR", tone: "a2", img: FINTECH_FACE.priya },
+        { initials: "RA", agent: true },
+      ]}
+    >
       <ForecastGrid flagRow={1} flagCol={2} />
-      <NotifItem
-        avatar={{ initials: "RA", kind: "agent", name: "Review Agent" }}
-        title={
-          <>
-            <strong>Review Agent</strong> · Q3 travel is 18% over the approved plan. Variance note missing.
-          </>
-        }
-        meta="anchored to the Q3 travel cell"
-        chip={{ label: "agent", kind: "agent" }}
-        actions
-      />
-      <NotifItem
-        avatar={{ initials: "PR", kind: "human", name: "Priya · FP&A lead" }}
-        title={
-          <>
-            <strong>Priya</strong> · Adding the variance note now, then routing for sign-off.
-          </>
-        }
-        meta="FP&A lead"
-        chip={{ label: "human", kind: "pending" }}
-      />
-      <SignOffChain />
-    </Artifact>
+
+      <div className="finding cmh-finding">
+        <div className="fh">
+          <Av initials="RA" agent />
+          Review Agent
+          <span className="chip chip-agent">agent</span>
+          <span className="cmh-when">now</span>
+        </div>
+        <p className="fb">
+          Q3 travel is 18% over plan &mdash; variance note missing on this cell.
+        </p>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested note</span>
+          <span className="body">
+            <del style={DEL_STYLE}>(no note)</del>{" "}
+            <span style={{ color: "var(--vlp-color-text-subtle)" }}>&rarr;</span>{" "}
+            <ins style={{ ...DEL_STYLE, ...{ background: "var(--vlp-color-approve-soft)", color: "#0c6a41", textDecoration: "none" } }}>
+              Spike driven by Q3 offsite; CFO approved exception on 14 Jun.
+            </ins>
+          </span>
+        </p>
+        <div className="cmh-acts">
+          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+          <button type="button" className="cmh-btn reject"><IconX />Dismiss</button>
+        </div>
+      </div>
+
+      <div className="thread-head" style={{ gap: 9 }}>
+        <Av initials="PR" tone="a2" img={FINTECH_FACE.priya} />
+        <span className="who" style={{ fontSize: 12.5, fontWeight: 700 }}>Priya</span>
+        <span className="cmh-role">&middot; FP&amp;A lead</span>
+        <span className="chip chip-approved" style={{ marginLeft: "auto" }}>approved</span>
+      </div>
+
+      <Composer placeholder="Add a note or @mention&hellip;" you={FINTECH_FACE.you} />
+    </Frame>
   ),
 
   "solutions/fintech/loop": (

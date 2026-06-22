@@ -7,6 +7,7 @@ import {
   FACES,
   Frame,
   IconCheck,
+  INS_STYLE,
   IconX,
 } from "./hero-surface";
 
@@ -19,9 +20,6 @@ const FACE = {
   sarah: FACES.hope,
   alex: FACES.ethan,
 } as const;
-
-/** Inline insertion style — approval green, matching hero-surface DEL_STYLE pair. */
-const INS_LOCAL = { background: "var(--vlp-color-approve-soft)", color: "#0c6a41", borderRadius: 3, padding: "0 3px" } as const;
 
 const INK = "var(--ink, #0b353b)";
 const LINE = "var(--line, #e7e2d9)";
@@ -55,7 +53,6 @@ function HeroFinding({
       <div className="fh">
         <Av initials={agentInitials} agent />
         {agentName}
-        <span className="chip chip-agent">agent</span>
         <span className="cmh-when">just now</span>
       </div>
       <p className="fb">{body}</p>
@@ -67,7 +64,7 @@ function HeroFinding({
             {" "}
             <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>
             {" "}
-            <ins style={INS_LOCAL}>{insText}</ins>
+            <ins style={INS_STYLE}>{insText}</ins>
           </span>
         </p>
       ) : null}
