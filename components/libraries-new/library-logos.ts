@@ -32,9 +32,22 @@ export const LIBRARY_LOGOS: Record<string, string> = {
   "chat-sdk": `${NAV}/vercel.svg`,
 };
 
+// Slugs whose bundled logo is a wordmark (the brand name is already in the
+// image): the chip renders the logo wide and omits the redundant text label.
+// The rest are square icon marks that keep icon + text. (No intrinsic
+// dimensions are available for these local assets, so the set is curated.)
+const WORDMARK_LIBRARY_SLUGS = new Set<string>([
+  "slatejs",
+  "tinymce",
+  "ckeditor",
+  "apryse",
+  "nutrient",
+  "spreadjs",
+]);
+
 /**
  * Resolve a library's brand logo path, preferring a CMS-provided logo URL.
- * @param {string} slug The integrationLibrary slug.
+ * @param {string} slug The libraryPageV2 slug.
  * @param {string} [cmsLogo] An optional Sanity-resolved logo URL.
  * @returns {string | undefined} The logo path, or undefined when none exists.
  */
@@ -47,5 +60,20 @@ export function libraryLogo(
   } catch (error) {
     console.error("libraryLogo failed", error);
     return undefined;
+  }
+}
+
+/**
+ * Whether a library's logo is a wordmark (so the chip should hide the text
+ * label and render the logo wide).
+ * @param {string} slug The libraryPageV2 slug.
+ * @returns {boolean} True for wordmark logos.
+ */
+export function isWordmarkLibraryLogo(slug: string): boolean {
+  try {
+    return WORDMARK_LIBRARY_SLUGS.has(slug);
+  } catch (error) {
+    console.error("isWordmarkLibraryLogo failed", error);
+    return false;
   }
 }

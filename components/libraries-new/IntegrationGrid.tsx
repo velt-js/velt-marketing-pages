@@ -1,4 +1,4 @@
-import { libraryLogo } from "./library-logos";
+import { libraryLogo, isWordmarkLibraryLogo } from "./library-logos";
 import type { GridCategory, GridItem } from "./content";
 
 type IntegrationGridProps = {
@@ -21,13 +21,22 @@ type IntegrationGridProps = {
  */
 function Chip({ item }: { item: GridItem }) {
   const logo = libraryLogo(item.slug, item.logo);
+  // Wordmark logos (name already in the image) render wide with no text label;
+  // square icon marks keep icon + text. A CMS-provided logo is treated as an
+  // icon (we only know the bundled wordmarks).
+  const wordmark = Boolean(logo) && !item.logo && isWordmarkLibraryLogo(item.slug);
   return (
     <a id={item.slug} className="vintg-chip" href={`/libraries/${item.slug}`}>
       {logo ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img className="vintg-chip-logo" src={logo} alt="" aria-hidden="true" />
+        <img
+          className={wordmark ? "vintg-chip-logo vintg-chip-logo--wide" : "vintg-chip-logo"}
+          src={logo}
+          alt={wordmark ? item.name : ""}
+          aria-hidden={wordmark ? undefined : "true"}
+        />
       ) : null}
-      {item.name}
+      {wordmark ? null : item.name}
       {item.beta ? <span className="vintg-chip-beta">beta</span> : null}
     </a>
   );

@@ -7,6 +7,7 @@ import "@/components/libraries-new/styles.css";
 
 import Nav from "@/components/home-new/Nav";
 import Footer from "@/components/home-new/Footer";
+import FinalCta from "@/components/feature-new/FinalCta";
 import { CtaRow, FaqList, SectionHead } from "@/components/libraries-new/sections";
 import { sharedFAQ } from "@/components/library/shared-content";
 import type { FaqEntry } from "@/components/libraries-new/content";
@@ -402,21 +403,19 @@ export default function IntegrationDetailView({
             </div>
           </section>
 
-          {/* 7. Final CTA */}
-          <section className="vintg-section vintg-section--flush">
-            <div className="vintg-wrap vintg-finalcta">
-              <h2>{heroTitle}</h2>
-              <CtaRow
-                primaryCta={{
-                  label: "Get Free API Key",
-                  href: "https://console.velt.dev/",
-                  newTab: true,
-                }}
-                secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
-                microcopy="Free tier. No credit card. First comment in 5 minutes."
-              />
-            </div>
-          </section>
+          {/* 7. Final CTA: shared dark band, matching libraries + feature pages */}
+          <FinalCta
+            content={{
+              title: heroTitle,
+              primaryCta: {
+                label: "Get Free API Key",
+                href: "https://console.velt.dev/",
+                newTab: true,
+              },
+              secondaryCta: { label: "Book Demo", href: "/book-demo" },
+              microcopies: ["Free tier. No credit card. First comment in 5 minutes."],
+            }}
+          />
 
         </main>
       </div>
