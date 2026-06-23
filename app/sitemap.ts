@@ -4,7 +4,7 @@ import {
   getAllDemoSlugs,
   getAllFeatureSlugs,
   getAllFeatureV2Slugs,
-  getAllIntegrationSlugs,
+  getAllIntegrationLibrarySlugs,
   getAllLibrarySlugs,
   getAllMigrationSlugs,
   getAllUseCaseSlugs,
@@ -99,7 +99,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getAllLibrarySlugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
     getAllUseCaseSlugs().catch(() => []),
-    getAllIntegrationSlugs().catch(() => []),
+    getAllIntegrationLibrarySlugs().catch(() => []),
     fetchDocsEntries(now),
   ]);
 

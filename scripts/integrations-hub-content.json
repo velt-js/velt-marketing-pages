@@ -1,0 +1,270 @@
+{
+  "hero": {
+    "kicker": "INTEGRATIONS",
+    "title": "Add Velt to the editors, grids, and canvases you already use.",
+    "secondary": "Comments, co-editing, presence, and review, anchored to the surface and stable as it changes, for your users and your AI agents. Agents suggest on the surface, a human approves, and the core library reaches anything that renders in a browser.",
+    "microcopy": "Free tier. No credit card. First comment in 5 minutes.",
+    "primaryCta": {
+      "label": "Get Free API Key",
+      "href": "https://console.velt.dev/",
+      "newTab": true
+    },
+    "secondaryCta": {
+      "label": "Book Demo",
+      "href": "/book-demo",
+      "newTab": false
+    },
+    "demoKey": ""
+  },
+  "logoStripLabel": "Trusted by teams shipping AI-native products",
+  "whatItIsHeader": "One surface, humans and agents, a human approves.",
+  "whatItIsBody": "Velt attaches its review primitives to the surface you already render, then puts your users and your AI agents on it together: an agent comments or suggests on the element, and a human approves or rejects before anything changes. Comments, presence, cursors, suggestions, and co-editing anchor to the element a user is pointing at, not a Velt-owned canvas. You add Velt three ways: a native adapter for deep integrations like co-editing, the custom-component API for comments and suggestions on any element, and the framework-agnostic core library or web components for surfaces with no adapter.",
+  "whatItIsCards": [
+    {
+      "title": "Agents as first-class users",
+      "body": "Your AI agent comments and suggests on the surface as a first-class user; a human approves or rejects, and on approve the change fires through your webhook with a permanent record.",
+      "featureHref": "/review-agents"
+    },
+    {
+      "title": "Comments",
+      "body": "Threaded comments on the content, with replies, @mentions, reactions, and attachments, that survive edits.",
+      "featureHref": "/comments"
+    },
+    {
+      "title": "Co-editing",
+      "body": "Conflict-free multiplayer editing, so two people work the same surface without overwrites.",
+      "featureHref": "/multiplayer-editing"
+    },
+    {
+      "title": "Annotations",
+      "body": "Shared, live-synced markup on a region, shape, or data point for read surfaces like PDFs and charts.",
+      "featureHref": "/comments"
+    },
+    {
+      "title": "Presence and cursors",
+      "body": "Live named cursors, selections, and who is here right now.",
+      "featureHref": "/presence"
+    },
+    {
+      "title": "Suggestions",
+      "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+      "featureHref": "/suggestions"
+    },
+    {
+      "title": "Notifications",
+      "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+      "featureHref": "/notifications"
+    },
+    {
+      "title": "Recording",
+      "body": "Pin a quick voice, screen, or video clip in context when showing beats typing.",
+      "featureHref": "/recording"
+    },
+    {
+      "title": "Version history",
+      "body": "Named checkpoints, saved and restored by API.",
+      "featureHref": "/multiplayer-editing"
+    }
+  ],
+  "howItWorksHeader": "How it works",
+  "howItWorksSteps": [
+    {
+      "title": "Install the SDK",
+      "body": "Install @veltdev/react and, for a deep integration, the surface's adapter package.",
+      "code": "npm install @veltdev/react"
+    },
+    {
+      "title": "Wrap your app in VeltProvider",
+      "body": "Wrap your app in VeltProvider with your API key and set the document.",
+      "code": ""
+    },
+    {
+      "title": "Mount the primitive on the surface",
+      "body": "Mount the Velt primitive on the surface: an editor adapter, a data-velt-* target on an element, or a custom-component provider for a grid or canvas.",
+      "code": ""
+    }
+  ],
+  "mcpBanner": "Skip the steps. Have your agent set it up.",
+  "buildVsBuy": "An in-house version of multi-surface review requires a per-editor binding for every library you support, anchoring that survives re-renders and concurrent edits, selection and cursor mapping per surface, a custom-element path for grids and canvases, and a re-test of all of it on every upstream editor release. Teams build this one editor at a time and re-litigate it on every dependency bump. Velt carries the adapter set as packages and the long tail as the core library.",
+  "gridHeader": "Drops into the stack you already have.",
+  "gridSupportLine": "Every logo links to its setup guide. Toggle a surface to see the exact snippet that mounts Velt on it.",
+  "surfacesSubheader": "Every surface we plug into.",
+  "matrixSubheader": "What works on each surface today.",
+  "matrixCaption": "Comments and agent review reach every surface. Co-editing is conflict-free multiplayer editing on editable surfaces; charts and PDFs carry annotations, the same shared state applied to a rendered surface. Agent review is available wherever comments are. If your surface is not here, the core library still anchors Velt to it.",
+  "buildWithIntro": "These are dev-time tooling, not surfaces, so they are not in the matrix. Cursor, Claude Code. Each bundles the Velt SDK as skills, rules, an expert agent, and an MCP server, so your coding agent scaffolds and wires Velt for you.",
+  "agentsInsideIntro": "These are runtime agent connections, not surfaces. Chat SDK Adapter (build cross-platform bots that read and reply in your comment threads), MCP server (let agents read your review data and propose changes, with a human approving).",
+  "stackLabel": "Works with the rest of your stack",
+  "stackLinks": [
+    {
+      "label": "Sync (Yjs)",
+      "group": "Sync",
+      "href": "/multiplayer-editing"
+    },
+    {
+      "label": "Slack",
+      "group": "Notifications out",
+      "href": "/notifications"
+    },
+    {
+      "label": "Teams",
+      "group": "Notifications out",
+      "href": "/notifications"
+    },
+    {
+      "label": "Discord",
+      "group": "Notifications out",
+      "href": "/notifications"
+    },
+    {
+      "label": "Resend",
+      "group": "Notifications out",
+      "href": "/notifications"
+    },
+    {
+      "label": "Customer.io",
+      "group": "Notifications out",
+      "href": "/notifications"
+    },
+    {
+      "label": "SendGrid",
+      "group": "Notifications out",
+      "href": "/notifications"
+    },
+    {
+      "label": "Firebase",
+      "group": "Storage and auth",
+      "href": "/self-hosting"
+    },
+    {
+      "label": "Supabase",
+      "group": "Storage and auth",
+      "href": "/self-hosting"
+    },
+    {
+      "label": "Clerk",
+      "group": "Storage and auth",
+      "href": "/self-hosting"
+    },
+    {
+      "label": "Auth0",
+      "group": "Storage and auth",
+      "href": "/self-hosting"
+    },
+    {
+      "label": "React",
+      "group": "Frameworks",
+      "href": ""
+    },
+    {
+      "label": "Next.js",
+      "group": "Frameworks",
+      "href": ""
+    },
+    {
+      "label": "Vue",
+      "group": "Frameworks",
+      "href": ""
+    },
+    {
+      "label": "Angular",
+      "group": "Frameworks",
+      "href": ""
+    },
+    {
+      "label": "Plain HTML",
+      "group": "Frameworks",
+      "href": ""
+    }
+  ],
+  "byosHeader": "No adapter? Velt still anchors to it.",
+  "byosBody": "If it renders in a browser, Velt attaches to it. The custom-component API puts comments and suggestions on any element with a stable target; the framework-agnostic core library (text, map, array, xml stores) wires a custom editor, whiteboard, or grid onto the same realtime engine; web components render the Velt UI outside React. This is the path for a proprietary editor or an in-house canvas, and it is why the grid is a starting set, not a ceiling.",
+  "verticalsHeader": "In production and where it fits",
+  "verticals": [
+    {
+      "label": "Legal",
+      "body": "Clause comments and redline suggestions in a contract editor and in PDF; an agent flags a missing term, counsel approves.",
+      "forHref": "/for/legal"
+    },
+    {
+      "label": "Fintech and FP&A",
+      "body": "Cell-level comments and co-editing on a spreadsheet or grid; an agent flags an outlier cell, your reviewer approves.",
+      "forHref": "/for/fintech"
+    },
+    {
+      "label": "Sales enablement",
+      "body": "Comments and approvals on decks, emails, and landing pages built in a rich-text or custom builder.",
+      "forHref": "/for/sales-enablement"
+    },
+    {
+      "label": "AI-native SaaS",
+      "body": "Agent findings as comments on a generated draft inside the product's own editor, approved before they change user work.",
+      "forHref": "/for/ai-native-saas"
+    }
+  ],
+  "relatedHeader": "Related primitives",
+  "relatedPrimitives": [
+    {
+      "title": "Comments",
+      "body": "The primitive that reaches every surface.",
+      "featureHref": "/comments"
+    },
+    {
+      "title": "Multiplayer editing",
+      "body": "Co-editing on editable surfaces.",
+      "featureHref": "/multiplayer-editing"
+    },
+    {
+      "title": "Presence",
+      "body": "Cursors and selection on the surface.",
+      "featureHref": "/presence"
+    }
+  ],
+  "enterpriseLine": "Comment and review content on any surface can stay on your infrastructure via per-feature data providers, so adding Velt to an editor does not move that editor's content off your stack.",
+  "faq": [
+    {
+      "question": "Which surfaces support co-editing, and which only comments?",
+      "answer": "Co-editing, conflict-free multiplayer editing, is available on every editable surface: the text and code editors, the grids, the canvases, and the docx editor. Charts and PDF viewers are read surfaces, so they carry shared annotations rather than co-editing. Comments and agent review reach every surface in the grid. The capability matrix above states it per surface."
+    },
+    {
+      "question": "My editor or grid is not listed. Can I still use Velt?",
+      "answer": "Yes. The custom-component API anchors comments and suggestions to any element, and the framework-agnostic core library wires a custom editor or canvas onto the same realtime engine. A missing logo means no prebuilt adapter, not no support."
+    },
+    {
+      "question": "How do I add comments to Monaco, AG Grid, or a PDF?",
+      "answer": "Install @veltdev/react, wrap your app in VeltProvider, and mount the comment primitive on the surface: an adapter where one exists, or the custom-component target on the element. The per-surface setup guide has the snippet."
+    },
+    {
+      "question": "Do AI agents work inside every integration?",
+      "answer": "Yes. An agent anchors to a surface the same way a human does: it posts a comment or a suggestion on the element, and a human approves or rejects before anything changes. Where comments work, agent review works."
+    },
+    {
+      "question": "Is this like Liveblocks for any editor?",
+      "answer": "Liveblocks is realtime collaboration focused on engagement: sync and presence, with agents acting on app state. Velt is review and approval: agents comment and suggest on the surface, and a human approves before anything changes. Same multiplayer layer, plus the consent step and the permanent record."
+    },
+    {
+      "question": "Can a bot or AI agent reply inside comment threads directly?",
+      "answer": "Yes, through the Chat SDK Adapter, Velt's vendor-official adapter for Vercel's Chat SDK. A webhook fires when a user @-mentions the bot or reacts, and the bot replies in that same thread, with the same bot logic running on Velt, Slack, Discord, and other Chat SDK adapters."
+    },
+    {
+      "question": "Do integrations cost extra?",
+      "answer": "No. Velt is priced on usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production. Every integration is part of the SDK."
+    }
+  ],
+  "finalCta": {
+    "title": "Add Velt to the editors, grids, and canvases you already use.",
+    "secondary": "Comments, co-editing, presence, and review, anchored to the surface and stable as it changes, for your users and your AI agents. Agents suggest on the surface, a human approves, and the core library reaches anything that renders in a browser.",
+    "microcopy": "Free tier. No credit card. First comment in 5 minutes.",
+    "primaryCta": {
+      "label": "Get Free API Key",
+      "href": "https://console.velt.dev/",
+      "newTab": true
+    },
+    "secondaryCta": {
+      "label": "Book Demo",
+      "href": "/book-demo",
+      "newTab": false
+    }
+  },
+  "metaTitle": "Integrations | Add Velt to any editor, grid, or canvas | Velt",
+  "metaDescription": "Add comments, co-editing, presence, and agent review to Tiptap, Lexical, Monaco, CodeMirror, AG Grid, React Flow, PDFs, charts, and more, for your users and your AI agents, or bring your own surface."
+}

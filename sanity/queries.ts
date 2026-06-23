@@ -821,3 +821,123 @@ export async function getIntegrationPageBySlug(slug: string) {
     { slug },
   );
 }
+
+// ---- New integrations collection (integrationLibrary + integrationsHubPage) ----
+// These power the redesigned /integrations hub and /integrations/{slug} spokes.
+// They are entirely separate from the legacy integrationPage queries above.
+
+/**
+ * All published integrationLibrary slugs (the 28 surface/plugin/agent spokes).
+ * @returns {Promise<string[]>} Slug strings for generateStaticParams.
+ */
+export async function getAllIntegrationLibrarySlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "integrationLibrary" && defined(slug.current)].slug.current`,
+  );
+}
+
+/**
+ * Lightweight projection of every integrationLibrary doc, used by the hub grid,
+ * the capability matrix, and a spoke's category-filtered "related" siblings.
+ * @returns {Promise<unknown[]>} Ordered roster rows.
+ */
+export async function getAllIntegrationLibraries() {
+  return client.fetch(
+    `
+    *[_type == "integrationLibrary" && defined(slug.current)] | order(order asc, name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      kind,
+      category,
+      beta,
+      order,
+      heroTitle,
+      capabilities,
+      "logo": logo.asset->url
+    }
+  `,
+  );
+}
+
+/**
+ * Full content for a single integrationLibrary spoke.
+ * @param {string} slug The URL slug, e.g. "tiptap".
+ * @returns {Promise<unknown>} The spoke document, or null when not found.
+ */
+export async function getIntegrationLibraryBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "integrationLibrary" && slug.current == $slug][0] {
+      _id,
+      name,
+      "slug": slug.current,
+      kind,
+      category,
+      beta,
+      order,
+      "logo": logo.asset->url,
+      heroTitle,
+      heroSecondary,
+      heroDemoKey,
+      capabilities,
+      problemHeader,
+      problemBody,
+      builtForLine,
+      featureCards[]{ title, body, featureHref },
+      agentsCardBody,
+      setupPackages,
+      migrateLine,
+      valueProps,
+      setupNote,
+      faq[]{ question, answer },
+      metaTitle,
+      metaDescription
+    }
+  `,
+    { slug },
+  );
+}
+
+/**
+ * The integrations hub singleton document.
+ * @returns {Promise<unknown>} The integrationsHubPage doc, or null.
+ */
+export async function getIntegrationsHubPage() {
+  return client.fetch(
+    `
+    *[_type == "integrationsHubPage"][0] {
+      _id,
+      hero,
+      logoStripLabel,
+      whatItIsHeader,
+      whatItIsBody,
+      whatItIsCards[]{ title, body, featureHref },
+      howItWorksHeader,
+      howItWorksSteps[]{ title, body, code },
+      mcpBanner,
+      buildVsBuy,
+      gridHeader,
+      gridSupportLine,
+      surfacesSubheader,
+      matrixSubheader,
+      matrixCaption,
+      buildWithIntro,
+      agentsInsideIntro,
+      stackLabel,
+      stackLinks[]{ label, group, href },
+      byosHeader,
+      byosBody,
+      verticalsHeader,
+      verticals[]{ label, body, forHref },
+      relatedHeader,
+      relatedPrimitives[]{ title, body, featureHref },
+      enterpriseLine,
+      faq[]{ question, answer },
+      finalCta,
+      metaTitle,
+      metaDescription
+    }
+  `,
+  );
+}

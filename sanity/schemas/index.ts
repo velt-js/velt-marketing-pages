@@ -10,6 +10,19 @@ import {
 } from "./marketingPage";
 import { customer } from "./customer";
 import { integrationPage } from "./integrationPage";
+import {
+  integrationLibrary,
+  integrationCapabilities,
+  integrationFeatureCard,
+} from "./integrationLibrary";
+import {
+  integrationsHubPage,
+  integrationsHubHero,
+  integrationsHowItWorksStep,
+  integrationsStackLink,
+  integrationsVertical,
+  integrationsFinalCta,
+} from "./integrationsHubPage";
 import { demoPage } from "./demoPage";
 import { examplePage } from "./examplePage";
 import {
@@ -96,6 +109,8 @@ export const schemaTypes = [
   marketingPage,
   customer,
   integrationPage,
+  integrationLibrary,
+  integrationsHubPage,
   demoPage,
   examplePage,
   libraryPage,
@@ -118,6 +133,15 @@ export const schemaTypes = [
   // Reusable building blocks
   ctaLink,
   bentoCard,
+
+  // integrationLibrary + integrationsHubPage sub-types
+  integrationCapabilities,
+  integrationFeatureCard,
+  integrationsHubHero,
+  integrationsHowItWorksStep,
+  integrationsStackLink,
+  integrationsVertical,
+  integrationsFinalCta,
 
   // blogPost sub-types
   blogBodyImage,

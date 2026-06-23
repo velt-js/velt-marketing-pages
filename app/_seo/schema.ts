@@ -209,3 +209,68 @@ export function buildFaqPageSchemaFromEntries(
   if (pairs.length === 0) return {};
   return buildFaqPageSchema(pairs);
 }
+
+/**
+ * Build an ItemList schema. Used by the integrations hub so the published
+ * spoke roster is a crawlable index of items.
+ *
+ * @param params - List metadata.
+ * @param params.name - The list name.
+ * @param params.items - Ordered list of {name, url} entries.
+ * @returns A schema.org ItemList node.
+ */
+export function buildItemListSchema({
+  name,
+  items,
+}: {
+  name: string;
+  items: Array<{ name: string; url: string }>;
+}): Record<string, unknown> {
+  try {
+    return {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    };
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Build a HowTo schema from an ordered list of step strings. Used by each
+ * integration spoke's setup section ("Add Velt to {Name}").
+ *
+ * @param params - HowTo metadata.
+ * @param params.name - The HowTo name, e.g. "Add Velt to Tiptap".
+ * @param params.steps - Ordered step descriptions.
+ * @returns A schema.org HowTo node.
+ */
+export function buildHowToSchema({
+  name,
+  steps,
+}: {
+  name: string;
+  steps: string[];
+}): Record<string, unknown> {
+  try {
+    return {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name,
+      step: steps.map((text, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        text,
+      })),
+    };
+  } catch {
+    return {};
+  }
+}
