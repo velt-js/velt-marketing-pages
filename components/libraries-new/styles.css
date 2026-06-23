@@ -137,7 +137,7 @@
 .vintg .vintg-hero h1 {
   font-family: var(--vlp-font-heading);
   font-size: var(--vlp-text-hero);
-  font-weight: var(--vlp-weight-regular);
+  font-weight: var(--vlp-weight-semibold);
   line-height: var(--vlp-leading-display);
   letter-spacing: var(--vlp-tracking-tight);
   margin: 0 0 var(--vlp-space-6);
@@ -418,6 +418,13 @@
 .vintg-chip:hover .vintg-chip-logo {
   filter: none;
   opacity: 1;
+}
+/* Wordmark logos (brand name already in the image): render wide, not a 16px
+   square, and the chip omits the redundant text label. */
+.vintg-chip-logo--wide {
+  width: auto;
+  max-width: 76px;
+  height: 18px;
 }
 .vintg-chip .vintg-chip-beta {
   font-family: var(--vlp-font-mono);
