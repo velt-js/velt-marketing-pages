@@ -8,12 +8,20 @@ import "./styles.css";
 import Nav from "@/components/home-new/Nav";
 import Footer from "@/components/home-new/Footer";
 import InstallTimeline from "@/components/home-new/InstallTimeline";
+import FinalCta from "@/components/feature-new/FinalCta";
 import IntegrationGrid from "./IntegrationGrid";
 import CapabilityMatrix from "./CapabilityMatrix";
 import { CtaRow, FaqList, FeatureCards, SectionHead } from "./sections";
-import type { HubContent } from "./content";
+import type { CtaLink, HubContent } from "./content";
 
 type HubViewProps = { content: HubContent };
+
+const DEFAULT_PRIMARY_CTA: CtaLink = {
+  label: "Get Free API Key",
+  href: "https://console.velt.dev/",
+  newTab: true,
+};
+const DEFAULT_SECONDARY_CTA: CtaLink = { label: "Book Demo", href: "/book-demo" };
 
 /**
  * Renders the full /integrations hub page from a typed HubContent object.
@@ -175,20 +183,24 @@ export default function HubView({ content }: HubViewProps) {
             </section>
           )}
 
-          {/* Final CTA */}
-          <section className="vintg-section vintg-section--alt vintg-section--flush">
-            <div className="vintg-wrap vintg-finalcta">
-              <h2>{content.finalCta.title ?? hero.title}</h2>
-              {content.finalCta.secondary ? (
-                <p className="vintg-lead">{content.finalCta.secondary}</p>
-              ) : null}
-              <CtaRow
-                primaryCta={content.finalCta.primaryCta ?? hero.primaryCta}
-                secondaryCta={content.finalCta.secondaryCta ?? hero.secondaryCta}
-                microcopy={content.finalCta.microcopy}
-              />
-            </div>
-          </section>
+          {/* Final CTA — shared dark band (DESIGN.md §3), matching the
+              feature pages instead of the old light hand-rolled block. */}
+          <FinalCta
+            content={{
+              title: content.finalCta.title ?? hero.title,
+              primaryCta:
+                content.finalCta.primaryCta ??
+                hero.primaryCta ??
+                DEFAULT_PRIMARY_CTA,
+              secondaryCta:
+                content.finalCta.secondaryCta ??
+                hero.secondaryCta ??
+                DEFAULT_SECONDARY_CTA,
+              microcopies: [
+                content.finalCta.microcopy ?? hero.microcopy,
+              ].filter((line): line is string => Boolean(line)),
+            }}
+          />
         </main>
       </div>
       <div className="vfp-footer">

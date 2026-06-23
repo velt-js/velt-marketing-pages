@@ -40,7 +40,7 @@
 .vintg-h2 {
   font-family: var(--vlp-font-heading);
   font-size: var(--vlp-text-section);
-  font-weight: var(--vlp-weight-bold);
+  font-weight: var(--vlp-weight-semibold);
   line-height: var(--vlp-leading-snug);
   letter-spacing: var(--vlp-tracking-snug);
   color: var(--vlp-color-text);
@@ -93,8 +93,8 @@
   gap: var(--vlp-space-2);
   height: 46px;
   padding: 0 var(--vlp-space-6);
-  border-radius: var(--vlp-radius-pill);
-  font-family: var(--vlp-font-body);
+  border-radius: var(--vlp-radius-md);
+  font-family: var(--vlp-font-heading);
   font-size: var(--vlp-text-label);
   font-weight: var(--vlp-weight-semibold);
   text-decoration: none;
@@ -137,7 +137,7 @@
 .vintg .vintg-hero h1 {
   font-family: var(--vlp-font-heading);
   font-size: var(--vlp-text-hero);
-  font-weight: var(--vlp-weight-bold);
+  font-weight: var(--vlp-weight-regular);
   line-height: var(--vlp-leading-display);
   letter-spacing: var(--vlp-tracking-tight);
   margin: 0 0 var(--vlp-space-6);
@@ -394,7 +394,7 @@
   gap: var(--vlp-space-2);
   height: 34px;
   padding: 0 var(--vlp-space-4);
-  border-radius: var(--vlp-radius-pill);
+  border-radius: var(--vlp-radius-md);
   border: 1px solid var(--vlp-border-default);
   background: var(--vlp-bg-card);
   color: var(--vlp-color-text);
@@ -541,26 +541,6 @@
   line-height: var(--vlp-leading-relaxed);
   color: var(--vlp-color-text-muted);
   max-width: 72ch;
-}
-
-/* ---- Final CTA ---- */
-.vintg-finalcta {
-  text-align: center;
-  padding: var(--vlp-space-24) 0;
-}
-.vintg .vintg-finalcta h2 {
-  font-family: var(--vlp-font-heading);
-  font-size: var(--vlp-text-cta);
-  font-weight: var(--vlp-weight-bold);
-  line-height: var(--vlp-leading-display-tight);
-  letter-spacing: var(--vlp-tracking-tight);
-  margin: 0 0 var(--vlp-space-5);
-}
-.vintg-finalcta .vintg-lead {
-  margin: 0 auto var(--vlp-space-6);
-}
-.vintg-finalcta .vintg-ctas {
-  justify-content: center;
 }
 
 /* ---- Feature showcase cards (reused feature-page Preview | Code chrome) ---- */

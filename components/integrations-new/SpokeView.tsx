@@ -10,6 +10,7 @@ import "./styles.css";
 import Nav from "@/components/home-new/Nav";
 import Footer from "@/components/home-new/Footer";
 import ShowcaseCard from "@/components/feature-new/ShowcaseCard";
+import FinalCta from "@/components/feature-new/FinalCta";
 import InstallTimeline from "@/components/home-new/InstallTimeline";
 import { CtaRow, FaqList, SectionHead } from "./sections";
 import { libraryLogo } from "./library-logos";
@@ -206,7 +207,7 @@ export default function SpokeView({ content }: SpokeViewProps) {
                       <a
                         key={sibling.slug}
                         className="vintg-chip"
-                        href={`/integrations/${sibling.slug}`}
+                        href={`/libraries/${sibling.slug}`}
                       >
                         {logo ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -225,24 +226,26 @@ export default function SpokeView({ content }: SpokeViewProps) {
                     );
                   })}
                 </div>
-                <a className="vintg-backlink" href="/integrations">
-                  See all integrations
+                <a className="vintg-backlink" href="/libraries">
+                  See all libraries
                 </a>
               </div>
             </section>
           )}
 
-          {/* Final CTA */}
-          <section className="vintg-section vintg-section--flush">
-            <div className="vintg-wrap vintg-finalcta">
-              <h2>{content.heroTitle}</h2>
-              <CtaRow
-                primaryCta={PRIMARY_CTA}
-                secondaryCta={SECONDARY_CTA}
-                microcopy="Free tier. No credit card. First comment in 5 minutes."
-              />
-            </div>
-          </section>
+          {/* Final CTA — shared dark band (DESIGN.md §3), matching the
+              feature pages instead of the old light hand-rolled block. */}
+          <FinalCta
+            content={{
+              title: content.heroTitle,
+              primaryCta: PRIMARY_CTA,
+              secondaryCta: SECONDARY_CTA,
+              microcopies: [
+                "Free tier. No credit card.",
+                "First comment in 5 minutes.",
+              ],
+            }}
+          />
         </main>
       </div>
       <div className="vfp-footer">

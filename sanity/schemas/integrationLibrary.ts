@@ -113,9 +113,13 @@ export const integrationFeatureCard = defineType({
 
 // ---- The document ----
 
+// NOTE: this document type is the "libraries v2" collection (rendered at
+// /libraries via v2-first, v1-fallback). The exported const keeps its original
+// identifier to avoid churn in schemas/index.ts; the Sanity `name` (the _type
+// editors and queries use) is `libraryPageV2`.
 export const integrationLibrary = defineType({
-  name: "integrationLibrary",
-  title: "Integration (Library / Surface)",
+  name: "libraryPageV2",
+  title: "Library Page (v2)",
   type: "document",
   groups: [
     { name: "identity", title: "Identity", default: true },

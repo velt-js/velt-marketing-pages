@@ -1,93 +1,89 @@
-// Main /libraries landing page — Figma node 1:1118.
-// Dark block: PageHero → LibraryDemo → TrustedLogos.
-// White block: Explore Other Libraries (heading + tabs + grid in one section)
-//   → Enterprise Security (2×2 + cert + Yuri testimonial).
-// Dark tail: FAQ → GetStartedSteps (closes with Hope testimonial) → Footer.
+// /libraries hub (v2). Driven by the Sanity `librariesHubPage` singleton plus
+// the `libraryPageV2` roster (the grid bands + capability matrix derive from
+// the roster). Rendered by the shared HubView. The per-library detail pages
+// live at /libraries/{slug} (v2-first, with the legacy libraryPage as v1
+// fallback). See app/libraries/[slug]/page.tsx.
 
-import { Footer } from "@/components/home/Footer";
-import { Security } from "@/components/home/Security";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { PageHero } from "@/components/library/PageHero";
-import { LibraryDemo } from "@/components/library/LibraryDemo";
-import { AllLibraries } from "@/components/library/AllLibraries";
-import { LibraryFAQ } from "@/components/library/LibraryFAQ";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import {
-  allLibraryCards,
-  libraryTabs,
-  sharedFAQ,
-} from "@/components/library/shared-content";
+import type { Metadata } from "next";
+
+import HubView from "@/components/integrations-new/HubView";
+import { toHubContent } from "@/lib/integrations-v2/to-hub-content";
+import type { RosterRow } from "@/lib/integrations-v2/to-spoke-content";
+import { getAllLibrariesV2, getLibrariesHubPage } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import {
   SITE_URL,
   buildBreadcrumbList,
   buildFaqPageSchemaFromEntries,
+  buildItemListSchema,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
-import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
-const LIBRARIES_BREADCRUMB = buildBreadcrumbList([
-  { name: "Home", url: SITE_URL },
-  { name: "Libraries", url: `${SITE_URL}/libraries` },
-]);
+export const revalidate = 60;
 
-const LIBRARIES_WEBPAGE = buildWebPageSchema({
-  name: "Libraries | Velt",
-  description:
-    "Deep integrations with popular libraries — drop-in collaboration for Tiptap, Lexical, BlockNote, CodeMirror, SlateJS and more.",
-  url: `${SITE_URL}/libraries`,
-  breadcrumb: LIBRARIES_BREADCRUMB,
-});
+const DEFAULT_TITLE = "Libraries | Add Velt to any editor, grid, or canvas | Velt";
+const DEFAULT_DESCRIPTION =
+  "Add comments, co-editing, presence, and agent review to Tiptap, Lexical, Monaco, CodeMirror, AG Grid, React Flow, PDFs, charts, and more, for your users and your AI agents, or bring your own surface.";
 
-const LIBRARIES_FAQ_SCHEMA = buildFaqPageSchemaFromEntries(sharedFAQ);
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const hub = await getLibrariesHubPage();
+    const title = hub?.metaTitle ?? DEFAULT_TITLE;
+    const description = hub?.metaDescription ?? DEFAULT_DESCRIPTION;
+    return buildPageMetadata({ title, description, path: "/libraries" });
+  } catch (error) {
+    console.error("libraries hub generateMetadata failed", error);
+    return buildPageMetadata({
+      title: DEFAULT_TITLE,
+      description: DEFAULT_DESCRIPTION,
+      path: "/libraries",
+    });
+  }
+}
 
-export const metadata = buildPageMetadata({
-  title: "Libraries",
-  description:
-    "Deep integrations with popular libraries — drop-in collaboration for Tiptap, Lexical, BlockNote, CodeMirror, SlateJS and more.",
-  path: "/libraries",
-});
+export default async function LibrariesHubPage() {
+  const [hubDoc, roster] = await Promise.all([
+    getLibrariesHubPage(),
+    getAllLibrariesV2() as Promise<RosterRow[]>,
+  ]);
 
-export default function LibrariesLandingPage() {
+  const content = toHubContent(hubDoc, roster ?? []);
+
+  const breadcrumb = buildBreadcrumbList([
+    { name: "Home", url: SITE_URL },
+    { name: "Libraries", url: `${SITE_URL}/libraries` },
+  ]);
+  const webpage = buildWebPageSchema({
+    name: content.metaTitle ?? DEFAULT_TITLE,
+    description: content.metaDescription ?? DEFAULT_DESCRIPTION,
+    url: `${SITE_URL}/libraries`,
+    breadcrumb,
+  });
+  const itemList = buildItemListSchema({
+    name: "Velt libraries",
+    items: (roster ?? []).map((row) => ({
+      name: row?.name ?? "",
+      url: `${SITE_URL}/libraries/${row?.slug ?? ""}`,
+    })),
+  });
+  const faqSchema = buildFaqPageSchemaFromEntries(content.faq);
+
   return (
     <>
-      <JsonLd id="ld-libraries-webpage" data={LIBRARIES_WEBPAGE} />
-      <JsonLd id="ld-libraries-breadcrumb" data={LIBRARIES_BREADCRUMB} />
-      <JsonLd id="ld-libraries-faq" data={LIBRARIES_FAQ_SCHEMA} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated
-          heading="Deep Integrations with Popular Libraries"
-          subheading="Velt has 6+ deep integrations with popular libraries"
-          primaryCta={{
-            label: "Get Free API Key",
-            href: "https://console.velt.dev/",
-            newTab: true,
-          }}
-          secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
-        />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
 
-        <LibraryDemo />
+      <JsonLd id="ld-libraries-webpage" data={webpage} />
+      <JsonLd id="ld-libraries-breadcrumb" data={breadcrumb} />
+      <JsonLd id="ld-libraries-itemlist" data={itemList} />
+      <JsonLd id="ld-libraries-faq" data={faqSchema} />
 
-        <div style={{ marginTop: 80 }}>
-          <TrustedLogos />
-        </div>
-
-        <AllLibraries items={allLibraryCards} tabs={libraryTabs} topAccent />
-
-        <Security />
-
-        <FeatureCustomerCarousel />
-
-        <LibraryFAQ items={sharedFAQ} />
-
-        <GetStartedSteps />
-
-        <Footer />
-      </div>
+      <HubView content={content} />
     </>
   );
 }

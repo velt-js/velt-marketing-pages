@@ -125,9 +125,11 @@ export const integrationsFinalCta = defineType({
 
 // ---- The document (singleton) ----
 
+// NOTE: this singleton is the /libraries hub (v2). Const identifier kept to
+// avoid index.ts churn; the Sanity `name` (_type) is `librariesHubPage`.
 export const integrationsHubPage = defineType({
-  name: "integrationsHubPage",
-  title: "Integrations Hub Page",
+  name: "librariesHubPage",
+  title: "Libraries Hub Page",
   type: "document",
   groups: [
     { name: "hero", title: "Hero", default: true },

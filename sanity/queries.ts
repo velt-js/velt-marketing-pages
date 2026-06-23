@@ -822,29 +822,29 @@ export async function getIntegrationPageBySlug(slug: string) {
   );
 }
 
-// ---- New integrations collection (integrationLibrary + integrationsHubPage) ----
-// These power the redesigned /integrations hub and /integrations/{slug} spokes.
-// They are entirely separate from the legacy integrationPage queries above.
+// ---- Libraries v2 collection (libraryPageV2 + librariesHubPage) ----
+// These power the redesigned /libraries hub and /libraries/{slug} pages
+// (v2-first, with the legacy libraryPage queries below as the v1 fallback).
 
 /**
- * All published integrationLibrary slugs (the 28 surface/plugin/agent spokes).
+ * All published libraryPageV2 slugs (the 28 surface/plugin/agent pages).
  * @returns {Promise<string[]>} Slug strings for generateStaticParams.
  */
-export async function getAllIntegrationLibrarySlugs(): Promise<string[]> {
+export async function getAllLibraryV2Slugs(): Promise<string[]> {
   return client.fetch(
-    `*[_type == "integrationLibrary" && defined(slug.current)].slug.current`,
+    `*[_type == "libraryPageV2" && defined(slug.current)].slug.current`,
   );
 }
 
 /**
- * Lightweight projection of every integrationLibrary doc, used by the hub grid,
- * the capability matrix, and a spoke's category-filtered "related" siblings.
+ * Lightweight projection of every libraryPageV2 doc, used by the hub grid,
+ * the capability matrix, and a page's category-filtered "related" siblings.
  * @returns {Promise<unknown[]>} Ordered roster rows.
  */
-export async function getAllIntegrationLibraries() {
+export async function getAllLibrariesV2() {
   return client.fetch(
     `
-    *[_type == "integrationLibrary" && defined(slug.current)] | order(order asc, name asc) {
+    *[_type == "libraryPageV2" && defined(slug.current)] | order(order asc, name asc) {
       _id,
       name,
       "slug": slug.current,
@@ -861,14 +861,14 @@ export async function getAllIntegrationLibraries() {
 }
 
 /**
- * Full content for a single integrationLibrary spoke.
+ * Full content for a single libraryPageV2 page.
  * @param {string} slug The URL slug, e.g. "tiptap".
- * @returns {Promise<unknown>} The spoke document, or null when not found.
+ * @returns {Promise<unknown>} The v2 document, or null when not found.
  */
-export async function getIntegrationLibraryBySlug(slug: string) {
+export async function getLibraryPageV2BySlug(slug: string) {
   return client.fetch(
     `
-    *[_type == "integrationLibrary" && slug.current == $slug][0] {
+    *[_type == "libraryPageV2" && slug.current == $slug][0] {
       _id,
       name,
       "slug": slug.current,
@@ -900,13 +900,13 @@ export async function getIntegrationLibraryBySlug(slug: string) {
 }
 
 /**
- * The integrations hub singleton document.
- * @returns {Promise<unknown>} The integrationsHubPage doc, or null.
+ * The libraries hub singleton document.
+ * @returns {Promise<unknown>} The librariesHubPage doc, or null.
  */
-export async function getIntegrationsHubPage() {
+export async function getLibrariesHubPage() {
   return client.fetch(
     `
-    *[_type == "integrationsHubPage"][0] {
+    *[_type == "librariesHubPage"][0] {
       _id,
       hero,
       logoStripLabel,

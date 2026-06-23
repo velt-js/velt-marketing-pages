@@ -22,7 +22,7 @@ type IntegrationGridProps = {
 function Chip({ item }: { item: GridItem }) {
   const logo = libraryLogo(item.slug, item.logo);
   return (
-    <a id={item.slug} className="vintg-chip" href={`/integrations/${item.slug}`}>
+    <a id={item.slug} className="vintg-chip" href={`/libraries/${item.slug}`}>
       {logo ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img className="vintg-chip-logo" src={logo} alt="" aria-hidden="true" />

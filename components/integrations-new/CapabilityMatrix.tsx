@@ -45,7 +45,7 @@ export default function CapabilityMatrix({ rows, caption }: CapabilityMatrixProp
             {rows.map((row) => (
               <tr key={row.slug}>
                 <th scope="row">
-                  <a href={`/integrations/${row.slug}`}>{row.name}</a>
+                  <a href={`/libraries/${row.slug}`}>{row.name}</a>
                   {row.beta ? <span className="vintg-chip-beta"> beta</span> : null}
                 </th>
                 {MATRIX_COLUMNS.map((column) => (

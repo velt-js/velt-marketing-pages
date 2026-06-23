@@ -45,7 +45,7 @@ const HUB_PATH = resolve(
   "scripts/integrations-hub-content.json",
 );
 
-const HUB_ID = "integrationsHubPage";
+const HUB_ID = "librariesHubPage";
 
 const client = DRY_RUN
   ? null
@@ -64,8 +64,8 @@ const client = DRY_RUN
  */
 function buildSpokeDoc(entry) {
   const doc = {
-    _id: `integrationLibrary-${entry.slug}`,
-    _type: "integrationLibrary",
+    _id: `libraryPageV2-${entry.slug}`,
+    _type: "libraryPageV2",
     name: entry.name,
     slug: { _type: "slug", current: entry.slug },
     kind: entry.kind,
@@ -138,7 +138,7 @@ function buildHubDoc(hub) {
 
   return {
     _id: HUB_ID,
-    _type: "integrationsHubPage",
+    _type: "librariesHubPage",
     hero: hub.hero
       ? {
           _type: "integrationsHubHero",

@@ -6,6 +6,7 @@ import {
   getAllFeatureV2Slugs,
   getAllIntegrationSlugs,
   getAllLibrarySlugs,
+  getAllLibraryV2Slugs,
   getAllMigrationSlugs,
   getAllUseCaseSlugs,
 } from "@/sanity/queries";
@@ -87,6 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     featureV2Slugs,
     featureSlugs,
     librarySlugs,
+    libraryV2Slugs,
     migrationSlugs,
     useCaseSlugs,
     integrationSlugs,
@@ -97,6 +99,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     getAllFeatureV2Slugs().catch(() => []),
     getAllFeatureSlugs().catch(() => []),
     getAllLibrarySlugs().catch(() => []),
+    getAllLibraryV2Slugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
     getAllUseCaseSlugs().catch(() => []),
     getAllIntegrationSlugs().catch(() => []),
@@ -152,7 +155,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const libraryEntries: MetadataRoute.Sitemap = (librarySlugs as string[]).map(
+  // /libraries serves v2-first with v1 fallback, so the sitemap is the union
+  // of both slug sets (v2 surfaces/plugins/agents plus any v1-only libraries).
+  const allLibrarySlugs = [
+    ...new Set([
+      ...(libraryV2Slugs as string[]),
+      ...(librarySlugs as string[]),
+    ]),
+  ];
+  const libraryEntries: MetadataRoute.Sitemap = allLibrarySlugs.map(
     (slug) => ({
       url: `${BASE}/libraries/${slug}`,
       lastModified: now,
