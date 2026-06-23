@@ -21,7 +21,7 @@ import {
   getAllDemoPages,
   getAllFeaturePages,
   getAllFeatureV2Slugs,
-  getAllIntegrationLibrarySlugs,
+  getAllIntegrationSlugs,
   getAllLibraryPages,
   getAllSolutionSlugs,
   getAllUseCasePages,
@@ -29,7 +29,7 @@ import {
   getDemoPageBySlug,
   getFeaturePageBySlug,
   getFeaturePageV2BySlug,
-  getIntegrationLibraryBySlug,
+  getIntegrationPageBySlug,
   getLibraryPageBySlug,
   getMigrationPageBySlug,
   getSolutionPageBySlug,
@@ -953,73 +953,56 @@ async function useCaseMarkdown(slug: string): Promise<PageMarkdown | null> {
 
 type IntegrationDoc = {
   name?: string;
-  kind?: string;
-  beta?: boolean;
+  category?: string;
   heroTitle?: string;
-  heroSecondary?: string;
-  problemHeader?: string;
-  problemBody?: string;
-  builtForLine?: string;
-  featureCards?: Array<{ title?: string; body?: string; featureHref?: string }>;
-  agentsCardBody?: string;
-  setupPackages?: string;
-  valueProps?: string[];
-  setupNote?: string;
-  faq?: Array<{ question?: string; answer?: string }>;
-  metaTitle?: string;
-  metaDescription?: string;
+  tagline?: string;
+  description?: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  docsUrl?: string;
+  codeSnippet?: string;
+  connectBody?: string;
+  payloadBody?: string;
+  unifiedBody?: string;
 };
 
 async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
-  const doc = (await getIntegrationLibraryBySlug(slug)) as IntegrationDoc | null;
+  const doc = (await getIntegrationPageBySlug(slug)) as IntegrationDoc | null;
   if (!doc?.name) return null;
-  const betaSuffix = doc.beta ? " (beta)" : "";
-  const title = `${doc.heroTitle ?? `Velt for ${doc.name}`}${betaSuffix}`;
+  const title = doc.heroTitle ?? `Integrate Velt in ${doc.name}`;
   const parts: string[] = [];
-  if (doc.heroSecondary) parts.push(clean(doc.heroSecondary));
+  if (doc.category) parts.push(`*Category: ${clean(doc.category)}*`);
+  const subheading =
+    doc.description ??
+    doc.tagline ??
+    `Write 6 lines to integrate Velt in ${doc.name}.`;
+  if (subheading) parts.push(clean(subheading));
 
-  if (doc.problemBody) {
-    parts.push(heading(2, doc.problemHeader ?? `Why build with Velt on ${doc.name}`));
-    parts.push(clean(doc.problemBody));
+  // Three optional content slots from the Sanity schema (connect / payload /
+  // unified) -- these mirror the on-page sections rendered by
+  // IntegrationConnectSection.
+  if (doc.connectBody) {
+    parts.push(heading(2, `Connect ${doc.name}`));
+    parts.push(clean(doc.connectBody));
   }
-  if (doc.builtForLine) {
-    parts.push(heading(2, `Built for ${doc.name}`));
-    parts.push(clean(doc.builtForLine));
+  if (doc.payloadBody) {
+    parts.push(heading(2, "Configure the payload"));
+    parts.push(clean(doc.payloadBody));
   }
-  if (doc.featureCards && doc.featureCards.length > 0) {
-    parts.push(heading(2, "Features"));
-    parts.push(
-      doc.featureCards
-        .map((card) => {
-          const body = card.body ? `: ${clean(card.body)}` : "";
-          const href = card.featureHref ? ` (${SITE_URL}${card.featureHref})` : "";
-          return `- **${clean(card.title ?? "")}**${body}${href}`;
-        })
-        .join("\n"),
-    );
+  if (doc.unifiedBody) {
+    parts.push(heading(2, "Unified API"));
+    parts.push(clean(doc.unifiedBody));
   }
-  if (doc.agentsCardBody) {
-    parts.push(heading(2, "Agents"));
-    parts.push(clean(doc.agentsCardBody));
+  if (doc.codeSnippet) {
+    parts.push("```ts\n" + doc.codeSnippet.trim() + "\n```");
   }
-  if (doc.valueProps && doc.valueProps.length > 0) {
-    parts.push(heading(2, "What you get"));
-    parts.push(doc.valueProps.map((prop) => `- ${clean(prop)}`).join("\n"));
-  }
-  if (doc.setupPackages) {
-    parts.push(heading(2, "Setup"));
-    parts.push("```bash\nnpm install " + doc.setupPackages.trim() + "\n```");
-  } else if (doc.setupNote) {
-    parts.push(heading(2, "Setup"));
-    parts.push(clean(doc.setupNote));
-  }
-  if (doc.faq && doc.faq.length > 0) {
-    parts.push(heading(2, "FAQ"));
-    parts.push(
-      doc.faq
-        .map((entry) => `**${clean(entry.question ?? "")}** ${clean(entry.answer ?? "")}`)
-        .join("\n\n"),
-    );
+  const links: string[] = [];
+  if (doc.demoUrl) links.push(`[Live demo](${doc.demoUrl})`);
+  if (doc.docsUrl) links.push(`[Docs](${doc.docsUrl})`);
+  if (doc.githubUrl) links.push(`[Source](${doc.githubUrl})`);
+  if (links.length > 0) {
+    parts.push(heading(2, "Links"));
+    parts.push(links.join(" · "));
   }
 
   return {
@@ -1701,37 +1684,47 @@ async function useCaseIndexMarkdown(): Promise<PageMarkdown> {
 type IntegrationListItem = {
   slug: string;
   name?: string;
-  kind?: string;
-  beta?: boolean;
+  category?: string;
+  tagline?: string;
 };
 
 async function getAllIntegrationsList(): Promise<IntegrationListItem[]> {
-  // The redesigned integrations live in the `integrationLibrary` collection
-  // (the 28 surface/plugin/agent spokes). Exclude drafts (Sanity stores draft
-  // revisions as drafts.<id>) and keep the authored grid order.
+  // Exclude drafts (Sanity stores draft revisions as drafts.<id>); otherwise
+  // each integration shows up twice: once for the published doc, once for
+  // the draft. getAllIntegrationSlugs() has the same shape; if you need to
+  // dedupe further, normalize on slug.current.
   return client.fetch<IntegrationListItem[]>(
-    `*[_type == "integrationLibrary" && defined(slug.current) && !(_id in path("drafts.**"))] | order(order asc, name asc) {
-      "slug": slug.current, name, kind, beta
+    `*[_type == "integrationPage" && defined(slug.current) && !(_id in path("drafts.**"))] | order(name asc) {
+      "slug": slug.current, name, category, tagline
     }`
   );
 }
 
 async function integrationsIndexMarkdown(): Promise<PageMarkdown> {
   const items = await getAllIntegrationsList().catch(() => []);
+  // The Sanity dataset currently contains multiple documents per integration
+  // slug (one from each seed-script run, plus drafts). The published per-slug
+  // detail page is resolved via getIntegrationPageBySlug([0]); we replicate
+  // that "first-wins" behavior here so the index matches what /integrations/x
+  // actually renders.
   const bySlug = new Map<string, IntegrationListItem>();
   for (const item of items) {
     if (!item?.slug || !item?.name) continue;
     if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
   }
   const lines: string[] = [
-    "Add comments, co-editing, presence, and agent review to any editor, grid, canvas, or chart, for your users and your AI agents, or bring your own surface. Each integration anchors Velt's review primitives to the surface you already render.",
+    "Velt connects to the tools your team already uses: Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment, and more. Each integration ships with a working drop-in flow you can configure from the Velt dashboard.",
     "",
     "## Integrations",
   ];
   for (const item of bySlug.values()) {
-    const suffix = item.beta ? " (beta)" : "";
+    const meta = [item.category, item.tagline]
+      .map((s) => clean(s ?? ""))
+      .filter(Boolean)
+      .join(": ");
+    const suffix = meta ? `: ${meta}` : "";
     lines.push(
-      `- [${item.name}${suffix}](${SITE_URL}/integrations/${item.slug})`
+      `- [${item.name}](${SITE_URL}/integrations/${item.slug})${suffix}`
     );
   }
   return {
@@ -1924,7 +1917,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
         `*[_type == "migrationPage" && defined(slug.current)].slug.current`
       )
       .catch(() => [] as string[]),
-    getAllIntegrationLibrarySlugs().catch(() => [] as string[]),
+    getAllIntegrationSlugs().catch(() => [] as string[]),
   ]);
 
   for (const post of blogPosts as Array<{ slug: string }>) {

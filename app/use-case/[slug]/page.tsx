@@ -1,33 +1,20 @@
-// Dynamic per-use-case detail page driven by Sanity. One useCasePage
-// document per route. Composition mirrors the Figma 2026 template —
-// middle of the page is a stack of 2-column feature rows (Build /
-// Review / Approve), followed by a fixed `AllLibraries` block (data
-// from components/library/shared-content.ts, gated on
-// `showLibrarySection`). Standard chrome (CustomerUI / Security /
-// CustomerCarousel / FAQ / GetStartedSteps / Footer) lives outside
-// the array as toggleable fixed blocks.
+// /use-case/[slug] detail — reskinned to the new editorial theme (.vlp / .vfp).
+// One Sanity `useCasePage` document per route. The document is mapped to the
+// typed UseCaseSpokeContent (lib/use-case-v2/to-content.tsx) and rendered by
+// UseCaseSpokeView, which reuses the homepage Nav/Footer and the feature-page
+// logo strip, testimonial wall, enterprise strip, FAQ, and final CTA. The
+// show* toggles carry over via the mapper. JSON-LD + metadata are preserved.
 
 import { notFound } from "next/navigation";
 
-import { Footer } from "@/components/home/Footer";
-import { Security } from "@/components/home/Security";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { CustomerUI } from "@/components/home/CustomerUI";
-import { PageHero } from "@/components/library/PageHero";
-import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import { AllLibraries } from "@/components/library/AllLibraries";
+import UseCaseSpokeView from "@/components/use-case-new/UseCaseSpokeView";
 import {
-  allLibraryCards,
-  libraryTabs,
-} from "@/components/library/shared-content";
-
+  toUseCaseSpokeContent,
+  type UseCasePageDoc,
+} from "@/lib/use-case-v2/to-content";
+import { buildUseCaseLibrariesContent } from "@/components/use-case-new/content";
 import {
-  UseCaseSections,
-  type UseCaseSectionDoc,
-} from "@/components/use-case/UseCaseSections";
-import {
+  getAllLibrariesV2,
   getAllUseCaseSlugs,
   getUseCasePageBySlug,
 } from "@/sanity/queries";
@@ -42,80 +29,16 @@ import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
 
-type CtaLink = {
-  label?: string;
-  href?: string;
-  newTab?: boolean;
-};
-
-type BenefitDoc = {
-  _key?: string;
-  tag?: string | null;
-  title?: string | null;
-  description?: string | null;
-  imageSrc?: string | null;
-  useCases?: Array<{
-    _key?: string;
-    name?: string | null;
-    link?: string | null;
-    imageSrc?: string | null;
-  }> | null;
-};
-
-type UseCasePageDoc = {
-  title: string;
-  slug: string;
-  hero: {
-    eyebrow?: string;
-    heading: string;
-    subheading?: string;
-    decorated?: boolean;
-    primaryCta?: CtaLink;
-    secondaryCta?: CtaLink;
-  };
-  sections: UseCaseSectionDoc[];
-  /** Framer-shaped per-page content. Each benefit becomes a feature
-   *  row in the white middle section. See `mapBenefitsToSections`. */
-  benefits?: BenefitDoc[] | null;
-  showLibrarySection?: boolean;
-  showCustomerUI?: boolean;
-  showSecurity?: boolean;
-  showCustomerCarousel?: boolean;
-  faq?: { items?: FaqEntry[] };
-  metaTitle?: string;
-  metaDescription?: string;
-  ogImage?: string;
-};
-
-// Eyebrow fallback when a benefit has no `tag` set — matches the
-// Build/Review/Approve pattern the existing seed (Video Editor) used.
-// 4th slot handles the upper bound of the schema array (max 4 benefits).
-const DEFAULT_BENEFIT_EYEBROWS = ["Build", "Review", "Approve", "Scale"];
-
-function mapBenefitsToSections(
-  benefits?: BenefitDoc[] | null,
-): UseCaseSectionDoc[] {
-  if (!benefits || benefits.length === 0) return [];
-  return benefits.map((b, i) => ({
-    _key: b._key ?? `benefit-row-${i}`,
-    eyebrow: b.tag ?? DEFAULT_BENEFIT_EYEBROWS[i] ?? "",
-    heading: b.title ?? "",
-    description: b.description ?? "",
-    features: (b.useCases ?? [])
-      .filter((uc): uc is { _key?: string; name?: string | null; link?: string | null } => Boolean(uc?.name))
-      .map((uc, j) => ({
-        _key: uc._key ?? `${b._key ?? `benefit-${i}`}-chip-${j}`,
-        label: uc.name as string,
-        href: uc.link ?? null,
-      })),
-    image: b.imageSrc ?? null,
-    imagePosition: i % 2 === 0 ? "right" : "left",
-  }));
-}
+const BASE_PATH = "/use-case";
 
 export async function generateStaticParams() {
-  const slugs = await getAllUseCaseSlugs();
-  return slugs.map((slug) => ({ slug }));
+  try {
+    const slugs = await getAllUseCaseSlugs();
+    return slugs.map((slug) => ({ slug }));
+  } catch (error) {
+    console.error("generateStaticParams failed", error);
+    return [];
+  }
 }
 
 export async function generateMetadata({
@@ -123,35 +46,56 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  const doc = (await getUseCasePageBySlug(slug)) as UseCasePageDoc | null;
-  if (!doc) return {};
-  const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
-  const description = doc.metaDescription ?? doc.hero.subheading ?? "";
-  return buildPageMetadata({
-    title,
-    description,
-    path: `/use-case/${slug}`,
-    ogImage: doc.ogImage ?? undefined,
-  });
+  try {
+    const { slug } = await params;
+    const doc = (await getUseCasePageBySlug(slug)) as
+      | (UseCasePageDoc & { metaTitle?: string; metaDescription?: string; ogImage?: string })
+      | null;
+    if (!doc) return {};
+    const title = doc.metaTitle ?? `${doc.hero?.heading ?? ""} | Velt`;
+    const description = doc.metaDescription ?? doc.hero?.subheading ?? "";
+    return buildPageMetadata({
+      title,
+      description,
+      path: `${BASE_PATH}/${slug}`,
+      ogImage: doc.ogImage ?? undefined,
+    });
+  } catch (error) {
+    console.error("generateMetadata failed", error);
+    return {};
+  }
 }
 
+/**
+ * Dynamic use-case detail page. Fetches the useCasePage document, maps it to
+ * UseCaseSpokeContent, and renders the new-theme view with WebPage,
+ * BreadcrumbList, and FAQPage structured data.
+ * @param {{ params: Promise<{ slug: string }> }} props Route params.
+ * @returns {Promise<JSX.Element>} The rendered use-case detail page.
+ */
 export default async function UseCaseSlugPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const doc = (await getUseCasePageBySlug(slug)) as UseCasePageDoc | null;
+  const doc = (await getUseCasePageBySlug(slug)) as
+    | (UseCasePageDoc & { metaTitle?: string; metaDescription?: string })
+    | null;
 
   if (!doc?.hero?.heading) notFound();
 
-  const showLibrarySection = doc.showLibrarySection !== false;
-  const showCustomerUI = doc.showCustomerUI !== false;
-  const showSecurity = doc.showSecurity !== false;
-  const showCustomerCarousel = doc.showCustomerCarousel !== false;
+  const content = toUseCaseSpokeContent(doc);
 
-  const pageUrl = `${SITE_URL}/use-case/${slug}`;
+  // The libraries grid is CMS-driven from the libraryPageV2 collection (the
+  // same roster that powers /libraries), so it always reflects every published
+  // surface library instead of a static subset.
+  if (content.libraries) {
+    const libraryRoster = await getAllLibrariesV2();
+    content.libraries = buildUseCaseLibrariesContent(libraryRoster);
+  }
+
+  const pageUrl = `${SITE_URL}${BASE_PATH}/${slug}`;
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
     { name: "Use Cases", url: `${SITE_URL}/use-case` },
@@ -159,66 +103,31 @@ export default async function UseCaseSlugPage({
   ]);
   const webpage = buildWebPageSchema({
     name: doc.metaTitle ?? `${doc.hero.heading} | Velt`,
-    description: doc.metaDescription ?? doc.hero.subheading,
+    description: doc.metaDescription ?? doc.hero.subheading ?? undefined,
     url: pageUrl,
     breadcrumb,
   });
-  const faqSchema = buildFaqPageSchemaFromEntries(doc.faq?.items ?? []);
+  const faqSchema = buildFaqPageSchemaFromEntries(
+    (doc.faq?.items ?? []).map((item) => ({
+      question: item?.question ?? "",
+      answer: item?.answer ?? "",
+    })),
+  );
 
   return (
     <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-use-case-slug-webpage" data={webpage} />
       <JsonLd id="ld-use-case-slug-breadcrumb" data={breadcrumb} />
       <JsonLd id="ld-use-case-slug-faq" data={faqSchema} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated={doc.hero.decorated !== false}
-          eyebrow={
-            doc.hero.eyebrow ? { label: doc.hero.eyebrow } : undefined
-          }
-          heading={doc.hero.heading}
-          subheading={doc.hero.subheading}
-          primaryCta={doc.hero.primaryCta}
-          secondaryCta={doc.hero.secondaryCta}
-        />
 
-        <TrustedLogos />
-
-        {(() => {
-          // Prefer per-page benefits[] (Nathan's manual port content)
-          // over the legacy sections[] scaffold which is identical
-          // across most of the 13 ported docs. Fall back to sections[]
-          // when benefits[] is absent so the Video Editor seed and any
-          // future legacy-only docs still render.
-          const mappedBenefitRows = mapBenefitsToSections(doc.benefits);
-          const rows = mappedBenefitRows.length > 0
-            ? mappedBenefitRows
-            : (doc.sections ?? []);
-          return <UseCaseSections sections={rows} />;
-        })()}
-
-        {showCustomerUI ? <CustomerUI /> : null}
-
-        {showLibrarySection ? (
-          <AllLibraries
-            heading="Works seamlessly with your libraries"
-            subheading="Use 8+ purpose-built libraries — or integrate it yourself."
-            items={allLibraryCards}
-            tabs={libraryTabs}
-          />
-        ) : null}
-
-        {showSecurity ? <Security /> : null}
-
-        <section data-getstarted>
-          {showCustomerCarousel ? <FeatureCustomerCarousel /> : null}
-          <LibraryFAQ items={doc.faq?.items ?? []} />
-          <GetStartedSteps />
-          <Footer />
-        </section>
-      </div>
+      <UseCaseSpokeView content={content} />
     </>
   );
 }

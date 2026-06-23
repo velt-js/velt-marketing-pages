@@ -1,126 +1,174 @@
-// Redesigned per-integration spoke at /integrations/{slug}, driven by the
-// Sanity `integrationLibrary` collection and rendered by the shared SpokeView.
-// Adding a new integration is a matter of seeding a doc
-// (scripts/seed-integration-libraries.mjs) — no new code required. The legacy
-// tool-connection detail pages now live at /integrations-old/{slug}.
+// Dynamic per-integration page driven by Sanity. One integrationPage document
+// per route, composed of generic marketing sections (PageHero, TrustedLogos,
+// IntegrationConnectSection, Security, testimonial carousel, FAQ, Get Started)
+// that mirror the live velt.dev/integrations/{slug} layout. Adding a new
+// integration is a matter of running scripts/seed-integrations.mjs — no new
+// code required.
 
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import SpokeView from "@/components/integrations-new/SpokeView";
-import { toSpokeContent } from "@/lib/integrations-v2/to-spoke-content";
-import type {
-  RawSpoke,
-  RosterRow,
-} from "@/lib/integrations-v2/to-spoke-content";
+import { Footer } from "@/components/home/Footer";
+import { Security } from "@/components/home/Security";
+import { GetStartedSteps } from "@/components/home/GetStartedSteps";
+import { TrustedLogos } from "@/components/home/TrustedLogos";
+import { PageHero } from "@/components/library/PageHero";
+import { AllLibraries } from "@/components/library/AllLibraries";
+import { LibraryFAQ, type FaqEntry } from "@/components/library/LibraryFAQ";
+import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import { sharedFAQ } from "@/components/library/shared-content";
+import { IntegrationConnectSection } from "@/components/integration/IntegrationConnectSection";
 import {
-  getAllIntegrationLibraries,
-  getAllIntegrationLibrarySlugs,
-  getIntegrationLibraryBySlug,
+  allIntegrationCards,
+  integrationTabs,
+} from "@/components/integration/shared-content";
+import {
+  getAllIntegrationSlugs,
+  getIntegrationPageBySlug,
 } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
-import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import {
   SITE_URL,
   buildBreadcrumbList,
-  buildFaqPageSchemaFromEntries,
-  buildHowToSchema,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
 export const revalidate = 60;
 
+type IntegrationPageDoc = {
+  name: string;
+  slug: string;
+  category?: string;
+  heroTitle?: string;
+  tagline?: string;
+  description?: string;
+  logo?: string;
+  demoUrl?: string;
+  githubUrl?: string;
+  docsUrl?: string;
+  codeSnippet?: string;
+  connectBody?: string;
+  connectImage?: string;
+  payloadBody?: string;
+  payloadImage?: string;
+  unifiedBody?: string;
+  unifiedImage?: string;
+};
+
 export async function generateStaticParams() {
-  try {
-    const slugs = await getAllIntegrationLibrarySlugs();
-    return slugs.map((slug) => ({ slug }));
-  } catch (error) {
-    console.error("integrations generateStaticParams failed", error);
-    return [];
-  }
+  const slugs = await getAllIntegrationSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  try {
-    const { slug } = await params;
-    const doc = (await getIntegrationLibraryBySlug(slug)) as RawSpoke | null;
-    if (!doc) return {};
-    const title = doc.metaTitle ?? `${doc.heroTitle ?? doc.name} | Velt`;
-    const description = doc.metaDescription ?? doc.heroSecondary ?? undefined;
-    return buildPageMetadata({
-      title,
-      description: description ?? "",
-      path: `/integrations/${slug}`,
-    });
-  } catch (error) {
-    console.error("integrations spoke generateMetadata failed", error);
-    return {};
-  }
+}) {
+  const { slug } = await params;
+  const doc = (await getIntegrationPageBySlug(
+    slug,
+  )) as IntegrationPageDoc | null;
+  if (!doc) return {};
+  const title = doc.heroTitle ?? `Integrate Velt in ${doc.name}`;
+  const description = doc.description ?? doc.tagline;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/integrations/${slug}` },
+    openGraph: {
+      url: `https://velt.dev/integrations/${slug}`,
+      title: `${title} | Velt`,
+      description,
+    },
+  };
 }
 
-export default async function IntegrationSpokePage({
+export default async function IntegrationPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [doc, roster] = await Promise.all([
-    getIntegrationLibraryBySlug(slug) as Promise<RawSpoke | null>,
-    getAllIntegrationLibraries() as Promise<RosterRow[]>,
-  ]);
+  const doc = (await getIntegrationPageBySlug(
+    slug,
+  )) as IntegrationPageDoc | null;
 
   if (!doc) {
     notFound();
   }
 
-  const content = toSpokeContent(doc, roster ?? []);
+  const ownPath = `/integrations/${slug}`;
+  const otherIntegrations = allIntegrationCards.filter(
+    (card) => card.learnMoreHref !== ownPath,
+  );
+
+  const faqItems: FaqEntry[] = sharedFAQ;
+
+  const heroHeading = doc.heroTitle ?? `Integrate Velt in ${doc.name}`;
+  const heroSubheading =
+    doc.description ?? `Write 6 lines to integrate Velt in ${doc.name}`;
 
   const pageUrl = `${SITE_URL}/integrations/${slug}`;
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
     { name: "Integrations", url: `${SITE_URL}/integrations` },
-    { name: content.name, url: pageUrl },
+    { name: doc.name, url: pageUrl },
   ]);
   const webpage = buildWebPageSchema({
-    name: content.metaTitle ?? `${content.heroTitle} | Velt`,
-    description: content.metaDescription ?? content.heroSecondary,
+    name: `${heroHeading} | Velt`,
+    description: heroSubheading,
     url: pageUrl,
     breadcrumb,
   });
-  const faqSchema = buildFaqPageSchemaFromEntries(content.faq);
-  const howTo =
-    content.kind === "surface"
-      ? buildHowToSchema({
-          name: `Add Velt to ${content.name}`,
-          steps: [
-            `Install the SDK and the surface adapter: npm install ${content.setupPackages ?? "@veltdev/react"}`,
-            "Wrap your app in VeltProvider with your API key and set the document.",
-            `Mount the Velt primitive on ${content.name}, and the CRDT adapter for co-editing.`,
-          ],
-        })
-      : null;
 
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-      />
+      <JsonLd id="ld-integration-webpage" data={webpage} />
+      <JsonLd id="ld-integration-breadcrumb" data={breadcrumb} />
+      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
+        <PageHero
+          decorated
+          heading={heroHeading}
+          subheading={heroSubheading}
+          primaryCta={{
+            label: "Get Free API Key",
+            href: "https://console.velt.dev/",
+            newTab: true,
+          }}
+          secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
+        />
 
-      <JsonLd id={`ld-integration-${slug}-webpage`} data={webpage} />
-      <JsonLd id={`ld-integration-${slug}-breadcrumb`} data={breadcrumb} />
-      <JsonLd id={`ld-integration-${slug}-faq`} data={faqSchema} />
-      {howTo ? (
-        <JsonLd id={`ld-integration-${slug}-howto`} data={howTo} />
-      ) : null}
+        <div style={{ marginTop: 80 }}>
+          <TrustedLogos />
+        </div>
 
-      <SpokeView content={content} />
+        <IntegrationConnectSection
+          name={doc.name}
+          connectBody={doc.connectBody}
+          connectImage={doc.connectImage}
+          payloadBody={doc.payloadBody}
+          payloadImage={doc.payloadImage}
+          unifiedBody={doc.unifiedBody}
+          unifiedImage={doc.unifiedImage}
+        />
+
+        <Security />
+
+        <FeatureCustomerCarousel />
+
+        <LibraryFAQ items={faqItems} />
+
+        <GetStartedSteps />
+
+        <AllLibraries
+          heading="Explore Other Integrations"
+          items={otherIntegrations}
+          tabs={integrationTabs}
+          hideLearnMore={false}
+        />
+
+        <Footer />
+      </div>
     </>
   );
 }
