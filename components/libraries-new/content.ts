@@ -4,7 +4,7 @@ import type { ShowcaseCard as ShowcaseCardData } from "@/components/feature-new/
 import type { InstallStep } from "@/components/home-new/InstallTimeline";
 
 // Typed content contracts for the redesigned integrations hub + spoke pages.
-// Mappers in lib/integrations-v2/* turn Sanity docs (integrationLibrary,
+// Mappers in lib/libraries-v2/* turn Sanity docs (integrationLibrary,
 // integrationsHubPage) into these shapes; HubView / SpokeView render them.
 // Mirrors the feature-new/content.ts approach (CMS-driven, byte-stable).
 

@@ -1,5 +1,5 @@
 import { buildSpokeHeroVisual } from "./hero-visual";
-import { toFeatureShowcaseCards } from "@/components/integrations-new/feature-artifacts";
+import { toFeatureShowcaseCards } from "@/components/libraries-new/feature-artifacts";
 import type { InstallStep } from "@/components/home-new/InstallTimeline";
 import type {
   Capabilities,
@@ -8,7 +8,7 @@ import type {
   RelatedSpoke,
   SpokeContent,
   SpokeKind,
-} from "@/components/integrations-new/content";
+} from "@/components/libraries-new/content";
 
 // Maps a Sanity `integrationLibrary` document (see sanity/queries.ts
 // getIntegrationLibraryBySlug) plus the lightweight roster (getAllIntegration

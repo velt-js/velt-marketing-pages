@@ -41,6 +41,10 @@ Velt is built for products where work cannot ship unapproved: sales enablement, 
 - [Operations](https://velt.dev/for/operations.md)
 - [AI-native SaaS](https://velt.dev/for/ai-native-saas.md)
 
+## Libraries
+
+- [Libraries](https://velt.dev/libraries.md): add comments, co-editing, presence, and agent review to Tiptap, Lexical, Monaco, CodeMirror, AG Grid, React Flow, PDFs, charts, and more, or bring your own surface
+
 ## Company
 
 - [Pricing](https://velt.dev/pricing.md): usage-based on monthly active documents, free tier

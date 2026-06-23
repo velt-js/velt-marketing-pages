@@ -7,7 +7,7 @@ import type {
   TestimonialContent,
 } from "@/components/feature-new/content";
 import { allLibraryCards, libraryTabs } from "@/components/library/shared-content";
-import { libraryLogo } from "@/components/integrations-new/library-logos";
+import { libraryLogo } from "@/components/libraries-new/library-logos";
 
 // Typed content contract for the new-theme Use Case pages (hub index +
 // per-use-case detail). Sections that match the feature-page system 1:1 reuse

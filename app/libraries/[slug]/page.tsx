@@ -34,9 +34,9 @@ import {
 } from "@/components/library/shared-content";
 import { illustrationRegistry } from "@/components/library/illustrations/registry";
 import type { IllustrationKey } from "@/components/library/illustrations/keys";
-import SpokeView from "@/components/integrations-new/SpokeView";
-import { toSpokeContent } from "@/lib/integrations-v2/to-spoke-content";
-import type { RawSpoke, RosterRow } from "@/lib/integrations-v2/to-spoke-content";
+import SpokeView from "@/components/libraries-new/SpokeView";
+import { toSpokeContent } from "@/lib/libraries-v2/to-spoke-content";
+import type { RawSpoke, RosterRow } from "@/lib/libraries-v2/to-spoke-content";
 import {
   getAllLibrarySlugs,
   getAllLibraryV2Slugs,

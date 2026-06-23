@@ -6,9 +6,9 @@
 
 import type { Metadata } from "next";
 
-import HubView from "@/components/integrations-new/HubView";
-import { toHubContent } from "@/lib/integrations-v2/to-hub-content";
-import type { RosterRow } from "@/lib/integrations-v2/to-spoke-content";
+import HubView from "@/components/libraries-new/HubView";
+import { toHubContent } from "@/lib/libraries-v2/to-hub-content";
+import type { RosterRow } from "@/lib/libraries-v2/to-spoke-content";
 import { getAllLibrariesV2, getLibrariesHubPage } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";

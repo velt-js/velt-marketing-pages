@@ -23,6 +23,8 @@ import {
   getAllFeatureV2Slugs,
   getAllIntegrationSlugs,
   getAllLibraryPages,
+  getAllLibrariesV2,
+  getAllLibraryV2Slugs,
   getAllSolutionSlugs,
   getAllUseCasePages,
   getBlogPostBySlug,
@@ -31,6 +33,7 @@ import {
   getFeaturePageV2BySlug,
   getIntegrationPageBySlug,
   getLibraryPageBySlug,
+  getLibraryPageV2BySlug,
   getMigrationPageBySlug,
   getSolutionPageBySlug,
   getUseCasePageBySlug,
@@ -825,6 +828,82 @@ async function libraryMarkdown(slug: string): Promise<PageMarkdown | null> {
   };
 }
 
+type LibraryV2Doc = {
+  name?: string;
+  kind?: string;
+  beta?: boolean;
+  heroTitle?: string;
+  heroSecondary?: string;
+  problemHeader?: string;
+  problemBody?: string;
+  builtForLine?: string;
+  featureCards?: Array<{ title?: string; body?: string; featureHref?: string }>;
+  agentsCardBody?: string;
+  setupPackages?: string;
+  valueProps?: string[];
+  setupNote?: string;
+  faq?: Array<{ question?: string; answer?: string }>;
+};
+
+// .md mirror for the v2 libraries (libraryPageV2). Built from the same fields
+// the SpokeView renders, so /libraries/{slug}.md matches the page.
+async function libraryV2Markdown(slug: string): Promise<PageMarkdown | null> {
+  const doc = (await getLibraryPageV2BySlug(slug)) as LibraryV2Doc | null;
+  if (!doc?.name) return null;
+  const betaSuffix = doc.beta ? " (beta)" : "";
+  const title = `${doc.heroTitle ?? `Velt for ${doc.name}`}${betaSuffix}`;
+  const parts: string[] = [];
+  if (doc.heroSecondary) parts.push(clean(doc.heroSecondary));
+  if (doc.problemBody) {
+    parts.push(heading(2, doc.problemHeader ?? `Why build with Velt on ${doc.name}`));
+    parts.push(clean(doc.problemBody));
+  }
+  if (doc.builtForLine) {
+    parts.push(heading(2, `Built for ${doc.name}`));
+    parts.push(clean(doc.builtForLine));
+  }
+  if (doc.featureCards && doc.featureCards.length > 0) {
+    parts.push(heading(2, "Features"));
+    parts.push(
+      doc.featureCards
+        .map((card) => {
+          const body = card.body ? `: ${clean(card.body)}` : "";
+          const href = card.featureHref ? ` (${SITE_URL}${card.featureHref})` : "";
+          return `- **${clean(card.title ?? "")}**${body}${href}`;
+        })
+        .join("\n"),
+    );
+  }
+  if (doc.agentsCardBody) {
+    parts.push(heading(2, "Agents"));
+    parts.push(clean(doc.agentsCardBody));
+  }
+  if (doc.valueProps && doc.valueProps.length > 0) {
+    parts.push(heading(2, "What you get"));
+    parts.push(doc.valueProps.map((prop) => `- ${clean(prop)}`).join("\n"));
+  }
+  if (doc.setupPackages) {
+    parts.push(heading(2, "Setup"));
+    parts.push("```bash\nnpm install " + doc.setupPackages.trim() + "\n```");
+  } else if (doc.setupNote) {
+    parts.push(heading(2, "Setup"));
+    parts.push(clean(doc.setupNote));
+  }
+  if (doc.faq && doc.faq.length > 0) {
+    parts.push(heading(2, "FAQ"));
+    parts.push(
+      doc.faq
+        .map((entry) => `**${clean(entry.question ?? "")}** ${clean(entry.answer ?? "")}`)
+        .join("\n\n"),
+    );
+  }
+  return {
+    url: `${SITE_URL}/libraries/${slug}`,
+    title,
+    markdown: joinSections(parts),
+  };
+}
+
 type MigrationDoc = {
   title?: string;
   tagline?: string;
@@ -1608,19 +1687,29 @@ async function blogIndexMarkdown(): Promise<PageMarkdown> {
 }
 
 async function librariesIndexMarkdown(): Promise<PageMarkdown> {
-  const libs = (await getAllLibraryPages().catch(() => [])) as Array<{
-    slug: string;
-    title: string;
-    category?: string;
-    tagline?: string;
-  }>;
+  const [v2Libs, v1Libs] = await Promise.all([
+    getAllLibrariesV2().catch(() => []) as Promise<
+      Array<{ slug?: string; name?: string; beta?: boolean }>
+    >,
+    getAllLibraryPages().catch(() => []) as Promise<
+      Array<{ slug: string; title: string; tagline?: string }>
+    >,
+  ]);
   const lines: string[] = [
-    "Velt provides 8+ purpose-built libraries that wrap the SDK for specific frameworks, editors, and document types. Use a library to get a drop-in integration in minutes, or use the headless SDK directly.",
+    "Add comments, co-editing, presence, and agent review to any editor, grid, canvas, or chart, for your users and your AI agents, or bring your own surface. Each library anchors Velt's review primitives to the surface you already render.",
     "",
     "## Libraries",
   ];
-  for (const lib of libs) {
-    if (!lib?.slug || !lib?.title) continue;
+  const seen = new Set<string>();
+  for (const lib of v2Libs) {
+    if (!lib?.slug || !lib?.name || seen.has(lib.slug)) continue;
+    seen.add(lib.slug);
+    const tag = lib.beta ? " (beta)" : "";
+    lines.push(`- [${lib.name}${tag}](${SITE_URL}/libraries/${lib.slug})`);
+  }
+  for (const lib of v1Libs) {
+    if (!lib?.slug || !lib?.title || seen.has(lib.slug)) continue;
+    seen.add(lib.slug);
     const tag = lib.tagline ? `: ${clean(lib.tagline)}` : "";
     lines.push(`- [${lib.title}](${SITE_URL}/libraries/${lib.slug})${tag}`);
   }
@@ -1781,7 +1870,10 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
       return await demoMarkdown(segments[1]);
     }
     if (segments[0] === "libraries" && segments.length === 2) {
-      return await libraryMarkdown(segments[1]);
+      return (
+        (await libraryV2Markdown(segments[1])) ??
+        (await libraryMarkdown(segments[1]))
+      );
     }
     if (segments[0] === "use-case" && segments.length === 2) {
       return await useCaseMarkdown(segments[1]);
@@ -1900,6 +1992,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     featurePages,
     solutionSlugs,
     libraryPages,
+    libraryV2Slugs,
     demoPages,
     useCasePages,
     migrationSlugs,
@@ -1910,6 +2003,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     getAllFeaturePages().catch(() => []),
     getAllSolutionSlugs().catch(() => [] as string[]),
     getAllLibraryPages().catch(() => []),
+    getAllLibraryV2Slugs().catch(() => [] as string[]),
     getAllDemoPages().catch(() => []),
     getAllUseCasePages().catch(() => []),
     client
@@ -1949,10 +2043,17 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
       // Skip.
     }
   }
-  for (const lib of libraryPages as Array<{ slug: string }>) {
-    if (!lib?.slug) continue;
+  // /libraries serves v2-first with v1 fallback; enumerate the union once and
+  // resolve each slug the same way the route does (v2 then v1).
+  const allLibrarySlugs = new Set<string>([
+    ...(libraryV2Slugs as string[]),
+    ...(libraryPages as Array<{ slug: string }>)
+      .map((lib) => lib?.slug)
+      .filter((slug): slug is string => Boolean(slug)),
+  ]);
+  for (const slug of allLibrarySlugs) {
     try {
-      const md = await libraryMarkdown(lib.slug);
+      const md = (await libraryV2Markdown(slug)) ?? (await libraryMarkdown(slug));
       if (md) results.push(md);
     } catch {
       // Skip.

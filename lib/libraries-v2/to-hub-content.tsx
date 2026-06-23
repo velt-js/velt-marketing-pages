@@ -10,7 +10,7 @@ import {
   type GridItem,
   type HubContent,
   type MatrixRow,
-} from "@/components/integrations-new/content";
+} from "@/components/libraries-new/content";
 
 // Maps the Sanity `integrationsHubPage` singleton (see getIntegrationsHubPage)
 // plus the library roster into the typed HubContent that HubView renders. The
