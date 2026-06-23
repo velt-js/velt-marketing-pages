@@ -67,11 +67,19 @@ const AVAILABLE_OG_SLUGS: ReadonlySet<string> = (() => {
 // here instead of prerendering pages that never serve. comments/notifications
 // resolve to v2 at the same URL; recordings/multiplayer/activity-logs redirect
 // to /recording, /multiplayer-editing, /audit-trail respectively.
+//
+// admin-console and dev-tools are superseded by the new-theme STATIC routes
+// app/platform and app/devtools (rendered locally from in-repo content, not the
+// CMS). Excluding them here keeps generateStaticParams from emitting /platform
+// and /devtools, which would otherwise collide with those static folders. The
+// v1 CMS docs are left untouched.
 const SUPERSEDED_V1_SLUGS = new Set([
   "comments",
   "recordings",
   "multiplayer",
   "activity-logs",
+  "admin-console",
+  "dev-tools",
 ]);
 
 export async function generateStaticParams() {
