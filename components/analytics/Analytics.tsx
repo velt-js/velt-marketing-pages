@@ -147,8 +147,13 @@ export function Analytics() {
         `}
       </Script>
 
-      {/* 8. reb2b — async loader for visitor identification. */}
-      <Script id="reb2b" strategy="afterInteractive">
+      {/* 8. reb2b — async loader for visitor identification.
+          NOTE: the Script id must NOT be "reb2b". next/script renders an
+          element with that id, and the browser exposes any element id as a
+          window global (window.reb2b), which is truthy. The snippet's guard
+          `if (window.reb2b) return;` would then short-circuit and the loader
+          would never run. Keep this id distinct from the window global. */}
+      <Script id="reb2b-loader" strategy="afterInteractive">
         {`
           !function(key) { if (window.reb2b) return; window.reb2b = { loaded: true }; var s = document.createElement("script"); s.async = true; s.src = "https://b2bjsstore.s3.us-west-2.amazonaws.com/b/" + key + "/" + key + ".js.gz"; document.getElementsByTagName("script")[0].parentNode.insertBefore(s, document.getElementsByTagName("script")[0]); }("Q6J2RHMPWQ6D");
         `}
