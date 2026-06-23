@@ -71,7 +71,7 @@ export default function IntegrationsHubView({ content }: { content: Integrations
               </div>
               <div className="vintg-hero-visual">
                 {heroItems.length > 0 ? (
-                  <div className="vintg-chips">
+                  <div className="vintg-hero-grid">
                     {heroItems.map((item) => (
                       <a
                         key={item.slug}

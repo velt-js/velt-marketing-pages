@@ -149,6 +149,22 @@
 .vintg-hero-visual {
   min-width: 0;
 }
+/* Hero chip cluster as a fixed 3-column grid (3x2 for 6 chips) instead of a
+   ragged flex-wrap row. Each chip fills its cell so the grid reads evenly. */
+.vintg-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-space-2);
+}
+.vintg-hero-grid .vintg-chip {
+  width: 100%;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .vintg-hero-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 
 /* ---- Beta chip ---- */
 .vintg-beta {
