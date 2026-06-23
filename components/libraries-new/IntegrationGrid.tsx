@@ -1,4 +1,4 @@
-import { libraryLogo, isWordmarkLibraryLogo } from "./library-logos";
+import { libraryLogo, isWordmarkLibraryLogo, stackLinkLogo } from "./library-logos";
 import type { GridCategory, GridItem } from "./content";
 
 type IntegrationGridProps = {
@@ -39,6 +39,34 @@ function Chip({ item }: { item: GridItem }) {
       {wordmark ? null : item.name}
       {item.beta ? <span className="vintg-chip-beta">beta</span> : null}
     </a>
+  );
+}
+
+/**
+ * Render a single "works with the rest of your stack" chip. Carries an optional
+ * brand logo (resolved by label) before the always-present text label, matching
+ * the surface/tool Chip styling. Renders as a link when an href is set, else a
+ * static span.
+ * @param {{ label: string; href?: string }} link The stack link.
+ * @returns {JSX.Element} The stack chip.
+ */
+function StackChip({ link }: { link: { label: string; href?: string } }) {
+  const logo = stackLinkLogo(link.label);
+  const inner = (
+    <>
+      {logo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="vintg-chip-logo" src={logo} alt="" aria-hidden="true" />
+      ) : null}
+      {link.label}
+    </>
+  );
+  return link.href ? (
+    <a className="vintg-chip" href={link.href}>
+      {inner}
+    </a>
+  ) : (
+    <span className="vintg-chip">{inner}</span>
   );
 }
 
@@ -153,21 +181,9 @@ export default function IntegrationGrid({
               <div key={group.group}>
                 <p className="vintg-stack-grouplabel">{group.group}</p>
                 <div className="vintg-chips">
-                  {group.links.map((link) =>
-                    link.href ? (
-                      <a
-                        key={link.label}
-                        className="vintg-chip"
-                        href={link.href}
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <span key={link.label} className="vintg-chip">
-                        {link.label}
-                      </span>
-                    ),
-                  )}
+                  {group.links.map((link) => (
+                    <StackChip key={link.label} link={link} />
+                  ))}
                 </div>
               </div>
             ))}

@@ -30,6 +30,33 @@ export const LIBRARY_LOGOS: Record<string, string> = {
   highcharts: `${NAV}/highcharts.svg`,
   nivo: `${NAV}/nivocharts.svg`,
   "chat-sdk": `${NAV}/vercel.svg`,
+  // "Build with Velt" plugin spokes (dev-time tooling).
+  cursor: `${NAV}/cursor.svg`,
+  claude: `${NAV}/claude.svg`,
+};
+
+// Maps a "Works with the rest of your stack" link label to its brand logo in
+// the same nav-icons set. Keyed by the chip's display label (the stack links
+// carry no slug), so keep these in sync with the authored stackLinks labels in
+// scripts/integrations-hub-content.json. Labels with no bundled logo fall back
+// to a text-only chip.
+export const STACK_LINK_LOGOS: Record<string, string> = {
+  "Sync (Yjs)": `${NAV}/yjs.svg`,
+  Slack: `${NAV}/slack.svg`,
+  Teams: `${NAV}/microsoftteams.svg`,
+  Discord: `${NAV}/discord.svg`,
+  Resend: `${NAV}/resend.svg`,
+  "Customer.io": `${NAV}/customerio.svg`,
+  SendGrid: `${NAV}/sendgrid.svg`,
+  Firebase: `${NAV}/firebase.svg`,
+  Supabase: `${NAV}/supabase.svg`,
+  Clerk: `${NAV}/clerk.svg`,
+  Auth0: `${NAV}/auth0.svg`,
+  React: `${NAV}/react.svg`,
+  "Next.js": `${NAV}/nextdotjs.svg`,
+  Vue: `${NAV}/vuedotjs.svg`,
+  Angular: `${NAV}/angular.svg`,
+  "Plain HTML": `${NAV}/html5.svg`,
 };
 
 // Slugs whose bundled logo is a wordmark (the brand name is already in the
@@ -59,6 +86,20 @@ export function libraryLogo(
     return cmsLogo ?? LIBRARY_LOGOS[slug];
   } catch (error) {
     console.error("libraryLogo failed", error);
+    return undefined;
+  }
+}
+
+/**
+ * Resolve a stack-link chip's brand logo path by its display label.
+ * @param {string} label The stack link's display label (e.g. "Slack").
+ * @returns {string | undefined} The logo path, or undefined when none exists.
+ */
+export function stackLinkLogo(label: string): string | undefined {
+  try {
+    return STACK_LINK_LOGOS[label];
+  } catch (error) {
+    console.error("stackLinkLogo failed", error);
     return undefined;
   }
 }
