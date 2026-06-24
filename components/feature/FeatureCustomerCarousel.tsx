@@ -67,7 +67,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
     customerLogoSrc: "/images/features/comments/trust-us/logo-google.png",
     pullQuote:
       "Velt’s commenting & notification features are bundled with a lot of magic",
-    body: "Velt gave us 1-on-1 attention in our own private slack channel. The team was quick to add new features that we needed (thanks for the category feature!) We were extremely happy with how customizable Velt’s components were, allowing us to keep a cohesive look and feel to our product. Highly recommended.",
+    body: "Velt gave us 1-on-1 attention in our own private Slack channel. The team was quick to add new features that we needed (thanks for the category feature!) We were extremely happy with how customizable Velt’s components were, allowing us to keep a cohesive look and feel to our product. Highly recommended.",
     authorName: "Yuri Kleban",
     authorRole: "Sr. Product Manager @Google",
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-yuri.png",
@@ -83,7 +83,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
   {
     customerLogoSrc: "/images/features/comments/trust-us/logo-metaimpact.png",
     pullQuote: "Increased weekly active users by 26%",
-    body: "Velt gave us 1-on-1 attention in our own private slack channel. The team was quick to add new features that we needed (thanks for the category feature!) We were extremely happy with how customizable Velt’s components were, allowing us to keep a cohesive look and feel to our product. Highly recommended.",
+    body: "Velt gave us 1-on-1 attention in our own private Slack channel. The team was quick to add new features that we needed (thanks for the category feature!) We were extremely happy with how customizable Velt’s components were, allowing us to keep a cohesive look and feel to our product. Highly recommended.",
     authorName: "Jeff Cunning",
     authorRole: "CPO @MetaImpact",
     authorAvatarSrc: "/images/features/comments/trust-us/avatar-jeff.png",
@@ -132,7 +132,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
   {
     customerLogoSrc: "/images/features/comments/trust-us/logo-awesomic.png",
     pullQuote:
-      "We were able to launch 5x times faster than building from scratch.",
+      "We were able to launch 5x faster than building from scratch.",
     body: "Velt is a great product that sped up our feature development. It's saved us weeks of work.",
     authorName: "Roman Sevast",
     authorRole: "CEO @Awesomic",
@@ -141,7 +141,7 @@ const TRUST_DEFAULTS: FeatureCustomerCarouselCard[] = [
   {
     customerLogoSrc: "/images/features/comments/trust-us/logo-marco.png",
     pullQuote:
-      "With Velt, a single engineer could build comments feature in a few minutes.",
+      "With Velt, a single engineer could build a comments feature in a few minutes.",
     body: "Velt is outstanding! It helped us enable clear and quick communication with customers. With Velt, a single engineer could add comments in a few minutes without help from Product or Design. The docs were clear and straightforward. We spent only a few minutes making Comments work.",
     authorName: "Weller Miranda",
     authorRole: "Sr. Software Engineer @Marco",

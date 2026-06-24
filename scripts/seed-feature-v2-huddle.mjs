@@ -138,7 +138,7 @@ const doc = {
     ),
     mechanics: {
       heading: "The mechanics",
-      body: "The VeltHuddleTool button starts a huddle on the current document; teammates in the same document join from where they already are. The type config sets what a huddle carries: audio, video, screen, or all (default all). An ephemeral chat is on by default and toggles by prop or API. Calls run peer-to-peer and fall back to a server-side connection automatically (serverFallback, default on). Clicking a participant\u2019s avatar can start Follow Me mode (flockModeOnAvatarClick, default off). Every huddle created or joined fires a webhook with the acting user, document id, and page metadata.",
+      body: "The VeltHuddleTool button starts a huddle on the current document; teammates in the same document join from where they already are. The type config sets what a huddle carries: audio, video, screen, or all (default all). An ephemeral chat is on by default and toggles by prop or API. Calls run peer-to-peer and fall back to a server-side connection automatically (serverFallback, default on). Clicking a participant\u2019s avatar can start Follow Me mode (flockModeOnAvatarClick, default off). Every huddle created or joined fires a webhook with the acting user, document ID, and page metadata.",
       microcopy: "// VeltHuddleTool starts a huddle on the current document",
     },
     buildVsBuy: {
@@ -264,7 +264,7 @@ const doc = {
           name: "Huddles scoped to the document",
           codeKicker: "// scoped",
           headline:
-            "A huddle belongs to the document it started on; every event carries the document id and page metadata. The conversation about the filing stays attached to the filing.",
+            "A huddle belongs to the document it started on; every event carries the document ID and page metadata. The conversation about the filing stays attached to the filing.",
           preview: "huddle/showcase/scoped",
           code: '// every event carries documentId\n// and page metadata',
         },
@@ -322,7 +322,7 @@ const doc = {
         { label: "Built-in ephemeral chat, default on, with enableChat and disableChat APIs" },
         { label: "Follow Me mode on avatar click (flockModeOnAvatarClick, default off)" },
         { label: "Peer-to-peer transport with automatic server-side fallback (serverFallback, default on)" },
-        { label: "Webhooks on huddle created and joined: actionUser, document id, locations, page info" },
+        { label: "Webhooks on huddle created and joined: actionUser, document ID, locations, page info" },
         { label: "VeltHuddleTool placeable anywhere in your UI" },
         { label: "Web components (velt-huddle, velt-huddle-tool) for non-React frameworks" },
         { label: "UI customization via huddle wireframe parts, slots, and template variables" },
@@ -461,7 +461,7 @@ const doc = {
 
   enterprise: {
     badges: ["SOC 2 Type II", "HIPAA", "EU data residency", "Self-host identity"],
-    line: "User identity behind every participant can stay on your infrastructure via the users data provider, with Velt storing only user IDs. Huddle runs on the same SOC 2 controls and isolation guarantees as the rest of the SDK.",
+    line: "User identity behind every participant can stay on your infrastructure via the user's data provider, with Velt storing only user IDs. Huddle runs on the same SOC 2 controls and isolation guarantees as the rest of the SDK.",
     links: keyed([cta("self-hosting", "/self-hosting"), cta("governance", "/governance")]),
     cta: cta("Book Demo", "/book-demo"),
   },
@@ -533,7 +533,7 @@ const doc = {
         {
           question: "Can I track huddle activity in my own systems?",
           answer:
-            "Yes. Velt fires a webhook when a huddle is created or joined, with the acting user, document id, and page metadata in the payload. Pipe it into analytics or your audit pipeline.",
+            "Yes. Velt fires a webhook when a huddle is created or joined, with the acting user, document ID, and page metadata in the payload. Pipe it into analytics or your audit pipeline.",
         },
         {
           question: "What does it cost to add huddles?",

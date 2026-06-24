@@ -17,12 +17,12 @@ export const sharedFAQ: FaqEntry[] = [
   {
     question: "What counts as an active collaborator?",
     answer:
-      "An active collaborator is a unique user who has has performed CRUD operations on any Velt Feature during the month. We charge for each user only once, regardless of the number of sessions they have.\n\nNote: This excludes users who merely connect without performing CRUD operations on features like comments, notifications, CRDT, etc.",
+      "An active collaborator is a unique user who has performed CRUD operations on any Velt Feature during the month. We charge for each user only once, regardless of the number of sessions they have.\n\nNote: This excludes users who merely connect without performing CRUD operations on features like comments, notifications, CRDT, etc.",
   },
   {
     question: "How does Velt's pricing model differ from MAU-based pricing?",
     answer:
-      "MAU (Monthly Active User): Some providers charge you by all of your MAUs. Even if your users connect to their servers, they will charge you whether or not your user actually collaborated using their feature.\n\nMAC (Monthly Active Collaborator): We use this. A more specific metric representing users who actively utilize Velt's collaboration features within your application during a month.\n\nMAC is a subset of MAU. Typically, about 20% of MAUs perform meaningful collaboration actions on average. This varies by product category, with some higher or lower.\n\nVelt's MAC-based pricing ensures you're billed only for users who derive value from our collaboration features, offering a more cost-effective and transparent alternative to MAU-based models.",
+      "MAU (Monthly Active User): Some providers charge you for all your MAUs. Even if your users connect to their servers, they will charge you whether or not those users actually collaborated using their features.\n\nMAC (Monthly Active Collaborator): We use this. A more specific metric representing users who actively utilize Velt's collaboration features within your application during a month.\n\nMAC is a subset of MAU. Typically, about 20% of MAUs perform meaningful collaboration actions. This varies by product category, with some higher or lower.\n\nVelt's MAC-based pricing ensures you're billed only for users who derive value from our collaboration features, offering a more cost-effective and transparent alternative to MAU-based models.",
   },
   {
     question: "Do I get billed for users who only connect but don't collaborate?",

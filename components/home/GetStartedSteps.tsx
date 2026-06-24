@@ -20,7 +20,7 @@ const HOPE_CALLAWAY: TestimonialStripProps = {
   role: "Senior PM @Leadpages",
   avatarSrc: "/images/features/comments/trust-us/avatar-hope.png",
   quote:
-    "With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
+    "With Velt, implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
   accentFragment: "",
 };
 
@@ -38,7 +38,7 @@ function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string
           1. Initialize Velt
         </h3>
         <p className="font-urbanist text-white" style={{ fontSize: 14, lineHeight: 1, opacity: 0.52, letterSpacing: "-0.03em" }}>
-          Setting up velt takes 2 minutes
+          Setting up Velt takes 2 minutes
         </p>
       </div>
 

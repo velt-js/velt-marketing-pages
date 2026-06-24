@@ -33,7 +33,7 @@ const OFF_APP_CARDS: CardDef[] = [
   },
   {
     title: "Website Template",
-    description: "Don't fret on your launch site, just follow our template.",
+    description: "Don't fret on your launch site; just follow our template.",
     imageSrc: "/images/launch-kit/website-template.png",
     imageAlt: "Velt launch website template",
   },

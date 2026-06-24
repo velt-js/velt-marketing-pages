@@ -55,7 +55,7 @@ export default function WhyNow() {
           <div className="why-eyebrow"><span className="why-eyebrow-dot"></span>Why now</div>
           <p className="why-leadin">Your users want agents that act. Nobody wants agents that act alone. The hard part is what happens between an agent's suggestion and a change to your users' data.</p>
           <h2 className="why-heading">Let agents propose, not touch.</h2>
-          <p className="why-desc">Every agent suggestion becomes a comment a human approves. On approve, the change is applied through your webhook, with a permanent record of who allowed what.</p>
+          <p className="why-desc">Every agent suggestion becomes a comment a human approves. On approval, the change is applied through your webhook, with a permanent record of who allowed what.</p>
           <div className="why-comment">// Stop giving agents write access just to offer agentic features.</div>
           <div className="why-comment">// No more choosing between agent capability and data safety.</div>
         </div>

@@ -243,7 +243,7 @@ export type PriceCardData = {
 
 export const PRICE_VELT: PriceCardData = {
   brand: "Velt",
-  model: "Document-activity based pricing",
+  model: "Document-activity-based pricing",
   amount: "$1,299",
   suffix: "/mo",
   rows: [
@@ -254,7 +254,7 @@ export const PRICE_VELT: PriceCardData = {
 
 export const PRICE_OTHER: PriceCardData = {
   brand: "Others",
-  model: "Document-initiation based pricing",
+  model: "Document-initiation-based pricing",
   amount: "~$1,150",
   suffix: "/mo",
   rows: [

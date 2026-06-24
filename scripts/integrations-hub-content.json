@@ -22,7 +22,7 @@
   "whatItIsCards": [
     {
       "title": "Agents as first-class users",
-      "body": "Your AI agent comments and suggests on the surface as a first-class user; a human approves or rejects, and on approve the change fires through your webhook with a permanent record.",
+      "body": "Your AI agent comments and suggests on the surface as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
       "featureHref": "/review-agents"
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "title": "Presence and cursors",
-      "body": "Live named cursors, selections, and who is here right now.",
+      "body": "Live named cursors, selections, and presence.",
       "featureHref": "/presence"
     },
     {
@@ -91,7 +91,7 @@
   "surfacesSubheader": "Every surface we plug into.",
   "matrixSubheader": "What works on each surface today.",
   "matrixCaption": "Comments and agent review reach every surface. Co-editing is conflict-free multiplayer editing on editable surfaces; charts and PDFs carry annotations, the same shared state applied to a rendered surface. Agent review is available wherever comments are. If your surface is not here, the core library still anchors Velt to it.",
-  "buildWithIntro": "These are dev-time tooling, not surfaces, so they are not in the matrix. Cursor, Claude Code. Each bundles the Velt SDK as skills, rules, an expert agent, and an MCP server, so your coding agent scaffolds and wires Velt for you.",
+  "buildWithIntro": "These are dev-time tools, not surfaces, so they are not in the matrix. Cursor, Claude Code. Each bundles the Velt SDK as skills, rules, an expert agent, and an MCP server, so your coding agent scaffolds and wires Velt for you.",
   "agentsInsideIntro": "These are runtime agent connections, not surfaces. Chat SDK Adapter (build cross-platform bots that read and reply in your comment threads), MCP server (let agents read your review data and propose changes, with a human approving).",
   "stackLabel": "Works with the rest of your stack",
   "stackLinks": [

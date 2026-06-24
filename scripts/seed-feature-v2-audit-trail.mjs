@@ -127,7 +127,7 @@ const doc = {
     kicker: "How it works",
     heading: "Three steps to the first record.",
     support:
-      "Enable Activity Logs and capture runs automatically across every feature. Records stream to your UI live, answer REST queries, and push review events to your backend through webhooks.",
+      "Enable Activity Logs to capture activity automatically across every feature. Records stream to your UI live, answer REST queries, and push review events to your backend through webhooks.",
     steps: keyed(
       [
         { kicker: "Step 01 \u00b7 Install", title: "Add the SDK.", filename: "terminal", code: STEP_INSTALL, copyText: STEP_INSTALL },
@@ -298,7 +298,7 @@ const doc = {
           name: "Exports for auditors",
           codeKicker: "// exports",
           headline:
-            "Any record set as structured JSON through the API today; PDF and CSV packages assemble the same chain.",
+            "Any record set is available as structured JSON through the API today; PDF and CSV packages assemble the same chain.",
           preview: "audit-trail/showcase/exports",
           code: 'velt.activities.get({ document: "filing-q3", format: "json" });',
         },

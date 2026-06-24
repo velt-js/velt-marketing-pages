@@ -257,7 +257,7 @@ export function AgentFindingCard({
           <button type="button" className="cmh-btn approve">Accept</button>
           <button type="button" className="cmh-btn reject">Reject</button>
           {typeof replies === "number" ? (
-            <span className="afc-replies"><IconReply />{replies} Replies</span>
+            <span className="afc-replies"><IconReply />{replies} {replies === 1 ? "Reply" : "Replies"}</span>
           ) : null}
         </div>
       </div>

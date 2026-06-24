@@ -38,7 +38,7 @@ export const webhooksContent: FeaturePageContent = {
     kicker: "Webhooks & API",
     title: "Extend Velt with webhooks and a REST API.",
     secondary:
-      "Integrate seamlessly with your systems: perform CRUD on every Velt feature server-side, and receive a signed, retried webhook for every event, from humans and agents alike.",
+      "Integrate seamlessly with your systems: perform CRUD on every Velt feature, server-side, and receive a signed, retried webhook for every event, from humans and agents alike.",
     accent:
       "// Stop polling and screen-scraping. The same data your frontend sees is available server-side, and every change can push to you.",
     primaryCta: { label: "Get Free API Key", href: API_KEY_HREF, newTab: true },
@@ -380,7 +380,7 @@ export const webhooksContent: FeaturePageContent = {
       },
       {
         q: "What are the rate limits?",
-        a: "Default 100 requests per second per API key, with burst capacity for write traffic. Reach out for higher limits, enterprise plans get custom quotas plus dedicated retry queues.",
+        a: "Default 100 requests per second per API key, with burst capacity for write traffic. Reach out for higher limits; enterprise plans get custom quotas plus dedicated retry queues.",
       },
       {
         q: "What happens if my endpoint is down?",

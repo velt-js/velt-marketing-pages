@@ -348,7 +348,7 @@ export default function IntegrationDetailView({
               />
               <div className="vintg-banner">
                 <p>
-                  Your data stays on your infrastructure with per-feature data providers; SOC 2
+                  Your data stays on your infrastructure with per-feature data providers: SOC 2
                   Type II, HIPAA with a BAA, and EU data residency.
                 </p>
               </div>

@@ -408,7 +408,6 @@ const RESOURCES_LIBRARIES: NavEntry[] = [
 /** Resources links — more column. */
 const RESOURCES_MORE: NavEntry[] = [
   { label: "Enterprise", href: "/enterprise", icon: NAV_ICONS.shield },
-  { label: "All features", href: "/features", icon: NAV_ICONS.grid },
   { label: "Launch kit", href: "/launch-kit", icon: NAV_ICONS.rocket },
   { label: "Migrate from Liveblocks", href: "/migrate/liveblocks", icon: NAV_ICONS.transfer },
   { label: "Migrate from Cord", href: "/migrate/cord", icon: NAV_ICONS.transfer },

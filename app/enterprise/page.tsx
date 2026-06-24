@@ -64,7 +64,7 @@ const SUPPORT_CARDS: Array<{ title: string; body: string; image: string }> = [
 // Security bento: two cards on top + the certification pill on the bottom.
 const SECURITY_CARDS: Array<{ title: string; body: string; image: string }> = [
   {
-    title: "Multi region hosting",
+    title: "Multi-region hosting",
     body: "Host your data where you need it, with multi-region deployment options.",
     image: "/images/security/Mutli%20Region%20Hosting.png",
   },

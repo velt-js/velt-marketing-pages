@@ -150,7 +150,7 @@ export default function IntegrationsHubView({ content }: { content: Integrations
           <Enterprise
             eyebrow="Enterprise"
             heading="Enterprise-grade security and data control"
-            description="The controls your buyers' security reviews ask for, in writing. Your data stays on your infrastructure with per-feature data providers; SOC 2 Type II, HIPAA with a BAA, and EU data residency."
+            description="The controls your buyers' security reviews ask for, in writing. Your data stays on your infrastructure with per-feature data providers: SOC 2 Type II, HIPAA with a BAA, and EU data residency."
             primaryCta={{ label: "View Trust Center", href: "https://trust.velt.dev/" }}
             secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
           />

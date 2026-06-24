@@ -90,7 +90,7 @@ const doc = {
     kicker: "The review reality",
     heading: "Where campaign reviews actually stall.",
     items: [
-      "Client feedback on the deck arrives as annotated screenshots and reply-all email, because threads, mentions, and anchoring in your own platform is a two-quarter build that keeps slipping.",
+      "Client feedback on the deck arrives as annotated screenshots and reply-all email, because threads, mentions, and anchoring in your own platform are a two-quarter build that keeps slipping.",
       "An enterprise prospect asks whether their legal team can sign off on every email before it sends, and the honest answer is a workflow engine you would have to build to close the deal.",
       "A bank or pharma client asks who approved last quarter's campaign, and the proof is a forwarded email, a screenshot, and a Slack thread someone deleted.",
       "Your AI already drafts emails and checks brand guidelines, but enterprise buyers will not turn it on while nothing sits between the AI and the client's content.",
@@ -121,7 +121,7 @@ const doc = {
         {
           num: "3",
           title: "The consent step",
-          body: "The marketer accepts the disclaimer fix and the text change applies as a suggestion; she rejects the logo finding because the client signed off on that version last week. Nothing reached the email that a human did not accept. With Memory, the agent reads that rejection and stops re-flagging the logo.",
+          body: "The marketer accepts the disclaimer fix and the text change applies as a suggestion; she rejects the logo finding because the client signed off on that version last week. Nothing reaches the email that a human does not accept. With Memory, the agent reads that rejection and stops re-flagging the logo.",
           visual: "solutions/sales-enablement/loop/3",
           links: keyed([cta("Suggestions", "/suggestions"), cta("Memory", "/memory")]),
         },
@@ -150,7 +150,7 @@ const doc = {
   featureMap: {
     kicker: "Feature map",
     heading: "What sales enablement teams buy first.",
-    support: "Each card links its feature page. Preview the UI, or read the code that renders it.",
+    support: "Each card links to its feature page. Preview the UI, or read the code that renders it.",
     cards: keyed(
       [
         {

@@ -68,7 +68,7 @@ export const TIERS: Tier[] = [
   {
     id: "hacker",
     name: "Hacker",
-    blurb: "For hackathon or side projects",
+    blurb: "For hackathons or side projects",
     icon: "code",
     price: "Free",
     cta: {
