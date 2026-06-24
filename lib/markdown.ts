@@ -39,6 +39,12 @@ import {
   getUseCasePageBySlug,
 } from "@/sanity/queries";
 import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
+import type { FeaturePageContent } from "@/components/feature-new/content";
+import type { SpectrumContent } from "@/components/feature-new/Spectrum";
+import type { GalleryContent } from "@/components/feature-new/ExamplesGallery";
+import { customizationContent, spectrumContent, galleryContent } from "@/app/customization/content";
+import { devtoolsContent } from "@/app/devtools/content";
+import { platformContent } from "@/app/platform/content";
 
 export const SITE_URL = "https://velt.dev";
 
@@ -1092,6 +1098,247 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
 }
 
 // ---------------------------------------------------------------------------
+// In-repo new-theme platform pages: /customization, /devtools, /platform.
+// These render locally from typed FeaturePageContent modules in
+// app/<slug>/content.tsx (NOT from Sanity). Serialize that same content so the
+// .md mirrors and llms-full.txt reflect the live page, not the stale legacy
+// sources (the v1 Sanity docs `dev-tools`/`admin-console` or the old
+// hand-authored STATIC_PAGES summary). CTA/chrome stripping (mirror-purity,
+// CI gate 7) is applied by the callers via stripCtas().
+// ---------------------------------------------------------------------------
+
+type InRepoFeaturePage = {
+  content: FeaturePageContent;
+  /** Include the per-card fenced code block (agents quote these). */
+  includeCardCode: boolean;
+  /** Spectrum diagram (customization only). */
+  spectrum?: SpectrumContent;
+  /** Examples gallery, which replaces the In Production section (customization only). */
+  gallery?: GalleryContent;
+};
+
+const IN_REPO_FEATURE_PAGES: Record<string, InRepoFeaturePage> = {
+  customization: {
+    content: customizationContent,
+    includeCardCode: true,
+    spectrum: spectrumContent,
+    gallery: galleryContent,
+  },
+  devtools: { content: devtoolsContent, includeCardCode: false },
+  platform: { content: platformContent, includeCardCode: false },
+};
+
+/** Serialize the showcase cards. With code: "### name" + headline + fenced
+ * code; without: a "- **name**: headline" markdown list. */
+function showcaseContentMarkdown(
+  showcase: FeaturePageContent["showcase"],
+  includeCode: boolean
+): string {
+  const cards = showcase?.cards ?? [];
+  if (cards.length === 0) return "";
+  const parts: string[] = [];
+  if (showcase.heading) parts.push(heading(2, clean(showcase.heading)));
+  if (showcase.support) parts.push(clean(showcase.support));
+  if (includeCode) {
+    for (const card of cards) {
+      const name = clean(card?.name ?? "");
+      if (name) parts.push(heading(3, name));
+      const headline = clean(card?.headline ?? "");
+      if (headline) parts.push(headline);
+      const code = typeof card?.code === "string" ? card.code.trim() : "";
+      if (code) parts.push("```\n" + code + "\n```");
+    }
+  } else {
+    const list = cards
+      .map((card) => {
+        const name = clean(card?.name ?? "");
+        const headline = clean(card?.headline ?? "");
+        if (!name) return "";
+        return headline ? `- **${name}**: ${headline}` : `- ${name}`;
+      })
+      .filter(Boolean);
+    if (list.length > 0) parts.push(list.join("\n"));
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize the Little Big Details wall as a bulleted index. */
+function detailsContentMarkdown(details: FeaturePageContent["details"]): string {
+  const items = (details?.items ?? [])
+    .map((item) => {
+      const label = clean(item?.label ?? "");
+      if (!label) return "";
+      return `- ${item?.soon ? `${label} (coming soon)` : label}`;
+    })
+    .filter(Boolean);
+  if (items.length === 0) return "";
+  const parts: string[] = [];
+  if (details.heading) parts.push(heading(2, clean(details.heading)));
+  parts.push(items.join("\n"));
+  return parts.join("\n\n");
+}
+
+/** Serialize the In Production section as where-it-fits text (captions + the
+ * where-it-fits link labels), no visuals or CTAs. */
+function inProductionContentMarkdown(
+  inProduction: FeaturePageContent["inProduction"]
+): string {
+  const tabs = inProduction?.tabs ?? [];
+  const links = inProduction?.whereItFits?.links ?? [];
+  if (tabs.length === 0 && links.length === 0) return "";
+  const parts: string[] = [];
+  if (inProduction.heading) parts.push(heading(2, clean(inProduction.heading)));
+  if (inProduction.support) parts.push(clean(inProduction.support));
+  const captions = tabs
+    .map((tab) => {
+      const label = clean(tab?.label ?? "");
+      const caption = clean(tab?.caption ?? "");
+      if (!caption) return "";
+      return label ? `- **${label}**: ${caption}` : `- ${caption}`;
+    })
+    .filter(Boolean);
+  if (captions.length > 0) parts.push(captions.join("\n"));
+  if (links.length > 0) {
+    parts.push(heading(3, clean(inProduction.whereItFits?.label ?? "Where it fits")));
+    parts.push(
+      links.map((link) => bullet(clean(link?.label ?? ""))).filter(Boolean).join("\n")
+    );
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize the examples gallery (customization) as captioned analogies plus
+ * the where-it-fits link labels. */
+function galleryContentMarkdown(gallery: GalleryContent): string {
+  const parts: string[] = [];
+  if (gallery.heading) parts.push(heading(2, clean(gallery.heading)));
+  if (gallery.support) parts.push(clean(gallery.support));
+  const items = (gallery.items ?? [])
+    .map((item) => {
+      const label = clean(item?.label ?? "");
+      const analogy = clean(item?.analogy ?? "");
+      if (!label) return "";
+      return analogy ? `- **${label}**: ${analogy}` : `- ${label}`;
+    })
+    .filter(Boolean);
+  if (items.length > 0) parts.push(items.join("\n"));
+  const links = gallery.whereItFits?.links ?? [];
+  if (links.length > 0) {
+    parts.push(heading(3, clean(gallery.whereItFits?.label ?? "Where it fits")));
+    parts.push(
+      links.map((link) => bullet(clean(link?.label ?? ""))).filter(Boolean).join("\n")
+    );
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize the customization spectrum as a text diagram: the layers, the
+ * effort axis, and the behavior axis. */
+function spectrumContentMarkdown(spectrum: SpectrumContent): string {
+  const parts: string[] = [];
+  if (spectrum.heading) parts.push(heading(2, clean(spectrum.heading)));
+  if (spectrum.support) parts.push(clean(spectrum.support));
+  const layers = (spectrum.layers ?? [])
+    .map((layer) => {
+      const name = clean(layer?.name ?? "");
+      const sub = clean(layer?.sub ?? "");
+      if (!name) return "";
+      return sub ? `- **${name}**: ${sub}` : `- ${name}`;
+    })
+    .filter(Boolean);
+  if (layers.length > 0) parts.push(layers.join("\n"));
+  if (spectrum.axisLeft || spectrum.axisRight) {
+    parts.push(`*${clean(spectrum.axisLeft ?? "")} to ${clean(spectrum.axisRight ?? "")}*`);
+  }
+  const behaviorItems = (spectrum.behaviorItems ?? []).map((item) => clean(item)).filter(Boolean);
+  if (behaviorItems.length > 0) {
+    parts.push(`**${clean(spectrum.behaviorLabel ?? "Behavior")}**: ${behaviorItems.join(", ")}`);
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize a FaqContent block to "## FAQ" + "### question" + answer. */
+function faqContentMarkdown(faq: FeaturePageContent["faq"]): string {
+  const items = (faq?.items ?? []).filter((item) => item?.q);
+  if (items.length === 0) return "";
+  const parts: string[] = [heading(2, "FAQ")];
+  for (const item of items) {
+    parts.push(`### ${clean(item.q)}`);
+    if (item.a) parts.push(clean(item.a));
+  }
+  return parts.join("\n\n");
+}
+
+/**
+ * Serialize a new-theme FeaturePageContent module to the .md mirror body:
+ * hero (secondary + accent), what-it-is, how-it-works mechanics, the showcase
+ * cards, the details wall, the where-it-fits captions (or the gallery for
+ * customization), and the FAQ. No nav/footer/CTA chrome.
+ *
+ * @param entry - The registered in-repo page (content + serialization options).
+ * @returns The CommonMark body (no leading H1; the route prepends the title).
+ */
+function featureContentToMarkdown(entry: InRepoFeaturePage): string {
+  const content = entry.content;
+  const parts: string[] = [];
+
+  if (content.hero?.secondary) parts.push(clean(content.hero.secondary));
+  if (content.hero?.accent) parts.push(clean(content.hero.accent));
+
+  if (content.whatItIs?.heading) parts.push(heading(2, clean(content.whatItIs.heading)));
+  if (typeof content.whatItIs?.body === "string" && content.whatItIs.body) {
+    parts.push(clean(content.whatItIs.body));
+  }
+
+  const mechanics = content.howItWorks?.mechanics;
+  if (mechanics?.heading) parts.push(heading(2, clean(mechanics.heading)));
+  if (typeof mechanics?.body === "string" && mechanics.body) {
+    parts.push(clean(mechanics.body));
+  }
+
+  if (entry.spectrum) {
+    const spectrumMd = spectrumContentMarkdown(entry.spectrum);
+    if (spectrumMd) parts.push(spectrumMd);
+  }
+
+  const showcaseMd = showcaseContentMarkdown(content.showcase, entry.includeCardCode);
+  if (showcaseMd) parts.push(showcaseMd);
+
+  const detailsMd = detailsContentMarkdown(content.details);
+  if (detailsMd) parts.push(detailsMd);
+
+  if (entry.gallery) {
+    const galleryMd = galleryContentMarkdown(entry.gallery);
+    if (galleryMd) parts.push(galleryMd);
+  } else {
+    const inProductionMd = inProductionContentMarkdown(content.inProduction);
+    if (inProductionMd) parts.push(inProductionMd);
+  }
+
+  const faqMd = faqContentMarkdown(content.faq);
+  if (faqMd) parts.push(faqMd);
+
+  return joinSections(parts);
+}
+
+/**
+ * Build the PageMarkdown for one of the in-repo new-theme platform pages, or
+ * null if the slug is not one of them. The title is the hero H1 so the .md
+ * mirror, the on-page H1, and the WebPage JSON-LD all agree.
+ *
+ * @param slug - The single-segment URL slug (e.g. "customization").
+ */
+function inRepoFeatureMarkdown(slug: string): PageMarkdown | null {
+  const entry = IN_REPO_FEATURE_PAGES[slug];
+  if (!entry) return null;
+  return {
+    url: `${SITE_URL}/${slug}`,
+    title: clean(entry.content.hero.title),
+    markdown: featureContentToMarkdown(entry),
+  };
+}
+
+// ---------------------------------------------------------------------------
 // Static-page registry: hand-authored markdown summaries for React pages
 // whose meaningful content is buried in JSX. Order is the ordering the
 // llms-full.txt route emits (high-priority pages first).
@@ -1280,29 +1527,6 @@ Building a production-grade comments system takes 3-6 engineering months and ~5 
 Customers use Velt to add comments to product analytics dashboards, marketing email editors, video review apps, sales rooms, internal admin panels, and compliance workflows. The same SDK works across all of these surfaces with different drop-in UIs.
 
 [Read customer stories](${SITE_URL}/customers) · [Book a demo](${SITE_URL}/book-demo)`,
-  },
-  {
-    url: `${SITE_URL}/customization`,
-    title: "Customizing the Velt UI",
-    markdown: `Every Velt component is themeable via design tokens, or you can run the SDK headless and render your own UI on top of the APIs.
-
-## Themed mode
-
-Drop in the React components and override CSS custom properties to match your brand: colors, typography, spacing, border radius. Components inherit your tokens by default.
-
-## Composable mode
-
-Compose smaller UI primitives (CommentBubble, NotificationItem, ReactionPicker) into your own layouts. Pull from the same data source as the default UI.
-
-## Headless mode
-
-Use the Velt hooks and APIs without rendering any of our UI. Build your own React, Angular, Vue, or Vanilla JS components on top; Velt handles the data, real-time sync, and storage.
-
-## Server-side customization
-
-Customize comment metadata, notification copy, recipient lists, email templates, and permissions via webhooks and the REST API.
-
-[Customization docs](${SITE_URL}/docs)`,
   },
   {
     url: `${SITE_URL}/liveblocks-alternative`,
@@ -1845,6 +2069,16 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
   }
   if (isExcludedPath(path)) return null;
 
+  // In-repo new-theme platform pages (/customization, /devtools, /platform):
+  // serve markdown derived from the live app/<slug>/content.tsx, not the stale
+  // legacy Sanity docs or the old STATIC_PAGES summary. Checked before the
+  // static registry so the new content always wins.
+  const inRepoSlug = path.slice(1);
+  if (IN_REPO_FEATURE_PAGES[inRepoSlug]) {
+    const inRepo = inRepoFeatureMarkdown(inRepoSlug);
+    if (inRepo) return { ...inRepo, markdown: stripCtas(inRepo.markdown) };
+  }
+
   // Static-page registry first (covers /pricing, /enterprise, etc.)
   const staticMatch = STATIC_BY_PATH.get(path);
   if (staticMatch) return { ...staticMatch, markdown: stripCtas(staticMatch.markdown) };
@@ -1928,12 +2162,19 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     "/enterprise",
     "/comparison",
     "/customers",
-    "/customization",
     "/liveblocks-alternative",
     "/launch-kit",
   ];
   for (const p of priorityPaths) {
     const md = STATIC_BY_PATH.get(p);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
+  }
+
+  // 1b) In-repo new-theme platform pages, serialized from app/<slug>/content.tsx.
+  // Pushed before the Sanity-backed feature loop below so they win the URL
+  // de-dupe over the stale legacy v1 docs (dev-tools, admin-console).
+  for (const slug of ["customization", "devtools", "platform"]) {
+    const md = inRepoFeatureMarkdown(slug);
     if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 

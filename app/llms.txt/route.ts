@@ -34,6 +34,13 @@ Velt is built for products where work cannot ship unapproved: sales enablement, 
 - [Huddle](https://velt.dev/huddle.md): live audio and video inside the document
 - [Self-hosting](https://velt.dev/self-hosting.md): per-feature data providers, your content and PII stay on your infrastructure
 
+## Platform
+
+- [Admin Console](https://velt.dev/platform.md): run the review layer in production, analytics, debugger, data explorer and export, feature configs, REST APIs, and webhooks
+- [DevTools](https://velt.dev/devtools.md): a Chrome extension to debug your Velt integration, installation overview, data inspector, live event stream, component inspector, and SDK version switching
+- [Customization](https://velt.dev/customization.md): make Velt's UI match your product across four layers (CSS, wireframes, primitives, headless), plus behavior APIs
+- [Webhooks & API](https://velt.dev/webhooks-and-api.md): REST APIs and webhooks to read and write Velt data and react to review and approval events in real time
+
 ## Use cases
 
 - [Sales enablement](https://velt.dev/for/sales-enablement.md)

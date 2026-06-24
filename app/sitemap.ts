@@ -60,6 +60,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/comparison`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/liveblocks-alternative`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/customization`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/devtools`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/platform`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/use-case`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/consult`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/add-comments-quick`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
@@ -141,9 +143,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "multiplayer",
     "activity-logs",
   ]);
+  // /devtools and /platform are served by in-repo static routes and are listed
+  // explicitly in staticRoutes above. Skip their legacy v1 Sanity docs
+  // (dev-tools, admin-console) here so the sitemap entry no longer depends on
+  // the CMS and is not emitted twice.
+  const STATIC_ROUTE_V1_SLUGS = new Set(["dev-tools", "admin-console"]);
   const featureUrlPaths = new Set<string>(featureV2Slugs as string[]);
   for (const slug of featureSlugs as string[]) {
     if (SUPERSEDED_V1_SLUGS.has(slug)) continue;
+    if (STATIC_ROUTE_V1_SLUGS.has(slug)) continue;
     featureUrlPaths.add(sanitySlugToUrl(slug));
   }
   const featureEntries: MetadataRoute.Sitemap = [...featureUrlPaths].map(

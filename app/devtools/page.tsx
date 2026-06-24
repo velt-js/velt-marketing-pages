@@ -18,6 +18,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "A Chrome extension to debug your Velt integration: installation overview, data inspector, live event stream, component inspector, and SDK version switching.",
   path: "/devtools",
+  ogImage: "/og/devtools.png",
 });
 
 /**

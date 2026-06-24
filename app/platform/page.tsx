@@ -20,6 +20,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "One console to measure adoption, debug live, explore and export data, configure features, and automate Velt through REST APIs and webhooks.",
   path: "/platform",
+  ogImage: "/og/platform.png",
 });
 
 /**

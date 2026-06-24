@@ -46,9 +46,12 @@ export default function StaticFeaturePage({
 }: StaticFeaturePageProps) {
   const slug = content.slug;
   const pageUrl = `${SITE_URL}/${slug}`;
-  const title = pageTitle ?? content.hero.title;
   const desc = description ?? content.hero.secondary;
-  const crumb = breadcrumbLabel ?? title;
+  // WebPage.name mirrors the page H1 (the hero title) so the structured data
+  // matches the visible heading. The breadcrumb keeps the short label
+  // (pageTitle) because breadcrumb crumbs read better short.
+  const webPageName = content.hero.title;
+  const crumb = breadcrumbLabel ?? pageTitle ?? content.hero.title;
 
   const breadcrumb = buildBreadcrumbList([
     { name: "Home", url: SITE_URL },
@@ -57,7 +60,7 @@ export default function StaticFeaturePage({
   ]);
 
   const webPage = buildWebPageSchema({
-    name: title,
+    name: webPageName,
     description: desc,
     url: pageUrl,
     breadcrumb,
