@@ -18,10 +18,17 @@ import EnterpriseStrip from "./EnterpriseStrip";
 import TestimonialWall from "./TestimonialWall";
 import Faq from "./Faq";
 import FinalCta from "./FinalCta";
+import type { ReactNode } from "react";
 import type { FeaturePageContent } from "./content";
 
 type FeaturePageViewProps = {
   content: FeaturePageContent;
+  /**
+   * Optional override for the enterprise section. When provided, it replaces the
+   * default compliance-badge EnterpriseStrip (e.g. /platform swaps in the
+   * 4-pillar home-new Enterprise section).
+   */
+  enterpriseSection?: ReactNode;
 };
 
 /**
@@ -31,7 +38,7 @@ type FeaturePageViewProps = {
  * @param {FeaturePageViewProps} props The page content.
  * @returns {JSX.Element} The composed feature page.
  */
-export default function FeaturePageView({ content }: FeaturePageViewProps) {
+export default function FeaturePageView({ content, enterpriseSection }: FeaturePageViewProps) {
   return (
     <div className="vlp">
       <a id="top" />
@@ -47,7 +54,7 @@ export default function FeaturePageView({ content }: FeaturePageViewProps) {
           <MakeItYours content={content.makeItYours} />
           <InProduction content={content.inProduction} />
           <Related content={content.related} />
-          <EnterpriseStrip content={content.enterprise} />
+          {enterpriseSection ?? <EnterpriseStrip content={content.enterprise} />}
           <TestimonialWall content={content.testimonials} />
           <Faq content={content.faq} />
           <FinalCta content={content.finalCta} />

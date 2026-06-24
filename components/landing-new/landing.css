@@ -163,6 +163,10 @@
   color: var(--vlp-color-text);
 }
 
+.vlp .lp-hero--semibold h1 {
+  font-weight: var(--vlp-weight-semibold);
+}
+
 .vlp .lp-hero-sub {
   font-size: var(--vlp-text-body-lg);
   line-height: var(--vlp-leading-body);

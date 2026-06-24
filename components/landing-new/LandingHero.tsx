@@ -17,6 +17,8 @@ type LandingHeroProps = {
   microcopy?: string;
   /** Center the hero copy (default left-aligned per DESIGN.md §11). */
   center?: boolean;
+  /** Render the h1 at semibold weight instead of the default regular. */
+  semiboldHeading?: boolean;
   /** Optional content rendered below the copy (e.g. an inline embed). */
   children?: ReactNode;
 };
@@ -37,10 +39,19 @@ export default function LandingHero({
   secondaryCta,
   microcopy,
   center = false,
+  semiboldHeading = false,
   children,
 }: LandingHeroProps) {
+  const heroClassName = [
+    "lp-hero",
+    center ? "lp-hero--center" : "",
+    semiboldHeading ? "lp-hero--semibold" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <section className={center ? "lp-hero lp-hero--center" : "lp-hero"}>
+    <section className={heroClassName}>
       <div className="lp-wrap">
         <div className="lp-hero-inner">
           {eyebrow ? (

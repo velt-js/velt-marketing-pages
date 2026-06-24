@@ -221,10 +221,6 @@ export const platformContent: FeaturePageContent = {
       { label: "View Docs", href: DOCS_HREF, newTab: true },
       { label: "View Examples", href: "/customers" },
     ],
-    interstitial: {
-      quote: "We stopped maintaining our own admin tooling the week we adopted Velt.",
-      who: "Platform engineer, AI-native SaaS",
-    },
   },
 
   details: {
@@ -280,10 +276,6 @@ export const platformContent: FeaturePageContent = {
         copyText: "webhook.transform = (e) => redact(e)",
       },
     ],
-    interstitial: {
-      quote: "The export and the REST APIs let us embed Velt adoption right in our own customer admin.",
-      who: "Founder, content platform",
-    },
   },
 
   inProduction: {
@@ -383,27 +375,13 @@ export const platformContent: FeaturePageContent = {
     cta: { label: "View Trust Center", href: "https://trust.velt.dev", newTab: true },
   },
 
+  // Proof / testimonial wall intentionally left empty: anonymous testimonials
+  // removed; TestimonialWall renders nothing when there are no cards.
   testimonials: {
     kicker: "Proof",
     heading: "Teams that stopped building admin tooling.",
     support: "Real names, real products.",
-    cards: [
-      {
-        metric: "0 dashboards built",
-        quote: "We got analytics, a debugger, and audit export the day we shipped Velt, instead of a quarter of platform work.",
-        who: "Platform lead, AI-native SaaS",
-      },
-      {
-        metric: "1 console",
-        quote: "Observability for agent and human activity in one place is exactly what our compliance team asked for.",
-        who: "Engineering manager, fintech",
-      },
-      {
-        metric: "Same-day",
-        quote: "The console was live the same day we added our domain. No setup project.",
-        who: "Staff engineer, operations platform",
-      },
-    ],
+    cards: [],
   },
 
   faq: {

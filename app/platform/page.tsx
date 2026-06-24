@@ -9,6 +9,8 @@
 import type { Metadata } from "next";
 
 import StaticFeaturePage from "@/app/_seo/StaticFeaturePage";
+import FeaturePageView from "@/components/feature-new/FeaturePageView";
+import Enterprise from "@/components/home-new/Enterprise";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 import { platformContent } from "./content";
@@ -30,6 +32,8 @@ export default function PlatformPage() {
       content={platformContent}
       pageTitle="Admin Console"
       description={platformContent.hero.secondary}
-    />
+    >
+      <FeaturePageView content={platformContent} enterpriseSection={<Enterprise />} />
+    </StaticFeaturePage>
   );
 }

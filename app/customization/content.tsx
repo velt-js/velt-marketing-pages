@@ -300,10 +300,6 @@ POST https://api.velt.dev/v2/comments/add`,
       { label: "View Docs", href: DOCS_HREF, newTab: true },
       { label: "Themes Playground", href: PLAYGROUND_HREF, newTab: true },
     ],
-    interstitial: {
-      quote: "We went from the default look to matching our design system in a morning.",
-      who: "Senior frontend engineer, AI-native SaaS",
-    },
   },
 
   details: {
@@ -444,16 +440,6 @@ import {
         metric: "Design system match",
         quote: "Velt's customizable components let us keep a cohesive look and feel. Our users never knew it was a third-party SDK.",
         who: "Senior PM, Google",
-      },
-      {
-        metric: "Zero CSS overrides",
-        quote: "We set the CSS variables and the wireframes, and the entire review UI matched our design system out of the box.",
-        who: "Staff engineer, content platform",
-      },
-      {
-        metric: "One morning",
-        quote: "I went from the Velt default to our brand colors and layout in a morning, and the headless hooks let me put pins exactly where the canvas needed them.",
-        who: "Frontend lead, AI-native SaaS",
       },
     ],
   },

@@ -312,12 +312,6 @@ const doc = {
       cta("View Docs", "https://docs.velt.dev/self-host-data/overview", true),
       cta("View Examples", "/examples"),
     ]),
-    interstitial: {
-      _type: "vfpInterstitial",
-      quote:
-        "The security team asked where the comment data lives. We sent the field inventory and a link to our database, and the review closed without a call.",
-      who: "Security lead \u00b7 fintech platform",
-    },
   },
 
   details: {
@@ -385,12 +379,6 @@ const doc = {
       ],
       "vfpMakeItYoursCard",
     ),
-    interstitial: {
-      _type: "vfpInterstitial",
-      quote:
-        "We self-host comments and recordings and leave the rest on Velt. Per-provider timeouts and rollback meant we never wrote sync code.",
-      who: "Staff engineer \u00b7 operations platform",
-    },
   },
 
   inProduction: {
@@ -490,33 +478,13 @@ const doc = {
     cta: cta("Book Demo", "/book-demo"),
   },
 
+  // Proof / testimonial wall intentionally left empty: anonymous testimonials
+  // removed; TestimonialWall renders nothing when there are no cards.
   testimonials: {
     kicker: "Proof",
     heading: "The residency question, answered.",
     support: "\u201CWhere does our data live?\u201D stopped stalling our deals.",
-    cards: keyed(
-      [
-        {
-          metric: "1 review",
-          quote:
-            "We cleared the vendor security review with the field inventory. The reviewer got every persisted field on both sides and signed off without a meeting.",
-          who: "Security lead, fintech platform",
-        },
-        {
-          metric: "0 data moved",
-          quote:
-            "The deal stalled on where our data would live. We registered data providers, kept comments and PII on our infrastructure, and closed it the same quarter.",
-          who: "VP Engineering, compliance SaaS",
-        },
-        {
-          metric: "7 features",
-          quote:
-            "We self-host comments, recordings, activity, and attachments while the realtime features stay on Velt. One contract, no per-feature sync code.",
-          who: "Staff engineer, operations platform",
-        },
-      ],
-      "vfpTestimonialCard",
-    ),
+    cards: keyed([], "vfpTestimonialCard"),
   },
 
   faq: {

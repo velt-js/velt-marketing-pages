@@ -269,10 +269,6 @@ export const devtoolsContent: FeaturePageContent = {
         copyText: "client.on('commentAdded', (data) => { console.log(data); });",
       },
     ],
-    interstitial: {
-      quote: "Having the SDK event APIs means we can pipe Velt events into our own observability dashboard.",
-      who: "Staff engineer, AI-native SaaS",
-    },
   },
 
   inProduction: {
@@ -367,16 +363,6 @@ export const devtoolsContent: FeaturePageContent = {
         metric: "Minutes, not hours",
         quote: "We found the integration bug in minutes with DevTools. Without it we would have spent a day in the console logs.",
         who: "Product Manager, HeyGen",
-      },
-      {
-        metric: "Same-day integration",
-        quote: "The DevTools extension confirmed our Velt setup was correct before we even wrote a single test. Huge time saver.",
-        who: "Frontend engineer, AI-native SaaS",
-      },
-      {
-        metric: "Agent visibility",
-        quote: "Seeing agent events in the same stream as human events in DevTools is exactly what we needed to debug our AI review flow.",
-        who: "Staff engineer, fintech platform",
       },
     ],
   },

@@ -92,6 +92,7 @@ export default function EnterprisePage() {
           subheading="Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime."
           primaryCta={{ label: "Book Demo", href: "/book-demo" }}
           secondaryCta={{ label: "Get Free API Key", href: CONSOLE_URL, newTab: true }}
+          semiboldHeading
         />
 
         <LogoStripBand alt />
