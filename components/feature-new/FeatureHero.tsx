@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { FeatureHeroContent } from "./content";
 
@@ -13,12 +13,39 @@ type FeatureHeroProps = {
 /**
  * Feature hero: add-format title, secondary, accent (Prevents) line, dual
  * CTAs, microcopy, and a tabbed live-demo shell with an inline "Build this"
- * chip.
+ * chip. The active demo tab also syncs to the URL hash, so deep links such as
+ * `/presence#cursors` open with the matching artifact selected.
  * @param {FeatureHeroProps} props Hero content.
  * @returns {JSX.Element} The hero section.
  */
 export default function FeatureHero({ hero }: FeatureHeroProps) {
   const [activeTab, setActiveTab] = useState(hero.demoTabs[0]?.id ?? "");
+
+  // Sync the active demo tab to the URL hash on mount and on hash changes, so
+  // a deep link (or a same-page nav sub-link) toggles the matching artifact.
+  useEffect(() => {
+    /** Select the demo tab whose id matches the current location hash. */
+    const selectTabFromHash = () => {
+      try {
+        const hash = window?.location?.hash?.replace(/^#/, "") ?? "";
+        if (!hash) {
+          return;
+        }
+        const matchedTab = hero.demoTabs?.find((tab) => tab?.id === hash);
+        if (matchedTab?.id) {
+          setActiveTab(matchedTab.id);
+        }
+      } catch (error) {
+        console.error("FeatureHero hash sync failed", error);
+      }
+    };
+
+    selectTabFromHash();
+    window.addEventListener("hashchange", selectTabFromHash);
+    return () => {
+      window.removeEventListener("hashchange", selectTabFromHash);
+    };
+  }, [hero.demoTabs]);
 
   return (
     <section className="f-hero" id="hero" data-section="hero">
