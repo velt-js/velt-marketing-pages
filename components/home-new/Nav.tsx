@@ -350,6 +350,7 @@ const PRODUCT_COLLABORATION: NavEntry[] = [
     href: "/multiplayer-editing",
     icon: NAV_ICONS.edit,
     children: [
+      { label: "CRDT", href: "/multiplayer-editing#co-editing" },
       { label: "Single editor mode", href: "/multiplayer-editing#single-editor" },
       { label: "Live state sync", href: "/multiplayer-editing#state-sync" },
     ],

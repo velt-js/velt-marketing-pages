@@ -53,6 +53,7 @@ import {
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import { resolveOgImage } from "@/app/_seo/og-images";
 
 export const revalidate = 60;
 
@@ -155,7 +156,12 @@ export async function generateMetadata({
     if (v2) {
       const title = v2.metaTitle ?? `${v2.heroTitle ?? v2.name} | Velt`;
       const description = v2.metaDescription ?? v2.heroSecondary ?? "";
-      return buildPageMetadata({ title, description, path: `/libraries/${slug}` });
+      return buildPageMetadata({
+        title,
+        description,
+        path: `/libraries/${slug}`,
+        ogImage: resolveOgImage(slug),
+      });
     }
 
     // v1 fallback.

@@ -12,7 +12,6 @@ import { DEVTOOLS_DEMOS as D } from "@/components/feature-new/demo-presets/devto
 
 const CHROME_EXT_HREF = "https://chromewebstore.google.com/detail/velt-devtools/nfldoicbagllmegffdapcnohakpamlnl";
 const API_KEY_HREF = "https://console.velt.dev";
-const DEMO_HREF = "/book-demo";
 const DOCS_HREF = "https://docs.velt.dev";
 
 const STEP_INSTALL = `# install from the Chrome Web Store
@@ -252,60 +251,6 @@ export const devtoolsContent: FeaturePageContent = {
       { label: "No code changes beyond the SDK" },
     ],
     visibleCount: 12,
-  },
-
-  makeItYours: {
-    kicker: "Make it yours",
-    heading: "The data behind the panel is yours.",
-    support: "DevTools is Velt own fixed UI. What is yours is the data behind it.",
-    cards: [
-      {
-        icon: <VeltMark size={18} fill="var(--vlp-color-accent)" />,
-        title: "SDK event APIs",
-        body:
-          "The same events the panel streams are available programmatically through the SDK event APIs, so you can build your own internal debugging or monitoring view, or route events to your observability stack.",
-        preview: D["make-it-yours/sdk-events"],
-        code: "const commentElement = client.getCommentElement();\ncommentElement.on('addCommentAnnotation').subscribe((data) => {\n  console.log(data);\n});",
-        copyText: "const commentElement = client.getCommentElement(); commentElement.on('addCommentAnnotation').subscribe((data) => { console.log(data); });",
-      },
-    ],
-  },
-
-  inProduction: {
-    kicker: "In production",
-    heading: "See the extension on your work.",
-    support: "Where the debugger fits, by team.",
-    tabs: [
-      {
-        id: "ai-native",
-        label: "AI-native SaaS",
-        visual: D["in-production/ai-native"],
-        caption: "Watch agent events land in the stream as your agents act, and confirm each one fired as intended before users see it.",
-        link: { label: "For AI-native SaaS", href: "/for/ai-native-saas" },
-      },
-      {
-        id: "fintech",
-        label: "Fintech and compliance",
-        visual: D["in-production/fintech"],
-        caption: "Verify the right events and data are flowing during a careful integration, with a live view instead of guesswork.",
-        link: { label: "For fintech", href: "/for/fintech" },
-      },
-    ],
-    whereItFits: {
-      label: "Where it fits",
-      links: [
-        { label: "AI-native SaaS", href: "/for/ai-native-saas" },
-        { label: "Fintech", href: "/for/fintech" },
-        { label: "Operations", href: "/for/operations" },
-        { label: "Sales enablement", href: "/for/sales-enablement" },
-      ],
-    },
-    ctaBanner: {
-      title: "Debugging something now? Talk to an engineer.",
-      microcopy: "30 minutes, with an engineer.",
-      cta: { label: "Book Demo", href: DEMO_HREF },
-      variant: "secondary",
-    },
   },
 
   related: {

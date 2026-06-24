@@ -177,8 +177,8 @@ export type FeaturePageContent = {
   howItWorks: HowItWorksContent;
   showcase: ShowcaseContent;
   details: DetailsContent;
-  makeItYours: MakeItYoursContent;
-  inProduction: InProductionContent;
+  makeItYours?: MakeItYoursContent;
+  inProduction?: InProductionContent;
   related: RelatedContent;
   enterprise: EnterpriseContent;
   testimonials: TestimonialContent;

@@ -13,9 +13,6 @@
 // are unaffected. A Sanity slug that collides with a static folder under app/
 // will silently 404 — pick slugs that don't shadow existing folders.
 
-import fs from "node:fs";
-import path from "node:path";
-
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -34,6 +31,7 @@ import {
 import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import { resolveOgImage } from "@/app/_seo/og-images";
 import {
   SITE_URL,
   buildBreadcrumbList,
@@ -42,25 +40,6 @@ import {
 } from "@/app/_seo/schema";
 
 export const revalidate = 60;
-
-// Snapshot of which slug-keyed OG images are bundled in /public/og/. Built
-// once at module load — the directory is static (changes require a deploy)
-// so re-reading on every request would be wasted I/O. Used by the v1
-// generateMetadata branch to decide whether to point at /og/{slug}.png or
-// fall back to the site-wide default.
-const OG_DIR = path.join(process.cwd(), "public", "og");
-const AVAILABLE_OG_SLUGS: ReadonlySet<string> = (() => {
-  try {
-    return new Set(
-      fs
-        .readdirSync(OG_DIR)
-        .filter((name) => /\.(png|jpe?g|webp)$/i.test(name))
-        .map((name) => name.replace(/\.(png|jpe?g|webp)$/i, ""))
-    );
-  } catch {
-    return new Set<string>();
-  }
-})();
 
 // Legacy v1 (featurePage) docs still live in the CMS but were superseded by v2
 // pages; their old URLs now 301-redirect (see next.config.ts), so we skip them
@@ -120,7 +99,7 @@ export async function generateMetadata({
         title,
         description,
         path: `/${slug}`,
-        ogImage: v2.ogImage ?? undefined,
+        ogImage: resolveOgImage(slug, v2.ogImage),
       });
     }
 
@@ -134,14 +113,11 @@ export async function generateMetadata({
     // Prefer Sanity-supplied OG image. Fall back to a bundled per-slug image
     // (/og/{slug}.png) only when one actually exists — otherwise leave
     // `ogImage` undefined so the helper drops in the site-wide default.
-    const ogImage =
-      doc.ogImage ??
-      (AVAILABLE_OG_SLUGS.has(slug) ? `/og/${slug}.png` : undefined);
     return buildPageMetadata({
       title,
       description,
       path: `/${slug}`,
-      ogImage,
+      ogImage: resolveOgImage(slug, doc.ogImage),
     });
   } catch (error) {
     console.error("generateMetadata failed", error);

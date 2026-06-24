@@ -51,8 +51,8 @@ export default function FeaturePageView({ content, enterpriseSection }: FeatureP
           <HowItWorks content={content.howItWorks} />
           <Showcase content={content.showcase} />
           <DetailsWall content={content.details} />
-          <MakeItYours content={content.makeItYours} />
-          <InProduction content={content.inProduction} />
+          {content.makeItYours ? <MakeItYours content={content.makeItYours} /> : null}
+          {content.inProduction ? <InProduction content={content.inProduction} /> : null}
           <Related content={content.related} />
           {enterpriseSection ?? <EnterpriseStrip content={content.enterprise} />}
           <TestimonialWall content={content.testimonials} />
