@@ -67,7 +67,7 @@
       }
     ],
     "agentsCardBody": "a brand-and-compliance agent flags an off-message line or a missing disclosure on the node and suggests the rewrite as a first-class user; a human approves or rejects, and on approve the change fires through your webhook with a permanent record of who allowed what.",
-    "setupPackages": "@veltdev/react + @veltdev/tiptap-crdt-react",
+    "setupPackages": "@veltdev/react + @veltdev/tiptap-crdt-react + @veltdev/tiptap-crdt + @veltdev/types + @tiptap/core + @tiptap/starter-kit + yjs",
     "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not, every agent change on Tiptap is a suggestion your user approves or rejects, on the record.",
     "faq": [
       {
@@ -460,7 +460,7 @@
       }
     ],
     "agentsCardBody": "a code-review agent flags a bug or style issue on the exact line and proposes the fix as a suggestion; your user approves or rejects it like a pull request, and on approve the change fires through your webhook with a permanent record of who allowed what.",
-    "setupPackages": "@veltdev/react + @veltdev/codemirror-crdt-react",
+    "setupPackages": "@veltdev/react + @veltdev/codemirror-crdt-react + @veltdev/codemirror-crdt + @veltdev/types + codemirror + @codemirror/state + @codemirror/view + y-codemirror.next + yjs",
     "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not, every agent change on CodeMirror is a suggestion your user approves or rejects, on the record.",
     "faq": [
       {
@@ -1900,7 +1900,7 @@
       }
     ],
     "agentsCardBody": "An agent proposes a node or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approve the change fires through your webhook with a permanent record of who allowed what.",
-    "setupPackages": "@veltdev/react + @veltdev/reactflow-crdt-react",
+    "setupPackages": "@veltdev/react + @veltdev/reactflow-crdt",
     "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not, every agent change on React Flow is a suggestion your user approves or rejects, on the record. Compare, Migration Guide.",
     "faq": [
       {

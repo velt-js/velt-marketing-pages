@@ -68,7 +68,7 @@ const STEP_PROVIDER = `<VeltProvider
 const STEP_MOUNT = `// define via REST, dispatch a run,
 // record decisions from your panel
 await velt.workflow.recordReviewerDecision({
-  executionId, step: "legal", decision: "approved",
+  executionId, stepId: "legal", decision: "approve",
 });`;
 
 const doc = {

@@ -265,8 +265,8 @@ export const devtoolsContent: FeaturePageContent = {
         body:
           "The same events the panel streams are available programmatically through the SDK event APIs, so you can build your own internal debugging or monitoring view, or route events to your observability stack.",
         preview: D["make-it-yours/sdk-events"],
-        code: "client.on('commentAdded', (data) => {\n  console.log(data);\n});",
-        copyText: "client.on('commentAdded', (data) => { console.log(data); });",
+        code: "const commentElement = client.getCommentElement();\ncommentElement.on('addCommentAnnotation').subscribe((data) => {\n  console.log(data);\n});",
+        copyText: "const commentElement = client.getCommentElement(); commentElement.on('addCommentAnnotation').subscribe((data) => { console.log(data); });",
       },
     ],
   },

@@ -240,7 +240,7 @@ export const DEVTOOLS_DEMOS: Record<string, ReactNode> = {
 
   "make-it-yours/sdk-events": (
     <div className="pv">
-      <DarkPanel>{"client.on('commentAdded', (data) => {\n  console.log(data);\n});"}</DarkPanel>
+      <DarkPanel>{"const commentElement = client.getCommentElement();\ncommentElement.on('addCommentAnnotation').subscribe((data) => {\n  console.log(data);\n});"}</DarkPanel>
     </div>
   ),
 

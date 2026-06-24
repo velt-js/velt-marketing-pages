@@ -161,8 +161,22 @@
 }
 
 .vlp .hero-art-cell--hl {
+  position: relative;
+  overflow: hidden;
   background: var(--vlp-bg-green-highlight);
   box-shadow: inset 0 0 0 1px var(--vlp-color-green-approval);
+}
+
+.vlp .hero-art-cell--hl::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent var(--vlp-color-green-approval) transparent transparent;
 }
 
 /* Contextual comment: overlaps Pro row, top-right anchored to $85 cell */
@@ -199,8 +213,8 @@
   height: 18px;
   flex-shrink: 0;
   border-radius: 50%;
-  background: var(--vlp-color-teal);
-  color: var(--vlp-color-white);
+  background: var(--vlp-color-yellow);
+  color: var(--vlp-color-ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;

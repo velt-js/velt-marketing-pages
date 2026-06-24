@@ -67,9 +67,9 @@ const STEP_PROVIDER = `<VeltProvider
   <YourApp />
 </VeltProvider>`;
 const STEP_MOUNT = `// enable Memory in your workspace first
-<VeltInlineContext
-  documentId="filing-q3"
-/>`;
+import { useSetDocument } from "@veltdev/react";
+
+useSetDocument("filing-q3");`;
 
 const doc = {
   _id: "featurePageV2-memory",

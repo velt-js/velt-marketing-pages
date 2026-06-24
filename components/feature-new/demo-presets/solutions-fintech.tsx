@@ -237,7 +237,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
 
   "solutions/fintech/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"q3-forecast\",\n  \"order\": \"asc\" } }"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"organizationId\": \"your-org-id\",\n  \"documentId\": \"q3-forecast\",\n  \"order\": \"asc\" } }"}</DarkPanel>
     </div>
   ),
 
@@ -266,7 +266,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
 
   "solutions/fintech/fm/self-hosting": (
     <div className="pv">
-      <DarkPanel>{"velt.setDataProviders({ comment })\n// thread content → your database\n// Velt keeps minimal identifiers"}</DarkPanel>
+      <DarkPanel>{"Velt.setDataProviders({ comment: commentDataProvider })\n// thread content → your database\n// Velt keeps minimal identifiers"}</DarkPanel>
     </div>
   ),
 
