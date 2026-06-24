@@ -68,11 +68,12 @@ const AVAILABLE_OG_SLUGS: ReadonlySet<string> = (() => {
 // resolve to v2 at the same URL; recordings/multiplayer/activity-logs redirect
 // to /recording, /multiplayer-editing, /audit-trail respectively.
 //
-// admin-console and dev-tools are superseded by the new-theme STATIC routes
-// app/platform and app/devtools (rendered locally from in-repo content, not the
-// CMS). Excluding them here keeps generateStaticParams from emitting /platform
-// and /devtools, which would otherwise collide with those static folders. The
-// v1 CMS docs are left untouched.
+// admin-console, dev-tools, and webhooks-and-api are superseded by the
+// new-theme STATIC routes app/platform, app/devtools, and app/webhooks-and-api
+// (rendered locally from in-repo content, not the CMS). Excluding them here
+// keeps generateStaticParams from emitting /platform, /devtools, and
+// /webhooks-and-api, which would otherwise collide with those static folders.
+// The v1 CMS docs are left untouched.
 const SUPERSEDED_V1_SLUGS = new Set([
   "comments",
   "recordings",
@@ -80,6 +81,7 @@ const SUPERSEDED_V1_SLUGS = new Set([
   "activity-logs",
   "admin-console",
   "dev-tools",
+  "webhooks-and-api",
 ]);
 
 export async function generateStaticParams() {

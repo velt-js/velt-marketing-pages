@@ -1,74 +1,42 @@
-"use client";
+// /book-demo — Calendly scheduling page, restyled onto the new editorial .vlp
+// design system. Layout: light hero + inline Calendly widget (light themed) +
+// trusted-by logo marquee, all inside the shared homepage Nav/Footer chrome.
 
-import { Footer } from "@/components/home/Footer";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import { PageHero } from "@/components/library/PageHero";
-import Script from "next/script";
+import LandingShell from "@/components/landing-new/LandingShell";
+import LandingHero from "@/components/landing-new/LandingHero";
+import CalendlyEmbed from "@/components/landing-new/CalendlyEmbed";
+import LogoStripBand from "@/components/landing-new/LogoStripBand";
+import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
-const CALENDLY_URL = "https://calendly.com/goyalrakesh/30min?embed_domain=velt.dev&embed_type=Inline&hide_gdpr_banner=1&background_color=171717&text_color=ffffff&primary_color=ffffff&hide_event_type_details=1&hide_landing_page_details=1";
+export const metadata = buildPageMetadata({
+  title: "Book a demo",
+  description:
+    "See how Velt can help you add powerful collaboration features to your app. 30 minutes, with an engineer, not a sales deck.",
+  path: "/book-demo",
+});
 
 /**
- * /book-demo — Calendly scheduling page with trust signals.
- * Layout: hero heading + inline Calendly widget + trusted logos + footer.
+ * The Book a Demo scheduling page.
+ * @returns {JSX.Element} The rendered page.
  */
 export default function BookDemoPage() {
   return (
-    <>
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated
-          heading="Book a demo"
-          subheading="See how Velt can help you add powerful collaboration features to your app."
-        />
-
-        {/* Calendly embed */}
-        <section
-          className="relative w-full bg-black"
-          style={{ padding: "0 80px 80px" }}
-        >
-          <div
-            className="flex flex-col items-center"
-            style={{ width: 1280, margin: "0 auto" }}
-          >
-            <div
-              className="calendly-inline-widget"
-              data-url={CALENDLY_URL}
-              style={{
-                width: "100%",
-                minWidth: 320,
-                height: 700,
-                borderRadius: 16,
-                overflow: "hidden",
-              }}
-            />
-            <a
-              href={CALENDLY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-urbanist font-medium"
-              style={{
-                marginTop: 16,
-                fontSize: 14,
-                color: "rgba(255,255,255,0.5)",
-                textDecoration: "underline",
-              }}
-            >
-              Not loading? Click here
-            </a>
-          </div>
-        </section>
-
-        <FeatureCustomerCarousel />
-
-        <Footer />
-      </div>
-
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
+    <LandingShell>
+      <LandingHero
+        center
+        eyebrow="See it live"
+        heading="Book a demo"
+        subheading="See how Velt can help you add powerful collaboration features to your app."
+        microcopy="30 minutes, with an engineer, not a sales deck."
       />
-    </>
+
+      <section className="lp-section" style={{ paddingTop: 0 }}>
+        <div className="lp-wrap">
+          <CalendlyEmbed />
+        </div>
+      </section>
+
+      <LogoStripBand alt />
+    </LandingShell>
   );
 }

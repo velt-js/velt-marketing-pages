@@ -187,7 +187,7 @@ const doc = {
               { label: "Next.js", href: "https://docs.velt.dev/quickstart/nextjs", newTab: true, icon: "/images/home/nav-icons/nextdotjs.svg" },
               { label: "Angular", href: "https://docs.velt.dev/quickstart/angular", newTab: true, icon: "/images/home/nav-icons/angular.svg" },
               { label: "Vue", href: "https://docs.velt.dev/quickstart/vue", newTab: true, icon: "/images/home/nav-icons/vuedotjs.svg" },
-              { label: "HTML", href: "https://docs.velt.dev/quickstart/html", newTab: true },
+              { label: "HTML", href: "https://docs.velt.dev/quickstart/html", newTab: true, icon: "/images/home/nav-icons/html5.svg" },
             ],
             "vfpIntegrationChip",
           ),
@@ -196,12 +196,12 @@ const doc = {
           label: "Databases and storage",
           chips: keyed(
             [
-              { label: "MongoDB", href: "https://docs.velt.dev/self-host-data/overview", newTab: true },
-              { label: "PostgreSQL", href: "https://docs.velt.dev/self-host-data/comments", newTab: true },
-              { label: "AWS S3", href: "https://docs.velt.dev/self-host-data/overview", newTab: true },
-              { label: "MinIO", href: "https://docs.velt.dev/self-host-data/overview", newTab: true },
-              { label: "Google Cloud Storage", href: "https://docs.velt.dev/self-host-data/attachments", newTab: true },
-              { label: "Azure Blob", href: "https://docs.velt.dev/self-host-data/attachments", newTab: true },
+              { label: "MongoDB", href: "https://docs.velt.dev/self-host-data/overview", newTab: true, icon: "/images/home/nav-icons/mongodb.svg" },
+              { label: "PostgreSQL", href: "https://docs.velt.dev/self-host-data/comments", newTab: true, icon: "/images/home/nav-icons/postgresql.svg" },
+              { label: "AWS S3", href: "https://docs.velt.dev/self-host-data/overview", newTab: true, icon: "/images/home/nav-icons/amazons3.svg" },
+              { label: "MinIO", href: "https://docs.velt.dev/self-host-data/overview", newTab: true, icon: "/images/home/nav-icons/minio.svg" },
+              { label: "Google Cloud Storage", href: "https://docs.velt.dev/self-host-data/attachments", newTab: true, icon: "/images/home/nav-icons/googlecloud.svg" },
+              { label: "Azure Blob", href: "https://docs.velt.dev/self-host-data/attachments", newTab: true, icon: "/images/home/nav-icons/microsoftazure.svg" },
             ],
             "vfpIntegrationChip",
           ),
@@ -210,8 +210,8 @@ const doc = {
           label: "Backend SDKs",
           chips: keyed(
             [
-              { label: "Node SDK", href: "https://docs.velt.dev/backend-sdks/node", newTab: true },
-              { label: "Python SDK", href: "https://docs.velt.dev/backend-sdks/python", newTab: true },
+              { label: "Node SDK", href: "https://docs.velt.dev/backend-sdks/node", newTab: true, icon: "/images/home/nav-icons/nodedotjs.svg" },
+              { label: "Python SDK", href: "https://docs.velt.dev/backend-sdks/python", newTab: true, icon: "/images/home/nav-icons/python.svg" },
             ],
             "vfpIntegrationChip",
           ),

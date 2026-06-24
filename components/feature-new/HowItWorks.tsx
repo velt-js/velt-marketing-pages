@@ -15,6 +15,47 @@ type HowItWorksProps = {
   content: HowItWorksContent;
 };
 
+const ICON_BASE = "/images/home/nav-icons";
+
+// Fallback brand icons keyed by integration-chip label. Used when the CMS
+// document does not supply an explicit `icon` for a chip, so the chips render
+// recognizable logos instead of the generic dot.
+const ICON_BY_LABEL: Record<string, string> = {
+  "react": `${ICON_BASE}/react.svg`,
+  "next.js": `${ICON_BASE}/nextdotjs.svg`,
+  "angular": `${ICON_BASE}/angular.svg`,
+  "vue": `${ICON_BASE}/vuedotjs.svg`,
+  "html": `${ICON_BASE}/html5.svg`,
+  "mongodb": `${ICON_BASE}/mongodb.svg`,
+  "postgresql": `${ICON_BASE}/postgresql.svg`,
+  "aws s3": `${ICON_BASE}/amazons3.svg`,
+  "minio": `${ICON_BASE}/minio.svg`,
+  "google cloud storage": `${ICON_BASE}/googlecloud.svg`,
+  "azure blob": `${ICON_BASE}/microsoftazure.svg`,
+  "node sdk": `${ICON_BASE}/nodedotjs.svg`,
+  "python sdk": `${ICON_BASE}/python.svg`,
+};
+
+/**
+ * Resolve the icon path for an integration chip: prefer the CMS-provided icon,
+ * otherwise fall back to a brand logo matched by label (case-insensitive).
+ * @param {string} [label] Chip label.
+ * @param {string} [icon] Explicit icon path from the CMS, if any.
+ * @returns {string | undefined} Icon path, or undefined when none matches.
+ */
+function resolveChipIcon(label?: string, icon?: string): string | undefined {
+  try {
+    if (icon) {
+      return icon;
+    }
+    const key = label?.trim().toLowerCase();
+    return key ? ICON_BY_LABEL[key] : undefined;
+  } catch (error) {
+    console.error("resolveChipIcon failed", error);
+    return icon;
+  }
+}
+
 /**
  * Map the feature content steps onto the shared InstallTimeline shape: derive a
  * padded number badge and a short label (the text after "·" in the kicker, e.g.
@@ -119,17 +160,20 @@ export default function HowItWorks({ content }: HowItWorksProps) {
             <div className="int-row" key={row.label}>
               <p className="int-label">{row.label}</p>
               <div className="int-chips">
-                {row.chips.map((chip) => (
-                  <a className="int-chip" key={chip.label} href={chip.href} target={chip.newTab ? "_blank" : undefined} rel={chip.newTab ? "noreferrer" : undefined}>
-                    {chip.icon ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img className="int-chip-logo" src={chip.icon} alt="" />
-                    ) : (
-                      <i />
-                    )}
-                    {chip.label}
-                  </a>
-                ))}
+                {row.chips.map((chip) => {
+                  const chipIcon = resolveChipIcon(chip.label, chip.icon);
+                  return (
+                    <a className="int-chip" key={chip.label} href={chip.href} target={chip.newTab ? "_blank" : undefined} rel={chip.newTab ? "noreferrer" : undefined}>
+                      {chipIcon ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img className="int-chip-logo" src={chipIcon} alt="" />
+                      ) : (
+                        <i />
+                      )}
+                      {chip.label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
           ))}

@@ -1,0 +1,683 @@
+/* Shared styles for the new-theme marketing landing pages (book-demo, consult,
+   launch-kit, enterprise). Scoped under .vlp so they share the homepage token
+   set in components/home-new/styles.css. Pulls exclusively from --vlp-* tokens
+   per DESIGN.md, no hardcoded hex values. */
+
+/* ── Layout primitives ─────────────────────────────────────────── */
+.vlp .lp-wrap {
+  width: 100%;
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding-left: var(--vlp-gutter);
+  padding-right: var(--vlp-gutter);
+}
+
+.vlp .lp-section {
+  padding-top: var(--vlp-space-20);
+  padding-bottom: var(--vlp-space-20);
+  background: var(--vlp-bg-page);
+}
+
+.vlp .lp-section--alt {
+  background: var(--vlp-bg-section-alt);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .lp-section--dark {
+  background: var(--vlp-bg-card-dark);
+  color: var(--vlp-color-text-on-dark);
+}
+
+/* ── Eyebrow (orange dot + mono all-caps) ──────────────────────── */
+.vlp .lp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+}
+
+.vlp .lp-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+/* ── Section header ────────────────────────────────────────────── */
+.vlp .lp-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-4);
+  max-width: var(--vlp-content-narrow);
+  margin-bottom: var(--vlp-gap-section);
+}
+
+.vlp .lp-head--center {
+  align-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vlp .lp-head h2 {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-section--dark .lp-head h2 {
+  color: var(--vlp-color-text-on-dark);
+}
+
+.vlp .lp-head-sub {
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .lp-section--dark .lp-head-sub {
+  color: var(--vlp-color-text-on-dark-muted);
+}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+.vlp .lp-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-3);
+  align-items: center;
+}
+
+.vlp .lp-btn-primary,
+.vlp .lp-btn-secondary,
+.vlp .lp-btn-light,
+.vlp .lp-btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-btn-gap);
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-btn-font-weight);
+  font-size: var(--vlp-btn-primary-font-lg);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+.vlp .lp-btn-primary {
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-lg);
+}
+
+.vlp .lp-btn-secondary {
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  border: var(--vlp-btn-secondary-border);
+  padding: var(--vlp-btn-secondary-padding-lg);
+}
+
+.vlp .lp-btn-light {
+  background: var(--vlp-btn-light-bg);
+  color: var(--vlp-btn-light-text);
+  padding: var(--vlp-btn-light-padding-lg);
+}
+
+.vlp .lp-btn-outline-dark {
+  background: var(--vlp-btn-outline-dark-bg);
+  color: var(--vlp-btn-outline-dark-text);
+  border: var(--vlp-btn-outline-dark-border);
+  padding: var(--vlp-btn-outline-dark-padding-lg);
+}
+
+/* ── Hero ──────────────────────────────────────────────────────── */
+.vlp .lp-hero {
+  padding-top: var(--vlp-space-24);
+  padding-bottom: var(--vlp-space-20);
+  background: var(--vlp-bg-page);
+}
+
+.vlp .lp-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-6);
+  max-width: var(--vlp-content-medium);
+}
+
+.vlp .lp-hero--center .lp-hero-inner {
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.vlp .lp-hero h1 {
+  font-size: var(--vlp-text-hero);
+  line-height: var(--vlp-leading-display-tight);
+  letter-spacing: var(--vlp-tracking-tight);
+  font-weight: var(--vlp-weight-regular);
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-hero-sub {
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  max-width: 54ch;
+}
+
+.vlp .lp-hero-micro {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-mono);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+}
+
+/* ── Bento / feature card grid ─────────────────────────────────── */
+.vlp .lp-bento {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: var(--vlp-gap-card);
+}
+
+/* Fixed two-column grid (2-on-top + full-width wide/cert row below). Used by
+   the enterprise Support and Security bentos so the two top cards always sit
+   50/50 rather than collapsing under auto-fit. */
+.vlp .lp-bento--2col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 768px) {
+  .vlp .lp-bento--2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vlp .lp-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  overflow: hidden;
+}
+
+.vlp .lp-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--vlp-bg-section-alt);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  overflow: hidden;
+}
+
+.vlp .lp-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.vlp .lp-card-media--contain img {
+  object-fit: contain;
+  object-position: center;
+  padding: var(--vlp-space-6);
+}
+
+.vlp .lp-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+  padding: var(--vlp-card-padding);
+}
+
+.vlp .lp-card h3 {
+  font-size: var(--vlp-text-card);
+  line-height: var(--vlp-leading-title-sm);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-card p {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .lp-card-cta {
+  margin-top: auto;
+  padding-top: var(--vlp-space-1);
+}
+
+/* Wide card spanning the full bento row: copy on the left, the visual rendered
+   at its natural size on the right (not cropped). Mirrors the legacy
+   WideBottomCardBox "Priority Support SLAs" behavior. */
+.vlp .lp-card--wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--vlp-space-8);
+  padding: var(--vlp-card-padding-lg);
+}
+
+.vlp .lp-card--wide .lp-card-body {
+  flex: none;
+  max-width: 340px;
+  padding: 0;
+}
+
+.vlp .lp-wide-media {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.vlp .lp-wide-media img {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--vlp-radius-md);
+}
+
+@media (max-width: 768px) {
+  .vlp .lp-card--wide {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--vlp-space-6);
+  }
+
+  .vlp .lp-wide-media {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.vlp .lp-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  font-family: var(--vlp-font-heading);
+  font-weight: var(--vlp-weight-semibold);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text);
+}
+
+/* ── Steps ─────────────────────────────────────────────────────── */
+.vlp .lp-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: var(--vlp-gap-card);
+}
+
+.vlp .lp-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-card-padding-lg);
+}
+
+.vlp .lp-step-num {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+}
+
+.vlp .lp-step h3 {
+  font-size: var(--vlp-text-card);
+  line-height: var(--vlp-leading-title-sm);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-step p {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+/* ── Tabs ──────────────────────────────────────────────────────── */
+.vlp .lp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-1);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+  margin-bottom: var(--vlp-gap-section);
+}
+
+.vlp .lp-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: var(--vlp-space-3) var(--vlp-space-4);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-subtle);
+  cursor: pointer;
+  transition: color var(--vlp-transition-fast), border-color var(--vlp-transition-fast);
+}
+
+.vlp .lp-tab:hover {
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .lp-tab[aria-selected="true"] {
+  color: var(--vlp-color-text);
+  border-bottom-color: var(--vlp-color-accent);
+}
+
+/* ── Calendly embed ────────────────────────────────────────────── */
+.vlp .lp-calendly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vlp-space-4);
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+}
+
+.vlp .lp-calendly-frame {
+  width: 100%;
+  min-width: 320px;
+  height: 700px;
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  overflow: hidden;
+  background: var(--vlp-bg-card);
+}
+
+.vlp .lp-calendly-fallback {
+  font-family: var(--vlp-font-body);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-faint);
+  text-decoration: underline;
+}
+
+/* ── Logo strip ────────────────────────────────────────────────── */
+.vlp .lp-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vlp-space-8);
+}
+
+.vlp .lp-logos-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+  text-align: center;
+}
+
+.vlp .lp-logos-marquee {
+  --lc-gap: var(--vlp-logo-gap);
+  --lc-logo-height: var(--vlp-logo-height);
+  width: 100%;
+}
+
+/* ── FAQ accordion ─────────────────────────────────────────────── */
+.vlp .lp-faq {
+  display: grid;
+  gap: 0;
+  max-width: 820px;
+  margin: 0 auto;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .lp-faq-item {
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .lp-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-4-5);
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: var(--vlp-space-6) var(--vlp-space-1);
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-faq-q h3 {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: -0.015em;
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-faq-q svg {
+  flex: none;
+  color: var(--vlp-color-text-muted);
+  transition: transform 0.2s ease;
+}
+
+.vlp .lp-faq-item.is-open .lp-faq-q svg {
+  transform: rotate(180deg);
+}
+
+.vlp .lp-faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.24s ease;
+}
+
+.vlp .lp-faq-item.is-open .lp-faq-a {
+  grid-template-rows: 1fr;
+}
+
+.vlp .lp-faq-a-inner {
+  overflow: hidden;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-relaxed);
+  color: var(--vlp-color-text-muted);
+  white-space: pre-line;
+}
+
+.vlp .lp-faq-item.is-open .lp-faq-a-inner {
+  padding: 0 var(--vlp-space-1) var(--vlp-space-6);
+}
+
+/* ── Cert pill (enterprise security) ───────────────────────────── */
+.vlp .lp-cert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-6);
+  grid-column: 1 / -1;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-card-padding-lg);
+}
+
+.vlp .lp-cert-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-6);
+}
+
+.vlp .lp-cert-badges img {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ── Enterprise pillars ────────────────────────────────────────── */
+.vlp .lp-anchor {
+  display: block;
+  position: relative;
+  height: 1px;
+  width: 1px;
+  scroll-margin-top: 100px;
+}
+
+.vlp .lp-pillar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-gap-section);
+}
+
+.vlp .lp-pillar-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+  max-width: 820px;
+}
+
+.vlp .lp-pillar-head h3 {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+}
+
+.vlp .lp-pillar-accent {
+  color: var(--vlp-color-accent);
+}
+
+.vlp .lp-pillar-head p {
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .lp-pillar-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--vlp-gap-card);
+  align-items: stretch;
+}
+
+.vlp .lp-pillar-media {
+  position: relative;
+  min-height: 380px;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  overflow: hidden;
+}
+
+.vlp .lp-pillar-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vlp .lp-pillar-quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--vlp-space-8);
+  margin: 0;
+  background: var(--vlp-bg-card-dark);
+  color: var(--vlp-color-text-on-dark);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-card-padding-lg);
+}
+
+.vlp .lp-pillar-quote blockquote {
+  margin: 0;
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-card);
+  font-weight: var(--vlp-weight-medium);
+  line-height: var(--vlp-leading-title-sm);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .lp-pillar-quote figcaption {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .lp-pillar-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex: none;
+}
+
+.vlp .lp-pillar-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vlp .lp-pillar-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vlp .lp-pillar-name {
+  font-family: var(--vlp-font-heading);
+  font-weight: var(--vlp-weight-semibold);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-on-dark);
+}
+
+.vlp .lp-pillar-role {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-on-dark-muted);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vlp .lp-pillar-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .lp-pillar-media {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .lp-section,
+  .vlp .lp-hero {
+    padding-top: var(--vlp-space-16);
+    padding-bottom: var(--vlp-space-16);
+  }
+
+  .vlp .lp-cta-row .lp-btn-primary,
+  .vlp .lp-cta-row .lp-btn-secondary,
+  .vlp .lp-cta-row .lp-btn-light,
+  .vlp .lp-cta-row .lp-btn-outline-dark {
+    width: 100%;
+  }
+}
