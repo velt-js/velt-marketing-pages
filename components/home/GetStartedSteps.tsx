@@ -5,6 +5,13 @@
 
 import { TestimonialStrip, type TestimonialStripProps } from "./TestimonialStrip";
 
+// Shared destinations for the Get-Started CTAs. "Try for Free" points at the
+// public console (signup), matching every other "Get Free API Key" CTA on the
+// site; "View Docs" points at the docs site, matching the other "View Docs"
+// links across the marketing pages.
+const CONSOLE_URL = "https://console.velt.dev/";
+const DOCS_URL = "https://velt.dev/docs/";
+
 // Default testimonial rendered at the bottom of the Get-Started card
 // across library and feature pages. Live site shows Hope Callaway here;
 // individual callers can override via the `testimonial` prop.
@@ -342,7 +349,10 @@ export function GetStartedSteps({
           </p>
         </div>
         <div className="flex items-start gap-3">
-          <button
+          <a
+            href={DOCS_URL}
+            target="_blank"
+            rel="noopener"
             className="flex items-center justify-center gap-1 rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}
           >
@@ -362,8 +372,11 @@ export function GetStartedSteps({
             >
               View Docs
             </span>
-          </button>
-          <button
+          </a>
+          <a
+            href={CONSOLE_URL}
+            target="_blank"
+            rel="noopener"
             className="flex items-center justify-center rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", background: "#625df5" }}
           >
@@ -373,7 +386,7 @@ export function GetStartedSteps({
             >
               Try for Free
             </span>
-          </button>
+          </a>
         </div>
       </div>
 
