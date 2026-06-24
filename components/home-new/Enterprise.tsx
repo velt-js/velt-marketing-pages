@@ -1,15 +1,53 @@
 import "./Enterprise.css";
 
-export default function Enterprise() {
+/** A single CTA shown in the Enterprise section actions row. */
+interface EnterpriseCta {
+  label: string;
+  href: string;
+}
+
+/** Configurable text/links for the Enterprise pillar section. */
+interface EnterpriseProps {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  primaryCta?: EnterpriseCta;
+  secondaryCta?: EnterpriseCta;
+}
+
+const DEFAULT_EYEBROW = "Built for enterprise";
+const DEFAULT_HEADING = "Built for your customers' compliance.";
+const DEFAULT_DESCRIPTION =
+  "Per-feature data providers keep content and PII on your infrastructure. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.";
+const DEFAULT_PRIMARY_CTA: EnterpriseCta = { label: "Book Demo", href: "#proof" };
+const DEFAULT_SECONDARY_CTA: EnterpriseCta = {
+  label: "Governance",
+  href: "/enterprise",
+};
+
+/**
+ * Dark "enterprise pillars" section. Header text and CTAs are configurable via
+ * props so the same section can be reused across pages; defaults match the
+ * homepage. The four pillar cards are shared content and stay fixed.
+ * @param {EnterpriseProps} props Optional text/link overrides.
+ * @returns {JSX.Element} The rendered enterprise section.
+ */
+export default function Enterprise({
+  eyebrow = DEFAULT_EYEBROW,
+  heading = DEFAULT_HEADING,
+  description = DEFAULT_DESCRIPTION,
+  primaryCta = DEFAULT_PRIMARY_CTA,
+  secondaryCta = DEFAULT_SECONDARY_CTA,
+}: EnterpriseProps = {}) {
   return (
       <section className="ent-section">
         <div className="ent-container">
           <div className="ent-header-grid">
             <div>
-              <div className="ent-eyebrow"><span className="ent-eyebrow-dot"></span>Built for enterprise</div>
-              <h2 className="ent-heading">Built for your customers' compliance.</h2>
+              <div className="ent-eyebrow"><span className="ent-eyebrow-dot"></span>{eyebrow}</div>
+              <h2 className="ent-heading">{heading}</h2>
             </div>
-            <p className="ent-desc">Per-feature data providers keep content and PII on your infrastructure. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.</p>
+            <p className="ent-desc">{description}</p>
           </div>
           <div className="ent-pillars-grid">
             <div className="ent-pillar">
@@ -41,8 +79,8 @@ export default function Enterprise() {
             </div>
           </div>
           <div className="ent-actions">
-            <a href="#proof" className="ent-btn-light hfade">Book Demo</a>
-            <a href="/enterprise" className="ent-btn-outline houtline">Governance</a>
+            <a href={primaryCta?.href} className="ent-btn-light hfade">{primaryCta?.label}</a>
+            <a href={secondaryCta?.href} className="ent-btn-outline houtline">{secondaryCta?.label}</a>
           </div>
         </div>
       </section>

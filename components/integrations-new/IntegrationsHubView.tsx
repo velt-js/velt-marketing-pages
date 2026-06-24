@@ -6,6 +6,7 @@ import "@/components/libraries-new/styles.css";
 
 import Nav from "@/components/home-new/Nav";
 import Footer from "@/components/home-new/Footer";
+import Enterprise from "@/components/home-new/Enterprise";
 import FinalCta from "@/components/feature-new/FinalCta";
 import { CtaRow, FaqList, SectionHead } from "@/components/libraries-new/sections";
 import { sharedFAQ } from "@/components/library/shared-content";
@@ -145,30 +146,14 @@ export default function IntegrationsHubView({ content }: { content: Integrations
             </div>
           </section>
 
-          {/* ---- 3. Enterprise strip ---- */}
-          <section className="vintg-section vintg-section--alt">
-            <div className="vintg-wrap">
-              <SectionHead
-                eyebrow="Enterprise"
-                heading="Enterprise-grade security and data control"
-                support="The controls your buyers' security reviews ask for, in writing."
-              />
-              <div className="vintg-banner">
-                <p>
-                  Your data stays on your infrastructure with per-feature data providers; SOC 2
-                  Type II, HIPAA with a BAA, and EU data residency.
-                </p>
-              </div>
-              <div className="vintg-ctas" style={{ marginTop: "var(--vlp-space-5)" }}>
-                <a className="vintg-btn vintg-btn--secondary" href="https://trust.velt.dev/">
-                  View Trust Center
-                </a>
-                <a className="vintg-btn vintg-btn--secondary" href="/book-demo">
-                  Book Demo
-                </a>
-              </div>
-            </div>
-          </section>
+          {/* ---- 3. Enterprise (dark pillar cards, shared with homepage) ---- */}
+          <Enterprise
+            eyebrow="Enterprise"
+            heading="Enterprise-grade security and data control"
+            description="The controls your buyers' security reviews ask for, in writing. Your data stays on your infrastructure with per-feature data providers; SOC 2 Type II, HIPAA with a BAA, and EU data residency."
+            primaryCta={{ label: "View Trust Center", href: "https://trust.velt.dev/" }}
+            secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
+          />
 
           {/* ---- 4. FAQ ---- */}
           <section className="vintg-section">

@@ -312,6 +312,7 @@ body { background: var(--vlp-color-white, #ffffff); }
   font-family: var(--vlp-font-body);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'tnum';
+  /* color: var(--vlp-color-text); */
 }
 
 /* Horizontal clip lives below the sticky nav so position: sticky still works. */
