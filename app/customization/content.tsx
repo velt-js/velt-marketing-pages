@@ -135,7 +135,7 @@ export const customizationContent: FeaturePageContent = {
       tabs: [
         { id: "docs", label: "Docs", command: "docs.velt.dev/ui-customization" },
         { id: "playground", label: "Playground", command: "playground.velt.dev/themes" },
-        { id: "mcp", label: "MCP", command: "npx @veltdev/mcp@latest" },
+        { id: "mcp", label: "MCP", command: "npx -y @velt-js/mcp-installer" },
       ],
     },
     integrations: [

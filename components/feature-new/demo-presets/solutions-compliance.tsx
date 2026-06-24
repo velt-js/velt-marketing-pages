@@ -231,7 +231,7 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
 
   "solutions/compliance/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities\n  ?document=FIL-2209\n  &user=compliance-officer"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"FIL-2209\",\n  \"userId\": \"compliance-officer\" } }"}</DarkPanel>
     </div>
   ),
 

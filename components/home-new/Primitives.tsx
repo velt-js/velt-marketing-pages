@@ -200,9 +200,8 @@ export default function Primitives() {
               <div className="prim-code-card">
                 <div className="prim-code-header">audit.ts<CopyButton /></div>
                 <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltActivityLog
-      documentId={id}
-      exportTo=<span class="prim-code-str">"splunk"</span>
-      retentionDays={2555}
+      variant=<span class="prim-code-str">"comments"</span>
+      darkMode={<span class="prim-code-kw">true</span>}
     /&gt;` }} />
               </div>
             }

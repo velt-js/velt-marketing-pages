@@ -243,7 +243,7 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
 
   "solutions/operations/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities\n  ?document=ship-4127\n  &event=approval.changed"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"ship-4127\",\n  \"actionTypes\": [\"approval.changed\"] } }"}</DarkPanel>
     </div>
   ),
 

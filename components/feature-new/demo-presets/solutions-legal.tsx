@@ -204,7 +204,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
 
   "solutions/legal/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities\n  ?document=mutual-nda\n  &matter=acme-counterparty"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"mutual-nda\",\n  \"targetEntityId\": \"acme-counterparty\" } }"}</DarkPanel>
     </div>
   ),
 

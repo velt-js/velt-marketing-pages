@@ -508,7 +508,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
 
   "presence/showcase/data": (
     <div className="pv">
-      <DarkPanel>{"usePresenceData({ status: \"idle\" })\nonUserStateChange((u) => escalate(u))"}</DarkPanel>
+      <DarkPanel>{"usePresenceData({ statuses: [\"away\"] })\nonUserStateChange((u) => escalate(u))"}</DarkPanel>
     </div>
   ),
 

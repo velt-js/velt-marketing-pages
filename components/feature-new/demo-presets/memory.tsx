@@ -244,7 +244,7 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
   "memory/showcase/nl-queries": (
     <div className="pv">
       <DarkPanel footer="grounded answer · cited records · confidence score">
-        {"POST /v2/memory/ask\n{ \"q\": \"all rejections of\n  financial projections in Q3\" }"}
+        {"POST /v2/memory/ask\n{ \"data\": {\n  \"question\": \"all rejections of\n    financial projections in Q3\" } }"}
       </DarkPanel>
     </div>
   ),

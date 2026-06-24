@@ -343,7 +343,7 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
   "suggestions/showcase/apply": (
     <div className="pv">
       <DarkPanel>
-        {"onSuggestionAccepted(({ oldValue, newValue }) =>\n  applyToBackend(newValue))"}
+        {"const accepted = useCommentEventCallback('suggestionAccepted');\napplyToBackend(accepted?.commentAnnotation?.suggestion?.newValue);"}
       </DarkPanel>
     </div>
   ),

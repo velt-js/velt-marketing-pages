@@ -139,8 +139,8 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
         <NodeBox label="Velt Cloud" sub="thread structure · document IDs · timestamps" />
       </div>
 
-      <DarkPanel footer="velt.setDataProvider() — one call, full control">
-        {"velt.setDataProvider(\"comments\", {\n  get:    (ids) => myDb.fetch(ids),\n  save:   (data) => myDb.insert(data),\n  delete: (id)   => myDb.remove(id),\n});"}
+      <DarkPanel footer="velt.setDataProviders() — one call, full control">
+        {"velt.setDataProviders({\n  comment: {\n    get:    (req) => myDb.fetch(req),\n    save:   (req) => myDb.insert(req),\n    delete: (req) => myDb.remove(req),\n  },\n});"}
       </DarkPanel>
     </Frame>
   ),

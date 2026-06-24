@@ -237,7 +237,7 @@ export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
 
   "solutions/ai-native-saas/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities\n  ?document=renewal-email\n  &actor=pricing-agent"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"renewal-email\",\n  \"userId\": \"pricing-agent\" } }"}</DarkPanel>
     </div>
   ),
 

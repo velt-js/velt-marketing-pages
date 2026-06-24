@@ -167,7 +167,7 @@ const doc = {
           oneLiner:
             "Who approved the filing, who signed the attestation, what the disclosure said when they signed: queryable by document, user, or time range, and exportable when the examiner asks.",
           link: cta("Explore Audit trail", "/audit-trail"),
-          code: "GET /v2/activities?document=FIL-2209",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"FIL-2209\" } }",
           preview: "solutions/compliance/fm/audit-trail",
         },
         {

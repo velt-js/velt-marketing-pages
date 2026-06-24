@@ -275,7 +275,7 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
 
   "solutions/sales-enablement/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities\n  ?document=promo-email\n  &client=acme-bank"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"promo-email\",\n  \"targetEntityId\": \"acme-bank\" } }"}</DarkPanel>
     </div>
   ),
 

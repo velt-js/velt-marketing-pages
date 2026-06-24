@@ -469,7 +469,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
 
   "huddle/showcase/scoped": (
     <div className="pv">
-      <DarkPanel>{"// every huddle event carries the document\n{ \"event\": \"huddle.created\",\n  \"documentId\": \"contract-114\",\n  \"location\": { \"page\": \"clause-7\" } }"}</DarkPanel>
+      <DarkPanel>{"// every huddle event carries the document\n{ \"actionType\": \"created\",\n  \"notificationSource\": \"huddle\",\n  \"metadata\": {\n    \"documentId\": \"contract-114\",\n    \"pageInfo\": { \"page\": \"clause-7\" } } }"}</DarkPanel>
     </div>
   ),
 
@@ -493,7 +493,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
 
   "huddle/showcase/webhooks": (
     <div className="pv">
-      <DarkPanel footer="fires on huddle created and joined">{"POST /your-endpoint\n{ \"event\": \"huddle.joined\",\n  \"actionUser\": \"maya@acme.com\",\n  \"documentId\": \"contract-114\" }"}</DarkPanel>
+      <DarkPanel footer="fires on huddle created and joined">{"POST /your-endpoint\n{ \"actionType\": \"joined\",\n  \"notificationSource\": \"huddle\",\n  \"actionUser\": { \"email\": \"maya@acme.com\" },\n  \"metadata\": { \"documentId\": \"contract-114\" } }"}</DarkPanel>
     </div>
   ),
 

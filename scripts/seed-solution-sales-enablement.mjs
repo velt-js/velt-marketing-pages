@@ -196,7 +196,7 @@ const doc = {
           oneLiner:
             "An exportable record of who approved every deck, email, and landing page, what changed, and when. The answer for bank and pharma clients who audit their agencies.",
           link: cta("Explore Audit trail", "/audit-trail"),
-          code: "GET /v2/activities?document=promo-email",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"promo-email\" } }",
           preview: "solutions/sales-enablement/fm/audit-trail",
         },
         {

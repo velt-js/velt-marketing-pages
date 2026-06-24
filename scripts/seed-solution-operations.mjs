@@ -201,7 +201,7 @@ const doc = {
           oneLiner:
             "Who released the hold, who approved the substitution, and what changed on the manifest, queryable by record, user, or time range, and exportable when the customer audit lands.",
           link: cta("Explore Audit trail", "/audit-trail"),
-          code: "GET /v2/activities?document=ship-4127",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"ship-4127\" } }",
           preview: "solutions/operations/fm/audit-trail",
         },
         {

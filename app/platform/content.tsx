@@ -106,7 +106,7 @@ export const platformContent: FeaturePageContent = {
       tabs: [
         { id: "rest", label: "REST", command: "POST /v2/workspace/create" },
         { id: "apikey", label: "API key", command: "POST /v2/workspace/apikey/create" },
-        { id: "mcp", label: "MCP", command: "npx @veltdev/mcp@latest" },
+        { id: "mcp", label: "MCP", command: "npx -y @velt-js/mcp-installer" },
       ],
     },
     integrations: [

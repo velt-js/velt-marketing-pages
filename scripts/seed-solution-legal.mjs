@@ -187,7 +187,7 @@ const doc = {
           oneLiner:
             "Who proposed the clause, who accepted the redline, who approved the version: an attributed history queryable by contract, user, or time range, exportable when the dispute lands.",
           link: cta("Explore Audit trail", "/audit-trail"),
-          code: "GET /v2/activities?document=mutual-nda",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"mutual-nda\" } }",
           preview: "solutions/legal/fm/audit-trail",
         },
         {

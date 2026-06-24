@@ -178,7 +178,7 @@ const doc = {
           oneLiner:
             "Every proposal, decision, and applied change, attributed and exportable. The page of the security questionnaire your AI feature currently fails.",
           link: cta("Explore Audit trail", "/audit-trail"),
-          code: "GET /v2/activities?document=renewal-email",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"renewal-email\" } }",
           preview: "solutions/ai-native-saas/fm/audit-trail",
         },
         {

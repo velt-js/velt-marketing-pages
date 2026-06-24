@@ -68,9 +68,8 @@ const STEP_PROVIDER = `<VeltProvider
   <YourApp />
 </VeltProvider>`;
 const STEP_MOUNT = `// enable Activity Logs in the Velt Console first
-<VeltActivityLog
-  documentId="filing-q3"
-/>`;
+// document scope set via useSetDocumentId('filing-q3')
+<VeltActivityLog />`;
 
 const doc = {
   _id: "featurePageV2-audit-trail",
@@ -163,11 +162,11 @@ const doc = {
       sub: "Skip the steps. Have your agent set it up.",
       tabs: keyed(
         [
-          { id: "cursor", label: "Cursor", command: "npx @veltdev/mcp add --client cursor" },
-          { id: "claude", label: "Claude Code", command: "claude mcp add velt -- npx @veltdev/mcp" },
-          { id: "windsurf", label: "Windsurf", command: "npx @veltdev/mcp add --client windsurf" },
-          { id: "copilot", label: "Copilot", command: "npx @veltdev/mcp add --client vscode" },
-          { id: "zed", label: "Zed", command: "npx @veltdev/mcp add --client zed" },
+          { id: "cursor", label: "Cursor", command: "npx -y @velt-js/mcp-installer" },
+          { id: "claude", label: "Claude Code", command: "claude mcp add velt-installer -- npx -y @velt-js/mcp-installer" },
+          { id: "windsurf", label: "Windsurf", command: "npx -y @velt-js/mcp-installer" },
+          { id: "copilot", label: "Copilot", command: "npx -y @velt-js/mcp-installer" },
+          { id: "zed", label: "Zed", command: "npx -y @velt-js/mcp-installer" },
         ],
         "vfpMcpTab",
       ),
@@ -258,7 +257,7 @@ const doc = {
           headline:
             "Agent findings land in the same trail as human decisions, marked judge type agent. One chain of custody.",
           preview: "audit-trail/showcase/agents",
-          code: "GET /v2/activities?judgeType=agent",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"filing-q3\" } }",
         },
         {
           num: "05",

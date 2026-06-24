@@ -28,11 +28,12 @@ import { SOLUTIONS_LEGAL_DEMOS } from "./demo-presets/solutions-legal";
 // visuals from here, so a CMS-driven page renders byte-for-byte like its
 // static reference. Visuals are simulated, not live SDK instances.
 
-const HERO_EXPORT = `GET /v2/activities?document=filing-q3
+const HERO_EXPORT = `POST /v2/activities/get
+{ "data": { "documentId": "filing-q3" } }
 
 [{
-  "event": "approval.changed",
-  "changedBy": "sarah@acme.com",
+  "actionType": "approval.changed",
+  "actionUser": "sarah@acme.com",
   "note": "Cleared with legal"
 }]`;
 
@@ -211,7 +212,7 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
 
   "audit-trail/showcase/query": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities\n  ?document=filing-q3\n  &user=sarah&from=2026-01-01"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"filing-q3\",\n  \"userId\": \"sarah\" } }"}</DarkPanel>
     </div>
   ),
 
@@ -237,7 +238,7 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
 
   "audit-trail/showcase/exports": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/activities → JSON (shipped)\nPDF · CSV · hash chains (coming soon)"}</DarkPanel>
+      <DarkPanel>{"POST /v2/activities/get → JSON (shipped)\nPDF · CSV · hash chains (coming soon)"}</DarkPanel>
     </div>
   ),
 

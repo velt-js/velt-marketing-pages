@@ -93,35 +93,6 @@ function ExtPanel({
 }
 
 /**
- * Key-value config rows used by the overview and component inspector demos.
- * @param {{ rows: { k: string; v: ReactNode }[] }} props Config rows.
- * @returns {JSX.Element} The config list.
- */
-function KvRows({ rows }: { rows: { k: string; v: ReactNode }[] }) {
-  return (
-    <div style={{ display: "grid", gap: 0 }}>
-      {rows.map((row, index) => (
-        <div
-          key={row.k}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-            padding: "8px 2px",
-            borderTop: index ? "1px solid var(--vlp-border-subtle)" : "none",
-            fontSize: 12,
-          }}
-        >
-          <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-ink-soft)" }}>{row.k}</span>
-          <span style={{ color: "var(--vlp-color-text-muted)", fontSize: 11 }}>{row.v}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/**
  * A live event stream list used in hero and showcase demos.
  * @param {{ rows: { ts: string; event: string; agent?: boolean }[] }} props Event rows.
  * @returns {JSX.Element} The event stream.
@@ -165,139 +136,62 @@ function EventStream({ rows }: { rows: { ts: string; event: string; agent?: bool
   );
 }
 
+// Legacy product-capture videos restored from the old DevTools page. Each maps
+// to a hero tab and its matching showcase card (Overview, Data, Events,
+// Components, Versions).
+const VIDEO_BASE = "/videos/features/dev-tools";
+
 /**
- * A version switcher row used in the SDK version switching demo.
- * @param {{ versions: { label: string; active?: boolean }[] }} props Version list.
- * @returns {JSX.Element} The version switcher.
+ * Autoplaying, looping, muted product-capture video used for the hero tabs and
+ * showcase previews. Restores the real DevTools footage from the legacy page.
+ * @param {{ src: string; label: string }} props Video source and accessible label.
+ * @returns {JSX.Element} The looping demo video.
  */
-function VersionSwitcher({ versions }: { versions: { label: string; active?: boolean }[] }) {
+function DemoVideo({ src, label }: { src: string; label: string }) {
   return (
-    <div style={{ display: "grid", gap: 6 }}>
-      {versions.map((ver) => (
-        <div
-          key={ver.label}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "8px 10px",
-            borderRadius: 6,
-            border: ver.active ? "1px solid var(--vlp-color-accent)" : "1px solid var(--vlp-border-subtle)",
-            background: ver.active ? "color-mix(in srgb, var(--vlp-color-accent) 8%, transparent)" : "transparent",
-            fontSize: 12,
-          }}
-        >
-          <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: ver.active ? "var(--vlp-color-accent)" : "var(--vlp-color-ink-soft)" }}>
-            {ver.label}
-          </span>
-          {ver.active ? (
-            <span style={{ fontSize: 10, color: "var(--vlp-color-accent)", fontWeight: 600 }}>active</span>
-          ) : (
-            <span style={{ fontSize: 10, color: "var(--vlp-color-text-subtle)" }}>switch</span>
-          )}
-        </div>
-      ))}
-    </div>
+    <video
+      src={src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={label}
+      style={{
+        width: "100%",
+        display: "block",
+        borderRadius: "var(--vlp-radius-lg)",
+        border: "1px solid var(--vlp-border-subtle)",
+        background: "#000",
+      }}
+    />
   );
 }
-
-/** Reusable 5-tab chrome for the extension panel used in hero demos. */
-const EXT_TABS = ["Overview", "Data", "Events", "Components", "Versions"];
-
-/** The hero Events tab: a mixed human and agent live event stream. */
-const HERO_EVENTS: ReactNode = (
-  <ExtPanel title="Velt DevTools" right="v2.0.0" tabs={EXT_TABS} activeTab="Events">
-    <div style={{ marginBottom: 8, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <span style={{ fontSize: 11, color: "var(--vlp-color-text-muted)" }}>Live event stream</span>
-      <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10, color: "var(--vlp-color-accent)" }}>streaming</span>
-    </div>
-    <EventStream
-      rows={[
-        { ts: "09:41:03", event: "Document is Set" },
-        { ts: "09:41:08", event: "Comment is Added", agent: true },
-        { ts: "09:41:12", event: "Multi Cursor Initiated" },
-        { ts: "09:41:19", event: "User Authenticated" },
-      ]}
-    />
-    <p className="code-microcopy" style={{ marginTop: 10 }}>one stream, human and agent events, live</p>
-  </ExtPanel>
-);
 
 // Keyed lookup the content module reads from. Keys are local to this page.
 export const DEVTOOLS_DEMOS: Record<string, ReactNode> = {
   "hero/overview": (
-    <ExtPanel title="Velt DevTools" right="v2.0.0" tabs={EXT_TABS} activeTab="Overview">
-      <KvRows
-        rows={[
-          { k: "apiKey", v: "pk_live_***acme" },
-          { k: "environment", v: "production" },
-          { k: "sdkVersion", v: "2.0.0" },
-          { k: "mounted", v: "VeltComments, VeltPresence" },
-          { k: "document", v: "proposal-acme" },
-        ]}
-      />
-    </ExtPanel>
+    <DemoVideo src={`${VIDEO_BASE}/get-the-overview.mp4`} label="Velt DevTools installation overview" />
   ),
 
   "hero/data": (
-    <ExtPanel title="Velt DevTools" right="v2.0.0" tabs={EXT_TABS} activeTab="Data">
-      <KvRows
-        rows={[
-          { k: "comments", v: "14 threads" },
-          { k: "users", v: "3 online" },
-          { k: "document", v: "proposal-acme" },
-          { k: "locations", v: "6 anchors" },
-        ]}
-      />
-      <p className="code-microcopy" style={{ marginTop: 10 }}>the same data your users see</p>
-    </ExtPanel>
+    <DemoVideo src={`${VIDEO_BASE}/access-data.mp4`} label="Velt DevTools data inspector" />
   ),
 
-  "hero/events": HERO_EVENTS,
+  "hero/events": (
+    <DemoVideo src={`${VIDEO_BASE}/observe-event-stream.mp4`} label="Velt DevTools live event stream" />
+  ),
 
   "hero/components": (
-    <ExtPanel title="Velt DevTools" right="v2.0.0" tabs={EXT_TABS} activeTab="Components">
-      <div style={{ display: "grid", gap: 8 }}>
-        {[
-          { name: "VeltComments", status: "mounted" },
-          { name: "VeltPresence", status: "mounted" },
-          { name: "VeltNotifications", status: "mounted" },
-        ].map((comp) => (
-          <div
-            key={comp.name}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "8px 10px",
-              borderRadius: 6,
-              border: "1px solid var(--vlp-border-subtle)",
-              fontSize: 12,
-            }}
-          >
-            <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-ink-soft)" }}>{comp.name}</span>
-            <span style={{ fontSize: 10, color: "var(--vlp-color-accent)", fontWeight: 600 }}>{comp.status}</span>
-          </div>
-        ))}
-      </div>
-    </ExtPanel>
+    <DemoVideo src={`${VIDEO_BASE}/inspect-components.mp4`} label="Velt DevTools component inspector" />
   ),
 
   "hero/versions": (
-    <ExtPanel title="Velt DevTools" right="v2.0.0" tabs={EXT_TABS} activeTab="Versions">
-      <VersionSwitcher
-        versions={[
-          { label: "2.0.0", active: true },
-          { label: "1.9.8" },
-          { label: "1.9.5" },
-        ]}
-      />
-      <p className="code-microcopy" style={{ marginTop: 10 }}>switch without changing your build</p>
-    </ExtPanel>
+    <DemoVideo src={`${VIDEO_BASE}/test-with-any-sdk-version.mp4`} label="Velt DevTools SDK version switching" />
   ),
 
   "what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14 }}>
+    <div style={{ display: "grid", gap: 14, padding: 18 }}>
       <ExtPanel title="Velt DevTools: Events" right="streaming" tabs={["Events", "Components"]} activeTab="Events">
         <EventStream
           rows={[
@@ -312,82 +206,23 @@ export const DEVTOOLS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "showcase/installation-overview": (
-    <div className="pv">
-      <KvRows
-        rows={[
-          { k: "apiKey", v: "pk_live_***acme" },
-          { k: "environment", v: "production" },
-          { k: "sdkVersion", v: "2.0.0" },
-          { k: "mounted", v: "3 components" },
-        ]}
-      />
-    </div>
+    <DemoVideo src={`${VIDEO_BASE}/get-the-overview.mp4`} label="Velt DevTools installation overview" />
   ),
 
   "showcase/data-inspector": (
-    <div className="pv">
-      <KvRows
-        rows={[
-          { k: "comments", v: "14 threads" },
-          { k: "users", v: "3 online (1 agent)" },
-          { k: "documents", v: "proposal-acme" },
-          { k: "locations", v: "6 anchors" },
-        ]}
-      />
-    </div>
+    <DemoVideo src={`${VIDEO_BASE}/access-data.mp4`} label="Velt DevTools data inspector" />
   ),
 
   "showcase/live-event-stream": (
-    <div className="pv">
-      <EventStream
-        rows={[
-          { ts: "09:41:03", event: "Document is Set" },
-          { ts: "09:41:08", event: "Comment is Added", agent: true },
-          { ts: "09:41:12", event: "Multi Cursor Initiated" },
-          { ts: "09:41:19", event: "User Authenticated" },
-        ]}
-      />
-    </div>
+    <DemoVideo src={`${VIDEO_BASE}/observe-event-stream.mp4`} label="Velt DevTools live event stream" />
   ),
 
   "showcase/component-inspector": (
-    <div className="pv">
-      <div style={{ display: "grid", gap: 7 }}>
-        {[
-          { name: "VeltComments", status: "mounted" },
-          { name: "VeltPresence", status: "mounted" },
-          { name: "VeltNotifications", status: "mounted" },
-        ].map((comp) => (
-          <div
-            key={comp.name}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              padding: "7px 10px",
-              borderRadius: 6,
-              border: "1px solid var(--vlp-border-subtle)",
-              fontSize: 12,
-            }}
-          >
-            <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-ink-soft)" }}>{comp.name}</span>
-            <span style={{ fontSize: 10, color: "var(--vlp-color-accent)", fontWeight: 600 }}>{comp.status}</span>
-          </div>
-        ))}
-      </div>
-    </div>
+    <DemoVideo src={`${VIDEO_BASE}/inspect-components.mp4`} label="Velt DevTools component inspector" />
   ),
 
   "showcase/sdk-version-switching": (
-    <div className="pv">
-      <VersionSwitcher
-        versions={[
-          { label: "2.0.0", active: true },
-          { label: "1.9.8" },
-          { label: "1.9.5" },
-        ]}
-      />
-    </div>
+    <DemoVideo src={`${VIDEO_BASE}/test-with-any-sdk-version.mp4`} label="Velt DevTools SDK version switching" />
   ),
 
   "showcase/agent-activity": (
@@ -443,7 +278,7 @@ export const DEVTOOLS_DEMOS: Record<string, ReactNode> = {
 
   "related/mcp": (
     <div className="pv">
-      <DarkPanel>{"npx @veltdev/mcp@latest\n# docs + setup for agents"}</DarkPanel>
+      <DarkPanel>{"npx -y @velt-js/mcp-installer\n# docs + setup for agents"}</DarkPanel>
     </div>
   ),
 

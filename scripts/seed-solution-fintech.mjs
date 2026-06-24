@@ -152,7 +152,7 @@ const doc = {
           oneLiner:
             "Every approval on a budget, forecast, or model, timestamped and attributed. The auditor's sample request is a query, not an investigation.",
           link: cta("Explore Audit trail", "/audit-trail"),
-          code: "GET /v2/activities?document=q3-forecast",
+          code: "POST /v2/activities/get\n{ \"data\": { \"documentId\": \"q3-forecast\" } }",
           preview: "solutions/fintech/fm/audit-trail",
         },
         {
@@ -180,7 +180,7 @@ const doc = {
           oneLiner:
             "Comment content on budgets and forecasts persists to your database; Velt keeps minimal identifiers. The vendor security review gets a field-level inventory, not a promise.",
           link: cta("Explore Self-hosting", "/self-hosting"),
-          code: "velt.setDataProvider(\"comments\")",
+          code: "velt.setDataProviders({ comment })",
           preview: "solutions/fintech/fm/self-hosting",
         },
         {

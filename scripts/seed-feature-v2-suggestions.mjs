@@ -68,7 +68,7 @@ const STEP_PROVIDER = `<VeltProvider
 </VeltProvider>`;
 const STEP_MOUNT = `// accept/reject render on the comment dialog
 <div data-velt-suggestion-target="qty" />
-enableSuggestionMode();`;
+const { enableSuggestionMode } = useEnableSuggestionMode();`;
 
 const doc = {
   _id: "featurePageV2-suggestions",
@@ -161,11 +161,11 @@ const doc = {
       sub: "Skip the steps. Have your agent set it up.",
       tabs: keyed(
         [
-          { id: "cursor", label: "Cursor", command: "npx @veltdev/mcp add --client cursor" },
-          { id: "claude", label: "Claude Code", command: "claude mcp add velt -- npx @veltdev/mcp" },
-          { id: "windsurf", label: "Windsurf", command: "npx @veltdev/mcp add --client windsurf" },
-          { id: "copilot", label: "Copilot", command: "npx @veltdev/mcp add --client vscode" },
-          { id: "zed", label: "Zed", command: "npx @veltdev/mcp add --client zed" },
+          { id: "cursor", label: "Cursor", command: "npx -y @velt-js/mcp-installer" },
+          { id: "claude", label: "Claude Code", command: "claude mcp add velt-installer -- npx -y @velt-js/mcp-installer" },
+          { id: "windsurf", label: "Windsurf", command: "npx -y @velt-js/mcp-installer" },
+          { id: "copilot", label: "Copilot", command: "npx -y @velt-js/mcp-installer" },
+          { id: "zed", label: "Zed", command: "npx -y @velt-js/mcp-installer" },
         ],
         "vfpMcpTab",
       ),
@@ -256,7 +256,7 @@ const doc = {
           headline:
             "Accept fires an event with the old and new values; your handler writes the change to your state or backend. Velt never mutates your data, and neither does the agent.",
           preview: "suggestions/showcase/apply",
-          code: "onSuggestionAccepted(({ oldValue, newValue }) => {\n  applyToBackend(newValue);\n});",
+          code: "const accepted = useCommentEventCallback('suggestionAccepted');\napplyToBackend(accepted?.commentAnnotation?.suggestion?.newValue);",
         },
         {
           num: "06",
