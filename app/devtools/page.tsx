@@ -9,6 +9,8 @@
 import type { Metadata } from "next";
 
 import StaticFeaturePage from "@/app/_seo/StaticFeaturePage";
+import FeaturePageView from "@/components/feature-new/FeaturePageView";
+import Enterprise from "@/components/home-new/Enterprise";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 import { devtoolsContent } from "./content";
@@ -31,6 +33,8 @@ export default function DevtoolsPage() {
       content={devtoolsContent}
       pageTitle="DevTools"
       description={devtoolsContent.hero.secondary}
-    />
+    >
+      <FeaturePageView content={devtoolsContent} enterpriseSection={<Enterprise />} />
+    </StaticFeaturePage>
   );
 }

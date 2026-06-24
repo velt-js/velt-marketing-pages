@@ -1,9 +1,12 @@
 // /migrate-from-liveblocks-to-velt — legacy SEO landing that renders the
-// same Sanity-backed body as /migrate/liveblocks via the shared
-// MigrationPageBody. Canonical/OG stay on this URL so search engines can
-// rank it for the legacy keyword.
+// same Sanity-backed content as /migrate/liveblocks, reskinned on the
+// editorial home-new (`.vlp`) design system via the shared MigrationNewBody
+// (also used by /migrate-from-cord-to-velt). Canonical/OG stay on this URL so
+// search engines can rank it for the legacy keyword. (The dynamic
+// /migrate/[slug] route still uses the legacy dark MigrationPageBody, so this
+// reskin is scoped to the two top-level SEO landings only.)
 
-import { MigrationPageBody } from "@/components/migrate/MigrationPageBody";
+import { MigrationNewBody } from "@/components/migrate-new/MigrationNewBody";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
@@ -20,7 +23,7 @@ export const metadata = buildPageMetadata({
 
 export default function MigrateFromLiveblocksPage() {
   return (
-    <MigrationPageBody
+    <MigrationNewBody
       sanitySlug="liveblocks"
       pageUrlPath="migrate-from-liveblocks-to-velt"
     />

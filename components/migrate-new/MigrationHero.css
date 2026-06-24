@@ -1,0 +1,151 @@
+.vlp .mig-hero {
+  background: var(--vlp-bg-page);
+}
+
+.vlp .mig-hero-inner {
+  max-width: var(--vlp-content-medium);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter) var(--vlp-space-16);
+  text-align: center;
+}
+
+.vlp .mig-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .mig-hero-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .mig-hero-title {
+  font-size: var(--vlp-text-hero);
+  line-height: var(--vlp-leading-display-tight);
+  letter-spacing: var(--vlp-tracking-tight);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 18ch;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+.vlp .mig-hero-sub {
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  max-width: 58ch;
+  margin: var(--vlp-space-6) auto 0;
+}
+
+.vlp .mig-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-3);
+  justify-content: center;
+  margin-top: var(--vlp-space-8);
+}
+
+.vlp .mig-hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-primary-font-lg);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-lg);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+.vlp .mig-hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-secondary-font-lg);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  padding: var(--vlp-btn-secondary-padding-lg);
+  border-radius: var(--vlp-btn-secondary-radius);
+  border: var(--vlp-btn-secondary-border);
+  transition: var(--vlp-btn-transition);
+}
+
+/* Competitor → Velt motif: a mono "from X to Velt" pill row beneath the actions.
+   `width: fit-content` + auto inline margins keep the pill hugging its content
+   while sitting centered on its own row, so it never shares a line with the
+   proof strip below it. */
+.vlp .mig-hero-route {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+  width: fit-content;
+  max-width: 100%;
+  margin-top: var(--vlp-space-8);
+  margin-inline: auto;
+  padding: var(--vlp-space-2) var(--vlp-space-4);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-bg-card);
+}
+
+.vlp .mig-hero-route-node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-mono);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .mig-hero-route-node--velt {
+  color: var(--vlp-color-accent);
+}
+
+.vlp .mig-hero-route-logo {
+  height: 16px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.vlp .mig-hero-route-arrow {
+  color: var(--vlp-color-text-subtle);
+  flex-shrink: 0;
+}
+
+/* Proof strip: a full-width centered row that always stacks beneath the route
+   pill (block-level `flex`, not `inline-flex`, so the two never collide). */
+.vlp .mig-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-space-2-5);
+  margin-top: var(--vlp-space-5);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+}
+
+.vlp .mig-hero-meta-dot {
+  color: var(--vlp-color-text-subtle);
+}
+
+@media (max-width: 768px) {
+  .vlp .mig-hero-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter) var(--vlp-space-12);
+  }
+}

@@ -1,9 +1,9 @@
 // /migrate-from-cord-to-velt — legacy SEO landing that renders the same
-// Sanity-backed body as /migrate/cord via the shared MigrationPageBody.
-// Canonical/OG stay on this URL so search engines can rank it for the
-// legacy keyword.
+// Sanity-backed body as /migrate/cord, reskinned onto the editorial
+// home-new design system via MigrationNewBody. Canonical/OG stay on this
+// URL so search engines can rank it for the legacy keyword.
 
-import { MigrationPageBody } from "@/components/migrate/MigrationPageBody";
+import { MigrationNewBody } from "@/components/migrate-new/MigrationNewBody";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
@@ -20,7 +20,7 @@ export const metadata = buildPageMetadata({
 
 export default function MigrateFromCordPage() {
   return (
-    <MigrationPageBody
+    <MigrationNewBody
       sanitySlug="cord"
       pageUrlPath="migrate-from-cord-to-velt"
     />

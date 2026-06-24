@@ -1,0 +1,69 @@
+/* /features hub — additive, scoped card styles layered on the shared .vintg
+   editorial system (components/libraries-new/styles.css). Only the bits the hub
+   grid needs beyond .vintg-card: a clickable whole-card link with a hover lift,
+   an optional product logo, and the mono category eyebrow. Tokens come from the
+   canonical --vlp-* set in components/home-new/styles.css. */
+
+/* The whole feature card is a link. Reuse .vintg-card for the base surface and
+   add the hover affordance the static .vintg-card grid does not carry. */
+.vintg .vfeat-card {
+  text-decoration: none;
+  min-height: 184px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+.vintg .vfeat-card:hover {
+  border-color: var(--vlp-color-accent);
+  box-shadow: var(--vlp-shadow-md);
+  transform: translateY(-3px);
+}
+
+/* Product mark, contained so wide and square logos both read at one optical
+   size (mirrors the homepage logo handling in DESIGN.md §8). */
+.vintg .vfeat-logo {
+  height: 26px;
+  max-width: 60%;
+  object-fit: contain;
+  margin-bottom: var(--vlp-space-1);
+}
+
+.vintg .vfeat-card h4 {
+  color: var(--vlp-color-text);
+}
+
+/* Category eyebrow pinned to the card foot: mono, all-caps, accent (DESIGN.md
+   §1 capitalization + §2 orange accent). margin-top:auto rides the .vintg-card
+   flex column so it sits at the bottom regardless of tagline length. */
+.vintg .vfeat-cat {
+  margin-top: auto;
+  padding-top: var(--vlp-space-3);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+}
+
+/* Group band label above each category's card grid. */
+.vintg .vfeat-group + .vfeat-group {
+  margin-top: var(--vlp-space-12);
+}
+.vintg .vfeat-group-label {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+  margin: 0 0 var(--vlp-space-5);
+}
+
+/* Graceful empty state when the CMS has no feature pages yet. */
+.vintg .vfeat-empty {
+  font-size: var(--vlp-text-body);
+  color: var(--vlp-color-text-muted);
+}
+.vintg .vfeat-empty a {
+  color: var(--vlp-color-accent);
+  font-weight: var(--vlp-weight-semibold);
+}
+.vintg .vfeat-empty a:hover {
+  text-decoration: underline;
+}
