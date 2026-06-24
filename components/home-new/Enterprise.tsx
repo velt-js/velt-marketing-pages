@@ -19,7 +19,7 @@ const DEFAULT_EYEBROW = "Built for enterprise";
 const DEFAULT_HEADING = "Built for your customers' compliance.";
 const DEFAULT_DESCRIPTION =
   "Per-feature data providers keep content and PII on your infrastructure. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.";
-const DEFAULT_PRIMARY_CTA: EnterpriseCta = { label: "Book Demo", href: "#proof" };
+const DEFAULT_PRIMARY_CTA: EnterpriseCta = { label: "Book Demo", href: "/book-demo" };
 const DEFAULT_SECONDARY_CTA: EnterpriseCta = {
   label: "Governance",
   href: "/enterprise",

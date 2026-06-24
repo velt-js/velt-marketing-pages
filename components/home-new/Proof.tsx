@@ -43,7 +43,7 @@ export default function Proof() {
         <LogoCarousel logos={PROOF_LOGOS} className="proof-logos" monochrome />
         <div className="proof-cta-row">
           <span className="proof-cta-microcopy">30 MINUTES, WITH AN ENGINEER, NOT A SALES DECK</span>
-          <a href="#cta" className="proof-cta-btn hdark">Book Demo</a>
+          <a href="/book-demo" className="proof-cta-btn hdark">Book Demo</a>
         </div>
       </section>
   );
