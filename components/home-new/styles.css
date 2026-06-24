@@ -309,7 +309,6 @@ body { background: var(--vlp-color-white, #ffffff); }
 
 .vlp {
   background: var(--vlp-bg-page);
-  color: var(--vlp-color-text);
   font-family: var(--vlp-font-body);
   -webkit-font-smoothing: antialiased;
   font-feature-settings: 'tnum';
