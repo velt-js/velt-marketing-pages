@@ -1,7 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { AvatarStack, CursorTag, ProvRow, ProvArrow, DarkPanel } from "../demos";
-import { Av, Composer, FACES, Frame } from "./hero-surface";
+import { AvatarStack, CursorTag, ProvRow, ProvArrow } from "../demos";
+import { Av, Composer, FACES, Frame, IconAgentMark } from "./hero-surface";
+
+import "./presence-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/presence page. Keys match
 // components/feature-new/demo-keys.ts; resolved by demo-registry.tsx.
@@ -221,6 +223,127 @@ function SelectionSpan({
   );
 }
 
+/** @returns {JSX.Element} Group / people glyph for the avatars card header. */
+function IconUsers() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path d="M16 5.5a3 3 0 0 1 0 5M17 14.2A6 6 0 0 1 21 20" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Heartbeat / activity glyph for the presence-states header. */
+function IconPulse() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 12h4l2-6 4 12 2-6h6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Pointer glyph for the live-cursors header. */
+function IconCursor() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 3l6 18 2.5-7.5L21 11 5 3z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Highlight / text-selection glyph for the selection header. */
+function IconSelection() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 7V5h16v2M9 5v14M7 19h4" />
+      <rect x="14" y="13" width="7" height="6" rx="1.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Eye glyph for the follow-mode header. */
+function IconFollow() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Map-pin glyph for the presence-by-location header. */
+function IconPin() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Stacked-data glyph for the presence-data header. */
+function IconData() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+      <path d="M4 5.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6M4 11.5v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Bolt glyph for the state-change escalation event. */
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z" />
+    </svg>
+  );
+}
+
+/**
+ * One presence row: an avatar with an optional online/away/offline status dot, a
+ * name, an optional sub line, and an optional right-aligned tag. Reused across
+ * the avatars roster, the states list, and the agent room.
+ * @param {{ name: ReactNode; sub?: ReactNode; subMono?: boolean; initials: string; tone?: string; img?: string; agent?: boolean; state?: "on" | "away" | "off"; right?: ReactNode }} props Row content.
+ * @returns {JSX.Element} Presence person row.
+ */
+function PersonRow({
+  name,
+  sub,
+  subMono,
+  initials,
+  tone = "a1",
+  img,
+  agent,
+  state,
+  right,
+}: {
+  name: ReactNode;
+  sub?: ReactNode;
+  subMono?: boolean;
+  initials: string;
+  tone?: string;
+  img?: string;
+  agent?: boolean;
+  state?: "on" | "away" | "off";
+  right?: ReactNode;
+}) {
+  return (
+    <div className="prs-person">
+      <span className="prs-ava">
+        <Av initials={initials} tone={tone} img={img} agent={agent} />
+        {state ? <span className={`prs-dot prs-dot--${state}`} /> : null}
+      </span>
+      <span className="prs-person-main">
+        <span className="prs-person-name">{name}</span>
+        {sub ? <span className={`prs-person-sub${subMono ? " prs-person-sub--mono" : ""}`}>{sub}</span> : null}
+      </span>
+      {right ?? null}
+    </div>
+  );
+}
+
 export const PRESENCE_DEMOS: Record<string, ReactNode> = {
   // ── AVATARS ────────────────────────────────────────────────────────────────
   // Who's here: a presence stack in the chrome + a roster list with real faces
@@ -430,85 +553,312 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // Live avatars + overflow (wide tile): a presence cluster that collapses
+  // extras into +N over a two-column roster of who's currently here.
   "presence/showcase/avatars": (
     <div className="pv">
-      <div style={{ padding: 14 }}>
-        <AvatarStack users={DEAL_TEAM} overflow={5} />
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconUsers />
+          On this document
+          <span className="cmh-cc-pill">6 here</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-cluster">
+            <span className="prs-stack" aria-hidden="true">
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <Av initials="SR" tone="a3" img={FACES.hope} />
+              <Av initials="DV" tone="a1" img={FACE.dev} />
+              <Av initials="RA" agent />
+              <span className="prs-more">+2</span>
+            </span>
+            <span className="prs-cluster-meta">
+              <span className="prs-cluster-count">5 people · 1 agent</span>
+              <span className="prs-cluster-sub">maxUsers collapses the rest</span>
+            </span>
+          </div>
+          <div className="prs-roster">
+            <PersonRow initials="MA" tone="a2" img={FACE.maya} name="Maya" sub="editing slide 4" state="on" />
+            <PersonRow initials="DV" tone="a1" img={FACE.dev} name="Dev" sub="viewing" state="on" />
+            <PersonRow initials="SR" tone="a3" img={FACES.hope} name="Sarah" sub="viewing" state="on" />
+            <PersonRow initials="RA" agent name="Review Agent" sub="reviewing clause 7" state="on" />
+            <PersonRow initials="CR" tone="a4" img={FACES.chris} name="Chris" sub="idle 5m" state="away" />
+            <PersonRow initials="YO" tone="a1" img={FACE.you} name="You" sub="editing" state="on" />
+          </div>
+        </div>
       </div>
     </div>
   ),
 
+  // Online / away / offline (narrow tile): heartbeats move a user through the
+  // three presence states, each with the rule that triggered it.
   "presence/showcase/states": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <AvatarStack
-          users={[
-            { initials: "MA", kind: "human", name: "online" },
-            { initials: "SR", kind: "away", name: "away" },
-            { initials: "DV", kind: "away", name: "offline" },
-          ]}
-        />
-        <p className="code-microcopy">online · away (5m / tab switch) · offline (10m / disconnect)</p>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconPulse />
+          Presence states
+          <span className="cmh-cc-pill">auto</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-list">
+            <PersonRow
+              initials="MA"
+              tone="a2"
+              img={FACE.maya}
+              name="Maya"
+              sub="active now"
+              subMono
+              state="on"
+              right={<span className="chip chip-approved">online</span>}
+            />
+            <PersonRow
+              initials="SR"
+              tone="a3"
+              img={FACES.hope}
+              name="Sarah"
+              sub="idle 5m · tab switch"
+              subMono
+              state="away"
+              right={<span className="chip chip-pending">away</span>}
+            />
+            <PersonRow
+              initials="DV"
+              tone="a1"
+              img={FACE.dev}
+              name="Dev"
+              sub="disconnected 10m"
+              subMono
+              state="off"
+              right={<span className="prs-tag">offline</span>}
+            />
+          </div>
+        </div>
       </div>
     </div>
   ),
 
+  // Agents in the avatar row (narrow tile): addUser drops an agent into presence
+  // beside the humans, tagged so users see the reviewer is in before it acts.
   "presence/showcase/agent": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <AvatarStack users={[{ initials: "MA", kind: "human" }, { initials: "RA", kind: "agent", name: "Review Agent" }]} />
-        <p className="code-microcopy">addUser() or Presence REST API puts an agent in the row</p>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--slate">
+          <span className="cmh-cc-mark"><IconAgentMark /></span>
+          In the room
+          <span className="cmh-cc-pill">human + agent</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-list">
+            <PersonRow
+              initials="MA"
+              tone="a2"
+              img={FACE.maya}
+              name="Maya"
+              sub="editing"
+              state="on"
+              right={<span className="apf-tag apf-tag--human">human</span>}
+            />
+            <PersonRow
+              initials="RA"
+              agent
+              name="Review Agent"
+              sub="reviewing clause 7"
+              state="on"
+              right={<span className="apf-tag apf-tag--agent"><IconAgentMark />agent</span>}
+            />
+          </div>
+          <div className="apf-note">
+            <span className="chip chip-agent">addUser()</span>
+            <span>Or the Presence REST API</span>
+          </div>
+        </div>
       </div>
     </div>
   ),
 
+  // Live cursors (wide tile): labeled pointers from humans and an agent moving
+  // across a shared document canvas.
   "presence/showcase/cursors": (
     <div className="pv">
-      <DocSurface>
-        <CursorTag name="Maya" />
-        <div style={{ position: "absolute", top: 18, right: 18 }}>
-          <CursorTag name="Agent" kind="agent" />
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconCursor />
+          Live cursors
+          <span className="cmh-cc-pill">humans + agents</span>
         </div>
-      </DocSurface>
+        <div className="cmh-cc-body">
+          <div className="prs-canvas">
+            <p className="cmh-doc">
+              7.2 The Provider shall indemnify and hold harmless the Client against
+              all claims arising from the Services provided under this agreement.
+            </p>
+            <div className="sk" style={{ width: "82%" }} />
+            <div className="sk" style={{ width: "60%" }} />
+            <PsCursor
+              name="Maya"
+              color="oklch(0.60 0.13 35)"
+              style={{ position: "absolute", top: 30, left: 26 }}
+            />
+            <PsCursor
+              name="Dev"
+              color="#5b7fb8"
+              style={{ position: "absolute", top: 70, right: 90 }}
+            />
+            <PsCursor
+              name="Review Agent"
+              color="#2b66e9"
+              style={{ position: "absolute", bottom: 18, right: 24 }}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Live selection (wide tile): colored, attributed text selections on a doc and
+  // a field that broadcasts its selection in real time.
   "presence/showcase/selection": (
     <div className="pv">
-      <DocSurface>
-        <p style={{ margin: 0, fontSize: 13 }}>
-          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>cell B12</mark>{" "}
-          selected by Sarah
-        </p>
-      </DocSurface>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconSelection />
+          Live selection
+          <span className="cmh-cc-pill">attributed</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-canvas">
+            <p className="cmh-doc" style={{ lineHeight: 1.95 }}>
+              7.2 The Provider shall{" "}
+              <SelectionSpan color="oklch(0.88 0.08 35)" name="Maya">
+                indemnify and hold harmless
+              </SelectionSpan>{" "}
+              the Client against{" "}
+              <SelectionSpan color="oklch(0.86 0.08 250)" name="Dev">
+                all claims arising
+              </SelectionSpan>{" "}
+              from the Services.
+            </p>
+          </div>
+          <div className="prs-field">
+            <span className="prs-field-label">B12</span>
+            <span className="prs-field-val">
+              <SelectionSpan color="oklch(0.86 0.09 155)" name="Sarah">
+                $85,400
+              </SelectionSpan>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Follow mode (narrow tile): a "following" banner mirroring a teammate's
+  // viewport, plus the same affordance for riding along with an agent.
   "presence/showcase/follow": (
     <div className="pv">
-      <ProvRow>
-        click teammate <ProvArrow /> ride their viewport
-      </ProvRow>
-      <ProvRow>
-        click agent <ProvArrow /> watch it work, live
-      </ProvRow>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconFollow />
+          Follow mode
+          <span className="cmh-cc-pill">live</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-follow">
+            <div className="prs-follow-banner">
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <span className="prs-follow-main">
+                <span className="prs-follow-title">Following Maya</span>
+                <span className="prs-follow-sub">your viewport mirrors hers</span>
+              </span>
+              <button type="button" className="prs-follow-stop">Stop</button>
+            </div>
+            <div className="prs-follow-hint">
+              <Av initials="RA" agent />
+              <span className="prs-follow-hint-text">
+                Click the agent to ride along as it works, live
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Presence by location (narrow tile): locationId scopes the avatar row to a
+  // single slide, so you see who is on slide 4 — not just somewhere in the deck.
   "presence/showcase/location": (
     <div className="pv">
-      <ProvRow>
-        locationId: slide-4 <ProvArrow /> who&rsquo;s on this slide
-      </ProvRow>
-      <ProvRow>
-        not just somewhere in the deck
-      </ProvRow>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconPin />
+          By location
+          <span className="cmh-cc-pill">slide-4</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-loc">
+            <div className="prs-loc-row">
+              <span className="prs-loc-id">slide-3</span>
+              <span className="prs-loc-main">Pricing</span>
+              <span className="prs-loc-empty">no one here</span>
+            </div>
+            <div className="prs-loc-row prs-loc-row--on">
+              <span className="prs-loc-id">slide-4</span>
+              <span className="prs-loc-main">Forecast</span>
+              <span className="prs-mini" aria-hidden="true">
+                <Av initials="MA" tone="a2" img={FACE.maya} />
+                <Av initials="DV" tone="a1" img={FACE.dev} />
+                <Av initials="RA" agent />
+              </span>
+            </div>
+            <div className="prs-loc-row">
+              <span className="prs-loc-id">slide-5</span>
+              <span className="prs-loc-main">Roadmap</span>
+              <span className="prs-loc-empty">no one here</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Presence data + events (wide tile): a status-filtered presence read on one
+  // side, a state-change event firing an escalation on the other.
   "presence/showcase/data": (
     <div className="pv">
-      <DarkPanel>{"usePresenceData({ statuses: [\"away\"] })\nonUserStateChange((u) => escalate(u))"}</DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconData />
+          Presence data
+          <span className="cmh-cc-pill">queryable</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="prs-data">
+            <div className="prs-data-panel">
+              <span className="prs-data-cap"><IconData />usePresenceData</span>
+              <span className="prs-query">
+                statuses: [<b>&quot;away&quot;</b>]
+              </span>
+              <div className="prs-list">
+                <PersonRow initials="SR" tone="a3" img={FACES.hope} name="Sarah" sub="idle 5m" subMono state="away" />
+                <PersonRow initials="DV" tone="a1" img={FACE.dev} name="Dev" sub="idle 8m" subMono state="away" />
+              </div>
+            </div>
+            <div className="prs-data-panel">
+              <span className="prs-data-cap"><IconBolt />onUserStateChange</span>
+              <div className="prs-event">
+                <span className="prs-event-ic"><IconBolt /></span>
+                <span className="prs-event-text">
+                  Reviewer went idle &rarr; <code>escalate(user)</code>
+                </span>
+              </div>
+              <span className="prs-query">
+                drive your own indicators
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 

@@ -1,0 +1,109 @@
+/* ---------- Recording showcase artifacts (.rcd-*) ----------
+   Mock-UI cards for the /recording Capabilities grid, reusing the comments +
+   approval-flows design language: white labeled cards (apf-card / cmh-rec-card)
+   over the shared cmh-cc head/body chrome plus the chip, Av, apf-evt and apf-note
+   atoms. Only genuinely new recording patterns (media players, waveforms, screen
+   frames, timelines, storage routing) live here; everything is namespaced .rcd-
+   and scoped under .vfp. New .rcd- classes deliberately avoid the .cmh-rec-
+   prefix so the shared comments recording card stays untouched. */
+
+/* Media player — orange play control, waveform, mono duration, transcript. */
+.vfp .rcd-player { display: grid; gap: 10px; padding: 12px; border: 1px solid var(--vlp-border-subtle); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-player-row { display: flex; align-items: center; gap: 11px; }
+.vfp .rcd-play { width: 32px; height: 32px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--vlp-color-accent); box-shadow: 0 4px 12px rgba(255, 79, 0, 0.28); }
+.vfp .rcd-play svg { width: 12px; height: 12px; margin-left: 2px; color: #fff; }
+.vfp .rcd-wave { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 2px; height: 26px; }
+.vfp .rcd-wave-bar { width: 3px; flex: none; border-radius: 2px; background: var(--vlp-border-default); }
+.vfp .rcd-wave-bar--on { background: var(--vlp-color-accent); }
+.vfp .rcd-wave--mic .rcd-wave-bar--on { background: var(--vlp-color-green-approval); }
+.vfp .rcd-dur { flex: none; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .rcd-player-cap { display: flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-mic-ic { width: 18px; height: 18px; flex: none; display: grid; place-items: center; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-mic-ic svg { width: 16px; height: 16px; }
+.vfp .rcd-transcript { margin: 0; font-size: 13px; line-height: 1.5; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); }
+.vfp .rcd-transcript em { font-style: italic; }
+
+/* Voice / comment head row — avatar, name, anchor chip, mono timestamp. */
+.vfp .rcd-byline { display: flex; align-items: center; gap: 9px; }
+.vfp .rcd-byline .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .rcd-byline-name { font-size: 13.5px; font-weight: 700; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .rcd-byline-time { margin-left: auto; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); }
+
+/* Dark video stage — gradient poster, scanline texture, play overlay, badges,
+   subtitle bar. Shared by the screen-capture and transcription cards. */
+.vfp .rcd-stage { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: linear-gradient(160deg, #1b2a4a 0%, #14333b 100%); display: grid; place-items: center; }
+.vfp .rcd-stage-grid { position: absolute; inset: 0; pointer-events: none; background-image: repeating-linear-gradient(0deg, transparent, transparent 17px, rgba(255, 255, 255, 0.04) 17px, rgba(255, 255, 255, 0.04) 18px); }
+.vfp .rcd-stage-play { position: relative; z-index: 1; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, 0.18); border: 1.5px solid rgba(255, 255, 255, 0.4); backdrop-filter: blur(4px); }
+.vfp .rcd-stage-play svg { width: 14px; height: 14px; margin-left: 2px; color: #fff; }
+.vfp .rcd-stage-badge { position: absolute; top: 8px; right: 9px; padding: 2px 7px; border-radius: 5px; background: rgba(0, 0, 0, 0.52); color: #fff; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.04em; }
+.vfp .rcd-stage-sub { position: absolute; left: 50%; bottom: 9px; transform: translateX(-50%); max-width: 86%; padding: 4px 10px; border-radius: 7px; background: rgba(0, 0, 0, 0.68); color: #fff; font-size: 11.5px; line-height: 1.35; text-align: center; backdrop-filter: blur(3px); }
+
+/* Screen-capture window — title-bar dots + a live REC pill over the stage. */
+.vfp .rcd-screen { border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; overflow: hidden; background: #fff; }
+.vfp .rcd-screen-bar { display: flex; align-items: center; gap: 6px; padding: 8px 11px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .rcd-screen-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--vlp-border-default); }
+.vfp .rcd-screen .rcd-stage { border-radius: 0; }
+.vfp .rcd-rec { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-reject-soft); color: #99291c; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; }
+.vfp .rcd-rec i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: #e0392b; animation: cmh-pulse 2.4s ease-out infinite; }
+
+/* Pinned recording — anchored "Recorder Note" pin over a skeleton sheet. */
+.vfp .rcd-pin-scene { display: grid; gap: 12px; }
+.vfp .rcd-sheet { position: relative; display: grid; gap: 9px; padding: 14px 14px 14px 22px; border: 1px solid var(--vlp-border-subtle); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-sheet-line { height: 9px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .rcd-sheet-line--hl { background: var(--vlp-color-accent-wash); }
+.vfp .rcd-pin { position: absolute; left: -11px; top: 12px; z-index: 2; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50% 50% 50% 4px; background: var(--vlp-color-accent); box-shadow: 0 6px 16px rgba(255, 79, 0, 0.3); }
+.vfp .rcd-pin svg { width: 13px; height: 13px; margin-left: 1px; color: #fff; }
+.vfp .rcd-anchor { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--vlp-color-text-muted); }
+.vfp .rcd-anchor mark { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); padding: 1px 6px; border-radius: 5px; font-weight: 600; }
+
+/* Transcription — timestamped transcript cues beneath the player. */
+.vfp .rcd-cues { display: flex; flex-direction: column; gap: 0; }
+.vfp .rcd-cue { display: flex; gap: 12px; padding: 9px 2px; }
+.vfp .rcd-cue + .rcd-cue { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rcd-cue-t { flex: none; font-family: var(--vlp-font-mono); font-size: 11px; padding-top: 1px; color: var(--vlp-color-accent); }
+.vfp .rcd-cue-x { flex: 1; min-width: 0; font-size: 13px; line-height: 1.45; letter-spacing: -0.26px; color: var(--vlp-color-text-muted); }
+.vfp .rcd-cue--live .rcd-cue-x { color: var(--vlp-color-ink); font-weight: 500; }
+
+/* Built-in editor — frame strip, scrubber with knob, and tool chips. */
+.vfp .rcd-timeline { display: grid; gap: 12px; }
+.vfp .rcd-frames { display: flex; gap: 4px; }
+.vfp .rcd-frame { flex: 1; height: 34px; border-radius: 5px; background: var(--vlp-bg-skeleton, #ececec); border: 1px solid var(--vlp-border-subtle); }
+.vfp .rcd-frame--mid { background: color-mix(in srgb, var(--vlp-color-accent) 26%, var(--vlp-bg-skeleton, #ececec)); }
+.vfp .rcd-frame--sel { border: 2px solid var(--vlp-color-accent); }
+.vfp .rcd-scrub { position: relative; height: 5px; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .rcd-scrub-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; background: var(--vlp-color-accent); }
+.vfp .rcd-scrub-knob { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: var(--vlp-color-accent); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(255, 79, 0, 0.4); transform: translate(-50%, -50%); }
+.vfp .rcd-edit-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.vfp .rcd-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Recordings in threads — a recording attachment + reply / resolve / link row. */
+.vfp .rcd-attach { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--vlp-border-subtle); border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-attach-play { width: 28px; height: 28px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--vlp-color-accent); }
+.vfp .rcd-attach-play svg { width: 11px; height: 11px; margin-left: 1px; color: #fff; }
+.vfp .rcd-attach-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .rcd-attach-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .rcd-attach-meta { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .rcd-thread-foot { display: flex; align-items: center; gap: 16px; margin-top: 2px; }
+.vfp .rcd-thread-act { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+.vfp .rcd-thread-act svg { width: 14px; height: 14px; flex: none; }
+
+/* Self-hosted data — two lanes routing recording data to your storage vs the
+   minimal identifiers Velt keeps. */
+.vfp .rcd-route { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.vfp .rcd-route-col { display: flex; flex-direction: column; gap: 9px; padding: 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.vfp .rcd-route-col--velt { background: var(--vlp-bg-section-alt); box-shadow: none; }
+.vfp .rcd-route-head { display: flex; align-items: center; gap: 9px; }
+.vfp .rcd-route-ic { width: 28px; height: 28px; flex: none; display: grid; place-items: center; border-radius: 8px; border: 1px solid var(--vlp-border-subtle); background: #fff; color: #7c3aed; }
+.vfp .rcd-route-ic svg { width: 15px; height: 15px; }
+.vfp .rcd-route-col--velt .rcd-route-ic { color: var(--vlp-color-text-muted); }
+.vfp .rcd-route-titles { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.vfp .rcd-route-title { font-size: 13.5px; font-weight: 700; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .rcd-route-sub { font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-route-item { display: flex; align-items: center; gap: 8px; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .rcd-route-item svg { width: 14px; height: 14px; flex: none; color: var(--vlp-color-green-approval); }
+.vfp .rcd-route-min { font-size: 12.5px; line-height: 1.5; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .rcd-route-min code { font-family: var(--vlp-font-mono); font-size: 11px; padding: 1px 5px; border-radius: 5px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+
+@media (max-width: 560px) {
+  .vfp .rcd-route { grid-template-columns: 1fr; }
+}

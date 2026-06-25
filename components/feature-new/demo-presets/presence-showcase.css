@@ -1,0 +1,94 @@
+/* ---------- Presence showcase artifacts (.prs-*) ----------
+   Mock-UI cards for the /presence Capabilities grid, reusing the comments +
+   approval-flows design language: white labeled cards (apf-card) over the
+   shared cmh-cc head/body chrome, the cmh-cmt comment rows, the afc agent
+   finding card, and the Av avatar cluster. Presence-specific patterns (avatar
+   clusters with state dots, a live-cursor canvas, follow banners, location
+   rooms, and a presence-data read) live here, namespaced .prs- and scoped
+   under .vfp. */
+
+/* Shared person row — avatar with a presence dot, name, and a sub line, with an
+   optional right-aligned tag. Reused across the roster, states, and agent
+   cards. */
+.vfp .prs-person { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.vfp .prs-ava { position: relative; flex: none; display: grid; }
+.vfp .prs-ava .av-c { width: 30px; height: 30px; font-size: 11px; }
+.vfp .prs-dot { position: absolute; bottom: -1px; right: -1px; width: 9px; height: 9px; border-radius: 50%; border: 2px solid #fff; box-sizing: border-box; }
+.vfp .prs-dot--on { background: var(--vlp-color-green-approval); }
+.vfp .prs-dot--away { background: var(--vlp-color-amber, #d99a2b); }
+.vfp .prs-dot--off { background: var(--vlp-color-text-subtle); }
+.vfp .prs-person-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .prs-person-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .prs-person-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .prs-person-sub--mono { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; }
+
+/* Neutral pill used where the shared chips would read too loud (offline state,
+   plain role tags). */
+.vfp .prs-tag { display: inline-flex; align-items: center; gap: 5px; flex: none; padding: 3px 9px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; white-space: nowrap; }
+
+/* AVATARS — a presence cluster with overflow over a two-column roster. */
+.vfp .prs-cluster { display: flex; align-items: center; gap: 13px; padding-bottom: 13px; margin-bottom: 13px; border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .prs-stack { display: flex; flex: none; }
+.vfp .prs-stack .av-c { width: 38px; height: 38px; margin-left: -11px; border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14); font-size: 12.5px; }
+.vfp .prs-stack .av-c:first-child { margin-left: 0; }
+.vfp .prs-more { display: grid; place-items: center; width: 38px; height: 38px; margin-left: -11px; border-radius: 50%; border: 2.5px solid #fff; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-size: 12px; font-weight: 700; letter-spacing: -0.24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14); }
+.vfp .prs-cluster-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.vfp .prs-cluster-count { font-family: var(--vlp-font-heading); font-size: 16px; font-weight: 700; letter-spacing: -0.32px; color: #000; }
+.vfp .prs-cluster-sub { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .prs-roster { display: grid; grid-template-columns: 1fr 1fr; gap: 11px 16px; }
+
+/* STATES / AGENT — a vertical list of person rows with hairline dividers. */
+.vfp .prs-list { display: flex; flex-direction: column; }
+.vfp .prs-list .prs-person { padding: 11px 2px; }
+.vfp .prs-list .prs-person + .prs-person { border-top: 1px solid var(--vlp-border-subtle); }
+
+/* CURSORS — a believable document canvas hosting labeled live cursors. */
+.vfp .prs-canvas { position: relative; min-height: 138px; padding: 15px 16px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); overflow: hidden; }
+.vfp .prs-canvas .sk { margin-top: 8px; }
+
+/* SELECTION — a mock input/field that broadcasts a live selection. */
+.vfp .prs-field { display: flex; align-items: center; gap: 9px; margin-top: 12px; padding: 9px 11px; border: 1px solid var(--vlp-border-default); border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .prs-field-label { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); flex: none; }
+.vfp .prs-field-val { font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+
+/* FOLLOW — a "following" banner plus a teammate / agent follow target. */
+.vfp .prs-follow { display: flex; flex-direction: column; gap: 10px; }
+.vfp .prs-follow-banner { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--vlp-color-accent-soft); border: 1px solid var(--vlp-color-accent-wash); }
+.vfp .prs-follow-banner .av-c { width: 30px; height: 30px; flex: none; }
+.vfp .prs-follow-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .prs-follow-title { font-size: 13px; font-weight: 700; letter-spacing: -0.26px; color: var(--vlp-color-accent-ink); }
+.vfp .prs-follow-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); }
+.vfp .prs-follow-stop { flex: none; padding: 4px 11px; border-radius: 8px; border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); color: var(--vlp-color-text-muted); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; cursor: pointer; }
+.vfp .prs-follow-hint { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(0, 0, 0, 0.08); background: #fff; }
+.vfp .prs-follow-hint .av-c { width: 28px; height: 28px; flex: none; }
+.vfp .prs-follow-hint-text { flex: 1; min-width: 0; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+
+/* LOCATION — a list of rooms; only the active locationId carries presence. */
+.vfp .prs-loc { display: flex; flex-direction: column; gap: 9px; }
+.vfp .prs-loc-row { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .prs-loc-row--on { border-color: var(--vlp-color-accent-wash); background: var(--vlp-color-accent-soft); }
+.vfp .prs-loc-id { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); flex: none; }
+.vfp .prs-loc-row--on .prs-loc-id { color: var(--vlp-color-accent-ink); }
+.vfp .prs-loc-main { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .prs-loc-empty { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-subtle); flex: none; }
+.vfp .prs-mini { display: flex; flex: none; }
+.vfp .prs-mini .av-c { width: 24px; height: 24px; margin-left: -8px; border: 2px solid #fff; font-size: 9.5px; }
+.vfp .prs-mini .av-c:first-child { margin-left: 0; }
+
+/* DATA — a presence-data read on one side, a state-change event on the other. */
+.vfp .prs-data { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.vfp .prs-data-panel { display: flex; flex-direction: column; gap: 9px; padding: 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .prs-data-cap { display: flex; align-items: center; gap: 7px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .prs-data-cap svg { width: 13px; height: 13px; flex: none; }
+.vfp .prs-query { padding: 8px 10px; border-radius: 9px; background: #fff; border: 1px solid var(--vlp-border-subtle); font-family: var(--vlp-font-mono); font-size: 11px; line-height: 1.5; letter-spacing: 0.01em; color: var(--vlp-color-ink-soft); }
+.vfp .prs-query b { color: var(--vlp-color-accent-ink); font-weight: 700; }
+.vfp .prs-event { display: flex; align-items: center; gap: 8px; padding: 9px 11px; border-radius: 10px; background: #fff; border: 1px solid var(--vlp-border-subtle); }
+.vfp .prs-event-ic { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 8px; background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .prs-event-ic svg { width: 14px; height: 14px; }
+.vfp .prs-event-text { flex: 1; min-width: 0; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-ink-soft); }
+.vfp .prs-event-text code { font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-accent-ink); }
+
+@media (max-width: 1024px) {
+  .vfp .prs-data { grid-template-columns: 1fr; }
+  .vfp .prs-roster { grid-template-columns: 1fr; }
+}

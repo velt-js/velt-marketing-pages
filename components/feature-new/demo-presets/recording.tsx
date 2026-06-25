@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, NotifItem, DarkPanel, ProvRow, ProvArrow, Precedent } from "../demos";
+import { AvatarStack, NotifItem, ProvRow, ProvArrow } from "../demos";
 import {
   Av,
   Composer,
@@ -9,6 +9,8 @@ import {
   IconCheck,
   IconReply,
 } from "./hero-surface";
+
+import "./recording-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/recording page. Keys match
 // components/feature-new/demo-presets/recording.keys.ts; resolved by
@@ -277,6 +279,160 @@ function VideoThumbnail({
   );
 }
 
+// ── Showcase artifacts (.rcd-*) ──────────────────────────────────────────
+// Modern Capabilities-grid mocks reusing the comments + approval-flows design
+// language (apf-card / cmh-cc head + body chrome, chips, Av) with new recording
+// patterns namespaced .rcd- in ./recording-showcase.css.
+
+/** @returns {JSX.Element} Solid play triangle for player and pin controls. */
+function IconPlaySolid() {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M4 2.5 13 8 4 13.5 Z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Microphone glyph for the voice + mic-narration heads. */
+function IconMic() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Monitor glyph for the screen-capture head. */
+function IconMonitor() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="13" rx="2" />
+      <path d="M8 21h8M12 17v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Map-pin glyph for the pinned-recordings head + marker. */
+function IconPin() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Captions glyph for the transcription head. */
+function IconCaptions() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="M7 11.5a2 2 0 0 0-3 0v1a2 2 0 0 0 3 0M14 11.5a2 2 0 0 0-3 0v1a2 2 0 0 0 3 0" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Scissors glyph for the built-in editor head. */
+function IconScissors() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="6" cy="18" r="2.5" />
+      <path d="M8 8l12 8M8 16l12-8" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Activity-pulse glyph for the lifecycle-events head. */
+function IconActivity() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 12h4l2.5 7 5-14L17 12h4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Server glyph for the self-hosted storage head. */
+function IconServer() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="7" rx="2" />
+      <rect x="3" y="13" width="18" height="7" rx="2" />
+      <path d="M7 7.5h.01M7 16.5h.01" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lock glyph for the minimal-identifiers lane. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Link glyph for the thread deep-link action. */
+function IconLink() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 15l6-6M10 6l1-1a4 4 0 0 1 6 6l-1 1M14 18l-1 1a4 4 0 0 1-6-6l1-1" />
+    </svg>
+  );
+}
+
+/**
+ * Showcase waveform strip: evenly spaced bars with the leading `active` bars
+ * tinted as "played".
+ * @param {{ active?: number; mic?: boolean }} props Played-bar count and a flag for the green mic-level tint.
+ * @returns {JSX.Element} Waveform row.
+ */
+function RcdWave({ active = 6, mic = false }: { active?: number; mic?: boolean }) {
+  return (
+    <span className={`rcd-wave${mic ? " rcd-wave--mic" : ""}`}>
+      {WAVE_BARS.map((height, index) => (
+        <span
+          key={`rcd-bar-${index}`}
+          className={`rcd-wave-bar${index < active ? " rcd-wave-bar--on" : ""}`}
+          style={{ height }}
+        />
+      ))}
+    </span>
+  );
+}
+
+/**
+ * Compact media-player surface for the showcase: an orange play control, a
+ * waveform, a mono duration, and optional caption + transcript lines.
+ * @param {{ active?: number; duration?: string; caption?: string; transcript?: ReactNode }} props Player content.
+ * @returns {JSX.Element} Player surface.
+ */
+function RcdPlayer({
+  active = 7,
+  duration = "0:18",
+  caption,
+  transcript,
+}: {
+  active?: number;
+  duration?: string;
+  caption?: string;
+  transcript?: ReactNode;
+}) {
+  return (
+    <div className="rcd-player">
+      <div className="rcd-player-row">
+        <span className="rcd-play"><IconPlaySolid /></span>
+        <RcdWave active={active} />
+        <span className="rcd-dur">{duration}</span>
+      </div>
+      {caption ? <p className="rcd-player-cap">{caption}</p> : null}
+      {transcript ? <p className="rcd-transcript">{transcript}</p> : null}
+    </div>
+  );
+}
+
 export const RECORDING_DEMOS: Record<string, ReactNode> = {
   // ── VOICE ──────────────────────────────────────────────────────────────
   "recording/hero/voice": (
@@ -523,87 +679,356 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // Voice notes (wide): an audio note pinned to a cell — byline, waveform
+  // player, and the transcript beneath.
   "recording/showcase/voice": (
     <div className="pv">
-      <Player label="Voice note · pinned to the cell" duration="0:18" transcript={"“This number is faster said than typed.”"} />
-    </div>
-  ),
-
-  "recording/showcase/video": (
-    <div className="pv">
-      <div
-        style={{
-          height: 96,
-          borderRadius: 10,
-          background: "var(--ink, #0b353b)",
-          display: "grid",
-          placeItems: "center",
-        }}
-      >
-        <span style={{ fontSize: 12, fontWeight: 700, color: "#fff", opacity: 0.85 }}>Video message · 0:27</span>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconMic />
+          Voice note
+          <span className="cmh-cc-pill">0:18</span>
+        </div>
+        <div className="cmh-cc-body" style={{ display: "grid", gap: 12 }}>
+          <div className="rcd-byline">
+            <Av initials="FE" img={FACE.fenne} />
+            <span className="rcd-byline-name">Fenne</span>
+            <span className="chip chip-pending">pinned · C18</span>
+            <span className="rcd-byline-time">just now</span>
+          </div>
+          <RcdPlayer
+            active={7}
+            duration="0:18"
+            transcript={<>&ldquo;This number is faster said than typed &mdash; the variance is the vendor rate change.&rdquo;</>}
+          />
+        </div>
       </div>
     </div>
   ),
 
+  // Video messages (narrow): a comment card with a camera-recording thumbnail,
+  // reusing the shared cmh-rec-* video card from the comments page.
+  "recording/showcase/video": (
+    <div className="pv">
+      <div className="cmh-rec-card">
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="FE" img={FACE.fenne} />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Fenne</span>
+              <span className="cmh-cmt-time">2m</span>
+            </div>
+            <p className="cmh-cmt-body">Recorded a quick walkthrough of the pricing slide.</p>
+          </div>
+        </div>
+
+        <div className="cmh-rec-media">
+          <div className="cmh-rec-thumb">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/features/comments/recording-thumb.jpg" alt="Fenne's video message" />
+            <span className="cmh-rec-play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            </span>
+            <span className="cmh-rec-bar" aria-hidden="true" />
+          </div>
+
+          <div className="cmh-rec-foot">
+            <span className="cmh-rec-file">
+              <span className="cmh-rec-spin" aria-hidden="true">V</span>
+              <span className="cmh-rec-fname">Video message · 0:27</span>
+            </span>
+            <span className="cmh-rec-icons" aria-hidden="true">
+              <svg className="cmh-rec-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M15 8.5 21 5v14l-6-3.5" />
+                <rect x="3" y="6" width="12" height="12" rx="2.5" />
+              </svg>
+              <svg className="cmh-rec-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+              </svg>
+              <svg className="cmh-rec-ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <circle cx="12" cy="5" r="1.6" />
+                <circle cx="12" cy="12" r="1.6" />
+                <circle cx="12" cy="19" r="1.6" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+
+  // Screen capture (narrow): a window mock with a live REC pill over a dark
+  // stage, plus a mic-narration level row.
   "recording/showcase/screen": (
     <div className="pv">
-      <Player label="Screen capture · mic narration" duration="1:04" active={8} />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconMonitor />
+          Screen capture
+          <span className="cmh-cc-pill">screen + mic</span>
+        </div>
+        <div className="cmh-cc-body" style={{ display: "grid", gap: 12 }}>
+          <div className="rcd-screen">
+            <div className="rcd-screen-bar">
+              <span className="rcd-screen-dot" />
+              <span className="rcd-screen-dot" />
+              <span className="rcd-screen-dot" />
+              <span className="rcd-rec"><i />REC 1:04</span>
+            </div>
+            <div className="rcd-stage">
+              <div className="rcd-stage-grid" aria-hidden="true" />
+              <span className="rcd-stage-play"><IconPlaySolid /></span>
+            </div>
+          </div>
+          <div className="rcd-player">
+            <div className="rcd-player-row">
+              <span className="rcd-mic-ic"><IconMic /></span>
+              <RcdWave active={9} mic />
+              <span className="rcd-dur">1:04</span>
+            </div>
+            <p className="rcd-player-cap">mic narration</p>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Pinned recordings (wide): a Recorder Note pin anchored to a skeleton sheet
+  // cell, with the pinned voice player and an "on the work" note.
   "recording/showcase/pinned": (
     <div className="pv">
-      <ProvRow>
-        Recorder Notes <ProvArrow /> the cell, the field, the frame
-      </ProvRow>
-      <ProvRow>
-        show-not-tell feedback <ProvArrow /> lands on the work
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconPin />
+          Recorder Notes
+          <span className="cmh-cc-pill">anchored</span>
+        </div>
+        <div className="cmh-cc-body rcd-pin-scene">
+          <span className="rcd-anchor">forecast.xlsx · pinned to <mark>C18</mark></span>
+          <div className="rcd-sheet">
+            <span className="rcd-pin"><IconPlaySolid /></span>
+            <span className="rcd-sheet-line" style={{ width: "64%" }} />
+            <span className="rcd-sheet-line rcd-sheet-line--hl" style={{ width: "40%" }} />
+            <span className="rcd-sheet-line" style={{ width: "74%" }} />
+          </div>
+          <RcdPlayer
+            active={8}
+            duration="0:42"
+            caption="voice note · pinned to this cell"
+            transcript={<>&ldquo;The variance comes from the vendor rate change, see row 18.&rdquo;</>}
+          />
+          <div className="apf-note">
+            <span className="chip chip-approved">on the work</span>
+            <span>lands on the cell, the field, the frame — not a separate library</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // AI transcription (wide): a dark player stage with a subtitle bar plus a
+  // timestamped transcript and an AI-summary note.
   "recording/showcase/transcription": (
     <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="AI transcription · subtitles · summary"
-        body={"“The variance comes from the vendor rate change, see row 18.”"}
-        meta="on by default · one prop opts out of the LLM"
-      />
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconCaptions />
+          Transcription
+          <span className="cmh-cc-pill">AI · subtitles</span>
+        </div>
+        <div className="cmh-cc-body" style={{ display: "grid", gap: 12 }}>
+          <div className="rcd-stage">
+            <div className="rcd-stage-grid" aria-hidden="true" />
+            <span className="rcd-stage-play"><IconPlaySolid /></span>
+            <span className="rcd-stage-badge">3:04</span>
+            <span className="rcd-stage-sub">&ldquo;…see row 18 for the vendor rate change.&rdquo;</span>
+          </div>
+          <div className="rcd-cues">
+            <div className="rcd-cue">
+              <span className="rcd-cue-t">0:00</span>
+              <span className="rcd-cue-x">Walking through the Q3 forecast changes.</span>
+            </div>
+            <div className="rcd-cue rcd-cue--live">
+              <span className="rcd-cue-t">0:14</span>
+              <span className="rcd-cue-x">The variance comes from the vendor rate change.</span>
+            </div>
+            <div className="rcd-cue">
+              <span className="rcd-cue-t">0:31</span>
+              <span className="rcd-cue-x">See row 18 — I&rsquo;ve flagged the cell.</span>
+            </div>
+          </div>
+          <div className="apf-note">
+            <span className="chip chip-agent">AI summary</span>
+            <span>on by default · one prop opts out of the LLM</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Built-in editor (narrow): a frame strip, a scrubber with a knob, and the
+  // trim / split / zoom tool chips.
   "recording/showcase/editor": (
     <div className="pv">
-      <EditorTimeline />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconScissors />
+          Video editor
+          <span className="cmh-cc-pill">no export</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rcd-timeline">
+            <div className="rcd-frames">
+              <span className="rcd-frame" />
+              <span className="rcd-frame rcd-frame--mid" />
+              <span className="rcd-frame rcd-frame--mid rcd-frame--sel" />
+              <span className="rcd-frame rcd-frame--mid" />
+              <span className="rcd-frame" />
+              <span className="rcd-frame" />
+            </div>
+            <div className="rcd-scrub">
+              <span className="rcd-scrub-fill" style={{ width: "38%" }} />
+              <span className="rcd-scrub-knob" style={{ left: "38%" }} />
+            </div>
+            <div className="rcd-edit-foot">
+              <span className="rcd-dur">0:19 / 0:48</span>
+              <span className="chip chip-approved"><IconCheck />saved</span>
+            </div>
+            <div className="rcd-tools">
+              <span className="int-chip"><i />trim</span>
+              <span className="int-chip"><i />split</span>
+              <span className="int-chip"><i />zoom</span>
+              <span className="int-chip"><i />delete</span>
+              <span className="int-chip"><i />retake</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Recordings in threads (narrow): a comment with a recording attachment and a
+  // reply / resolve / deep-link action row.
   "recording/showcase/threads": (
     <div className="pv">
-      <ProvRow>
-        recording <ProvArrow /> reply, resolve, deep-link
-      </ProvRow>
-      <ProvRow>
-        the walkthrough and the decision <ProvArrow /> one place
-      </ProvRow>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconReply />
+          In a thread
+          <span className="cmh-cc-pill">reply · resolve</span>
+        </div>
+        <div className="cmh-cc-body" style={{ display: "grid", gap: 12 }}>
+          <div className="cmh-cmt cmh-cmt--plain">
+            <Av initials="HO" tone="a3" img={FACE.hope} />
+            <div className="cmh-cmt-main">
+              <div className="cmh-cmt-head">
+                <span className="cmh-cmt-name">Hope</span>
+                <span className="cmh-cmt-time">2m</span>
+              </div>
+              <p className="cmh-cmt-body">Recorded the walkthrough — see the filing steps here.</p>
+              <div className="rcd-attach">
+                <span className="rcd-attach-play"><IconPlaySolid /></span>
+                <span className="rcd-attach-main">
+                  <span className="rcd-attach-name">work-order-walkthrough.webm</span>
+                  <span className="rcd-attach-meta">screen + mic · 1:12</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="rcd-thread-foot">
+            <span className="rcd-thread-act"><IconReply />2 replies</span>
+            <span className="rcd-thread-act"><IconCheck />resolve</span>
+            <span className="rcd-thread-act"><IconLink />deep-link</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Lifecycle events (wide): the SDK event stream rendered as status rows,
+  // reusing the apf-evt-* signed-events layout.
   "recording/showcase/events": (
     <div className="pv">
-      <DarkPanel>{"recordingStarted → recordingPaused →\nrecordingDone → transcriptionDone →\nrecordingEditDone"}</DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconActivity />
+          Lifecycle events
+          <span className="cmh-cc-pill">SDK</span>
+        </div>
+        <div className="cmh-cc-body apf-evt-body">
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">recordingStarted</span>
+            <span className="apf-evt-seq">capture</span>
+            <span className="chip chip-approved" style={{ marginLeft: "auto" }}>fired</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">recordingPaused</span>
+            <span className="apf-evt-seq">capture</span>
+            <span className="chip chip-pending" style={{ marginLeft: "auto" }}>paused</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">recordingDone</span>
+            <span className="apf-evt-seq">media</span>
+            <span className="chip chip-approved" style={{ marginLeft: "auto" }}>saved</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">transcriptionDone</span>
+            <span className="apf-evt-seq">ai</span>
+            <span className="chip chip-agent" style={{ marginLeft: "auto" }}>ready</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">recordingEditDone</span>
+            <span className="apf-evt-seq">editor</span>
+            <span className="chip chip-approved" style={{ marginLeft: "auto" }}>saved</span>
+          </div>
+          <div className="apf-evt-foot">
+            <IconActivity />
+            Drive your own UI, analytics, or audit from <code>velt.on()</code>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Self-hosted recording data (wide): two lanes — the heavy media stays on your
+  // storage, while Velt keeps only minimal identifiers.
   "recording/showcase/self-host": (
     <div className="pv">
-      <ProvRow>
-        files · identity · transcription <ProvArrow /> your storage
-      </ProvRow>
-      <ProvRow>
-        Velt stores <ProvArrow /> minimal identifiers
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconServer />
+          Recorder data provider
+          <span className="cmh-cc-pill">your storage</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rcd-route">
+            <div className="rcd-route-col">
+              <div className="rcd-route-head">
+                <span className="rcd-route-ic"><IconServer /></span>
+                <span className="rcd-route-titles">
+                  <span className="rcd-route-title">Your storage</span>
+                  <span className="rcd-route-sub">stays with you</span>
+                </span>
+              </div>
+              <span className="rcd-route-item"><IconCheck />recorded files</span>
+              <span className="rcd-route-item"><IconCheck />identity</span>
+              <span className="rcd-route-item"><IconCheck />transcription</span>
+              <span className="rcd-route-item"><IconCheck />attachment URLs</span>
+            </div>
+            <div className="rcd-route-col rcd-route-col--velt">
+              <div className="rcd-route-head">
+                <span className="rcd-route-ic"><IconLock /></span>
+                <span className="rcd-route-titles">
+                  <span className="rcd-route-title">Velt stores</span>
+                  <span className="rcd-route-sub">minimal</span>
+                </span>
+              </div>
+              <p className="rcd-route-min">Only minimal identifiers — <code>recordingId</code>, <code>userId</code>, timestamps — so the media never leaves your storage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 

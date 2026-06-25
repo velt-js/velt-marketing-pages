@@ -1,7 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { ProvRow, ProvArrow, DarkPanel, Chip, Precedent, AvatarStack, CursorTag } from "../demos";
-import { Av, Frame, FACES } from "./hero-surface";
+import { ProvRow, ProvArrow, DarkPanel, Chip, AvatarStack, CursorTag } from "../demos";
+import { Av, Frame, FACES, IconArrowRight, IconCheck } from "./hero-surface";
+
+import "./multiplayer-editing-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/multiplayer-editing page. Keys
 // match components/feature-new/demo-presets/multiplayer-editing.keys.ts;
@@ -12,6 +14,7 @@ const FACE = {
   hope: FACES.hope,
   ethan: FACES.ethan,
   you: FACES.jeff,
+  maya: FACES.fenne,
 } as const;
 
 /** Cursor color palette — two distinct on-brand hues, --vlp tokens where available. */
@@ -202,6 +205,266 @@ const EDIT_TEAM = [
   { initials: "AG", kind: "agent" as const, name: "Agent" },
 ];
 
+/** @returns {JSX.Element} Pen / edit glyph for single-editor mode + the editing tag. */
+function IconPen() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z" />
+      <path d="M13.5 6.5l3 3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Eye glyph for read-only watchers. */
+function IconEye() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Two-way refresh glyph for live-state sync. */
+function IconSync() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 11a8 8 0 0 1 14-5l2 2M20 13a8 8 0 0 1-14 5l-2-2" />
+      <path d="M18 3v5h-5M6 21v-5h5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Git-merge glyph for conflict-free CRDT merges. */
+function IconMerge() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="6" cy="6" r="2.4" />
+      <circle cx="6" cy="18" r="2.4" />
+      <circle cx="18" cy="15" r="2.4" />
+      <path d="M6 8.4v7.2M8.3 7.2A6 6 0 0 0 15.6 14" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} People glyph for live presence. */
+function IconUsers() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path d="M16 5.5a3 3 0 0 1 0 5M17 14.2A6 6 0 0 1 21 20" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} History / version-snapshot glyph for checkpoints. */
+function IconHistory() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3.05 11a9 9 0 1 1 .5 4" />
+      <path d="M3 21v-5h5" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Refresh-loop glyph for the restore affordance. */
+function IconRestore() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3.05 11a9 9 0 1 1 .5 4" />
+      <path d="M3 21v-5h5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Shield glyph for end-to-end encryption. */
+function IconShield() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Document glyph for plaintext content. */
+function IconDoc() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+      <path d="M9 13h6M9 17h4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Key glyph for customer-held encryption keys. */
+function IconKey() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="8" cy="8" r="4" />
+      <path d="M11 11l8 8M16 16l2-2M18.5 18.5l2-2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lock glyph for synced ciphertext. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Cloud-off glyph for offline-safe editing. */
+function IconCloudOff() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6.2 9.1A5 5 0 0 0 7 19h9.5a4 4 0 0 0 1.6-.3M9.2 5.2A5 5 0 0 1 17 9a4 4 0 0 1 2.6 6.9" />
+      <path d="M3 3l18 18" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Plug glyph for drop-in editor bindings. */
+function IconPlug() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 2v5M15 2v5" />
+      <path d="M6 7h12v3a6 6 0 0 1-12 0V7z" />
+      <path d="M12 16v6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Stacked-layers glyph for CRDT stores. */
+function IconStack() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 3 7.5 12 12l9-4.5L12 3z" />
+      <path d="M3 12l9 4.5L21 12" />
+      <path d="M3 16.5 12 21l9-4.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Server glyph for server-side CRDT writes. */
+function IconServer() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="7" rx="2" />
+      <rect x="3" y="13" width="18" height="7" rx="2" />
+      <path d="M7 7.5h.01M7 16.5h.01" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Down-arrow glyph for vertical step connectors. */
+function IconArrowDown() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 5v14M6 13l6 6 6-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Paragraph-lines glyph for the text store type. */
+function IconTextStore() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 6h14M5 10h14M5 14h10M5 18h7" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Braces glyph for the map store type. */
+function IconMapStore() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M8 4c-2 0-2 3-2 4s0 2-2 2c2 0 2 1 2 2s0 4 2 4" />
+      <path d="M16 4c2 0 2 3 2 4s0 2 2 2c-2 0-2 1-2 2s0 4-2 4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Brackets glyph for the array store type. */
+function IconArrayStore() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 4H6v16h3M15 4h3v16h-3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Angle-brackets glyph for the xml store type. */
+function IconXmlStore() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 8l-4 4 4 4M15 8l4 4-4 4" />
+    </svg>
+  );
+}
+
+/**
+ * A labeled showcase card: the shared white apf-card shell with a colored
+ * cmh-cc header bar (icon + title + pill) over a cmh-cc body.
+ * @param {{ tone: string; icon: ReactNode; title: string; pill: string; narrow?: boolean; children: ReactNode }} props Header tone class suffix, header glyph, title, pill text, narrow-tile flag, and body content.
+ * @returns {JSX.Element} Labeled capability card.
+ */
+function MpeCard({
+  tone,
+  icon,
+  title,
+  pill,
+  narrow,
+  children,
+}: {
+  tone: string;
+  icon: ReactNode;
+  title: string;
+  pill: string;
+  narrow?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className="pv">
+      <div className={`apf-card${narrow ? " apf-card--narrow" : ""}`}>
+        <div className={`cmh-cc-head apf-head--${tone}`}>
+          {icon}
+          {title}
+          <span className="cmh-cc-pill">{pill}</span>
+        </div>
+        <div className="cmh-cc-body">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * One skeleton document line carrying a named live caret, used in the merge and
+ * presence stages to suggest concurrent typing without literal text.
+ * @param {{ width: string; tone: CSSProperties; name: string; align?: "start" | "end" }} props Line width, brand-color object (color key), cursor name, and caret side.
+ * @returns {JSX.Element} Editor line with a caret.
+ */
+function EditLine({ width, tone, name, align = "start" }: { width: string; tone: CSSProperties; name: string; align?: "start" | "end" }) {
+  const caret = (
+    <span className="mpe-caret" style={{ background: tone.color as string }}>
+      <span className="mpe-clabel" style={{ background: tone.color as string }}>{name}</span>
+    </span>
+  );
+  return (
+    <span className="mpe-eline">
+      {align === "start" ? caret : null}
+      <span className="mpe-bar" style={{ width }} />
+      {align === "end" ? caret : null}
+    </span>
+  );
+}
+
 export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   /**
    * CO-EDITING: A document being edited simultaneously by Hope and Ethan.
@@ -335,118 +598,260 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // SINGLE-EDITOR (wide): one pen, a live audience, read-only enforced — an
+  // editor row + watcher row over a request → accept → pass handoff strip.
   "multiplayer-editing/showcase/single-editor": (
-    <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <AvatarStack users={[{ initials: "SR", kind: "human", name: "Sarah (editing)" }, { initials: "MA", kind: "human", name: "Maya (read-only)" }]} />
-        <ProvRow>
-          request access <ProvArrow /> accept <ProvArrow /> the pen passes
-        </ProvRow>
-        <p className="code-microcopy">one pen, a live audience, read-only enforced by the SDK</p>
+    <MpeCard tone="navy" icon={<IconPen />} title="Single-editor mode" pill="read-only enforced">
+      <div className="mpe-rows">
+        <div className="mpe-row">
+          <Av initials="HO" tone="a2" img={FACE.hope} />
+          <span className="mpe-row-main">
+            <span className="mpe-row-name">Hope</span>
+            <span className="mpe-row-sub">drafting the opening clause</span>
+          </span>
+          <span className="mpe-pen"><IconPen />holds the pen</span>
+        </div>
+        <div className="mpe-row">
+          <Av initials="ET" tone="a1" img={FACE.ethan} />
+          <span className="mpe-row-main">
+            <span className="mpe-row-name">Ethan</span>
+            <span className="mpe-row-sub">watching live</span>
+          </span>
+          <span className="apf-tag apf-tag--human"><IconEye />read-only</span>
+        </div>
       </div>
-    </div>
+      <div className="mpe-flow">
+        <span className="mpe-flow-step">Request the pen</span>
+        <span className="mpe-flow-arrow"><IconArrowRight /></span>
+        <span className="mpe-flow-step">Hope accepts</span>
+        <span className="mpe-flow-arrow"><IconArrowRight /></span>
+        <span className="mpe-flow-step"><IconCheck />Pen passes</span>
+      </div>
+    </MpeCard>
   ),
 
+  // STATE-SYNC (narrow): useLiveState — two client tabs reflect one value, a
+  // bidirectional sync arrow between them.
   "multiplayer-editing/showcase/state-sync": (
-    <div className="pv">
-      <DarkPanel>{"const [view, setView] = useLiveState(\n  \"filters\", { status: \"open\" },\n);\n// filters, toggles, any JSON — synced"}</DarkPanel>
-    </div>
+    <MpeCard tone="slate" icon={<IconSync />} title="Shared live state" pill="useLiveState" narrow>
+      <div className="mpe-sync">
+        <div className="mpe-panes">
+          <div className="mpe-pane mpe-pane--live">
+            <span className="mpe-pane-label"><Av initials="HO" tone="a2" img={FACE.hope} />Tab A</span>
+            <span className="mpe-pane-val">{'status: "open"'}</span>
+          </div>
+          <div className="mpe-sync-mid"><IconSync /></div>
+          <div className="mpe-pane">
+            <span className="mpe-pane-label"><Av initials="ET" tone="a1" img={FACE.ethan} />Tab B</span>
+            <span className="mpe-pane-val">{'status: "open"'}</span>
+          </div>
+        </div>
+        <div className="apf-note apf-note--ok">
+          <span className="chip chip-approved">in sync</span>
+          <span>One value, every client &middot; any JSON</span>
+        </div>
+      </div>
+    </MpeCard>
   ),
 
+  // MERGE (narrow): Yjs CRDT merges concurrent edits — skeleton doc lines each
+  // carrying a named live caret, no keystroke lost.
   "multiplayer-editing/showcase/merge": (
-    <div className="pv">
-      <DocSurface>
-        <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-          Forecast narrative &mdash; two analysts typing at once
-        </p>
-        <div style={{ position: "absolute", top: 14, left: 36 }}>
-          <CursorTag name="Maya" />
-        </div>
-        <div style={{ position: "absolute", bottom: 14, right: 20 }}>
-          <CursorTag name="Sarah" />
-        </div>
-        <p className="code-microcopy" style={{ marginTop: 28 }}>Yjs merges concurrent edits &middot; neither loses a keystroke</p>
-      </DocSurface>
-    </div>
+    <MpeCard tone="plum" icon={<IconMerge />} title="Conflict-free merge" pill="Yjs CRDT" narrow>
+      <div className="mpe-doc">
+        <EditLine width="58%" tone={CURSOR_HOPE} name="Hope" align="start" />
+        <EditLine width="74%" tone={CURSOR_ETHAN} name="Ethan" align="end" />
+        <span className="mpe-eline"><span className="mpe-bar" style={{ width: "44%" }} /></span>
+      </div>
+      <div className="apf-note apf-note--ok">
+        <span className="chip chip-approved">0 conflicts</span>
+        <span>Both edits kept, neither loses a keystroke</span>
+      </div>
+    </MpeCard>
   ),
 
+  // PRESENCE (wide): avatars · named cursors · live selection — a presence
+  // stack over a live doc paragraph with two labeled cursors + a selection.
   "multiplayer-editing/showcase/presence": (
-    <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <AvatarStack users={EDIT_TEAM} />
-        <ProvRow>
-          avatars &middot; named cursors &middot; live selection <ProvArrow /> inside the editor
-        </ProvRow>
+    <MpeCard tone="teal" icon={<IconUsers />} title="Live presence" pill="3 online">
+      <div className="mpe-present">
+        <div className="mpe-present-top">
+          <span className="mpe-stack">
+            <Av initials="HO" tone="a2" img={FACE.hope} />
+            <Av initials="ET" tone="a1" img={FACE.ethan} />
+            <Av initials="MA" tone="a3" img={FACE.maya} />
+          </span>
+          <span className="cmh-live"><i />live</span>
+        </div>
+        <div className="mpe-stage">
+          <p className="cmh-doc" style={{ margin: 0 }}>
+            The Q3 plan moves teams from <Sel tone={CURSOR_HOPE}>async reviews</Sel>{" "}
+            <LiveCursor name="Hope" tone={CURSOR_HOPE} /> to live collaboration{" "}
+            <LiveCursor name="Ethan" tone={CURSOR_ETHAN} /> inside the product.
+          </p>
+        </div>
       </div>
-    </div>
+    </MpeCard>
   ),
 
+  // CHECKPOINTS (wide): named version snapshots saved + restored by API, the
+  // restore broadcasting to every client — a small saved-snapshot timeline.
   "multiplayer-editing/showcase/checkpoints": (
-    <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="Version checkpoint"
-        body={"“Before pricing rewrite” · saved 09:14 · restore broadcasts to every client"}
-        meta="named snapshots, saved and restored by API"
-      />
-    </div>
+    <MpeCard tone="ink" icon={<IconHistory />} title="Version checkpoints" pill="named snapshots">
+      <div className="mpe-snaps">
+        <span className="mpe-snaps-rail" aria-hidden="true" />
+        <div className="mpe-snap mpe-snap--current">
+          <span className="mpe-snap-dot" />
+          <span className="mpe-snap-main">
+            <span className="mpe-snap-name">Live draft</span>
+            <span className="mpe-snap-meta">editing now &middot; 3 collaborators</span>
+          </span>
+          <span className="chip chip-approved">current</span>
+        </div>
+        <div className="mpe-snap">
+          <span className="mpe-snap-dot" />
+          <span className="mpe-snap-main">
+            <span className="mpe-snap-name">Before pricing rewrite</span>
+            <span className="mpe-snap-meta">saved 09:14</span>
+          </span>
+          <button type="button" className="mpe-snap-btn"><IconRestore />Restore</button>
+        </div>
+        <div className="mpe-snap">
+          <span className="mpe-snap-dot" />
+          <span className="mpe-snap-main">
+            <span className="mpe-snap-name">Outline approved</span>
+            <span className="mpe-snap-meta">saved Mon 16:40</span>
+          </span>
+          <button type="button" className="mpe-snap-btn"><IconRestore />Restore</button>
+        </div>
+      </div>
+      <div className="apf-note">
+        <span className="chip chip-pending">broadcast</span>
+        <span>Restore via API reaches every connected client</span>
+      </div>
+    </MpeCard>
   ),
 
+  // ENCRYPTION (narrow): your keys encrypt synced content — Velt moves
+  // ciphertext, never the content. A plaintext → key → ciphertext flow.
   "multiplayer-editing/showcase/encryption": (
-    <div className="pv">
-      <ProvRow>
-        your keys <ProvArrow /> encrypt synced content
-      </ProvRow>
-      <ProvRow>
-        Velt moves ciphertext <ProvArrow /> never the content
-      </ProvRow>
-    </div>
+    <MpeCard tone="navy" icon={<IconShield />} title="End-to-end encryption" pill="your keys" narrow>
+      <div className="mpe-enc">
+        <div className="mpe-enc-cell">
+          <span className="mpe-enc-ic mpe-enc-ic--plain"><IconDoc /></span>
+          <span className="mpe-enc-main">
+            <span className="mpe-enc-label">Your content</span>
+            <span className="mpe-enc-sub">brief-q3.md</span>
+          </span>
+        </div>
+        <div className="mpe-down"><IconArrowDown /></div>
+        <div className="mpe-enc-cell">
+          <span className="mpe-enc-ic mpe-enc-ic--key"><IconKey /></span>
+          <span className="mpe-enc-main">
+            <span className="mpe-enc-label">Encrypted with your key</span>
+            <span className="mpe-enc-sub">Velt never sees plaintext</span>
+          </span>
+        </div>
+        <div className="mpe-down"><IconArrowDown /></div>
+        <div className="mpe-enc-cell mpe-enc-cell--cipher">
+          <span className="mpe-enc-ic mpe-enc-ic--cipher"><IconLock /></span>
+          <span className="mpe-enc-main">
+            <span className="mpe-enc-label">Synced ciphertext</span>
+            <span className="mpe-cipher">a3f9c1 7e22b8 04d6e1…</span>
+          </span>
+        </div>
+      </div>
+    </MpeCard>
   ),
 
+  // OFFLINE (narrow): offline edits queue locally and merge on reconnect — a
+  // queued-offline row flowing down into a merged-on-reconnect row.
   "multiplayer-editing/showcase/offline": (
-    <div className="pv">
-      <ProvRow>
-        offline edit <ProvArrow /> queued locally <ProvArrow /> merges on reconnect
-      </ProvRow>
-      <ProvRow>
-        tab A <ProvArrow /> tab B stay synchronized
-      </ProvRow>
-    </div>
+    <MpeCard tone="slate" icon={<IconCloudOff />} title="Offline-safe" pill="local-first" narrow>
+      <div className="mpe-rows">
+        <div className="mpe-row">
+          <span className="mpe-row-ic mpe-row-ic--queued"><IconCloudOff /></span>
+          <span className="mpe-row-main">
+            <span className="mpe-row-name">Edited offline</span>
+            <span className="mpe-row-sub">queued locally, nothing lost</span>
+          </span>
+          <span className="chip chip-pending">queued</span>
+        </div>
+        <div className="mpe-down"><IconArrowDown /></div>
+        <div className="mpe-row">
+          <span className="mpe-row-ic mpe-row-ic--merged"><IconCheck /></span>
+          <span className="mpe-row-main">
+            <span className="mpe-row-name">Back online</span>
+            <span className="mpe-row-sub">changes merge in order</span>
+          </span>
+          <span className="chip chip-approved">merged</span>
+        </div>
+      </div>
+    </MpeCard>
   ),
 
+  // EDITORS (wide): drop-in bindings for popular editors plus the core library.
   "multiplayer-editing/showcase/editors": (
-    <div className="pv">
-      <div style={{ padding: 14 }}>
-        <div className="int-chips">
-          <span className="int-chip"><i />Tiptap</span>
-          <span className="int-chip"><i />React Flow</span>
-          <span className="int-chip"><i />CodeMirror</span>
-          <span className="int-chip"><i />BlockNote</span>
-          <span className="int-chip"><i />Lexical (soon)</span>
-        </div>
-        <p className="code-microcopy" style={{ marginTop: 10 }}>plus the core library for your own editor, whiteboard, or grid</p>
+    <MpeCard tone="purple" icon={<IconPlug />} title="Editor bindings" pill="drop-in">
+      <div className="int-chips">
+        <span className="int-chip"><i />Tiptap</span>
+        <span className="int-chip"><i />React Flow</span>
+        <span className="int-chip"><i />CodeMirror</span>
+        <span className="int-chip"><i />BlockNote</span>
+        <span className="int-chip"><i />Lexical (soon)</span>
       </div>
-    </div>
+      <p className="code-microcopy" style={{ marginTop: 12 }}>plus the core library for your own editor, whiteboard, or grid</p>
+    </MpeCard>
   ),
 
+  // STORES (wide): framework-agnostic CRDT store types with subscriptions and a
+  // typed React hook — a grid of the four shared data structures.
   "multiplayer-editing/showcase/stores": (
-    <div className="pv">
-      <div style={{ padding: 14 }}>
-        <div className="int-chips">
-          <span className="int-chip"><i />text</span>
-          <span className="int-chip"><i />map</span>
-          <span className="int-chip"><i />array</span>
-          <span className="int-chip"><i />xml</span>
+    <MpeCard tone="teal" icon={<IconStack />} title="CRDT stores" pill="framework-agnostic">
+      <div className="mpe-stores">
+        <div className="mpe-store">
+          <span className="mpe-store-ic"><IconTextStore /></span>
+          <span className="mpe-store-name">text</span>
+          <span className="mpe-store-type">Y.Text</span>
         </div>
-        <p className="code-microcopy" style={{ marginTop: 10 }}>framework-agnostic CRDT stores &middot; subscriptions &middot; typed React hook</p>
+        <div className="mpe-store">
+          <span className="mpe-store-ic"><IconMapStore /></span>
+          <span className="mpe-store-name">map</span>
+          <span className="mpe-store-type">Y.Map</span>
+        </div>
+        <div className="mpe-store">
+          <span className="mpe-store-ic"><IconArrayStore /></span>
+          <span className="mpe-store-name">array</span>
+          <span className="mpe-store-type">Y.Array</span>
+        </div>
+        <div className="mpe-store">
+          <span className="mpe-store-ic"><IconXmlStore /></span>
+          <span className="mpe-store-name">xml</span>
+          <span className="mpe-store-type">Y.Xml</span>
+        </div>
       </div>
-    </div>
+      <p className="code-microcopy" style={{ marginTop: 12 }}>subscriptions &middot; typed React hook &middot; any framework</p>
+    </MpeCard>
   ),
 
+  // SERVER-WRITES (narrow): a REST CRDT update — connected clients pick up the
+  // change. A request line + JSON body over a live "picked up" note.
   "multiplayer-editing/showcase/server-writes": (
-    <div className="pv">
-      <DarkPanel>{"POST /v2/crdt/update\n{ \"documentId\": \"brief-q3\",\n  \"op\": \"insert\", \"text\": \"...\" }\n// connected clients pick up the change"}</DarkPanel>
-    </div>
+    <MpeCard tone="ink" icon={<IconServer />} title="Server writes" pill="REST API" narrow>
+      <div className="mpe-req">
+        <div className="mpe-req-card">
+          <div className="mpe-req-line">
+            <span className="mpe-req-verb">POST</span>
+            <span className="mpe-req-path">/v2/crdt/update</span>
+          </div>
+          <pre className="mpe-req-body">{"{\n  "}<span className="mpe-req-k">{'"documentId"'}</span>{": "}<span className="mpe-req-s">{'"brief-q3"'}</span>{",\n  "}<span className="mpe-req-k">{'"op"'}</span>{": "}<span className="mpe-req-s">{'"insert"'}</span>{"\n}"}</pre>
+        </div>
+        <div className="apf-note apf-note--ok">
+          <span className="cmh-live"><i />live</span>
+          <span>Connected clients pick up the change</span>
+        </div>
+      </div>
+    </MpeCard>
   ),
 
   "multiplayer-editing/make-it-yours/look": (

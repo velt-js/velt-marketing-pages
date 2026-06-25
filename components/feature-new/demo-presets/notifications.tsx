@@ -1,14 +1,18 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, DarkPanel, ProvRow, ProvArrow, NotifItem } from "../demos";
+import { AuditLog, ProvRow, ProvArrow, NotifItem } from "../demos";
 import {
+  AgentFindingCard,
   Av,
   FACES,
   Frame,
+  IconArrowRight,
   IconCheck,
   IconX,
   IconSearch,
 } from "./hero-surface";
+
+import "./notifications-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/notifications page. Keys match
 // components/feature-new/demo-keys.ts; resolved by demo-registry.tsx.
@@ -321,6 +325,168 @@ function SlackCard({
   );
 }
 
+/** @returns {JSX.Element} Bell glyph for inbox / agent-activity headers. */
+function IconBell() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" />
+      <path d="M10 19a2 2 0 0 0 4 0" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Envelope glyph for the email header + custom inbox row. */
+function IconMail() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="M4 7l8 6 8-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Funnel glyph for the batching / digest header + pipe. */
+function IconFunnel() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 5h16l-6 8v5l-4 2v-7z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Stacked-layers glyph for the digest summary mark. */
+function IconStack() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 3 7.5 12 12l9-4.5L12 3z" />
+      <path d="M3 12l9 4.5L21 12" />
+      <path d="M3 16.5 12 21l9-4.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Sliders glyph for the per-user preferences header. */
+function IconSliders() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4" />
+      <circle cx="16" cy="6" r="2" />
+      <circle cx="8" cy="12" r="2" />
+      <circle cx="14" cy="18" r="2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lightning glyph for the REST / custom-events header. */
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Webhook / connected-nodes glyph for the webhooks header. */
+function IconWebhook() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="6" cy="6" r="2.5" />
+      <circle cx="18" cy="8" r="2.5" />
+      <circle cx="9" cy="18" r="2.5" />
+      <path d="M7.6 7.8 11 13M16 10l-4.5 6M8.5 16.5 16 16" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lock glyph for the permission-scoped feeds header. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Server-stack glyph for the self-host header + your-servers column. */
+function IconServer() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="7" rx="2" />
+      <rect x="3" y="13" width="18" height="7" rx="2" />
+      <path d="M7 7.5h.01M7 16.5h.01" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Down arrow glyph for the batching funnel connector. */
+function IconArrowDown() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 5v14M6 13l6 6 6-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Eye glyph for the counterparty (sees their thread) lane. */
+function IconEye() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Eye-off glyph for the internal-deliberation (never reaches) lane. */
+function IconEyeOff() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M10.6 6.2A9.7 9.7 0 0 1 12 6c6.5 0 10 6 10 6a16 16 0 0 1-3 3.6M6.2 7.4A16 16 0 0 0 2 12s3.5 6 10 6a9.6 9.6 0 0 0 4-.9" />
+      <path d="M9.5 9.7a3 3 0 0 0 4.3 4.2" />
+      <path d="M3 3l18 18" />
+    </svg>
+  );
+}
+
+/**
+ * One per-channel preference row: a colored channel icon, label + scope, and an
+ * ALL / MINE / NONE segmented control with one option active.
+ * @param {{ channelClass: string; glyph: ReactNode; label: string; scope: string; value: "ALL" | "MINE" | "NONE" }} props Channel icon class, glyph, label, scope copy, and active value.
+ * @returns {JSX.Element} Preference row.
+ */
+function ChannelPref({
+  channelClass,
+  glyph,
+  label,
+  scope,
+  value,
+}: {
+  channelClass: string;
+  glyph: ReactNode;
+  label: string;
+  scope: string;
+  value: "ALL" | "MINE" | "NONE";
+}) {
+  const options: Array<"ALL" | "MINE" | "NONE"> = ["ALL", "MINE", "NONE"];
+  return (
+    <div className="ntf-pref">
+      <span className={`ntf-pref-ic ${channelClass}`}>{glyph}</span>
+      <span className="ntf-pref-name">
+        <span className="ntf-pref-label">{label}</span>
+        <span className="ntf-pref-scope">{scope}</span>
+      </span>
+      <span className="ntf-seg">
+        {options.map((option) => (
+          <span key={option} className={`ntf-seg-opt${option === value ? " ntf-seg-opt--on" : ""}`}>
+            {option}
+          </span>
+        ))}
+      </span>
+    </div>
+  );
+}
+
 export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
   "notifications/hero/inbox": (
     <Frame
@@ -523,91 +689,347 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // In-app inbox (wide tile): the prebuilt tool + panel — For You / Document /
+  // All tabs over one feed carrying a mention, a reply, and a sign-off request.
   "notifications/showcase/inbox": (
     <div className="pv">
-      <Inbox>
-        <NotifItem title={<>mention · “@you can you review?”</>} chip={{ label: "For You", kind: "pending" }} />
-        <NotifItem title={<>reply on the Q3 thread</>} chip={{ label: "Document", kind: "approved" }} />
-      </Inbox>
-    </div>
-  ),
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconBell />
+          Notifications
+          <span className="cmh-cc-pill">For You</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="cmh-filters">
+            <span className="cmh-ft on">For You</span>
+            <span className="cmh-ft">Document</span>
+            <span className="cmh-ft">All</span>
+          </div>
 
-  "notifications/showcase/email": (
-    <div className="pv">
-      <DarkPanel>{"mention → email via SendGrid\nfirstComment, latestComment,\nactionType, documentMetadata"}</DarkPanel>
-    </div>
-  ),
+          <div className="cmh-group">Now</div>
+          <div className="cmh-inrow">
+            <span className="cmh-unread" />
+            <Av initials="MA" tone="a2" img={FACE.maya} />
+            <div className="cmh-inmain">
+              <p className="t">
+                <b>Maya</b> mentioned you on Q3 forecast
+                <span className="chip chip-pending" style={{ marginLeft: 6 }}>mention</span>
+              </p>
+              <p className="m"><span className="quote">&ldquo;@you can you review before Friday?&rdquo;</span></p>
+            </div>
+            <span className="cmh-when">2m</span>
+          </div>
 
-  "notifications/showcase/batching": (
-    <div className="pv">
-      <ProvRow>
-        burst of 40 pings <ProvArrow /> 1 digest
-      </ProvRow>
-      <ProvRow>
-        already-seen <ProvArrow /> suppressed
-      </ProvRow>
-    </div>
-  ),
+          <div className="cmh-inrow">
+            <span className="cmh-unread" />
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <div className="cmh-inmain">
+              <p className="t">
+                <b>Sarah</b> replied on the Q3 thread
+                <span className="chip chip-approved" style={{ marginLeft: 6 }}>reply</span>
+              </p>
+              <p className="m">forecast.xlsx · cell B12</p>
+            </div>
+            <span className="cmh-when">9m</span>
+          </div>
 
-  "notifications/showcase/preferences": (
-    <div className="pv">
-      <div className="int-chips">
-        <span className="int-chip"><i />ALL</span>
-        <span className="int-chip"><i />MINE</span>
-        <span className="int-chip"><i />NONE</span>
+          <div className="cmh-inrow">
+            <span className="cmh-unread read" />
+            <Av initials="ET" tone="a1" img={FACE.ethan} />
+            <div className="cmh-inmain">
+              <p className="t">
+                <b>Ethan</b> requested your sign-off
+                <span className="chip chip-pending" style={{ marginLeft: 6 }}>sign-off</span>
+              </p>
+              <p className="m">contract.pdf · due today</p>
+            </div>
+            <span className="cmh-when">1h</span>
+          </div>
+        </div>
       </div>
     </div>
   ),
 
+  // Email notifications (narrow tile): a mention fired off as an email through
+  // SendGrid so a reviewer who hasn't opened the app still gets the request.
+  "notifications/showcase/email": (
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconMail />
+          Email
+          <span className="cmh-cc-pill">SendGrid</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="ntf-mail">
+            <div className="ntf-mail-card">
+              <div className="ntf-mail-bar">
+                <span className="ntf-mail-ic"><IconMail /></span>
+                <span className="ntf-mail-from">
+                  <span className="ntf-mail-addr">notifications@velt.dev</span>
+                  <span className="ntf-mail-to">to ethan@acme.com</span>
+                </span>
+              </div>
+              <div className="ntf-mail-body">
+                <span className="ntf-mail-subj">Sign-off requested — Q3 forecast</span>
+                <span className="ntf-mail-prev">
+                  <span className="ntf-mention">@Ethan</span> mentioned on Q3 forecast — &ldquo;approve before Friday close?&rdquo;
+                </span>
+              </div>
+            </div>
+            <div className="ntf-mail-foot">
+              <span className="ntf-deliver"><span className="ntf-deliver-dot" />delivered · hasn&rsquo;t opened the app</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+
+  // Batching and digests (narrow tile): a burst of pings (some already seen)
+  // funnels through delay-and-batch into a single digest.
+  "notifications/showcase/batching": (
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconFunnel />
+          Digest
+          <span className="cmh-cc-pill">1 / day</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="ntf-batch">
+            <div className="ntf-batch-pings" aria-hidden="true">
+              {Array.from({ length: 40 }).map((_unused, index) => (
+                <span key={index} className={`ntf-batch-ping${index % 3 === 0 ? " ntf-batch-ping--seen" : ""}`} />
+              ))}
+            </div>
+            <span className="ntf-batch-count">40 events · 13 already seen</span>
+            <span className="ntf-batch-funnel"><IconArrowDown /></span>
+            <div className="ntf-batch-digest">
+              <span className="ntf-batch-digest-ic"><IconStack /></span>
+              <span className="ntf-batch-digest-main">
+                <span className="ntf-batch-digest-title">Q3 forecast · daily digest</span>
+                <span className="ntf-batch-digest-sub">27 new updates, batched into one</span>
+              </span>
+            </div>
+            <div className="apf-note">
+              <span className="chip chip-approved">deduplicated</span>
+              <span>Already-seen suppressed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+
+  // Per-user preferences (wide tile): each channel set to ALL / MINE / NONE,
+  // tunable per document or org-wide.
+  "notifications/showcase/preferences": (
+    <div className="pv">
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconSliders />
+          Preferences
+          <span className="cmh-cc-pill">per channel</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="ntf-prefs">
+            <ChannelPref channelClass="ci-app" glyph={<IconBell />} label="In-app" scope="every event" value="ALL" />
+            <ChannelPref channelClass="ci-mail" glyph={<IconMail />} label="Email" scope="mentions & assignments" value="MINE" />
+            <ChannelPref channelClass="ci-slack" glyph={<IconBolt />} label="Slack" scope="silenced" value="NONE" />
+          </div>
+          <div className="apf-note">
+            <span className="chip chip-agent">settings UI · REST</span>
+            <span>Per document or org-wide</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+
+  // Custom notifications via REST (wide tile): the app POSTs its own event and
+  // it lands as one item in the same inbox.
   "notifications/showcase/custom": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/notifications\n{ \"type\": \"deadline\",\n  \"to\": \"reviewer\",\n  \"body\": \"sign-off due 5pm\" }"}</DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconBolt />
+          REST API
+          <span className="cmh-cc-pill">POST</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="ntf-cust">
+            <div className="ntf-rest">
+              <span className="ntf-rest-line">
+                <span className="ntf-rest-verb">POST</span>
+                /v2/notifications
+              </span>
+              <span className="ntf-rest-line">{"{ type, to: userId, body }"}</span>
+              <div className="ntf-rest-types">
+                <span className="ntf-rest-type">deadline</span>
+                <span className="ntf-rest-type">counterparty</span>
+                <span className="ntf-rest-type">workflow step</span>
+              </div>
+            </div>
+            <span className="ntf-cust-arrow"><IconArrowRight /></span>
+            <div className="ntf-cust-inbox">
+              <span className="ntf-cust-inbox-ic"><IconMail /></span>
+              <span className="ntf-cust-inbox-main">
+                <span className="ntf-cust-inbox-title">
+                  <strong>Deadline</strong> · sign-off due 5pm
+                </span>
+                <span className="ntf-deliver"><span className="ntf-deliver-dot" />in the same inbox</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Webhooks to your channels (narrow tile): comment + review events fire to your
+  // endpoint with full payloads, routed onward to Slack or any channel.
   "notifications/showcase/webhooks": (
     <div className="pv">
-      <ProvRow>
-        comment.added <ProvArrow /> your endpoint
-      </ProvRow>
-      <ProvRow>
-        your endpoint <ProvArrow /> Slack / any channel
-      </ProvRow>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconWebhook />
+          Webhooks
+          <span className="cmh-cc-pill">comment.*</span>
+        </div>
+        <div className="cmh-cc-body apf-evt-body">
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">comment.added</span>
+            <span className="apf-evt-sig"><IconCheck />payload</span>
+            <span className="chip chip-approved">sent</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">review.approved</span>
+            <span className="apf-evt-sig"><IconCheck />payload</span>
+            <span className="chip chip-approved">sent</span>
+          </div>
+          <div className="apf-note">
+            <span className="ntf-chan"><span className="ntf-chan-dot" />Slack</span>
+            <span>Your endpoint, your rules</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Agent activity (narrow tile): an agent is a user — its overnight findings
+  // notify the assigned reviewer, who opens an approve-or-reject queue at 9am.
   "notifications/showcase/agents": (
     <div className="pv">
-      <Inbox>
-        <NotifItem
-          avatar={{ initials: "AG", kind: "agent" }}
-          title={<><strong>Agent</strong> finished overnight · approve-or-reject queue</>}
-          meta="found at 9am"
-          actions
-        />
-      </Inbox>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconBell />
+          Agent activity
+          <span className="cmh-cc-pill">overnight</span>
+        </div>
+        <div className="cmh-cc-body">
+          <AgentFindingCard
+            name="Review Agent"
+            time="9:00 AM"
+            body="Finished overnight — 3 findings ready as an approve-or-reject queue."
+            replies={3}
+          />
+          <div className="apf-note">
+            <span className="chip chip-pending">notified</span>
+            <span>Ran 02:14 · surfaced at sign-in</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Permission-scoped feeds (wide tile): notifications generate only for docs a
+  // user can access — the counterparty sees their thread, internal stays internal.
   "notifications/showcase/permissions": (
     <div className="pv">
-      <ProvRow>
-        counterparty <ProvArrow /> sees their thread
-      </ProvRow>
-      <ProvRow>
-        internal deliberation <ProvArrow /> never reaches them
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconLock />
+          Scoped feeds
+          <span className="cmh-cc-pill">by access</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="ntf-scope">
+            <div className="ntf-lane">
+              <div className="ntf-lane-head">
+                <span className="ntf-lane-ic"><IconEye /></span>
+                <span className="ntf-lane-title">Counterparty</span>
+              </div>
+              <div className="ntf-lane-row">
+                <Av initials="CP" tone="a3" />
+                <span className="ntf-lane-row-main">Their shared thread moved — reply added</span>
+              </div>
+              <div className="ntf-lane-foot">
+                <span className="ntf-lane-mark ntf-lane-mark--ok"><IconCheck /></span>
+                Reaches their inbox
+              </div>
+            </div>
+
+            <div className="ntf-lane ntf-lane--blocked">
+              <div className="ntf-lane-head">
+                <span className="ntf-lane-ic"><IconEyeOff /></span>
+                <span className="ntf-lane-title">Internal</span>
+              </div>
+              <div className="ntf-lane-row">
+                <Av initials="TM" tone="a4" />
+                <span className="ntf-lane-row-main">Team deliberation on the counter-offer</span>
+              </div>
+              <div className="ntf-lane-foot">
+                <span className="ntf-lane-mark ntf-lane-mark--no"><IconX /></span>
+                Never reaches them
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Self-host (wide tile): the data provider keeps notification content on your
+  // servers; Velt stores only minimal identifiers.
   "notifications/showcase/self-host": (
     <div className="pv">
-      <ProvRow>
-        notification content <ProvArrow /> your servers
-      </ProvRow>
-      <ProvRow>
-        Velt stores <ProvArrow /> minimal identifiers
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconServer />
+          Self-host
+          <span className="cmh-cc-pill">data provider</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="ntf-host">
+            <div className="ntf-host-col ntf-host-col--yours">
+              <span className="ntf-host-cap">
+                <span className="ntf-host-cap-ic"><IconServer /></span>
+                Your servers
+              </span>
+              <p className="ntf-host-content">
+                <strong>Maya</strong> mentioned you — &ldquo;approve the revised Q3 projections?&rdquo;
+              </p>
+              <span className="chip chip-approved ntf-host-tag">full content</span>
+            </div>
+
+            <span className="ntf-host-divider"><IconArrowRight /></span>
+
+            <div className="ntf-host-col ntf-host-col--velt">
+              <span className="ntf-host-cap">
+                <span className="ntf-host-cap-ic"><IconLock /></span>
+                Velt stores
+              </span>
+              <div className="ntf-host-ids">
+                <span className="ntf-host-id">userId: usr_8f21</span>
+                <span className="ntf-host-id">docId: doc_q3</span>
+                <span className="ntf-host-id">type: mention</span>
+              </div>
+              <span className="chip chip-pending ntf-host-tag">minimal ids</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 

@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 
 import { AvatarStack, ProvRow, ProvArrow, DarkPanel, NotifItem } from "../demos";
 import type { AvatarUser } from "../demos";
-import { Av, Composer, FACES, Frame, IconCheck } from "./hero-surface";
+import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX } from "./hero-surface";
 import type { PresenceUser } from "./hero-surface";
+
+import "./huddle-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/huddle page. Keys match
 // components/feature-new/demo-presets/huddle.keys.ts; the matching record is
@@ -21,6 +23,7 @@ const FACE = {
   maya: FACES.fenne,
   sarah: FACES.hope,
   ethan: FACES.ethan,
+  jordan: FACES.roman,
 } as const;
 
 const CALL_TEAM: AvatarUser[] = [
@@ -236,6 +239,61 @@ function IconScreen() {
   );
 }
 
+/** @returns {JSX.Element} Muted-microphone SVG glyph (slash through the mic). */
+function IconMicOff() {
+  return (
+    <svg viewBox="0 0 16 16" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M10.5 6V4a2.5 2.5 0 0 0-4.8-1" />
+      <path d="M5.5 6.5V7a2.5 2.5 0 0 0 3.6 2.25" />
+      <path d="M3 8a5 5 0 0 0 6.5 4.78M13 8a5 5 0 0 1-.4 1.95" />
+      <line x1="8" y1="13" x2="8" y2="15" />
+      <line x1="2" y1="2" x2="14" y2="14" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Group / participants SVG glyph for the presence header. */
+function IconRoom() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path d="M16 5.5a3 3 0 0 1 0 5M17 14.2A6 6 0 0 1 21 20" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Bolt SVG glyph for the instant, no-link header. */
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Clock SVG glyph for the ephemeral-chat note. */
+function IconClock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Pinned-document SVG glyph for the scoped-to-doc header. */
+function IconDocPin() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+      <path d="M19 12V7l-5-4H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5" />
+      <circle cx="17" cy="17" r="3" />
+      <path d="M17 20v2" />
+    </svg>
+  );
+}
+
 export const HUDDLE_DEMOS: Record<string, ReactNode> = {
   "huddle/hero/start": (
     <Frame
@@ -432,62 +490,247 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
 
   "huddle/showcase/audio": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <HuddleBar users={CALL_TEAM} channel="audio" />
-        <p className="code-microcopy">one click opens a live voice channel on the document</p>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconMic />
+          Voice huddle
+          <span className="cmh-cc-pill">live · audio</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="hud-voice">
+            <div className="hud-voice-tile">
+              <span className="hud-voice-ring hud-voice-ring--live">
+                <Av initials="MA" tone="a2" img={FACE.maya} />
+                <span className="hud-voice-mic hud-voice-mic--on"><IconMic /></span>
+              </span>
+              <span className="hud-voice-meta">
+                <span className="hud-voice-name">Maya</span>
+                <span className="hud-wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+              </span>
+            </div>
+            <div className="hud-voice-tile">
+              <span className="hud-voice-ring">
+                <Av initials="SR" tone="a3" img={FACE.sarah} />
+                <span className="hud-voice-mic hud-voice-mic--off"><IconMicOff /></span>
+              </span>
+              <span className="hud-voice-meta">
+                <span className="hud-voice-name">Sarah</span>
+                <span className="hud-voice-sub">listening</span>
+              </span>
+            </div>
+            <div className="hud-voice-tile">
+              <span className="hud-voice-ring">
+                <Av initials="NA" agent />
+              </span>
+              <span className="hud-voice-meta">
+                <span className="hud-voice-name">Notetaker</span>
+                <span className="hud-voice-sub">capturing</span>
+              </span>
+            </div>
+          </div>
+          <p className="code-microcopy">one click opens a live voice channel on the document</p>
+        </div>
       </div>
     </div>
   ),
 
   "huddle/showcase/video": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <HuddleBar users={CALL_TEAM} channel="video" />
-        <p className="code-microcopy">faces on, still inside the document</p>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconCam />
+          Video huddle
+          <span className="cmh-cc-pill">2 on</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="hud-grid">
+            <div className="hud-tile hud-tile--live" style={{ backgroundImage: `url(${FACE.maya})` }}>
+              <span className="hud-tile-cam"><IconCam /></span>
+              <span className="hud-tile-tag">Maya</span>
+            </div>
+            <div className="hud-tile" style={{ backgroundImage: `url(${FACE.sarah})` }}>
+              <span className="hud-tile-cam"><IconCam /></span>
+              <span className="hud-tile-tag">Sarah</span>
+            </div>
+          </div>
+          <p className="code-microcopy">faces on, still inside the document</p>
+        </div>
       </div>
     </div>
   ),
 
   "huddle/showcase/screen-share": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <ShareTile label="walking the reviewer through the clause" />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconScreen />
+          Screen share
+          <span className="cmh-cc-pill">live</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="hud-screen">
+            <div className="hud-screen-top">
+              <span className="hud-screen-dot" />
+              <span className="hud-screen-dot" />
+              <span className="hud-screen-dot" />
+              <span className="hud-screen-title">contract.md</span>
+              <span className="hud-screen-share"><i />SHARING</span>
+            </div>
+            <div className="hud-screen-doc">
+              <p className="cmh-doc">
+                7.2 The vendor rate shall not exceed <span className="cmh-mark">12% of base contract value</span>.
+              </p>
+              <div className="sk" style={{ width: "72%" }} />
+              <div className="sk" style={{ width: "54%" }} />
+            </div>
+          </div>
+          <span className="hud-screen-by">
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            Sarah is sharing
+          </span>
+        </div>
       </div>
     </div>
   ),
 
   "huddle/showcase/no-link": (
     <div className="pv">
-      <ProvRow>
-        click the huddle tool <ProvArrow /> the call starts on the spot
-      </ProvRow>
-      <ProvRow>
-        teammates in the document <ProvArrow /> join in place · no URL, no invite
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconBolt />
+          No link, no invite
+          <span className="cmh-cc-pill">one click</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="hud-instant">
+            <span className="hud-instant-btn"><i />Start huddle</span>
+            <span className="hud-instant-arrow"><IconArrowRight /></span>
+            <span className="hud-instant-live">
+              <span className="hud-stack">
+                <Av initials="MA" tone="a2" img={FACE.maya} />
+                <Av initials="SR" tone="a3" img={FACE.sarah} />
+              </span>
+              everyone in the doc is in
+            </span>
+          </div>
+          <div className="hud-nope">
+            <span className="hud-nope-pill"><IconX /><span>meeting link</span></span>
+            <span className="hud-nope-pill"><IconX /><span>calendar invite</span></span>
+            <span className="hud-nope-pill"><IconX /><span>join URL</span></span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "huddle/showcase/scoped": (
     <div className="pv">
-      <DarkPanel>{"// every huddle event carries the document\n{ \"actionType\": \"created\",\n  \"notificationSource\": \"huddle\",\n  \"metadata\": {\n    \"documentId\": \"contract-114\",\n    \"pageInfo\": { \"page\": \"clause-7\" } } }"}</DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconDocPin />
+          Scoped to the doc
+          <span className="cmh-cc-pill">every event</span>
+        </div>
+        <div className="cmh-cc-body apf-gov-body">
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">notificationSource</span>
+            <span className="chip chip-agent">huddle</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">documentId</span>
+            <span className="apf-gov-val">contract-114</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">pageInfo.page</span>
+            <span className="apf-gov-val">clause-7</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">participants</span>
+            <span className="apf-gov-stack">
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <Av initials="SR" tone="a3" img={FACE.sarah} />
+              <span className="apf-gov-count">2</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "huddle/showcase/presence": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <AvatarStack users={[{ initials: "MA", kind: "human", name: "Maya (talking)" }, { initials: "SR", kind: "human", name: "Sarah (talking)" }, { initials: "JD", kind: "human", name: "Jordan" }]} overflow={2} />
-        <p className="code-microcopy">huddle users render in the same presence row — see who is already talking</p>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconRoom />
+          In the room
+          <span className="cmh-cc-pill">3 here</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="hud-roster">
+            <div className="hud-person hud-person--live">
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <span className="hud-person-main">
+                <span className="hud-person-name">Maya</span>
+                <span className="hud-person-sub">speaking</span>
+              </span>
+              <span className="hud-wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+            </div>
+            <div className="hud-person hud-person--live">
+              <Av initials="SR" tone="a3" img={FACE.sarah} />
+              <span className="hud-person-main">
+                <span className="hud-person-name">Sarah</span>
+                <span className="hud-person-sub">speaking</span>
+              </span>
+              <span className="hud-wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+            </div>
+            <div className="hud-person">
+              <Av initials="JD" tone="a4" img={FACE.jordan} />
+              <span className="hud-person-main">
+                <span className="hud-person-name">Jordan</span>
+                <span className="hud-person-sub">listening</span>
+              </span>
+              <span className="hud-mute"><IconMicOff /></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   ),
 
   "huddle/showcase/chat": (
     <div className="pv">
-      <DocSurface>
-        <NotifItem title={<>Corrected rate: 9% — see footnote 4</>} meta="huddle chat · on by default" />
-        <NotifItem title={<>Dropping the doc link without talking over you</>} meta="ephemeral · toggle by prop or API" />
-      </DocSurface>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconBubble />
+          Huddle chat
+          <span className="cmh-cc-pill">ephemeral</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="hud-chat">
+            <div className="cmh-cmt cmh-cmt--plain">
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <div className="cmh-cmt-main">
+                <div className="cmh-cmt-head">
+                  <span className="cmh-cmt-name">Maya</span>
+                  <span className="cmh-cmt-time">now</span>
+                </div>
+                <p className="cmh-cmt-body">Corrected rate: 9% — see footnote 4</p>
+              </div>
+            </div>
+            <div className="cmh-cmt cmh-cmt--plain">
+              <Av initials="SR" tone="a3" img={FACE.sarah} />
+              <div className="cmh-cmt-main">
+                <div className="cmh-cmt-head">
+                  <span className="cmh-cmt-name">Sarah</span>
+                  <span className="cmh-cmt-time">now</span>
+                </div>
+                <p className="cmh-cmt-body">Dropping the doc link without talking over you</p>
+              </div>
+            </div>
+            <p className="hud-chat-note"><IconClock />clears when the huddle ends · toggle by prop or API</p>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
