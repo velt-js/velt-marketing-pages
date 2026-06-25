@@ -212,16 +212,13 @@ const DATA_SCENE: ReactNode = (
 export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   "hero/analytics": (
     <ConsolePanel title="Adoption · last 6 weeks" right="active collaborators">
-      <UsageChart
-        bars={[
-          { label: "Apr 28", value: 41 },
-          { label: "May 05", value: 58 },
-          { label: "May 12", value: 73 },
-          { label: "May 19", value: 96 },
-          { label: "May 26", value: 128, agent: true },
-        ]}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/t1COey189fyBfnbEbl5sk6zweU.png"
+        alt="Adoption analytics: 200 hours of engagement, 4,255 active collaborators, 55.4k comments added, 87.3k notifications added"
+        style={{ display: "block", width: "100%", height: "auto", borderRadius: "var(--vlp-radius-card)" }}
       />
-      <p className="code-microcopy" style={{ marginTop: 12 }}>one bar counts agents as users, type agent</p>
+      <p className="code-microcopy" style={{ marginTop: 12 }}>engagement climbing, agents counted as users, type agent</p>
     </ConsolePanel>
   ),
   "hero/ai-chat": (
@@ -250,7 +247,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   "hero/webhooks": <DarkPanel footer="signed · retried · transform + encryption">{WEBHOOK_PAYLOAD}</DarkPanel>,
 
   "what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14 }}>
+    <div style={{ display: "grid", gap: 14, padding: 18 }}>
       {DATA_SCENE}
       <p className="code-microcopy">run it, watch it, prove it: humans and agents in one console</p>
     </div>

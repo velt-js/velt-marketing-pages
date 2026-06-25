@@ -135,7 +135,7 @@ export const WEBHOOKS_DEMOS: Record<string, ReactNode> = {
   "hero/flow": FLOW_SCENE,
 
   "what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14 }}>
+    <div style={{ display: "grid", gap: 14, padding: 18 }}>
       {FLOW_SCENE}
       <p className="code-microcopy">one event surface for humans and agents: fire, sign, retry, prove</p>
     </div>

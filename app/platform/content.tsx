@@ -252,32 +252,6 @@ export const platformContent: FeaturePageContent = {
     visibleCount: 12,
   },
 
-  makeItYours: {
-    kicker: "Make it yours",
-    heading: "Operate it your way.",
-    support: "The console is Velt's UI, but the data and the controls behind it are yours.",
-    cards: [
-      {
-        icon: <VeltMark size={18} fill="var(--vlp-color-accent)" />,
-        title: "Look",
-        body:
-          "Pull metrics and records through the data access, the export, and the REST APIs to build your own internal dashboards or embed adoption numbers in your own admin.",
-        preview: D["make-it-yours/look"],
-        code: "GET /v2/analytics?metric=engagement\n// render in your own dashboard",
-        copyText: "GET /v2/analytics?metric=engagement",
-      },
-      {
-        icon: <ShieldIcon />,
-        title: "Behavior",
-        body:
-          "Feature flags per environment, custom webhook headers, payload transforms, customer-managed encryption keys, programmatic provisioning, and the MCP server for agent-driven setup.",
-        preview: D["make-it-yours/behavior"],
-        code: "webhook.transform = (e) => redact(e)\nencryption.key = cmek://acme",
-        copyText: "webhook.transform = (e) => redact(e)",
-      },
-    ],
-  },
-
   inProduction: {
     kicker: "In production",
     heading: "See the console on your work.",
