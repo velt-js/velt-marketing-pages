@@ -3,10 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import CopyButton from "./CopyButton";
+import FlowerAvatar from "./FlowerAvatar";
 import "./Collaboration.css";
 
 const CURSOR_POINTER_PURPLE = "/images/home/features/cursor-pointer-purple.svg";
 const CURSOR_POINTER_ORANGE = "/images/home/features/cursor-pointer-orange.svg";
+
+// Human faces (Unsplash) used for presence avatars. Agents use FlowerAvatar.
+const UNSPLASH_FACE = "?auto=format&fit=crop&crop=faces&w=96&h=96&q=80";
+const FACE_ANNA = `https://images.unsplash.com/photo-1438761681033-6461ffad8d80${UNSPLASH_FACE}`;
+const FACE_MIKE = `https://images.unsplash.com/photo-1500648767791-00dcc994a43e${UNSPLASH_FACE}`;
+const FACE_SARA = `https://images.unsplash.com/photo-1494790108377-be9c29b29330${UNSPLASH_FACE}`;
 
 type CollabCardProps = {
   name: string;
@@ -103,14 +110,28 @@ export default function Collaboration() {
           preview={
             <div className="collab-stage presence-stage">
               <div className="pr-facepile">
-                <span className="pr-ava pr-ava-green">A<i className="pr-dot"></i></span>
-                <span className="pr-ava pr-ava-gold">M<i className="pr-dot"></i></span>
-                <span className="pr-ava pr-ava-pink">S</span>
-                <span className="pr-ava pr-ava-ai">AI</span>
+                <span className="pr-ava pr-ava-img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={FACE_ANNA} alt="" />
+                  <i className="pr-dot"></i>
+                </span>
+                <span className="pr-ava pr-ava-img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={FACE_MIKE} alt="" />
+                  <i className="pr-dot"></i>
+                </span>
+                <span className="pr-ava pr-ava-img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={FACE_SARA} alt="" />
+                </span>
+                <FlowerAvatar tone="violet" uid="pr-agent" className="pr-ava pr-ava-flower" />
               </div>
               <div className="cs-strip">
                 <div className="cs-anna">
-                  <span className="cs-ava" aria-hidden="true">A</span>
+                  <span className="cs-ava" aria-hidden="true">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={FACE_ANNA} alt="" />
+                  </span>
                   <Image src={CURSOR_POINTER_PURPLE} alt="" className="cs-pointer cs-pointer-flip" aria-hidden="true" width={34} height={36} unoptimized />
                 </div>
                 <div className="cs-emma">

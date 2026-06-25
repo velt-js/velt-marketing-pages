@@ -65,10 +65,18 @@
 }
 
 .vlp .nav-caret {
-  font-size: 9px;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
   opacity: 0.6;
   transition: transform var(--vlp-transition-fast);
+}
+
+.vlp .nav-caret svg {
+  display: block;
+  width: 14px;
+  height: 14px;
 }
 
 .vlp .nav-item:hover .nav-caret,

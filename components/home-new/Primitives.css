@@ -314,6 +314,176 @@ outline: 2px solid var(--vlp-bg-accent-focus);
   color: rgba(38, 37, 30, 0.8);
 }
 
+/* ── Document + contextual comment (Comments preview) ──────── */
+/* A faux text document (skeleton lines, one highlighted) with a floating
+   contextual comment card anchored over the highlighted line. */
+.vlp .prim-doc {
+  position: relative;
+  min-height: 192px;
+}
+
+.vlp .prim-doc-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-4);
+  padding-top: var(--vlp-space-2);
+}
+
+.vlp .prim-doc-line {
+  height: 12px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-bg-skeleton);
+}
+
+.vlp .prim-doc-line--hl {
+  background: rgba(255, 205, 46, 0.4);
+}
+
+.vlp .prim-doc-comment {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  width: 72%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-4);
+  padding: var(--vlp-space-5);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-2xl);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vlp .prim-doc-comment-head {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+}
+
+.vlp .prim-doc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: 6px 11px;
+  border-radius: var(--vlp-radius-pill);
+  background: rgba(98, 93, 245, 0.1);
+  color: var(--vlp-color-purple);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .prim-doc-status-dot {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-chevron {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.vlp .prim-doc-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: 6px 10px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-bg-surface-muted);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-doc-flag-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-head-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  margin-left: auto;
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-doc-action-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-resolve {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--vlp-color-green-approval);
+  color: var(--vlp-color-green-approval);
+}
+
+.vlp .prim-doc-resolve-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-comment-msg {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+}
+
+.vlp .prim-doc-avatar {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.vlp .prim-doc-name {
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-doc-time {
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-doc-read {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--vlp-color-purple);
+}
+
+.vlp .prim-doc-comment-text {
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-doc-mention {
+  padding: 1px 4px;
+  border-radius: var(--vlp-radius-md);
+  background: rgba(98, 93, 245, 0.12);
+  color: var(--vlp-color-purple);
+  font-weight: var(--vlp-weight-medium);
+}
+
 /* ── Customer quote block ──────────────────────────────────── */
 /* Spec 2.6 card anatomy: the attributed customer quote sits behind a left
    rule. The rule is an accent-tinted 2px border with padding so the avatar
@@ -879,40 +1049,265 @@ outline: 2px solid var(--vlp-bg-accent-focus);
 }
 
 /* ── Memory card internals ─────────────────────────────────── */
-.vlp .prim-mem-precedent {
-  font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-btn-primary-font-micro);
-  letter-spacing: 0.05em;
-  color: var(--vlp-color-amber);
-  margin-bottom: 8px;
+.vlp .prim-mem {
+  display: flex;
+  flex-direction: column;
 }
 
-.vlp .prim-mem-p {
-  font-size: var(--vlp-text-label);
-  line-height: var(--vlp-leading-body);
+.vlp .prim-mem-grad-avatar {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-mem-title {
+  margin-top: var(--vlp-space-4);
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
   color: var(--vlp-color-ink);
 }
 
-.vlp .prim-mem-meta {
-  font-size: var(--vlp-btn-muted-outline-font);
-  color: var(--vlp-color-text-subtle);
-  margin-top: 8px;
-  font-family: var(--vlp-font-mono);
-}
-
-.vlp .prim-mem-thread {
-  display: flex;
-  gap: var(--vlp-space-2-5);
-  margin-top: var(--vlp-space-3-5);
-  padding-top: 14px;
-  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
-}
-
-.vlp .prim-mem-thread-p {
-  font-size: var(--vlp-text-body-sm);
+.vlp .prim-mem-body {
+  margin-top: var(--vlp-space-2);
+  font-size: var(--vlp-text-label);
   line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink-soft);
+}
+
+.vlp .prim-mem-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-4);
+}
+
+.vlp .prim-mem-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: 5px 11px 5px 9px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-color-cream);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink-soft);
+}
+
+.vlp .prim-mem-chip-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
   color: var(--vlp-color-text-muted);
-  margin-top: 2px;
+}
+
+.vlp .prim-mem-footer {
+  margin-top: var(--vlp-space-5);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-muted-outline-font);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-subtle);
+}
+
+/* ── Review-agents card: trigger → fan-out to two agent nodes ───── */
+.vlp .prim-ra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--vlp-space-2) 0 var(--vlp-space-1);
+}
+
+.vlp .prim-ra-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  padding: 7px 14px;
+  border-radius: var(--vlp-radius-pill);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .prim-ra-pill--source {
+  background: var(--vlp-bg-surface-muted);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-ra-pill--trigger {
+  background: rgba(192, 133, 50, 0.13);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-ra-pill-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-ra-pill-icon--bolt {
+  color: var(--vlp-color-amber);
+}
+
+.vlp .prim-ra-stem {
+  width: 2px;
+  height: 18px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan {
+  position: relative;
+  width: 100%;
+  height: 24px;
+}
+
+.vlp .prim-ra-fan-trunk {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan-split {
+  position: absolute;
+  top: 12px;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan-arm {
+  position: absolute;
+  top: 12px;
+  width: 2px;
+  height: 12px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan-arm--left { left: 25%; }
+.vlp .prim-ra-fan-arm--right { left: 75%; }
+
+.vlp .prim-ra-nodes {
+  display: flex;
+  width: 100%;
+}
+
+.vlp .prim-ra-node {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--vlp-space-3);
+  padding: 0 var(--vlp-space-3);
+}
+
+.vlp .prim-ra-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-ra-node-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vlp-space-1);
+}
+
+.vlp .prim-ra-node-name {
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-ra-node-sub {
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-text-muted);
+  max-width: 22ch;
+}
+
+/* ── Review-agents: horizontal (left-to-right) layout ──────────── */
+.vlp .prim-ra--horizontal {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-stem {
+  width: 32px;
+  height: 2px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan {
+  width: 52px;
+  height: auto;
+  align-self: stretch;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-trunk {
+  top: 50%;
+  left: 0;
+  width: 26px;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-split {
+  top: 25%;
+  left: 26px;
+  width: 2px;
+  height: 50%;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-arm {
+  top: 25%;
+  left: 26px;
+  width: 26px;
+  height: 2px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-arm--right {
+  top: 75%;
+  left: 26px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-nodes {
+  flex-direction: column;
+  width: auto;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-node {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: var(--vlp-space-3);
+  padding: var(--vlp-space-3) 0;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-avatar {
+  width: 46px;
+  height: 46px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-node-text {
+  align-items: flex-start;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-node-sub {
+  max-width: none;
+  white-space: nowrap;
 }
 
 /* ── NEW badge (in card kicker) ────────────────────────────── */
@@ -927,56 +1322,130 @@ outline: 2px solid var(--vlp-bg-accent-focus);
 }
 
 /* ── Notifications card internals ──────────────────────────── */
-.vlp .prim-notif-row {
+.vlp .prim-notif {
   display: flex;
-  gap: var(--vlp-space-3);
-  align-items: flex-start;
+  flex-direction: column;
+  gap: var(--vlp-space-8);
 }
 
-.vlp .prim-notif-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: var(--vlp-card-radius);
-  background: var(--vlp-color-accent);
-  color: var(--vlp-color-white);
+.vlp .prim-notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: calc(var(--vlp-space-2) * -1);
+}
+
+.vlp .prim-notif-head-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-notif-count {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--vlp-radius-pill);
+  background: #fa3737;
+  color: var(--vlp-color-white);
+  font-size: var(--vlp-text-tag);
+  font-weight: var(--vlp-weight-semibold);
+}
+
+.vlp .prim-notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-6);
+}
+
+.vlp .prim-notif-item {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .prim-notif-grad-avatar {
+  width: 36px;
+  height: 36px;
   flex-shrink: 0;
 }
 
-.vlp .prim-notif-body {
+.vlp .prim-notif-item-body {
   flex: 1;
+  min-width: 0;
 }
 
-.vlp .prim-notif-title {
+.vlp .prim-notif-item-title {
   font-size: var(--vlp-text-label);
-  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink-soft);
 }
 
-.vlp .prim-notif-sub {
+.vlp .prim-notif-item-title strong {
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-notif-item-sub {
   font-size: var(--vlp-text-body-sm);
   color: var(--vlp-color-text-muted);
-  margin-top: 3px;
+  margin-top: 2px;
   line-height: var(--vlp-leading-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vlp .prim-notif-time {
+  flex-shrink: 0;
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-notif-channels {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  margin-top: calc(var(--vlp-space-8) / -2);
+  padding-top: var(--vlp-space-4);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .prim-notif-channels-label {
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
 }
 
 .vlp .prim-notif-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--vlp-space-2);
-  margin-top: var(--vlp-space-4);
-  padding-top: 14px;
-  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  gap: var(--vlp-space-1-5);
 }
 
 .vlp .prim-notif-chip {
-  font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-btn-primary-font-micro);
-  color: var(--vlp-color-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-ink-soft);
   background: var(--vlp-color-cream);
-  padding: 5px 11px;
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  padding: 4px 11px 4px 8px;
   border-radius: var(--vlp-radius-pill);
+}
+
+.vlp .prim-notif-chip-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
 }
 
 /* ── Review-agents card internals ──────────────────────────── */

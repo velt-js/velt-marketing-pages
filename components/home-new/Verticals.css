@@ -47,6 +47,19 @@
   transition: var(--vlp-btn-transition), transform .15s;
 }
 
+.vlp .vert-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--vlp-space-4);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .vert-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
 .vlp .vert-card-label {
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-btn-primary-font-micro);

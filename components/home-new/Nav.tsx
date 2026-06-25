@@ -622,7 +622,9 @@ export default function Nav() {
             <div className="nav-item" key={group.label}>
               <button type="button" className="nav-link hl nav-trigger" aria-haspopup="true">
                 {group.label}
-                <span className="nav-caret" aria-hidden="true">▾</span>
+                <span className="nav-caret" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M6 9l6 6l6 -6" /></svg>
+                </span>
               </button>
               <div className={group.wide ? "nav-menu nav-menu-wide" : "nav-menu"} role="menu">
                 {group.columns.map((column) => (

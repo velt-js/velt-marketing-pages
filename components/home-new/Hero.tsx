@@ -61,6 +61,11 @@ export default function Hero() {
               <div className="hero-art-comment-head">
                 <span className="hero-art-avatar-k">K</span>
                 Approved by Kim
+                <button type="button" className="hero-art-resolve" aria-label="Resolve">
+                  <svg className="hero-art-resolve-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12l5 5L20 7" />
+                  </svg>
+                </button>
               </div>
               <div className="hero-art-comment-body">
                 <div className="hero-art-agent">
@@ -69,6 +74,13 @@ export default function Hero() {
                   <span className="hero-art-agent-time">58m</span>
                 </div>
                 <p className="hero-art-agent-msg">Proposed Pro price was $92, above the approved Q3 band. I suggest $85, the band maximum.</p>
+                <button type="button" className="hero-art-reply">
+                  <svg className="hero-art-reply-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M9 14L4 9l5-5" />
+                    <path d="M4 9h11a5 5 0 0 1 5 5v6" />
+                  </svg>
+                  Reply
+                </button>
               </div>
             </div>
 

@@ -165,6 +165,9 @@
   overflow: hidden;
   background: var(--vlp-bg-green-highlight);
   box-shadow: inset 0 0 0 1px var(--vlp-color-green-approval);
+  /* This cell sits at the grid's bottom-right; match the grid's inner radius so
+     the green inset border follows the rounded corner instead of being clipped. */
+  border-bottom-right-radius: calc(var(--vlp-radius-xl) - var(--vlp-border-width));
 }
 
 .vlp .hero-art-cell--hl::after {
@@ -222,6 +225,34 @@
   font-weight: var(--vlp-weight-medium);
 }
 
+.vlp .hero-art-resolve {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--vlp-color-white);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.vlp .hero-art-resolve:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.vlp .hero-art-resolve-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
 .vlp .hero-art-comment-body {
   display: flex;
   flex-direction: column;
@@ -266,6 +297,34 @@
   line-height: var(--vlp-leading-body);
   letter-spacing: var(--vlp-tracking-snug);
   color: rgba(0, 0, 0, 0.8);
+}
+
+.vlp .hero-art-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1, 4px);
+  align-self: flex-start;
+  margin-top: var(--vlp-space-1, 4px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgba(0, 0, 0, 0.55);
+  font-family: inherit;
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vlp .hero-art-reply:hover {
+  color: var(--vlp-color-ink);
+}
+
+.vlp .hero-art-reply-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
 }
 
 /* Dashed elbow: comment mid-right → webhook top */
