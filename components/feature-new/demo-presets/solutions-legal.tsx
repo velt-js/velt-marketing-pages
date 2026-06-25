@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, AvatarStack, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
-import { Av, Composer, DEL_STYLE, FACES, Frame, IconCheck, IconX, INS_STYLE } from "./hero-surface";
+import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
+import { Av, Composer, DEL_STYLE, FACES, Frame, IconArrowRight, IconCheck, IconX, INS_STYLE } from "./hero-surface";
+
+import "./solutions-legal-showcase.css";
 
 // Simulated-UI demo nodes for the /for/legal page. Keys are listed
 // (pure-data) in ./solutions-legal.keys.ts and merged into the shared registry
@@ -13,7 +15,49 @@ import { Av, Composer, DEL_STYLE, FACES, Frame, IconCheck, IconX, INS_STYLE } fr
 // Legal-page personas mapped to shared headshots.
 const LEGAL_FACE = {
   maya: FACES.hope,
+  partner: FACES.roman,
+  associate: FACES.ethan,
 } as const;
+
+/** @returns {JSX.Element} Clock glyph for a pending approval step. */
+function IconClock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lock glyph for a signed / tamper-evident audit event. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Pen glyph for the editor who currently holds the pen. */
+function IconPen() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 20h4L18 10a2 2 0 0 0-3-3L5 17z" />
+      <path d="M13.5 6.5l3 3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Eye glyph for read-only watchers. */
+function IconEye() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
 
 export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
   "solutions/legal/hero": (
@@ -171,56 +215,100 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
 
   "solutions/legal/fm/suggestions": (
     <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="proposed language"
-        body={"Clause 7 liability: “all losses” → “direct losses, capped at fees paid.” Accept or reject like a diff, with a reason on reject."}
-      />
+      <div className="slg-cap">
+        Clause 7 &middot; liability
+        <span className="chip chip-pending">pending</span>
+      </div>
+      <div className="slg-diff">
+        <span className="slg-del">all losses</span>
+        <span className="slg-arrow"><IconArrowRight /></span>
+        <span className="slg-ins">direct losses, capped at fees paid</span>
+      </div>
+      <p className="slg-note">Accept or reject like a diff &mdash; a reason is logged on reject.</p>
     </div>
   ),
 
   "solutions/legal/fm/comments": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "CN", kind: "human", name: "Counsel" }}
-        title={<>Anchored to the <strong>indemnification clause</strong> — survives the redline that moves it</>}
-        chip={{ label: "internal", kind: "pending" }}
-      />
+      <div className="slg-byline">
+        <Av initials="CN" tone="a2" />
+        <span className="slg-byline-name">Counsel</span>
+        <span className="slg-byline-meta">&middot; 3m</span>
+        <span className="chip chip-pending">internal</span>
+      </div>
+      <p className="cmh-cmt-body" style={{ fontSize: 12.5 }}>
+        Anchored to the <strong>indemnification clause</strong> &mdash; survives the redline that moves it.
+      </p>
     </div>
   ),
 
   "solutions/legal/fm/approval-flows": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "1", ev: <>counsel</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "2", ev: <>partner</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "3", ev: <>client approver</>, chip: { label: "pending", kind: "pending" } },
-        ]}
-      />
+      <div className="slg-chain">
+        <div className="slg-chain-row">
+          <span className="slg-step slg-step--done"><IconCheck /></span>
+          <span className="slg-step-name">counsel</span>
+          <span className="chip chip-approved">passed</span>
+        </div>
+        <div className="slg-chain-row">
+          <span className="slg-step slg-step--done"><IconCheck /></span>
+          <span className="slg-step-name">partner</span>
+          <span className="chip chip-approved">passed</span>
+        </div>
+        <div className="slg-chain-row">
+          <span className="slg-step slg-step--wait"><IconClock /></span>
+          <span className="slg-step-name">client approver</span>
+          <span className="chip chip-pending">pending</span>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/legal/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"organizationId\": \"your-org-id\",\n  \"documentId\": \"mutual-nda\",\n  \"targetEntityId\": \"acme-counterparty\" } }"}</DarkPanel>
+      <div className="slg-cap">
+        Mutual NDA &middot; activity
+        <span className="slg-sig"><IconLock />signed</span>
+      </div>
+      <div className="slg-kv">
+        <div className="slg-kv-row">
+          <span className="slg-kv-key">event</span>
+          <span className="slg-kv-val">clause.7.accepted</span>
+        </div>
+        <div className="slg-kv-row">
+          <span className="slg-kv-key">actor</span>
+          <span className="slg-kv-val">counsel</span>
+        </div>
+        <div className="slg-kv-row">
+          <span className="slg-kv-key">counterparty</span>
+          <span className="slg-kv-val">acme-counterparty</span>
+        </div>
+      </div>
+      <p className="slg-note">Every transition is already an attributed, exportable record.</p>
     </div>
   ),
 
   "solutions/legal/fm/single-editor": (
     <div className="pv">
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, width: "100%" }}>
-        <span className="chip chip-pending">associate · holds the pen</span>
-        <AvatarStack
-          users={[
-            { initials: "PA", kind: "human", name: "Partner" },
-            { initials: "CN", kind: "human", name: "Counsel" },
-            { initials: "AS", kind: "human", name: "Associate" },
-          ]}
-          overflow={2}
-        />
+      <div className="slg-pen-rows">
+        <div className="slg-pen-row">
+          <Av initials="AS" tone="a1" img={LEGAL_FACE.associate} />
+          <span className="slg-pen-main">
+            <span className="slg-pen-name">Associate</span>
+            <span className="slg-pen-sub">drafting clause 7</span>
+          </span>
+          <span className="slg-pen-tag slg-pen-tag--pen"><IconPen />holds the pen</span>
+        </div>
+        <div className="slg-pen-row">
+          <Av initials="PA" tone="a4" img={LEGAL_FACE.partner} />
+          <span className="slg-pen-main">
+            <span className="slg-pen-name">Partner &amp; counsel</span>
+            <span className="slg-pen-sub">watching live</span>
+          </span>
+          <span className="slg-pen-tag slg-pen-tag--read"><IconEye />read-only</span>
+        </div>
       </div>
+      <p className="slg-note">Pen passes on accept &mdash; no racing, no overwrite.</p>
     </div>
   ),
 };

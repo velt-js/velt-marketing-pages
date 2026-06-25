@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
 import {
+  AgentFindingCard,
   Av,
   Composer,
   FACES,
@@ -9,6 +10,8 @@ import {
   IconCheck,
   IconX,
 } from "./hero-surface";
+
+import "./solutions-compliance-showcase.css";
 
 // Simulated-UI demo nodes for the /for/compliance page. Keys are listed
 // (pure-data) in ./solutions-compliance.keys.ts and merged into the shared
@@ -20,7 +23,40 @@ import {
 // Nina = Compliance Officer (real face); Review Agent = blue agent avatar.
 const COMPLIANCE_FACE = {
   nina: FACES.hope,
+  analyst: FACES.ethan,
+  officer: FACES.roman,
 } as const;
+
+/** @returns {JSX.Element} Lock glyph for signed / immutable audit events. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Open-book glyph for cited-precedent pills. */
+function IconBook() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 6c-2-1.4-4.5-1.5-7-1v12c2.5-.5 5-.4 7 1 2-1.4 4.5-1.5 7-1V5c-2.5-.5-5-.4-7 1z" />
+      <path d="M12 6v12" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Group glyph for the pending quorum step. */
+function IconQuorum() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path d="M16 5.5a3 3 0 0 1 0 5M17 14.2A6 6 0 0 1 21 20" />
+    </svg>
+  );
+}
 
 /**
  * A single labeled field/value row inside the disclosure filing artifact.
@@ -231,53 +267,94 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
 
   "solutions/compliance/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"FIL-2209\",\n  \"userId\": \"compliance-officer\" } }"}</DarkPanel>
+      <div className="scp-card scp-comment">
+        <div className="scp-stack">
+          <div className="apf-evt-row scp-evt">
+            <span className="apf-evt-name">activity.recorded</span>
+            <span className="apf-evt-seq">FIL-2209</span>
+            <span className="apf-evt-sig"><IconLock />signed</span>
+          </div>
+          <div className="apf-evt-row scp-evt">
+            <span className="apf-evt-name">officer.signoff</span>
+            <span className="apf-evt-seq">#4211</span>
+            <span className="apf-evt-sig"><IconLock />signed</span>
+          </div>
+        </div>
+        <div className="scp-evt-foot">
+          <span className="chip chip-approved">immutable</span>
+          <span>every event on the record</span>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/compliance/fm/approval-flows": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "1", ev: <>analyst submits</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "2", ev: <>compliance officer</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "3", ev: <>quorum · 2 of 3</>, chip: { label: "pending", kind: "pending" } },
-        ]}
-      />
+      <div className="scp-card">
+        <div className="scp-chain">
+          <div className="scp-step">
+            <Av initials="AN" tone="a1" img={COMPLIANCE_FACE.analyst} />
+            <span className="scp-step-name">Analyst submits</span>
+            <span className="chip chip-approved">passed</span>
+          </div>
+          <div className="scp-step">
+            <Av initials="OF" tone="a4" img={COMPLIANCE_FACE.officer} />
+            <span className="scp-step-name">Compliance officer</span>
+            <span className="chip chip-approved">passed</span>
+          </div>
+          <div className="scp-step">
+            <span className="scp-step-ic"><IconQuorum /></span>
+            <span className="scp-step-name">Quorum · 2 of 3</span>
+            <span className="chip chip-pending">pending</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/compliance/fm/review-agents": (
-    <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "AI", ev: <>missing risk disclaimer</>, chip: { label: "flag", kind: "agent" } },
-          { ts: "AI", ev: <>PII in exhibit B</>, chip: { label: "flag", kind: "agent" } },
-          { ts: "AI", ev: <>stale policy reference</>, chip: { label: "flag", kind: "agent" } },
-        ]}
+    <div className="pv scp-afc">
+      <AgentFindingCard
+        name="Review Agent"
+        time="now"
+        body="Missing risk disclaimer on the product-class line. Flag pinned to the exact filing row."
+        actions={false}
       />
     </div>
   ),
 
   "solutions/compliance/fm/comments": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "CO", kind: "human", name: "Compliance officer" }}
-        title={<>Anchored to the <strong>disclosure line</strong> — not a screenshot of it</>}
-        chip={{ label: "thread", kind: "pending" }}
-      />
+      <div className="scp-card scp-comment">
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="CO" tone="a3" img={COMPLIANCE_FACE.nina} />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Compliance officer</span>
+              <span className="cmh-cmt-time">2m</span>
+            </div>
+            <p className="cmh-cmt-body">Anchored to the <strong>disclosure line</strong> — not a screenshot of it.</p>
+            <span className="chip chip-pending">thread</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/compliance/fm/memory": (
     <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="precedent"
-        body={"Disclaimer language settled last quarter. The agent stops re-flagging what reviewers already cleared."}
-      />
+      <div className="scp-card scp-comment">
+        <div className="scp-mem-row">
+          <Av initials="NI" tone="a3" img={COMPLIANCE_FACE.nina} />
+          <span className="scp-mem-main">
+            <span className="scp-mem-name">Disclaimer language</span>
+            <span className="scp-mem-meta">Nina · cleared last quarter</span>
+          </span>
+          <span className="chip chip-approved">precedent</span>
+        </div>
+        <p className="scp-mem-body">The agent stops re-flagging what reviewers already cleared.</p>
+        <span className="scp-cite"><IconBook />source · FIL-1841</span>
+      </div>
     </div>
   ),
 };

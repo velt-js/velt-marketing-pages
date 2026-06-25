@@ -1,0 +1,214 @@
+/* Compact feature-map tiles for the compliance solutions page. These echo the
+   feature-page card language (.cmh-* / .apf-* / AgentFindingCard) at a smaller,
+   denser scale that fits the feature-map preview pane. Every rule is scoped
+   under .vfp and namespaced .scp- so it cannot collide with sibling solutions
+   pages that share the global styles.css. */
+
+.vfp .scp-card {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.vfp .scp-stack {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+}
+
+.vfp .scp-evt {
+  padding: 8px 10px;
+  border-radius: 10px;
+  gap: 8px;
+}
+
+.vfp .scp-evt .apf-evt-name {
+  font-size: 12px;
+}
+
+.vfp .scp-evt .apf-evt-seq {
+  font-size: 11px;
+}
+
+.vfp .scp-evt .apf-evt-sig {
+  font-size: 11px;
+}
+
+.vfp .scp-evt-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  letter-spacing: -0.22px;
+  color: var(--vlp-color-text-muted);
+}
+
+.vfp .scp-chain {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+}
+
+.vfp .scp-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border: 1px solid var(--vlp-border-subtle);
+  border-radius: 10px;
+  background: var(--vlp-bg-page);
+}
+
+.vfp .scp-step .av-c {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  font-size: 9.5px;
+}
+
+.vfp .scp-step-ic {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--vlp-color-amber-soft);
+  color: #8a5a13;
+}
+
+.vfp .scp-step-ic svg {
+  width: 14px;
+  height: 14px;
+}
+
+.vfp .scp-step-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  color: var(--vlp-color-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vfp .scp-step .chip {
+  flex: none;
+}
+
+.vfp .scp-afc .afc {
+  padding: 12px;
+  border-radius: 12px;
+  gap: 9px;
+}
+
+.vfp .scp-afc .afc > .av-c {
+  width: 24px;
+  height: 24px;
+}
+
+.vfp .scp-afc .afc-main {
+  gap: 8px;
+}
+
+.vfp .scp-afc .afc-name {
+  font-size: 13.5px;
+}
+
+.vfp .scp-afc .afc-time {
+  font-size: 12px;
+}
+
+.vfp .scp-afc .afc-body {
+  font-size: 12.5px;
+}
+
+.vfp .scp-comment .cmh-cmt > .av-c {
+  width: 26px;
+  height: 26px;
+}
+
+.vfp .scp-comment .cmh-cmt-name {
+  font-size: 13.5px;
+}
+
+.vfp .scp-comment .cmh-cmt-time {
+  font-size: 11.5px;
+}
+
+.vfp .scp-comment .cmh-cmt-body {
+  font-size: 12.5px;
+}
+
+.vfp .scp-comment .chip {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.vfp .scp-mem-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.vfp .scp-mem-row .av-c {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  font-size: 10px;
+}
+
+.vfp .scp-mem-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.vfp .scp-mem-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  color: var(--vlp-color-ink);
+}
+
+.vfp .scp-mem-meta {
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  color: var(--vlp-color-text-subtle);
+}
+
+.vfp .scp-mem-body {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--vlp-color-ink-soft);
+}
+
+.vfp .scp-cite {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  align-self: flex-start;
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  color: var(--vlp-color-text-muted);
+  background: var(--vlp-bg-wash);
+  border: 1px solid var(--vlp-border-subtle);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.vfp .scp-cite svg {
+  width: 12px;
+  height: 12px;
+  flex: none;
+}

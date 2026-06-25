@@ -1,21 +1,90 @@
 import { Fragment, type ReactNode } from "react";
 
-import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
 import {
+  AgentFindingCard,
   Av,
   Composer,
   DEL_STYLE,
   FACES,
   Frame,
+  IconArrowRight,
   IconCheck,
+  IconReply,
   IconX,
 } from "./hero-surface";
+
+import "./solutions-fintech-showcase.css";
 
 // Fintech hero personas mapped to shared headshots.
 const FINTECH_FACE = {
   priya: FACES.fenne,
   you: FACES.hope,
 } as const;
+
+/** @returns {JSX.Element} Lock glyph for signed / immutable audit events. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Clock glyph for the ordered-event audit footer. */
+function IconClock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Sitemap glyph for the approval-chain header. */
+function IconSitemap() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="3" width="6" height="5" rx="1.5" />
+      <rect x="3" y="16" width="6" height="5" rx="1.5" />
+      <rect x="15" y="16" width="6" height="5" rx="1.5" />
+      <path d="M12 8v4M6 16v-2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Database glyph for the data-residency "your DB" header. */
+function IconDatabase() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <ellipse cx="12" cy="5.5" rx="8" ry="3" />
+      <path d="M4 5.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
+      <path d="M4 11.5v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} History glyph for the precedent / cited-memory header. */
+function IconHistory() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3.05 11a9 9 0 1 1 .5 4" />
+      <path d="M3 4v5h5" />
+      <path d="M12 8v4l3 2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Open-book glyph for memory citation pills. */
+function IconBook() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 6c-2-1.4-4.5-1.5-7-1v12c2.5-.5 5-.4 7 1 2-1.4 4.5-1.5 7-1V5c-2.5-.5-5-.4-7 1z" />
+      <path d="M12 6v12" />
+    </svg>
+  );
+}
 
 // Simulated-UI demo nodes for the /for/fintech page. Keys are listed
 // (pure-data) in ./solutions-fintech.keys.ts and merged into the shared
@@ -237,59 +306,159 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
 
   "solutions/fintech/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"organizationId\": \"your-org-id\",\n  \"documentId\": \"q3-forecast\",\n  \"order\": \"asc\" } }"}</DarkPanel>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconLock />
+          Audit trail
+          <span className="cmh-cc-pill">signed</span>
+        </div>
+        <div className="cmh-cc-body apf-evt-body">
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">forecast.locked</span>
+            <span className="apf-evt-seq">#4210</span>
+            <span className="apf-evt-sig"><IconLock />signed</span>
+            <span className="chip chip-approved">CFO</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">cell.commented</span>
+            <span className="apf-evt-seq">q3-forecast</span>
+            <span className="apf-evt-sig"><IconLock />signed</span>
+            <span className="chip chip-agent">activity</span>
+          </div>
+          <div className="apf-evt-foot">
+            <IconClock />
+            Every event ordered &amp; queryable via <code>activities/get</code>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/fintech/fm/approval-flows": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "1", ev: <>FP&A lead</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "2", ev: <>committee · 2 of 3</>, chip: { label: "quorum", kind: "approved" } },
-          { ts: "3", ev: <>CFO</>, chip: { label: "pending", kind: "pending" } },
-        ]}
-      />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconSitemap />
+          Approval chain
+          <span className="cmh-cc-pill">2 of 3</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="sft-chain">
+            <div className="sft-step">
+              <Av initials="FA" tone="a2" />
+              <span className="sft-step-main">
+                <span className="sft-step-name">FP&amp;A lead</span>
+                <span className="sft-step-sub">mandatory</span>
+              </span>
+              <span className="chip chip-approved">passed</span>
+            </div>
+            <div className="sft-step">
+              <Av initials="CM" tone="a1" />
+              <span className="sft-step-main">
+                <span className="sft-step-name">Committee</span>
+                <span className="sft-step-sub">quorum · 2 of 3</span>
+              </span>
+              <span className="chip chip-approved">quorum</span>
+            </div>
+            <div className="sft-step">
+              <Av initials="CF" tone="a4" />
+              <span className="sft-step-main">
+                <span className="sft-step-name">CFO</span>
+                <span className="sft-step-sub">final sign-off</span>
+              </span>
+              <span className="chip chip-pending">pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/fintech/fm/comments": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "CF", kind: "human", name: "CFO" }}
-        title={<>Anchored to the <strong>Q3 cell</strong> — not a note about it</>}
-        chip={{ label: "thread", kind: "pending" }}
-      />
+      <div className="cmh-cmt">
+        <Av initials="CF" tone="a4" />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">CFO</span>
+            <span className="cmh-cmt-time">2m</span>
+            <span className="chip chip-pending" style={{ marginLeft: "auto" }}>thread</span>
+          </div>
+          <p className="cmh-cmt-body">Anchored to the <strong>Q3 cell</strong> — not a note about it.</p>
+          <span className="cmh-cmt-replies"><IconReply />1 Reply</span>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/fintech/fm/self-hosting": (
     <div className="pv">
-      <DarkPanel>{"Velt.setDataProviders({ comment: commentDataProvider })\n// thread content → your database\n// Velt keeps minimal identifiers"}</DarkPanel>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconDatabase />
+          Data residency
+          <span className="cmh-cc-pill">your DB</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="sft-res">
+            <div className="sft-res-row">
+              <span className="sft-res-label">filing thread content</span>
+              <span className="sft-res-arrow"><IconArrowRight /></span>
+              <span className="chip chip-approved">your DB</span>
+            </div>
+            <div className="sft-res-row">
+              <span className="sft-res-label">identifiers + timestamps</span>
+              <span className="sft-res-arrow"><IconArrowRight /></span>
+              <span className="chip chip-agent">Velt</span>
+            </div>
+          </div>
+          <div className="apf-note">
+            <span className="chip chip-agent">Velt</span>
+            <span>keeps minimal identifiers — content never leaves your infra</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/fintech/fm/review-agents": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "AI", ev: <>variance over threshold</>, chip: { label: "flag", kind: "agent" } },
-          { ts: "AI", ev: <>tie-out mismatch between sheets</>, chip: { label: "flag", kind: "agent" } },
-          { ts: "AI", ev: <>rate over contract</>, chip: { label: "flag", kind: "agent" } },
-        ]}
-      />
+      <div className="cmh-afc-fill">
+        <AgentFindingCard
+          name="Variance Agent"
+          time="now"
+          body="Q3 travel is 18% over plan — variance over the declared threshold, note missing."
+          replies={2}
+          actions={false}
+        />
+      </div>
     </div>
   ),
 
   "solutions/fintech/fm/memory": (
     <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="precedent"
-        body={"Close 09: the Q3 travel variance was approved with a note. Close 10 surfaces that decision before re-flagging it."}
-      />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconHistory />
+          Precedent
+          <span className="cmh-cc-pill">cited</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="sft-mem">
+            <div className="sft-mem-row">
+              <span className="sft-mem-main">
+                <span className="sft-mem-name">Q3 travel variance</span>
+                <span className="sft-mem-meta">Close 09 · approved with note</span>
+              </span>
+              <span className="chip chip-approved">approved</span>
+            </div>
+          </div>
+          <div className="apf-note">
+            <span className="sft-cite"><IconBook />filing-2231</span>
+            <span>Surfaced before Close 10 re-flags it</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };

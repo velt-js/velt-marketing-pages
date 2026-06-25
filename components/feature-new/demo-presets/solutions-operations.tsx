@@ -1,7 +1,9 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow, AvatarStack } from "../demos";
+import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
 import { Av, Composer, FACES, Frame, IconCheck, IconX } from "./hero-surface";
+
+import "./solutions-operations-showcase.css";
 
 // Simulated-UI demo nodes for the /for/operations page. Keys are listed
 // (pure-data) in ./solutions-operations.keys.ts and merged into the shared
@@ -210,52 +212,130 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
 
   "solutions/operations/fm/approval-flows": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "1", ev: <>ops lead</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "2", ev: <>commercial · rate exception</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "3", ev: <>counterparty signer</>, chip: { label: "pending", kind: "pending" } },
-        ]}
-      />
+      <div className="sop-tile">
+        <div className="sop-cap">
+          <span className="sop-cap-label">SHIP-4127 · sign-off chain</span>
+          <span className="chip chip-pending">2 of 3</span>
+        </div>
+        <div className="sop-chain">
+          <div className="sop-step sop-step--done">
+            <span className="sop-step-ix"><IconCheck /></span>
+            <span className="sop-step-name">Ops lead</span>
+            <span className="chip chip-approved">passed</span>
+          </div>
+          <div className="sop-step sop-step--done">
+            <span className="sop-step-ix"><IconCheck /></span>
+            <span className="sop-step-name">Commercial · rate exception</span>
+            <span className="chip chip-approved">passed</span>
+          </div>
+          <div className="sop-step">
+            <span className="sop-step-ix sop-step-ix--wait" />
+            <span className="sop-step-name">Counterparty signer</span>
+            <span className="chip chip-pending">pending</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/operations/fm/comments": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "OP", kind: "human", name: "Ops lead" }}
-        title={<>Anchored to the <strong>rate line</strong> on the manifest — not a screenshot of it</>}
-        chip={{ label: "internal", kind: "pending" }}
-      />
+      <div className="sop-tile">
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="OP" tone="a1" />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Ops lead</span>
+              <span className="cmh-cmt-time">2m</span>
+            </div>
+            <p className="cmh-cmt-body">
+              Anchored to the <strong>rate line</strong> on the manifest &mdash; not a screenshot of it.
+            </p>
+            <div className="sop-meta">
+              <span className="chip chip-pending">internal</span>
+              <span className="sop-anchor">manifest · rate line</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/operations/fm/notifications": (
     <div className="pv">
-      <NotifItem
-        title={<>Sign-off request · <strong>release the hold</strong></>}
-        meta="in-app for dispatch · email for the yard · access-filtered"
-        chip={{ label: "sent", kind: "pending" }}
-      />
+      <div className="sop-tile">
+        <div className="cmh-inrow">
+          <span className="cmh-unread" />
+          <div className="cmh-inmain">
+            <p className="t">
+              <b>Sign-off request</b> · release the hold
+              <span className="chip chip-pending" style={{ marginLeft: 6 }}>sent</span>
+            </p>
+            <p className="m">access-filtered delivery</p>
+          </div>
+          <span className="cmh-when">now</span>
+        </div>
+        <div className="sop-chans">
+          <span className="sop-chan"><span className="sop-chan-dot sop-chan-dot--app" />in-app · dispatch</span>
+          <span className="sop-chan"><span className="sop-chan-dot sop-chan-dot--mail" />email · the yard</span>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/operations/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"ship-4127\",\n  \"actionTypes\": [\"approval.changed\"] } }"}</DarkPanel>
+      <div className="sop-tile">
+        <div className="sop-cap">
+          <span className="sop-cap-label">activities · query</span>
+          <span className="chip chip-approved">signed</span>
+        </div>
+        <div className="apf-evt-row">
+          <span className="apf-evt-name">approval.changed</span>
+          <span className="apf-evt-sig"><IconCheck />signed</span>
+          <span className="chip chip-approved">recorded</span>
+        </div>
+        <div className="sop-kv">
+          <div className="sop-kv-row">
+            <span className="sop-kv-key">documentId</span>
+            <span className="sop-kv-val">ship-4127</span>
+          </div>
+          <div className="sop-kv-row">
+            <span className="sop-kv-key">actionTypes</span>
+            <span className="sop-kv-val">approval.changed</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/operations/fm/presence": (
     <div className="pv">
-      <AvatarStack
-        users={[
-          { initials: "DS", kind: "human", name: "Your dispatcher" },
-          { initials: "CP", kind: "human", name: "Counterparty dispatcher" },
-        ]}
-      />
-      <p className="code-microcopy">in the work order now · before two people release the same hold</p>
+      <div className="sop-tile">
+        <div className="sop-roster">
+          <span className="sop-stack" aria-hidden="true">
+            <Av initials="DS" tone="a1" />
+            <Av initials="CP" tone="a3" />
+          </span>
+          <span className="sop-roster-meta">
+            <span className="sop-roster-count">2 in this work order</span>
+            <span className="sop-roster-sub">live · right now</span>
+          </span>
+        </div>
+        <div className="sop-people">
+          <div className="sop-person">
+            <span className="sop-ava"><Av initials="DS" tone="a1" /><span className="sop-dot" /></span>
+            <span className="sop-person-name">Your dispatcher</span>
+            <span className="chip chip-approved">online</span>
+          </div>
+          <div className="sop-person">
+            <span className="sop-ava"><Av initials="CP" tone="a3" /><span className="sop-dot" /></span>
+            <span className="sop-person-name">Counterparty dispatcher</span>
+            <span className="chip chip-approved">online</span>
+          </div>
+        </div>
+        <p className="code-microcopy">in the work order now · before two people release the same hold</p>
+      </div>
     </div>
   ),
 };

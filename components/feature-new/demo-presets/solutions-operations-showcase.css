@@ -1,0 +1,57 @@
+/* ---------- Operations solutions feature-map tiles (.sop-*) ----------
+   Compact, small-footprint previews for the operations feature-map grid,
+   echoing the redesigned feature cards (comments, approval-flows,
+   notifications, presence). These reuse the global .cmh-* / .apf-* / .apc-*
+   / chip / Av families and add only the genuinely compact-only patterns:
+   a small card shell, a tight approval chain, channel chips, key/value rows,
+   and an online roster. Everything is namespaced .sop- and scoped under .vfp. */
+
+/* Shared compact card shell. */
+.vfp .sop-tile { width: 100%; display: flex; flex-direction: column; gap: 10px; padding: 13px 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05); }
+
+/* Tiny eyebrow row: mono label on the left, chip or meta on the right. */
+.vfp .sop-cap { display: flex; align-items: center; gap: 8px; }
+.vfp .sop-cap-label { flex: 1; min-width: 0; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+
+/* Approval chain — compact passed/pending steps. */
+.vfp .sop-chain { display: flex; flex-direction: column; gap: 7px; }
+.vfp .sop-step { display: flex; align-items: center; gap: 10px; padding: 8px 11px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .sop-step-ix { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 50%; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }
+.vfp .sop-step-ix svg { width: 11px; height: 11px; }
+.vfp .sop-step--done .sop-step-ix { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .sop-step-ix--wait { background: transparent; border: 1.5px dashed #c9a44a; }
+.vfp .sop-step-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .sop-step .chip { flex: none; }
+
+/* Comment tile — meta row beneath the cmh-cmt byline. */
+.vfp .sop-meta { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+.vfp .sop-anchor { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: -0.1px; color: var(--vlp-color-text-muted); }
+
+/* Notification channel chips. */
+.vfp .sop-chans { display: flex; flex-wrap: wrap; gap: 7px; }
+.vfp .sop-chan { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--vlp-bg-wash); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; color: var(--vlp-color-ink-soft); }
+.vfp .sop-chan-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.vfp .sop-chan-dot--app { background: var(--vlp-color-accent); }
+.vfp .sop-chan-dot--mail { background: #8a5a13; }
+
+/* Audit-trail — compact key/value rows for a queried, signed event. */
+.vfp .sop-kv { display: flex; flex-direction: column; }
+.vfp .sop-kv-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 2px; }
+.vfp .sop-kv-row + .sop-kv-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .sop-kv-key { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .sop-kv-val { font-family: var(--vlp-font-mono); font-size: 11.5px; font-weight: 600; letter-spacing: -0.1px; color: var(--vlp-color-ink); }
+
+/* Presence — compact avatar stack plus an online roster. */
+.vfp .sop-roster { display: flex; align-items: center; gap: 12px; }
+.vfp .sop-stack { display: inline-flex; }
+.vfp .sop-stack .av-c { margin-left: -8px; border: 2px solid #fff; }
+.vfp .sop-stack .av-c:first-child { margin-left: 0; }
+.vfp .sop-roster-meta { display: flex; flex-direction: column; gap: 1px; }
+.vfp .sop-roster-count { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .sop-roster-sub { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-green-approval); }
+.vfp .sop-people { display: flex; flex-direction: column; gap: 7px; }
+.vfp .sop-person { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .sop-ava { position: relative; flex: none; display: inline-grid; }
+.vfp .sop-dot { position: absolute; bottom: -1px; right: -1px; width: 8px; height: 8px; border-radius: 50%; background: var(--vlp-color-green-approval); border: 1.5px solid var(--vlp-bg-page); }
+.vfp .sop-person-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .sop-person .chip { flex: none; }

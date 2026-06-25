@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, NotifItem, Precedent, DarkPanel, ProvRow, ProvArrow } from "../demos";
+import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
 import {
   Av,
   Composer,
@@ -9,7 +9,10 @@ import {
   Frame,
   IconCheck,
   IconX,
+  INS_STYLE,
 } from "./hero-surface";
+
+import "./solutions-sales-enablement-showcase.css";
 
 // Simulated-UI demo nodes for the /for/sales-enablement page. Keys are
 // listed (pure-data) in ./solutions-sales-enablement.keys.ts and merged into
@@ -86,6 +89,16 @@ function SignOff({ initials, name, role, img }: { initials: string; name: string
       <span className="cmh-role">{role}</span>
       <span className="chip chip-approved" style={{ marginLeft: "auto" }}>Approved</span>
     </div>
+  );
+}
+
+/** @returns {JSX.Element} Shield glyph for the signed audit-trail card header. */
+function IconShield() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
   );
 }
 
@@ -229,63 +242,141 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
 
   "solutions/sales-enablement/fm/comments": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "JR", kind: "human", name: "Jordan" }}
-        title={<>Anchored to the <strong>subject line</strong> — not a screenshot of it</>}
-        chip={{ label: "thread", kind: "pending" }}
-      />
+      <div className="sse-mini">
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="JR" tone="a1" img={FACE.jordan} />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Jordan</span>
+              <span className="cmh-cmt-time">2m</span>
+              <span className="chip chip-pending" style={{ marginLeft: "auto" }}>thread</span>
+            </div>
+            <p className="cmh-cmt-body">
+              Anchored to the <strong>subject line</strong> — not a screenshot of it. <span className="cmh-mention">@Maya</span>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/sales-enablement/fm/approval-flows": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "1", ev: <>brand</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "2", ev: <>legal</>, chip: { label: "passed", kind: "approved" } },
-          { ts: "3", ev: <>client approver</>, chip: { label: "pending", kind: "pending" } },
-        ]}
-      />
+      <div className="apc-chain apf-chain--tight">
+        <div className="apc-row">
+          <div className="apc-left">
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <span className="apc-text">
+              <span className="apc-name">Brand</span>
+              <span className="apc-sub">Passed</span>
+            </span>
+          </div>
+          <span className="chip chip-approved">passed</span>
+        </div>
+        <div className="apc-row">
+          <div className="apc-left">
+            <Av initials="JR" tone="a1" img={FACE.jordan} />
+            <span className="apc-text">
+              <span className="apc-name">Legal</span>
+              <span className="apc-sub">Passed</span>
+            </span>
+          </div>
+          <span className="chip chip-approved">passed</span>
+        </div>
+        <div className="apc-row">
+          <div className="apc-left">
+            <Av initials="CA" tone="a4" />
+            <span className="apc-text">
+              <span className="apc-name">Client approver</span>
+              <span className="apc-sub">Pending</span>
+            </span>
+          </div>
+          <span className="chip chip-pending">pending</span>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/sales-enablement/fm/review-agents": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "AI", ev: <>off-brand CTA color</>, chip: { label: "flag", kind: "agent" } },
-          { ts: "AI", ev: <>missing APR disclaimer</>, chip: { label: "flag", kind: "agent" } },
-          { ts: "AI", ev: <>outdated footer logo</>, chip: { label: "flag", kind: "agent" } },
-        ]}
-      />
+      <div className="sse-mini">
+        <div className="sse-byline">
+          <Av initials="BA" agent />
+          <span className="sse-byline-name">Brand Agent</span>
+          <span className="chip chip-agent">3 flags</span>
+        </div>
+        <div className="sse-finds">
+          <span className="sse-find"><span className="sse-find-dot" />off-brand CTA color</span>
+          <span className="sse-find"><span className="sse-find-dot" />missing APR disclaimer</span>
+          <span className="sse-find"><span className="sse-find-dot" />outdated footer logo</span>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/sales-enablement/fm/suggestions": (
     <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="suggested edit"
-        body={"“Save 30%” → “Save up to 30% (see rate card)”. Accept or reject like a diff."}
-      />
+      <div className="sse-mini">
+        <div className="sse-byline">
+          <Av initials="RA" agent />
+          <span className="sse-byline-name">Review Agent</span>
+          <span className="chip chip-pending">suggested edit</span>
+        </div>
+        <p className="cmh-suggest">
+          <span className="lbl">Suggested fix</span>
+          <span className="body">
+            <del style={DEL_STYLE}>Save 30%</del>{" "}
+            <span style={{ color: "var(--vlp-color-text-subtle)" }}>&rarr;</span>{" "}
+            <ins style={INS_STYLE}>Save up to 30% (see rate card)</ins>
+          </span>
+        </p>
+      </div>
     </div>
   ),
 
   "solutions/sales-enablement/fm/audit-trail": (
     <div className="pv">
-      <DarkPanel>{"POST /v2/activities/get\n{ \"data\": {\n  \"documentId\": \"promo-email\",\n  \"targetEntityId\": \"acme-bank\" } }"}</DarkPanel>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconShield />
+          Audit trail
+          <span className="cmh-cc-pill">signed</span>
+        </div>
+        <div className="cmh-cc-body apf-gov-body">
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">documentId</span>
+            <span className="apf-gov-val">promo-email</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">targetEntity</span>
+            <span className="apf-gov-val">acme-bank</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">event</span>
+            <span className="chip chip-approved">review.approved</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "solutions/sales-enablement/fm/notifications": (
     <div className="pv">
-      <NotifItem
-        title={<>Approval request · <strong>legal review</strong></>}
-        meta="in-app · email · Slack"
-        chip={{ label: "sent", kind: "pending" }}
-      />
+      <div className="sse-mini">
+        <div className="sse-byline">
+          <Av initials="LG" tone="a3" />
+          <span className="sse-byline-name">Approval request</span>
+          <span className="chip chip-pending">sent</span>
+        </div>
+        <div>
+          <p className="sse-note">Legal review &middot; campaign email</p>
+          <div className="sse-channels">
+            <span className="sse-ch">in-app</span>
+            <span className="sse-ch">email</span>
+            <span className="sse-ch">Slack</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };
