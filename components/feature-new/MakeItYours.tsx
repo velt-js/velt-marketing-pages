@@ -5,6 +5,7 @@ import { useState } from "react";
 import SectionSplitHeader from "./SectionSplitHeader";
 import { highlightCode } from "./highlight";
 import type { MakeItYoursCard, MakeItYoursContent } from "./content";
+import { isAnonymousTestimonial, testimonialClassName } from "./anonymous-testimonial";
 
 import "./MakeItYours.css";
 
@@ -67,7 +68,13 @@ export default function MakeItYours({ content }: MakeItYoursProps) {
           ))}
         </div>
         {content.interstitial ? (
-          <div className="interstitial">
+          // TODO: anonymous interstitial quotes hidden via the
+          // testimonial--anonymous CSS rule in styles.css until real named
+          // testimonials are available.
+          <div
+            className={testimonialClassName("interstitial", content.interstitial.who)}
+            data-anonymous={isAnonymousTestimonial(content.interstitial.who) ? "true" : undefined}
+          >
             <blockquote>{content.interstitial.quote}</blockquote>
             <p className="who">{content.interstitial.who}</p>
           </div>

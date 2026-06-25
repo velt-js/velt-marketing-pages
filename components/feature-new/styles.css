@@ -182,6 +182,22 @@
 .vfp .interstitial blockquote { font-size: 19px; line-height: 1.5; letter-spacing: -0.015em; font-weight: 500; color: var(--vlp-color-text-muted); font-style: italic; margin: 0; }
 .vfp .interstitial .who { font-size: 12.5px; color: var(--vlp-color-text-subtle); font-family: var(--vlp-font-mono); }
 
+/* ---------- Anonymous testimonials (temporarily hidden) ----------
+   TODO: anonymous testimonials hidden until real named testimonials are
+   available — remove this block to re-enable. These are role/industry bylines
+   with no named individual (e.g. "Product lead · AI-native SaaS",
+   "Marketing ops lead, content platform"). Elements are flagged at render time
+   by isAnonymousTestimonial() (components/feature-new/anonymous-testimonial.ts)
+   in TestimonialWall, Showcase, and MakeItYours.
+   BORDERLINE — real company but still no named person, review separately before
+   re-enabling: "Product Manager, HeyGen" on /devtools (app/devtools/content.tsx)
+   and "Senior PM, Google" on /customization (app/customization/content.tsx). */
+.vfp .testimonial--anonymous { display: none; }
+/* Collapse the whole Proof section when every card in it is anonymous, so the
+   section header isn't left stranded above an empty grid. A Proof section that
+   still has any named card keeps rendering (only its anonymous cards hide). */
+.vfp [data-section="proof"]:not(:has(.wall-card:not(.testimonial--anonymous))) { display: none; }
+
 /* ---------- Coming soon chip (shared) ---------- */
 .vfp .chip-soon { display: inline-flex; align-items: center; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); background: var(--vlp-bg-wash); border: 1px dashed #c9c6bf; border-radius: 999px; padding: 2px 9px; white-space: nowrap; flex: none; }
 
@@ -370,14 +386,188 @@
 .vfp .cmh-send { width: 28px; height: 28px; border-radius: 50%; background: var(--vlp-color-accent); color: #fff; display: grid; place-items: center; flex: none; }
 .vfp .cmh-send svg { width: 13px; height: 13px; }
 
-/* Anchored chart (freestyle tab). */
+/* Anchored chart (freestyle tab): a comment floats above a bar chart, with the
+   anchor pin sitting on the highlighted bar. */
+.vfp .cmh-freestyle { position: relative; display: grid; gap: 22px; }
 .vfp .cmh-chart { position: relative; }
 .vfp .cmh-bars { display: flex; align-items: flex-end; justify-content: center; gap: 44px; height: 116px; padding: 24px 12px 0; border-bottom: 2px solid var(--vlp-border-default); }
-.vfp .cmh-bars .bar { flex: none; width: 60px; border-radius: 2px 2px 0 0; background: #2f7ce0; }
-.vfp .cmh-bars .bar.hot { position: relative; }
+.vfp .cmh-bars .bar { flex: none; width: 60px; border-radius: 2px 2px 0 0; background: #54a8f5; }
+.vfp .cmh-bars .bar.hot { position: relative; background: #1f86e5; }
 .vfp .cmh-bars .bar.hot .cmh-pin { position: absolute; top: -26px; left: 50%; transform: translateX(-50%); }
 .vfp .cmh-xrow { display: flex; justify-content: center; gap: 44px; margin-top: 10px; padding: 0 12px; }
 .vfp .cmh-xrow span { width: 60px; text-align: center; font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
+
+/* Google Sheets–style grid with a commented cell (popover tab). */
+.vfp .cmh-sheet { display: grid; gap: 18px; }
+.vfp .cmh-grid { display: grid; grid-template-columns: 28px repeat(3, 1fr); border: 1px solid var(--vlp-border-default); border-radius: 8px; overflow: hidden; background: var(--vlp-border-subtle); gap: 1px; }
+.vfp .cmh-gh, .vfp .cmh-gr { display: grid; place-items: center; background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); padding: 6px 0; }
+.vfp .cmh-gc { display: flex; align-items: center; min-height: 34px; padding: 6px 12px; background: var(--vlp-bg-page); font-size: 13px; color: var(--vlp-color-ink-soft); }
+.vfp .cmh-gc-strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .cmh-gc-hl { position: relative; color: var(--vlp-color-ink); font-weight: 600; box-shadow: inset 0 0 0 2px var(--vlp-color-accent); }
+.vfp .cmh-gc-flag { position: absolute; top: 0; right: 0; width: 0; height: 0; border-top: 9px solid var(--vlp-color-accent); border-left: 9px solid transparent; }
+
+.vfp .cmh-mention { color: var(--vlp-color-accent-ink); font-weight: 600; }
+
+/* Floating comment card anchored to the chart/cell (freestyle + popover tabs). */
+.vfp .cmh-cmt { display: flex; align-items: flex-start; gap: 11px; width: max-content; max-width: 360px; margin: 0 auto; padding: 16px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .cmh-cmt-end { margin: 0 0 0 auto; }
+
+/* "Comment on anything" showcase: a chart + text scene with a comment floating
+   over it, showing threads anchor to any content. */
+.vfp .cmh-any { position: relative; min-height: 230px; }
+.vfp .cmh-any-scene { display: flex; align-items: center; gap: 28px; padding: 96px 4px 18px; }
+.vfp .cmh-any-donut { width: 124px; height: 124px; flex: none; }
+.vfp .cmh-any-lines { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.vfp .cmh-any-line { height: 13px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .cmh-any-line--hl { background: #f6b73c; }
+.vfp .cmh-any-cmt { position: absolute; top: 18px; right: 0; left: auto; width: max-content; max-width: 300px; }
+
+/* Shared agent finding card (AgentFindingCard) used as a floating comment. */
+.vfp .afc-actions--quiet { justify-content: flex-start; }
+.vfp .afc-actions--quiet .afc-replies { flex: 0 0 auto; justify-content: flex-start; }
+.vfp .cmh-afc-float { width: max-content; max-width: 360px; margin: 0 auto; }
+.vfp .cmh-afc-float .afc { box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+/* Full-width variant (agents showcase): fills the tile instead of floating, so
+   the Accept/Reject + replies row never spills past the preview container. */
+.vfp .cmh-afc-fill { width: 100%; max-width: 100%; }
+.vfp .cmh-afc-fill .afc { width: 100%; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+
+/* Labeled comment card (private / assignment showcase): colored header bar over
+   a plain comment body. */
+.vfp .cmh-cc { max-width: 360px; margin: 0 auto; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: #fff; overflow: hidden; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .cmh-cc-head { display: flex; align-items: center; gap: 8px; padding: 12px 14px; color: #fff; font-size: 14px; font-weight: 500; letter-spacing: -0.28px; }
+.vfp .cmh-cc-head > svg { width: 16px; height: 16px; flex: none; }
+.vfp .cmh-cc-head--private { background: #1f2a57; }
+.vfp .cmh-cc-head--assign { background: #3a0f63; }
+.vfp .cmh-cc-mark { width: 18px; height: 18px; flex: none; display: grid; place-items: center; border-radius: 6px; background: linear-gradient(180deg, #c97bff 0%, #6a1fb3 100%); }
+.vfp .cmh-cc-mark svg { width: 14px; height: 14px; color: #fff; }
+.vfp .cmh-cc-pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 8px 4px 11px; border-radius: 999px; background: rgba(255, 255, 255, 0.18); font-weight: 600; }
+.vfp .cmh-cc-pill svg { width: 12px; height: 12px; flex: none; }
+.vfp .cmh-cc-body { padding: 14px 16px 16px; }
+.vfp .cmh-cc-mention { color: #7c3aed; font-weight: 600; }
+/* Visibility (private) card: a touch more compact so the body fits on one line. */
+.vfp .cmh-cc--tight .cmh-cc-body { padding: 12px 16px 14px; }
+.vfp .cmh-cc--tight .cmh-cmt-body { font-size: 13px; letter-spacing: -0.3px; white-space: nowrap; }
+/* Mentions card: ~100px wider than the shared base width. */
+.vfp .cmh-cc--wide { width: 100%; max-width: 360px; margin: 0 auto; }
+
+/* Plain variant of the comment card body (no chrome) for nesting in cmh-cc. */
+.vfp .cmh-cmt--plain { width: auto; max-width: none; margin: 0; padding: 0; gap: 10px; border: none; background: none; box-shadow: none; }
+
+/* File-attachment showcase: a comment card with a PDF attachment chip, floating
+   over amber-highlighted skeleton document lines. */
+.vfp .cmh-att { gap: 22px; }
+.vfp .cmh-att-card { width: 100%; max-width: 360px; margin: 0 auto; padding: 16px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .cmh-att-file { margin-top: 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 6px 11px; border: 1px solid var(--vlp-border-subtle); border-radius: 10px; }
+.vfp .cmh-att-file-info { display: inline-flex; align-items: center; gap: 9px; min-width: 0; }
+.vfp .cmh-att-pdf { width: 22px; height: 22px; flex: none; color: #7c3aed; }
+.vfp .cmh-att-file-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .cmh-att-file-x { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex: none; padding: 0; border: none; background: none; border-radius: 8px; color: #ef5350; cursor: pointer; }
+.vfp .cmh-att-file-x svg { width: 15px; height: 15px; flex: none; }
+.vfp .cmh-att-lines { display: flex; flex-direction: column; gap: 12px; padding: 0 4px; }
+.vfp .cmh-att-line { position: relative; height: 16px; width: 100%; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .cmh-att-hl { position: absolute; left: 0; top: 0; height: 100%; width: 40%; border-radius: 999px; background: #f6b73c; }
+
+/* Recording showcase: a centered comment with a video thumbnail (play +
+   progress) and a transcript/caption footer. */
+.vfp .cmh-rec-card { max-width: 360px; margin: 0 auto; min-width: 0; display: flex; flex-direction: column; gap: 10px; padding: 14px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .cmh-rec-media { display: flex; flex-direction: column; gap: 8px; }
+.vfp .cmh-rec-thumb { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .cmh-rec-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vfp .cmh-rec-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 50%; background: #f6993f; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.22); }
+.vfp .cmh-rec-play svg { width: 16px; height: 16px; margin-left: 2px; color: #fff; }
+.vfp .cmh-rec-bar { position: absolute; left: 8px; bottom: 7px; height: 3px; width: 30%; border-radius: 999px; background: #7c3aed; }
+.vfp .cmh-rec-foot { display: flex; align-items: center; gap: 8px; padding: 2px; }
+.vfp .cmh-rec-file { display: inline-flex; align-items: center; gap: 7px; min-width: 0; flex: 1; }
+.vfp .cmh-rec-spin { display: inline-grid; place-items: center; width: 16px; height: 16px; flex: none; border-radius: 50% 50% 50% 4px; background: var(--vlp-color-green-approval); color: #fff; font-size: 9px; font-weight: 700; }
+.vfp .cmh-rec-fname { font-size: 12px; font-weight: 500; letter-spacing: -0.24px; color: var(--vlp-color-ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .cmh-rec-icons { display: inline-flex; align-items: center; gap: 8px; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .cmh-rec-ic { width: 15px; height: 15px; flex: none; }
+
+/* "Make it yours / Look" showcase: a fully custom-themed comment card with an
+   overlapping gradient-avatar cluster and a purple comment pin. */
+.vfp .cmh-look { padding: 8px 0; }
+.vfp .cmh-look-wrap { position: relative; max-width: 360px; margin: 0 auto; padding-left: 18px; }
+.vfp .cmh-look-pin { position: absolute; left: -12px; top: 14px; z-index: 2; display: grid; place-items: center; width: 26px; height: 26px; background: #670db3; border-radius: 50% 50% 50% 4px; box-shadow: 0 6px 16px rgba(103, 13, 179, 0.28); }
+.vfp .cmh-look-pin-k { display: grid; place-items: center; width: 21px; height: 21px; background: #fafbfa; border-radius: 50% 50% 50% 3px; color: #660cb3; font-size: 9px; font-weight: 700; }
+.vfp .cmh-look-card { display: flex; flex-direction: column; gap: 6px; padding: 16px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .cmh-look-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vfp .cmh-look-cluster { display: inline-flex; isolation: isolate; }
+.vfp .cmh-look-av { position: relative; width: 22px; height: 22px; flex: none; margin-left: -7px; display: grid; place-items: center; border-radius: 50%; border: 2px solid #fff; color: #fff; font-size: 9.5px; font-weight: 700; }
+.vfp .cmh-look-av:first-child { margin-left: 0; }
+.vfp .cmh-look-av--k { z-index: 3; background: linear-gradient(145deg, #c86cf0, #6d1bb0); }
+.vfp .cmh-look-av--m { z-index: 2; background: linear-gradient(145deg, #5b8bf5, #2536c8); }
+.vfp .cmh-look-av--r { z-index: 1; background: linear-gradient(145deg, #ffb066, #f1742a); }
+.vfp .cmh-look-time { font-size: 13px; font-weight: 500; letter-spacing: -0.26px; color: rgba(0, 0, 0, 0.5); }
+.vfp .cmh-look-who { margin: 4px 0 0; font-size: 15px; letter-spacing: -0.3px; color: rgba(0, 0, 0, 0.52); }
+.vfp .cmh-look-who strong { font-weight: 600; color: #000; }
+
+/* "Make it yours / Behavior" showcase: a small trigger DAG — a blue
+   "Comment Submit" pill fanning into two amber action pills. */
+.vfp .cmh-flow { gap: 0; padding: 8px 0; }
+.vfp .cmh-flow-top { display: flex; justify-content: center; }
+.vfp .cmh-flow-pill { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; font-size: 14px; font-weight: 500; letter-spacing: -0.28px; white-space: nowrap; }
+.vfp .cmh-flow-ic { width: 16px; height: 16px; flex: none; }
+.vfp .cmh-flow-pill--trigger { background: #e7e9fd; color: #2a37d8; }
+.vfp .cmh-flow-pill--action { background: #fdf0dd; color: var(--vlp-color-ink); }
+.vfp .cmh-flow-pill--action .cmh-flow-ic { color: #e8912e; }
+.vfp .cmh-flow-fan { position: relative; height: 30px; }
+.vfp .cmh-flow-stem { position: absolute; top: 0; left: 50%; width: 1px; height: 15px; background: var(--vlp-border-default); }
+.vfp .cmh-flow-bar { position: absolute; top: 15px; left: 25%; width: 50%; height: 1px; background: var(--vlp-border-default); }
+.vfp .cmh-flow-arm { position: absolute; top: 15px; width: 1px; height: 15px; background: var(--vlp-border-default); }
+.vfp .cmh-flow-arm--left { left: 25%; }
+.vfp .cmh-flow-arm--right { left: 75%; }
+.vfp .cmh-flow-row { display: flex; }
+.vfp .cmh-flow-cell { flex: 1; min-width: 0; display: flex; justify-content: center; }
+
+/* Status + views showcase: a status pill with an open dropdown menu. */
+.vfp .cmh-status { position: relative; min-height: 214px; display: block; }
+.vfp .cmh-status-card { width: 100%; max-width: 360px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; padding: 16px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.vfp .cmh-status-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.vfp .cmh-status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 999px; background: #e9f0ff; color: #2f6bff; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; }
+.vfp .cmh-status-pill > svg { width: 13px; height: 13px; flex: none; }
+.vfp .cmh-status-chev { opacity: 0.85; }
+.vfp .cmh-status-views { display: inline-flex; align-items: center; gap: 6px; color: var(--vlp-color-text-muted); font-size: 13px; font-weight: 500; }
+.vfp .cmh-status-views svg { width: 16px; height: 16px; flex: none; }
+.vfp .cmh-status-line { height: 14px; width: 42%; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); align-self: flex-start; }
+.vfp .cmh-status-menu { position: absolute; left: 50%; margin-left: -180px; top: 56px; width: 204px; padding: 8px; display: flex; flex-direction: column; gap: 2px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 18px 44px rgba(0, 0, 0, 0.16); }
+.vfp .cmh-status-opt { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 9px; font-size: 14px; letter-spacing: -0.28px; color: var(--vlp-color-ink); }
+.vfp .cmh-status-opt--on { font-weight: 600; }
+.vfp .cmh-status-ic { width: 16px; height: 16px; flex: none; }
+.vfp .cmh-status-ic--open { color: #2f6bff; }
+.vfp .cmh-status-ic--prog { color: #f59e0b; }
+.vfp .cmh-status-ic--done { color: #16a34a; }
+.vfp .cmh-status-chk { width: 15px; height: 15px; flex: none; margin-left: auto; color: rgba(0, 0, 0, 0.4); }
+
+/* Highlighted text + contextual comment overlay (text tab), echoing the
+   homepage primitive comment-card artifact. */
+.vfp .cmh-td { position: relative; min-height: 196px; }
+.vfp .cmh-td-doc { margin: 0; max-width: 94%; font-size: 14px; line-height: 1.75; color: var(--vlp-color-ink-soft); }
+.vfp .cmh-td-comment { position: absolute; right: 0; bottom: 0; width: 78%; display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12); }
+.vfp .cmh-td-chead { display: flex; align-items: center; gap: 8px; }
+.vfp .cmh-td-status { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 12px; font-weight: 600; letter-spacing: -0.24px; }
+.vfp .cmh-td-flag { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }
+.vfp .cmh-td-dot, .vfp .cmh-td-chev, .vfp .cmh-td-flagico { width: 12px; height: 12px; flex: none; }
+.vfp .cmh-td-chev { opacity: 0.85; }
+.vfp .cmh-td-actions { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; color: var(--vlp-color-text-subtle); }
+.vfp .cmh-td-kebab { width: 16px; height: 16px; flex: none; }
+.vfp .cmh-td-resolve { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; flex: none; border-radius: 50%; border: 1px solid var(--vlp-color-green-approval); color: var(--vlp-color-green-approval); }
+.vfp .cmh-td-resolve svg { width: 12px; height: 12px; flex: none; }
+.vfp .cmh-td-msg { display: flex; align-items: center; gap: 9px; }
+.vfp .cmh-td-avatar { width: 28px; height: 28px; flex: none; border-radius: 50%; object-fit: cover; }
+.vfp .cmh-td-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .cmh-td-time { font-size: 12px; color: var(--vlp-color-text-subtle); }
+.vfp .cmh-td-read { width: 15px; height: 15px; flex: none; margin-left: 2px; color: var(--vlp-color-accent); }
+.vfp .cmh-td-text { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .cmh-td-mention { padding: 1px 4px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-weight: 500; }
+.vfp .cmh-cmt > .av-c { width: 32px; height: 32px; flex: none; }
+.vfp .cmh-cmt-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.vfp .cmh-cmt-head { display: flex; align-items: baseline; gap: 8px; }
+.vfp .cmh-cmt-name { font-family: var(--vlp-font-body); font-weight: 600; font-size: 16px; letter-spacing: -0.32px; color: #000; }
+.vfp .cmh-cmt-time { font-family: var(--vlp-font-body); font-weight: 500; font-size: 14px; letter-spacing: -0.28px; color: rgba(0, 0, 0, 0.5); }
+.vfp .cmh-cmt-body { margin: 0; font-family: var(--vlp-font-body); font-weight: 400; font-size: 14px; line-height: 1.45; letter-spacing: -0.28px; color: rgba(0, 0, 0, 0.75); }
+.vfp .cmh-cmt-replies { margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; letter-spacing: -0.26px; color: rgba(0, 0, 0, 0.5); }
+.vfp .cmh-cmt-replies svg { width: 14px; height: 14px; flex: none; }
 
 /* Editor toolbar (text tab). */
 .vfp .cmh-toolbar { display: flex; align-items: center; gap: 2px; margin: -2px 0 2px; }

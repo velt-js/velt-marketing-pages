@@ -1,5 +1,6 @@
 import SectionSplitHeader from "./SectionSplitHeader";
 import type { TestimonialContent } from "./content";
+import { isAnonymousTestimonial, testimonialClassName } from "./anonymous-testimonial";
 
 import "./TestimonialWall.css";
 
@@ -26,7 +27,13 @@ export default function TestimonialWall({ content }: TestimonialWallProps) {
         <SectionSplitHeader kicker={content.kicker} heading={content.heading} support={content.support} />
         <div className="wall-grid">
           {content.cards.map((card) => (
-            <figure className="wall-card" key={card.metric}>
+            // TODO: anonymous testimonials hidden via the testimonial--anonymous
+            // CSS rule in styles.css until real named testimonials are available.
+            <figure
+              className={testimonialClassName("wall-card", card.who)}
+              data-anonymous={isAnonymousTestimonial(card.who) ? "true" : undefined}
+              key={card.metric}
+            >
               <p className="metric">{card.metric}</p>
               <blockquote>{card.quote}</blockquote>
               <figcaption className="who">{card.who}</figcaption>

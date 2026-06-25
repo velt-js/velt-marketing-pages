@@ -1,6 +1,7 @@
 import SectionSplitHeader from "./SectionSplitHeader";
 import ShowcaseCard from "./ShowcaseCard";
 import type { ShowcaseContent } from "./content";
+import { isAnonymousTestimonial, testimonialClassName } from "./anonymous-testimonial";
 
 // Reuse the homepage primitive-card chrome (.prim-* classes) so the feature
 // Capabilities cards match the homepage exactly.
@@ -37,7 +38,13 @@ export default function Showcase({ content }: ShowcaseProps) {
           </div>
         ) : null}
         {content.interstitial ? (
-          <div className="interstitial">
+          // TODO: anonymous interstitial quotes hidden via the
+          // testimonial--anonymous CSS rule in styles.css until real named
+          // testimonials are available.
+          <div
+            className={testimonialClassName("interstitial", content.interstitial.who)}
+            data-anonymous={isAnonymousTestimonial(content.interstitial.who) ? "true" : undefined}
+          >
             <blockquote>{content.interstitial.quote}</blockquote>
             <p className="who">{content.interstitial.who}</p>
           </div>

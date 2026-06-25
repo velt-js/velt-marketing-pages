@@ -227,6 +227,7 @@ export function AgentFindingCard({
   delText,
   insText,
   replies,
+  actions = true,
 }: {
   name: string;
   time: string;
@@ -234,7 +235,13 @@ export function AgentFindingCard({
   delText?: string;
   insText?: string;
   replies?: number;
+  actions?: boolean;
 }) {
+  const repliesNode =
+    typeof replies === "number" ? (
+      <span className="afc-replies"><IconReply />{replies} {replies === 1 ? "Reply" : "Replies"}</span>
+    ) : null;
+
   return (
     <div className="afc">
       <Av initials={name} agent />
@@ -246,20 +253,22 @@ export function AgentFindingCard({
           </div>
           <p className="afc-body">{body}</p>
         </div>
-        {delText && insText ? (
+        {actions && delText && insText ? (
           <div className="afc-diff">
             <del style={DEL_STYLE}>{delText}</del>
             <span className="afc-arrow"><IconArrowRight /></span>
             <ins style={INS_STYLE}>{insText}</ins>
           </div>
         ) : null}
-        <div className="afc-actions">
-          <button type="button" className="cmh-btn approve">Accept</button>
-          <button type="button" className="cmh-btn reject">Reject</button>
-          {typeof replies === "number" ? (
-            <span className="afc-replies"><IconReply />{replies} {replies === 1 ? "Reply" : "Replies"}</span>
-          ) : null}
-        </div>
+        {actions ? (
+          <div className="afc-actions">
+            <button type="button" className="cmh-btn approve">Accept</button>
+            <button type="button" className="cmh-btn reject">Reject</button>
+            {repliesNode}
+          </div>
+        ) : (
+          repliesNode ? <div className="afc-actions afc-actions--quiet">{repliesNode}</div> : null
+        )}
       </div>
     </div>
   );
