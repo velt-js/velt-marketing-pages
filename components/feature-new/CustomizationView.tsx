@@ -51,7 +51,7 @@ export default function CustomizationView({ content, spectrum, gallery }: Custom
           <HowItWorks content={content.howItWorks} />
           <Showcase content={content.showcase} />
           <DetailsWall content={content.details} />
-          <MakeItYours content={content.makeItYours} />
+          {content.makeItYours ? <MakeItYours content={content.makeItYours} /> : null}
           <ExamplesGallery content={gallery} />
           <Related content={content.related} />
           <EnterpriseStrip content={content.enterprise} />
