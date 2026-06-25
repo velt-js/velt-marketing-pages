@@ -113,6 +113,40 @@
 .vfp .aud-fmt-meta { flex: 1; min-width: 0; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
 .vfp .aud-soon { flex: none; padding: 3px 9px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; }
 
+/* Related primitives (compact teaser cards). */
+.vfp .aud-rel { display: grid; gap: 8px; }
+.vfp .aud-rel-step { display: flex; align-items: center; gap: 10px; }
+.vfp .aud-rel-step .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .aud-rel-step-name { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .aud-rel-step .chip { flex: none; }
+.vfp .aud-rel-chain .apf-note { margin-top: 2px; }
+.vfp .aud-rel-find { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .aud-rel-find .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .aud-rel-find-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.vfp .aud-rel-find-head { display: flex; align-items: center; gap: 7px; }
+.vfp .aud-rel-find-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .aud-rel-find-body { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .aud-rel-flow { display: flex; align-items: center; gap: 9px; }
+.vfp .aud-rel-node { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 7px 11px; border-radius: 999px; background: var(--vlp-bg-wash); font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .aud-rel-node svg { width: 14px; height: 14px; flex: none; color: var(--vlp-color-text-muted); }
+.vfp .aud-rel-node--db { background: #eef1fb; color: var(--vlp-color-ink); }
+.vfp .aud-rel-node--db svg { color: #2a37d8; }
+.vfp .aud-rel-conn { flex: 1; min-width: 14px; height: 2px; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .aud-rel-cap { margin: 0; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+
+/* Make-it-yours look — a branded audit log over event rows with signed
+   badges, plus the config card's format chips. */
+.vfp .aud-look-head { background: linear-gradient(120deg, #2a37d8, #6a1fb3); }
+.vfp .aud-look-mark { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(255, 255, 255, 0.18); }
+.vfp .aud-look-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .aud-look-brand { font-weight: 700; letter-spacing: -0.3px; }
+.vfp .aud-look-ic { background: #eef1fb; color: #2a37d8; }
+.vfp .aud-look-sign { background: #eef1fb; color: #2a37d8; }
+.vfp .aud-look-sign svg { color: #2a37d8; }
+
+/* Config format chips (exports row in the behavior card). */
+.vfp .aud-cfg-fmt { display: inline-flex; align-items: center; flex: none; padding: 3px 9px; border-radius: 7px; background: var(--vlp-bg-wash); font-family: var(--vlp-font-mono); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink-soft); }
+
 @media (max-width: 1024px) {
   .vfp .aud-lanes,
   .vfp .aud-immut,

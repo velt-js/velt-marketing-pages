@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { ProvRow, ProvArrow, DarkPanel, Chip, AvatarStack, CursorTag } from "../demos";
-import { Av, Frame, FACES, IconArrowRight, IconCheck } from "./hero-surface";
+import { Av, DEL_STYLE, Frame, FACES, IconArrowRight, IconCheck, INS_STYLE } from "./hero-surface";
 
 import "./multiplayer-editing-showcase.css";
 
@@ -198,12 +198,6 @@ function SyncBadge({ label = "Connected · Synced" }: { label?: string }) {
     </span>
   );
 }
-
-const EDIT_TEAM = [
-  { initials: "MA", kind: "human" as const, name: "Maya" },
-  { initials: "SR", kind: "human" as const, name: "Sarah" },
-  { initials: "AG", kind: "agent" as const, name: "Agent" },
-];
 
 /** @returns {JSX.Element} Pen / edit glyph for single-editor mode + the editing tag. */
 function IconPen() {
@@ -462,6 +456,27 @@ function EditLine({ width, tone, name, align = "start" }: { width: string; tone:
       <span className="mpe-bar" style={{ width }} />
       {align === "end" ? caret : null}
     </span>
+  );
+}
+
+/**
+ * Compact "related feature" teaser tile: a mini echo of the linked primitive
+ * over a connector caption naming how multiplayer editing hands off to it.
+ * @param {{ children: ReactNode; from: string; to: string }} props Echo visual plus the from/to connector phrases.
+ * @returns {JSX.Element} Related teaser tile.
+ */
+function RelTile({ children, from, to }: { children: ReactNode; from: string; to: string }) {
+  return (
+    <div className="pv">
+      <div className="mpe-rel">
+        {children}
+        <p className="mpe-rel-cap">
+          <span>{from}</span>
+          <span className="mpe-rel-arrow"><IconArrowRight /></span>
+          <strong>{to}</strong>
+        </p>
+      </div>
+    </div>
   );
 }
 
@@ -854,19 +869,71 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
     </MpeCard>
   ),
 
+  // LOOK — a themed editor binding: a mini toolbar with the adapter tag over a
+  // live doc line carrying a recolored caret + selection, above the caret knobs.
   "multiplayer-editing/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>single editor mode panel &middot; restyle via wireframes</ProvRow>
-      <ProvRow>collaboration cursors &middot; caret + label CSS classes</ProvRow>
-      <ProvRow>global styles &middot; dark mode</ProvRow>
+    <div className="pv mpe-look">
+      <div className="mpe-look-editor">
+        <div className="mpe-look-tb" aria-hidden="true">
+          <span className="mpe-look-tbtn" style={{ fontWeight: 800 }}>B</span>
+          <span className="mpe-look-tbtn" style={{ fontStyle: "italic" }}>I</span>
+          <span className="mpe-look-tbtn">H1</span>
+          <span className="mpe-look-tbadge"><IconPlug />Tiptap</span>
+        </div>
+        <p className="cmh-doc mpe-look-doc">
+          The Q3 plan moves teams to <Sel tone={CURSOR_HOPE}>live collaboration</Sel>{" "}
+          <LiveCursor name="Hope" tone={CURSOR_HOPE} /> across every binding.
+        </p>
+      </div>
+      <div className="mpe-look-knobs">
+        <span className="mpe-look-sw mpe-look-sw--1" aria-hidden="true" />
+        <span className="mpe-look-sw mpe-look-sw--2" aria-hidden="true" />
+        <span className="mpe-look-knob">caret label</span>
+        <span className="mpe-look-knob mpe-look-knob--dark">dark</span>
+      </div>
     </div>
   ),
 
+  // BEHAVIOR — the co-editing config: CRDT store types, a server REST write,
+  // your-key encryption, and offline merge, as labeled config rows.
   "multiplayer-editing/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>customMode &middot; container scoping &middot; tab locking</ProvRow>
-      <ProvRow>debounceMs &middot; syncDuration &middot; merge config</ProvRow>
-      <ProvRow>custom encryption &middot; CRDT + live state REST &middot; Redux middleware</ProvRow>
+    <div className="pv mpe-cfg">
+      <div className="mpe-cfg-row">
+        <span className="mpe-cfg-ic"><IconStack /></span>
+        <span className="mpe-cfg-main">
+          <span className="mpe-cfg-key">CRDT stores</span>
+          <span className="mpe-cfg-types">
+            <span className="mpe-cfg-type">Y.Text</span>
+            <span className="mpe-cfg-type">Y.Map</span>
+            <span className="mpe-cfg-type">Y.Array</span>
+            <span className="mpe-cfg-type">Y.Xml</span>
+          </span>
+        </span>
+      </div>
+      <div className="mpe-cfg-row">
+        <span className="mpe-cfg-ic mpe-cfg-ic--rest"><IconServer /></span>
+        <span className="mpe-cfg-main">
+          <span className="mpe-cfg-key">POST /v2/crdt/update</span>
+          <span className="mpe-cfg-sub">write from your server</span>
+        </span>
+        <span className="cmh-live"><i />REST</span>
+      </div>
+      <div className="mpe-cfg-row">
+        <span className="mpe-cfg-ic mpe-cfg-ic--key"><IconKey /></span>
+        <span className="mpe-cfg-main">
+          <span className="mpe-cfg-key">encryption</span>
+          <span className="mpe-cfg-sub">your key &middot; Velt sees ciphertext</span>
+        </span>
+        <span className="chip chip-approved">your key</span>
+      </div>
+      <div className="mpe-cfg-row">
+        <span className="mpe-cfg-ic mpe-cfg-ic--off"><IconCloudOff /></span>
+        <span className="mpe-cfg-main">
+          <span className="mpe-cfg-key">offline</span>
+          <span className="mpe-cfg-sub">local-first &middot; merge on reconnect</span>
+        </span>
+        <span className="chip chip-pending">queued</span>
+      </div>
     </div>
   ),
 
@@ -909,30 +976,45 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   ),
 
   "multiplayer-editing/related/suggestions": (
-    <div className="pv">
-      <ProvRow>
-        edit needs consent <ProvArrow /> arrives as a suggestion
-      </ProvRow>
-      <ProvRow>
-        a human accepts <ProvArrow /> or rejects
-      </ProvRow>
-    </div>
+    <RelTile from="edit needs consent" to="arrives as a suggestion">
+      <div className="mpe-rel-diff">
+        <del style={DEL_STYLE}>async reviews</del>
+        <span className="mpe-rel-diff-arrow"><IconArrowRight /></span>
+        <ins style={INS_STYLE}>live collaboration</ins>
+      </div>
+      <div className="mpe-rel-acts">
+        <span className="chip chip-approved">accept</span>
+        <span className="chip chip-rejected">reject</span>
+      </div>
+    </RelTile>
   ),
 
   "multiplayer-editing/related/presence": (
-    <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <AvatarStack users={EDIT_TEAM} />
-        <p className="code-microcopy">who is in the document right now, human or agent, cursors included</p>
+    <RelTile from="who's in the document right now" to="human or agent, cursors included">
+      <div className="mpe-rel-stack">
+        <span className="mpe-rel-stack-avs">
+          <Av initials="HO" tone="a2" img={FACE.hope} />
+          <Av initials="ET" tone="a1" img={FACE.ethan} />
+          <Av initials="MA" tone="a3" img={FACE.maya} />
+          <Av initials="RA" agent />
+        </span>
+        <span className="cmh-live"><i />live</span>
       </div>
-    </div>
+    </RelTile>
   ),
 
   "multiplayer-editing/related/comments": (
-    <div className="pv">
-      <ProvRow>
-        the thread beside the edit <ProvArrow /> anchored to the exact line
-      </ProvRow>
-    </div>
+    <RelTile from="the thread beside the edit" to="anchored to the exact line">
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="HO" tone="a2" img={FACE.hope} />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Hope</span>
+            <span className="cmh-cmt-time">now</span>
+          </div>
+          <p className="cmh-cmt-body">Should section 4.2 cite the revised SLA?</p>
+        </div>
+      </div>
+    </RelTile>
   ),
 };

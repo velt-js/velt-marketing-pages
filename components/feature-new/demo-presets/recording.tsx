@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, NotifItem, ProvRow, ProvArrow } from "../demos";
+import { NotifItem } from "../demos";
 import {
   Av,
   Composer,
   FACES,
   Frame,
+  IconArrowRight,
   IconCheck,
   IconReply,
 } from "./hero-surface";
@@ -370,6 +371,16 @@ function IconLock() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <rect x="5" y="11" width="14" height="10" rx="2" />
       <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Bell glyph for the notifications related teaser. */
+function IconBell() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" />
+      <path d="M10 19a2 2 0 0 0 4 0" />
     </svg>
   );
 }
@@ -1032,19 +1043,68 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // LOOK — a themed player (play control, waveform, progress, caption) above the
+  // theming knobs that recolor and restyle the prebuilt recorder components.
   "recording/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>Recorder Tool · Control Panel · Player</ProvRow>
-      <ProvRow>Video Editor · Subtitles · Transcription</ProvRow>
-      <ProvRow>wireframes · template variables · dark mode</ProvRow>
+    <div className="pv rcd-look">
+      <div className="rcd-look-player">
+        <span className="rcd-look-play"><IconPlaySolid /></span>
+        <div className="rcd-look-main">
+          <RcdWave active={8} />
+          <span className="rcd-look-progress"><span style={{ width: "46%" }} /></span>
+        </div>
+        <span className="rcd-look-dur">0:42</span>
+      </div>
+      <p className="rcd-look-cc"><IconCaptions />&ldquo;the variance is the vendor rate change&rdquo;</p>
+      <div className="rcd-look-knobs">
+        <span className="rcd-look-sw rcd-look-sw--1" aria-hidden="true" />
+        <span className="rcd-look-sw rcd-look-sw--2" aria-hidden="true" />
+        <span className="rcd-look-sw rcd-look-sw--3" aria-hidden="true" />
+        <span className="rcd-look-knob">player</span>
+        <span className="rcd-look-knob rcd-look-knob--dark">dark</span>
+      </div>
     </div>
   ),
 
+  // BEHAVIOR — the recorder config: capture type, transcription, storage
+  // routing, and lifecycle events, as labeled config rows.
   "recording/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>type · floating vs thread · max length</ProvRow>
-      <ProvRow>quality · encoding · transcription toggle</ProvRow>
-      <ProvRow>events · data APIs · recorder data provider</ProvRow>
+    <div className="pv rcd-cfg">
+      <div className="rcd-cfg-row">
+        <span className="rcd-cfg-ic"><IconMonitor /></span>
+        <span className="rcd-cfg-main">
+          <span className="rcd-cfg-key">type</span>
+          <span className="rcd-cfg-sub">voice · video · screen</span>
+        </span>
+        <span className="rcd-cfg-seg">
+          <span className="rcd-cfg-seg-on">floating</span>
+          <span>thread</span>
+        </span>
+      </div>
+      <div className="rcd-cfg-row">
+        <span className="rcd-cfg-ic rcd-cfg-ic--cc"><IconCaptions /></span>
+        <span className="rcd-cfg-main">
+          <span className="rcd-cfg-key">transcription</span>
+          <span className="rcd-cfg-sub">AI subtitles · quality · max length</span>
+        </span>
+        <span className="chip chip-agent">on</span>
+      </div>
+      <div className="rcd-cfg-row">
+        <span className="rcd-cfg-ic rcd-cfg-ic--store"><IconServer /></span>
+        <span className="rcd-cfg-main">
+          <span className="rcd-cfg-key">recorderDataProvider</span>
+          <span className="rcd-cfg-sub">route media to your bucket</span>
+        </span>
+        <span className="chip chip-approved">your storage</span>
+      </div>
+      <div className="rcd-cfg-row">
+        <span className="rcd-cfg-ic rcd-cfg-ic--evt"><IconActivity /></span>
+        <span className="rcd-cfg-main">
+          <span className="rcd-cfg-key">velt.on()</span>
+          <span className="rcd-cfg-sub">started · done · editDone</span>
+        </span>
+        <span className="cmh-live"><i />events</span>
+      </div>
     </div>
   ),
 
@@ -1095,26 +1155,54 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
 
   "recording/related/comments": (
     <div className="pv">
-      <ProvRow>
-        a recording lives inside a thread <ProvArrow /> the thread holds the decision
-      </ProvRow>
+      <div className="rcd-rel">
+        <div className="rcd-rel-cmt">
+          <Av initials="GA" tone="a1" img={FACE.gavin} />
+          <div className="rcd-rel-cmt-main">
+            <span className="rcd-rel-top">
+              <span className="rcd-rel-name">Gavin</span>
+              <span className="rcd-rel-time">1m</span>
+            </span>
+            <p className="rcd-rel-line">Replied on the pinned recording</p>
+            <span className="rcd-rel-tag"><IconPlaySolid />voice note · 0:42</span>
+          </div>
+        </div>
+        <p className="rcd-rel-cap">a recording lives inside a thread <IconArrowRight /> the thread holds the decision</p>
+      </div>
     </div>
   ),
 
   "recording/related/huddle": (
     <div className="pv">
-      <AvatarStack users={[{ initials: "MA", kind: "human" }, { initials: "SR", kind: "human" }]} />
-      <ProvRow>
-        async recording not enough <ProvArrow /> go live in the same document
-      </ProvRow>
+      <div className="rcd-rel">
+        <div className="rcd-rel-live">
+          <span className="rcd-rel-stack">
+            <Av initials="FE" tone="a2" img={FACE.fenne} />
+            <Av initials="HO" tone="a3" img={FACE.hope} />
+          </span>
+          <span className="rcd-rel-livetag"><i />live huddle</span>
+        </div>
+        <p className="rcd-rel-cap">async recording not enough <IconArrowRight /> go live in the same document</p>
+      </div>
     </div>
   ),
 
   "recording/related/notifications": (
     <div className="pv">
-      <ProvRow>
-        a recording lands <ProvArrow /> the reviewer is told
-      </ProvRow>
+      <div className="rcd-rel">
+        <div className="rcd-rel-inbox">
+          <span className="rcd-rel-bell"><IconBell /></span>
+          <div className="rcd-rel-inbox-main">
+            <p className="rcd-rel-line"><strong>Hope</strong> shared a recording</p>
+            <div className="rcd-rel-chips">
+              <span className="rcd-rel-chip">inbox</span>
+              <span className="rcd-rel-chip">email</span>
+              <span className="rcd-rel-chip">slack</span>
+            </div>
+          </div>
+        </div>
+        <p className="rcd-rel-cap">a recording lands <IconArrowRight /> the reviewer is told</p>
+      </div>
     </div>
   ),
 };

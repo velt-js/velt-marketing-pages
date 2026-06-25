@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, Precedent, ProvRow, ProvArrow } from "../demos";
+import { AuditLog, Precedent } from "../demos";
 import {
   AgentFindingCard,
   Av,
@@ -9,6 +9,9 @@ import {
   IconAgentMark,
   IconX,
 } from "./hero-surface";
+
+import "./approval-flows-related.css";
+import "./approval-flows-customize.css";
 
 // Simulated-UI demo nodes for the /new-features/approval-flows page. Keys match
 // components/feature-new/demo-presets/approval-flows.keys.ts; resolved by
@@ -233,6 +236,28 @@ function IconShield() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
       <path d="M9 12l2 2 4-4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Palette glyph for the themed / white-label look card. */
+function IconPalette() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3a9 9 0 1 0 0 18 2 2 0 0 0 2-2 2 2 0 0 1 2-2h1.6A3.4 3.4 0 0 0 21 11.6C21 6.85 16.97 3 12 3z" />
+      <circle cx="7.5" cy="11" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="16.5" cy="11" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Curly-braces glyph for the JSON definition behavior card. */
+function IconBraces() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M8 4a3 3 0 0 0-3 3v2a2 2 0 0 1-2 2 2 2 0 0 1 2 2v2a3 3 0 0 0 3 3" />
+      <path d="M16 4a3 3 0 0 1 3 3v2a2 2 0 0 0 2 2 2 2 0 0 0-2 2v2a3 3 0 0 1-3 3" />
     </svg>
   );
 }
@@ -778,19 +803,91 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // Look: the prebuilt VeltApprovalFlow component rendered with the customer's
+  // own theme — a themed approval chain, white-label tokens, and the sibling
+  // component family (plus headless) as chips.
   "approval-flows/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>VeltApprovalFlow + 4 siblings</ProvRow>
-      <ProvRow>white-label · themeable</ProvRow>
-      <ProvRow>headless mode · fully custom UIs</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconPalette />
+          VeltApprovalFlow
+          <span className="cmh-cc-pill">themed</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="apc-chain apf-chain--tight">
+            <ChainRow
+              agent
+              name="Brand Agent"
+              statusText="Pre-screened"
+              right={<span className="apf-tag apf-tag--agent"><IconAgentMark />agent</span>}
+            />
+            <ChainRow
+              img={FACE.sarah}
+              name="Legal"
+              statusText="Your tokens, your chrome"
+              badge="approved"
+            />
+          </div>
+          <div className="afz-theme" aria-hidden="true">
+            <span className="afz-swatch afz-swatch--brand" />
+            <span className="afz-swatch afz-swatch--ink" />
+            <span className="afz-swatch afz-swatch--soft" />
+            <span className="afz-theme-label">white-label · dark mode</span>
+          </div>
+          <div className="afz-parts">
+            <span className="int-chip"><i />VeltApprovalStep</span>
+            <span className="int-chip"><i />VeltApprovalComments</span>
+            <span className="int-chip"><i />VeltApprovalActions</span>
+            <span className="int-chip"><i />VeltApprovalAuditLog</span>
+            <span className="int-chip"><i />headless</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Behavior: a JSON workflow definition surfaced as config rows — your own node
+  // ids, the routing predicate, a signed event webhook, version pinning, and the
+  // scope it is registered at.
   "approval-flows/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>JSON definitions · your node ids</ProvRow>
-      <ProvRow>signed event webhooks · version pinning</ProvRow>
-      <ProvRow>scope: workspace · org · document</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconBraces />
+          definition.json
+          <span className="cmh-cc-pill">your ids</span>
+        </div>
+        <div className="cmh-cc-body apf-gov-body">
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">nodes</span>
+            <span className="afz-ids">
+              <code className="afz-id">legal_gate</code>
+              <code className="afz-id">cfo_signoff</code>
+            </span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">routing</span>
+            <code className="afz-cond">amount &gt; 25000</code>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">webhook</span>
+            <span className="apf-evt-sig"><IconLock />signed event</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">version</span>
+            <span className="chip chip-approved">pinned · v4</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">scope</span>
+            <span className="afz-scope">
+              <span className="afz-scope-seg afz-scope-seg--on">workspace</span>
+              <span className="afz-scope-seg">org</span>
+              <span className="afz-scope-seg">document</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
@@ -842,31 +939,53 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
 
   "approval-flows/related/review-agents": (
     <div className="pv">
-      <ProvRow>
-        agent step invokes a review agent <ProvArrow /> findings land as comments
-      </ProvRow>
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="RA" agent />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Review Agent</span>
+            <span className="cmh-cmt-time">agent step</span>
+          </div>
+          <p className="cmh-cmt-body">An agent step invokes a review agent — findings land as comments.</p>
+        </div>
+      </div>
     </div>
   ),
 
   "approval-flows/related/audit-trail": (
     <div className="pv">
-      <AuditLog
-        rows={[
-          {
-            ts: "09:21",
-            ev: <><strong>every transition</strong> is already a record</>,
-            chip: { label: "recorded", kind: "approved" },
-          },
-        ]}
-      />
+      <div className="apf-gov-body">
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">transition</span>
+          <span className="apf-gov-val">CFO approved</span>
+        </div>
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">signed</span>
+          <span className="apf-evt-sig"><IconLock />HMAC</span>
+        </div>
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">recorded</span>
+          <span className="chip chip-approved">on the record</span>
+        </div>
+      </div>
     </div>
   ),
 
   "approval-flows/related/notifications": (
     <div className="pv">
-      <ProvRow>
-        reviewers see their turn <ProvArrow /> the pipeline completes
-      </ProvRow>
+      <div className="cmh-inrow">
+        <span className="cmh-unread" />
+        <Av initials="SR" tone="a3" img={FACE.sarah} />
+        <div className="cmh-inmain">
+          <p className="t"><b>Sarah</b>, it&apos;s your turn to approve</p>
+          <p className="m">reviewers see their turn · the pipeline completes</p>
+          <div className="afrl-chans">
+            <span className="afrl-chan">Inbox</span>
+            <span className="afrl-chan">Email</span>
+            <span className="afrl-chan">Slack</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };

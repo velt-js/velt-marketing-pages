@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, ProvRow, ProvArrow, DarkPanel, NotifItem } from "../demos";
+import { AvatarStack, DarkPanel, NotifItem } from "../demos";
 import type { AvatarUser } from "../demos";
 import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX } from "./hero-surface";
 import type { PresenceUser } from "./hero-surface";
@@ -290,6 +290,15 @@ function IconDocPin() {
       <path d="M19 12V7l-5-4H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h5" />
       <circle cx="17" cy="17" r="3" />
       <path d="M17 20v2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Solid play triangle for the recording related teaser. */
+function IconPlay() {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M4 2.5 13 8 4 13.5 Z" />
     </svg>
   );
 }
@@ -741,18 +750,74 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
   ),
 
   "huddle/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>wireframe Parts · Slots · Template Variables</ProvRow>
-      <ProvRow>global styles · dark mode</ProvRow>
-      <ProvRow>the in-call bar and chat, your markup</ProvRow>
+    <div className="pv hud-look">
+      <div className="hud-look-room">
+        <div className="hud-look-stage">
+          <div className="hud-look-tile">
+            <span className="hud-look-ring hud-look-ring--live">
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <span className="hud-look-badge hud-look-badge--on"><IconMic /></span>
+            </span>
+            <span className="hud-look-name">Maya</span>
+            <span className="hud-wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+          </div>
+          <div className="hud-look-tile">
+            <span className="hud-look-ring">
+              <Av initials="SR" tone="a3" img={FACE.sarah} />
+              <span className="hud-look-badge hud-look-badge--off"><IconMicOff /></span>
+            </span>
+            <span className="hud-look-name">Sarah</span>
+            <span className="hud-look-sub">muted</span>
+          </div>
+          <div className="hud-look-tile">
+            <span className="hud-look-ring">
+              <Av initials="NA" agent />
+            </span>
+            <span className="hud-look-name">Notetaker</span>
+            <span className="hud-look-sub">agent</span>
+          </div>
+        </div>
+        <div className="hud-look-bar">
+          <span className="hud-look-ctrl hud-look-ctrl--on" aria-label="Microphone"><IconMic /></span>
+          <span className="hud-look-ctrl hud-look-ctrl--on" aria-label="Camera"><IconCam /></span>
+          <span className="hud-look-ctrl" aria-label="Screen share"><IconScreen /></span>
+          <span className="hud-look-bar-sp" aria-hidden="true" />
+          <span className="hud-look-live"><i aria-hidden="true" />Live</span>
+        </div>
+      </div>
     </div>
   ),
 
   "huddle/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>type config: audio · video · screen · all</ProvRow>
-      <ProvRow>chat toggle · Follow Me on avatar click</ProvRow>
-      <ProvRow>server fallback · webhooks into your pipeline</ProvRow>
+    <div className="pv">
+      <div className="hud-cfg">
+        <div className="apf-gov-body">
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">type</span>
+            <span className="hud-cfg-seg" aria-hidden="true">
+              <span className="hud-cfg-opt hud-cfg-opt--on">audio</span>
+              <span className="hud-cfg-opt hud-cfg-opt--on">video</span>
+              <span className="hud-cfg-opt">screen</span>
+            </span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">joinRule</span>
+            <span className="chip chip-agent">request to join</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">scope</span>
+            <span className="apf-gov-val">documentId</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">serverFallback</span>
+            <span className="chip chip-approved">on</span>
+          </div>
+        </div>
+        <div className="apf-note">
+          <span className="chip chip-agent">webhooks</span>
+          <span>huddle.created · huddle.joined → your pipeline</span>
+        </div>
+      </div>
     </div>
   ),
 
@@ -808,29 +873,59 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
 
   "huddle/related/comments": (
     <div className="pv">
-      <ProvRow>
-        the thread stalls <ProvArrow /> the huddle resolves it
-      </ProvRow>
-      <ProvRow>
-        decision <ProvArrow /> lands back in the thread
-      </ProvRow>
+      <div className="hud-rel">
+        <div className="hud-rel-cmt">
+          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <div className="hud-rel-cmt-main">
+            <span className="hud-rel-top">
+              <span className="hud-rel-name">Maya</span>
+              <span className="hud-rel-time">now</span>
+            </span>
+            <p className="hud-rel-line">Thread stalled — huddled to settle it</p>
+            <span className="hud-rel-resolved"><IconCheck />decision back in the thread</span>
+          </div>
+        </div>
+        <p className="hud-rel-cap">the thread stalls <IconArrowRight /> the huddle resolves it</p>
+      </div>
     </div>
   ),
 
   "huddle/related/recording": (
     <div className="pv">
-      <ProvRow>
-        schedules don&apos;t line up <ProvArrow /> record instead
-      </ProvRow>
-      <ProvRow>voice · video · screen, pinned to the work</ProvRow>
+      <div className="hud-rel">
+        <div className="hud-rel-rec">
+          <span className="hud-rel-rec-play"><IconPlay /></span>
+          <div className="hud-rel-rec-main">
+            <span className="hud-rel-name">Recorded instead</span>
+            <span className="hud-rel-rec-chips">
+              <span className="hud-rel-chip">voice</span>
+              <span className="hud-rel-chip">video</span>
+              <span className="hud-rel-chip">screen</span>
+            </span>
+          </div>
+          <span className="hud-rel-rec-dur">0:42</span>
+        </div>
+        <p className="hud-rel-cap">schedules don&apos;t line up <IconArrowRight /> record, pinned to the work</p>
+      </div>
     </div>
   ),
 
   "huddle/related/presence": (
     <div className="pv">
-      <ProvRow>
-        who is in the document <ProvArrow /> who is already talking
-      </ProvRow>
+      <div className="hud-rel">
+        <div className="hud-rel-presence">
+          <span className="hud-rel-stack">
+            <Av initials="MA" tone="a2" img={FACE.maya} />
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <Av initials="JD" tone="a4" img={FACE.jordan} />
+          </span>
+          <span className="hud-rel-talking">
+            <span className="hud-wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+            2 talking
+          </span>
+        </div>
+        <p className="hud-rel-cap">who is in the document <IconArrowRight /> who is already talking</p>
+      </div>
     </div>
   ),
 };

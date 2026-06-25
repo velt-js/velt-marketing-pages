@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, ProvRow, ProvArrow, Precedent } from "../demos";
+import { AvatarStack, Chip, ProvArrow, Precedent } from "../demos";
 import {
   AgentFindingCard,
   Av,
@@ -678,19 +678,86 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // Look: the accept/reject diff surface that rides on the comment dialog,
+  // themed — a red→green suggestion diff with restyled controls, plus the
+  // primitives you reuse to build your own badges and review panels.
   "suggestions/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>comment dialog wireframes + primitives</ProvRow>
-      <ProvRow>restyle the accept / reject surface</ProvRow>
-      <ProvRow>your own badges · counts · review panels</ProvRow>
+    <div className="pv">
+      <div className="sgn-look">
+        <div className="sgn-look-card">
+          <div className="cmh-cmt cmh-cmt--plain">
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <div className="cmh-cmt-main">
+              <div className="cmh-cmt-head">
+                <span className="cmh-cmt-name">Sarah</span>
+                <span className="chip chip-pending">suggestion</span>
+              </div>
+              <div className="sgn-diff">
+                <span className="sgn-del">30 days</span>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <span className="sgn-ins">14 days</span>
+              </div>
+              <div className="cmh-acts">
+                <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+                <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="sgn-look-controls">
+          <div className="sgn-look-row">
+            <span className="sgn-look-key">accept / reject</span>
+            <span className="sgn-look-swatches">
+              <span className="sgn-look-swatch sgn-look-swatch--a" />
+              <span className="sgn-look-swatch sgn-look-swatch--b" />
+              <span className="sgn-look-note">restyle the surface</span>
+            </span>
+          </div>
+          <div className="sgn-look-row">
+            <span className="sgn-look-key">your UI</span>
+            <span className="sgn-look-tags">
+              <span className="chip chip-pending">pending badge</span>
+              <span className="chip chip-agent">review panel</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Behavior: the apply path is your code — a bound target, your accept handler,
+  // a logged reject reason, and the event stream Velt fires on every decision.
   "suggestions/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>custom summary · metadata per suggestion</ProvRow>
-      <ProvRow>gate commit behind your validation</ProvRow>
-      <ProvRow>custom apply logic · reject reasons</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconBolt />
+          Apply logic
+          <span className="cmh-cc-pill">your code</span>
+        </div>
+        <div className="cmh-cc-body apf-gov-body">
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">target</span>
+            <span className="sgn-target-attr">data-velt-suggestion-target</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">on accept</span>
+            <code className="sgn-cfg-code sgn-cfg-code--accent">applyToBackend(value)</code>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">on reject</span>
+            <span className="chip chip-rejected">reason logged</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">events</span>
+            <span className="sgn-rel-sig"><IconCheck />suggestionUpdated</span>
+          </div>
+          <div className="apf-note">
+            <span className="chip chip-approved">consent</span>
+            <span>Velt never writes — your handler commits</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
@@ -748,25 +815,55 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
 
   "suggestions/related/comments": (
     <div className="pv">
-      <ProvRow>
-        suggestion <ProvArrow /> a comment of type suggestion
-      </ProvRow>
+      <div className="sgn-rel">
+        <div className="sgn-rel-cmt">
+          <Av initials="SR" tone="a3" img={FACE.sarah} />
+          <div className="sgn-rel-main">
+            <div className="sgn-rel-head">
+              <span className="sgn-rel-name">Sarah</span>
+              <span className="chip chip-pending">suggestion</span>
+            </div>
+            <p className="sgn-rel-body">A comment of type <strong>suggestion</strong>, threaded like any other.</p>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/related/review-agents": (
     <div className="pv">
-      <ProvRow>
-        finding <ProvArrow /> proposed fix a human accepts
-      </ProvRow>
+      <div className="sgn-rel">
+        <div className="sgn-rel-cmt">
+          <Av initials="RA" agent />
+          <div className="sgn-rel-main">
+            <div className="sgn-rel-head">
+              <span className="sgn-rel-name">Rate Checker</span>
+              <span className="chip chip-agent">finding</span>
+            </div>
+            <p className="sgn-rel-body">A proposed fix a human accepts.</p>
+            <span className="sgn-diff">
+              <span className="sgn-del">8.25%</span>
+              <span className="sgn-arrow"><IconArrowRight /></span>
+              <span className="sgn-ins">7.35%</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/related/audit-trail": (
     <div className="pv">
-      <ProvRow>
-        accept / reject <ProvArrow /> on the record
-      </ProvRow>
+      <div className="sgn-rel">
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">accept · reject</span>
+          <span className="sgn-rel-sig"><IconCheck />recorded</span>
+        </div>
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">entry</span>
+          <span className="apf-gov-val">on the record</span>
+        </div>
+      </div>
     </div>
   ),
 };

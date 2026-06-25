@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, ProvRow, ProvArrow, NotifItem } from "../demos";
+import { NotifItem } from "../demos";
 import {
   AgentFindingCard,
   Av,
@@ -483,6 +483,27 @@ function ChannelPref({
           </span>
         ))}
       </span>
+    </div>
+  );
+}
+
+/**
+ * Compact "related feature" teaser tile: a mini echo of the linked primitive
+ * over a connector caption naming the hand-off into the notifications feed.
+ * @param {{ children: ReactNode; from: string; to: string }} props Echo visual plus the from/to connector phrases.
+ * @returns {JSX.Element} Related teaser tile.
+ */
+function RelTile({ children, from, to }: { children: ReactNode; from: string; to: string }) {
+  return (
+    <div className="pv">
+      <div className="ntf-rel">
+        {children}
+        <p className="ntf-rel-cap">
+          <span>{from}</span>
+          <span className="ntf-rel-arrow"><IconArrowRight /></span>
+          <strong>{to}</strong>
+        </p>
+      </div>
     </div>
   );
 }
@@ -1034,18 +1055,77 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "notifications/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>Notifications Tool (bell)</ProvRow>
-      <ProvRow>Notifications Panel (page)</ProvRow>
-      <ProvRow>wireframes + primitives</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head ntf-look-head">
+          <span className="ntf-look-mark"><IconBell /></span>
+          <span className="ntf-look-brand">Acme · Inbox</span>
+          <span className="cmh-cc-pill">your theme</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="cmh-inrow">
+            <span className="cmh-unread ntf-look-unread" />
+            <Av initials="MA" tone="a2" img={FACE.maya} />
+            <div className="cmh-inmain">
+              <p className="t"><b>Maya</b> mentioned you on Q3 forecast</p>
+              <p className="m"><span className="quote">&ldquo;@you review before Friday?&rdquo;</span></p>
+            </div>
+            <span className="cmh-when">2m</span>
+          </div>
+          <div className="cmh-inrow">
+            <span className="cmh-unread ntf-look-unread" />
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <div className="cmh-inmain">
+              <p className="t"><b>Sarah</b> requested your sign-off</p>
+              <p className="m">contract.pdf · due today</p>
+            </div>
+            <span className="cmh-when">9m</span>
+          </div>
+          <div className="ntf-look-chans">
+            <span className="ntf-chan"><span className="ntf-chan-dot" />In-app</span>
+            <span className="ntf-chan"><IconMail />Email</span>
+            <span className="ntf-chan"><IconBolt />Slack</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "notifications/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>custom events via REST</ProvRow>
-      <ProvRow>config API · per doc / org</ProvRow>
-      <ProvRow>batching + delay in console</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconSliders />
+          Delivery config
+          <span className="cmh-cc-pill">your rules</span>
+        </div>
+        <div className="cmh-cc-body ntf-cfg">
+          <div className="ntf-cfg-chans">
+            <span className="ntf-chan"><span className="ntf-chan-dot" />in-app</span>
+            <span className="ntf-chan"><IconMail />email</span>
+            <span className="ntf-chan"><IconBolt />Slack</span>
+            <span className="ntf-chan"><IconWebhook />webhook</span>
+          </div>
+          <div className="ntf-cfg-row">
+            <span className="ntf-cfg-key">digest</span>
+            <span className="ntf-cfg-val"><span className="chip chip-approved">batched · 1 / day</span></span>
+          </div>
+          <div className="ntf-cfg-row">
+            <span className="ntf-cfg-key">per-user prefs</span>
+            <span className="ntf-cfg-val">
+              <span className="ntf-seg">
+                <span className="ntf-seg-opt ntf-seg-opt--on">ALL</span>
+                <span className="ntf-seg-opt">MINE</span>
+                <span className="ntf-seg-opt">NONE</span>
+              </span>
+            </span>
+          </div>
+          <div className="ntf-cfg-row">
+            <span className="ntf-cfg-key">customEvents</span>
+            <span className="ntf-cfg-val ntf-cfg-rest"><span className="ntf-rest-verb">POST</span>/notifications</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
@@ -1078,26 +1158,50 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "notifications/related/comments": (
-    <div className="pv">
-      <ProvRow>
-        every thread event <ProvArrow /> the inbox
-      </ProvRow>
-    </div>
+    <RelTile from="every thread event" to="the inbox">
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Maya</span>
+            <span className="cmh-cmt-time">2m</span>
+          </div>
+          <p className="cmh-cmt-body">Replied to your thread on the Q3 forecast</p>
+        </div>
+      </div>
+    </RelTile>
   ),
 
   "notifications/related/approval-flows": (
-    <div className="pv">
-      <ProvRow>
-        reviewers see their turn <ProvArrow /> pipeline completes
-      </ProvRow>
-    </div>
+    <RelTile from="reviewers see their turn" to="the pipeline completes">
+      <div className="ntf-rel-chain">
+        <span className="ntf-rel-step">
+          <Av initials="ET" tone="a1" img={FACE.ethan} />
+          <span className="ntf-rel-step-name">FP&amp;A Lead</span>
+          <span className="chip chip-approved">approved</span>
+        </span>
+        <span className="ntf-rel-step">
+          <Av initials="SR" tone="a3" img={FACE.sarah} />
+          <span className="ntf-rel-step-name">CFO</span>
+          <span className="chip chip-pending">your turn</span>
+        </span>
+      </div>
+    </RelTile>
   ),
 
   "notifications/related/review-agents": (
-    <div className="pv">
-      <AuditLog
-        rows={[{ ts: "AI", ev: <><strong>Agent</strong> findings reach a human via the feed</>, chip: { label: "agent", kind: "agent" } }]}
-      />
-    </div>
+    <RelTile from="agent findings" to="reach a human via the feed">
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="RA" agent />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Review Agent</span>
+            <span className="chip chip-agent">agent</span>
+            <span className="cmh-cmt-time">2m</span>
+          </div>
+          <p className="cmh-cmt-body">Flagged 3 pricing claims on the Q3 deck</p>
+        </div>
+      </div>
+    </RelTile>
   ),
 };

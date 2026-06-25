@@ -115,3 +115,38 @@
   .vfp .ntf-cust-arrow,
   .vfp .ntf-host-divider { transform: rotate(90deg); }
 }
+
+/* Make-it-yours look — a branded inbox: themed unread dots over reused
+   cmh-inrow notification rows, footed by channel chips. */
+.vfp .ntf-look-head { background: linear-gradient(120deg, #2a37d8, #7c3aed); }
+.vfp .ntf-look-mark { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(255, 255, 255, 0.18); }
+.vfp .ntf-look-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .ntf-look-brand { font-weight: 700; letter-spacing: -0.3px; }
+.vfp .ntf-look-unread { background: #7c3aed; }
+.vfp .ntf-look-chans { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--vlp-border-subtle); }
+
+/* Make-it-yours behavior — delivery config: a channel chip row over key/value
+   rows (digest, per-user segmented prefs, a REST custom-event endpoint). */
+.vfp .ntf-cfg { display: flex; flex-direction: column; gap: 0; }
+.vfp .ntf-cfg-chans { display: flex; flex-wrap: wrap; gap: 7px; padding: 2px 0 12px; }
+.vfp .ntf-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 2px; min-height: 40px; border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .ntf-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); flex: none; }
+.vfp .ntf-cfg-val { min-width: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .ntf-cfg-rest { font-family: var(--vlp-font-mono); font-size: 12px; font-weight: 600; color: var(--vlp-color-ink-soft); }
+
+/* Related-feature teasers — compact tiles echoing the linked primitive (a
+   comment row, an approval chain, an agent finding) over a connector caption
+   naming the hand-off into the notifications feed. */
+.vfp .ntf-rel { display: grid; gap: 12px; padding: 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .ntf-rel .cmh-cmt > .av-c { width: 28px; height: 28px; }
+.vfp .ntf-rel .cmh-cmt-name { font-size: 14px; letter-spacing: -0.28px; }
+.vfp .ntf-rel .cmh-cmt-time { font-size: 12px; }
+.vfp .ntf-rel .cmh-cmt-body { font-size: 12.5px; }
+.vfp .ntf-rel-chain { display: flex; flex-direction: column; gap: 8px; }
+.vfp .ntf-rel-step { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .ntf-rel-step .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .ntf-rel-step-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .ntf-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .ntf-rel-cap strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .ntf-rel-arrow { display: inline-grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .ntf-rel-arrow svg { width: 12px; height: 12px; }

@@ -86,6 +86,7 @@
 .vfp .rav-edge--fail { color: #99291c; }
 .vfp .rav-dest-ic { display: inline-grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--vlp-color-approve-soft); color: #0c6a41; }
 .vfp .rav-dest-ic svg { width: 13px; height: 13px; }
+.vfp .rav-dest-ic--fail { background: var(--vlp-color-reject-soft); color: #99291c; }
 
 /* Checklist import — a source file converted into focused agents. */
 .vfp .rav-checklist { display: flex; flex-direction: column; gap: 4px; }
@@ -109,3 +110,44 @@
 .vfp .rav-check-ic svg { width: 11px; height: 11px; }
 .vfp .rav-check-ic--yes { background: var(--vlp-color-approve-soft); color: #0c6a41; }
 .vfp .rav-check-ic--no { background: var(--vlp-bg-wash); color: var(--vlp-color-text-subtle); }
+
+/* ---- Make it yours · Look: the themed finding component + theme controls ---- */
+.vfp .rav-look { display: flex; flex-direction: column; gap: 12px; }
+.vfp .rav-look-controls { display: flex; flex-direction: column; gap: 0; padding: 2px 14px 4px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: var(--vlp-bg-section-alt); }
+.vfp .rav-look-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
+.vfp .rav-look-row + .rav-look-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rav-look-key { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); }
+.vfp .rav-look-badges { display: inline-flex; align-items: center; gap: 8px; }
+.vfp .rav-look-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; }
+.vfp .rav-look-badge svg { width: 12px; height: 12px; flex: none; }
+.vfp .rav-look-swatch { width: 16px; height: 16px; flex: none; border-radius: 5px; border: 1px solid rgba(0, 0, 0, 0.08); }
+.vfp .rav-look-swatch--a { background: var(--vlp-color-accent); }
+.vfp .rav-look-swatch--b { background: #1f2a57; }
+.vfp .rav-look-tags { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---- Make it yours · Behavior: per-agent config rows ---- */
+.vfp .rav-cfg { display: flex; flex-direction: column; gap: 0; }
+.vfp .rav-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; }
+.vfp .rav-cfg-row + .rav-cfg-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rav-cfg-row--col { flex-direction: column; align-items: flex-start; gap: 8px; }
+.vfp .rav-cfg-key { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); }
+.vfp .rav-cfg-val { display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.vfp .rav-cfg-row--col .rav-cfg-val { justify-content: flex-start; }
+.vfp .rav-cfg-sig { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: #0c6a41; }
+.vfp .rav-cfg-sig svg { width: 13px; height: 13px; flex: none; }
+
+/* Segmented controls shared by the Look (confidence) + Behavior (enforcement,
+   scope) cards. */
+.vfp .rav-look-seg,
+.vfp .rav-cfg-seg,
+.vfp .rav-scope { display: inline-flex; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden; }
+.vfp .rav-look-seg-opt,
+.vfp .rav-cfg-seg-opt,
+.vfp .rav-scope-seg { padding: 4px 9px; font-size: 11px; font-weight: 600; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); background: #fff; white-space: nowrap; }
+.vfp .rav-look-seg-opt + .rav-look-seg-opt,
+.vfp .rav-cfg-seg-opt + .rav-cfg-seg-opt,
+.vfp .rav-scope-seg + .rav-scope-seg { border-left: 1px solid rgba(0, 0, 0, 0.08); }
+.vfp .rav-look-seg-opt--on,
+.vfp .rav-scope-seg--on { background: var(--vlp-color-ink); color: #fff; }
+.vfp .rav-cfg-seg-opt--block.rav-cfg-seg-opt--on { background: var(--vlp-color-reject-soft); color: #99291c; }
+.vfp .rav-cfg-seg-opt--advisory.rav-cfg-seg-opt--on { background: var(--vlp-color-amber-soft); color: #8a5a13; }

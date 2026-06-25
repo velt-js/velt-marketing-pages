@@ -307,6 +307,18 @@ function IconAlert() {
   );
 }
 
+/** @returns {JSX.Element} Palette glyph for the themed / white-label look card. */
+function IconPalette() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3a9 9 0 1 0 0 18 2 2 0 0 0 2-2 2 2 0 0 1 2-2h1.6A3.4 3.4 0 0 0 21 11.6C21 6.85 16.97 3 12 3z" />
+      <circle cx="7.5" cy="11" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="8" r="1.1" fill="currentColor" stroke="none" />
+      <circle cx="16.5" cy="11" r="1.1" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 /** @returns {JSX.Element} Down-arrow glyph for vertical flow connectors. */
 function IconArrowDown() {
   return (
@@ -814,19 +826,98 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // Look: the actual finding component, themed — a white-label AI badge that
+  // carries the agent's own name, a configurable confidence display, and theme
+  // controls underneath.
   "review-agents/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>AI badge themeable · shows the agent&rsquo;s name</ProvRow>
-      <ProvRow>confidence: percent · bar · hidden</ProvRow>
-      <ProvRow>white-label · wireframes · dark mode</ProvRow>
+    <div className="pv">
+      <div className="rav-look">
+        <div className="cmh-afc-fill">
+          <AgentFindingCard
+            name="Brand Agent"
+            time="now"
+            body="Headline uses title case. Brand guidelines §3.1 require sentence case."
+            delText="Title Case"
+            insText="sentence case"
+          />
+        </div>
+        <div className="rav-look-controls">
+          <div className="rav-look-row">
+            <span className="rav-look-key">AI badge</span>
+            <span className="rav-look-badges">
+              <span className="rav-look-badge"><IconAgentMark />Brand Agent</span>
+              <span className="rav-look-swatch rav-look-swatch--a" />
+              <span className="rav-look-swatch rav-look-swatch--b" />
+            </span>
+          </div>
+          <div className="rav-look-row">
+            <span className="rav-look-key">confidence</span>
+            <span className="rav-look-seg">
+              <span className="rav-look-seg-opt rav-look-seg-opt--on">percent</span>
+              <span className="rav-look-seg-opt">bar</span>
+              <span className="rav-look-seg-opt">hidden</span>
+            </span>
+          </div>
+          <div className="rav-look-row">
+            <span className="rav-look-key">theme</span>
+            <span className="rav-look-tags">
+              <span className="chip chip-agent">white-label</span>
+              <span className="chip chip-pending">dark mode</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Behavior: the per-agent config surface — enforcement mode, triggers, custom
+  // checks, the event that fires on every finding, and the scope it runs at.
   "review-agents/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>agent definition CRUD · execution API</ProvRow>
-      <ProvRow>useAgentResults · useAgentConfig · useAgentAnalytics</ProvRow>
-      <ProvRow>custom actions on accept · events on every finding</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconSliders />
+          Agent config
+          <span className="cmh-cc-pill">per agent</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-cfg">
+            <div className="rav-cfg-row">
+              <span className="rav-cfg-key">enforcement</span>
+              <span className="rav-cfg-seg">
+                <span className="rav-cfg-seg-opt rav-cfg-seg-opt--block">blocking</span>
+                <span className="rav-cfg-seg-opt rav-cfg-seg-opt--advisory rav-cfg-seg-opt--on">advisory</span>
+              </span>
+            </div>
+            <div className="rav-cfg-row">
+              <span className="rav-cfg-key">trigger</span>
+              <span className="rav-cfg-val">
+                <span className="chip chip-agent">on publish</span>
+                <span className="chip chip-pending">manual</span>
+              </span>
+            </div>
+            <div className="rav-cfg-row rav-cfg-row--col">
+              <span className="rav-cfg-key">custom checks</span>
+              <span className="rav-cfg-val">
+                <span className="int-chip"><i />headline case</span>
+                <span className="int-chip"><i />pricing citations</span>
+              </span>
+            </div>
+            <div className="rav-cfg-row">
+              <span className="rav-cfg-key">events</span>
+              <span className="rav-cfg-sig"><IconCheck />finding.created</span>
+            </div>
+            <div className="rav-cfg-row">
+              <span className="rav-cfg-key">scope</span>
+              <span className="rav-scope">
+                <span className="rav-scope-seg rav-scope-seg--on">workspace</span>
+                <span className="rav-scope-seg">org</span>
+                <span className="rav-scope-seg">document</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
@@ -879,19 +970,67 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
 
   "review-agents/related/comments": (
     <div className="pv">
-      <ProvRow>findings are comments <ProvArrow /> the same threads your users know</ProvRow>
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="SR" tone="a3" img={FACE.sarah} />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Sarah</span>
+            <span className="cmh-cmt-time">2m</span>
+          </div>
+          <p className="cmh-cmt-body">Findings are comments — the same threads your users know.</p>
+          <span className="cmh-cmt-replies"><IconReply />3 Replies</span>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/related/memory": (
     <div className="pv">
-      <ProvRow>knowledge sources <ProvArrow /> the precedent agents read before flagging</ProvRow>
+      <div className="rav-source">
+        <span className="rav-source-ic"><IconFile /></span>
+        <span className="rav-source-main">
+          <span className="rav-source-name">brand-guidelines.pdf</span>
+          <span className="rav-source-meta">precedent · §3.1</span>
+        </span>
+        <span className="rav-cite"><IconBook />cited</span>
+      </div>
+      <p className="code-microcopy">knowledge sources · the precedent agents read before flagging</p>
     </div>
   ),
 
   "review-agents/related/approval-flows": (
     <div className="pv">
-      <ProvRow>agents as workflow nodes <ProvArrow /> pass / fail routing</ProvRow>
+      <div className="rav-pipe">
+        <span className="rav-pipe-node">
+          <Av initials="RA" agent />
+          <span className="rav-pipe-name">
+            <b>Review Agent</b>
+            <span>workflow node</span>
+          </span>
+        </span>
+        <div className="apf-route-fan" aria-hidden="true">
+          <span className="cmh-flow-stem" />
+          <span className="cmh-flow-bar" />
+          <span className="cmh-flow-arm cmh-flow-arm--left" />
+          <span className="cmh-flow-arm cmh-flow-arm--right" />
+        </div>
+        <div className="apf-route-row">
+          <span className="apf-route-branch">
+            <span className="apf-route-edge rav-edge--pass">pass</span>
+            <span className="apf-route-dest">
+              <span className="rav-dest-ic"><IconCheck /></span>
+              Advances
+            </span>
+          </span>
+          <span className="apf-route-branch">
+            <span className="apf-route-edge rav-edge--fail">fail</span>
+            <span className="apf-route-dest apf-route-dest--hot">
+              <span className="rav-dest-ic rav-dest-ic--fail"><IconX /></span>
+              Routes back
+            </span>
+          </span>
+        </div>
+      </div>
     </div>
   ),
 };

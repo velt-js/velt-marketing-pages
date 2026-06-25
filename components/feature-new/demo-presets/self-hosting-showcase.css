@@ -85,3 +85,50 @@
 @media (max-width: 1024px) {
   .vfp .shs-lanes { grid-template-columns: 1fr; }
 }
+
+/* Make-it-yours · look — the configurable surface itself: a clean, faceless
+   infra config panel (data provider toggle, region + interface selectors). */
+.vfp .shs-cfg { width: 100%; max-width: 360px; margin: 0 auto; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 18px; background: #fff; overflow: hidden; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .shs-cfg-head { display: flex; align-items: center; gap: 9px; padding: 12px 14px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); }
+.vfp .shs-cfg-ic { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 8px; background: #fff; border: 1px solid var(--vlp-border-subtle); color: var(--vlp-color-ink-soft); }
+.vfp .shs-cfg-ic svg { width: 16px; height: 16px; }
+.vfp .shs-cfg-title { flex: 1; min-width: 0; font-family: var(--vlp-font-mono); font-size: 13px; font-weight: 700; letter-spacing: -0.1px; color: var(--vlp-color-ink); }
+.vfp .shs-cfg-rows { display: flex; flex-direction: column; padding: 4px 14px 8px; }
+.vfp .shs-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; }
+.vfp .shs-cfg-row + .shs-cfg-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .shs-cfg-label { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .shs-cfg-label svg { width: 16px; height: 16px; flex: none; color: var(--vlp-color-text-muted); }
+.vfp .shs-cfg-toggle { display: inline-flex; align-items: center; width: 38px; height: 22px; flex: none; padding: 2px; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .shs-cfg-toggle i { width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18); }
+.vfp .shs-cfg-toggle--on { justify-content: flex-end; background: var(--vlp-color-green-approval); }
+.vfp .shs-cfg-seg { display: inline-flex; align-items: center; gap: 3px; padding: 3px; border-radius: 999px; background: var(--vlp-bg-wash); }
+.vfp .shs-cfg-opt { padding: 3px 10px; border-radius: 999px; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 600; letter-spacing: -0.1px; color: var(--vlp-color-text-subtle); }
+.vfp .shs-cfg-opt--on { background: var(--vlp-color-accent); color: #fff; }
+
+/* Make-it-yours · behavior — storage routing: provider ops + binaries land in
+   your infra, Velt keeps only structure, with a residency / transport footer. */
+.vfp .shs-route { width: 100%; max-width: 400px; margin: 0 auto; padding: 6px 16px 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+
+/* Related teasers — compact mini-cards echoing each sibling feature. */
+.vfp .shs-rel { display: grid; gap: 10px; }
+.vfp .shs-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .shs-rel-cap svg { width: 14px; height: 14px; flex: none; color: var(--vlp-color-accent); }
+.vfp .shs-rel-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .shs-rel-sub { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+
+/* Comment / notification row echo (related/comments, related/notifications). */
+.vfp .shs-rel-cmt { display: flex; align-items: center; gap: 10px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .shs-rel-ic { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 8px; background: #fff; color: var(--vlp-color-ink-soft); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06); }
+.vfp .shs-rel-ic svg { width: 16px; height: 16px; }
+.vfp .shs-rel-cmt-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+
+/* Key/value rows echo (related/audit-trail). */
+.vfp .shs-rel-rows { display: flex; flex-direction: column; gap: 8px; }
+.vfp .shs-rel-kv { display: flex; align-items: center; gap: 10px; padding: 8px 11px; border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .shs-rel-key { flex: 1; min-width: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .shs-rel-key svg { width: 15px; height: 15px; flex: none; color: var(--vlp-color-text-muted); }
+
+/* Channel chips echo (related/notifications). */
+.vfp .shs-rel-chans { display: flex; flex-wrap: wrap; gap: 7px; }
+.vfp .shs-rel-chan { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; }
+.vfp .shs-rel-chan svg { width: 13px; height: 13px; flex: none; color: var(--vlp-color-text-muted); }

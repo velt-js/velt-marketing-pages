@@ -126,3 +126,44 @@
 .vfp .mem-profile-id { display: flex; flex-direction: column; gap: 1px; }
 .vfp .mem-profile-name { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: #000; }
 .vfp .mem-profile-role { font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+
+/* Make-it-yours look — a branded precedent panel: decision rows with a
+   verdict chip over the citation pills they were drawn from. */
+.vfp .mem-look-head { background: linear-gradient(120deg, #6a1fb3, #c97bff); }
+.vfp .mem-look-mark { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(255, 255, 255, 0.18); }
+.vfp .mem-look-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .mem-look-brand { font-weight: 700; letter-spacing: -0.3px; }
+.vfp .mem-look-row { display: flex; flex-direction: column; gap: 9px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .mem-look-top { display: flex; align-items: center; gap: 10px; }
+.vfp .mem-look-dec { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mem-look-top .chip { flex: none; }
+
+/* Make-it-yours behavior — grounding config rows (key / value, sources, a
+   compact confidence-threshold meter, scope). */
+.vfp .mem-cfg { display: flex; flex-direction: column; gap: 0; }
+.vfp .mem-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 2px; min-height: 40px; }
+.vfp .mem-cfg-row + .mem-cfg-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .mem-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); flex: none; }
+.vfp .mem-cfg-val { min-width: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .mem-cfg-srcs .mem-src-ic { width: 26px; height: 26px; }
+.vfp .mem-cfg-srcs .mem-src-ic svg { width: 15px; height: 15px; }
+.vfp .mem-cfg-meter { position: relative; width: 72px; height: 6px; flex: none; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); overflow: hidden; }
+.vfp .mem-cfg-num { font-family: var(--vlp-font-mono); font-size: 12.5px; font-weight: 700; color: var(--vlp-color-ink); }
+
+/* Related primitives (compact teaser cards). */
+.vfp .mem-rel { display: grid; gap: 8px; }
+.vfp .mem-rel-find { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .mem-rel-find .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .mem-rel-find-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.vfp .mem-rel-find-head { display: flex; align-items: center; gap: 7px; }
+.vfp .mem-rel-find-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .mem-rel-find-body { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .mem-rel-sig { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .mem-rel-sig svg { width: 13px; height: 13px; flex: none; color: #2a37d8; }
+.vfp .mem-rel-step { display: flex; align-items: center; gap: 10px; }
+.vfp .mem-rel-step + .mem-rel-step { border-top: 1px solid var(--vlp-border-subtle); padding-top: 8px; }
+.vfp .mem-rel-step .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .mem-rel-step-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mem-rel-step-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mem-rel-step-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); }
+.vfp .mem-rel-step .chip { flex: none; }

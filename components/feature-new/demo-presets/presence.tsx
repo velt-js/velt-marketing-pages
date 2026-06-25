@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { AvatarStack, CursorTag, ProvRow, ProvArrow } from "../demos";
-import { Av, Composer, FACES, Frame, IconAgentMark } from "./hero-surface";
+import { AvatarStack, CursorTag } from "../demos";
+import { Av, Composer, FACES, Frame, IconAgentMark, IconArrowRight } from "./hero-surface";
 
 import "./presence-showcase.css";
 
@@ -292,6 +292,16 @@ function IconData() {
   );
 }
 
+/** @returns {JSX.Element} Microphone glyph for the huddle participant tiles. */
+function IconMic() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="3" width="6" height="11" rx="3" />
+      <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+    </svg>
+  );
+}
+
 /** @returns {JSX.Element} Bolt glyph for the state-change escalation event. */
 function IconBolt() {
   return (
@@ -340,6 +350,27 @@ function PersonRow({
         {sub ? <span className={`prs-person-sub${subMono ? " prs-person-sub--mono" : ""}`}>{sub}</span> : null}
       </span>
       {right ?? null}
+    </div>
+  );
+}
+
+/**
+ * Compact "related feature" teaser tile: a mini echo of the linked primitive
+ * over a connector caption naming how presence hands off to it.
+ * @param {{ children: ReactNode; from: string; to: string }} props Echo visual plus the from/to connector phrases.
+ * @returns {JSX.Element} Related teaser tile.
+ */
+function RelTile({ children, from, to }: { children: ReactNode; from: string; to: string }) {
+  return (
+    <div className="pv">
+      <div className="prs-rel">
+        {children}
+        <p className="prs-rel-cap">
+          <span>{from}</span>
+          <span className="prs-rel-arrow"><IconArrowRight /></span>
+          <strong>{to}</strong>
+        </p>
+      </div>
     </div>
   );
 }
@@ -862,19 +893,70 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // LOOK — a themed presence stage (custom avatar shapes/colors + a labeled
+  // live cursor) over the theming knobs that drive it.
   "presence/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>prebuilt components</ProvRow>
-      <ProvRow>wireframes + template variables</ProvRow>
-      <ProvRow>dark mode · CSS customization</ProvRow>
+    <div className="pv prs-look">
+      <div className="prs-look-stage">
+        <span className="prs-look-stack" aria-hidden="true">
+          <span className="prs-look-av prs-look-av--1">MA</span>
+          <span className="prs-look-av prs-look-av--2">DV</span>
+          <span className="prs-look-av prs-look-av--3">SR</span>
+          <span className="prs-look-av prs-look-av--more">+2</span>
+        </span>
+        <PsCursor
+          name="Maya"
+          color="oklch(0.60 0.13 35)"
+          style={{ position: "absolute", bottom: 14, right: 16 }}
+        />
+      </div>
+      <div className="prs-look-knobs">
+        <span className="prs-look-sw prs-look-sw--1" aria-hidden="true" />
+        <span className="prs-look-sw prs-look-sw--2" aria-hidden="true" />
+        <span className="prs-look-sw prs-look-sw--3" aria-hidden="true" />
+        <span className="prs-look-knob">squircle</span>
+        <span className="prs-look-knob">labels</span>
+        <span className="prs-look-knob prs-look-knob--dark">dark</span>
+      </div>
     </div>
   ),
 
+  // BEHAVIOR — the presence-data config: a queryable read, location scoping, a
+  // state rule, and the event/REST surface, as labeled config rows.
   "presence/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>inactivity · maxUsers · locations</ProvRow>
-      <ProvRow>hooks · events · data API</ProvRow>
-      <ProvRow>addUser / removeUser · REST</ProvRow>
+    <div className="pv prs-cfg">
+      <div className="prs-cfg-row">
+        <span className="prs-cfg-ic"><IconData /></span>
+        <span className="prs-cfg-main">
+          <span className="prs-cfg-key">usePresenceData()</span>
+          <span className="prs-cfg-sub">statuses · location · self</span>
+        </span>
+        <span className="prs-cfg-val">queryable</span>
+      </div>
+      <div className="prs-cfg-row">
+        <span className="prs-cfg-ic"><IconPin /></span>
+        <span className="prs-cfg-main">
+          <span className="prs-cfg-key">locationId</span>
+          <span className="prs-cfg-sub">scope to a slide or room</span>
+        </span>
+        <span className="prs-cfg-val prs-cfg-val--mono">slide-4</span>
+      </div>
+      <div className="prs-cfg-row">
+        <span className="prs-cfg-ic"><IconPulse /></span>
+        <span className="prs-cfg-main">
+          <span className="prs-cfg-key">inactivity</span>
+          <span className="prs-cfg-sub">idle 5m &rarr; away</span>
+        </span>
+        <span className="chip chip-pending">rule</span>
+      </div>
+      <div className="prs-cfg-row">
+        <span className="prs-cfg-ic prs-cfg-ic--evt"><IconBolt /></span>
+        <span className="prs-cfg-main">
+          <span className="prs-cfg-key">onUserStateChange</span>
+          <span className="prs-cfg-sub">addUser · removeUser · REST</span>
+        </span>
+        <span className="cmh-live"><i />event</span>
+      </div>
     </div>
   ),
 
@@ -911,26 +993,53 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
   ),
 
   "presence/related/comments": (
-    <div className="pv">
-      <ProvRow>
-        watching <ProvArrow /> threads anchor feedback to the element
-      </ProvRow>
-    </div>
+    <RelTile from="watching" to="threads anchor feedback to the element">
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Maya</span>
+            <span className="cmh-cmt-time">now</span>
+          </div>
+          <p className="cmh-cmt-body">This clause needs a liability cap before we send</p>
+        </div>
+      </div>
+    </RelTile>
   ),
 
   "presence/related/multiplayer-editing": (
-    <div className="pv">
-      <ProvRow>
-        presence shows who&rsquo;s in <ProvArrow /> co-editing lets them change it
-      </ProvRow>
-    </div>
+    <RelTile from="presence shows who's in" to="co-editing lets them change it">
+      <div className="prs-rel-doc">
+        <p className="cmh-doc" style={{ margin: 0 }}>
+          7.2 The Provider shall indemnify and hold harmless
+          <span className="prs-rel-caret" style={{ background: "oklch(0.60 0.13 35)" }}>
+            <span className="prs-rel-clabel" style={{ background: "oklch(0.60 0.13 35)" }}>Maya</span>
+          </span>{" "}
+          the Client against all claims.
+        </p>
+      </div>
+    </RelTile>
   ),
 
   "presence/related/huddle": (
-    <div className="pv">
-      <ProvRow>
-        presence finds the person <ProvArrow /> the conversation starts in the doc
-      </ProvRow>
-    </div>
+    <RelTile from="presence finds the person" to="the conversation starts in the doc">
+      <div className="prs-rel-tiles">
+        <span className="prs-rel-tile">
+          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <span className="prs-rel-tile-name">Maya</span>
+          <span className="prs-rel-mic"><IconMic /></span>
+        </span>
+        <span className="prs-rel-tile">
+          <Av initials="DV" tone="a1" img={FACE.dev} />
+          <span className="prs-rel-tile-name">Dev</span>
+          <span className="prs-rel-mic"><IconMic /></span>
+        </span>
+        <span className="prs-rel-tile">
+          <Av initials="RA" agent />
+          <span className="prs-rel-tile-name">Agent</span>
+          <span className="prs-rel-mic"><IconMic /></span>
+        </span>
+      </div>
+    </RelTile>
   ),
 };

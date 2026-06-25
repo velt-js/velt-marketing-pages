@@ -107,3 +107,71 @@
 @media (max-width: 560px) {
   .vfp .rcd-route { grid-template-columns: 1fr; }
 }
+
+/* Related teasers — compact mini-cards echoing each sibling feature. */
+.vfp .rcd-rel { display: grid; gap: 10px; }
+.vfp .rcd-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .rcd-rel-cap svg { width: 14px; height: 14px; flex: none; color: var(--vlp-color-accent); }
+.vfp .rcd-rel-name { font-size: 12.5px; font-weight: 700; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .rcd-rel-time { font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-rel-line { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .rcd-rel-line strong { font-weight: 700; color: var(--vlp-color-ink); }
+
+/* Comment-row echo (related/comments). */
+.vfp .rcd-rel-cmt { display: flex; gap: 9px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-rel-cmt .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .rcd-rel-cmt-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .rcd-rel-top { display: flex; align-items: baseline; gap: 7px; }
+.vfp .rcd-rel-tag { display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-top: 1px; padding: 3px 9px 3px 7px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.02em; }
+.vfp .rcd-rel-tag svg { width: 10px; height: 10px; flex: none; }
+
+/* Live participant echo (related/huddle). */
+.vfp .rcd-rel-live { display: flex; align-items: center; gap: 11px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-rel-stack { display: inline-flex; align-items: center; }
+.vfp .rcd-rel-stack .av-c { width: 28px; height: 28px; flex: none; margin-left: -9px; border: 2px solid var(--vlp-bg-section-alt); font-size: 10px; }
+.vfp .rcd-rel-stack .av-c:first-child { margin-left: 0; }
+.vfp .rcd-rel-livetag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-accent-ink); }
+.vfp .rcd-rel-livetag i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--vlp-color-accent); }
+
+/* Inbox-row echo with channel chips (related/notifications). */
+.vfp .rcd-rel-inbox { display: flex; gap: 10px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-rel-bell { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 8px; background: #fff; color: var(--vlp-color-accent); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06); }
+.vfp .rcd-rel-bell svg { width: 15px; height: 15px; }
+.vfp .rcd-rel-inbox-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.vfp .rcd-rel-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.vfp .rcd-rel-chip { padding: 2px 8px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.03em; }
+
+/* MAKE IT YOURS — LOOK: a themed media player (play, waveform, progress,
+   caption) above the theming knobs that recolor the prebuilt components. */
+.vfp .rcd-look { gap: 14px; }
+.vfp .rcd-look-player { display: flex; align-items: center; gap: 12px; padding: 13px; border: 1px solid var(--vlp-border-default); border-radius: 14px; background: var(--vlp-bg-page); }
+.vfp .rcd-look-play { width: 34px; height: 34px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--vlp-color-accent); box-shadow: 0 4px 12px rgba(255, 79, 0, 0.28); }
+.vfp .rcd-look-play svg { width: 13px; height: 13px; margin-left: 2px; color: #fff; }
+.vfp .rcd-look-main { flex: 1; min-width: 0; display: grid; gap: 8px; }
+.vfp .rcd-look-progress { display: block; height: 4px; border-radius: 999px; background: var(--vlp-border-default); overflow: hidden; }
+.vfp .rcd-look-progress > span { display: block; height: 100%; border-radius: 999px; background: var(--vlp-color-accent); }
+.vfp .rcd-look-dur { flex: none; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .rcd-look-cc { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .rcd-look-cc svg { width: 15px; height: 15px; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-look-knobs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vfp .rcd-look-sw { width: 18px; height: 18px; flex: none; border-radius: 6px; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.vfp .rcd-look-sw--1 { background: var(--vlp-color-accent); }
+.vfp .rcd-look-sw--2 { background: #2a4fd0; }
+.vfp .rcd-look-sw--3 { background: #1d9469; }
+.vfp .rcd-look-knob { display: inline-flex; align-items: center; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink-soft); }
+.vfp .rcd-look-knob--dark { background: var(--vlp-color-ink); border-color: var(--vlp-color-ink); color: #fff; }
+
+/* MAKE IT YOURS — BEHAVIOR: recorder config as labeled key/value rows. */
+.vfp .rcd-cfg { gap: 9px; }
+.vfp .rcd-cfg-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 13px; background: #fff; }
+.vfp .rcd-cfg-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 9px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .rcd-cfg-ic svg { width: 16px; height: 16px; }
+.vfp .rcd-cfg-ic--cc { background: #d8efe9; color: #0f6b5c; }
+.vfp .rcd-cfg-ic--store { background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .rcd-cfg-ic--evt { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .rcd-cfg-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .rcd-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.01em; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .rcd-cfg-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .rcd-cfg-seg { display: inline-flex; flex: none; padding: 2px; border-radius: 999px; background: var(--vlp-bg-wash); font-size: 10.5px; font-weight: 600; letter-spacing: -0.21px; color: var(--vlp-color-text-muted); }
+.vfp .rcd-cfg-seg > span { padding: 2px 9px; border-radius: 999px; }
+.vfp .rcd-cfg-seg-on { background: #fff; color: var(--vlp-color-ink); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }

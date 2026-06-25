@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { AuditLog, Precedent, ProvRow, ProvArrow } from "../demos";
+import { Precedent } from "../demos";
 import {
   Av,
   Composer,
@@ -768,18 +768,74 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
   ),
 
   "memory/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>panel position: sidebar</ProvRow>
-      <ProvRow>panel position: bottom</ProvRow>
-      <ProvRow>panel position: modal</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head mem-look-head">
+          <span className="mem-look-mark"><IconHistory /></span>
+          <span className="mem-look-brand">Acme · Precedent</span>
+          <span className="cmh-cc-pill">your theme</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="mem-list">
+            <div className="mem-look-row">
+              <div className="mem-look-top">
+                <span className="mem-look-dec">Indemnity cap · clause 12</span>
+                <span className="chip chip-approved">approved</span>
+              </div>
+              <div className="mem-cites">
+                <span className="mem-cite"><IconBook />47 contracts</span>
+                <span className="mem-cite"><IconBook />Maya · Legal</span>
+              </div>
+            </div>
+            <div className="mem-look-row">
+              <div className="mem-look-top">
+                <span className="mem-look-dec">Pricing claim · slide 4</span>
+                <span className="chip chip-rejected">rejected</span>
+              </div>
+              <div className="mem-cites">
+                <span className="mem-cite"><IconBook />precedent #228</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "memory/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>search · ask · suggest</ProvRow>
-      <ProvRow>knowledge lifecycle</ProvRow>
-      <ProvRow>alert config · retention</ProvRow>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <span className="cmh-cc-mark"><IconAgentMark /></span>
+          Grounding config
+          <span className="cmh-cc-pill">your rules</span>
+        </div>
+        <div className="cmh-cc-body mem-cfg">
+          <div className="mem-cfg-row">
+            <span className="mem-cfg-key">grounding</span>
+            <span className="mem-cfg-val"><span className="chip chip-approved">required</span></span>
+          </div>
+          <div className="mem-cfg-row">
+            <span className="mem-cfg-key">sources</span>
+            <span className="mem-cfg-val mem-cfg-srcs">
+              <span className="mem-src-ic mem-src-ic--pdf"><IconFile /></span>
+              <span className="mem-src-ic mem-src-ic--csv"><IconSheet /></span>
+              <span className="mem-src-ic mem-src-ic--list"><IconChecklist /></span>
+            </span>
+          </div>
+          <div className="mem-cfg-row">
+            <span className="mem-cfg-key">min confidence</span>
+            <span className="mem-cfg-val">
+              <span className="mem-cfg-meter"><span className="mem-meter-fill" style={{ width: "85%" }} /></span>
+              <span className="mem-cfg-num">0.85</span>
+            </span>
+          </div>
+          <div className="mem-cfg-row">
+            <span className="mem-cfg-key">scope</span>
+            <span className="mem-cfg-val"><span className="chip chip-pending">per-org</span></span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
@@ -817,25 +873,56 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
 
   "memory/related/review-agents": (
     <div className="pv">
-      <AuditLog
-        rows={[{ ts: "AI", ev: <><strong>Agent</strong> grounded on org standards</>, chip: { label: "accurate", kind: "agent" } }]}
-      />
+      <div className="mem-rel">
+        <div className="mem-rel-find">
+          <Av initials="RA" agent />
+          <div className="mem-rel-find-main">
+            <div className="mem-rel-find-head">
+              <span className="mem-rel-find-name">Review Agent</span>
+              <span className="chip chip-agent">grounded</span>
+            </div>
+            <p className="mem-rel-find-body">Reads org standards before flagging, so findings land accurate.</p>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "memory/related/audit-trail": (
     <div className="pv">
-      <ProvRow>
-        immutable records <ProvArrow /> indexed and learned from
-      </ProvRow>
+      <div className="mem-rel">
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">records</span>
+          <span className="mem-rel-sig"><IconLock />immutable</span>
+        </div>
+        <div className="apf-gov-row">
+          <span className="apf-gov-key">memory</span>
+          <span className="apf-gov-val">indexed · learned from</span>
+        </div>
+      </div>
     </div>
   ),
 
   "memory/related/approval-flows": (
     <div className="pv">
-      <ProvRow>
-        reviewer + content data <ProvArrow /> smarter routing
-      </ProvRow>
+      <div className="mem-rel mem-rel-route">
+        <div className="mem-rel-step">
+          <Av initials="MY" tone="a2" img={MEM_FACE.maya} />
+          <span className="mem-rel-step-main">
+            <span className="mem-rel-step-name">Maya · Legal</span>
+            <span className="mem-rel-step-sub">clears contracts · 82%</span>
+          </span>
+          <span className="chip chip-approved">routed</span>
+        </div>
+        <div className="mem-rel-step">
+          <Av initials="RO" tone="a1" img={MEM_FACE.roman} />
+          <span className="mem-rel-step-main">
+            <span className="mem-rel-step-name">Roman · Finance</span>
+            <span className="mem-rel-step-sub">no match · skipped</span>
+          </span>
+          <span className="chip chip-pending">held</span>
+        </div>
+      </div>
     </div>
   ),
 };

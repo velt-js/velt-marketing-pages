@@ -1,7 +1,7 @@
 import { Fragment, type ReactNode } from "react";
 
 import { Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
-import { Frame, IconCheck, IconX } from "./hero-surface";
+import { Frame, IconArrowRight, IconCheck, IconX } from "./hero-surface";
 
 import "./self-hosting-showcase.css";
 
@@ -252,6 +252,29 @@ function IconArrowDown() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M12 5v14M6 13l6 6 6-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Sliders glyph for the configurable-surface header. */
+function IconSliders() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4" />
+      <circle cx="16" cy="6" r="2" />
+      <circle cx="8" cy="12" r="2" />
+      <circle cx="14" cy="18" r="2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Globe glyph for the region / residency selector. */
+function IconGlobe() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18" />
+      <path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z" />
     </svg>
   );
 }
@@ -712,20 +735,69 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
   ),
 
   "self-hosting/make-it-yours/look": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>resolveTimeout · retryCount · retryDelay</ProvRow>
-      <ProvRow>revertOnFailure rollback</ProvRow>
-      <ProvRow>resolveUsersConfig: org · folder · document</ProvRow>
+    <div className="pv">
+      <div className="shs-cfg">
+        <div className="shs-cfg-head">
+          <span className="shs-cfg-ic"><IconSliders /></span>
+          <span className="shs-cfg-title">velt.config</span>
+          <span className="chip chip-approved">self-hosted</span>
+        </div>
+        <div className="shs-cfg-rows">
+          <div className="shs-cfg-row">
+            <span className="shs-cfg-label"><IconDatabase />Data provider</span>
+            <span className="shs-cfg-toggle shs-cfg-toggle--on" aria-hidden="true"><i /></span>
+          </div>
+          <div className="shs-cfg-row">
+            <span className="shs-cfg-label"><IconGlobe />Region</span>
+            <span className="shs-cfg-seg" aria-hidden="true">
+              <span className="shs-cfg-opt">US</span>
+              <span className="shs-cfg-opt shs-cfg-opt--on">EU</span>
+              <span className="shs-cfg-opt">APAC</span>
+            </span>
+          </div>
+          <div className="shs-cfg-row">
+            <span className="shs-cfg-label"><IconBraces />Interface</span>
+            <span className="shs-cfg-seg" aria-hidden="true">
+              <span className="shs-cfg-opt shs-cfg-opt--on">SDK</span>
+              <span className="shs-cfg-opt">REST</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "self-hosting/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>fieldsToRemove · additionalFields</ProvRow>
-      <ProvRow>callback or endpoint per operation</ProvRow>
-      <ProvRow>
-        dataProvider debug stream <ProvArrow /> your observability
-      </ProvRow>
+    <div className="pv">
+      <div className="shs-route">
+        <div className="shs-map">
+          <div className="shs-map-row">
+            <div className="shs-map-main">
+              <span className="shs-map-name shs-map-name--code">get · save · delete</span>
+              <span className="shs-map-sub">your data provider contract</span>
+            </div>
+            <span className="shs-dest shs-dest--yours"><IconDatabase />your DB</span>
+          </div>
+          <div className="shs-map-row">
+            <div className="shs-map-main">
+              <span className="shs-map-name">Recordings · attachments</span>
+              <span className="shs-map-sub">binary routed to object storage</span>
+            </div>
+            <span className="shs-dest shs-dest--yours"><IconDatabase />your bucket</span>
+          </div>
+          <div className="shs-map-row">
+            <div className="shs-map-main">
+              <span className="shs-map-name">Identifiers · timestamps</span>
+              <span className="shs-map-sub">structure only — no content</span>
+            </div>
+            <span className="shs-dest shs-dest--velt">Velt cloud</span>
+          </div>
+        </div>
+        <div className="apf-note">
+          <span className="chip chip-approved">in-region</span>
+          <span>residency stays in your region — call via REST or SDK</span>
+        </div>
+      </div>
     </div>
   ),
 
@@ -769,25 +841,54 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
 
   "self-hosting/related/comments": (
     <div className="pv">
-      <ProvRow>
-        comment content <ProvArrow /> stays on your database
-      </ProvRow>
+      <div className="shs-rel">
+        <div className="shs-rel-cmt">
+          <span className="shs-rel-ic"><IconMessage /></span>
+          <div className="shs-rel-cmt-main">
+            <span className="shs-rel-name">Comment thread</span>
+            <span className="shs-rel-sub">content + replies</span>
+          </div>
+          <span className="shs-dest shs-dest--yours"><IconDatabase />your DB</span>
+        </div>
+        <p className="shs-rel-cap">comment content <IconArrowRight /> stays on your database</p>
+      </div>
     </div>
   ),
 
   "self-hosting/related/audit-trail": (
     <div className="pv">
-      <ProvRow>
-        log content <ProvArrow /> your infrastructure
-      </ProvRow>
+      <div className="shs-rel">
+        <div className="shs-rel-rows">
+          <div className="shs-rel-kv">
+            <span className="shs-rel-key"><IconHistory />log content</span>
+            <span className="shs-dest shs-dest--yours">your infra</span>
+          </div>
+          <div className="shs-rel-kv">
+            <span className="shs-rel-key"><IconLock />append-only</span>
+            <span className="chip chip-agent">immutable</span>
+          </div>
+        </div>
+        <p className="shs-rel-cap">log content <IconArrowRight /> your infrastructure</p>
+      </div>
     </div>
   ),
 
   "self-hosting/related/notifications": (
     <div className="pv">
-      <ProvRow>
-        self-hosted content <ProvArrow /> webhooks + your email provider
-      </ProvRow>
+      <div className="shs-rel">
+        <div className="shs-rel-cmt">
+          <span className="shs-rel-ic"><IconBell /></span>
+          <div className="shs-rel-cmt-main">
+            <span className="shs-rel-name">Self-hosted content</span>
+            <span className="shs-rel-sub">resolved from your store</span>
+          </div>
+        </div>
+        <div className="shs-rel-chans">
+          <span className="shs-rel-chan"><IconServer />webhooks</span>
+          <span className="shs-rel-chan"><IconMessage />your email</span>
+        </div>
+        <p className="shs-rel-cap">self-hosted content <IconArrowRight /> webhooks + your email provider</p>
+      </div>
     </div>
   ),
 };

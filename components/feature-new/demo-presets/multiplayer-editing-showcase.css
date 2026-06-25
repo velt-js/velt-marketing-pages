@@ -104,3 +104,54 @@
 .vfp .mpe-req-body { margin: 0; padding: 11px 13px; font-family: var(--vlp-font-mono); font-size: 11.5px; line-height: 1.6; color: var(--vlp-color-ink-soft); white-space: pre; overflow-x: auto; }
 .vfp .mpe-req-k { color: var(--vlp-color-text-muted); }
 .vfp .mpe-req-s { color: var(--vlp-color-green-approval); }
+
+/* Related-feature teasers — compact tiles echoing the linked primitive (a
+   suggestion diff, a presence stack, a comment row) over a connector caption
+   naming how multiplayer editing hands off to it. */
+.vfp .mpe-rel { display: grid; gap: 12px; padding: 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .mpe-rel .cmh-cmt > .av-c { width: 28px; height: 28px; }
+.vfp .mpe-rel .cmh-cmt-name { font-size: 14px; letter-spacing: -0.28px; }
+.vfp .mpe-rel .cmh-cmt-time { font-size: 12px; }
+.vfp .mpe-rel .cmh-cmt-body { font-size: 12.5px; }
+.vfp .mpe-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .mpe-rel-cap strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .mpe-rel-arrow { display: inline-grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-rel-arrow svg { width: 12px; height: 12px; }
+.vfp .mpe-rel-diff { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vfp .mpe-rel-diff-arrow { display: inline-grid; place-items: center; width: 16px; height: 16px; flex: none; color: rgba(0, 0, 0, 0.45); }
+.vfp .mpe-rel-diff-arrow svg { width: 16px; height: 16px; }
+.vfp .mpe-rel-acts { display: flex; align-items: center; gap: 8px; }
+.vfp .mpe-rel-stack { display: flex; align-items: center; gap: 12px; }
+.vfp .mpe-rel-stack-avs { display: inline-flex; }
+.vfp .mpe-rel-stack-avs .av-c { width: 30px; height: 30px; margin-left: -8px; border: 2px solid #fff; flex: none; }
+.vfp .mpe-rel-stack-avs .av-c:first-child { margin-left: 0; }
+
+/* MAKE IT YOURS — LOOK: a themed editor binding (mini toolbar + adapter tag)
+   over a live doc line with a recolored caret/selection, above the caret knobs. */
+.vfp .mpe-look { gap: 14px; }
+.vfp .mpe-look-editor { border: 1px solid var(--vlp-border-default); border-radius: 14px; background: var(--vlp-bg-page); overflow: hidden; }
+.vfp .mpe-look-tb { display: flex; align-items: center; gap: 6px; padding: 8px 11px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .mpe-look-tbtn { display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 6px; background: #fff; border: 1px solid var(--vlp-border-subtle); font-size: 11px; color: var(--vlp-color-ink-soft); }
+.vfp .mpe-look-tbadge { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; }
+.vfp .mpe-look-tbadge svg { width: 13px; height: 13px; flex: none; }
+.vfp .mpe-look-doc { margin: 0; padding: 22px 14px 16px; }
+.vfp .mpe-look-knobs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vfp .mpe-look-sw { width: 18px; height: 18px; flex: none; border-radius: 6px; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.vfp .mpe-look-sw--1 { background: oklch(0.60 0.13 35); }
+.vfp .mpe-look-sw--2 { background: #5b7fb8; }
+.vfp .mpe-look-knob { display: inline-flex; align-items: center; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink-soft); }
+.vfp .mpe-look-knob--dark { background: var(--vlp-color-ink); border-color: var(--vlp-color-ink); color: #fff; }
+
+/* MAKE IT YOURS — BEHAVIOR: co-editing config as labeled key/value rows. */
+.vfp .mpe-cfg { gap: 9px; }
+.vfp .mpe-cfg-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 13px; background: #fff; }
+.vfp .mpe-cfg-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 9px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-cfg-ic svg { width: 16px; height: 16px; }
+.vfp .mpe-cfg-ic--rest { background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .mpe-cfg-ic--key { background: #efe7fb; color: #6a1fb3; }
+.vfp .mpe-cfg-ic--off { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .mpe-cfg-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .mpe-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.01em; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-cfg-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-cfg-types { display: flex; flex-wrap: wrap; gap: 5px; }
+.vfp .mpe-cfg-type { padding: 2px 8px; border-radius: 6px; background: var(--vlp-bg-section-alt); border: 1px solid var(--vlp-border-subtle); font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.01em; color: var(--vlp-color-ink-soft); }

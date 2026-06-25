@@ -1,17 +1,22 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, DarkPanel, NotifItem, ProvRow, ProvArrow } from "../demos";
+import { AvatarStack, Chip, DarkPanel } from "../demos";
 import {
   AgentFindingCard,
   Av,
   Composer,
+  DEL_STYLE,
   FACES,
   Frame,
   IconAgentMark,
+  IconArrowRight,
   IconBubble,
   IconReply,
   IconSearch,
+  INS_STYLE,
 } from "./hero-surface";
+
+import "./comments-related.css";
 
 // Comments-page personas mapped to shared headshots.
 const FACE = {
@@ -623,28 +628,54 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
 
   "comments/related/suggestions": (
     <div className="pv">
-      <ProvRow>
-        comment <ProvArrow /> a suggestion with a proposed change
-      </ProvRow>
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Maya</span>
+            <span className="cmh-cmt-time">suggested a change</span>
+          </div>
+          <div className="afc-diff">
+            <del style={DEL_STYLE}>30-day terms</del>
+            <span className="afc-arrow"><IconArrowRight /></span>
+            <ins style={INS_STYLE}>45-day terms</ins>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "comments/related/review-agents": (
     <div className="pv">
-      <div style={{ padding: 12 }}>
-        <Comment initials="RA" author="Review Agent" agent body="Finding lands as a comment, anchored to the work." />
+      <div className="cmh-cmt cmh-cmt--plain">
+        <Av initials="RA" agent />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Review Agent</span>
+            <span className="cmh-cmt-time">now</span>
+          </div>
+          <p className="cmh-cmt-body">Finding lands as a comment, anchored to the work.</p>
+          <span className="cmh-cmt-replies"><IconReply />2 Replies</span>
+        </div>
       </div>
     </div>
   ),
 
   "comments/related/notifications": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "MA", kind: "human" }}
-        title={<><strong>Maya</strong> replied to your thread</>}
-        meta="the pipeline that keeps threads alive"
-        chip={{ label: "inbox", kind: "approved" }}
-      />
+      <div className="cmh-inrow">
+        <span className="cmh-unread" />
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <div className="cmh-inmain">
+          <p className="t"><b>Maya</b> replied to your thread</p>
+          <p className="m">the pipeline that keeps threads alive</p>
+          <div className="crl-chans">
+            <span className="crl-chan">Inbox</span>
+            <span className="crl-chan">Email</span>
+            <span className="crl-chan">Slack</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 };

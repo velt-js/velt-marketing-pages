@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import "./audit-trail-showcase.css";
-import { AuditLog, Precedent, DarkPanel, ProvRow, ProvArrow } from "./demos";
+import { AuditLog, Precedent, DarkPanel } from "./demos";
 import { Av, AgentFindingCard, FACES } from "./demo-presets/hero-surface";
 import { ShieldIcon, VeltMark } from "./icons";
 import type { FeatureNewDemoKey } from "./demo-keys";
@@ -728,37 +728,68 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
   ),
 
   "audit-trail/make-it-yours/look": (
-    <div className="theme-row">
-      <div>
-        <p className="theme-label">Prebuilt</p>
-        <div className="thread">
-          <div className="thread-head">
-            <span className="av-c a1">SR</span>
-            <span className="who">Sarah</span>
-            <span className="when">09:21</span>
-          </div>
-          <p className="fb">approved</p>
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head aud-look-head">
+          <span className="aud-look-mark"><ShieldIcon /></span>
+          <span className="aud-look-brand">Acme · Audit</span>
+          <span className="cmh-cc-pill">your theme</span>
         </div>
-      </div>
-      <div>
-        <p className="theme-label">Your timeline</p>
-        <div className="thread themed">
-          <div className="thread-head">
-            <span className="av-c av-agent">SR</span>
-            <span className="who">Sarah approved</span>
-            <span className="when">09:21</span>
+        <div className="cmh-cc-body aud-evt">
+          <div className="aud-evt-row">
+            <span className="aud-evt-ic aud-look-ic"><IconBadgeCheck /></span>
+            <span className="aud-evt-name">approval.changed</span>
+            <span className="aud-evt-meta">Sarah · 09:21</span>
+            <span className="aud-rec-badge aud-look-sign"><IconLock />signed</span>
           </div>
-          <p className="fb">recorded</p>
+          <div className="aud-evt-row">
+            <span className="aud-evt-ic aud-look-ic"><IconPencil /></span>
+            <span className="aud-evt-name">edit.merged</span>
+            <span className="aud-evt-meta">Maya · 09:14</span>
+            <span className="aud-rec-badge aud-look-sign"><IconLock />signed</span>
+          </div>
+          <div className="aud-evt-row">
+            <span className="aud-evt-ic aud-look-ic"><IconChat /></span>
+            <span className="aud-evt-name">comment.added</span>
+            <span className="aud-evt-meta">Dev · 09:02</span>
+            <span className="aud-rec-badge aud-look-sign"><IconLock />signed</span>
+          </div>
         </div>
       </div>
     </div>
   ),
 
   "audit-trail/make-it-yours/behavior": (
-    <div style={{ padding: 18 }}>
-      <ProvRow>metadata only</ProvRow>
-      <ProvRow>summary</ProvRow>
-      <ProvRow>full content</ProvRow>
+    <div className="pv">
+      <div className="cmh-cc cmh-cc--wide">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconBolt />
+          Audit config
+          <span className="cmh-cc-pill">your rules</span>
+        </div>
+        <div className="cmh-cc-body aud-kv">
+          <div className="aud-kv-row">
+            <span className="aud-kv-key">retention</span>
+            <span className="aud-kv-val">7 years<span className="aud-rec-badge"><IconLock />immutable</span></span>
+          </div>
+          <div className="aud-kv-row">
+            <span className="aud-kv-key">exports</span>
+            <span className="aud-kv-val">
+              <span className="aud-cfg-fmt">JSON</span>
+              <span className="aud-cfg-fmt">CSV</span>
+              <span className="aud-cfg-fmt">PDF</span>
+            </span>
+          </div>
+          <div className="aud-kv-row">
+            <span className="aud-kv-key">customEvents</span>
+            <span className="aud-kv-val aud-kv-code">deploy.shipped</span>
+          </div>
+          <div className="aud-kv-row">
+            <span className="aud-kv-key">scope</span>
+            <span className="aud-kv-val"><span className="chip chip-pending">per-document</span></span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
@@ -812,35 +843,58 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
 
   "audit-trail/related/approval-flows": (
     <div className="pv">
-      <AuditLog
-        rows={[
-          {
-            ts: "09:21",
-            ev: <><strong>step 2</strong> approved</>,
-            chip: { label: "recorded", kind: "approved" },
-          },
-        ]}
-      />
+      <div className="aud-rel aud-rel-chain">
+        <div className="aud-rel-step">
+          <Av initials="MA" tone="a2" img={AUD_FACE.maya} />
+          <span className="aud-rel-step-name">Step 1 · Maya</span>
+          <span className="chip chip-approved">approved</span>
+        </div>
+        <div className="aud-rel-step">
+          <Av initials="SR" tone="a3" img={AUD_FACE.sarah} />
+          <span className="aud-rel-step-name">Step 2 · Sarah</span>
+          <span className="chip chip-approved">approved</span>
+        </div>
+        <div className="apf-note apf-note--ok">
+          <span className="chip chip-approved">recorded</span>
+          <span>Every transition on the record</span>
+        </div>
+      </div>
     </div>
   ),
 
   "audit-trail/related/review-agents": (
     <div className="pv">
-      <AuditLog
-        rows={[
-          {
-            ts: "AI",
-            ev: <><strong>Brand Agent</strong> · Recorded with confidence 0.88.</>,
-            chip: { label: "agent", kind: "agent" },
-          },
-        ]}
-      />
+      <div className="aud-rel">
+        <div className="aud-rel-find">
+          <Av initials="BA" agent />
+          <div className="aud-rel-find-main">
+            <div className="aud-rel-find-head">
+              <span className="aud-rel-find-name">Brand Agent</span>
+              <span className="chip chip-agent">0.88</span>
+            </div>
+            <p className="aud-rel-find-body">Findings recorded with confidence, on the same trail as human decisions.</p>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "audit-trail/related/self-hosting": (
     <div className="pv">
-      <ProvRow>log content <ProvArrow /> your database</ProvRow>
+      <div className="aud-rel">
+        <div className="aud-rel-flow">
+          <span className="aud-rel-node">
+            <IconFile />
+            Log content
+          </span>
+          <span className="aud-rel-conn" aria-hidden="true" />
+          <span className="aud-rel-node aud-rel-node--db">
+            <IconLock />
+            Your database
+          </span>
+        </div>
+        <p className="aud-rel-cap">log content → your database, in your region</p>
+      </div>
     </div>
   ),
 };
