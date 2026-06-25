@@ -1,15 +1,20 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, Precedent, ProvRow, ProvArrow, AvatarStack, NotifItem, DarkPanel, Chip } from "../demos";
+import { Precedent, ProvRow, ProvArrow, AvatarStack, NotifItem, Chip } from "../demos";
 import {
+  AgentFindingCard,
   Av,
   DEL_STYLE,
   FACES,
   Frame,
+  IconAgentMark,
   IconCheck,
   INS_STYLE,
+  IconReply,
   IconX,
 } from "./hero-surface";
+
+import "./review-agents-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/review-agents page. Keys match
 // components/feature-new/demo-presets/review-agents.keys.ts; resolved by
@@ -192,6 +197,139 @@ function FindingCard({
           <span className="chip chip-rejected">Reject</span>
         </div>
       )}
+    </div>
+  );
+}
+
+/** @returns {JSX.Element} Stacked-layers glyph for the built-in agents header. */
+function IconStack() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 3 7.5 12 12l9-4.5L12 3z" />
+      <path d="M3 12l9 4.5L21 12" />
+      <path d="M3 16.5 12 21l9-4.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Sliders glyph for the enforcement-modes header. */
+function IconSliders() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4" />
+      <circle cx="16" cy="6" r="2" />
+      <circle cx="8" cy="12" r="2" />
+      <circle cx="14" cy="18" r="2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Open-book glyph for the knowledge / citation marks. */
+function IconBook() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 6c-2-1.4-4.5-1.5-7-1v12c2.5-.5 5-.4 7 1 2-1.4 4.5-1.5 7-1V5c-2.5-.5-5-.4-7 1z" />
+      <path d="M12 6v12" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Refresh-loop glyph for reruns + the verify note. */
+function IconLoop() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 11a8 8 0 0 1 14-5l2 2M20 13a8 8 0 0 1-14 5l-2-2" />
+      <path d="M18 3v5h-5M6 21v-5h5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Sitemap glyph for the approval-pipeline header. */
+function IconSitemap() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="3" width="6" height="5" rx="1.5" />
+      <rect x="3" y="16" width="6" height="5" rx="1.5" />
+      <rect x="15" y="16" width="6" height="5" rx="1.5" />
+      <path d="M12 8v4M6 16v-2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} List-with-checks glyph for the checklist-import header. */
+function IconChecklist() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 6.5 5.5 8 8 5M4 12.5 5.5 14 8 11M4 18.5 5.5 20 8 17" />
+      <path d="M12 6h8M12 12h8M12 18h8" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Document glyph for source files (PDF / CSV chips). */
+function IconFile() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+      <path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+      <path d="M9 13h6M9 17h4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Bell glyph for the newly-surfaced rerun finding. */
+function IconBell() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6z" />
+      <path d="M10 19a2 2 0 0 0 4 0" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lock glyph for the blocking enforcement mode. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Alert-triangle glyph for the advisory enforcement mode. */
+function IconAlert() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 4 2.5 20h19L12 4z" />
+      <path d="M12 10v4M12 17.5v.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Down-arrow glyph for vertical flow connectors. */
+function IconArrowDown() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 5v14M6 13l6 6 6-6" />
+    </svg>
+  );
+}
+
+/**
+ * One built-in agent row with a name and an on/off toggle, used in the
+ * built-ins showcase grid.
+ * @param {{ name: string; off?: boolean; full?: boolean }} props Agent name, off state, and full-width flag.
+ * @returns {JSX.Element} Toggle row.
+ */
+function ToggleRow({ name, off, full }: { name: string; off?: boolean; full?: boolean }) {
+  return (
+    <div className={`rav-toggle${off ? " rav-toggle--off" : ""}${full ? " rav-toggle--full" : ""}`}>
+      <span className="rav-toggle-name">
+        <span className="rav-toggle-dot" />
+        {name}
+      </span>
+      <span className={`rav-switch${off ? "" : " rav-switch--on"}`} />
     </div>
   );
 }
@@ -389,94 +527,290 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
 
   "review-agents/showcase/built-ins": (
     <div className="pv">
-      <div style={{ padding: 14, display: "grid", gap: 10 }}>
-        <div className="int-chips">
-          <span className="int-chip"><i />Spell Check</span>
-          <span className="int-chip"><i />Grammar Check</span>
-          <span className="int-chip"><i />Broken Links</span>
-          <span className="int-chip"><i />PII Detection</span>
-          <span className="int-chip"><i />Profanity Filter</span>
-          <span className="int-chip"><i />Sensitive Data</span>
-          <span className="int-chip"><i />Consistency Check</span>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconStack />
+          Built-in agents
+          <span className="cmh-cc-pill">7 included</span>
         </div>
-        <p className="code-microcopy">seven built-ins · each toggleable on its own</p>
+        <div className="cmh-cc-body">
+          <div className="rav-builtins">
+            <ToggleRow name="Spell Check" off />
+            <ToggleRow name="Grammar Check" />
+            <ToggleRow name="Broken Links" />
+            <ToggleRow name="PII Detection" />
+            <ToggleRow name="Profanity Filter" />
+            <ToggleRow name="Sensitive Data" />
+            <ToggleRow name="Consistency Check" full />
+          </div>
+        </div>
       </div>
     </div>
   ),
 
   "review-agents/showcase/custom": (
     <div className="pv">
-      <DarkPanel>{"agent: \"flag any competitor mention\"\n→ setup assistant sharpens the instruction\n→ proves it on test samples"}</DarkPanel>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <span className="cmh-cc-mark"><IconAgentMark /></span>
+          Setup assistant
+          <span className="cmh-cc-pill">no code</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-custom">
+            <div>
+              <span className="rav-step-label">You type</span>
+              <p className="rav-prompt"><em>&ldquo;flag any competitor mention&rdquo;</em></p>
+            </div>
+            <div className="rav-refine">
+              <span className="cmh-cc-mark"><IconAgentMark /></span>
+              <span className="rav-refine-text">Sharpened to match named competitors and product aliases, case-insensitive.</span>
+            </div>
+            <div className="rav-samples">
+              <span className="rav-step-label">Proven on samples</span>
+              <span className="rav-sample"><span className="rav-tick"><IconCheck /></span>&ldquo;cheaper than Acme&rdquo; — caught</span>
+              <span className="rav-sample"><span className="rav-tick"><IconCheck /></span>&ldquo;our own roadmap&rdquo; — skipped</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/showcase/findings": (
     <div className="pv">
-      <FindingCard
-        agent="Brand Agent"
-        initials="BA"
-        confidence="91%"
-        body={<>Anchored to the clause · threaded · AI-badged, with Approve and Reject.</>}
-      />
+      <div className="cmh-afc-fill">
+        <AgentFindingCard
+          name="Brand Agent"
+          time="now"
+          body="Pricing claim on line 4 has no cited source — anchored here, threaded, AI-badged."
+          replies={2}
+        />
+      </div>
     </div>
   ),
 
   "review-agents/showcase/modes": (
     <div className="pv">
-      <ProvRow>PII Detection <ProvArrow /> blocking · gates until resolved</ProvRow>
-      <ProvRow>Brand voice <ProvArrow /> advisory · warns, records override</ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconSliders />
+          Enforcement
+          <span className="cmh-cc-pill">per agent</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-modes">
+            <div className="rav-mode">
+              <span className="rav-mode-ic rav-mode-ic--block"><IconLock /></span>
+              <span className="rav-mode-main">
+                <span className="rav-mode-name">PII Detection</span>
+                <span className="rav-mode-sub">Gates the content until every finding is resolved</span>
+              </span>
+              <span className="chip chip-rejected">blocking</span>
+            </div>
+            <div className="rav-mode">
+              <span className="rav-mode-ic rav-mode-ic--advisory"><IconAlert /></span>
+              <span className="rav-mode-main">
+                <span className="rav-mode-name">Brand voice</span>
+                <span className="rav-mode-sub">Warns and records the override, never blocks</span>
+              </span>
+              <span className="chip chip-pending">advisory</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/showcase/knowledge": (
     <div className="pv">
-      <ProvRow>brand-guidelines.pdf in Memory <ProvArrow /> finding cites §3.1</ProvRow>
-      <ProvRow>the reviewer sees why, not just what</ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconBook />
+          Memory
+          <span className="cmh-cc-pill">cited</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-know">
+            <div className="rav-source">
+              <span className="rav-source-ic"><IconFile /></span>
+              <span className="rav-source-main">
+                <span className="rav-source-name">brand-guidelines.pdf</span>
+                <span className="rav-source-meta">in Memory · §3.1</span>
+              </span>
+              <span className="chip chip-agent">knowledge</span>
+            </div>
+            <div className="rav-down"><IconArrowDown /></div>
+            <div className="rav-finding">
+              <div className="cmh-cmt cmh-cmt--plain">
+                <Av initials="BA" agent />
+                <div className="cmh-cmt-main">
+                  <div className="cmh-cmt-head">
+                    <span className="cmh-cmt-name">Brand Agent</span>
+                    <span className="cmh-cmt-time">now</span>
+                  </div>
+                  <p className="cmh-cmt-body">Headline uses title case. Brand guidelines require sentence case.</p>
+                  <span className="rav-cite"><IconBook />cites §3.1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/showcase/fixes": (
     <div className="pv">
-      <ProvRow>agent proposes the redline <ProvArrow /> one tap accepts</ProvRow>
-      <ProvRow>content updates <ProvArrow /> agent reruns to verify</ProvRow>
+      <div className="cmh-afc-fill">
+        <AgentFindingCard
+          name="Brand Agent"
+          time="now"
+          body="Headline should be sentence case per §3.1. Proposed redline below."
+          delText="Title Case"
+          insText="sentence case"
+          replies={1}
+        />
+      </div>
+      <div className="rav-verify"><IconLoop />One tap accepts · content updates · agent reran to verify</div>
     </div>
   ),
 
   "review-agents/showcase/reruns": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "v2", ev: <>fixed findings <strong>resolved</strong></>, chip: { label: "merged", kind: "approved" } },
-          { ts: "v2", ev: <>open findings <strong>persist</strong> with threads</>, chip: { label: "kept", kind: "pending" } },
-          { ts: "v2", ev: <>genuinely new issue <strong>notifies</strong></>, chip: { label: "new", kind: "agent" } },
-        ]}
-      />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconLoop />
+          Resubmit
+          <span className="cmh-cc-pill">v2</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-states">
+            <div className="rav-state">
+              <span className="rav-state-ic rav-state-ic--fixed"><IconCheck /></span>
+              <span className="rav-state-main">Fixed findings <strong>resolve</strong></span>
+              <span className="chip chip-approved">resolved</span>
+            </div>
+            <div className="rav-state">
+              <span className="rav-state-ic rav-state-ic--open"><IconReply /></span>
+              <span className="rav-state-main">Open findings <strong>persist</strong> with threads</span>
+              <span className="chip chip-pending">kept</span>
+            </div>
+            <div className="rav-state">
+              <span className="rav-state-ic rav-state-ic--new"><IconBell /></span>
+              <span className="rav-state-main">New issues <strong>notify</strong></span>
+              <span className="chip chip-agent">new</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/showcase/workflows": (
     <div className="pv">
-      <ProvRow>agent node passes <ProvArrow /> advances the deck or budget</ProvRow>
-      <ProvRow>agent node fails <ProvArrow /> routes to a specialist</ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconSitemap />
+          Approval pipeline
+          <span className="cmh-cc-pill">agent step</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-pipe">
+            <span className="rav-pipe-node">
+              <Av initials="BA" agent />
+              <span className="rav-pipe-name">
+                <b>Brand Agent</b>
+                <span>first-pass review</span>
+              </span>
+            </span>
+            <div className="apf-route-fan" aria-hidden="true">
+              <span className="cmh-flow-stem" />
+              <span className="cmh-flow-bar" />
+              <span className="cmh-flow-arm cmh-flow-arm--left" />
+              <span className="cmh-flow-arm cmh-flow-arm--right" />
+            </div>
+            <div className="apf-route-row">
+              <span className="apf-route-branch">
+                <span className="apf-route-edge rav-edge--pass">pass</span>
+                <span className="apf-route-dest">
+                  <span className="rav-dest-ic"><IconCheck /></span>
+                  Advances the deck
+                </span>
+              </span>
+              <span className="apf-route-branch">
+                <span className="apf-route-edge rav-edge--fail">fail</span>
+                <span className="apf-route-dest apf-route-dest--hot">
+                  <Av initials="SR" img={FACE.sarah} />
+                  Routes to specialist
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/showcase/checklist": (
     <div className="pv">
-      <ProvRow>300-item QA checklist <ProvArrow /> focused agents</ProvRow>
-      <ProvRow>deduplicated <ProvArrow /> findings cite the item enforced</ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconChecklist />
+          Checklist import
+          <span className="cmh-cc-pill">300 items</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="rav-checklist">
+            <div className="rav-source">
+              <span className="rav-source-ic"><IconFile /></span>
+              <span className="rav-source-main">
+                <span className="rav-source-name">qa-300.csv</span>
+                <span className="rav-source-meta">normalized in Memory</span>
+              </span>
+              <span className="chip chip-agent">converting</span>
+            </div>
+            <div className="rav-down"><IconArrowDown /></div>
+            <div className="rav-agent-chips">
+              <span className="int-chip"><i />Spacing</span>
+              <span className="int-chip"><i />Alt text</span>
+              <span className="int-chip"><i />Link rules</span>
+              <span className="int-chip"><i />Tone</span>
+              <span className="int-chip"><i />Legal terms</span>
+              <span className="int-chip"><i />+ 8 more</span>
+            </div>
+            <div className="apf-note">
+              <span className="chip chip-approved">deduplicated</span>
+              <span>Findings cite the item enforced</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "review-agents/showcase/confidence": (
     <div className="pv">
-      <Precedent
-        style={{ width: "100%" }}
-        heading="Finding · confidence 91%"
-        body="Checked: text. Not checked: images."
-        meta="the instruction or knowledge section behind every finding"
-      />
+      <div className="rav-conf">
+        <div className="rav-conf-head">
+          <Av initials="BA" agent />
+          <span className="rav-conf-name">Brand Agent</span>
+          <span className="rav-conf-pill">91%</span>
+        </div>
+        <p className="rav-conf-body">Headline uses title case. Brand guidelines require sentence case.</p>
+        <div className="rav-conf-meter">
+          <div className="rav-conf-track"><span className="rav-conf-fill" style={{ width: "91%" }} /></div>
+          <div className="rav-conf-scale">
+            <span>confidence</span>
+            <span>91%</span>
+          </div>
+        </div>
+        <div className="rav-checks">
+          <span className="rav-check"><span className="rav-check-ic rav-check-ic--yes"><IconCheck /></span>Checked: body text · headings</span>
+          <span className="rav-check"><span className="rav-check-ic rav-check-ic--no"><IconX /></span>Not checked: images · embedded charts</span>
+        </div>
+        <span className="rav-source-meta">from instruction · brand-guidelines §3.1</span>
+      </div>
     </div>
   ),
 

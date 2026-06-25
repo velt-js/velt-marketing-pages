@@ -1,0 +1,78 @@
+/* ---------- Suggestions showcase artifacts (.sgn-*) ----------
+   Mock-UI cards for the /new-features/suggestions Capabilities grid, reusing the
+   comments + approval-flows design language: white labeled cards (apf-card /
+   cmh-cc) over the shared cmh-cc head/body chrome, the afc agent-finding card,
+   and red→green diff pills. Only genuinely new patterns live here; everything is
+   namespaced .sgn- and scoped under .vfp. */
+
+/* ---- Shared bits ---- */
+.vfp .sgn-arrow { display: inline-grid; place-items: center; width: 15px; height: 15px; flex: none; color: rgba(0, 0, 0, 0.4); }
+.vfp .sgn-arrow svg { display: block; width: 100%; height: 100%; }
+.vfp .sgn-diff { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vfp .sgn-field { flex: none; font-family: var(--vlp-font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--vlp-color-text-subtle); }
+/* Compact diff pills (the chunky DEL_STYLE/INS_STYLE inline pills are kept for
+   hero-scale rows; these read better inside dense panels and rows). */
+.vfp .sgn-del { background: #ffe2e2; color: #e62e2e; text-decoration: line-through; border-radius: 6px; padding: 2px 7px; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; }
+.vfp .sgn-ins { background: #f0ffdd; color: #0f7014; text-decoration: none; border-radius: 6px; padding: 2px 7px; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; }
+
+/* ---- 01 · targets (wide): tagged controls become suggestion targets ---- */
+.vfp .sgn-targets { display: flex; flex-direction: column; gap: 10px; }
+.vfp .sgn-target-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .sgn-target-kind { flex: none; display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 7px; background: var(--vlp-bg-wash); font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .sgn-target-ctrl { flex: 1; min-width: 0; font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: #000; }
+.vfp .sgn-target-attr { flex: none; font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-accent-ink); background: var(--vlp-color-accent-soft); border-radius: 7px; padding: 4px 9px; white-space: nowrap; }
+.vfp .sgn-target-row--live .sgn-diff { flex: 1; min-width: 0; }
+
+/* ---- 04 · intent (wide): snapshot-on-start, one diff on commit ---- */
+.vfp .sgn-intent { display: flex; flex-direction: column; gap: 14px; }
+.vfp .sgn-track { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vfp .sgn-track-node { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 999px; background: #fff; font-size: 13px; font-weight: 500; letter-spacing: -0.26px; color: var(--vlp-color-ink); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+.vfp .sgn-track-node b { font-family: var(--vlp-font-mono); font-weight: 700; color: #000; }
+.vfp .sgn-track-node--out { gap: 6px; }
+.vfp .sgn-track-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--vlp-color-accent); flex: none; }
+.vfp .sgn-noop { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border-radius: 10px; background: var(--vlp-bg-wash); font-size: 13px; letter-spacing: -0.26px; color: var(--vlp-color-text-muted); }
+.vfp .sgn-noop-key { font-weight: 600; color: var(--vlp-color-ink-soft); }
+.vfp .sgn-noop-val { font-family: var(--vlp-font-mono); font-size: 12px; }
+
+/* ---- 05 · apply (wide): accept event → your handler → your backend ---- */
+.vfp .sgn-apply { display: flex; flex-direction: column; gap: 14px; }
+.vfp .sgn-apply-flow { display: flex; align-items: stretch; gap: 8px; }
+.vfp .sgn-apply-node { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+.vfp .sgn-apply-node--event { border-color: var(--vlp-color-accent-wash); }
+.vfp .sgn-apply-flow .sgn-arrow { align-self: center; }
+.vfp .sgn-apply-cap { font-family: var(--vlp-font-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--vlp-color-text-subtle); }
+.vfp .sgn-apply-evt { font-family: var(--vlp-font-mono); font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-accent-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .sgn-apply-payload { display: inline-flex; align-items: center; gap: 6px; }
+.vfp .sgn-apply-code { font-family: var(--vlp-font-mono); font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .sgn-apply-db { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: #000; }
+.vfp .sgn-apply-db svg { width: 16px; height: 16px; flex: none; color: var(--vlp-color-text-muted); }
+
+/* ---- 06 · multi-control (narrow): several controls, one target object ---- */
+.vfp .sgn-multi { display: flex; flex-direction: column; gap: 12px; }
+.vfp .sgn-multi-bracket { position: relative; display: flex; flex-direction: column; gap: 10px; padding-left: 15px; }
+.vfp .sgn-multi-bracket::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; border-radius: 999px; background: var(--vlp-color-accent-wash); }
+.vfp .sgn-multi-ctrl { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; background: #fff; }
+.vfp .sgn-multi-ctrl .sgn-field { min-width: 38px; }
+.vfp .sgn-multi-foot { display: flex; align-items: center; gap: 8px; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+
+/* ---- 07 · stale (narrow): stale + drift safety checks at accept time ---- */
+.vfp .sgn-checks { display: flex; flex-direction: column; gap: 10px; }
+.vfp .sgn-check-row { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .sgn-check-ic { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 9px; }
+.vfp .sgn-check-ic svg { width: 16px; height: 16px; }
+.vfp .sgn-check-ic--stale { background: var(--vlp-color-reject-soft); color: #c0392b; }
+.vfp .sgn-check-ic--drift { background: var(--vlp-color-amber-soft); color: #b07d2b; }
+.vfp .sgn-check-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.vfp .sgn-check-title { font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: #000; }
+.vfp .sgn-check-sub { font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+
+/* ---- 08 · queries (wide): a custom review panel from useSuggestions() ---- */
+.vfp .sgn-panel { display: flex; flex-direction: column; gap: 12px; }
+.vfp .sgn-panel-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vfp .sgn-panel-title { font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: #000; }
+.vfp .sgn-panel-count { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; background: var(--vlp-color-amber-soft); color: #8a5a13; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; }
+.vfp .sgn-panel-list { display: flex; flex-direction: column; gap: 8px; }
+.vfp .sgn-panel-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .sgn-panel-row > .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .sgn-panel-target { flex: none; min-width: 44px; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: #000; }
+.vfp .sgn-panel-diff { flex: 1; min-width: 0; }

@@ -1,16 +1,20 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, ProvRow, ProvArrow, DarkPanel, Precedent } from "../demos";
+import { AvatarStack, Chip, ProvRow, ProvArrow, Precedent } from "../demos";
 import {
+  AgentFindingCard,
   Av,
   Composer,
   DEL_STYLE,
   FACES,
   Frame,
+  IconArrowRight,
   IconCheck,
   IconX,
   INS_STYLE,
 } from "./hero-surface";
+
+import "./suggestions-showcase.css";
 
 // Simulated-UI demo nodes for the /new-features/suggestions page. Keys match
 // components/feature-new/demo-presets/suggestions.keys.ts and are merged into
@@ -110,6 +114,111 @@ function SuggestionCard({
         <p style={{ margin: 0, fontSize: 11.5, opacity: 0.6 }}>reason: {rejectReason}</p>
       ) : null}
     </FieldSurface>
+  );
+}
+
+/** @returns {JSX.Element} Crosshair glyph for the suggestion-targets header. */
+function IconTarget() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Pencil glyph for the diff (suggested edit) header. */
+function IconEdit() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 20h4L18 10a2 2 0 0 0-3-3L5 17z" />
+      <path d="M13.5 6.5l3 3" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Camera glyph for the intent-capture header. */
+function IconCapture() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="7" width="18" height="13" rx="2.5" />
+      <path d="M8 7l1.5-2.5h5L16 7" />
+      <circle cx="12" cy="13.5" r="3.2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Bolt glyph for the apply-logic header. */
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Database glyph for the apply-logic backend node. */
+function IconDatabase() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <ellipse cx="12" cy="5" rx="8" ry="3" />
+      <path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
+      <path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Layers glyph for the multi-control header. */
+function IconLayers() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 3 8l9 5 9-5-9-5z" />
+      <path d="M3 13l9 5 9-5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Shield-alert glyph for the stale/drift header. */
+function IconShieldAlert() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
+      <path d="M12 8v4M12 16h.01" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Broken-link glyph for the stale (target removed) row. */
+function IconUnlink() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 15l-1.5 1.5a3.5 3.5 0 0 1-5-5L4 10" />
+      <path d="M15 9l1.5-1.5a3.5 3.5 0 0 0-5-5L10 4" />
+      <path d="M4 4l16 16" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Shuffle glyph for the drift (value moved) row. */
+function IconShuffle() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M16 4h4v4" />
+      <path d="M4 20 20 4" />
+      <path d="M16 20h4v-4" />
+      <path d="M4 4l5 5" />
+      <path d="M15 15l5 5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Funnel glyph for the suggestion-queries header. */
+function IconFilter() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3 5h18l-7 8v6l-4-2v-4z" />
+    </svg>
   );
 }
 
@@ -299,78 +408,273 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
 
   "suggestions/showcase/targets": (
     <div className="pv">
-      <ProvRow>
-        data-velt-suggestion-target <ProvArrow /> input · cell · field
-      </ProvRow>
-      <ProvRow>edits become proposed changes, not just the doc body</ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconTarget />
+          Suggestion targets
+          <span className="cmh-cc-pill">any element</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="sgn-targets">
+            <div className="sgn-target-row">
+              <span className="sgn-target-kind">cell</span>
+              <span className="sgn-target-ctrl">Rate · $12.0</span>
+              <span className="sgn-target-attr">data-velt-suggestion-target</span>
+            </div>
+            <div className="sgn-target-row">
+              <span className="sgn-target-kind">input</span>
+              <span className="sgn-target-ctrl">Qty · 12</span>
+              <span className="sgn-target-attr">data-velt-suggestion-target</span>
+            </div>
+            <div className="sgn-target-row sgn-target-row--live">
+              <span className="sgn-target-kind">field</span>
+              <span className="sgn-diff">
+                <del style={DEL_STYLE}>Draft</del>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <ins style={INS_STYLE}>In Review</ins>
+              </span>
+              <span className="chip chip-pending">suggesting</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/showcase/diff": (
     <div className="pv">
-      <SuggestionCard
-        author={{ initials: "SR", kind: "human", name: "Sarah" }}
-        target="Rate"
-        from="12.0"
-        to="10.5"
-      />
+      <div className="cmh-cc cmh-cc--wide">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconEdit />
+          Suggested edit
+          <span className="cmh-cc-pill">Field · Rate</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="cmh-cmt cmh-cmt--plain">
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <div className="cmh-cmt-main">
+              <div className="cmh-cmt-head">
+                <span className="cmh-cmt-name">Sarah</span>
+                <span className="cmh-cmt-time">2m</span>
+              </div>
+              <div className="sgn-diff">
+                <del style={DEL_STYLE}>$12.0</del>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <ins style={INS_STYLE}>$10.5</ins>
+              </div>
+              <div className="cmh-acts">
+                <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+                <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/showcase/agents": (
     <div className="pv">
-      <SuggestionCard
-        author={{ initials: "RC", kind: "agent", name: "Rate Checker" }}
-        target="Qty"
-        from="12.0"
-        to="10.5"
-        rationale="agent proposes · never writes"
-      />
+      <div className="cmh-afc-fill">
+        <AgentFindingCard
+          name="Rate Checker"
+          time="now"
+          body="Vendor rate on row 14 is 12% above the contracted cap. Proposing a corrected value."
+          delText="8.25%"
+          insText="7.35%"
+          replies={1}
+        />
+      </div>
     </div>
   ),
 
   "suggestions/showcase/intent": (
     <div className="pv">
-      <ProvRow>
-        edit starts <ProvArrow /> value snapshot
-      </ProvRow>
-      <ProvRow>
-        commit <ProvArrow /> diff · no-op edits create nothing
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconCapture />
+          Intent capture
+          <span className="cmh-cc-pill">snapshot → diff</span>
+        </div>
+        <div className="cmh-cc-body sgn-intent">
+          <div className="sgn-track">
+            <span className="sgn-track-node">
+              <span className="sgn-track-dot" />
+              Edit starts
+            </span>
+            <span className="sgn-arrow"><IconArrowRight /></span>
+            <span className="sgn-track-node">snapshot <b>12.0</b></span>
+            <span className="sgn-arrow"><IconArrowRight /></span>
+            <span className="sgn-track-node sgn-track-node--out">
+              <span className="sgn-del">12.0</span>
+              <span className="sgn-arrow"><IconArrowRight /></span>
+              <span className="sgn-ins">10.5</span>
+            </span>
+          </div>
+          <div className="sgn-noop">
+            <span className="sgn-noop-key">No-op edit</span>
+            <span className="sgn-arrow"><IconArrowRight /></span>
+            <span className="sgn-noop-val">nothing created</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/showcase/apply": (
     <div className="pv">
-      <DarkPanel>
-        {"const accepted = useCommentEventCallback('suggestionAccepted');\napplyToBackend(accepted?.commentAnnotation?.suggestion?.newValue);"}
-      </DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconBolt />
+          Apply logic
+          <span className="cmh-cc-pill">your code</span>
+        </div>
+        <div className="cmh-cc-body sgn-apply">
+          <div className="sgn-apply-flow">
+            <span className="sgn-apply-node sgn-apply-node--event">
+              <span className="sgn-apply-cap">event</span>
+              <span className="sgn-apply-evt">suggestionAccepted</span>
+              <span className="sgn-apply-payload">
+                <span className="sgn-del">12.0</span>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <span className="sgn-ins">10.5</span>
+              </span>
+            </span>
+            <span className="sgn-arrow"><IconArrowRight /></span>
+            <span className="sgn-apply-node">
+              <span className="sgn-apply-cap">your handler</span>
+              <span className="sgn-apply-code">applyToBackend(newValue)</span>
+            </span>
+            <span className="sgn-arrow"><IconArrowRight /></span>
+            <span className="sgn-apply-node">
+              <span className="sgn-apply-cap">your backend</span>
+              <span className="sgn-apply-db"><IconDatabase />Your DB</span>
+            </span>
+          </div>
+          <div className="apf-note">
+            <span className="chip chip-approved">consent</span>
+            <span>Velt never mutates your data — your code writes the change</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/showcase/multi-control": (
     <div className="pv">
-      <ProvRow>
-        registerTarget(getter) <ProvArrow /> qty + price as one object
-      </ProvRow>
-      <ProvRow>propose the line item, not two disconnected edits</ProvRow>
+      <div className="cmh-cc cmh-cc--wide">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconLayers />
+          One target
+          <span className="cmh-cc-pill">row-3</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="sgn-multi">
+            <div className="sgn-multi-bracket">
+              <div className="sgn-multi-ctrl">
+                <span className="sgn-field">Qty</span>
+                <span className="sgn-diff">
+                  <span className="sgn-del">12</span>
+                  <span className="sgn-arrow"><IconArrowRight /></span>
+                  <span className="sgn-ins">10</span>
+                </span>
+              </div>
+              <div className="sgn-multi-ctrl">
+                <span className="sgn-field">Price</span>
+                <span className="sgn-diff">
+                  <span className="sgn-del">$8.25</span>
+                  <span className="sgn-arrow"><IconArrowRight /></span>
+                  <span className="sgn-ins">$7.35</span>
+                </span>
+              </div>
+            </div>
+            <div className="sgn-multi-foot">
+              <span className="chip chip-pending">1 suggestion</span>
+              <span>qty + price diff as one object</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/showcase/stale": (
     <div className="pv">
-      <ProvRow>
-        target gone at accept <ProvArrow /> <Chip kind="rejected">stale</Chip>
-      </ProvRow>
-      <ProvRow>
-        live value moved <ProvArrow /> <Chip kind="pending">drift</Chip>
-      </ProvRow>
+      <div className="cmh-cc cmh-cc--wide">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconShieldAlert />
+          Safety checks
+          <span className="cmh-cc-pill">at accept</span>
+        </div>
+        <div className="cmh-cc-body sgn-checks">
+          <div className="sgn-check-row">
+            <span className="sgn-check-ic sgn-check-ic--stale"><IconUnlink /></span>
+            <span className="sgn-check-main">
+              <span className="sgn-check-title">Target removed</span>
+              <span className="sgn-check-sub">does not apply</span>
+            </span>
+            <span className="chip chip-rejected">stale</span>
+          </div>
+          <div className="sgn-check-row">
+            <span className="sgn-check-ic sgn-check-ic--drift"><IconShuffle /></span>
+            <span className="sgn-check-main">
+              <span className="sgn-check-title">Live value moved</span>
+              <span className="sgn-check-sub">recorded, best-effort</span>
+            </span>
+            <span className="chip chip-pending">drift</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
   "suggestions/showcase/queries": (
     <div className="pv">
-      <DarkPanel>{"useSuggestions({ status: \"pending\" })\n// → badge · count · review panel"}</DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconFilter />
+          useSuggestions()
+          <span className="cmh-cc-pill">status: pending</span>
+        </div>
+        <div className="cmh-cc-body sgn-panel">
+          <div className="sgn-panel-bar">
+            <span className="sgn-panel-title">Review panel</span>
+            <span className="sgn-panel-count">3 pending</span>
+          </div>
+          <div className="sgn-panel-list">
+            <div className="sgn-panel-row">
+              <Av initials="SR" tone="a3" img={FACE.sarah} />
+              <span className="sgn-panel-target">Rate</span>
+              <span className="sgn-diff sgn-panel-diff">
+                <span className="sgn-del">12.0</span>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <span className="sgn-ins">10.5</span>
+              </span>
+              <span className="chip chip-pending">pending</span>
+            </div>
+            <div className="sgn-panel-row">
+              <Av initials="RC" agent />
+              <span className="sgn-panel-target">Qty</span>
+              <span className="sgn-diff sgn-panel-diff">
+                <span className="sgn-del">12</span>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <span className="sgn-ins">10</span>
+              </span>
+              <span className="chip chip-pending">pending</span>
+            </div>
+            <div className="sgn-panel-row">
+              <Av initials="RN" tone="a1" img={FACE.roman} />
+              <span className="sgn-panel-target">Tax</span>
+              <span className="sgn-diff sgn-panel-diff">
+                <span className="sgn-del">8.25%</span>
+                <span className="sgn-arrow"><IconArrowRight /></span>
+                <span className="sgn-ins">8.875%</span>
+              </span>
+              <span className="chip chip-approved">accepted</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 

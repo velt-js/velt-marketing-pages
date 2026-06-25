@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
+import { AuditLog, Precedent, ProvRow, ProvArrow } from "../demos";
 import {
   AgentFindingCard,
+  Av,
   FACES,
   Frame,
   IconAgentMark,
+  IconX,
 } from "./hero-surface";
 
 // Simulated-UI demo nodes for the /new-features/approval-flows page. Keys match
@@ -148,6 +150,90 @@ function AddStepRow() {
       </span>
       <span className="apc-add-text">Add a step</span>
     </div>
+  );
+}
+
+/** @returns {JSX.Element} Sitemap / pipeline glyph for the nodes header. */
+function IconSitemap() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="9" y="3" width="6" height="5" rx="1.5" />
+      <rect x="3" y="16" width="6" height="5" rx="1.5" />
+      <rect x="15" y="16" width="6" height="5" rx="1.5" />
+      <path d="M12 8v4M6 16v-2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Group / quorum glyph for the quorum header. */
+function IconUsers() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3 20a6 6 0 0 1 12 0" />
+      <path d="M16 5.5a3 3 0 0 1 0 5M17 14.2A6 6 0 0 1 21 20" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Branch / git-fork glyph for conditional routing. */
+function IconBranch() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="6" cy="5" r="2" />
+      <circle cx="6" cy="19" r="2" />
+      <circle cx="18" cy="19" r="2" />
+      <path d="M6 7v6a3 3 0 0 0 3 3h6M6 17v-2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Lock glyph for mandatory reviewers and signed events. */
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Clock glyph for SLA timers. */
+function IconClock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Bolt glyph for SLA escalation edges. */
+function IconBolt() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Loop / refresh glyph for revision loops. */
+function IconLoop() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 11a8 8 0 0 1 14-5l2 2M20 13a8 8 0 0 1-14 5l-2-2" />
+      <path d="M18 3v5h-5M6 21v-5h5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Shield glyph for admin override and governance. */
+function IconShield() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
   );
 }
 
@@ -364,99 +450,331 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
+  // Agent + human node types composing one pipeline (wide tile): a labeled card
+  // wrapping an approval chain — an agent pre-screen step then a human sign-off.
   "approval-flows/showcase/nodes": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "1", ev: <><strong>Brand Agent</strong> pre-screened the deck</>, chip: { label: "agent", kind: "agent" } },
-          { ts: "2", ev: <><strong>Legal</strong> signed off on the clause</>, chip: { label: "human", kind: "approved" } },
-        ]}
-      />
-    </div>
-  ),
-
-  "approval-flows/showcase/quorum": (
-    <div className="pv">
-      <ProvRow>
-        3 reviewers run in parallel <ProvArrow /> 2-of-3 threshold
-      </ProvRow>
-      <ProvRow>
-        quorum met <ProvArrow /> waiting siblings released
-      </ProvRow>
-    </div>
-  ),
-
-  "approval-flows/showcase/routing": (
-    <div className="pv">
-      <DarkPanel>{"// sandboxed JSON-AST, no eval\namount > 25000\n  ? route(\"cfo\")\n  : route(\"budget-owner\")"}</DarkPanel>
-    </div>
-  ),
-
-  "approval-flows/showcase/mandatory": (
-    <div className="pv">
-      <div className="int-chips">
-        <span className="int-chip"><i />Legal · mandatory</span>
-        <span className="int-chip"><i />Finance · mandatory</span>
-        <span className="int-chip"><i />Brand · optional</span>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--navy">
+          <IconSitemap />
+          One pipeline
+          <span className="cmh-cc-pill">agent + human</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="apc-chain">
+            <ChainRow
+              agent
+              name="Brand Agent"
+              statusText="Pre-screened the deck"
+              right={<span className="apf-tag apf-tag--agent"><IconAgentMark />agent node</span>}
+            />
+            <ChainRow
+              img={FACE.sarah}
+              name="Legal"
+              statusText="Signed off on the clause"
+              right={<span className="apf-tag apf-tag--human">human node</span>}
+            />
+          </div>
+        </div>
       </div>
     </div>
   ),
 
+  // Parallel reviewers under an N-of-M threshold (narrow tile): a quorum card —
+  // two of three approved, the third still pending, quorum already met.
+  "approval-flows/showcase/quorum": (
+    <div className="pv">
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--purple">
+          <IconUsers />
+          Quorum
+          <span className="cmh-cc-pill">2 of 3</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="apc-chain apf-chain--tight">
+            <ChainRow img={FACE.roman} name="Roman" statusText="Approved" badge="approved" />
+            <ChainRow img={FACE.chris} name="Chris" statusText="Approved" badge="approved" />
+            <ChainRow img={FACE.maya} name="Maya" statusText="Pending" badge="pending" />
+          </div>
+          <div className="apf-note apf-note--ok">
+            <span className="chip chip-approved">quorum met</span>
+            <span>Waiting siblings released</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+
+  // Conditional routing over a sandboxed predicate (narrow tile): one condition
+  // pill fanning into two destination nodes — the over-threshold branch to CFO.
+  "approval-flows/showcase/routing": (
+    <div className="pv apf-route">
+      <span className="apf-route-cond">
+        <IconBranch />
+        amount &gt; 25,000
+      </span>
+
+      <div className="apf-route-fan" aria-hidden="true">
+        <span className="cmh-flow-stem" />
+        <span className="cmh-flow-bar" />
+        <span className="cmh-flow-arm cmh-flow-arm--left" />
+        <span className="cmh-flow-arm cmh-flow-arm--right" />
+      </div>
+
+      <div className="apf-route-row">
+        <span className="apf-route-branch">
+          <span className="apf-route-edge">true</span>
+          <span className="apf-route-dest apf-route-dest--hot">
+            <Av initials="SR" img={FACE.sarah} />
+            CFO
+          </span>
+        </span>
+        <span className="apf-route-branch">
+          <span className="apf-route-edge">false</span>
+          <span className="apf-route-dest">
+            <Av initials="ET" img={FACE.ethan} />
+            Budget owner
+          </span>
+        </span>
+      </div>
+    </div>
+  ),
+
+  // Mandatory vs optional reviewers (wide tile): a reviewer-list card where legal
+  // and finance carry required flags and the brand agent counts as a bonus voice.
+  "approval-flows/showcase/mandatory": (
+    <div className="pv">
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--slate">
+          <IconLock />
+          Reviewers
+          <span className="cmh-cc-pill">2 required</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="apc-chain">
+            <ChainRow
+              img={FACE.sarah}
+              name="Legal"
+              statusText="Approval required"
+              right={<span className="apf-tag apf-tag--req"><IconLock />mandatory</span>}
+            />
+            <ChainRow
+              img={FACE.roman}
+              name="Finance"
+              statusText="Approval required"
+              right={<span className="apf-tag apf-tag--req"><IconLock />mandatory</span>}
+            />
+            <ChainRow
+              agent
+              name="Brand Agent"
+              statusText="Bonus voice"
+              right={<span className="apf-tag apf-tag--opt">optional</span>}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  ),
+
+  // SLA timer + escalation (wide tile): a stalled step marked breached after its
+  // deadline, an escalation edge firing, then the step picked up by an ops lead.
   "approval-flows/showcase/sla": (
     <div className="pv">
-      <ProvRow>
-        no action in 24h <ProvArrow /> step breached
-      </ProvRow>
-      <ProvRow>
-        breach event <ProvArrow /> escalation edge fires
-      </ProvRow>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconClock />
+          SLA timer
+          <span className="cmh-cc-pill">24h</span>
+        </div>
+        <div className="cmh-cc-body apf-sla-body">
+          <div className="apc-chain">
+            <ChainRow
+              status="waiting"
+              name="Controller"
+              statusText="No action in 24h"
+              right={<span className="apf-sla-badge"><IconClock />breached</span>}
+            />
+          </div>
+
+          <div className="apf-escalate" aria-hidden="true">
+            <span className="apf-escalate-line" />
+            <span className="apf-escalate-pill"><IconBolt />escalation edge fires</span>
+            <span className="apf-escalate-line" />
+          </div>
+
+          <div className="apc-chain">
+            <ChainRow
+              img={FACE.ethan}
+              name="Ops lead"
+              statusText="Picked up the step"
+              right={<span className="chip chip-approved">approved</span>}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Revision loop (narrow tile): a rejection routes the run back to the author
+  // with prior attempts attached, capped before escalation.
   "approval-flows/showcase/loops": (
     <div className="pv">
-      <ProvRow>
-        rejection <ProvArrow /> back to author, prior attempts attached
-      </ProvRow>
-      <ProvRow>
-        capped iterations <ProvArrow /> escalation on exhaustion
-      </ProvRow>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--plum">
+          <IconLoop />
+          Revision loop
+          <span className="cmh-cc-pill">max 3</span>
+        </div>
+        <div className="cmh-cc-body apf-loop-body">
+          <span className="apf-loop-step apf-loop-step--reject">
+            <span className="apf-loop-ic"><IconX /></span>
+            Legal redline
+          </span>
+          <span className="apf-loop-arrow" aria-hidden="true">
+            <IconLoop />
+          </span>
+          <span className="apf-loop-step">
+            <Av initials="ET" img={FACE.ethan} />
+            Back to deck writer
+          </span>
+          <div className="apf-note">
+            <span className="chip chip-pending">attempt 1 / 3</span>
+            <span>Prior attempts attached</span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Admin override with audit (narrow tile): an operator force-approves a parked
+  // step with a reason, recorded separately from reviewer decisions.
   "approval-flows/showcase/override": (
     <div className="pv">
-      <AuditLog
-        style={{ boxShadow: "none", width: "100%" }}
-        rows={[
-          { ts: "10:02", ev: <><strong>Admin</strong> force-approved the parked step</>, chip: { label: "override", kind: "rejected" } },
-          { ts: "10:02", ev: <>recorded separately from reviewer decisions</>, chip: { label: "audited", kind: "approved" } },
-        ]}
-      />
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconShield />
+          Admin override
+          <span className="cmh-cc-pill">audited</span>
+        </div>
+        <div className="cmh-cc-body">
+          <div className="cmh-cmt cmh-cmt--plain">
+            <Av initials="A" tone="a4" />
+            <div className="cmh-cmt-main">
+              <div className="cmh-cmt-head">
+                <span className="cmh-cmt-name">Admin</span>
+                <span className="cmh-cmt-time">10:02</span>
+              </div>
+              <p className="cmh-cmt-body">Force-approved the parked step — reviewer unreachable.</p>
+              <div className="apf-row-tags">
+                <span className="chip chip-rejected">override</span>
+                <span className="chip chip-approved">recorded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Workflow versioning (wide tile): two lanes — in-flight runs keep v3, new runs
+  // dispatch on v4 — so a mid-quarter change never breaks an open review.
   "approval-flows/showcase/versioning": (
-    <div className="pv">
-      <ProvRow>
-        in-flight run <ProvArrow /> keeps v3
-      </ProvRow>
-      <ProvRow>
-        new run <ProvArrow /> dispatches on v4
-      </ProvRow>
+    <div className="pv apf-ver">
+      <div className="apf-ver-col">
+        <div className="apf-ver-top">
+          <span className="apf-ver-tag">v3</span>
+          <span className="apf-ver-sub">in-flight runs</span>
+        </div>
+        <div className="apf-ver-lines" aria-hidden="true">
+          <span className="apf-ver-line" style={{ width: "82%" }} />
+          <span className="apf-ver-line" style={{ width: "64%" }} />
+          <span className="apf-ver-line" style={{ width: "74%" }} />
+        </div>
+        <span className="apf-ver-pin">
+          <span className="chip chip-pending">1 run open</span>
+          keeps its rules
+        </span>
+      </div>
+
+      <div className="apf-ver-col apf-ver-col--new">
+        <div className="apf-ver-top">
+          <span className="apf-ver-tag apf-ver-tag--new">v4</span>
+          <span className="apf-ver-sub">new runs</span>
+        </div>
+        <div className="apf-ver-lines" aria-hidden="true">
+          <span className="apf-ver-line apf-ver-line--hl" style={{ width: "70%" }} />
+          <span className="apf-ver-line" style={{ width: "78%" }} />
+          <span className="apf-ver-line" style={{ width: "58%" }} />
+        </div>
+        <span className="apf-ver-pin">
+          <span className="chip chip-approved">current</span>
+          dispatches on v4
+        </span>
+      </div>
     </div>
   ),
 
+  // Signed events + replay (wide tile): an HMAC-signed event stream with retries,
+  // and a replay-by-sequence affordance for missed deliveries.
   "approval-flows/showcase/events": (
     <div className="pv">
-      <DarkPanel>{"step.completed → HMAC-signed webhook\nretries 2s … 8m · dead-letter\nmissed? replay by sinceSeq"}</DarkPanel>
+      <div className="apf-card">
+        <div className="cmh-cc-head apf-head--teal">
+          <IconLock />
+          Signed events
+          <span className="cmh-cc-pill">HMAC</span>
+        </div>
+        <div className="cmh-cc-body apf-evt-body">
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">step.completed</span>
+            <span className="apf-evt-seq">#4210</span>
+            <span className="apf-evt-sig"><IconLock />signed</span>
+            <span className="chip chip-approved">delivered</span>
+          </div>
+          <div className="apf-evt-row">
+            <span className="apf-evt-name">step.awaiting</span>
+            <span className="apf-evt-seq">#4211</span>
+            <span className="apf-evt-sig"><IconLock />signed</span>
+            <span className="chip chip-pending">retry 2s…8m</span>
+          </div>
+          <div className="apf-evt-foot">
+            <IconLoop />
+            Missed a delivery? Replay by <code>sinceSeq</code>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
+  // Governance as API (narrow tile): one execution-status read rendered as UI —
+  // status, the pending step, and the recorded decisions so far.
   "approval-flows/showcase/governance": (
     <div className="pv">
-      <DarkPanel>{"GET /v2/workflow/executions/exec_8842\n{ status, pendingStep, decisions[] }"}</DarkPanel>
+      <div className="apf-card apf-card--narrow">
+        <div className="cmh-cc-head apf-head--ink">
+          <IconShield />
+          exec_8842
+          <span className="cmh-cc-pill">live</span>
+        </div>
+        <div className="cmh-cc-body apf-gov-body">
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">status</span>
+            <span className="chip chip-pending">in review</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">pending step</span>
+            <span className="apf-gov-val">CFO sign-off</span>
+          </div>
+          <div className="apf-gov-row">
+            <span className="apf-gov-key">decisions</span>
+            <span className="apf-gov-stack">
+              <Av initials="ET" img={FACE.ethan} />
+              <Av initials="RC" img={FACE.roman} />
+              <span className="apf-gov-count">2</span>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   ),
 
