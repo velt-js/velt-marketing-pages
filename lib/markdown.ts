@@ -1187,8 +1187,8 @@ function inProductionContentMarkdown(
   const links = inProduction?.whereItFits?.links ?? [];
   if (tabs.length === 0 && links.length === 0) return "";
   const parts: string[] = [];
-  if (inProduction.heading) parts.push(heading(2, clean(inProduction.heading)));
-  if (inProduction.support) parts.push(clean(inProduction.support));
+  if (inProduction?.heading) parts.push(heading(2, clean(inProduction.heading)));
+  if (inProduction?.support) parts.push(clean(inProduction.support));
   const captions = tabs
     .map((tab) => {
       const label = clean(tab?.label ?? "");
@@ -1199,7 +1199,7 @@ function inProductionContentMarkdown(
     .filter(Boolean);
   if (captions.length > 0) parts.push(captions.join("\n"));
   if (links.length > 0) {
-    parts.push(heading(3, clean(inProduction.whereItFits?.label ?? "Where it fits")));
+    parts.push(heading(3, clean(inProduction?.whereItFits?.label ?? "Where it fits")));
     parts.push(
       links.map((link) => bullet(clean(link?.label ?? ""))).filter(Boolean).join("\n")
     );
