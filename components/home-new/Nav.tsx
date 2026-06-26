@@ -609,7 +609,7 @@ export default function Nav() {
         <a href="/" className="nav-logo" aria-label="Velt home">
           <Image
             src="/velt-logo.svg"
-            alt=""
+            alt="Velt"
             className="nav-logo-img"
             width={59}
             height={22}

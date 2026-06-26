@@ -162,15 +162,16 @@ export default function HowItWorks({ content }: HowItWorksProps) {
               <div className="int-chips">
                 {row.chips.map((chip) => {
                   const chipIcon = resolveChipIcon(chip.label, chip.icon);
+                  const isWordmark = Boolean(chip.wordmark && chipIcon);
                   return (
                     <a className="int-chip" key={chip.label} href={chip.href} target={chip.newTab ? "_blank" : undefined} rel={chip.newTab ? "noreferrer" : undefined}>
                       {chipIcon ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img className="int-chip-logo" src={chipIcon} alt="" />
+                        <img className={isWordmark ? "int-chip-logo int-chip-logo--wordmark" : "int-chip-logo"} src={chipIcon} alt={isWordmark ? chip.label : ""} />
                       ) : (
                         <i />
                       )}
-                      {chip.label}
+                      {isWordmark ? null : chip.label}
                     </a>
                   );
                 })}

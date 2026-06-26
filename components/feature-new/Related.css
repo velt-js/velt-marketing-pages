@@ -40,6 +40,12 @@
 .vfp .related-grid .collab-card:hover .primitive-link svg,
 .vfp .primitive-link:hover svg { transform: translateX(4px); }
 
+/* Lean related cards (content.hideVisuals): icon badge + title + body + link,
+   no artifact preview. The icon reuses the shared .collab-ic badge. Scoped to
+   the --lean modifier so pages that keep their visuals are untouched. */
+.vfp .related-grid--lean .collab-card { gap: 14px; padding: 26px 26px 24px; }
+.vfp .related-grid--lean .collab-meta h3 { margin-top: 2px; }
+
 /* The /platform Related section has 4 cards; lay them out as an even 2x2 on
    desktop instead of 3 + 1. Scoped to the platform page only (via the
    data-page hook on the .vfp wrapper) so other feature pages keep the shared

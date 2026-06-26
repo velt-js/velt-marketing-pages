@@ -191,7 +191,7 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
       />
       <ProvRow>dispatcher approves <ProvArrow /> correction applies via webhook</ProvRow>
       <Precedent
-        heading="audit line"
+        heading="Audit entry"
         body={"Approved · Dispatcher · Tue 09:14 · manifest corrected · agent never held write access to orders"}
         meta="on reject, nothing moves and the rejection is logged"
       />

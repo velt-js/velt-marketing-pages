@@ -31,7 +31,7 @@ const TERMS_WEBPAGE = buildWebPageSchema({
 });
 
 export const metadata = buildPageMetadata({
-  title: "Terms of Service",
+  title: "Terms of Service for the Velt Collaboration Platform",
   description: TERMS_DESCRIPTION,
   path: "/terms",
 });

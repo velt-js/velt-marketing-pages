@@ -19,7 +19,7 @@ export const useCaseFaq: FaqEntry[] = [
   {
     question: "How long does integration take?",
     answer:
-      "Most teams ship a working integration in under a week. The SDK exposes drop-in components for the common surfaces (comments, presence, notifications, huddles) so an intern can wire it up; senior engineers customize behaviour via the underlying APIs and webhooks.",
+      "Most teams ship a working integration in under a week. The SDK exposes drop-in components for the common surfaces (comments, presence, notifications, huddles) so an intern can wire it up; senior engineers customize behavior via the underlying APIs and webhooks.",
   },
   {
     question: "Can I customize the look and feel?",

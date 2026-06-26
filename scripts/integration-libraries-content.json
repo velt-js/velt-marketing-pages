@@ -18,7 +18,7 @@
     },
     "problemHeader": "Build this into Tiptap yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Tiptap, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Tiptap's transactions are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong line. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Tiptap: your users and your AI agents work the same editor, with comment threads anchored to each node, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Tiptap: your users and your AI agents work in the same editor, with comment threads anchored to each node, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -115,7 +115,7 @@
     },
     "problemHeader": "Build this into Lexical yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Lexical, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Lexical's node-tree updates are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Lexical: your users and your AI agents work the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Lexical: your users and your AI agents work in the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -212,7 +212,7 @@
     },
     "problemHeader": "Build this into Slate yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Slate, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Slate's normalizations are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Slate: your users and your AI agents work the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Slate: your users and your AI agents work in the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -309,7 +309,7 @@
     },
     "problemHeader": "Build this into Plate yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Plate, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Plate's block moves are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong block. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Plate: your users and your AI agents work the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Plate: your users and your AI agents work in the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -508,7 +508,7 @@
     },
     "problemHeader": "Build this into Ace yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Ace, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Ace's buffer changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong line. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Ace: your users and your AI agents work the same editor, with comment threads anchored to the line, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Ace: your users and your AI agents work in the same editor, with comment threads anchored to the line, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -610,7 +610,7 @@
     },
     "problemHeader": "Build this into Quill yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Quill, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Quill's deltas are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong range. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Quill: your users and your AI agents work the same editor, with comment threads anchored to the range, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Quill: your users and your AI agents work in the same editor, with comment threads anchored to the range, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -707,7 +707,7 @@
     },
     "problemHeader": "Build this into Draft.js yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in Draft.js, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Draft.js's content-state changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong block. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for Draft.js: your users and your AI agents work the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for Draft.js: your users and your AI agents work in the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -804,7 +804,7 @@
     },
     "problemHeader": "Build this into BlockNote yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in BlockNote, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive BlockNote's block updates are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong block. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for BlockNote: your users and your AI agents work the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for BlockNote: your users and your AI agents work in the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -901,7 +901,7 @@
     },
     "problemHeader": "Build this into TinyMCE yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in TinyMCE, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive TinyMCE's content changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong element. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for TinyMCE: your users and your AI agents work the same editor, with comment threads anchored to the element, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for TinyMCE: your users and your AI agents work in the same editor, with comment threads anchored to the element, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -1100,7 +1100,7 @@
     },
     "problemHeader": "Build this into ProseMirror yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in ProseMirror, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive ProseMirror's transactions are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for ProseMirror: your users and your AI agents work the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for ProseMirror: your users and your AI agents work in the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",
@@ -1197,7 +1197,7 @@
     },
     "problemHeader": "Build this into CKEditor yourself, and you rebuild it on every release.",
     "problemBody": "Your users expect to comment and co-edit in CKEditor, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive CKEditor's model changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong model range. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
-    "builtForLine": "Velt is the review and collaboration layer built for CKEditor: your users and your AI agents work the same editor, with comment threads anchored to the model range, and every agent suggestion is a change a human approves before it lands.",
+    "builtForLine": "Velt is the review and collaboration layer built for CKEditor: your users and your AI agents work in the same editor, with comment threads anchored to the model range, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
         "title": "Agents as first-class users",

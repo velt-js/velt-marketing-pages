@@ -16,7 +16,7 @@ import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { devtoolsContent } from "./content";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Velt DevTools: debug Velt in your browser",
+  title: "Velt DevTools: Debug Your Integration in the Browser",
   description:
     "A Chrome extension to debug your Velt integration: installation overview, data inspector, live event stream, component inspector, and SDK version switching.",
   path: "/devtools",

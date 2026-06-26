@@ -69,7 +69,7 @@ const CRM_COLUMNS: CrmColumn[] = [
     label: "Sourced",
     icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><circle cx="12" cy="12" r="8" /></svg>,
     leads: [
-      { name: "Dana Whitfield", role: "VP Sales", company: "Northwind", sync: "5m" },
+      { name: "Dana Whitfield", role: "VP Sales", company: "Westvale", sync: "5m" },
       { name: "Rene Teses", role: "CFO", company: "Flacons", sync: "2m", comments: 1, active: true },
       { name: "Omar Haddad", role: "Head of Ops", company: "Pinecrest", sync: "14m" },
       { name: "Greta Olsen", role: "VP Finance", company: "Halden", sync: "31m" },

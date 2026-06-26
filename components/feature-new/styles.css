@@ -175,7 +175,8 @@
 .vfp .int-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 500; color: var(--vlp-color-ink-soft); border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); padding: 7px 14px; border-radius: 999px; transition: border-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease; }
 .vfp .int-chip:hover { border-color: var(--vlp-color-accent-wash); color: var(--vlp-color-ink); box-shadow: var(--vlp-shadow-sm); }
 .vfp .int-chip i { width: 7px; height: 7px; border-radius: 2.5px; background: var(--vlp-color-accent-wash); flex: none; }
-.vfp .int-chip-logo { width: 16px; height: 16px; object-fit: contain; flex: none; }
+.vfp .int-chip-logo { display: block; height: 16px; width: auto; max-width: 20px; object-fit: contain; object-position: center; flex: none; }
+.vfp .int-chip-logo--wordmark { height: 13px; max-width: 72px; }
 
 /* ---------- Interstitial quote (shared) ---------- */
 .vfp .interstitial { max-width: 640px; margin: 72px auto 0; text-align: center; display: grid; gap: 12px; justify-items: center; }

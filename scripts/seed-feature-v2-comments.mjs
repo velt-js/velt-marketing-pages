@@ -107,7 +107,7 @@ const doc = {
     label: "Comment threads running inside products at",
     migration: {
       label: "Migrating from an in-house build or another SDK?",
-      links: keyed([cta("Compare", "/vs/liveblocks"), cta("Migration guide", "https://docs.velt.dev/", true)]),
+      links: keyed([cta("Compare", "/vs/liveblocks"), cta("Migration guide", "https://docs.velt.dev/migration/migrate-from-liveblocks-to-velt", true)]),
     },
   },
 
@@ -190,12 +190,12 @@ const doc = {
           label: "Editors and surfaces",
           chips: keyed(
             [
-              { label: "Tiptap", href: "https://docs.velt.dev/", newTab: true },
-              { label: "Lexical", href: "https://docs.velt.dev/", newTab: true },
-              { label: "Quill", href: "https://docs.velt.dev/", newTab: true },
-              { label: "CodeMirror", href: "https://docs.velt.dev/", newTab: true },
-              { label: "Charts and canvas", href: "https://docs.velt.dev/", newTab: true },
-              { label: "Video and Lottie", href: "https://docs.velt.dev/", newTab: true },
+              { label: "Tiptap", href: "https://docs.velt.dev/async-collaboration/comments/setup/tiptap", newTab: true },
+              { label: "Lexical", href: "https://docs.velt.dev/async-collaboration/comments/setup/lexical", newTab: true },
+              { label: "Quill", href: "https://docs.velt.dev/async-collaboration/comments/setup/quill", newTab: true },
+              { label: "CodeMirror", href: "https://docs.velt.dev/async-collaboration/comments/setup/codemirror", newTab: true },
+              { label: "Charts and canvas", href: "https://docs.velt.dev/async-collaboration/comments/setup/canvas-comments/overview", newTab: true },
+              { label: "Video and Lottie", href: "https://docs.velt.dev/async-collaboration/comments/setup/video-player-setup/video-player-setup", newTab: true },
             ],
             "vfpIntegrationChip",
           ),

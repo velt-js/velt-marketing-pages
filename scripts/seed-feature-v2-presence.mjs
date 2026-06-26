@@ -105,7 +105,7 @@ const doc = {
     label: "Presence running inside products at",
     migration: {
       label: "Migrating from Liveblocks or an in-house build?",
-      links: keyed([cta("Compare", "/vs/liveblocks"), cta("Migration guide", "https://docs.velt.dev/", true)]),
+      links: keyed([cta("Compare", "/vs/liveblocks"), cta("Migration guide", "https://docs.velt.dev/migration/migrate-from-liveblocks-to-velt", true)]),
     },
   },
 
@@ -152,7 +152,7 @@ const doc = {
         "a path to register non-human participants",
       ],
       close:
-        "Teams get a demo working in weeks; the idle states, reconnects, and fan-out scaling are the part that never ends. The 3 steps above replace the demo; the wall below replaces the long tail.",
+        "Teams get a demo working in weeks; the idle states, reconnects, and fan-out scaling are the parts that never end. The 3 steps above replace the demo; the wall below replaces the long tail.",
     },
     mcp: {
       heading: "MCP: the faster path.",
@@ -188,7 +188,7 @@ const doc = {
           chips: keyed(
             [
               { label: "Presence REST APIs", href: "https://docs.velt.dev/realtime-collaboration/presence/overview", newTab: true },
-              { label: "AG Grid", href: "https://docs.velt.dev/", newTab: true },
+              { label: "AG Grid", href: "https://docs.velt.dev/integrations/ag-grid", newTab: true },
             ],
             "vfpIntegrationChip",
           ),

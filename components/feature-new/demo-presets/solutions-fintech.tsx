@@ -285,7 +285,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
       />
       <ProvRow>CFO approves <ProvArrow /> change applies via your webhook</ProvRow>
       <Precedent
-        heading="audit line"
+        heading="Audit entry"
         body={"Approved · CFO · Tue 09:14 · line 7 corrected · agent never held write access"}
         meta="on reject, nothing touches the model and the rejection is logged"
       />

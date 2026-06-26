@@ -246,7 +246,7 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
       />
       <ProvRow>compliance officer approves <ProvArrow /> fix applies via webhook</ProvRow>
       <Precedent
-        heading="audit line"
+        heading="Audit entry"
         body={"Approved · compliance officer · disclaimer applied · agent never held write access to the filing"}
         meta="on reject, nothing changes and the rejection is logged"
       />

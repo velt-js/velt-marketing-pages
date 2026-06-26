@@ -224,7 +224,7 @@ export function buildUseCaseLibrariesContent(
     return {
       kicker: "Libraries",
       heading: "Works seamlessly with your libraries",
-      support: `Use ${cards.length} purpose-built libraries, or integrate them yourself.`,
+      support: `Use ${cards.length} purpose-built libraries or integrate them yourself.`,
       tabs: ["All", ...presentTabs],
       cards,
     };

@@ -136,7 +136,7 @@ async function main() {
       },
       testimonial: {
         _type: "migrationStepsTestimonial",
-        name: "Linda Belcher",
+        name: "Linda Mercer",
         role: "Product Manager @HeyGen",
         avatar: lindaAvatar,
         quotePrefix: "Velt hosts all collaboration functionalities needed to ",

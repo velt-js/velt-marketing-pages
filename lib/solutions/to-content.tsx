@@ -13,7 +13,38 @@ import type { SolutionPageContent } from "@/components/solutions-new/content";
 
 const FALLBACK_CTA: CtaLink = { label: "", href: "#" };
 
+// Canonical destinations used by the href normalizer below. Authored Sanity
+// content (seeded from scripts/seed-solution-*.mjs) links the "Governance" CTA
+// to `/governance`, which has no route and 404s on the live site. Normalizing
+// here — the single point every solution-page link flows through — corrects
+// every page at once (compliance, fintech, legal, ai-native-saas,
+// sales-enablement, operations) without a destructive Sanity re-seed. Mirrors
+// lib/feature-v2/to-content.tsx.
+const GOVERNANCE_PATH = "/governance";
+const ENTERPRISE_PATH = "/enterprise";
+
 type Nullable<T> = T | null | undefined;
+
+/**
+ * Rewrite a stale authored href to its canonical, resolvable destination.
+ * Deterministic and idempotent: hrefs that are already correct (or unrelated)
+ * pass through unchanged.
+ * @param {Nullable<string>} href The raw href from Sanity content.
+ * @returns {string} The normalized href.
+ */
+function normalizeHref(href: Nullable<string>): string {
+  try {
+    if (!href || href === "#") return href ?? "#";
+
+    // `/governance` has no route; point at the enterprise page.
+    if (href === GOVERNANCE_PATH) return ENTERPRISE_PATH;
+
+    return href;
+  } catch (error) {
+    console.error("normalizeHref failed", error);
+    return href ?? "#";
+  }
+}
 
 interface RawCta {
   label?: string | null;
@@ -150,7 +181,7 @@ function mapCta(raw: Nullable<RawCta>): CtaLink {
     if (!raw) return FALLBACK_CTA;
     return {
       label: raw.label ?? "",
-      href: raw.href ?? "#",
+      href: normalizeHref(raw.href),
       newTab: raw.newTab ?? undefined,
     };
   } catch (error) {

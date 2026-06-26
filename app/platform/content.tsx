@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ShieldIcon, VeltMark } from "@/components/feature-new/icons";
+import { BellIcon, CloudIcon, ListIcon, ServerIcon } from "@/components/feature-new/icons";
 import type { FeaturePageContent } from "@/components/feature-new/content";
 
 import { PLATFORM_DEMOS as D } from "@/components/feature-new/demo-presets/platform";
@@ -115,11 +115,11 @@ export const platformContent: FeaturePageContent = {
         chips: [
           { label: "Slack", href: DOCS_HREF, icon: "/images/home/nav-icons/slack.svg" },
           { label: "Microsoft Teams", href: DOCS_HREF, icon: "/images/home/nav-icons/microsoftteams.svg" },
-          { label: "AWS S3", href: DOCS_HREF, icon: "/images/home/logo-aws-s3-1.png" },
-          { label: "HubSpot", href: DOCS_HREF, icon: "/images/home/logo-hubspot.svg" },
+          { label: "AWS S3", href: DOCS_HREF, icon: "/images/home/logo-aws-s3-wordmark.png", wordmark: true },
+          { label: "HubSpot", href: DOCS_HREF, icon: "/images/home/logo-hubspot.svg", wordmark: true },
           { label: "Segment", href: DOCS_HREF, icon: "/images/home/logo-segment.svg" },
           { label: "Inngest", href: DOCS_HREF, icon: "/images/home/logo-inngest.png" },
-          { label: "Zapier", href: DOCS_HREF, icon: "/images/home/nav-icons/zapier.svg" },
+          { label: "Zapier", href: DOCS_HREF, icon: "/images/home/logo-zapier-badge.svg" },
         ],
       },
     ],
@@ -308,30 +308,31 @@ export const platformContent: FeaturePageContent = {
     kicker: "Related",
     heading: "The pieces the console runs on.",
     support: "Each is its own page.",
+    hideVisuals: true,
     cards: [
       {
-        icon: <ShieldIcon />,
+        icon: <ListIcon />,
         title: "Audit trail",
         body: "The immutable record the console explores and exports.",
         visual: D["related/audit-trail"],
         link: { label: "Audit trail", href: "/audit-trail" },
       },
       {
-        icon: <VeltMark size={18} fill="var(--vlp-color-accent)" />,
+        icon: <CloudIcon />,
         title: "Webhooks and API",
         body: "The platform's event and provisioning surface.",
         visual: D["related/webhooks"],
         link: { label: "Webhooks and API", href: "/webhooks-and-api" },
       },
       {
-        icon: <ShieldIcon />,
+        icon: <ServerIcon />,
         title: "Self-hosting",
         body: "Where the console's data can live.",
         visual: D["related/self-hosting"],
         link: { label: "Self-hosting", href: "/self-hosting" },
       },
       {
-        icon: <VeltMark size={18} fill="var(--vlp-color-accent)" />,
+        icon: <BellIcon />,
         title: "Notifications",
         body: "The outbound channels webhooks and the console feed.",
         visual: D["related/notifications"],

@@ -70,8 +70,11 @@ export default function LegalPageView({
               </div>
             </section>
 
-            <section className="legal-body">
+            <section className="legal-body" aria-labelledby="legal-doc-heading">
               <div className="legal-wrap">
+                <h2 id="legal-doc-heading" className="legal-doc-heading">
+                  {documentTitle}
+                </h2>
                 <div className="legal-doc">
                   <iframe
                     className="legal-frame"

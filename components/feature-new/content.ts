@@ -6,7 +6,13 @@ import type { ReactNode } from "react";
 
 export type CtaLink = { label: string; href: string; newTab?: boolean };
 
-export type IntegrationChip = CtaLink & { icon?: string };
+/**
+ * Integration chip shown in the "works with your stack" rows. `icon` overrides
+ * the label-matched brand fallback. When `wordmark` is true, the logo asset
+ * already includes the brand name, so the adjacent text label is suppressed and
+ * the chip renders the wordmark image alone.
+ */
+export type IntegrationChip = CtaLink & { icon?: string; wordmark?: boolean };
 
 export type Interstitial = { quote: string; who: string };
 
@@ -148,6 +154,13 @@ export type RelatedContent = {
   heading: string;
   support: string;
   cards: RelatedCard[];
+  /**
+   * When true, the related cards render lean: icon + title + body + link only,
+   * dropping the per-card visual/artifact preview. Defaults to false (visual
+   * shown). Used by pages where the related cards are simple sign-posts rather
+   * than artifact showcases (e.g. platform).
+   */
+  hideVisuals?: boolean;
 };
 
 export type EnterpriseContent = {

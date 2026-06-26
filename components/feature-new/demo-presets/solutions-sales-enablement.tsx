@@ -232,7 +232,7 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
       />
       <ProvRow>marketer approves <ProvArrow /> change applies via webhook</ProvRow>
       <Precedent
-        heading="audit line"
+        heading="Audit entry"
         body={"Approved · Maya · Tue 14:21 · disclaimer applied · agent never held write access"}
         meta="on reject, nothing touches the asset and the rejection is logged"
       />

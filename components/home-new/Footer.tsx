@@ -71,7 +71,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { label: "Self-hosting", href: "/self-hosting" },
       { label: "Live cursors", href: "/presence#cursors" },
       { label: "Single editor mode", href: "/multiplayer-editing#single-editor" },
-      { label: "Video editor", href: "/recording#video-editor" },
+      { label: "Video editor", href: "/recording#showcase" },
     ],
   },
   {
@@ -173,7 +173,7 @@ export default function Footer() {
           </div>
           {FOOTER_COLUMNS.map((column) => (
             <div key={column.heading}>
-              <h4 className="footer-col-heading">{column.heading}</h4>
+              <h3 className="footer-col-heading">{column.heading}</h3>
               <div className="footer-col-links">
                 {column.links.map((link) => (
                   <FooterLinkItem key={link.label} link={link} />
@@ -183,7 +183,7 @@ export default function Footer() {
           ))}
         </div>
         <div className="footer-bottom">
-          <span>© 2026 Velt, Inc.</span>
+          <span>© {new Date().getFullYear()} Velt, Inc.</span>
           <span className="footer-legal">
             {LEGAL_LINKS.map((link) => (
               <a key={link.label} href={link.href} className="hl">

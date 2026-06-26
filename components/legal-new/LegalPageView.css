@@ -52,6 +52,21 @@
   color: var(--vlp-color-text-muted);
 }
 
+/* Visually-hidden section heading. Keeps the document a labelled H2 so the
+   page heading order stays H1 → H2 → footer H3 (no skipped levels) without
+   adding a visible heading above the embedded policy card. */
+.vlp .legal-doc-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── Body: cream band, document in a white reading card ─────────────────── */
 .vlp .legal-body {
   background: var(--vlp-bg-section-alt);

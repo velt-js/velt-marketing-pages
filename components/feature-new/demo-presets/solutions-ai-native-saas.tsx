@@ -196,7 +196,7 @@ export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
       />
       <ProvRow>human approves <ProvArrow /> change applies via webhook</ProvRow>
       <Precedent
-        heading="audit line"
+        heading="Audit entry"
         body={"Approved · Dana · Tue 14:21 · price applied · agent never held write access"}
         meta="on reject, nothing touches the user's data and the rejection is logged"
       />

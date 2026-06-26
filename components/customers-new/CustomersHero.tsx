@@ -50,7 +50,7 @@ export default function CustomersHero() {
               <div className="cuh-stat-label">Faster than building in-house</div>
             </div>
             <div className="cuh-stat">
-              <div className="cuh-stat-num">3 FTE</div>
+              <div className="cuh-stat-num">3 FTEs</div>
               <div className="cuh-stat-label">Engineering effort saved</div>
             </div>
           </div>

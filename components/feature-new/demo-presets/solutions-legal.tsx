@@ -281,7 +281,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
         </div>
         <div className="slg-kv-row">
           <span className="slg-kv-key">counterparty</span>
-          <span className="slg-kv-val">acme-counterparty</span>
+          <span className="slg-kv-val">Meridian Holdings</span>
         </div>
       </div>
       <p className="slg-note">Every transition is already an attributed, exportable record.</p>
