@@ -66,6 +66,8 @@ const LIBRARY_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
     "Add comments, presence, and co-editing to your Lexical editor, for your users and AI agents. Threads stay pinned to nodes as the document updates.",
   blocknote:
     "Add comments, presence, and multiplayer editing to your BlockNote editor in minutes. One Velt extension handles sync, cursors, and notifications.",
+  codemirror:
+    "Add comments, co-editing, and live presence to your CodeMirror editor, for your users and AI agents. Threads stay pinned to each line as the buffer changes.",
 };
 
 type CtaLink = {

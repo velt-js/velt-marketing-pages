@@ -8,7 +8,7 @@ import {
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const TERMS_DESCRIPTION =
-  "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and marketing website.";
+  "Read the Terms of Service governing your use of Velt's collaboration SDK, APIs, and website, including your rights, responsibilities, and acceptable use.";
 
 // Concise hero line (the full sentence above stays the meta description).
 const TERMS_SUBTITLE =

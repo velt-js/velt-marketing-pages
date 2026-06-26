@@ -25,20 +25,44 @@ import {
   buildFaqPageSchemaFromEntries,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
-import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import {
+  FALLBACK_META_DESCRIPTION,
+  buildPageMetadata,
+  slugToTitle,
+} from "@/app/_seo/page-metadata";
 
 export const revalidate = 60;
 
 const BASE_PATH = "/use-case";
 
-// SEO meta-title overrides for use-case slugs whose CMS `metaTitle` is unset and
-// whose derived "<heading> | Velt" fallback is too short for search snippets
-// (~25 chars). These curated titles land in the 50–60 char sweet spot and take
-// precedence so the rendered <title> is deterministic regardless of CMS state.
+// SEO meta-title overrides for use-case slugs whose CMS `metaTitle` is unset (it
+// falls back to the short "Velt for <X> | Velt", ~20–32 chars) and is too short
+// for search snippets. These curated titles land in the 50–60 char sweet spot
+// and take precedence so the rendered <title> is deterministic regardless of
+// CMS state. Keep each value between 50 and 60 characters (the " | Velt" suffix
+// is included so buildPageMetadata renders it verbatim as an absolute title).
 const USE_CASE_META_TITLE_OVERRIDES: Record<string, string> = {
   analytics: "Collaborative Analytics SDK: Comments & Co-editing | Velt",
+  "coding-tool": "Collaborative Code IDE SDK: Comments & Co-editing | Velt",
+  crm: "Collaborative CRM SDK: Comments, Sync & Notifications | Velt",
+  "customer-support": "Collaborative Support SDK: Recording & Live Huddles | Velt",
+  docs: "Collaborative Docs SDK: Comments & Real-time Editing | Velt",
+  "email-marketing-tool": "Collaborative Email Marketing SDK: Comments & Video | Velt",
+  "no-code-tool": "Collaborative No-Code SDK: Comments & Co-editing | Velt",
+  presentation: "Collaborative Presentation SDK: Comments & Co-editing | Velt",
+  "session-replay-tool": "Collaborative Session Replay SDK: Comments & Tasks | Velt",
   "task-manager": "Collaborative Task Manager SDK: Comments & Sync | Velt",
   sheets: "Collaborative Spreadsheet SDK: Comments & Co-editing | Velt",
+  "video-editor": "Collaborative Video Editor SDK: Comments & Approvals | Velt",
+};
+
+// SEO meta-description overrides for use-case slugs whose CMS `metaDescription`
+// runs past the ~160 char snippet limit (e.g. session-replay-tool at 169). These
+// curated descriptions sit in the 120–160 char range and take precedence so the
+// rendered <meta name="description"> stays within the search-snippet window.
+const USE_CASE_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
+  "session-replay-tool":
+    "Make your session replay tool collaborative. Add comments, voice notes, and task assignment so teams review and fix bugs faster with Velt SDK.",
 };
 
 export async function generateStaticParams() {
@@ -61,12 +85,28 @@ export async function generateMetadata({
     const doc = (await getUseCasePageBySlug(slug)) as
       | (UseCasePageDoc & { metaTitle?: string; metaDescription?: string; ogImage?: string })
       | null;
-    if (!doc) return {};
+    // No CMS document resolved for this slug. Rather than returning {} — which
+    // drops the title and canonical entirely — emit a canonical and a sane
+    // title/description (preferring any curated override). The page component
+    // still calls notFound() independently, mirroring app/(features)/[slug].
+    if (!doc) {
+      return buildPageMetadata({
+        title:
+          USE_CASE_META_TITLE_OVERRIDES[slug] ?? `${slugToTitle(slug)} | Velt`,
+        description:
+          USE_CASE_META_DESCRIPTION_OVERRIDES[slug] ?? FALLBACK_META_DESCRIPTION,
+        path: `${BASE_PATH}/${slug}`,
+      });
+    }
     const title =
       USE_CASE_META_TITLE_OVERRIDES[slug] ??
       doc.metaTitle ??
       `${doc.hero?.heading ?? ""} | Velt`;
-    const description = doc.metaDescription ?? doc.hero?.subheading ?? "";
+    const description =
+      USE_CASE_META_DESCRIPTION_OVERRIDES[slug] ??
+      doc.metaDescription ??
+      doc.hero?.subheading ??
+      "";
     return buildPageMetadata({
       title,
       description,
