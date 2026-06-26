@@ -6,7 +6,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/app/_seo/JsonLd";
-import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import {
+  FALLBACK_META_DESCRIPTION,
+  buildPageMetadata,
+  slugToTitle,
+} from "@/app/_seo/page-metadata";
 import {
   SITE_URL,
   buildBreadcrumbList,
@@ -40,7 +44,16 @@ export async function generateMetadata({
   try {
     const { slug } = await params;
     const doc = await getSolutionPageBySlug(slug);
-    if (!doc) return {};
+    // Even when the Sanity document is missing, still emit a canonical and a
+    // sane fallback title so the page never ships without core SEO tags. The
+    // component below keeps its notFound() behavior independently.
+    if (!doc) {
+      return buildPageMetadata({
+        title: `Velt for ${slugToTitle(slug)}`,
+        description: FALLBACK_META_DESCRIPTION,
+        path: `${BASE_PATH}/${slug}`,
+      });
+    }
     const title = doc.metaTitle ?? `${doc.hero?.title ?? doc.title} | Velt`;
     const description = doc.metaDescription ?? doc.hero?.secondary ?? "";
     return buildPageMetadata({

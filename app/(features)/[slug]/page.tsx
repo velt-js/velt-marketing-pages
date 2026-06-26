@@ -30,7 +30,11 @@ import {
 } from "@/sanity/queries";
 import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
 import { JsonLd } from "@/app/_seo/JsonLd";
-import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import {
+  FALLBACK_META_DESCRIPTION,
+  buildPageMetadata,
+  slugToTitle,
+} from "@/app/_seo/page-metadata";
 import { resolveOgImage } from "@/app/_seo/og-images";
 import {
   SITE_URL,
@@ -107,7 +111,16 @@ export async function generateMetadata({
     const doc = (await getFeaturePageBySlug(
       urlSlugToSanity(slug)
     )) as FeaturePageDoc | null;
-    if (!doc) return {};
+    // No v2 or v1 document resolved for this slug. Rather than returning {} —
+    // which drops title and canonical entirely — emit a canonical and a sane
+    // fallback title. The component still calls notFound() independently.
+    if (!doc) {
+      return buildPageMetadata({
+        title: `${slugToTitle(slug)} | Velt`,
+        description: FALLBACK_META_DESCRIPTION,
+        path: `/${slug}`,
+      });
+    }
     const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
     const description = doc.metaDescription ?? doc.hero.subheading ?? "";
     // Prefer Sanity-supplied OG image. Fall back to a bundled per-slug image

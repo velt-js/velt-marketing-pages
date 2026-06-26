@@ -1,6 +1,6 @@
-// 45 customer logos rendered on /customers (Figma node 536:8693, content
+// 43 customer logos rendered on /customers (Figma node 536:8693, content
 // pulled from velt.dev/customers' Framer source). Order in this array
-// drives display order: left→right, top→bottom across 15 rows × 3 cols.
+// drives display order: left→right, top→bottom across the 3-col grid.
 // Each entry carries the customer's site URL so the grid cell can wrap
 // in an external <a target="_blank">. logoWidth / logoHeight are the
 // intrinsic dimensions of the source PNG — the browser uses them to
@@ -52,7 +52,6 @@ export const customerLogos: CustomerLogoEntry[] = [
   // Row 8
   { name: "Intelas", href: "https://www.intelas.com/", logoSrc: `${BASE}/intelas.png`, logoWidth: 218, logoHeight: 54 },
   { name: "OpenEnvoy", href: "https://www.openenvoy.com/", logoSrc: `${BASE}/openenvoy.png`, logoWidth: 576, logoHeight: 136 },
-  { name: "eqtble", href: "https://www.eqtble.com/", logoSrc: `${BASE}/eqtble.png`, logoWidth: 240, logoHeight: 48 },
   // Row 9
   { name: "Cofactr", href: "https://www.cofactr.com/", logoSrc: `${BASE}/cofactr.png`, logoWidth: 870, logoHeight: 180 },
   { name: "Butter", href: "https://usebutter.com/", logoSrc: `${BASE}/butter.png`, logoWidth: 536, logoHeight: 190 },
@@ -66,7 +65,6 @@ export const customerLogos: CustomerLogoEntry[] = [
   { name: "Booma AI", href: "https://www.booma.ai/", logoSrc: `${BASE}/booma.png`, logoWidth: 230, logoHeight: 58 },
   { name: "Zamp Finance", href: "https://www.zamp.finance/", logoSrc: `${BASE}/zamp.png`, logoWidth: 292, logoHeight: 102 },
   // Row 12
-  { name: "OkayD", href: "https://www.okayd.com/", logoSrc: `${BASE}/okayd.png`, logoWidth: 248, logoHeight: 74 },
   { name: "Eyva AI", href: "https://www.eyva.ai/", logoSrc: `${BASE}/eyva.png`, logoWidth: 1024, logoHeight: 368 },
   { name: "Meddicc", href: "https://meddicc.com/", logoSrc: `${BASE}/meddicc.png`, logoWidth: 925, logoHeight: 240 },
   // Row 13
