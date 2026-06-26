@@ -64,6 +64,8 @@ export const revalidate = 60;
 const LIBRARY_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
   lexical:
     "Add comments, presence, and co-editing to your Lexical editor, for your users and AI agents. Threads stay pinned to nodes as the document updates.",
+  blocknote:
+    "Add comments, presence, and multiplayer editing to your BlockNote editor in minutes. One Velt extension handles sync, cursors, and notifications.",
 };
 
 type CtaLink = {
@@ -181,7 +183,11 @@ export async function generateMetadata({
     const doc = (await getLibraryPageBySlug(slug)) as LibraryPageDoc | null;
     if (!doc) return {};
     const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
-    const description = doc.metaDescription ?? doc.hero.subheading ?? "";
+    const description =
+      LIBRARY_META_DESCRIPTION_OVERRIDES[slug] ??
+      doc.metaDescription ??
+      doc.hero.subheading ??
+      "";
     return buildPageMetadata({
       title,
       description,

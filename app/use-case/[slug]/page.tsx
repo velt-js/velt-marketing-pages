@@ -38,6 +38,7 @@ const BASE_PATH = "/use-case";
 const USE_CASE_META_TITLE_OVERRIDES: Record<string, string> = {
   analytics: "Collaborative Analytics SDK: Comments & Co-editing | Velt",
   "task-manager": "Collaborative Task Manager SDK: Comments & Sync | Velt",
+  sheets: "Collaborative Spreadsheet SDK: Comments & Co-editing | Velt",
 };
 
 export async function generateStaticParams() {
