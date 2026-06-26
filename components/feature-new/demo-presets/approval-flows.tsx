@@ -432,7 +432,7 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
       <AgentFindingCard
         name="Policy Agent"
         time="now"
-        body={<>Invoice $22,400 &mdash; within the $25k pre-approval limit. All policy rules passed.</>}
+        body={<>Invoice $22,400: within the $25k pre-approval limit. All policy rules passed.</>}
       />
     </Frame>
   ),
@@ -693,7 +693,7 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
                 <span className="cmh-cmt-name">Admin</span>
                 <span className="cmh-cmt-time">10:02</span>
               </div>
-              <p className="cmh-cmt-body">Force-approved the parked step — reviewer unreachable.</p>
+              <p className="cmh-cmt-body">Force-approved the parked step: reviewer unreachable.</p>
               <div className="apf-row-tags">
                 <span className="chip chip-rejected">override</span>
                 <span className="chip chip-approved">recorded</span>
@@ -912,7 +912,7 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
             <span className="cmh-cmt-name">Review Agent</span>
             <span className="cmh-cmt-time">agent step</span>
           </div>
-          <p className="cmh-cmt-body">An agent step invokes a review agent — findings land as comments.</p>
+          <p className="cmh-cmt-body">An agent step invokes a review agent: findings land as comments.</p>
         </div>
       </div>
     </div>

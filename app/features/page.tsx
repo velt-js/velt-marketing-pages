@@ -29,7 +29,7 @@ const FEATURES_BREADCRUMB = buildBreadcrumbList([
 const FEATURES_WEBPAGE = buildWebPageSchema({
   name: "Features | Velt",
   description:
-    "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+    "Velt's collaboration features: Commenting, Notifications, Presence, Cursors, Huddle, and more.",
   url: `${SITE_URL}/features`,
   breadcrumb: FEATURES_BREADCRUMB,
 });
@@ -41,7 +41,7 @@ export const revalidate = 60;
 export const metadata = buildPageMetadata({
   title: "Features",
   description:
-    "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+    "Velt's collaboration features: Commenting, Notifications, Presence, Cursors, Huddle, and more.",
   path: "/features",
 });
 

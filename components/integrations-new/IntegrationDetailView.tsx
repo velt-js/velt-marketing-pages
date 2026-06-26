@@ -18,6 +18,26 @@ import type { IntegrationDetailContent } from "@/components/integrations-new/con
 // field on the library type is never present in sharedFAQ entries.
 const DETAIL_FAQ = sharedFAQ as unknown as FaqEntry[];
 
+// Enterprise security / data-control points shown in the strip's card grid.
+const ENTERPRISE_CARDS: ReadonlyArray<{ title: string; body: string }> = [
+  {
+    title: "Your data, your infrastructure",
+    body: "Per-feature data providers keep comment content, attachments, and user PII on your own infrastructure. Velt stores only minimal identifiers.",
+  },
+  {
+    title: "SOC 2 Type II",
+    body: "Independently audited security controls, available in the Trust Center.",
+  },
+  {
+    title: "HIPAA ready",
+    body: "Sign a BAA and run regulated healthcare workloads with confidence.",
+  },
+  {
+    title: "EU data residency",
+    body: "Keep data in-region to satisfy GDPR and regional requirements.",
+  },
+];
+
 // ---- Sub-components --------------------------------------------------------
 
 /**
@@ -346,11 +366,13 @@ export default function IntegrationDetailView({
                 heading="Enterprise-grade security and data control"
                 support="The controls your buyers' security reviews ask for, in writing."
               />
-              <div className="vintg-banner">
-                <p>
-                  Your data stays on your infrastructure with per-feature data providers: SOC 2
-                  Type II, HIPAA with a BAA, and EU data residency.
-                </p>
+              <div className="vintg-cards vintg-cards--quad">
+                {ENTERPRISE_CARDS.map((card) => (
+                  <div key={card.title} className="vintg-card">
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </div>
+                ))}
               </div>
               <div className="vintg-ctas" style={{ marginTop: "var(--vlp-space-5)" }}>
                 <a className="vintg-btn vintg-btn--secondary" href="https://trust.velt.dev/">

@@ -372,7 +372,7 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-when">now</span>
         </div>
         <p className="fb">
-          I found a prior decision on this clause — indemnity cap was reviewed and approved in March. Not re-flagging.
+          I found a prior decision on this clause: indemnity cap was reviewed and approved in March. Not re-flagging.
         </p>
       </div>
 
@@ -418,14 +418,14 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
           initials="MY"
           tone="a2"
           img={MEM_FACE.maya}
-          label="Clause 7 indemnity — approved with liability cap"
+          label="Clause 7 indemnity: approved with liability cap"
           meta="Mar 14"
         />
         <ContextRow
           initials="DV"
           tone="a1"
           img={MEM_FACE.dev}
-          label="Pricing claim on slide 4 — rejected, re-written"
+          label="Pricing claim on slide 4: rejected, re-written"
           meta="Apr 02"
         />
         <ContextRow
@@ -444,7 +444,7 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
           <span className="chip chip-agent">grounded</span>
         </div>
         <p className="fb">
-          Indemnity clause matches the Mar 14 approval — skipping. New pricing claim on slide 6 has no precedent.
+          Indemnity clause matches the Mar 14 approval: skipping. New pricing claim on slide 6 has no precedent.
         </p>
         <div className="cmh-acts">
           <button type="button" className="cmh-btn approve">
@@ -584,7 +584,7 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
             <span className="chip chip-approved">confidence 0.92</span>
           </div>
           <p className="mem-ask-body">
-            7 projections were rejected in Q3 — each for variance over the declared 15% threshold.
+            7 projections were rejected in Q3: each for variance over the declared 15% threshold.
           </p>
           <div className="mem-cites">
             <span className="mem-cite"><IconBook />filing-2231</span>

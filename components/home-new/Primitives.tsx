@@ -132,7 +132,7 @@ function ReviewAgentsArtifact({ orientation = "vertical" }: { orientation?: "ver
           <FlowerAvatar tone="warm" uid="ra1" className="prim-ra-avatar" />
           <div className="prim-ra-node-text">
             <div className="prim-ra-node-name">Compliance Agent</div>
-            <p className="prim-ra-node-sub">&ldquo;Guaranteed returns&rdquo; &mdash; prohibited phrasing</p>
+            <p className="prim-ra-node-sub">&ldquo;Guaranteed returns&rdquo;: prohibited phrasing</p>
           </div>
         </div>
         <div className="prim-ra-node">

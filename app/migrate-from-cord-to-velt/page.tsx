@@ -9,7 +9,7 @@ import { buildPageMetadata } from "@/app/_seo/page-metadata";
 export const revalidate = 60;
 
 const PAGE_DESCRIPTION =
-  "Cord shut down. Move to Velt in days — same comments, presence, mentions, notifications, plus a free migration plan and a modern SDK that keeps shipping.";
+  "Cord shut down. Move to Velt in days: same comments, presence, mentions, notifications, plus a free migration plan and a modern SDK that keeps shipping.";
 
 export const metadata = buildPageMetadata({
   title: "Migrate from Cord to Velt: Free Migration Plan",

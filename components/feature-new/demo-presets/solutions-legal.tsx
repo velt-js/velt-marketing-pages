@@ -82,7 +82,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-when">now</span>
         </div>
         <p className="fb">
-          No liability cap &mdash; &ldquo;any and all losses&rdquo; is unbounded. Playbook caps at fees paid.
+          No liability cap: &ldquo;any and all losses&rdquo; is unbounded. Playbook caps at fees paid.
         </p>
         <p className="cmh-suggest">
           <span className="lbl">Suggested fix</span>
@@ -106,7 +106,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-when">3m</span>
         </div>
         <p className="thread-body">
-          Agreed &mdash; accepting the cap. I&rsquo;ll note the rationale before we countersign.
+          Agreed: accepting the cap. I&rsquo;ll note the rationale before we countersign.
         </p>
         <div style={{ marginTop: 2 }}>
           <span className="chip chip-approved">counsel approved</span>
@@ -224,7 +224,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
         <span className="slg-arrow"><IconArrowRight /></span>
         <span className="slg-ins">direct losses, capped at fees paid</span>
       </div>
-      <p className="slg-note">Accept or reject like a diff &mdash; a reason is logged on reject.</p>
+      <p className="slg-note">Accept or reject like a diff: a reason is logged on reject.</p>
     </div>
   ),
 
@@ -237,7 +237,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
         <span className="chip chip-pending">internal</span>
       </div>
       <p className="cmh-cmt-body" style={{ fontSize: 12.5 }}>
-        Anchored to the <strong>indemnification clause</strong> &mdash; survives the redline that moves it.
+        Anchored to the <strong>indemnification clause</strong>: survives the redline that moves it.
       </p>
     </div>
   ),
@@ -308,7 +308,7 @@ export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
           <span className="slg-pen-tag slg-pen-tag--read"><IconEye />read-only</span>
         </div>
       </div>
-      <p className="slg-note">Pen passes on accept &mdash; no racing, no overwrite.</p>
+      <p className="slg-note">Pen passes on accept: no racing, no overwrite.</p>
     </div>
   ),
 };

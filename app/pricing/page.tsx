@@ -88,7 +88,7 @@ const PRICING_PRODUCT_SCHEMA = {
   "@type": "Product",
   name: "Velt Collaboration SDK",
   description:
-    "Collaboration SDK plans for Velt — Hacker (free), Growth, and Enterprise. Pay only for meaningful collaboration usage.",
+    "Collaboration SDK plans for Velt: Hacker (free), Growth, and Enterprise. Pay only for meaningful collaboration usage.",
   brand: { "@id": ORG_ID },
   url: `${SITE_URL}/pricing`,
   offers: TIERS.map((tier) => {
@@ -114,7 +114,7 @@ const PRICING_PRODUCT_SCHEMA = {
         "@type": "PriceSpecification",
         priceCurrency: "USD",
         valueAddedTaxIncluded: false,
-        description: "Contract-based — contact sales for a quote",
+        description: "Contract-based: contact sales for a quote",
       };
     }
     return base;

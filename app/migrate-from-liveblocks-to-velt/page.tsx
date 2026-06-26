@@ -12,7 +12,7 @@ import { buildPageMetadata } from "@/app/_seo/page-metadata";
 export const revalidate = 60;
 
 const PAGE_DESCRIPTION =
-  "Move off Liveblocks in days. Velt ships drop-in components for comments, notifications, presence, cursors, multiplayer editing, and recordings — with a free migration plan.";
+  "Move off Liveblocks in days. Velt ships drop-in components for comments, notifications, presence, cursors, multiplayer editing, and recordings, with a free migration plan.";
 
 export const metadata = buildPageMetadata({
   title: "Migrate from Liveblocks to Velt",

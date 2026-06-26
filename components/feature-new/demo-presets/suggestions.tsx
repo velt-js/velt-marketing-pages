@@ -312,7 +312,7 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
           <span style={{ color: "var(--vlp-color-text-subtle)", fontWeight: 400, fontSize: 12 }}>→</span>
           <ins style={INS_STYLE}>10.5</ins>
         </div>
-        <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Matches the contracted unit cap — Maya</p>
+        <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Matches the contracted unit cap - Maya</p>
       </div>
 
       <div
@@ -336,7 +336,7 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
           <span style={{ color: "var(--vlp-color-text-subtle)", fontWeight: 400, fontSize: 12 }}>→</span>
           <ins style={INS_STYLE}>In Review</ins>
         </div>
-        <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Ready for controller sign-off — Maya</p>
+        <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>Ready for controller sign-off - Maya</p>
       </div>
 
       <div className="cmh-acts">
@@ -557,7 +557,7 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
           </div>
           <div className="apf-note">
             <span className="chip chip-approved">consent</span>
-            <span>Velt never mutates your data — your code writes the change</span>
+            <span>Velt never mutates your data: your code writes the change</span>
           </div>
         </div>
       </div>
@@ -758,7 +758,7 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
           </div>
           <div className="apf-note">
             <span className="chip chip-approved">consent</span>
-            <span>Velt never writes — your handler commits</span>
+            <span>Velt never writes: your handler commits</span>
           </div>
         </div>
       </div>

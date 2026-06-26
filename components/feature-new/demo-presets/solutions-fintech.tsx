@@ -187,7 +187,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-when">now</span>
         </div>
         <p className="fb">
-          Q3 travel is 18% over plan &mdash; variance note missing on this cell.
+          Q3 travel is 18% over plan: variance note missing on this cell.
         </p>
         <p className="cmh-suggest">
           <span className="lbl">Suggested note</span>
@@ -384,7 +384,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
             <span className="cmh-cmt-time">2m</span>
             <span className="chip chip-pending" style={{ marginLeft: "auto" }}>thread</span>
           </div>
-          <p className="cmh-cmt-body">Anchored to the <strong>Q3 cell</strong> — not a note about it.</p>
+          <p className="cmh-cmt-body">Anchored to the <strong>Q3 cell</strong>: not a note about it.</p>
           <span className="cmh-cmt-replies"><IconReply />1 Reply</span>
         </div>
       </div>
@@ -414,7 +414,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
           </div>
           <div className="apf-note">
             <span className="chip chip-agent">Velt</span>
-            <span>keeps minimal identifiers — content never leaves your infra</span>
+            <span>keeps minimal identifiers: content never leaves your infra</span>
           </div>
         </div>
       </div>
@@ -427,7 +427,7 @@ export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
         <AgentFindingCard
           name="Variance Agent"
           time="now"
-          body="Q3 travel is 18% over plan — variance over the declared threshold, note missing."
+          body="Q3 travel is 18% over plan: variance over the declared threshold, note missing."
           replies={2}
           actions={false}
         />

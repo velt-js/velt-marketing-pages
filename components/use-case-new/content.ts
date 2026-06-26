@@ -142,7 +142,7 @@ export const USE_CASE_TESTIMONIALS: TestimonialContent = {
     {
       metric: "10+ surfaces",
       quote:
-        "The same SDK powers collaboration across our docs, sheets, and canvas — one integration instead of three bespoke builds.",
+        "The same SDK powers collaboration across our docs, sheets, and canvas: one integration instead of three bespoke builds.",
       who: "Founder, productivity tool",
     },
     {
@@ -157,7 +157,7 @@ export const USE_CASE_TESTIMONIALS: TestimonialContent = {
 export const USE_CASE_LIBRARIES: UseCaseLibrariesContent = {
   kicker: "Libraries",
   heading: "Works seamlessly with your libraries",
-  support: "Use 8+ purpose-built libraries — or integrate it yourself.",
+  support: "Use 8+ purpose-built libraries, or integrate it yourself.",
   tabs: libraryTabs.map((tab) => tab.label),
   cards: allLibraryCards.map((card) => ({
     name: card.name,

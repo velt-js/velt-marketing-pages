@@ -10,7 +10,7 @@ import { buildPageMetadata } from "@/app/_seo/page-metadata";
 export const revalidate = 60;
 
 const PAGE_DESCRIPTION =
-  "Ship Knock-style in-app notifications in days. Velt provides drop-in inbox, bell, grouped notifications, and multi-channel delivery — the same surface that powers /notifications.";
+  "Ship Knock-style in-app notifications in days. Velt provides drop-in inbox, bell, grouped notifications, and multi-channel delivery: the same surface that powers /notifications.";
 
 export const metadata = buildPageMetadata({
   title: "Knock-like notifications",

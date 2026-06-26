@@ -9,7 +9,7 @@ export const useCaseFaq: FaqEntry[] = [
   {
     question: "Does it work with other libraries?",
     answer:
-      "Yes — Velt is framework-agnostic and ships first-class adapters for popular editor and chart libraries (Tiptap, Lexical, Slate, ProseMirror, CodeMirror, Highcharts, React Flow, and more). Drop our SDK in alongside whatever you already use.",
+      "Yes. Velt is framework-agnostic and ships first-class adapters for popular editor and chart libraries (Tiptap, Lexical, Slate, ProseMirror, CodeMirror, Highcharts, React Flow, and more). Drop our SDK in alongside whatever you already use.",
   },
   {
     question: "Do you support self-hosting?",

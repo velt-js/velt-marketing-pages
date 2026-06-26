@@ -63,19 +63,19 @@ export const migrationStepsTestimonial = defineType({
     }),
     defineField({
       name: "quotePrefix",
-      title: "Quote — leading text",
+      title: "Quote: leading text",
       description: 'Plain text before the highlighted phrase, e.g. "Velt hosts all collaboration functionalities needed to ".',
       type: "string",
     }),
     defineField({
       name: "quoteHighlight",
-      title: "Quote — highlighted phrase",
+      title: "Quote: highlighted phrase",
       description: 'Rendered in #0085ff blue, e.g. "boost engagement".',
       type: "string",
     }),
     defineField({
       name: "quoteSuffix",
-      title: "Quote — trailing text",
+      title: "Quote: trailing text",
       description: 'Plain text after the highlight, e.g. " at HeyGen".',
       type: "string",
     }),
@@ -90,7 +90,7 @@ export const migrationStepsPanel = defineType({
   fields: [
     defineField({
       name: "headingPrefix",
-      title: "Heading — prefix",
+      title: "Heading: prefix",
       description: 'Plain text before the gradient, e.g. "Migrate".',
       type: "string",
       initialValue: "Migrate",
@@ -98,7 +98,7 @@ export const migrationStepsPanel = defineType({
     }),
     defineField({
       name: "headingHighlight",
-      title: "Heading — gradient phrase",
+      title: "Heading: gradient phrase",
       description: 'Rendered with the #bcbaff→#625df5 gradient, e.g. "in 3 Steps".',
       type: "string",
       initialValue: "in 3 Steps",

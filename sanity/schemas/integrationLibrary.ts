@@ -184,7 +184,7 @@ export const integrationLibrary = defineType({
       name: "logo",
       title: "Logo (optional)",
       description:
-        "Brand logo for the grid chip. Optional — the name always renders as HTML text, so a missing logo degrades to a text chip.",
+        "Brand logo for the grid chip. Optional: the name always renders as HTML text, so a missing logo degrades to a text chip.",
       type: "image",
       group: "identity",
       options: { hotspot: false },

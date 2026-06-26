@@ -28,7 +28,7 @@ import {
 
 const TITLE = "Integrations";
 const DESCRIPTION =
-  "Connect Velt with the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.";
+  "Connect Velt with the tools your team already uses: Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.";
 
 export const metadata = buildPageMetadata({
   title: TITLE,

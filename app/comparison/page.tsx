@@ -29,7 +29,7 @@ const COMPARISON_BREADCRUMB = buildBreadcrumbList([
 const COMPARISON_WEBPAGE = buildWebPageSchema({
   name: "Velt vs Competitors: 6 Reasons Velt Outperforms",
   description:
-    "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
+    "100% better experience with 90% less code. See why teams choose Velt over alternatives: product maturity, implementation cost, scalability, UX, security, and support.",
   url: `${SITE_URL}/comparison`,
   breadcrumb: COMPARISON_BREADCRUMB,
 });
@@ -37,7 +37,7 @@ const COMPARISON_WEBPAGE = buildWebPageSchema({
 export const metadata = buildPageMetadata({
   title: "Velt vs Competitors: 6 Reasons Velt Outperforms",
   description:
-    "100% better experience with 90% less code. See why teams choose Velt over alternatives — product maturity, implementation cost, scalability, UX, security, and support.",
+    "100% better experience with 90% less code. See why teams choose Velt over alternatives: product maturity, implementation cost, scalability, UX, security, and support.",
   path: "/comparison",
   ogImage: "/og/comparison.png",
 });

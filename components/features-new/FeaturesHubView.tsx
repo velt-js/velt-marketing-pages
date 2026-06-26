@@ -134,7 +134,7 @@ export default function FeaturesHubView({ items, faq }: FeaturesHubViewProps) {
                 <p className="vintg-eyebrow">Features</p>
                 <h1>Built for modern collaboration</h1>
                 <p className="vintg-lead">
-                  Drop-in collaboration primitives — comments, presence, cursors,
+                  Drop-in collaboration primitives: comments, presence, cursors,
                   huddles, and more. Pick a building block and ship in days, not months.
                 </p>
                 <CtaRow

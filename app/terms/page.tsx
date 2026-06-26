@@ -24,7 +24,7 @@ const TERMS_BREADCRUMB = buildBreadcrumbList([
 ]);
 
 const TERMS_WEBPAGE = buildWebPageSchema({
-  name: "Terms of Service — Velt",
+  name: "Terms of Service: Velt",
   description: TERMS_DESCRIPTION,
   url: `${SITE_URL}/terms`,
   breadcrumb: TERMS_BREADCRUMB,

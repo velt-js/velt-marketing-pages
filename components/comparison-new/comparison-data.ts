@@ -81,7 +81,7 @@ export const REASONS: ComparisonReason[] = [
       {
         velt: {
           title: "Complete architecture",
-          subtitle: "Every layer you need — UX, logic, API, and backend.",
+          subtitle: "Every layer you need: UX, logic, API, and backend.",
           media: { kind: "image", src: `${MEDIA_BASE}/complete-architecture.png` },
         },
         other: {

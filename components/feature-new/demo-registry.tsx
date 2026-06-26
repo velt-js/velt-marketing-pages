@@ -503,7 +503,7 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
                 <span className="cmh-cmt-name">Sarah</span>
                 <span className="cmh-cmt-time">09:21</span>
               </div>
-              <p className="cmh-cmt-body">Accepted the finding — cleared with legal.</p>
+              <p className="cmh-cmt-body">Accepted the finding: cleared with legal.</p>
               <span className="aud-judge aud-judge--human">judge type · human</span>
             </div>
           </div>

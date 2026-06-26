@@ -27,7 +27,7 @@ import {
 
 const PAGE_TITLE = "Velt Use Cases: Where Will You Integrate Velt?";
 const PAGE_DESCRIPTION =
-  "Explore 10+ use cases — Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.";
+  "Explore 10+ use cases: Video Editor, Form Builder, Analytics, Task Manager, Sheets, Presentation, Documentation, Code IDE, No-code Tool, Session Replay.";
 
 const USE_CASE_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -56,7 +56,7 @@ const HUB_CONTENT: UseCaseHubContent = {
     kicker: "USE CASES",
     title: "Where will you integrate Velt?",
     secondary:
-      "Explore 10+ use cases. Velt's SDK drops collaboration — comments, presence, notifications, and more — into whatever you're building.",
+      "Explore 10+ use cases. Velt's SDK drops collaboration (comments, presence, notifications, and more) into whatever you're building.",
     primaryCta: { label: "Get Free API Key", href: CONSOLE_HREF, newTab: true },
     secondaryCta: { label: "Book Demo", href: DEMO_HREF },
     microcopy: "Free tier. No credit card.",

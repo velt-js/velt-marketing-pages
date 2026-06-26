@@ -31,7 +31,7 @@ type MigrationFeaturesProps = {
 const SECTION_EYEBROW = "Feature parity";
 const SECTION_TITLE = "Everything you shipped matched in Velt.";
 const SECTION_SUB =
-  "Every primitive you relied on has a drop-in equivalent — plus the modern surfaces that keep shipping.";
+  "Every primitive you relied on has a drop-in equivalent, plus the modern surfaces that keep shipping.";
 const CHIPS_LABEL = "Features used";
 
 /**

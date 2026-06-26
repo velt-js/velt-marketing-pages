@@ -32,7 +32,7 @@ const FAQS: PricingFaqItem[] = [
     answer: (
       <>
         MAR (Monthly Active Room) counts a document as active when a user merely
-        connects to it. MAD (Monthly Active Document) — the metric we use — only
+        connects to it. MAD (Monthly Active Document), the metric we use, only
         counts documents where users actively use Velt&rsquo;s collaboration
         features. MAD is a subset of MAR: typically about 20% of MARs perform
         meaningful collaboration. MAD-based pricing means you&rsquo;re billed

@@ -479,7 +479,7 @@ export const featureBentoCard = defineType({
       name: "uiComponentKey",
       title: "UI Component",
       description:
-        "Picks a registered React UI component from components/feature/uis. Use this OR Card Image — not both.",
+        "Picks a registered React UI component from components/feature/uis. Use this OR Card Image, not both.",
       type: "string",
       options: {
         list: FEATURE_UI_KEYS.map((key) => ({

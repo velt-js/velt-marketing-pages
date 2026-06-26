@@ -63,7 +63,7 @@ export const revalidate = 60;
 // rendered <meta name="description"> stays within the search-snippet window.
 const LIBRARY_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
   lexical:
-    "Add comments, presence, and co-editing to your Lexical editor — for your users and AI agents. Threads stay pinned to nodes as the document updates.",
+    "Add comments, presence, and co-editing to your Lexical editor, for your users and AI agents. Threads stay pinned to nodes as the document updates.",
 };
 
 type CtaLink = {

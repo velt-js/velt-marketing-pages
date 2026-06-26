@@ -30,7 +30,7 @@ const CONSULT_BREADCRUMB = buildBreadcrumbList([
 ]);
 
 const CONSULT_DESCRIPTION =
-  "Free design consultation with ex-Google and Netflix product managers and designers — product audits, custom mockups, and an implementation plan for your collaboration features.";
+  "Free design consultation with ex-Google and Netflix product managers and designers: product audits, custom mockups, and an implementation plan for your collaboration features.";
 
 const CONSULT_WEBPAGE = buildWebPageSchema({
   name: "Consult | Velt",

@@ -251,7 +251,7 @@ export function FeatureSidebarShowcase({
                   fontSize: 14,
                 }}
               >
-                Detail screenshot — coming soon
+                Detail screenshot: coming soon
               </div>
             )}
           </div>

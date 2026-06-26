@@ -17,7 +17,7 @@ export default function PricingHero() {
         </div>
         <h1 className="prh-title">Pay only for meaningful collaboration.</h1>
         <p className="prh-sub">
-          Usage-based pricing on monthly active documents — not seats, not
+          Usage-based pricing on monthly active documents, not seats, not
           connections. Start free, scale when your product does.
         </p>
         <div className="prh-actions">

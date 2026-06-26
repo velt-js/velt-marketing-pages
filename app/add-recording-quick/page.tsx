@@ -36,7 +36,7 @@ const ADD_RECORDING_BREADCRUMB = buildBreadcrumbList([
 const ADD_RECORDING_WEBPAGE = buildWebPageSchema({
   name: "Add recording quickly | Velt",
   description:
-    "Ship Loom-style in-app recording in days. Audio, video, and screen recording with AI transcripts, captions, and summaries — drop in one component with the Velt SDK.",
+    "Ship Loom-style in-app recording in days. Audio, video, and screen recording with AI transcripts, captions, and summaries: drop in one component with the Velt SDK.",
   url: `${SITE_URL}/add-recording-quick`,
   breadcrumb: ADD_RECORDING_BREADCRUMB,
 });
@@ -44,7 +44,7 @@ const ADD_RECORDING_WEBPAGE = buildWebPageSchema({
 export const metadata = buildPageMetadata({
   title: "Add recording quickly",
   description:
-    "Ship Loom-style in-app recording in days. Audio, video, and screen recording with AI transcripts, captions, and summaries — drop in one component with the Velt SDK.",
+    "Ship Loom-style in-app recording in days. Audio, video, and screen recording with AI transcripts, captions, and summaries: drop in one component with the Velt SDK.",
   path: "/add-recording-quick",
   ogImage: "/og/add-recording-quick.png",
 });
@@ -144,7 +144,7 @@ export default function AddRecordingQuickPage() {
           decorated
           eyebrow={{ label: "Recording SDK" }}
           heading="Add recording before standup"
-          subheading="Loom-style audio, video, and screen recording — built into your app in days, not quarters. AI transcripts, captions, and summaries included."
+          subheading="Loom-style audio, video, and screen recording, built into your app in days, not quarters. AI transcripts, captions, and summaries included."
           primaryCta={{
             label: "Get free API key",
             href: "https://console.velt.dev/",
@@ -160,7 +160,7 @@ export default function AddRecordingQuickPage() {
 
         <Security
           heading="Why teams pick Velt for recording"
-          subheading="Full-stack recording components with capture, storage, playback, and AI features included — drop one tag in and ship."
+          subheading="Full-stack recording components with capture, storage, playback, and AI features included: drop one tag in and ship."
           primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
           secondaryCta={{ label: "Book demo", href: "/book-demo" }}
           cards={RECORDING_CARDS}

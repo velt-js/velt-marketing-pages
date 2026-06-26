@@ -260,7 +260,7 @@ export default function ComparisonReasons() {
                 Pay for collaboration, not connections.
               </h2>
               <p className="cmp-price-sub">
-                Choose Velt for a serious production app — or others for basic
+                Choose Velt for a serious production app, or others for basic
                 collaboration.
               </p>
             </div>

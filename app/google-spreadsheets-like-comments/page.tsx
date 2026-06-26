@@ -117,7 +117,7 @@ const FEATURE_CARDS: SecurityCardData[] = [
   {
     title: "Native notifications",
     subtitle:
-      "In-app, email, and Slack notifications bring users back to the right cell — comments and notifications work together out of the box.",
+      "In-app, email, and Slack notifications bring users back to the right cell, comments and notifications work together out of the box.",
     visual: (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -167,7 +167,7 @@ export default function GoogleSpreadsheetsLikeCommentsPage() {
           decorated
           eyebrow={{ label: "Spreadsheets" }}
           heading="Let users communicate natively in your app on sheets"
-          subheading="Velt's SDK lets you build Google Sheets-style commenting into spreadsheets, tables, and data grids in your SaaS — cell comments, threaded replies, mentions, and notifications."
+          subheading="Velt's SDK lets you build Google Sheets-style commenting into spreadsheets, tables, and data grids in your SaaS: cell comments, threaded replies, mentions, and notifications."
           primaryCta={{
             label: "Get Free API Key",
             href: "https://console.velt.dev/",

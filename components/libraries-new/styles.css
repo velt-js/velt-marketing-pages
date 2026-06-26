@@ -189,6 +189,9 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--vlp-space-4);
 }
+.vintg-cards--quad {
+  grid-template-columns: repeat(4, 1fr);
+}
 .vintg-card {
   background: var(--vlp-bg-card);
   border: 1px solid var(--vlp-border-card);
@@ -198,6 +201,7 @@
   flex-direction: column;
   gap: var(--vlp-space-2);
 }
+.vintg-card h3,
 .vintg-card h4 {
   font-family: var(--vlp-font-heading);
   font-size: var(--vlp-text-body-lg);
@@ -624,6 +628,9 @@
   .vintg-steps,
   .vintg-valueprops {
     grid-template-columns: 1fr;
+  }
+  .vintg-cards--quad {
+    grid-template-columns: repeat(2, 1fr);
   }
   .vintg .sc-grid {
     grid-template-columns: 1fr;

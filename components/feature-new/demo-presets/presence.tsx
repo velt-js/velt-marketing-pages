@@ -575,7 +575,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
       <AvatarStack users={DEAL_TEAM} overflow={3} />
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13 }}>
-          Clause 7 —{" "}
+          Clause 7:{" "}
           <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             selection by Clause Checker
           </mark>

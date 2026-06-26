@@ -121,7 +121,7 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
       users={[{ initials: "SR", tone: "a3", img: FACE.sarah }, { initials: "BA", agent: true }]}
     >
       <SlideBlock
-        title="Velt Platform — Enterprise Pricing"
+        title="Velt Platform: Enterprise Pricing"
         claim={<>Annual contract value: <span className="cmh-mark">$18 / seat / mo</span> (unlimited viewers)</>}
       />
 
@@ -133,7 +133,7 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-when">1m</span>
         </div>
         <p className="fb">
-          This seat price conflicts with the approved Q3 rate table &mdash; the published rate is higher.
+          This seat price conflicts with the approved Q3 rate table: the published rate is higher.
         </p>
         <p className="cmh-suggest">
           <span className="lbl">Suggested fix</span>
@@ -263,7 +263,7 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
               <span className="chip chip-pending" style={{ marginLeft: "auto" }}>thread</span>
             </div>
             <p className="cmh-cmt-body">
-              Anchored to the <strong>subject line</strong> — not a screenshot of it. <span className="cmh-mention">@Maya</span>
+              Anchored to the <strong>subject line</strong>: not a screenshot of it. <span className="cmh-mention">@Maya</span>
             </p>
           </div>
         </div>

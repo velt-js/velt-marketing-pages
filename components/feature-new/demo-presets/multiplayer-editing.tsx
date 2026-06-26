@@ -511,12 +511,12 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       </div>
 
       <p className="cmh-doc" style={{ margin: 0 }}>
-        The Q3 campaign centers on the <Sel tone={CURSOR_HOPE}>migration story</Sel> &mdash; moving teams
+        The Q3 campaign centers on the <Sel tone={CURSOR_HOPE}>migration story</Sel>: moving teams
         from async reviews to <LiveCursor name="Hope" tone={CURSOR_HOPE} /> live collaboration inside the product itself.
       </p>
 
       <p className="cmh-doc" style={{ margin: "6px 0 0" }}>
-        Pricing: <Sel tone={CURSOR_ETHAN}>three usage tiers, starting at $0</Sel> &mdash; no per-seat cost.{" "}
+        Pricing: <Sel tone={CURSOR_ETHAN}>three usage tiers, starting at $0</Sel>: no per-seat cost.{" "}
         <LiveCursor name="Ethan" tone={CURSOR_ETHAN} />
       </p>
 
@@ -543,7 +543,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       </div>
 
       <p className="cmh-doc" style={{ margin: 0 }}>
-        Section 4.2 &mdash; Revenue recognition. Hope is revising the opening clause.
+        Section 4.2: Revenue recognition. Hope is revising the opening clause.
         <span style={{ display: "inline-block", width: 2, height: 14, borderRadius: 1, background: CURSOR_HOPE.color as string, verticalAlign: "-2px", marginLeft: 2 }} />
       </p>
 
@@ -559,7 +559,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
         </div>
       </div>
 
-      <p className="code-microcopy" style={{ margin: 0 }}>pen passes on accept &mdash; no racing, no overwrite</p>
+      <p className="code-microcopy" style={{ margin: 0 }}>pen passes on accept: no racing, no overwrite</p>
     </Frame>
   ),
 
@@ -586,7 +586,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
         {"const [filters, setFilters] = useLiveState(\n  \"board-filters\", { status: \"all\" },\n);\n// every connected client reflects the change"}
       </DarkPanel>
 
-      <p className="code-microcopy" style={{ margin: 0 }}>Hope changes the filter &mdash; Ethan&apos;s tab updates instantly, no refresh</p>
+      <p className="code-microcopy" style={{ margin: 0 }}>Hope changes the filter: Ethan&apos;s tab updates instantly, no refresh</p>
     </Frame>
   ),
 
@@ -598,7 +598,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       </div>
       <DocSurface>
         <p style={{ margin: 0, fontSize: 13, lineHeight: 1.5 }}>
-          Campaign brief &mdash; Maya is typing the opening paragraph.
+          Campaign brief: Maya is typing the opening paragraph.
         </p>
         <div style={{ position: "absolute", top: 12, right: 20 }}>
           <CursorTag name="Maya" />
@@ -606,8 +606,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
         <p style={{ margin: "12px 0 0", fontSize: 13, lineHeight: 1.5, opacity: 0.85 }}>
           <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>
             Pricing section
-          </mark>{" "}
-          &mdash; rewritten by the agent through the CRDT REST API.
+          </mark>: rewritten by the agent through the CRDT REST API.
         </p>
         <div style={{ position: "absolute", bottom: 12, left: 18 }}>
           <CursorTag name="Agent" kind="agent" />

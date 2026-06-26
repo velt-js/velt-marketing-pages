@@ -352,7 +352,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
                 <span className="cmh-cmt-name">Maya</span>
                 <span className="cmh-cmt-time">2m</span>
               </div>
-              <p className="cmh-cmt-body">Hold the discount — let&apos;s counter at 12%.</p>
+              <p className="cmh-cmt-body">Hold the discount: let&apos;s counter at 12%.</p>
               <span className="cmh-cmt-replies"><IconReply />2 Replies</span>
             </div>
           </div>
@@ -517,7 +517,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
 
   "comments/showcase/webhooks": (
     <div className="pv">
-      <DarkPanel footer="comment · reply · resolve · approval — full payload">
+      <DarkPanel footer="comment · reply · resolve · approval: full payload">
         {"POST /your-webhook\n{\n  \"event\": \"comment.added\",\n  \"documentId\": \"deck-q3\"\n}"}
       </DarkPanel>
     </div>

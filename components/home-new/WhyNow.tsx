@@ -123,7 +123,7 @@ export default function WhyNow() {
             </div>
           </div>
 
-          <p className="why-tl-caption">// every value in the record traces back to who put it there — hover to follow the thread</p>
+          <p className="why-tl-caption">// every value in the record traces back to who put it there: hover to follow the thread</p>
         </div>
       </section>
   );

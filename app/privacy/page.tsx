@@ -24,7 +24,7 @@ const PRIVACY_BREADCRUMB = buildBreadcrumbList([
 ]);
 
 const PRIVACY_WEBPAGE = buildWebPageSchema({
-  name: "Privacy Policy — Velt",
+  name: "Privacy Policy: Velt",
   description: PRIVACY_DESCRIPTION,
   url: `${SITE_URL}/privacy`,
   breadcrumb: PRIVACY_BREADCRUMB,

@@ -469,7 +469,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           label="Voice note · pinned to this cell"
           duration="0:42"
           active={7}
-          transcript={"“The variance is from the vendor rate change — see row 18.”"}
+          transcript={"“The variance is from the vendor rate change: see row 18.”"}
         />
       </PinnedCell>
 
@@ -480,7 +480,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-role">· Finance</span>
           <span className="cmh-when">1m</span>
         </div>
-        <p className="thread-body">Got it — I&rsquo;ll update the model and share the revised sheet.</p>
+        <p className="thread-body">Got it: I&rsquo;ll update the model and share the revised sheet.</p>
         <div className="cmh-foot">
           <span className="cmh-rx on">👍 2</span>
           <span className="cmh-reply"><IconReply />1 reply</span>
@@ -515,7 +515,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-role">· Design</span>
           <span className="cmh-when">3m</span>
         </div>
-        <p className="thread-body">Recorded a quick walkthrough of slide 4 — the pricing table needs one more row. @Ethan can you confirm the seats number?</p>
+        <p className="thread-body">Recorded a quick walkthrough of slide 4: the pricing table needs one more row. @Ethan can you confirm the seats number?</p>
         <div className="cmh-foot">
           <span className="cmh-rx on">✅ 1</span>
           <span className="cmh-reply"><IconReply />2 replies</span>
@@ -566,7 +566,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
             label="Screen capture · mic narration"
             duration="1:12"
             active={9}
-            transcript={"“Here's the filing — walking through it the way I would in person.”"}
+            transcript={"“Here's the filing: walking through it the way I would in person.”"}
           />
         </div>
       </div>
@@ -578,7 +578,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-role">· Ops</span>
           <span className="cmh-when">2m</span>
         </div>
-        <p className="thread-body">This is exactly what I needed — approving the work order now.</p>
+        <p className="thread-body">This is exactly what I needed: approving the work order now.</p>
         <div className="cmh-foot">
           <span className="cmh-rx on"><IconCheck />Approved</span>
         </div>
@@ -665,7 +665,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           <span className="chip chip-agent">agent</span>
           <span className="cmh-when">now</span>
         </div>
-        <p className="fb">Transcription ready — 98% confidence. 3 filler words detected between 0:14 and 0:19.</p>
+        <p className="fb">Transcription ready: 98% confidence. 3 filler words detected between 0:14 and 0:19.</p>
         <div className="cmh-acts">
           <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
           <button type="button" className="cmh-btn reject">Skip</button>
@@ -686,7 +686,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
       </PinnedCell>
       <NotifItem
         avatar={{ initials: "VA", kind: "agent", name: "Variance Agent" }}
-        title={<><strong>Variance Agent</strong> replied: &ldquo;Confirmed — the rate change in row 18 explains 92% of the variance. Suggested correction attached.&rdquo;</>}
+        title={<><strong>Variance Agent</strong> replied: &ldquo;Confirmed: the rate change in row 18 explains 92% of the variance. Suggested correction attached.&rdquo;</>}
         meta="judge type AGENT · same thread"
         actions
       />
@@ -714,7 +714,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           <RcdPlayer
             active={7}
             duration="0:18"
-            transcript={<>&ldquo;This number is faster said than typed &mdash; the variance is the vendor rate change.&rdquo;</>}
+            transcript={<>&ldquo;This number is faster said than typed: the variance is the vendor rate change.&rdquo;</>}
           />
         </div>
       </div>
@@ -835,7 +835,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
           />
           <div className="apf-note">
             <span className="chip chip-approved">on the work</span>
-            <span>lands on the cell, the field, the frame — not a separate library</span>
+            <span>lands on the cell, the field, the frame: not a separate library</span>
           </div>
         </div>
       </div>
@@ -870,7 +870,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
             </div>
             <div className="rcd-cue">
               <span className="rcd-cue-t">0:31</span>
-              <span className="rcd-cue-x">See row 18 — I&rsquo;ve flagged the cell.</span>
+              <span className="rcd-cue-x">See row 18: I&rsquo;ve flagged the cell.</span>
             </div>
           </div>
           <div className="apf-note">
@@ -941,7 +941,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
                 <span className="cmh-cmt-name">Hope</span>
                 <span className="cmh-cmt-time">2m</span>
               </div>
-              <p className="cmh-cmt-body">Recorded the walkthrough — see the filing steps here.</p>
+              <p className="cmh-cmt-body">Recorded the walkthrough: see the filing steps here.</p>
               <div className="rcd-attach">
                 <span className="rcd-attach-play"><IconPlaySolid /></span>
                 <span className="rcd-attach-main">
@@ -1039,7 +1039,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
                   <span className="rcd-route-sub">minimal</span>
                 </span>
               </div>
-              <p className="rcd-route-min">Only minimal identifiers — <code>recordingId</code>, <code>userId</code>, timestamps — so the media never leaves your storage.</p>
+              <p className="rcd-route-min">Only minimal identifiers (<code>recordingId</code>, <code>userId</code>, timestamps), so the media never leaves your storage.</p>
             </div>
           </div>
         </div>

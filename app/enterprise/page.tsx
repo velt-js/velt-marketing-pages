@@ -34,14 +34,14 @@ const ENTERPRISE_BREADCRUMB = buildBreadcrumbList([
 ]);
 
 const ENTERPRISE_WEBPAGE = buildWebPageSchema({
-  name: "Velt for Enterprise — Self-hosting, Compliance & Dedicated Support",
+  name: "Velt for Enterprise: Self-hosting, Compliance & Dedicated Support",
   description: ENTERPRISE_DESCRIPTION,
   url: `${SITE_URL}/enterprise`,
   breadcrumb: ENTERPRISE_BREADCRUMB,
 });
 
 export const metadata = buildPageMetadata({
-  title: "Velt for Enterprise — Self-hosting, Compliance & Dedicated Support",
+  title: "Velt for Enterprise: Self-hosting, Compliance & Dedicated Support",
   description: ENTERPRISE_DESCRIPTION,
   path: "/enterprise",
   ogImage: "/og/enterprise.png",

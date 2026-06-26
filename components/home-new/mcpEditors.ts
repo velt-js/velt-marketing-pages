@@ -47,7 +47,7 @@ export const MCP_EDITORS: Record<McpEditorKey, McpEditorConfig> = {
       prompt: "$",
       cmd: `claude mcp add velt-installer -- npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
     },
-    mcpPrompt: `Add the Velt MCP server, then say: install velt — claude mcp add velt-installer -- npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
+    mcpPrompt: `Add the Velt MCP server, then say: install velt - claude mcp add velt-installer -- npx -y ${VELT_MCP_INSTALLER_PACKAGE}`,
     manualPrompts: {
       install: "Install @veltdev/react in my React app and verify the package is in package.json.",
       wrap: "Wrap my React app with VeltProvider from @veltdev/react. Use a placeholder apiKey prop.",

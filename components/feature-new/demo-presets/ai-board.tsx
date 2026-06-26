@@ -140,7 +140,7 @@ export function AiNativeBoard() {
               <span className="ai-doc-chip">needs review</span>
             </div>
             <p className="ai-doc-body">
-              Refund request <strong>#4471</strong> — customer cites a delayed delivery and asks for a{" "}
+              Refund request <strong>#4471</strong>: customer cites a delayed delivery and asks for a{" "}
               <span className="ai-doc-mark">$140 full refund</span>. Policy caps discretionary refunds at $100.
             </p>
             <AiAgentPopover />

@@ -102,7 +102,7 @@ export const SOLUTIONS_AI_NATIVE_SAAS_DEMOS: Record<string, ReactNode> = {
           <span className="chip chip-agent">agent</span>
           <span className="cmh-when">just now</span>
         </div>
-        <p className="fb">Refund exceeds policy by $40 &mdash; recommend partial approval of $300.00.</p>
+        <p className="fb">Refund exceeds policy by $40: recommend partial approval of $300.00.</p>
         <p className="cmh-suggest">
           <span className="lbl">Suggested fix</span>
           <span className="body">

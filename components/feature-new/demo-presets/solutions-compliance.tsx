@@ -149,7 +149,7 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
         }}
       >
         <Av initials="NI" tone="a3" img={COMPLIANCE_FACE.nina} />
-        <span>Nina &mdash; Compliance Officer</span>
+        <span>Nina, Compliance Officer</span>
         <span className="chip chip-approved" style={{ marginLeft: "auto" }}>signed off</span>
       </div>
 
@@ -333,7 +333,7 @@ export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
               <span className="cmh-cmt-name">Compliance officer</span>
               <span className="cmh-cmt-time">2m</span>
             </div>
-            <p className="cmh-cmt-body">Anchored to the <strong>disclosure line</strong> — not a screenshot of it.</p>
+            <p className="cmh-cmt-body">Anchored to the <strong>disclosure line</strong>: not a screenshot of it.</p>
             <span className="chip chip-pending">thread</span>
           </div>
         </div>

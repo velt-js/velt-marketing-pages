@@ -8,7 +8,7 @@ import {
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 
 const BOOK_DEMO_DESCRIPTION =
-  "See Velt in action. Get a personalized walkthrough of our collaboration SDK — comments, cursors, notifications, and more.";
+  "See Velt in action. Get a personalized walkthrough of our collaboration SDK: comments, cursors, notifications, and more.";
 
 export const metadata = buildPageMetadata({
   title: "Book a demo",

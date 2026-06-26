@@ -9,7 +9,7 @@ import { FeaturePageBody } from "@/components/feature/FeaturePageBody";
 export const revalidate = 60;
 
 const PAGE_DESCRIPTION =
-  "Add in-app notifications to your product in days, not months. Velt ships a drop-in inbox, bell, grouped notifications, and multi-channel delivery — the same surface that powers /notifications.";
+  "Add in-app notifications to your product in days, not months. Velt ships a drop-in inbox, bell, grouped notifications, and multi-channel delivery: the same surface that powers /notifications.";
 
 export const metadata = buildPageMetadata({
   title: "Add notifications quickly",

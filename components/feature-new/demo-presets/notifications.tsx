@@ -578,7 +578,7 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
     >
       <EmailCard
         from="notifications@velt.dev"
-        subject="Sign-off requested — Q3 forecast"
+        subject="Sign-off requested: Q3 forecast"
         preview={
           <>
             <p style={{ margin: "0 0 6px" }}>
@@ -643,7 +643,7 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
           <span className="chip chip-agent">agent</span>
           <span className="cmh-when">2:39 PM</span>
         </div>
-        <p className="fb">3 pricing claims flagged on Q3 deck — opens to approve-or-reject queue.</p>
+        <p className="fb">3 pricing claims flagged on Q3 deck: opens to approve-or-reject queue.</p>
         <div className="cmh-acts">
           <button type="button" className="cmh-btn approve"><IconCheck />Approve all</button>
           <button type="button" className="cmh-btn reject"><IconX />Dismiss</button>
@@ -796,9 +796,9 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
                 </span>
               </div>
               <div className="ntf-mail-body">
-                <span className="ntf-mail-subj">Sign-off requested — Q3 forecast</span>
+                <span className="ntf-mail-subj">Sign-off requested: Q3 forecast</span>
                 <span className="ntf-mail-prev">
-                  <span className="ntf-mention">@Ethan</span> mentioned on Q3 forecast — &ldquo;approve before Friday close?&rdquo;
+                  <span className="ntf-mention">@Ethan</span> mentioned on Q3 forecast: &ldquo;approve before Friday close?&rdquo;
                 </span>
               </div>
             </div>
@@ -956,7 +956,7 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
           <AgentFindingCard
             name="Review Agent"
             time="9:00 AM"
-            body="Finished overnight — 3 findings ready as an approve-or-reject queue."
+            body="Finished overnight: 3 findings ready as an approve-or-reject queue."
             replies={3}
           />
           <div className="apf-note">
@@ -987,7 +987,7 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
               </div>
               <div className="ntf-lane-row">
                 <Av initials="CP" tone="a3" />
-                <span className="ntf-lane-row-main">Their shared thread moved — reply added</span>
+                <span className="ntf-lane-row-main">Their shared thread moved: reply added</span>
               </div>
               <div className="ntf-lane-foot">
                 <span className="ntf-lane-mark ntf-lane-mark--ok"><IconCheck /></span>
@@ -1033,7 +1033,7 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
                 Your servers
               </span>
               <p className="ntf-host-content">
-                <strong>Maya</strong> mentioned you — &ldquo;approve the revised Q3 projections?&rdquo;
+                <strong>Maya</strong> mentioned you: &ldquo;approve the revised Q3 projections?&rdquo;
               </p>
               <span className="chip chip-approved ntf-host-tag">full content</span>
             </div>

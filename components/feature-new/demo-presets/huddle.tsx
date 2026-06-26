@@ -329,7 +329,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
         </button>
       </div>
 
-      <p className="code-microcopy">one click — no link, no invite, no calendar</p>
+      <p className="code-microcopy">one click: no link, no invite, no calendar</p>
     </Frame>
   ),
 
@@ -430,7 +430,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
           <span className="chip chip-agent" style={{ fontSize: 10 }}>agent</span>
           <span className="cmh-when">just now</span>
         </div>
-        <p style={{ margin: 0, fontSize: 12.5, fontWeight: 600, color: INK }}>Huddle summary — Clause 7 review</p>
+        <p style={{ margin: 0, fontSize: 12.5, fontWeight: 600, color: INK }}>Huddle summary: Clause 7 review</p>
         <div style={{ display: "grid", gap: 5 }}>
           {[
             "Agreed: vendor rate corrected to 9%, not 12%",
@@ -448,7 +448,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
       {/* Human confirming */}
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <Av initials="MA" tone="a2" img={FACE.maya} />
-        <span style={{ fontSize: 12.5, color: INK, flex: 1 }}>Looks right — marking clause 7 approved.</span>
+        <span style={{ fontSize: 12.5, color: INK, flex: 1 }}>Looks right: marking clause 7 approved.</span>
         <span className="chip chip-approved">resolved</span>
       </div>
 
@@ -462,7 +462,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
       <DocSurface>
         <NotifItem
           avatar={{ initials: "CC", kind: "agent", name: "Clause Checker" }}
-          title={<><strong>Clause 7</strong> — vendor rate is 12% over the contracted schedule</>}
+          title={<><strong>Clause 7</strong>: vendor rate is 12% over the contracted schedule</>}
           chip={{ label: "agent", kind: "agent" }}
           actions
         />
@@ -700,7 +700,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
                   <span className="cmh-cmt-name">Maya</span>
                   <span className="cmh-cmt-time">now</span>
                 </div>
-                <p className="cmh-cmt-body">Corrected rate: 9% — see footnote 4</p>
+                <p className="cmh-cmt-body">Corrected rate: 9% - see footnote 4</p>
               </div>
             </div>
             <div className="cmh-cmt cmh-cmt--plain">
@@ -816,7 +816,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
               <span className="hud-rel-name">Maya</span>
               <span className="hud-rel-time">now</span>
             </span>
-            <p className="hud-rel-line">Thread stalled — huddled to settle it</p>
+            <p className="hud-rel-line">Thread stalled: huddled to settle it</p>
             <span className="hud-rel-resolved"><IconCheck />decision back in the thread</span>
           </div>
         </div>

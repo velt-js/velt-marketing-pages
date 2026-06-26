@@ -584,8 +584,8 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
             </div>
             <div className="rav-samples">
               <span className="rav-step-label">Proven on samples</span>
-              <span className="rav-sample"><span className="rav-tick"><IconCheck /></span>&ldquo;cheaper than Acme&rdquo; — caught</span>
-              <span className="rav-sample"><span className="rav-tick"><IconCheck /></span>&ldquo;our own roadmap&rdquo; — skipped</span>
+              <span className="rav-sample"><span className="rav-tick"><IconCheck /></span>&ldquo;cheaper than Acme&rdquo;: caught</span>
+              <span className="rav-sample"><span className="rav-tick"><IconCheck /></span>&ldquo;our own roadmap&rdquo;: skipped</span>
             </div>
           </div>
         </div>
@@ -599,7 +599,7 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
         <AgentFindingCard
           name="Brand Agent"
           time="now"
-          body="Pricing claim on line 4 has no cited source — anchored here, threaded, AI-badged."
+          body="Pricing claim on line 4 has no cited source: anchored here, threaded, AI-badged."
           replies={2}
         />
       </div>
@@ -942,7 +942,7 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
             <span className="cmh-cmt-name">Sarah</span>
             <span className="cmh-cmt-time">2m</span>
           </div>
-          <p className="cmh-cmt-body">Findings are comments — the same threads your users know.</p>
+          <p className="cmh-cmt-body">Findings are comments: the same threads your users know.</p>
           <span className="cmh-cmt-replies"><IconReply />3 Replies</span>
         </div>
       </div>

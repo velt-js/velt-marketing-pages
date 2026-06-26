@@ -119,7 +119,7 @@ function OwnerChip({ kind }: { kind: "yours" | "velt" }) {
 const FIELD_ROWS: Array<{ field: string; yours: boolean; velt: boolean; note: string }> = [
   { field: "commentText", yours: true, velt: false, note: "full content" },
   { field: "userId", yours: false, velt: true, note: "opaque identifier" },
-  { field: "name / email", yours: true, velt: false, note: "PII — your directory" },
+  { field: "name / email", yours: true, velt: false, note: "PII: your directory" },
   { field: "documentId", yours: true, velt: true, note: "shared key" },
   { field: "status / ts", yours: false, velt: true, note: "structural metadata" },
   { field: "attachments", yours: true, velt: false, note: "S3 / GCS URL only" },
@@ -303,7 +303,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
         <NodeBox label="Velt Cloud" sub="thread structure · document IDs · timestamps" />
       </div>
 
-      <DarkPanel footer="velt.setDataProviders() — one call, full control">
+      <DarkPanel footer="velt.setDataProviders(): one call, full control">
         {"velt.setDataProviders({\n  comment: {\n    get:    (req) => myDb.fetch(req),\n    save:   (req) => myDb.insert(req),\n    delete: (req) => myDb.remove(req),\n  },\n});"}
       </DarkPanel>
     </Frame>
@@ -389,10 +389,10 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
                 {row.field}
               </span>
               <div style={{ display: "flex", justifyContent: "center" }}>
-                {row.yours ? <OwnerChip kind="yours" /> : <span style={{ color: "var(--vlp-color-text-subtle)", fontSize: 11 }}>—</span>}
+                {row.yours ? <OwnerChip kind="yours" /> : <span style={{ color: "var(--vlp-color-text-subtle)", fontSize: 11 }}>-</span>}
               </div>
               <div style={{ display: "flex", justifyContent: "center" }}>
-                {row.velt ? <OwnerChip kind="velt" /> : <span style={{ color: "var(--vlp-color-text-subtle)", fontSize: 11 }}>—</span>}
+                {row.velt ? <OwnerChip kind="velt" /> : <span style={{ color: "var(--vlp-color-text-subtle)", fontSize: 11 }}>-</span>}
               </div>
               <span style={{ fontSize: 11, color: "var(--vlp-color-text-muted)" }}>{row.note}</span>
             </div>
@@ -461,7 +461,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
           </div>
           <div className="apf-note">
             <span className="chip chip-agent">Velt</span>
-            <span>keeps only the thread structure — never the content</span>
+            <span>keeps only the thread structure: never the content</span>
           </div>
         </div>
       </div>
@@ -622,7 +622,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
           </div>
           <div className="apf-note">
             <span className="shs-dest shs-dest--velt">URL only</span>
-            <span>Velt stores the link — never touches the bytes</span>
+            <span>Velt stores the link: never touches the bytes</span>
           </div>
         </div>
       </div>
@@ -645,7 +645,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
               <span className="shs-node-ic"><IconDatabase /></span>
               <div className="shs-node-main">
                 <span className="shs-node-name">Velt cloud</span>
-                <span className="shs-node-sub">{"stores { userId } — opaque id"}</span>
+                <span className="shs-node-sub">{"stores { userId }: opaque id"}</span>
               </div>
               <span className="shs-dest shs-dest--velt">Velt</span>
             </div>
@@ -695,7 +695,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
           </div>
           <div className="apf-note">
             <span className="chip chip-approved">review-ready</span>
-            <span>hand it to your security reviewer — no call needed</span>
+            <span>hand it to your security reviewer: no call needed</span>
           </div>
         </div>
       </div>
@@ -729,7 +729,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
                 <span className="shs-lane-name">REST API</span>
               </div>
               <code className="shs-lane-code">sdk.api.*</code>
-              <span className="shs-lane-sub">stateless calls — no database required</span>
+              <span className="shs-lane-sub">stateless calls: no database required</span>
               <div><span className="chip chip-pending">no database</span></div>
             </div>
           </div>
@@ -792,14 +792,14 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
           <div className="shs-map-row">
             <div className="shs-map-main">
               <span className="shs-map-name">Identifiers · timestamps</span>
-              <span className="shs-map-sub">structure only — no content</span>
+              <span className="shs-map-sub">structure only: no content</span>
             </div>
             <span className="shs-dest shs-dest--velt">Velt cloud</span>
           </div>
         </div>
         <div className="apf-note">
           <span className="chip chip-approved">in-region</span>
-          <span>residency stays in your region — call via REST or SDK</span>
+          <span>residency stays in your region: call via REST or SDK</span>
         </div>
       </div>
     </div>

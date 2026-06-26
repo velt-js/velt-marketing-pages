@@ -76,7 +76,7 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
           <span className="cmh-when">just now</span>
         </div>
         <p className="fb">
-          Hold shipment until field record WO-2271 is signed &mdash; counterparty release blocked.
+          Hold shipment until field record WO-2271 is signed: counterparty release blocked.
         </p>
         <div className="cmh-acts">
           <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
@@ -249,7 +249,7 @@ export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
               <span className="cmh-cmt-time">2m</span>
             </div>
             <p className="cmh-cmt-body">
-              Anchored to the <strong>rate line</strong> on the manifest &mdash; not a screenshot of it.
+              Anchored to the <strong>rate line</strong> on the manifest: not a screenshot of it.
             </p>
             <div className="sop-meta">
               <span className="chip chip-pending">internal</span>
