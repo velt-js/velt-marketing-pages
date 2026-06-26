@@ -10,6 +10,7 @@ import { getAllBlogPosts } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
+  buildBlogListingSchema,
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
@@ -32,7 +33,7 @@ const BLOG_WEBPAGE = buildWebPageSchema({
 export const revalidate = 60;
 
 export const metadata = buildPageMetadata({
-  title: "Blog",
+  title: "Blog: Collaboration SDK Guides & Product Insights",
   description:
     "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
   path: "/blog",
@@ -41,6 +42,11 @@ export const metadata = buildPageMetadata({
 
 export default async function BlogListingPage() {
   const posts = (await getAllBlogPosts()) as BlogListPost[];
+
+  const blogSchema = buildBlogListingSchema({
+    url: `${SITE_URL}/blog`,
+    posts,
+  });
 
   return (
     <div className="vlp">
@@ -52,6 +58,7 @@ export default async function BlogListingPage() {
       />
 
       <JsonLd id="ld-blog-webpage" data={BLOG_WEBPAGE} />
+      <JsonLd id="ld-blog-listing" data={blogSchema} />
       <JsonLd id="ld-blog-breadcrumb" data={BLOG_BREADCRUMB} />
 
       <Nav />

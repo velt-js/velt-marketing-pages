@@ -31,6 +31,15 @@ export const revalidate = 60;
 
 const BASE_PATH = "/use-case";
 
+// SEO meta-title overrides for use-case slugs whose CMS `metaTitle` is unset and
+// whose derived "<heading> | Velt" fallback is too short for search snippets
+// (~25 chars). These curated titles land in the 50–60 char sweet spot and take
+// precedence so the rendered <title> is deterministic regardless of CMS state.
+const USE_CASE_META_TITLE_OVERRIDES: Record<string, string> = {
+  analytics: "Collaborative Analytics SDK: Comments & Co-editing | Velt",
+  "task-manager": "Collaborative Task Manager SDK: Comments & Sync | Velt",
+};
+
 export async function generateStaticParams() {
   try {
     const slugs = await getAllUseCaseSlugs();
@@ -52,7 +61,10 @@ export async function generateMetadata({
       | (UseCasePageDoc & { metaTitle?: string; metaDescription?: string; ogImage?: string })
       | null;
     if (!doc) return {};
-    const title = doc.metaTitle ?? `${doc.hero?.heading ?? ""} | Velt`;
+    const title =
+      USE_CASE_META_TITLE_OVERRIDES[slug] ??
+      doc.metaTitle ??
+      `${doc.hero?.heading ?? ""} | Velt`;
     const description = doc.metaDescription ?? doc.hero?.subheading ?? "";
     return buildPageMetadata({
       title,

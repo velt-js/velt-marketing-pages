@@ -57,6 +57,15 @@ import { resolveOgImage } from "@/app/_seo/og-images";
 
 export const revalidate = 60;
 
+// SEO meta-description overrides for library slugs whose CMS `metaDescription`
+// runs well past the ~155 char snippet limit (e.g. lexical at 284 chars). These
+// curated descriptions sit in the 120–160 char range and take precedence so the
+// rendered <meta name="description"> stays within the search-snippet window.
+const LIBRARY_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
+  lexical:
+    "Add comments, presence, and co-editing to your Lexical editor — for your users and AI agents. Threads stay pinned to nodes as the document updates.",
+};
+
 type CtaLink = {
   label?: string;
   href?: string;
@@ -155,7 +164,11 @@ export async function generateMetadata({
     const v2 = (await getLibraryPageV2BySlug(slug)) as RawSpoke | null;
     if (v2) {
       const title = v2.metaTitle ?? `${v2.heroTitle ?? v2.name} | Velt`;
-      const description = v2.metaDescription ?? v2.heroSecondary ?? "";
+      const description =
+        LIBRARY_META_DESCRIPTION_OVERRIDES[slug] ??
+        v2.metaDescription ??
+        v2.heroSecondary ??
+        "";
       return buildPageMetadata({
         title,
         description,

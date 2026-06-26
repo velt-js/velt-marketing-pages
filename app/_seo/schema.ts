@@ -244,6 +244,62 @@ export function buildItemListSchema({
 }
 
 /**
+ * Build a Blog listing schema for the /blog index. Emits a `Blog` node whose
+ * `blogPost` array holds a lightweight `BlogPosting` per published post so
+ * crawlers can index the listing as a blog and discover each entry. The
+ * publisher is linked to the site-wide Organization via its `@id`.
+ *
+ * @param params - Listing metadata.
+ * @param params.url - Absolute canonical URL of the blog index.
+ * @param params.posts - Published posts (most-recent first). Each maps to a
+ *                       BlogPosting node; entries without a title are skipped.
+ * @returns A schema.org Blog node.
+ */
+export function buildBlogListingSchema({
+  url,
+  posts,
+}: {
+  url: string;
+  posts: Array<{
+    slug: string;
+    title: string;
+    description?: string;
+    publishedAt?: string;
+    featuredImage?: string;
+  }>;
+}): Record<string, unknown> {
+  try {
+    const blogPost = posts
+      .filter((post) => Boolean(post?.title))
+      .map((post) => {
+        const postUrl = `${SITE_URL}/blog/${post.slug}`;
+        const node: Record<string, unknown> = {
+          "@type": "BlogPosting",
+          headline: post.title,
+          url: postUrl,
+          mainEntityOfPage: postUrl,
+        };
+        if (post.description) node.description = post.description;
+        if (post.publishedAt) node.datePublished = post.publishedAt;
+        if (post.featuredImage) node.image = post.featuredImage;
+        return node;
+      });
+    return {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: `${ORG_NAME} Blog`,
+      url,
+      isPartOf: { "@id": WEBSITE_ID },
+      publisher: { "@id": ORG_ID },
+      inLanguage: "en-US",
+      blogPost,
+    };
+  } catch {
+    return {};
+  }
+}
+
+/**
  * Build a HowTo schema from an ordered list of step strings. Used by each
  * integration spoke's setup section ("Add Velt to {Name}").
  *

@@ -169,7 +169,7 @@ async function main() {
           _key: "integration",
           question: "How long does integration take?",
           answer:
-            "Most teams ship a working integration in under a week. Drop-in components cover the common surfaces (comments, presence, notifications, huddles); the API surface customises behaviour.",
+            "Most teams ship a working integration in under a week. Drop-in components cover the common surfaces (comments, presence, notifications, huddles); the API surface customizes behavior.",
         },
         {
           _key: "customize",
