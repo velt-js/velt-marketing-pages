@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, DarkPanel, NotifItem } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 
 // Simulated-UI demo nodes for the static /webhooks-and-api feature page. These
 // are referenced directly by app/webhooks-and-api/content.tsx (a local content
@@ -230,15 +231,7 @@ export const WEBHOOKS_DEMOS: Record<string, ReactNode> = {
       ]}
     />
   ),
-  "in-production/sales": (
-    <AuditLog
-      head={{ left: "Sales enablement · activity sync", right: "CRM" }}
-      rows={[
-        { ts: "wk1", ev: "Comment activity synced to HubSpot", chip: { label: "sent", kind: "approved" } },
-        { ts: "wk2", ev: "Approval pushed to deal record", chip: { label: "200", kind: "approved" } },
-      ]}
-    />
-  ),
+  "in-production/sales": <CrmPipelineBoard />,
 
   "related/platform": (
     <div className="pv">

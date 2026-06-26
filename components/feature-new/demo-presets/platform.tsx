@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, DarkPanel, NotifItem } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 
 // Simulated-UI demo nodes for the static /platform (Admin Console) page. These
 // are referenced directly by app/platform/content.tsx (a local content module,
@@ -339,15 +340,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "in-production/sales": (
-    <AuditLog
-      head={{ left: "Account · Acme Corp", right: "adoption" }}
-      rows={[
-        { ts: "wk1", ev: "12 reviewers active", chip: { label: "up", kind: "approved" } },
-        { ts: "wk4", ev: "Exported activity for QBR", chip: { label: "csv", kind: "pending" } },
-      ]}
-    />
-  ),
+  "in-production/sales": <CrmPipelineBoard />,
   "in-production/fintech": (
     <AuditLog
       head={{ left: "Compliance · monthly active docs", right: "examiner export" }}

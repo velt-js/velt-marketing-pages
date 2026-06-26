@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { AvatarStack, DarkPanel, NotifItem } from "../demos";
 import type { AvatarUser } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX } from "./hero-surface";
 import type { PresenceUser } from "./hero-surface";
 
@@ -821,15 +822,7 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "huddle/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <DocSurface>
-        <p style={{ margin: "0 0 10px", fontSize: 13, opacity: 0.7 }}>Pitch deck — claims slide</p>
-        <HuddleBar users={[{ initials: "BR", kind: "human", name: "Brand" }, { initials: "LE", kind: "human", name: "Legal" }, { initials: "WR", kind: "human", name: "Writer" }]} channel="on the slide" />
-      </DocSurface>
-      <p className="code-microcopy">brand, legal, and the writer settle it on the asset itself</p>
-    </div>
-  ),
+  "huddle/in-production/sales": <CrmPipelineBoard />,
 
   "huddle/in-production/fintech": (
     <div style={{ padding: 18 }}>

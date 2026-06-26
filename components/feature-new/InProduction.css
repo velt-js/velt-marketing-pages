@@ -9,7 +9,7 @@
 .vfp .prod-shell .pc-tab:hover { color: #fff; }
 .vfp .prod-shell .pc-tab[aria-selected="true"] { background: rgba(255, 255, 255, 0.08); color: #fff; box-shadow: none; }
 .vfp .prod-shell .pc-body { padding: 0; }
-.vfp .prod-shell .pc-pane { padding: 26px 28px; display: grid; grid-template-rows: 1fr auto; gap: 18px; min-height: 420px; }
+.vfp .prod-shell .pc-pane { padding: 26px 28px; display: grid; grid-template-rows: 1fr auto; gap: 18px; min-height: 560px; }
 .vfp .prod-shot { display: grid; place-items: center; }
 .vfp .prod-shot > * { width: 100%; max-width: 560px; }
 

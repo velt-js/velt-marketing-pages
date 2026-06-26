@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AvatarStack, Chip, DarkPanel } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   AgentFindingCard,
   Av,
@@ -578,52 +579,117 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "comments/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <Surface label="Proposal deck · Acme Corp">
-        <Comment initials="LE" author="Legal" body="Tighten the SLA wording on slide 6." />
-        <p className="code-microcopy">feedback lands on the asset, not in an email chain about it</p>
-      </Surface>
-    </div>
-  ),
+  // Per-vertical "dummy app" surfaces for the In Production tabs: each renders a
+  // believable in-product window (Frame chrome + live presence + an anchored
+  // thread) for that vertical, so the proof section reads as a real screenshot
+  // rather than a bare comment card.
+  "comments/in-production/sales": <CrmPipelineBoard />,
 
   "comments/in-production/fintech": (
-    <div style={{ padding: 18 }}>
-      <Surface label="forecast.xlsx · close week">
-        <p style={{ margin: 0, fontSize: 13, color: "var(--ink, #0b353b)" }}>
-          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>cell B12 · Q3</mark>
-        </p>
-        <Comment initials="MA" author="Maya" body="Is this the revised Q3 number?" />
-        <p className="code-microcopy">attributed, resolved, and on the record</p>
-      </Surface>
-    </div>
+    <Frame
+      app="FX"
+      crumb={<><b>forecast.xlsx</b> <span className="sep">/</span> close week</>}
+      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
+    >
+      <div className="cmh-sheet">
+        <div className="cmh-grid">
+          <span className="cmh-gh cmh-gh-corner" />
+          <span className="cmh-gh">Q1</span>
+          <span className="cmh-gh">Q2</span>
+          <span className="cmh-gh">Q3</span>
+
+          <span className="cmh-gr">10</span>
+          <span className="cmh-gc cmh-gc-strong">Revenue</span>
+          <span className="cmh-gc">$2.4M</span>
+          <span className="cmh-gc">$2.9M</span>
+
+          <span className="cmh-gr">12</span>
+          <span className="cmh-gc cmh-gc-strong">Forecast</span>
+          <span className="cmh-gc">$3.1M</span>
+          <span className="cmh-gc cmh-gc-hl">$3.6M<i className="cmh-gc-flag" /></span>
+        </div>
+
+        <div className="cmh-cmt cmh-cmt-end">
+          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Maya</span>
+              <span className="cmh-cmt-time">4m</span>
+            </div>
+            <p className="cmh-cmt-body">Is <strong>B12</strong> the revised Q3 number? <span className="cmh-mention">@Sarah</span></p>
+            <span className="cmh-cmt-replies"><IconReply />1 Reply</span>
+          </div>
+        </div>
+      </div>
+
+      <Composer placeholder="Comment on cell B12…" />
+    </Frame>
   ),
 
   "comments/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <Surface label="Work order · WO-2271">
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <Chip kind="pending">internal</Chip>
-          <span style={{ fontSize: 12, opacity: 0.7 }}>counterparty sees only what is meant for them</span>
+    <Frame
+      app="OPS"
+      crumb={<><b>Work order</b> <span className="sep">/</span> WO-2271</>}
+      users={[{ initials: "DS", tone: "a4" }, { initials: "JR", tone: "a1", img: FACE.dev }]}
+    >
+      <div
+        style={{
+          display: "grid",
+          gap: 8,
+          border: "1px solid var(--vlp-border-subtle)",
+          borderRadius: 10,
+          padding: "12px 14px",
+          background: "var(--vlp-bg-section-alt)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12.5 }}>
+          <span style={{ color: "var(--vlp-color-text-muted)" }}>Shipment</span>
+          <span style={{ fontWeight: 600, color: "var(--vlp-color-ink)" }}>SHP-4471 · 12 pallets</span>
         </div>
-        <Comment initials="DS" author="Dispatch" body="Hold the shipment until the field record is signed." />
-      </Surface>
-    </div>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12.5 }}>
+          <span style={{ color: "var(--vlp-color-text-muted)" }}>Field record</span>
+          <Chip kind="pending">awaiting signature</Chip>
+        </div>
+      </div>
+
+      <div className="cmh-cmt cmh-cmt-end">
+        <Av initials="DS" tone="a4" />
+        <div className="cmh-cmt-main">
+          <div className="cmh-cmt-head">
+            <span className="cmh-cmt-name">Dispatch</span>
+            <span className="cmh-cmt-time">now</span>
+            <Chip kind="pending">internal</Chip>
+          </div>
+          <p className="cmh-cmt-body">Hold the shipment until the field record is signed. Counterparty sees only what is meant for them.</p>
+        </div>
+      </div>
+
+      <Composer placeholder="Reply internally…" />
+    </Frame>
   ),
 
   "comments/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <Surface label="Generated draft · run #8842">
-        <Comment
-          initials="RA"
-          author="Review Agent"
-          agent
-          body="Refund exceeds policy by $40. Recommend partial approval."
-          actions
-        />
-        <p className="code-microcopy">every finding is a comment with Approve and Reject attached</p>
-      </Surface>
-    </div>
+    <Frame
+      app="AI"
+      crumb={<><b>Generated draft</b> <span className="sep">/</span> run #8842</>}
+      users={[{ initials: "RA", agent: true }, { initials: "JR", tone: "a1", img: FACE.dev }]}
+    >
+      <div className="cmh-td">
+        <p className="cmh-td-doc">
+          Refund request <strong>#4471</strong> — customer cites a delayed delivery and asks for a{" "}
+          <span className="cmh-mark">$140 full refund</span>. Policy caps discretionary refunds at $100.
+        </p>
+      </div>
+
+      <AgentFindingCard
+        name="Review Agent"
+        time="just now"
+        body="Refund exceeds policy by $40. Recommend partial approval at the $100 cap."
+        replies={1}
+      />
+
+      <Composer placeholder="Reply or approve…" />
+    </Frame>
   ),
 
   "comments/related/suggestions": (

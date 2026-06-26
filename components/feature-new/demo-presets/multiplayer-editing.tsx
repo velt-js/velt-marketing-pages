@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { ProvRow, ProvArrow, DarkPanel, Chip, AvatarStack, CursorTag } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import { Av, DEL_STYLE, Frame, FACES, IconArrowRight, IconCheck, INS_STYLE } from "./hero-surface";
 
 import "./multiplayer-editing-showcase.css";
@@ -937,12 +938,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "multiplayer-editing/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack users={[{ initials: "CW", kind: "human", name: "Copywriter" }, { initials: "C2", kind: "human", name: "Copywriter 2" }, { initials: "BR", kind: "human", name: "Brand reviewer" }]} />
-      <p className="code-microcopy">two copywriters and a brand reviewer draft the same email live, edits merging mid-sentence</p>
-    </div>
-  ),
+  "multiplayer-editing/in-production/sales": <CrmPipelineBoard />,
 
   "multiplayer-editing/in-production/fintech": (
     <div style={{ padding: 18 }}>

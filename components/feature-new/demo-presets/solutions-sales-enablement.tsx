@@ -102,6 +102,17 @@ function IconShield() {
   );
 }
 
+/** @returns {JSX.Element} Download-to-file glyph for the audit-log export button. */
+function IconDownload() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3v12" />
+      <path d="M8 11l4 4 4-4" />
+      <path d="M5 19h14" />
+    </svg>
+  );
+}
+
 export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
   "solutions/sales-enablement/hero": (
     <Frame
@@ -336,26 +347,47 @@ export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
 
   "solutions/sales-enablement/fm/audit-trail": (
     <div className="pv">
-      <div className="apf-card apf-card--narrow">
-        <div className="cmh-cc-head apf-head--ink">
-          <IconShield />
-          Audit trail
-          <span className="cmh-cc-pill">signed</span>
+      <div className="sse-mini sse-audit">
+        <div className="sse-byline">
+          <span className="sse-aud-shield">
+            <IconShield />
+          </span>
+          <span className="sse-byline-name">Audit trail</span>
+          <span className="chip chip-approved">signed</span>
         </div>
-        <div className="cmh-cc-body apf-gov-body">
-          <div className="apf-gov-row">
-            <span className="apf-gov-key">documentId</span>
-            <span className="apf-gov-val">promo-email</span>
+        <div className="sse-aud-stream">
+          <div className="sse-aud-row">
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <span className="sse-aud-ev">
+              <strong>Sarah</strong> approved promo-email
+            </span>
+            <span className="sse-aud-ts">2:14pm</span>
           </div>
-          <div className="apf-gov-row">
-            <span className="apf-gov-key">targetEntity</span>
-            <span className="apf-gov-val">acme-bank</span>
+          <div className="sse-aud-row">
+            <Av initials="BA" agent />
+            <span className="sse-aud-ev">
+              <strong>Brand Agent</strong> flagged CTA
+            </span>
+            <span className="sse-aud-ts">2:09pm</span>
           </div>
-          <div className="apf-gov-row">
-            <span className="apf-gov-key">event</span>
-            <span className="chip chip-approved">review.approved</span>
+          <div className="sse-aud-row">
+            <Av initials="LG" tone="a4" />
+            <span className="sse-aud-ev">
+              <strong>Legal</strong> requested changes
+            </span>
+            <span className="sse-aud-ts">1:55pm</span>
           </div>
         </div>
+        <div className="sse-aud-funnel" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
+        <button type="button" className="sse-aud-export">
+          <IconDownload />
+          <span className="sse-aud-export-label">Export log</span>
+          <span className="sse-aud-fmt">CSV</span>
+        </button>
       </div>
     </div>
   ),

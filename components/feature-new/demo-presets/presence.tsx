@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { AvatarStack, CursorTag } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import { Av, Composer, FACES, Frame, IconAgentMark, IconArrowRight } from "./hero-surface";
 
 import "./presence-showcase.css";
@@ -960,12 +961,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "presence/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack users={[{ initials: "BR", kind: "human" }, { initials: "LE", kind: "human" }, { initials: "CL", kind: "human" }]} overflow={2} />
-      <p className="code-microcopy">Brand, legal, and the client in the deck&rsquo;s avatar row</p>
-    </div>
-  ),
+  "presence/in-production/sales": <CrmPipelineBoard />,
 
   "presence/in-production/fintech": (
     <div style={{ padding: 18 }}>

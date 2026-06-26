@@ -871,6 +871,61 @@
 }
 .vfp .eg .eg-where-link:hover { border-color: var(--vlp-color-accent-wash); color: var(--vlp-color-ink); }
 
+/* Sales-enablement CRM pipeline board (.crm-*) — the "In production · Sales"
+   dummy-app surface, modeled on the Figma kanban board. Shared across every
+   feature page's Sales tab. Dark surface that sits on the dark proof panel: an
+   icon rail + three lead-pipeline columns, with one highlighted lead carrying an
+   anchored comment popover. */
+.vfp .crm-board { position: relative; display: flex; gap: 32px; padding: 20px 22px; border: 1px solid var(--vlp-border-on-dark); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-color-dark-2); box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6); overflow: hidden; }
+
+/* Let the pipeline board fill more of the dark proof pane than the shared
+   .prod-shot > * 560px cap. Higher specificity (0,3,0) beats that rule (0,2,0);
+   width still resolves to 100%, so narrow panes/mobile shrink it with no overflow. */
+.vfp .prod-shot > .crm-board { max-width: 980px; }
+
+/* Left icon rail. */
+.vfp .crm-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
+.vfp .crm-rail-group { display: flex; flex-direction: column; gap: 12px; }
+.vfp .crm-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
+.vfp .crm-rail-btn.on { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.vfp .crm-rail-btn svg { width: 16px; height: 16px; }
+
+/* Main board area. */
+.vfp .crm-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; min-height: 460px; }
+.vfp .crm-eyebrow { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.32); }
+
+.vfp .crm-cols { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: stretch; -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%); mask-image: linear-gradient(to bottom, #000 84%, transparent 100%); }
+.vfp .crm-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.vfp .crm-col-head { display: flex; align-items: center; gap: 6px; padding: 6px 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.52); }
+.vfp .crm-col-ic { display: grid; place-items: center; width: 14px; height: 14px; flex: none; }
+.vfp .crm-col-ic svg { width: 14px; height: 14px; }
+
+/* Lead card. */
+.vfp .crm-card { position: relative; display: flex; flex-direction: column; gap: 6px; min-height: 118px; padding: 16px; border-radius: 12px; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); }
+.vfp .crm-card.is-active { border-color: var(--vlp-color-accent); }
+.vfp .crm-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.vfp .crm-card-name { font-family: var(--vlp-font-heading); font-weight: 600; font-size: 13.5px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); }
+.vfp .crm-card-role { margin: 0; font-size: 11.5px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.52); }
+.vfp .crm-card-role b { font-weight: 500; }
+.vfp .crm-card-foot { margin-top: auto; display: flex; align-items: center; gap: 5px; font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
+.vfp .crm-card-foot svg { width: 13px; height: 13px; flex: none; }
+
+/* Comment-count badge (orange pill, top-right of a card). */
+.vfp .crm-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; padding: 3px 8px; border-radius: 16px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 600; line-height: 1; }
+.vfp .crm-badge svg { width: 11px; height: 11px; }
+
+/* Anchored comment popover floating over the active lead card. */
+.vfp .crm-pop { position: absolute; top: 54%; left: 54%; z-index: 5; width: 300px; display: flex; gap: 12px; padding: 16px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45); }
+.vfp .crm-pop-av { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); color: #fff; font-size: 13px; font-weight: 700; }
+.vfp .crm-pop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+.vfp .crm-pop-head { display: flex; align-items: baseline; gap: 8px; }
+.vfp .crm-pop-name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; color: #000; }
+.vfp .crm-pop-time { font-size: 12.5px; font-weight: 500; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .crm-pop-body { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.75); }
+.vfp .crm-pop-mention { font-weight: 600; color: var(--vlp-color-accent); }
+.vfp .crm-pop-replies { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .crm-pop-replies svg { width: 13px; height: 13px; }
+
 /* ---------- Shared responsive ---------- */
 @media (max-width: 768px) {
   .vfp .wrap { padding: 0 20px; }

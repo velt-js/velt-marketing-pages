@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, Precedent } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   AgentFindingCard,
   Av,
@@ -891,17 +892,7 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "approval-flows/in-production/sales": (
-    <AuditLog
-      head={{ left: "Asset · Q3 campaign deck", right: "brand → legal" }}
-      rows={[
-        { ts: "1", ev: "Brand agent pre-screened", chip: { label: "agent", kind: "agent" } },
-        { ts: "2", ev: "Brand lead approved", chip: { label: "approved", kind: "approved" } },
-        { ts: "3", ev: "Legal redline → back to writer", chip: { label: "rejected", kind: "rejected" } },
-        { ts: "4", ev: "Re-approved, sent to client", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "approval-flows/in-production/sales": <CrmPipelineBoard />,
 
   "approval-flows/in-production/fintech": (
     <AuditLog

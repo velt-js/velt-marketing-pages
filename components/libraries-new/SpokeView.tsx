@@ -15,6 +15,7 @@ import InstallTimeline from "@/components/home-new/InstallTimeline";
 import { CtaRow, FaqList, SectionHead } from "./sections";
 import { libraryLogo } from "./library-logos";
 import type { CtaLink, SpokeContent } from "./content";
+import type { CSSProperties } from "react";
 
 type SpokeViewProps = { content: SpokeContent };
 
@@ -25,6 +26,81 @@ const PRIMARY_CTA: CtaLink = {
 };
 const SECONDARY_CTA: CtaLink = { label: "Book Demo", href: "/book-demo" };
 const DOCS_CTA: CtaLink = { label: "View Docs", href: "https://velt.dev/docs/" };
+
+// Dark Velt mark (#111111) — reads on the light library hero, unlike the
+// white homepage nav logo.
+const VELT_MARK = "/images/comparison/pricing/velt-mark.svg";
+
+// Inline token-based styles, matching the in-code artifact pattern
+// (components/libraries-new/feature-artifacts.tsx, lib/libraries-v2/hero-visual.tsx).
+const lockupStyle: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 9,
+  marginBottom: 18,
+};
+const lockupBrandStyle: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+};
+const lockupVeltStyle: CSSProperties = {
+  width: 20,
+  height: 20,
+  objectFit: "contain",
+};
+const lockupTextStyle: CSSProperties = {
+  fontFamily: "var(--vlp-font-heading)",
+  fontWeight: 700,
+  fontSize: 15,
+  letterSpacing: "-0.02em",
+  color: "var(--vlp-color-text)",
+};
+const lockupXStyle: CSSProperties = {
+  fontFamily: "var(--vlp-font-mono)",
+  fontSize: 13,
+  lineHeight: 1,
+  color: "var(--vlp-color-text-subtle)",
+};
+const lockupLogoStyle: CSSProperties = {
+  height: 19,
+  width: "auto",
+  maxWidth: 96,
+  objectFit: "contain",
+};
+
+/**
+ * "Velt × {library}" hero lockup, shown only when the library has a bundled
+ * brand logo (plugin/agent spokes and logo-less surfaces fall back to nothing).
+ * @param {{ slug: string; name: string }} props The library slug + display name.
+ * @returns {JSX.Element | null} The lockup, or null when no logo exists.
+ */
+function HeroLockup({ slug, name }: { slug: string; name: string }) {
+  try {
+    const logo = libraryLogo(slug);
+    if (!logo) return null;
+    return (
+      <div style={lockupStyle} aria-label={`Velt and ${name}`}>
+        <span style={lockupBrandStyle}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={VELT_MARK} alt="" aria-hidden="true" style={lockupVeltStyle} />
+          <span style={lockupTextStyle}>Velt</span>
+        </span>
+        <span style={lockupXStyle} aria-hidden="true">
+          &times;
+        </span>
+        <span style={lockupBrandStyle}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logo} alt="" aria-hidden="true" style={lockupLogoStyle} />
+          <span style={lockupTextStyle}>{name}</span>
+        </span>
+      </div>
+    );
+  } catch (error) {
+    console.error("HeroLockup failed", error);
+    return null;
+  }
+}
 
 /**
  * Renders a single /integrations/{slug} spoke page (surface, plugin, or agent).
@@ -44,7 +120,7 @@ export default function SpokeView({ content }: SpokeViewProps) {
           <section className="vintg-wrap">
             <div className="vintg-hero">
               <div>
-                <p className="vintg-eyebrow">Integration</p>
+                <HeroLockup slug={content.slug} name={content.name} />
                 <h1>
                   {content.heroTitle}
                   {content.beta ? <span className="vintg-beta">beta</span> : null}

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { Precedent, ProvRow, ProvArrow, AvatarStack, NotifItem, Chip } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   AgentFindingCard,
   Av,
@@ -921,17 +922,7 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "review-agents/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <FindingCard
-        agent="Brand Agent"
-        initials="BA"
-        confidence="94%"
-        body={<>Deck pre-checked against the uploaded guidelines before the client sees it.</>}
-      />
-      <p className="code-microcopy">reviewers open queues that are mostly green</p>
-    </div>
-  ),
+  "review-agents/in-production/sales": <CrmPipelineBoard />,
 
   "review-agents/in-production/fintech": (
     <div style={{ display: "grid", gap: 12, padding: 22 }}>

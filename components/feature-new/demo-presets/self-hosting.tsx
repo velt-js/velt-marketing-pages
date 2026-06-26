@@ -1,6 +1,7 @@
 import { Fragment, type ReactNode } from "react";
 
 import { Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import { Frame, IconArrowRight, IconCheck, IconX } from "./hero-surface";
 
 import "./self-hosting-showcase.css";
@@ -801,17 +802,7 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "self-hosting/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <ProvRow>
-        deck and email feedback <ProvArrow /> your database
-      </ProvRow>
-      <ProvRow>
-        attachments <ProvArrow /> your bucket
-      </ProvRow>
-      <p className="code-microcopy">the client&apos;s content policy satisfied without a second architecture</p>
-    </div>
-  ),
+  "self-hosting/in-production/sales": <CrmPipelineBoard />,
 
   "self-hosting/in-production/fintech": (
     <div style={{ padding: 18 }}>

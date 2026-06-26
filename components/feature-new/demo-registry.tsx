@@ -13,6 +13,7 @@ import { RECORDING_DEMOS } from "./demo-presets/recording";
 import { REVIEW_AGENTS_DEMOS } from "./demo-presets/review-agents";
 import { APPROVAL_FLOWS_DEMOS } from "./demo-presets/approval-flows";
 import { COMMENTS_DEMOS } from "./demo-presets/comments";
+import { CrmPipelineBoard } from "./demo-presets/crm-board";
 import { HUDDLE_DEMOS } from "./demo-presets/huddle";
 import { SUGGESTIONS_DEMOS } from "./demo-presets/suggestions";
 import { SELF_HOSTING_DEMOS } from "./demo-presets/self-hosting";
@@ -793,17 +794,7 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "audit-trail/in-production/sales": (
-    <AuditLog
-      head={{ left: "Deal · Acme Corp — $48k", right: "Quote #Q-1043" }}
-      rows={[
-        { ts: "09:12", ev: "Rep submitted quote", chip: { label: "pending", kind: "pending" } },
-        { ts: "09:31", ev: "Discount > 20% flagged", chip: { label: "pending", kind: "pending" } },
-        { ts: "10:04", ev: "VP Sales approved", chip: { label: "approved", kind: "approved" } },
-        { ts: "10:05", ev: "Quote sent to customer", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "audit-trail/in-production/sales": <CrmPipelineBoard />,
 
   "audit-trail/in-production/fintech": (
     <AuditLog

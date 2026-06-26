@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { Precedent } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   Av,
   Composer,
@@ -839,13 +840,7 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "memory/in-production/sales": (
-    <Precedent
-      heading="Content review · new deck"
-      body="Client's banned claims surface as precedent on the next deck"
-      meta="brand review stays consistent as the team doubles"
-    />
-  ),
+  "memory/in-production/sales": <CrmPipelineBoard />,
 
   "memory/in-production/fintech": (
     <Precedent

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { NotifItem } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   Av,
   Composer,
@@ -1108,12 +1109,7 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "recording/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <Player label="Walkthrough · pinned to slide 4" duration="1:00" active={11} />
-      <p className="code-microcopy">the client watches and replies in the thread; no call scheduled</p>
-    </div>
-  ),
+  "recording/in-production/sales": <CrmPipelineBoard />,
 
   "recording/in-production/fintech": (
     <div style={{ display: "grid", gap: 12, padding: 22 }}>

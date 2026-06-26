@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { NotifItem } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   AgentFindingCard,
   Av,
@@ -1129,12 +1130,7 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "notifications/in-production/sales": (
-    <Inbox>
-      <NotifItem title={<>Brand review request</>} meta="in-app, email, or their channel" chip={{ label: "sent", kind: "approved" }} />
-      <NotifItem title={<>Approver saw their turn today, not Thursday</>} chip={{ label: "on time", kind: "approved" }} />
-    </Inbox>
-  ),
+  "notifications/in-production/sales": <CrmPipelineBoard />,
 
   "notifications/in-production/fintech": (
     <Inbox>

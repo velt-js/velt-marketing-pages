@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { AvatarStack, Chip, ProvArrow, Precedent } from "../demos";
+import { CrmPipelineBoard } from "./crm-board";
 import {
   AgentFindingCard,
   Av,
@@ -761,18 +762,7 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "suggestions/in-production/sales": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <SuggestionCard
-        author={{ initials: "BR", kind: "human", name: "Brand" }}
-        target="Subject line"
-        from="Q3 savings inside"
-        to="Lock in Q3 savings"
-        rationale="On-brand phrasing"
-      />
-      <p className="code-microcopy">the redline happens in the asset, not a forwarded Word doc</p>
-    </div>
-  ),
+  "suggestions/in-production/sales": <CrmPipelineBoard />,
 
   "suggestions/in-production/fintech": (
     <div style={{ display: "grid", gap: 12, padding: 18 }}>
