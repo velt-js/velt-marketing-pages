@@ -153,5 +153,5 @@
    comments Frame margin in hero layouts). */
 .vfp .pc-pane .pcs-win { margin-bottom: 32px; }
 /* A taller, slightly chunkier bar chart for the roomier hero analytics tab. */
-.vfp .pcs-bars--lg { height: 150px; padding-top: 26px; gap: 18px; }
+.vfp .pcs-bars--lg { height: 230px; padding-top: 30px; gap: 18px; }
 .vfp .pcs-bars--lg .pcs-col-fill { max-width: 30px; }

@@ -149,6 +149,7 @@ export const devtoolsContent: FeaturePageContent = {
     kicker: "Showcase",
     heading: "See exactly what Velt is doing.",
     support: "Five panels in one extension, plus your agents in the same stream. Each is the live extension.",
+    hideCodeTab: true,
     cards: [
       {
         num: "01",

@@ -82,6 +82,13 @@ export type ShowcaseContent = {
   cards: ShowcaseCard[];
   docLinks: CtaLink[];
   interstitial?: Interstitial;
+  /**
+   * When true, the capability cards render the preview artifact only, dropping
+   * the per-card Preview/Code toggle and code pane. Defaults to false (toggle
+   * shown). Used by pages whose artifacts speak for themselves (e.g. platform,
+   * devtools).
+   */
+  hideCodeTab?: boolean;
 };
 
 export type DetailItem = { label: string; soon?: boolean };

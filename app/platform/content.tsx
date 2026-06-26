@@ -135,6 +135,7 @@ export const platformContent: FeaturePageContent = {
     kicker: "Showcase",
     heading: "Everything you need to run it in production.",
     support: "Eight tools, one console. Toggle to Code where a capability is API driven.",
+    hideCodeTab: true,
     cards: [
       {
         num: "01",

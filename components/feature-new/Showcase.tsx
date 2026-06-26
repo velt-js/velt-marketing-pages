@@ -25,7 +25,7 @@ export default function Showcase({ content }: ShowcaseProps) {
         <SectionSplitHeader kicker={content.kicker} heading={content.heading} support={content.support} />
         <div className="sc-grid">
           {content.cards.map((card) => (
-            <ShowcaseCard key={card.num} card={card} />
+            <ShowcaseCard key={card.num} card={card} hideCodeTab={content.hideCodeTab} />
           ))}
         </div>
         {content.docLinks.length > 0 ? (

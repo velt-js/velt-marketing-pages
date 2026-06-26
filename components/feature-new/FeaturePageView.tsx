@@ -43,7 +43,7 @@ export default function FeaturePageView({ content, enterpriseSection }: FeatureP
     <div className="vlp">
       <a id="top" />
       <Nav />
-      <div className="vfp">
+      <div className="vfp" data-page={content.slug}>
         <main>
           <FeatureHero hero={content.hero} />
           <LogoStrip content={content.logoStrip} />

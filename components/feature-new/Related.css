@@ -40,6 +40,14 @@
 .vfp .related-grid .collab-card:hover .primitive-link svg,
 .vfp .primitive-link:hover svg { transform: translateX(4px); }
 
+/* The /platform Related section has 4 cards; lay them out as an even 2x2 on
+   desktop instead of 3 + 1. Scoped to the platform page only (via the
+   data-page hook on the .vfp wrapper) so other feature pages keep the shared
+   3-column grid. Below 1024px the shared rule collapses it to one column. */
+@media (min-width: 1025px) {
+  .vfp[data-page="platform"] .related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 1024px) {
   .vfp .related-grid { grid-template-columns: 1fr; }
 }
