@@ -115,7 +115,7 @@ export const USE_CASE_LOGO_STRIP: LogoStripContent = {
     label: "Moving off another vendor?",
     links: [
       { label: "Compare Velt", href: "/comparison" },
-      { label: "Migration guide", href: "/migrate" },
+      { label: "Migration guide", href: "/migrate-from-liveblocks-to-velt" },
     ],
   },
 };

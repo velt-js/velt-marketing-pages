@@ -244,7 +244,7 @@ export default function SpokeView({ content }: SpokeViewProps) {
                 />
                 <div className="vintg-banner">
                   <p>
-                    Adding Velt to {content.name} does not move that surface&apos;s content off
+                    Adding Velt to {content.name}{" "}does not move that surface&apos;s content off
                     your stack. Per-feature data providers keep comment content, attachments, and
                     user PII on your own infrastructure; Velt stores only minimal identifiers.
                   </p>
