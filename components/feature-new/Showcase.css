@@ -21,6 +21,21 @@
 .vfp .prim-stage .precedent { border: none; background: transparent; padding: 0; }
 .vfp .prim-stage .sol-panel-body.dark { border: none; }
 
+/* The eight capability previews vary widely in height (a two-line chat next to
+   a multi-line code panel), so paired cards rendered ragged, uneven frames with
+   the shorter demo pinned to the top of a tall frame. Give every preview stage
+   a shared minimum height, let the preview/code stack grow to fill the
+   row-equalized card height, and center the demo so all frames read as one
+   consistent grid. */
+.vfp .sc-card > .prim-stack { flex: 1; }
+.vfp .sc-card .prim-stage { display: flex; align-items: center; min-height: 196px; }
+.vfp .sc-card .prim-stage > .pv { align-self: center; }
+
+/* Long mono lines in the narrow code previews (e.g. the REST provisioning
+   snippet) overflowed and were clipped by the dark panel's hidden overflow.
+   Wrap them so nothing is cut off at the frame edge. */
+.vfp .sc-card .prim-stage .sol-panel-body.dark pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
 /* Syntax tokens re-tinted for the homepage's light (cream) code card. The
    shared `.tk-*` colors are tuned for the dark editors elsewhere on the page. */
 .vfp .prim-pre .tk-cm { color: var(--vlp-color-text-muted); }

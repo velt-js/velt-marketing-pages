@@ -1,0 +1,157 @@
+/* Platform showcase (.pcs-*): console-flavored product surfaces for the
+   /platform "Showcase" grid. These adapt the comments-page visual language
+   (framed product windows, mono breadcrumbs, live presence, status pills,
+   crafted detail) to an admin-console context, so each capability reads as a
+   real console window rather than a bare widget. Scoped under .vfp like the
+   other feature demos; tokens come from home-new/styles.css. */
+
+/* ── Window chrome (console analog of the comments Frame) ────────────────── */
+.vfp .pcs-win { width: 100%; border: 1px solid var(--vlp-border-default); border-radius: var(--vlp-radius-xl); background: var(--vlp-bg-page); overflow: hidden; box-shadow: var(--vlp-shadow-md); }
+.vfp .pcs-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 13px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); }
+.vfp .pcs-crumb { display: flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-text-muted); min-width: 0; }
+.vfp .pcs-app { width: 16px; height: 16px; border-radius: 5px; display: grid; place-items: center; color: #fff; background: var(--vlp-color-accent); font-size: 9px; font-weight: 800; flex: none; }
+.vfp .pcs-crumb b { color: var(--vlp-color-ink); font-weight: 600; }
+.vfp .pcs-crumb .sep { opacity: 0.45; }
+.vfp .pcs-crumb .file { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .pcs-body { padding: 14px; display: grid; gap: 12px; }
+
+/* ── Shared right-slot / footer atoms ───────────────────────────────────── */
+.vfp .pcs-chip { display: inline-flex; align-items: center; gap: 5px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--vlp-color-text-muted); border: 1px solid var(--vlp-border-default); border-radius: 999px; padding: 3px 9px; white-space: nowrap; background: var(--vlp-bg-page); }
+.vfp .pcs-chip svg { width: 11px; height: 11px; flex: none; }
+.vfp .pcs-chip .chev { opacity: 0.6; }
+.vfp .pcs-live { display: inline-flex; align-items: center; gap: 5px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--vlp-color-green-approval); }
+.vfp .pcs-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-green-approval); flex: none; animation: cmh-pulse 2.4s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) { .vfp .pcs-live i { animation: none; } }
+.vfp .pcs-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.vfp .pcs-tag { display: inline-flex; align-items: center; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); background: var(--vlp-bg-wash); border: 1px solid var(--vlp-border-subtle); border-radius: 999px; padding: 2px 9px; }
+
+/* ── 01 · Adoption analytics: weekly bars + stat strip ──────────────────── */
+.vfp .pcs-chart { display: grid; gap: 14px; }
+.vfp .pcs-bars { display: flex; align-items: flex-end; gap: 10px; height: 96px; padding-top: 20px; }
+.vfp .pcs-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 7px; height: 100%; justify-content: flex-end; }
+.vfp .pcs-col-fill { width: 100%; max-width: 22px; border-radius: 4px 4px 0 0; background: var(--vlp-color-ink); position: relative; }
+.vfp .pcs-col-fill--accent { background: var(--vlp-color-accent); }
+.vfp .pcs-col-x { font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .pcs-pin { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; color: #fff; background: var(--vlp-color-accent); border-radius: 999px; padding: 3px 7px; white-space: nowrap; box-shadow: var(--vlp-shadow-sm); }
+.vfp .pcs-stats { display: flex; align-items: stretch; border-top: 1px solid var(--vlp-border-subtle); padding-top: 12px; }
+.vfp .pcs-stat { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; padding: 0 14px; }
+.vfp .pcs-stat:first-child { padding-left: 2px; }
+.vfp .pcs-stat + .pcs-stat { border-left: 1px solid var(--vlp-border-subtle); }
+.vfp .pcs-stat-n { font-family: var(--vlp-font-heading); font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--vlp-color-ink); }
+.vfp .pcs-stat-l { font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+
+/* ── 02 · AI chat: question bubble + assistant answer + result chips ────── */
+.vfp .pcs-chat { display: grid; gap: 11px; }
+.vfp .pcs-ask { margin: 0; justify-self: end; max-width: 86%; padding: 8px 11px; border-radius: 12px 12px 4px 12px; background: var(--vlp-color-ink); color: #fff; font-size: 12.5px; line-height: 1.4; }
+.vfp .pcs-ans { display: flex; align-items: flex-start; gap: 9px; }
+.vfp .pcs-ans > .av-c { width: 28px; height: 28px; flex: none; }
+.vfp .pcs-ans-main { flex: 1; min-width: 0; }
+.vfp .pcs-ans-head { display: flex; align-items: baseline; gap: 8px; }
+.vfp .pcs-ans-name { font-size: 13px; font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .pcs-ans-time { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); }
+.vfp .pcs-ans-body { margin: 3px 0 0; font-size: 12.5px; line-height: 1.45; color: var(--vlp-color-ink-soft); }
+.vfp .pcs-result { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px; }
+.vfp .pcs-result-chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-ink-soft); background: var(--vlp-bg-wash); border: 1px solid var(--vlp-border-subtle); border-radius: 8px; padding: 4px 8px; }
+.vfp .pcs-result-chip b { color: var(--vlp-color-accent-ink); font-weight: 700; }
+
+/* ── 03 · Live debugger: streaming state key/value rows ─────────────────── */
+.vfp .pcs-state { display: grid; gap: 0; }
+.vfp .pcs-state-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 2px; }
+.vfp .pcs-state-row + .pcs-state-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .pcs-state-row--hot { border-top: none; margin: 2px -8px; padding: 9px 8px; background: var(--vlp-color-accent-soft); border-radius: 9px; }
+.vfp .pcs-state-row--hot + .pcs-state-row { border-top: none; }
+.vfp .pcs-state-k { font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .pcs-state-v { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 500; color: var(--vlp-color-ink); }
+.vfp .pcs-state-row--hot .pcs-state-v { color: var(--vlp-color-accent-ink); }
+.vfp .pcs-state-row--hot .pcs-state-k { color: var(--vlp-color-accent-ink); }
+.vfp .pcs-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; background: var(--vlp-color-green-approval); }
+.vfp .pcs-dot--hot { background: var(--vlp-color-accent); }
+
+/* ── 04 · DevTools: browser-extension tab bar + event stream ────────────── */
+.vfp .pcs-devtabs { display: flex; gap: 2px; margin: -2px -2px 4px; border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .pcs-devtab { font-size: 11.5px; font-weight: 600; color: var(--vlp-color-text-muted); padding: 6px 10px; border-bottom: 2px solid transparent; }
+.vfp .pcs-devtab.on { color: var(--vlp-color-ink); border-bottom-color: var(--vlp-color-accent); }
+.vfp .pcs-evt { display: grid; gap: 0; }
+.vfp .pcs-evt-row { display: grid; grid-template-columns: 44px 1fr auto; gap: 10px; align-items: center; padding: 8px 2px; }
+.vfp .pcs-evt-row + .pcs-evt-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .pcs-evt-ts { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .pcs-evt-name { font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .pcs-evt-name b { color: var(--vlp-color-ink); font-weight: 600; }
+
+/* ── 05 · Data explorer: record table + export pills ────────────────────── */
+.vfp .pcs-table { border: 1px solid var(--vlp-border-subtle); border-radius: 10px; overflow: hidden; }
+.vfp .pcs-tr { display: grid; grid-template-columns: 0.9fr 1.2fr auto; gap: 10px; align-items: center; padding: 8px 11px; }
+.vfp .pcs-tr + .pcs-tr { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .pcs-tr--head { background: var(--vlp-bg-section-alt); }
+.vfp .pcs-tr--head span { font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .pcs-td-type { font-size: 12px; font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .pcs-td-actor { display: inline-flex; align-items: center; gap: 7px; min-width: 0; font-size: 12px; color: var(--vlp-color-ink-soft); }
+.vfp .pcs-td-actor > .av-c { width: 20px; height: 20px; flex: none; font-size: 8.5px; }
+.vfp .pcs-td-actor span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .pcs-td-when { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); text-align: right; }
+/* Activity variant (hero data tab): actor + event description + status chip,
+   so the mixed human / agent / webhook timeline reads beside its consent. */
+.vfp .pcs-table--activity .pcs-tr { grid-template-columns: 132px 1fr auto; }
+.vfp .pcs-td-ev { font-size: 12px; color: var(--vlp-color-ink-soft); }
+
+/* ── 06 · Feature configuration: labeled toggle rows ────────────────────── */
+.vfp .pcs-cfg { display: grid; gap: 0; }
+.vfp .pcs-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px 2px; }
+.vfp .pcs-cfg-row + .pcs-cfg-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .pcs-cfg-main { min-width: 0; }
+.vfp .pcs-cfg-name { margin: 0; font-size: 12.5px; font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .pcs-cfg-sub { margin: 2px 0 0; font-size: 11px; line-height: 1.35; color: var(--vlp-color-text-muted); }
+.vfp .pcs-toggle { width: 32px; height: 18px; border-radius: 999px; background: var(--vlp-border-default); position: relative; flex: none; }
+.vfp .pcs-toggle.on { background: var(--vlp-color-accent); }
+.vfp .pcs-toggle i { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; }
+.vfp .pcs-toggle.on i { left: 16px; }
+
+/* ── 07 · REST APIs: request line + response status ─────────────────────── */
+.vfp .pcs-api { display: grid; gap: 10px; }
+.vfp .pcs-req-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vfp .pcs-method { font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .pcs-path { font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-ink); overflow-wrap: anywhere; }
+.vfp .pcs-code { margin: 0; font-family: var(--vlp-font-mono); font-size: 11px; line-height: 1.55; color: var(--vlp-color-ink-soft); background: var(--vlp-bg-wash); border: 1px solid var(--vlp-border-subtle); border-radius: 10px; padding: 11px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.vfp .pcs-res-head { display: flex; align-items: center; gap: 9px; }
+.vfp .pcs-res-label { font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .pcs-status { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .pcs-status svg { width: 11px; height: 11px; flex: none; }
+
+/* ── 08 · Webhooks: signed delivery rows ────────────────────────────────── */
+.vfp .pcs-deliv { display: grid; gap: 8px; }
+.vfp .pcs-deliv-row { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--vlp-border-subtle); border-radius: 10px; background: var(--vlp-bg-page); }
+.vfp .pcs-deliv-evt { font-family: var(--vlp-font-mono); font-size: 11.5px; font-weight: 400; color: var(--vlp-color-ink); flex: none; }
+.vfp .pcs-deliv-arrow { color: var(--vlp-color-text-subtle); flex: none; }
+.vfp .pcs-deliv-ep { flex: 1; min-width: 0; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .pcs-deliv-meta { display: inline-flex; align-items: center; gap: 9px; flex: none; }
+.vfp .pcs-signed { display: inline-flex; align-items: center; gap: 4px; font-size: 10.5px; font-weight: 600; color: var(--vlp-color-text-muted); }
+.vfp .pcs-signed svg { width: 12px; height: 12px; flex: none; }
+
+/* ── Related · notifications: an outbound notification row across channels ── */
+.vfp .pcs-notif { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .pcs-notif > .av-c { width: 28px; height: 28px; flex: none; }
+.vfp .pcs-notif-main { flex: 1; min-width: 0; }
+.vfp .pcs-notif-text { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--vlp-color-ink-soft); }
+.vfp .pcs-notif-text strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .pcs-notif-main .pcs-tags { margin-top: 8px; }
+.vfp .pcs-notif-time { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); flex: none; }
+
+/* The product windows already carry their own border + shadow, so drop the
+   bottom margin the shared comments Frame uses in hero layouts; here they sit
+   centered inside the showcase prim-stage. */
+.vfp .sc-card .prim-stage .pcs-win { margin: 0; }
+
+/* Showcase analytics: keep the weekly bar group compact and centered so the
+   chart reads as a proportioned graph rather than stretching the full card
+   width. Scoped to the showcase stage so the wider hero chart is unaffected. */
+.vfp .sc-card .prim-stage .pcs-bars { max-width: 300px; margin: 0 auto; gap: 16px; }
+.vfp .sc-card .prim-stage .pcs-col-fill { max-width: 18px; }
+
+/* ── Hero surface (larger than the showcase cards) ──────────────────────── */
+/* The hero demo stage drops an absolutely-positioned "Build this" chip in the
+   bottom-right corner, so leave clearance below the window (mirrors the shared
+   comments Frame margin in hero layouts). */
+.vfp .pc-pane .pcs-win { margin-bottom: 32px; }
+/* A taller, slightly chunkier bar chart for the roomier hero analytics tab. */
+.vfp .pcs-bars--lg { height: 150px; padding-top: 26px; gap: 18px; }
+.vfp .pcs-bars--lg .pcs-col-fill { max-width: 30px; }
