@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, Precedent } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
   Av,
@@ -894,39 +897,11 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
 
   "approval-flows/in-production/sales": <CrmPipelineBoard />,
 
-  "approval-flows/in-production/fintech": (
-    <AuditLog
-      head={{ left: "Invoice · $48,000", right: "2-of-3 sign-off" }}
-      rows={[
-        { ts: "14:02", ev: "Amount > $25k → routed to CFO", chip: { label: "pending", kind: "pending" } },
-        { ts: "14:18", ev: "Controller approved", chip: { label: "approved", kind: "approved" } },
-        { ts: "14:33", ev: "CFO approved · quorum met", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "approval-flows/in-production/fintech": <FintechBoard />,
 
-  "approval-flows/in-production/ops": (
-    <AuditLog
-      head={{ left: "Change request · CHG-2271", right: "SLA escalation" }}
-      rows={[
-        { ts: "Mon", ev: "Order sign-off requested", chip: { label: "pending", kind: "pending" } },
-        { ts: "Tue", ev: "Reviewer off shift → breached", chip: { label: "breach", kind: "rejected" } },
-        { ts: "Tue", ev: "Escalated to ops lead, approved", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "approval-flows/in-production/ops": <OperationsBoard />,
 
-  "approval-flows/in-production/ai": (
-    <AuditLog
-      head={{ left: "Run · publishing agent", right: "run #8842" }}
-      rows={[
-        { ts: "00:00", ev: "Agent pre-screened generated copy", chip: { label: "agent", kind: "agent" } },
-        { ts: "00:02", ev: "Human held the gate", chip: { label: "pending", kind: "pending" } },
-        { ts: "00:14", ev: "Reviewer approved", chip: { label: "approved", kind: "approved" } },
-        { ts: "00:14", ev: "Agent queried state before acting", chip: { label: "agent", kind: "agent" } },
-      ]}
-    />
-  ),
+  "approval-flows/in-production/ai": <AiNativeBoard />,
 
   "approval-flows/related/review-agents": (
     <div className="pv">

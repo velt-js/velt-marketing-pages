@@ -1,7 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, DarkPanel, NotifItem } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 
 // Simulated-UI demo nodes for the static /platform (Admin Console) page. These
 // are referenced directly by app/platform/content.tsx (a local content module,
@@ -341,33 +344,9 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   ),
 
   "in-production/sales": <CrmPipelineBoard />,
-  "in-production/fintech": (
-    <AuditLog
-      head={{ left: "Compliance · monthly active docs", right: "examiner export" }}
-      rows={[
-        { ts: "Mon", ev: "1,284 monthly active documents", chip: { label: "metric", kind: "pending" } },
-        { ts: "Tue", ev: "Immutable record exported", chip: { label: "json", kind: "approved" } },
-      ]}
-    />
-  ),
-  "in-production/operations": (
-    <AuditLog
-      head={{ left: "Ops · integration health", right: "live debugger" }}
-      rows={[
-        { ts: "09:00", ev: "Webhook delivery retried", chip: { label: "retry", kind: "pending" } },
-        { ts: "09:01", ev: "Event routed to ops stack", chip: { label: "200", kind: "approved" } },
-      ]}
-    />
-  ),
-  "in-production/ai": (
-    <AuditLog
-      head={{ left: "AI-native · agent oversight", right: "analytics" }}
-      rows={[
-        { ts: "00:01", ev: <><strong>Agent</strong> proposed change</>, chip: { label: "agent", kind: "agent" } },
-        { ts: "00:14", ev: "Human approved, webhook fired", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "in-production/fintech": <FintechBoard />,
+  "in-production/operations": <OperationsBoard />,
+  "in-production/ai": <AiNativeBoard />,
 
   "related/audit-trail": (
     <div className="pv">

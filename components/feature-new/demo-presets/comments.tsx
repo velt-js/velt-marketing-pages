@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, DarkPanel } from "../demos";
+import { AvatarStack, DarkPanel } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
   Av,
@@ -585,112 +588,11 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
   // rather than a bare comment card.
   "comments/in-production/sales": <CrmPipelineBoard />,
 
-  "comments/in-production/fintech": (
-    <Frame
-      app="FX"
-      crumb={<><b>forecast.xlsx</b> <span className="sep">/</span> close week</>}
-      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
-    >
-      <div className="cmh-sheet">
-        <div className="cmh-grid">
-          <span className="cmh-gh cmh-gh-corner" />
-          <span className="cmh-gh">Q1</span>
-          <span className="cmh-gh">Q2</span>
-          <span className="cmh-gh">Q3</span>
+  "comments/in-production/fintech": <FintechBoard />,
 
-          <span className="cmh-gr">10</span>
-          <span className="cmh-gc cmh-gc-strong">Revenue</span>
-          <span className="cmh-gc">$2.4M</span>
-          <span className="cmh-gc">$2.9M</span>
+  "comments/in-production/ops": <OperationsBoard />,
 
-          <span className="cmh-gr">12</span>
-          <span className="cmh-gc cmh-gc-strong">Forecast</span>
-          <span className="cmh-gc">$3.1M</span>
-          <span className="cmh-gc cmh-gc-hl">$3.6M<i className="cmh-gc-flag" /></span>
-        </div>
-
-        <div className="cmh-cmt cmh-cmt-end">
-          <Av initials="MA" tone="a2" img={FACE.maya} />
-          <div className="cmh-cmt-main">
-            <div className="cmh-cmt-head">
-              <span className="cmh-cmt-name">Maya</span>
-              <span className="cmh-cmt-time">4m</span>
-            </div>
-            <p className="cmh-cmt-body">Is <strong>B12</strong> the revised Q3 number? <span className="cmh-mention">@Sarah</span></p>
-            <span className="cmh-cmt-replies"><IconReply />1 Reply</span>
-          </div>
-        </div>
-      </div>
-
-      <Composer placeholder="Comment on cell B12…" />
-    </Frame>
-  ),
-
-  "comments/in-production/ops": (
-    <Frame
-      app="OPS"
-      crumb={<><b>Work order</b> <span className="sep">/</span> WO-2271</>}
-      users={[{ initials: "DS", tone: "a4" }, { initials: "JR", tone: "a1", img: FACE.dev }]}
-    >
-      <div
-        style={{
-          display: "grid",
-          gap: 8,
-          border: "1px solid var(--vlp-border-subtle)",
-          borderRadius: 10,
-          padding: "12px 14px",
-          background: "var(--vlp-bg-section-alt)",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12.5 }}>
-          <span style={{ color: "var(--vlp-color-text-muted)" }}>Shipment</span>
-          <span style={{ fontWeight: 600, color: "var(--vlp-color-ink)" }}>SHP-4471 · 12 pallets</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 12.5 }}>
-          <span style={{ color: "var(--vlp-color-text-muted)" }}>Field record</span>
-          <Chip kind="pending">awaiting signature</Chip>
-        </div>
-      </div>
-
-      <div className="cmh-cmt cmh-cmt-end">
-        <Av initials="DS" tone="a4" />
-        <div className="cmh-cmt-main">
-          <div className="cmh-cmt-head">
-            <span className="cmh-cmt-name">Dispatch</span>
-            <span className="cmh-cmt-time">now</span>
-            <Chip kind="pending">internal</Chip>
-          </div>
-          <p className="cmh-cmt-body">Hold the shipment until the field record is signed. Counterparty sees only what is meant for them.</p>
-        </div>
-      </div>
-
-      <Composer placeholder="Reply internally…" />
-    </Frame>
-  ),
-
-  "comments/in-production/ai": (
-    <Frame
-      app="AI"
-      crumb={<><b>Generated draft</b> <span className="sep">/</span> run #8842</>}
-      users={[{ initials: "RA", agent: true }, { initials: "JR", tone: "a1", img: FACE.dev }]}
-    >
-      <div className="cmh-td">
-        <p className="cmh-td-doc">
-          Refund request <strong>#4471</strong> — customer cites a delayed delivery and asks for a{" "}
-          <span className="cmh-mark">$140 full refund</span>. Policy caps discretionary refunds at $100.
-        </p>
-      </div>
-
-      <AgentFindingCard
-        name="Review Agent"
-        time="just now"
-        body="Refund exceeds policy by $40. Recommend partial approval at the $100 cap."
-        replies={1}
-      />
-
-      <Composer placeholder="Reply or approve…" />
-    </Frame>
-  ),
+  "comments/in-production/ai": <AiNativeBoard />,
 
   "comments/related/suggestions": (
     <div className="pv">

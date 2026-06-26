@@ -1,7 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { ProvRow, ProvArrow, DarkPanel, Chip, AvatarStack, CursorTag } from "../demos";
+import { DarkPanel, AvatarStack, CursorTag } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import { Av, DEL_STYLE, Frame, FACES, IconArrowRight, IconCheck, INS_STYLE } from "./hero-surface";
 
 import "./multiplayer-editing-showcase.css";
@@ -940,36 +943,11 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
 
   "multiplayer-editing/in-production/sales": <CrmPipelineBoard />,
 
-  "multiplayer-editing/in-production/fintech": (
-    <div style={{ padding: 18 }}>
-      <DocSurface>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <p style={{ margin: 0, fontSize: 13, fontWeight: 600 }}>Quarterly filing</p>
-          <Chip kind="approved">analyst holds the pen</Chip>
-        </div>
-        <p className="code-microcopy" style={{ marginTop: 10 }}>reviewers watch the cells change live &middot; the handoff is requested, accepted, on the record</p>
-      </DocSurface>
-    </div>
-  ),
+  "multiplayer-editing/in-production/fintech": <FintechBoard />,
 
-  "multiplayer-editing/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <ProvRow>
-        dispatch board <ProvArrow /> identical on every screen
-      </ProvRow>
-      <ProvRow>
-        field edit from a dead zone <ProvArrow /> merges on reconnect
-      </ProvRow>
-      <p className="code-microcopy">no refresh, no stale statuses</p>
-    </div>
-  ),
+  "multiplayer-editing/in-production/ops": <OperationsBoard />,
 
-  "multiplayer-editing/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack users={[{ initials: "MA", kind: "human", name: "Maya" }, { initials: "AG", kind: "agent", name: "Agent" }]} />
-      <p className="code-microcopy">the agent rewrites one section while the human drafts another &middot; Yjs merges both streams</p>
-    </div>
-  ),
+  "multiplayer-editing/in-production/ai": <AiNativeBoard />,
 
   "multiplayer-editing/related/suggestions": (
     <RelTile from="edit needs consent" to="arrives as a suggestion">

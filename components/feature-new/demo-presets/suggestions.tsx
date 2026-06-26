@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
 import { AvatarStack, Chip, ProvArrow, Precedent } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
   Av,
@@ -764,44 +767,11 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
 
   "suggestions/in-production/sales": <CrmPipelineBoard />,
 
-  "suggestions/in-production/fintech": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <SuggestionCard
-        author={{ initials: "AN", kind: "human", name: "Analyst" }}
-        target="Q3 cell"
-        from="4.20"
-        to="4.05"
-      />
-      <p className="code-microcopy">stays pending until the controller accepts</p>
-    </div>
-  ),
+  "suggestions/in-production/fintech": <FintechBoard />,
 
-  "suggestions/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <SuggestionCard
-        author={{ initials: "CP", kind: "human", name: "Counterparty" }}
-        target="Order line · Qty"
-        from="500"
-        to="450"
-        decided="rejected"
-        rejectReason="Confirm against the signed PO"
-      />
-      <p className="code-microcopy">cross-org edits become proposals, not surprises</p>
-    </div>
-  ),
+  "suggestions/in-production/ops": <OperationsBoard />,
 
-  "suggestions/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <SuggestionCard
-        author={{ initials: "FX", kind: "agent", name: "Fix Agent" }}
-        target="Tax rate"
-        from="8.25%"
-        to="8.875%"
-        rationale="Region updated; agent proposes and waits"
-      />
-      <p className="code-microcopy">accept applies through your code · reject logs the reason</p>
-    </div>
-  ),
+  "suggestions/in-production/ai": <AiNativeBoard />,
 
   "suggestions/related/comments": (
     <div className="pv">

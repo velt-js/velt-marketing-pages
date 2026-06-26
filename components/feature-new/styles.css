@@ -878,10 +878,12 @@
    anchored comment popover. */
 .vfp .crm-board { position: relative; display: flex; gap: 32px; padding: 20px 22px; border: 1px solid var(--vlp-border-on-dark); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-color-dark-2); box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6); overflow: hidden; }
 
-/* Let the pipeline board fill more of the dark proof pane than the shared
-   .prod-shot > * 560px cap. Higher specificity (0,3,0) beats that rule (0,2,0);
-   width still resolves to 100%, so narrow panes/mobile shrink it with no overflow. */
-.vfp .prod-shot > .crm-board { max-width: 980px; }
+/* Let every in-production dummy-app board (sales CRM, fintech, operations,
+   AI-native) fill more of the dark proof pane than the shared .prod-shot > *
+   560px cap, so all four vertical tabs are visually consistent. Higher
+   specificity (0,3,0) beats that rule (0,2,0); width still resolves to 100%, so
+   narrow panes/mobile shrink it with no overflow. */
+.vfp .prod-shot > [class$="-board"] { max-width: 980px; }
 
 /* Left icon rail. */
 .vfp .crm-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
@@ -925,6 +927,173 @@
 .vfp .crm-pop-mention { font-weight: 600; color: var(--vlp-color-accent); }
 .vfp .crm-pop-replies { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
 .vfp .crm-pop-replies svg { width: 13px; height: 13px; }
+
+/* Fintech financial-model board (.fin-*) — the "In production · Fintech"
+   dummy-app surface in the same dark visual language as the CRM board: an icon
+   rail + a quarterly forecast sheet with one cell highlighted and a cell-anchored
+   comment popover. Cell-level review is the story. */
+.vfp .fin-board { position: relative; display: flex; gap: 32px; padding: 20px 22px; border: 1px solid var(--vlp-border-on-dark); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-color-dark-2); box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6); overflow: hidden; }
+
+/* Left icon rail. */
+.vfp .fin-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
+.vfp .fin-rail-group { display: flex; flex-direction: column; gap: 12px; }
+.vfp .fin-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
+.vfp .fin-rail-btn.on { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.vfp .fin-rail-btn svg { width: 16px; height: 16px; }
+
+/* Main board area. */
+.vfp .fin-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; min-height: 460px; }
+.vfp .fin-eyebrow { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.32); }
+
+/* Forecast sheet: the positioning context for the floating popover. The popover
+   is a sibling of the grid (not a descendant), so the grid's rounded-corner
+   overflow never clips it; min-height gives the popover comfortable clearance
+   below the highlighted row while the board stays at the shared 460px height. */
+.vfp .fin-sheet { position: relative; flex: 1; min-height: 360px; }
+.vfp .fin-grid { display: grid; grid-template-columns: 30px minmax(0, 1.5fr) repeat(4, minmax(0, 1fr)); align-items: stretch; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; }
+
+/* Header row. */
+.vfp .fin-h { display: flex; align-items: center; padding: 9px 12px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); background: rgba(255, 255, 255, 0.04); border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+.vfp .fin-h:not(.fin-h-corner):not(.fin-h-label) { justify-content: flex-end; }
+.vfp .fin-h-label { color: rgba(255, 255, 255, 0.72); text-transform: none; letter-spacing: -0.01em; font-family: var(--vlp-font-heading); font-size: 11.5px; }
+
+/* Row-number gutter + cells. */
+.vfp .fin-rownum { display: flex; align-items: center; justify-content: center; padding: 11px 0; font-family: var(--vlp-font-mono); font-size: 9.5px; color: rgba(255, 255, 255, 0.34); background: rgba(255, 255, 255, 0.03); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.vfp .fin-cell { position: relative; display: flex; align-items: center; gap: 6px; padding: 11px 12px; font-size: 12.5px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.vfp .fin-cell-val { justify-content: flex-end; font-family: var(--vlp-font-mono); font-size: 12px; color: rgba(255, 255, 255, 0.82); }
+.vfp .fin-cell-label { color: rgba(255, 255, 255, 0.6); }
+.vfp .fin-cell.is-active { border: 1px solid var(--vlp-color-accent); border-radius: 6px; background: rgba(245, 78, 0, 0.08); color: #fff; }
+
+/* Comment-count badge (orange pill) on the highlighted cell. */
+.vfp .fin-badge { display: inline-flex; align-items: center; gap: 4px; flex: none; padding: 2px 6px; border-radius: 16px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; line-height: 1; }
+.vfp .fin-badge svg { width: 11px; height: 11px; }
+
+/* Anchored comment popover floating over the highlighted Forecast/Q3 cell. It
+   opens downward from ~30% of the sheet (just under the highlighted row) so its
+   bottom clears the board edge with a healthy margin. */
+.vfp .fin-pop { position: absolute; top: 30%; left: 42%; z-index: 5; width: 290px; display: flex; gap: 12px; padding: 16px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45); text-align: left; }
+.vfp .fin-pop-av { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); color: #fff; font-size: 13px; font-weight: 700; }
+.vfp .fin-pop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+.vfp .fin-pop-head { display: flex; align-items: baseline; gap: 8px; }
+.vfp .fin-pop-name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; color: #000; }
+.vfp .fin-pop-time { font-size: 12.5px; font-weight: 500; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .fin-pop-body { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.75); }
+.vfp .fin-pop-mention { font-weight: 600; color: var(--vlp-color-accent); }
+.vfp .fin-pop-replies { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .fin-pop-replies svg { width: 13px; height: 13px; }
+
+/* Operations work-order board (.ops-*) — the "In production · Operations"
+   dummy-app surface in the same dark visual language as the CRM board: an icon
+   rail + a dispatch queue of work orders / shipments with one highlighted and an
+   internal-scoped comment popover. Cross-org sign-off is the story. */
+.vfp .ops-board { position: relative; display: flex; gap: 32px; padding: 20px 22px; border: 1px solid var(--vlp-border-on-dark); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-color-dark-2); box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6); overflow: hidden; }
+
+/* Left icon rail. */
+.vfp .ops-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
+.vfp .ops-rail-group { display: flex; flex-direction: column; gap: 12px; }
+.vfp .ops-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
+.vfp .ops-rail-btn.on { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.vfp .ops-rail-btn svg { width: 16px; height: 16px; }
+
+/* Main board area. */
+.vfp .ops-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; min-height: 460px; }
+.vfp .ops-eyebrow { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.32); }
+
+/* Work-order list (relative anchor for the popover) with a bottom edge fade. */
+.vfp .ops-list { position: relative; flex: 1; display: flex; flex-direction: column; gap: 10px; -webkit-mask-image: linear-gradient(to bottom, #000 84%, transparent 100%); mask-image: linear-gradient(to bottom, #000 84%, transparent 100%); }
+
+/* Work-order row. */
+.vfp .ops-row { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; border-radius: 12px; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); }
+.vfp .ops-row.is-active { border-color: var(--vlp-color-accent); }
+.vfp .ops-row-lead { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.vfp .ops-row-id { display: inline-flex; align-items: center; gap: 8px; font-family: var(--vlp-font-heading); font-weight: 600; font-size: 13px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); }
+.vfp .ops-row-route { font-size: 11.5px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.52); }
+.vfp .ops-row-trail { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex: none; }
+.vfp .ops-row-meta { font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.5); }
+
+/* Status chips. */
+.vfp .ops-status { padding: 3px 9px; border-radius: 16px; font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4; }
+.vfp .ops-status-hold { background: rgba(245, 78, 0, 0.18); color: #ffb892; }
+.vfp .ops-status-transit { background: rgba(80, 140, 220, 0.18); color: #9fc2f0; }
+.vfp .ops-status-done { background: rgba(18, 131, 82, 0.2); color: #7fd6a6; }
+.vfp .ops-status-scheduled { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.62); }
+
+/* Comment-count badge (orange pill) on the highlighted order. */
+.vfp .ops-badge { display: inline-flex; align-items: center; gap: 4px; flex: none; padding: 2px 7px; border-radius: 16px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; line-height: 1; }
+.vfp .ops-badge svg { width: 11px; height: 11px; }
+
+/* Anchored internal-scoped comment popover floating over the highlighted order. */
+.vfp .ops-pop { position: absolute; top: 60%; left: 46%; z-index: 5; width: 296px; display: flex; gap: 12px; padding: 16px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45); text-align: left; }
+.vfp .ops-pop-av { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #4f74c8, #2f4f9e); color: #fff; font-size: 13px; font-weight: 700; }
+.vfp .ops-pop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+.vfp .ops-pop-head { display: flex; align-items: center; gap: 8px; }
+.vfp .ops-pop-name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; color: #000; }
+.vfp .ops-pop-time { font-size: 12.5px; font-weight: 500; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .ops-pop-chip { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; padding: 2px 8px; border-radius: 16px; background: rgba(0, 0, 0, 0.06); color: rgba(0, 0, 0, 0.6); font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.vfp .ops-pop-chip svg { width: 11px; height: 11px; }
+.vfp .ops-pop-body { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.75); }
+.vfp .ops-pop-replies { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .ops-pop-replies svg { width: 13px; height: 13px; }
+
+/* AI-native review board (.ai-*) — the "In production · AI-native" dummy-app
+   surface in the same dark visual language as the CRM board: an icon rail + a
+   generated run record and review queue, with an Agent finding presented as an
+   anchored comment carrying Approve / Reject actions. The propose → approve →
+   apply loop is the story. */
+.vfp .ai-board { position: relative; display: flex; gap: 32px; padding: 20px 22px; border: 1px solid var(--vlp-border-on-dark); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-color-dark-2); box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6); overflow: hidden; }
+
+/* Left icon rail. */
+.vfp .ai-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
+.vfp .ai-rail-group { display: flex; flex-direction: column; gap: 12px; }
+.vfp .ai-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
+.vfp .ai-rail-btn.on { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.vfp .ai-rail-btn svg { width: 16px; height: 16px; }
+
+/* Main board area. */
+.vfp .ai-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; min-height: 460px; }
+.vfp .ai-eyebrow { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.32); }
+.vfp .ai-stage { position: relative; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+
+/* Generated run record (relative anchor for the agent popover). */
+.vfp .ai-doc { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 12px; border: 1px solid var(--vlp-color-accent); background: rgba(245, 78, 0, 0.06); }
+.vfp .ai-doc-head { display: flex; align-items: center; gap: 10px; }
+.vfp .ai-doc-run { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.6); }
+.vfp .ai-doc-chip { margin-left: auto; padding: 3px 9px; border-radius: 16px; background: rgba(192, 133, 50, 0.2); color: #e5b873; font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.4; }
+.vfp .ai-doc-body { margin: 0; font-size: 13px; line-height: 1.6; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.78); }
+.vfp .ai-doc-body strong { color: #fff; font-weight: 600; }
+.vfp .ai-doc-mark { padding: 1px 5px; border-radius: 5px; background: rgba(245, 78, 0, 0.22); color: #ffb892; font-weight: 600; }
+
+/* Review queue list with a bottom edge fade. */
+.vfp .ai-queue { flex: 1; display: flex; flex-direction: column; gap: 2px; -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%); mask-image: linear-gradient(to bottom, #000 70%, transparent 100%); }
+.vfp .ai-q-row { display: flex; align-items: center; gap: 10px; padding: 10px 4px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.vfp .ai-q-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; }
+.vfp .ai-q-dot-approved { background: #7fd6a6; }
+.vfp .ai-q-dot-queued { background: rgba(255, 255, 255, 0.32); }
+.vfp .ai-q-dot-review { background: var(--vlp-color-accent); }
+.vfp .ai-q-label { flex: 1; min-width: 0; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.62); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .ai-q-status { flex: none; font-family: var(--vlp-font-mono); font-size: 9px; letter-spacing: 0.04em; text-transform: uppercase; }
+.vfp .ai-q-status-approved { color: #7fd6a6; }
+.vfp .ai-q-status-queued { color: rgba(255, 255, 255, 0.4); }
+.vfp .ai-q-status-review { color: var(--vlp-color-accent); }
+
+/* Anchored Agent finding popover floating over the run record. */
+.vfp .ai-pop { position: absolute; top: 64%; left: 30%; z-index: 5; width: 318px; display: flex; gap: 12px; padding: 16px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45); text-align: left; }
+.vfp .ai-pop-av { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #2f6df6, #1f4fd0); color: #fff; }
+.vfp .ai-pop-av svg { width: 26px; height: 26px; }
+.vfp .ai-pop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+.vfp .ai-pop-head { display: flex; align-items: baseline; gap: 8px; }
+.vfp .ai-pop-name { font-size: 15px; font-weight: 600; letter-spacing: -0.02em; color: #000; }
+.vfp .ai-pop-time { font-size: 12.5px; font-weight: 500; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .ai-pop-body { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.75); }
+.vfp .ai-pop-diff { display: flex; align-items: center; gap: 8px; }
+.vfp .ai-pop-arrow { display: grid; place-items: center; color: rgba(0, 0, 0, 0.4); }
+.vfp .ai-pop-arrow svg { width: 16px; height: 16px; }
+.vfp .ai-pop-actions { display: flex; align-items: center; gap: 8px; }
+.vfp .ai-pop-btn { padding: 6px 14px; border-radius: 18px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; }
+.vfp .ai-pop-btn.approve { border: none; background: var(--vlp-color-accent); color: #fff; }
+.vfp .ai-pop-btn.reject { border: 1px solid rgba(0, 0, 0, 0.16); background: #fff; color: rgba(0, 0, 0, 0.7); }
+.vfp .ai-pop-replies { display: inline-flex; align-items: center; gap: 5px; margin-left: auto; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .ai-pop-replies svg { width: 13px; height: 13px; }
 
 /* ---------- Shared responsive ---------- */
 @media (max-width: 768px) {

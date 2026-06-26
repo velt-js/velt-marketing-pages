@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
 import { NotifItem } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
   Av,
@@ -1132,26 +1135,11 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
 
   "notifications/in-production/sales": <CrmPipelineBoard />,
 
-  "notifications/in-production/fintech": (
-    <Inbox>
-      <NotifItem title={<>Sign-off on Q3 forecast</>} meta="one digest, not a ping per cell" chip={{ label: "digest", kind: "approved" }} />
-      <NotifItem title={<>Close calendar holds</>} chip={{ label: "no waits", kind: "approved" }} />
-    </Inbox>
-  ),
+  "notifications/in-production/fintech": <FintechBoard />,
 
-  "notifications/in-production/ops": (
-    <Inbox>
-      <NotifItem title={<>Shipment exception · your team in-app</>} chip={{ label: "team", kind: "pending" }} />
-      <NotifItem title={<>Counterparty by email · each sees their side</>} chip={{ label: "scoped", kind: "approved" }} />
-    </Inbox>
-  ),
+  "notifications/in-production/ops": <OperationsBoard />,
 
-  "notifications/in-production/ai": (
-    <Inbox>
-      <NotifItem avatar={{ initials: "AG", kind: "agent" }} title={<>Agent findings land the moment the run completes</>} chip={{ label: "batched", kind: "agent" }} />
-      <NotifItem title={<>Moves to a human decision</>} chip={{ label: "review", kind: "pending" }} />
-    </Inbox>
-  ),
+  "notifications/in-production/ai": <AiNativeBoard />,
 
   "notifications/related/comments": (
     <RelTile from="every thread event" to="the inbox">

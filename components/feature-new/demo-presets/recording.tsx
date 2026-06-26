@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
 import { NotifItem } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   Av,
   Composer,
@@ -1111,43 +1114,11 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
 
   "recording/in-production/sales": <CrmPipelineBoard />,
 
-  "recording/in-production/fintech": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <PinnedCell cell="Q3 cell">
-        <Player label="Voice note · transcribed" duration="0:34" transcript={"“The variance is the vendor rate change.”"} />
-      </PinnedCell>
-      <p className="code-microcopy">months later, the auditor reads what was said, when, and by whom</p>
-    </div>
-  ),
+  "recording/in-production/fintech": <FintechBoard />,
 
-  "recording/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <div
-        style={{
-          height: 96,
-          borderRadius: 10,
-          background: "var(--ink, #0b353b)",
-          display: "grid",
-          placeItems: "center",
-        }}
-      >
-        <span style={{ fontSize: 12, fontWeight: 700, color: "#fff", opacity: 0.85 }}>Damaged shipment · phone · 0:22</span>
-      </div>
-      <p className="code-microcopy">pinned to the order record · the claim decision happens on evidence</p>
-    </div>
-  ),
+  "recording/in-production/ops": <OperationsBoard />,
 
-  "recording/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <Player
-        label="Reviewer · why the draft was rejected"
-        duration="0:48"
-        active={9}
-        transcript={"“Rejected — the tone is off for this account.”"}
-      />
-      <p className="code-microcopy">transcription turns the rationale into text the next reviewer and your agents can read</p>
-    </div>
-  ),
+  "recording/in-production/ai": <AiNativeBoard />,
 
   "recording/related/comments": (
     <div className="pv">

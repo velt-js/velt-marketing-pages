@@ -1,7 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { AvatarStack, CursorTag } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import { Av, Composer, FACES, Frame, IconAgentMark, IconArrowRight } from "./hero-surface";
 
 import "./presence-showcase.css";
@@ -963,30 +966,11 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
 
   "presence/in-production/sales": <CrmPipelineBoard />,
 
-  "presence/in-production/fintech": (
-    <div style={{ padding: 18 }}>
-      <DocSurface>
-        <p style={{ margin: 0, fontSize: 13 }}>
-          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>cell B12</mark> — analyst editing
-        </p>
-        <p className="code-microcopy" style={{ marginTop: 8 }}>close week runs without two people in one column</p>
-      </DocSurface>
-    </div>
-  ),
+  "presence/in-production/fintech": <FintechBoard />,
 
-  "presence/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack users={[{ initials: "DS", kind: "human", name: "Dispatch" }, { initials: "FC", kind: "away", name: "Field crew (offline)" }]} />
-      <p className="code-microcopy">dispatch sees who has the work order open before reassigning</p>
-    </div>
-  ),
+  "presence/in-production/ops": <OperationsBoard />,
 
-  "presence/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <AvatarStack users={[{ initials: "MA", kind: "human" }, { initials: "DR", kind: "agent", name: "Drafting agent" }]} />
-      <p className="code-microcopy">follow mode lets the user ride along as the agent works</p>
-    </div>
-  ),
+  "presence/in-production/ai": <AiNativeBoard />,
 
   "presence/related/comments": (
     <RelTile from="watching" to="threads anchor feedback to the element">

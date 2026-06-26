@@ -1,7 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, DarkPanel, NotifItem } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 
 // Simulated-UI demo nodes for the static /webhooks-and-api feature page. These
 // are referenced directly by app/webhooks-and-api/content.tsx (a local content
@@ -204,33 +207,9 @@ export const WEBHOOKS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "in-production/operations": (
-    <AuditLog
-      head={{ left: "Ops · delivery health", right: "live" }}
-      rows={[
-        { ts: "09:00", ev: "Webhook delivery retried", chip: { label: "retry", kind: "pending" } },
-        { ts: "09:01", ev: "Event routed to ops stack", chip: { label: "200", kind: "approved" } },
-      ]}
-    />
-  ),
-  "in-production/fintech": (
-    <AuditLog
-      head={{ left: "Compliance · audit pipeline", right: "examiner export" }}
-      rows={[
-        { ts: "Mon", ev: "review.approved delivered, encrypted", chip: { label: "byok", kind: "approved" } },
-        { ts: "Tue", ev: "Immutable record exported", chip: { label: "json", kind: "approved" } },
-      ]}
-    />
-  ),
-  "in-production/ai": (
-    <AuditLog
-      head={{ left: "AI-native · agent oversight", right: "webhooks" }}
-      rows={[
-        { ts: "00:01", ev: <><strong>Agent</strong> proposed change</>, chip: { label: "agent", kind: "agent" } },
-        { ts: "00:14", ev: "Human approved, webhook fired", chip: { label: "200", kind: "approved" } },
-      ]}
-    />
-  ),
+  "in-production/operations": <OperationsBoard />,
+  "in-production/fintech": <FintechBoard />,
+  "in-production/ai": <AiNativeBoard />,
   "in-production/sales": <CrmPipelineBoard />,
 
   "related/platform": (

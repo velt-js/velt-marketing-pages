@@ -2,7 +2,10 @@ import type { ReactNode } from "react";
 
 import { AvatarStack, DarkPanel, NotifItem } from "../demos";
 import type { AvatarUser } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX } from "./hero-surface";
 import type { PresenceUser } from "./hero-surface";
 
@@ -104,33 +107,6 @@ function HuddleBar({ users, channel }: { users: AvatarUser[]; channel?: string }
       </span>
       <AvatarStack users={users} />
       {channel ? <span style={{ fontSize: 11, fontWeight: 700, opacity: 0.62, color: INK }}>{channel}</span> : null}
-    </div>
-  );
-}
-
-/**
- * A simulated screen-share tile inside a huddle.
- * @param {{ label: string }} props Tile label.
- * @returns {JSX.Element} Screen-share tile.
- */
-function ShareTile({ label }: { label: string }) {
-  return (
-    <div
-      style={{
-        border: `1.5px dashed ${BRAND}`,
-        borderRadius: 10,
-        background: "color-mix(in srgb, var(--vlp-color-accent) 6%, transparent)",
-        padding: "12px 14px",
-        fontSize: 12,
-        fontWeight: 600,
-        color: INK,
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-      }}
-    >
-      <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: 0.5, color: BRAND }}>SCREEN</span>
-      {label}
     </div>
   );
 }
@@ -824,45 +800,11 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
 
   "huddle/in-production/sales": <CrmPipelineBoard />,
 
-  "huddle/in-production/fintech": (
-    <div style={{ padding: 18 }}>
-      <DocSurface>
-        <p style={{ margin: "0 0 10px", fontSize: 13 }}>
-          Forecast model —{" "}
-          <mark style={{ background: "color-mix(in srgb, var(--vlp-color-accent) 22%, transparent)", padding: "1px 2px" }}>variance on row 18</mark>
-        </p>
-        <HuddleBar users={[{ initials: "AN", kind: "human", name: "Analyst" }, { initials: "CT", kind: "human", name: "Controller" }]} channel="screen on the model" />
-      </DocSurface>
-    </div>
-  ),
+  "huddle/in-production/fintech": <FintechBoard />,
 
-  "huddle/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <DocSurface>
-        <p style={{ margin: "0 0 10px", fontSize: 13, opacity: 0.7 }}>Order record — shipment exception</p>
-        <ShareTile label="screen share on the discrepancy" />
-        <div style={{ marginTop: 12 }}>
-          <HuddleBar users={[{ initials: "PL", kind: "human", name: "Planner" }, { initials: "FL", kind: "human", name: "Field lead" }]} channel="audio" />
-        </div>
-      </DocSurface>
-    </div>
-  ),
+  "huddle/in-production/ops": <OperationsBoard />,
 
-  "huddle/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <DocSurface>
-        <NotifItem
-          avatar={{ initials: "CC", kind: "agent", name: "Clause Checker" }}
-          title={<><strong>Clause 7</strong> flagged — two reviewers disagree on the fix</>}
-          chip={{ label: "agent", kind: "agent" }}
-        />
-        <div style={{ marginTop: 12 }}>
-          <HuddleBar users={CALL_TEAM} channel="huddle on the document" />
-        </div>
-      </DocSurface>
-      <p className="code-microcopy">they decide together and the decision lands back on the finding</p>
-    </div>
-  ),
+  "huddle/in-production/ai": <AiNativeBoard />,
 
   "huddle/related/comments": (
     <div className="pv">

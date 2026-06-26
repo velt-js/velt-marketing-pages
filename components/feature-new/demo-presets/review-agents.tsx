@@ -1,7 +1,10 @@
 import type { ReactNode } from "react";
 
-import { Precedent, ProvRow, ProvArrow, AvatarStack, NotifItem, Chip } from "../demos";
+import { Precedent, AvatarStack, NotifItem, Chip } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
   Av,
@@ -924,40 +927,11 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
 
   "review-agents/in-production/sales": <CrmPipelineBoard />,
 
-  "review-agents/in-production/fintech": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <FindingCard
-        agent="PII Detection"
-        initials="PI"
-        body={<>Blocking gate on the filing · SSN detected in line 14, must resolve before review.</>}
-      />
-      <p className="code-microcopy">the numbers reach the approver clean, every check on the record</p>
-    </div>
-  ),
+  "review-agents/in-production/fintech": <FintechBoard />,
 
-  "review-agents/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <FindingCard
-        agent="Consistency Check"
-        initials="CC"
-        body={<>Phone number differs between the contact page and the footer.</>}
-        citation="cites the 3 pages where they differ"
-      />
-      <p className="code-microcopy">the counterparty never catches the mismatch your own site missed</p>
-    </div>
-  ),
+  "review-agents/in-production/ops": <OperationsBoard />,
 
-  "review-agents/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <FindingCard
-        agent="Review Agent"
-        initials="RA"
-        confidence="88%"
-        body={<>Reviewed the generated draft the moment it landed.</>}
-      />
-      <ProvRow>finding posts as a comment <ProvArrow /> Approve / Reject attached</ProvRow>
-    </div>
-  ),
+  "review-agents/in-production/ai": <AiNativeBoard />,
 
   "review-agents/related/comments": (
     <div className="pv">

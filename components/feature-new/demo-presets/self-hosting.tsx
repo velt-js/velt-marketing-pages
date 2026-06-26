@@ -1,7 +1,10 @@
 import { Fragment, type ReactNode } from "react";
 
 import { Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import { Frame, IconArrowRight, IconCheck, IconX } from "./hero-surface";
 
 import "./self-hosting-showcase.css";
@@ -804,31 +807,11 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
 
   "self-hosting/in-production/sales": <CrmPipelineBoard />,
 
-  "self-hosting/in-production/fintech": (
-    <div style={{ padding: 18 }}>
-      <DarkPanel footer="field-level inventory for the vendor security review">
-        {"filing thread content → your database\nVelt → identifiers + timestamps"}
-      </DarkPanel>
-    </div>
-  ),
+  "self-hosting/in-production/fintech": <FintechBoard />,
 
-  "self-hosting/in-production/ops": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <ProvRow>
-        disputes · shipment notes · field photos <ProvArrow /> your storage
-      </ProvRow>
-      <p className="code-microcopy">cross-org review without handing a vendor the counterparty&apos;s data</p>
-    </div>
-  ),
+  "self-hosting/in-production/ops": <OperationsBoard />,
 
-  "self-hosting/in-production/ai": (
-    <div style={{ display: "grid", gap: 12, padding: 22 }}>
-      <ProvRow>
-        agent findings <ProvArrow /> same provider as human replies
-      </ProvRow>
-      <p className="code-microcopy">one residency story for generated work and human review alike</p>
-    </div>
-  ),
+  "self-hosting/in-production/ai": <AiNativeBoard />,
 
   "self-hosting/related/comments": (
     <div className="pv">

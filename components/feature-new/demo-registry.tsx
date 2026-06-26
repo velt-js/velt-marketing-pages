@@ -13,7 +13,10 @@ import { RECORDING_DEMOS } from "./demo-presets/recording";
 import { REVIEW_AGENTS_DEMOS } from "./demo-presets/review-agents";
 import { APPROVAL_FLOWS_DEMOS } from "./demo-presets/approval-flows";
 import { COMMENTS_DEMOS } from "./demo-presets/comments";
+import { AiNativeBoard } from "./demo-presets/ai-board";
 import { CrmPipelineBoard } from "./demo-presets/crm-board";
+import { FintechBoard } from "./demo-presets/fintech-board";
+import { OperationsBoard } from "./demo-presets/ops-board";
 import { HUDDLE_DEMOS } from "./demo-presets/huddle";
 import { SUGGESTIONS_DEMOS } from "./demo-presets/suggestions";
 import { SELF_HOSTING_DEMOS } from "./demo-presets/self-hosting";
@@ -796,41 +799,11 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
 
   "audit-trail/in-production/sales": <CrmPipelineBoard />,
 
-  "audit-trail/in-production/fintech": (
-    <AuditLog
-      head={{ left: "Transaction · wire $250,000", right: "maker-checker" }}
-      rows={[
-        { ts: "14:02", ev: "Maker initiated wire", chip: { label: "pending", kind: "pending" } },
-        { ts: "14:09", ev: "Checker 1 verified", chip: { label: "approved", kind: "approved" } },
-        { ts: "14:18", ev: "Limit breach escalated", chip: { label: "pending", kind: "pending" } },
-        { ts: "14:33", ev: "Checker 2 signed off", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "audit-trail/in-production/fintech": <FintechBoard />,
 
-  "audit-trail/in-production/operations": (
-    <AuditLog
-      head={{ left: "Change · prod config update", right: "CHG-2271" }}
-      rows={[
-        { ts: "Mon", ev: "Engineer opened change", chip: { label: "pending", kind: "pending" } },
-        { ts: "Mon", ev: "Peer review requested", chip: { label: "pending", kind: "pending" } },
-        { ts: "Tue", ev: "Change rejected — rollback plan", chip: { label: "rejected", kind: "rejected" } },
-        { ts: "Wed", ev: "Ops lead approved", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "audit-trail/in-production/operations": <OperationsBoard />,
 
-  "audit-trail/in-production/ai": (
-    <AuditLog
-      head={{ left: "Agent · refund assistant", right: "run #8842" }}
-      rows={[
-        { ts: "00:00", ev: "Agent proposed refund $120", chip: { label: "agent", kind: "agent" } },
-        { ts: "00:01", ev: "Policy check passed", chip: { label: "agent", kind: "agent" } },
-        { ts: "00:02", ev: "Human review required", chip: { label: "pending", kind: "pending" } },
-        { ts: "00:14", ev: "Reviewer approved action", chip: { label: "approved", kind: "approved" } },
-      ]}
-    />
-  ),
+  "audit-trail/in-production/ai": <AiNativeBoard />,
 
   "audit-trail/related/approval-flows": (
     <div className="pv">

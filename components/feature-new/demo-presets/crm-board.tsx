@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { IconReply } from "./hero-surface";
+import { IconCommentBadge, IconReply } from "./hero-surface";
 
 // Shared sales-enablement CRM pipeline board ("In production · Sales") — modeled
 // on the Figma kanban surface: a left icon rail and Sourced/Contacted/Replied
@@ -98,18 +98,6 @@ const CRM_COLUMNS: CrmColumn[] = [
     ],
   },
 ];
-
-/**
- * Filled speech-bubble glyph for the comment-count badge — a rounded chat
- * bubble with a small tail, rendered in white so it reads clearly on the
- * orange/accent badge next to the count.
- * @returns {JSX.Element} A comment (speech-bubble) icon.
- */
-function IconCommentBadge() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h12a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-6.7l-4.05 3.24A1 1 0 0 1 6 20.46V17a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" /></svg>
-  );
-}
 
 /**
  * One contact card in the sales CRM pipeline board, modeled on the detailed

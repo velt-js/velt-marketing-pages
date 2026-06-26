@@ -78,6 +78,19 @@ export function IconBubble() {
   );
 }
 
+/**
+ * Filled speech-bubble glyph for the comment-count badge — a rounded chat
+ * bubble with a small tail, rendered in white so it reads clearly on the
+ * orange/accent badge next to the count. Shared by every "In production" board
+ * (sales CRM, fintech, operations) so their comment badges match exactly.
+ * @returns {JSX.Element} A comment (speech-bubble) icon.
+ */
+export function IconCommentBadge() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4h12a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-6.7l-4.05 3.24A1 1 0 0 1 6 20.46V17a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" /></svg>
+  );
+}
+
 /** @returns {JSX.Element} Search glyph (inherits currentColor). */
 export function IconSearch() {
   return (

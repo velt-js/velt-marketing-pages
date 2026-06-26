@@ -1,7 +1,10 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import { Precedent } from "../demos";
+import { AiNativeBoard } from "./ai-board";
 import { CrmPipelineBoard } from "./crm-board";
+import { FintechBoard } from "./fintech-board";
+import { OperationsBoard } from "./ops-board";
 import {
   Av,
   Composer,
@@ -842,29 +845,11 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
 
   "memory/in-production/sales": <CrmPipelineBoard />,
 
-  "memory/in-production/fintech": (
-    <Precedent
-      heading="Audit query"
-      body="“Every Q3 projection rejection” → cited records in minutes"
-      meta="past sign-offs become queryable precedent"
-    />
-  ),
+  "memory/in-production/fintech": <FintechBoard />,
 
-  "memory/in-production/ops": (
-    <Precedent
-      heading="New coordinator"
-      body="Reviews like a five-year veteran because the precedent reviews with them"
-      meta="decisions accumulate into the org's standard"
-    />
-  ),
+  "memory/in-production/ops": <OperationsBoard />,
 
-  "memory/in-production/ai": (
-    <Precedent
-      heading="Agent grounding"
-      body="Agents read decision history before reviewing generated work"
-      meta="every suggestion carries confidence and provenance"
-    />
-  ),
+  "memory/in-production/ai": <AiNativeBoard />,
 
   "memory/related/review-agents": (
     <div className="pv">
