@@ -244,12 +244,14 @@ function DsrCommentPopover() {
  * left icon rail, a centered tab strip, a "Hey Conductor!" intro with a ringed
  * video thumbnail, a mutual action-plan checklist with an anchored Velt comment
  * popover, and a right-hand Comments panel with a composer. Visuals are
- * simulated, not a live SDK instance.
+ * simulated, not a live SDK instance. Pass `light` for the inverted light-mode
+ * surface used as the Sales enablement solutions-page hero artifact.
+ * @param {{ light?: boolean }} props Whether to render the light-mode variant.
  * @returns {JSX.Element} The Digital Sales Room board.
  */
-export function DigitalSalesRoom() {
+export function DigitalSalesRoom({ light = false }: { light?: boolean } = {}) {
   return (
-    <div className="dsr-board">
+    <div className={`dsr-board${light ? " dsr-board--light" : ""}`}>
       <nav className="dsr-rail" aria-hidden="true">
         <span className="dsr-rail-group">
           {DSR_RAIL_ICONS.map((icon, index) => (

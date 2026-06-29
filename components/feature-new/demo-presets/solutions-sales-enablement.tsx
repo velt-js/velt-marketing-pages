@@ -1,14 +1,11 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import {
   Av,
-  Composer,
   DEL_STYLE,
   FACES,
-  Frame,
-  IconCheck,
-  IconX,
   INS_STYLE,
 } from "./hero-surface";
 
@@ -25,72 +22,6 @@ const FACE = {
   sarah: FACES.hope,
   jordan: FACES.ethan,
 } as const;
-
-/**
- * A minimal deck-slide block: a bold slide title and a pricing claim line with
- * an optional inline highlight marking the disputed text.
- * @param {{ title: string; claim: ReactNode }} props Slide title and the pricing claim (may contain a .cmh-mark span).
- * @returns {JSX.Element} Slide content block.
- */
-function SlideBlock({ title, claim }: { title: string; claim: ReactNode }) {
-  return (
-    <div
-      style={{
-        borderRadius: 8,
-        border: "1px solid var(--vlp-border-subtle)",
-        background: "var(--vlp-bg-section-alt)",
-        padding: "14px 16px",
-        display: "grid",
-        gap: 6,
-      }}
-    >
-      <p
-        style={{
-          margin: 0,
-          fontFamily: "var(--vlp-font-heading)",
-          fontSize: 14,
-          fontWeight: 700,
-          color: "var(--vlp-color-ink)",
-          letterSpacing: "-0.015em",
-        }}
-      >
-        {title}
-      </p>
-      <p
-        style={{
-          margin: 0,
-          fontFamily: "var(--vlp-font-mono)",
-          fontSize: 11.5,
-          color: "var(--vlp-color-text-muted)",
-        }}
-      >
-        {claim}
-      </p>
-      <div style={{ display: "flex", gap: 6, marginTop: 4 }}>
-        <span className="chip chip-pending">slide 6 &middot; pricing</span>
-        <span className="chip" style={{ background: "var(--vlp-bg-wash)", color: "var(--vlp-color-text-subtle)" }}>
-          Enterprise tier
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/**
- * A single approver sign-off row: avatar, name, role badge, and a resolved chip.
- * @param {{ initials: string; name: string; role: string; img?: string }} props Persona details.
- * @returns {JSX.Element} Sign-off row.
- */
-function SignOff({ initials, name, role, img }: { initials: string; name: string; role: string; img?: string }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-      <Av initials={initials} tone="a3" img={img} />
-      <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--vlp-color-ink)" }}>{name}</span>
-      <span className="cmh-role">{role}</span>
-      <span className="chip chip-approved" style={{ marginLeft: "auto" }}>Approved</span>
-    </div>
-  );
-}
 
 /** @returns {JSX.Element} Shield glyph for the signed audit-trail card header. */
 function IconShield() {
@@ -114,46 +45,9 @@ function IconDownload() {
 }
 
 export const SOLUTIONS_SALES_ENABLEMENT_DEMOS: Record<string, ReactNode> = {
-  "solutions/sales-enablement/hero": (
-    <Frame
-      app="DK"
-      crumb={<><b>Proposal deck</b> <span className="sep">/</span> slide 6 &middot; pricing</>}
-      users={[{ initials: "SR", tone: "a3", img: FACE.sarah }, { initials: "BA", agent: true }]}
-    >
-      <SlideBlock
-        title="Velt Platform: Enterprise Pricing"
-        claim={<>Annual contract value: <span className="cmh-mark">$18 / seat / mo</span> (unlimited viewers)</>}
-      />
-
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="BA" agent />
-          Brand Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">1m</span>
-        </div>
-        <p className="fb">
-          This seat price conflicts with the approved Q3 rate table: the published rate is higher.
-        </p>
-        <p className="cmh-suggest">
-          <span className="lbl">Suggested fix</span>
-          <span className="body">
-            <del style={DEL_STYLE}>$18 / seat</del>{" "}
-            <span style={{ color: "var(--vlp-color-text-subtle)" }}>&rarr;</span>{" "}
-            <ins style={{ background: "var(--vlp-color-approve-soft)", color: "#0c6a41", borderRadius: 3, padding: "0 3px" }}>$26 / seat</ins>
-          </span>
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
-        </div>
-      </div>
-
-      <SignOff initials="SR" name="Sarah" role="· Sales lead" img={FACE.sarah} />
-
-      <Composer placeholder="Reply or @mention…" you={FACE.jordan} />
-    </Frame>
-  ),
+  // The hero reuses the Digital Sales Room board (the Comments-page Sales
+  // enablement artifact) in its light-mode variant.
+  "solutions/sales-enablement/hero": <DigitalSalesRoom light />,
 
   "solutions/sales-enablement/loop": (
     <AuditLog

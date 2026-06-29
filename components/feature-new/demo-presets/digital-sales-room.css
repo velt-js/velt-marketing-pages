@@ -22,12 +22,12 @@
 .vfp .dsr-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
 .vfp .dsr-rail-group { display: flex; flex-direction: column; gap: 10px; }
 .vfp .dsr-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 9px; color: var(--vlp-color-text-on-dark-muted); }
-.vfp .dsr-rail-btn.on { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.14); color: #fff; }
+.vfp .dsr-rail-btn.on { color: var(--vlp-color-accent); }
 .vfp .dsr-rail-btn svg { width: 17px; height: 17px; }
 .vfp .dsr-rail-btn-settings { border-color: transparent; }
 
 /* Main board column (tabs + centered stage). */
-.vfp .dsr-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; min-height: 460px; }
+.vfp .dsr-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px; min-height: 512px; }
 
 /* Centered section tab strip, wrapped in a rounded pill container. "Summary" is
    a white pill; the rest are muted on the #292621 track. Equal-width columns
@@ -117,3 +117,57 @@
   .vfp .dsr-comments { display: none; }
   .vfp .dsr-pop { right: 4%; width: 280px; }
 }
+
+/* Light-mode variant (.dsr-board--light) — inverted surface for the Sales
+   enablement solutions-page hero. Overrides the dark tokens with light
+   equivalents; the orange/blue avatars, the accent badge, and the white
+   anchored popover carry over unchanged. */
+.vfp .dsr-board--light { background: #fff; border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.25); }
+
+/* Solutions hero: drop the shared cream demo-shell frame so the white board
+   sits directly on the page (its own border + shadow carry the surface), and
+   let it overflow the column. The clip then happens at the browser edge —
+   `.f-hero` has overflow:hidden and the body has overflow-x:hidden — rather than
+   at this wrapper. Scoped via :has() to only the hero that hosts this board. */
+.vfp .demo-shell:has(.dsr-board--light) { background: transparent; border: none; box-shadow: none; overflow: visible; }
+.vfp .demo-stage:has(.dsr-board--light) { background: transparent; padding: 0; min-height: 0; overflow: visible; }
+
+/* Render the board big at its full desktop composition; left-aligned so it
+   bleeds off the right edge of the viewport. Fixed width keeps the 3-column
+   layout intact. */
+.vfp .demo-stage .dsr-board--light { width: 960px; }
+
+.vfp .dsr-board--light .dsr-rail-btn { border-color: rgba(0, 0, 0, 0.08); }
+.vfp .dsr-board--light .dsr-rail-btn:not(.on) { color: rgba(0, 0, 0, 0.45); }
+.vfp .dsr-board--light .dsr-rail-btn-settings { border-color: transparent; }
+
+.vfp .dsr-board--light .dsr-tabs { background: #efece4; }
+.vfp .dsr-board--light .dsr-tab { color: rgba(0, 0, 0, 0.5); }
+.vfp .dsr-board--light .dsr-tab.on { background: #1f1c17; color: #fff; }
+
+.vfp .dsr-board--light .dsr-thumb-img { border-color: #fff; }
+.vfp .dsr-board--light .dsr-greet-title { color: #16150f; }
+.vfp .dsr-board--light .dsr-greet-body { color: rgba(0, 0, 0, 0.55); }
+
+.vfp .dsr-board--light .dsr-plan { border-color: rgba(0, 0, 0, 0.08); background: rgba(0, 0, 0, 0.015); }
+.vfp .dsr-board--light .dsr-plan-title { color: #16150f; }
+.vfp .dsr-board--light .dsr-plan-group { background: rgba(0, 0, 0, 0.03); }
+.vfp .dsr-board--light .dsr-plan-group .dsr-plan-row + .dsr-plan-row { border-top-color: rgba(0, 0, 0, 0.06); }
+.vfp .dsr-board--light .dsr-plan-collapsed { background: rgba(0, 0, 0, 0.03); }
+.vfp .dsr-board--light .dsr-plan-lead { color: rgba(0, 0, 0, 0.5); }
+.vfp .dsr-board--light .dsr-plan-lead-progress { color: var(--vlp-color-accent); }
+.vfp .dsr-board--light .dsr-plan-label { color: #16150f; }
+.vfp .dsr-board--light .dsr-plan-count { color: rgba(0, 0, 0, 0.5); }
+.vfp .dsr-board--light .dsr-plan-trail { border-color: rgba(0, 0, 0, 0.25); }
+.vfp .dsr-board--light .dsr-plan-trail.is-done { border-color: transparent; }
+
+.vfp .dsr-board--light .dsr-comments { border-left-color: rgba(0, 0, 0, 0.08); }
+.vfp .dsr-board--light .dsr-cm-head-title { color: #16150f; }
+.vfp .dsr-board--light .dsr-cm-collapse { color: rgba(0, 0, 0, 0.4); }
+.vfp .dsr-board--light .dsr-cm-card { background: rgba(0, 0, 0, 0.03); }
+.vfp .dsr-board--light .dsr-cm-name { color: #16150f; }
+.vfp .dsr-board--light .dsr-cm-time { color: rgba(0, 0, 0, 0.45); }
+.vfp .dsr-board--light .dsr-cm-body { color: rgba(0, 0, 0, 0.8); }
+
+.vfp .dsr-board--light .dsr-composer { border-color: rgba(0, 0, 0, 0.12); background: rgba(0, 0, 0, 0.02); }
+.vfp .dsr-board--light .dsr-composer-ph { color: rgba(0, 0, 0, 0.42); }
