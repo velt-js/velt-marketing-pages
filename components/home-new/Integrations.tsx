@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import "./Integrations.css";
 
 type IntegrationItem = {
@@ -6,6 +8,8 @@ type IntegrationItem = {
   wide?: boolean;
   /** Logo is a wordmark that already contains the brand name, so the text label is hidden. */
   nameInLogo?: boolean;
+  /** Internal route to the matching Velt library/integration page, when one exists. */
+  href?: string;
 };
 
 type IntegrationCategory = {
@@ -21,11 +25,11 @@ const integrationCards: IntegrationCategory[][] = [
     {
       label: "EDITORS",
       items: [
-        { name: "Lexical", logoSrc: `${ICON}/lexical.svg` },
-        { name: "Tiptap", logoSrc: `${ICON}/tiptap.svg` },
-        { name: "BlockNote", logoSrc: `${ICON}/blocknote.svg` },
-        { name: "Slate", logoSrc: `${ICON}/slatejs.png` },
-        { name: "CodeMirror", logoSrc: `${LOGO}/logo-codemirror-icon.svg` },
+        { name: "Lexical", logoSrc: `${ICON}/lexical.svg`, href: "/libraries/lexical" },
+        { name: "Tiptap", logoSrc: `${ICON}/tiptap.svg`, href: "/libraries/tiptap" },
+        { name: "BlockNote", logoSrc: `${ICON}/blocknote.svg`, href: "/libraries/blocknote" },
+        { name: "Slate", logoSrc: `${ICON}/slatejs.png`, href: "/libraries/slatejs" },
+        { name: "CodeMirror", logoSrc: `${LOGO}/logo-codemirror-icon.svg`, href: "/libraries/codemirror" },
         { name: "ProseMirror", logoSrc: `${ICON}/prosemirror.svg` },
         { name: "Quill", logoSrc: `${ICON}/quill.svg` },
         { name: "TinyMCE", logoSrc: `${ICON}/tinymce.svg`, wide: true, nameInLogo: true },
@@ -53,10 +57,10 @@ const integrationCards: IntegrationCategory[][] = [
     {
       label: "CANVAS & DATA",
       items: [
-        { name: "React Flow", logoSrc: `${ICON}/reactflow.svg` },
-        { name: "Chart.js", logoSrc: `${ICON}/chartjs.svg` },
-        { name: "Highcharts", logoSrc: `${LOGO}/logo-highcharts-symbol.svg` },
-        { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg` },
+        { name: "React Flow", logoSrc: `${ICON}/reactflow.svg`, href: "/libraries/react-flow" },
+        { name: "Chart.js", logoSrc: `${ICON}/chartjs.svg`, href: "/libraries/chartjs" },
+        { name: "Highcharts", logoSrc: `${LOGO}/logo-highcharts-symbol.svg`, href: "/libraries/highcharts" },
+        { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg`, href: "/libraries/nivo-charts" },
         { name: "TanStack", logoSrc: `${ICON}/tanstack.svg` },
         { name: "AG Grid", logoSrc: `${ICON}/aggrid.svg` },
       ],
@@ -66,12 +70,12 @@ const integrationCards: IntegrationCategory[][] = [
     {
       label: "NOTIFICATIONS OUT",
       items: [
-        { name: "Slack", logoSrc: `${ICON}/slack.svg` },
-        { name: "Teams", logoSrc: `${ICON}/microsoftteams.svg` },
-        { name: "Discord", logoSrc: `${ICON}/discord.svg` },
-        { name: "Resend", logoSrc: `${ICON}/resend.svg` },
-        { name: "Customer.io", logoSrc: `${ICON}/customerio.svg` },
-        { name: "SendGrid", logoSrc: `${LOGO}/logo-sendgrid.svg` },
+        { name: "Slack", logoSrc: `${ICON}/slack.svg`, href: "/integrations/slack" },
+        { name: "Teams", logoSrc: `${ICON}/microsoftteams.svg`, href: "/integrations/microsoft-teams" },
+        { name: "Discord", logoSrc: `${ICON}/discord.svg`, href: "/integrations/discord" },
+        { name: "Resend", logoSrc: `${ICON}/resend.svg`, href: "/integrations/resend" },
+        { name: "Customer.io", logoSrc: `${ICON}/customerio.svg`, href: "/integrations/customer-io" },
+        { name: "SendGrid", logoSrc: `${LOGO}/logo-sendgrid.svg`, href: "/integrations/sendgrid" },
       ],
     },
     {
@@ -81,7 +85,7 @@ const integrationCards: IntegrationCategory[][] = [
         { name: "Supabase", logoSrc: `${ICON}/supabase.svg` },
         { name: "Clerk", logoSrc: `${ICON}/clerk.svg` },
         { name: "Auth0", logoSrc: `${ICON}/auth0.svg` },
-        { name: "YJS", logoSrc: `${LOGO}/logo-yjs.svg` },
+        { name: "YJS", logoSrc: `${LOGO}/logo-yjs.svg`, href: "/libraries/yjs" },
       ],
     },
     {
@@ -94,11 +98,12 @@ const integrationCards: IntegrationCategory[][] = [
 ];
 
 /**
- * Renders a single integration chip with brand logo and label.
+ * Renders a single integration chip with brand logo and label. When `href` is
+ * set, the chip links to the matching Velt library/integration page.
  */
-function IntegrationTag({ name, logoSrc, wide, nameInLogo }: IntegrationItem) {
-  return (
-    <span className="integ-tag">
+function IntegrationTag({ name, logoSrc, wide, nameInLogo, href }: IntegrationItem) {
+  const content = (
+    <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className={wide ? "integ-tag-logo integ-tag-logo-wide" : "integ-tag-logo"}
@@ -106,8 +111,18 @@ function IntegrationTag({ name, logoSrc, wide, nameInLogo }: IntegrationItem) {
         alt={nameInLogo ? name : ""}
       />
       {!nameInLogo && <span className="integ-tag-label">{name}</span>}
-    </span>
+    </>
   );
+
+  if (href) {
+    return (
+      <Link className="integ-tag integ-tag-link" href={href}>
+        {content}
+      </Link>
+    );
+  }
+
+  return <span className="integ-tag">{content}</span>;
 }
 
 /**
