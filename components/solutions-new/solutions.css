@@ -385,6 +385,20 @@
   .vfp .comp-item { padding: 18px; }
   .vfp .agent-stage,
   .vfp .case-stage { padding: 16px; }
+
+  /* Hero artifact on phones: the solution boards are fixed ~840-960px desktop
+     compositions that bleed off the right edge by design. On a phone that just
+     shows the empty left rail with the real content cut off. Shrink the whole
+     board with `zoom` so it reflows to fit the column fully visible (zoom, not
+     transform, so no leftover layout box / empty space below, and the absolutely
+     positioned comment popovers scale with it). Drop the desktop 0.92 scale so
+     the two don't compound, and center the now-narrower board in the stage. */
+  .vfp .demo-stage .s-hero-artifact {
+    transform: none;
+    zoom: 0.34;
+    width: fit-content;
+    margin: 0 auto;
+  }
 }
 @media (max-width: 480px) {
   .vfp .comp-strip { padding: 48px 0; }

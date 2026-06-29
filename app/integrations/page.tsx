@@ -34,6 +34,7 @@ export const metadata = buildPageMetadata({
   title: TITLE,
   description: DESCRIPTION,
   path: "/integrations",
+  ogImage: "/og/integrations.png",
 });
 
 /**

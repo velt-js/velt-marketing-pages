@@ -47,6 +47,7 @@ export const metadata = buildPageMetadata({
   title: PAGE_TITLE,
   description: PAGE_DESCRIPTION,
   path: "/use-case",
+  ogImage: "/og/use-case.png",
 });
 
 // Assemble the typed hub content from the in-repo static data. The card grid

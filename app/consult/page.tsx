@@ -43,6 +43,7 @@ export const metadata = buildPageMetadata({
   title: "Consult",
   description: CONSULT_DESCRIPTION,
   path: "/consult",
+  ogImage: "/og/consult.png",
 });
 
 // "What you get" cards. Imagery reuses the existing /images/security PNGs —

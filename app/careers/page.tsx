@@ -42,6 +42,7 @@ export const metadata = buildPageMetadata({
   description:
     "Join Velt: building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
   path: "/careers",
+  ogImage: "/og/careers.png",
 });
 
 type OpenRole = {

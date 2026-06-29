@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     description:
       "Embeddable review and approval for AI-native apps. Comments, approval flows, review agents, memory, and audit trails in one SDK.",
     path: "/",
+    ogImage: "/og/home.png",
     socialTitle: "Velt | Add a pull request to your product",
   }),
   title: { absolute: "Velt | Add a pull request to your product — Review SDK" },

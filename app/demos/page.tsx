@@ -26,6 +26,7 @@ export const metadata = buildPageMetadata({
   title: "Demos",
   description: "Live product demos showcasing Velt collaboration features.",
   path: "/demos",
+  ogImage: "/og/demos.png",
 });
 
 type DemoCard = {

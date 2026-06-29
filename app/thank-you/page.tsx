@@ -10,6 +10,7 @@ export const metadata = buildPageMetadata({
   title: "Thank you",
   description: THANK_YOU_DESCRIPTION,
   path: "/thank-you",
+  ogImage: "/og/thank-you.png",
   noindex: true,
 });
 

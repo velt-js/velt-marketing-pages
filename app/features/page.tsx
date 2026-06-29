@@ -43,6 +43,7 @@ export const metadata = buildPageMetadata({
   description:
     "Velt's collaboration features: Commenting, Notifications, Presence, Cursors, Huddle, and more.",
   path: "/features",
+  ogImage: "/og/features.png",
 });
 
 export default async function FeaturesLandingPage() {

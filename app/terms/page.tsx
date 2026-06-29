@@ -34,6 +34,7 @@ export const metadata = buildPageMetadata({
   title: "Terms of Service for the Velt Collaboration Platform",
   description: TERMS_DESCRIPTION,
   path: "/terms",
+  ogImage: "/og/terms.png",
 });
 
 export default function TermsPage() {
