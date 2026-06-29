@@ -60,7 +60,7 @@ const integrationCards: IntegrationCategory[][] = [
         { name: "React Flow", logoSrc: `${ICON}/reactflow.svg`, href: "/libraries/react-flow" },
         { name: "Chart.js", logoSrc: `${ICON}/chartjs.svg`, href: "/libraries/chartjs" },
         { name: "Highcharts", logoSrc: `${LOGO}/logo-highcharts-symbol.svg`, href: "/libraries/highcharts" },
-        { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg`, href: "/libraries/nivo-charts" },
+        { name: "Nivo", logoSrc: `${ICON}/nivocharts.svg`, href: "/libraries/nivo" },
         { name: "TanStack", logoSrc: `${ICON}/tanstack.svg`, href: "/libraries/tanstack" },
         { name: "AG Grid", logoSrc: `${ICON}/aggrid.svg`, href: "/libraries/ag-grid" },
       ],
