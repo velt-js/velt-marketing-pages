@@ -1,0 +1,104 @@
+.vlp .vert-section {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .vert-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .vert-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .vert-heading {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 26ch;
+}
+
+.vlp .vert-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-10);
+}
+
+.vlp .vert-card {
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-card-padding);
+  display: block;
+  transition: var(--vlp-btn-transition), transform .15s;
+}
+
+.vlp .vert-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--vlp-space-4);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .vert-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.vlp .vert-card-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-subtle);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--vlp-space-3-5);
+}
+
+.vlp .vert-card-title {
+  font-family: var(--vlp-font-heading);
+  font-weight: var(--vlp-weight-semibold);
+  font-size: var(--vlp-text-lead);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--vlp-space-2-5);
+}
+
+.vlp .vert-card-desc {
+  font-size: var(--vlp-text-body-sm);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .vert-card-explore {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
+  margin-top: var(--vlp-space-4);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .vlp .vert-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .vert-grid {
+    grid-template-columns: 1fr;
+  }
+}

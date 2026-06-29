@@ -1,16 +1,21 @@
-import Image from "next/image";
-import Link from "next/link";
+// /blog — recreated on the editorial home-new theme (scoped under `.vlp`,
+// canonical `--vlp-*` tokens; see design-guides/DESIGN.md). Light hero +
+// featured lead post + card grid, with the shared home-new Nav and Footer.
+// Post data still comes from Sanity via getAllBlogPosts.
 
-import { Footer } from "@/components/home/Footer";
-import { PageHero } from "@/components/library/PageHero";
+import Nav from "@/components/home-new/Nav";
+import Footer from "@/components/home-new/Footer";
+import BlogList, { type BlogListPost } from "@/components/blog-new/BlogList";
 import { getAllBlogPosts } from "@/sanity/queries";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   SITE_URL,
+  buildBlogListingSchema,
   buildBreadcrumbList,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import "@/components/home-new/styles.css";
 
 const BLOG_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -28,140 +33,40 @@ const BLOG_WEBPAGE = buildWebPageSchema({
 export const revalidate = 60;
 
 export const metadata = buildPageMetadata({
-  title: "Blog",
+  title: "Blog: Collaboration SDK Guides & Product Insights",
   description:
     "Guides, comparisons, and insights on collaboration SDKs, real-time features, and building better products.",
   path: "/blog",
   ogImage: "/og/blog.png",
 });
 
-type BlogPost = {
-  _id: string;
-  slug: string;
-  title: string;
-  description: string;
-  publishedAt: string;
-  category: string;
-  featuredImage?: string;
-};
-
 export default async function BlogListingPage() {
-  const posts = (await getAllBlogPosts()) as BlogPost[];
+  const posts = (await getAllBlogPosts()) as BlogListPost[];
+
+  const blogSchema = buildBlogListingSchema({
+    url: `${SITE_URL}/blog`,
+    posts,
+  });
 
   return (
-    <>
+    <div className="vlp">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-blog-webpage" data={BLOG_WEBPAGE} />
+      <JsonLd id="ld-blog-listing" data={blogSchema} />
       <JsonLd id="ld-blog-breadcrumb" data={BLOG_BREADCRUMB} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated
-          heading="Blog"
-          subheading="Guides, comparisons, and insights on collaboration SDKs"
-        />
 
-        <BlogGrid posts={posts} />
-
+      <Nav />
+      <div className="vlp-page">
+        <a id="top" />
+        <BlogList posts={posts} />
         <Footer />
       </div>
-    </>
-  );
-}
-
-function BlogGrid({ posts }: { posts: BlogPost[] }) {
-  return (
-    <section
-      data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg py-16 lg:py-[100px] px-6 lg:px-20 rounded-t-[28px] lg:rounded-t-[48px] mt-12 lg:mt-20"
-      style={{
-        gap: 52,
-      }}
-    >
-      {posts.length === 0 ? (
-        <p
-          className="font-urbanist"
-          style={{ fontSize: 16, color: "rgb(0, 0, 0)", opacity: 0.6 }}
-        >
-          No blog posts yet. Add one in{" "}
-          <Link
-            href="/studio"
-            className="text-velt-purple hover:underline"
-          >
-            Sanity Studio
-          </Link>
-          .
-        </p>
-      ) : (
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-          style={{
-            gap: "48px 32px",
-            width: "100%",
-            maxWidth: 1280,
-          }}
-        >
-          {posts.map((post) => (
-            <Link
-              key={post._id}
-              href={`/blog/${post.slug}`}
-              className="group flex flex-col"
-              style={{
-                gap: 16,
-                textDecoration: "none",
-              }}
-            >
-              {post.featuredImage && (
-                <div
-                  className="relative overflow-hidden"
-                  style={{
-                    width: "100%",
-                    aspectRatio: "16/9",
-                    borderRadius: 12,
-                    background: "rgb(247, 247, 247)",
-                  }}
-                >
-                  <Image
-                    src={post.featuredImage}
-                    alt={post.title}
-                    fill
-                    sizes="(min-width: 1024px) 400px, 50vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-              )}
-              <div className="flex flex-col" style={{ gap: 6 }}>
-                <h2
-                  className="font-urbanist font-semibold"
-                  style={{
-                    fontSize: 20,
-                    lineHeight: 1.3,
-                    color: "#111",
-                    margin: 0,
-                  }}
-                >
-                  {post.title}
-                </h2>
-                {post.publishedAt && (
-                  <time
-                    className="font-urbanist"
-                    style={{
-                      fontSize: 14,
-                      color: "rgba(0,0,0,0.45)",
-                    }}
-                  >
-                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
-    </section>
+    </div>
   );
 }

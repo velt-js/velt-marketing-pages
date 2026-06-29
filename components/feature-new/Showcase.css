@@ -1,0 +1,54 @@
+/* Showcase ("Capabilities"): reuses the homepage `.prim-*` primitive-card
+   chrome (imported from home-new/Primitives.css). This file only adds the
+   grid, flattens the .vfp demo atoms inside the card's preview stage, and
+   re-tints the syntax tokens for the homepage's light code surface. */
+
+/* Match the homepage `.prim-grid`: a 5-col track where one card is wide
+   (span 3, ~60%) and one is narrow (span 2, ~40%), with the wide|narrow
+   arrangement flipping each row. The pattern repeats on a 4-card cycle
+   (wide, narrow | narrow, wide). align-items: stretch keeps paired cards the
+   same height so no gap forms under the shorter one. */
+.vfp .sc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--vlp-gap-card, 20px); margin-top: 48px; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 1) { grid-column: span 3; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 2) { grid-column: span 2; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 3) { grid-column: span 2; }
+.vfp .sc-grid > .sc-card:nth-child(4n + 4) { grid-column: span 3; }
+
+/* Flatten the .vfp demo atoms so the homepage `.prim-stage` frame is the only
+   border (the homepage mocks sit flat inside the stage). */
+.vfp .prim-stage .pv { width: 100%; max-width: none; display: grid; gap: 10px; }
+.vfp .prim-stage .audit { border: none; box-shadow: none; background: transparent; }
+.vfp .prim-stage .precedent { border: none; background: transparent; padding: 0; }
+.vfp .prim-stage .sol-panel-body.dark { border: none; }
+
+/* The eight capability previews vary widely in height (a two-line chat next to
+   a multi-line code panel), so paired cards rendered ragged, uneven frames with
+   the shorter demo pinned to the top of a tall frame. Give every preview stage
+   a shared minimum height, let the preview/code stack grow to fill the
+   row-equalized card height, and center the demo so all frames read as one
+   consistent grid. */
+.vfp .sc-card > .prim-stack { flex: 1; }
+.vfp .sc-card .prim-stage { display: flex; align-items: center; min-height: 196px; }
+.vfp .sc-card .prim-stage > .pv { align-self: center; }
+
+/* Long mono lines in the narrow code previews (e.g. the REST provisioning
+   snippet) overflowed and were clipped by the dark panel's hidden overflow.
+   Wrap them so nothing is cut off at the frame edge. */
+.vfp .sc-card .prim-stage .sol-panel-body.dark pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Syntax tokens re-tinted for the homepage's light (cream) code card. The
+   shared `.tk-*` colors are tuned for the dark editors elsewhere on the page. */
+.vfp .prim-pre .tk-cm { color: var(--vlp-color-text-muted); }
+.vfp .prim-pre .tk-str { color: var(--vlp-color-green-ui, #1f7a4d); }
+.vfp .prim-pre .tk-kw { color: var(--vlp-color-amber, #b26a1a); }
+.vfp .prim-pre .tk-tag { color: var(--vlp-color-accent); }
+.vfp .prim-pre .tk-attr { color: #2563a8; }
+.vfp .prim-pre .tk-num { color: #2563a8; }
+
+@media (max-width: 1024px) {
+  .vfp .sc-grid { grid-template-columns: 1fr; }
+  .vfp .sc-grid > .sc-card:nth-child(4n + 1),
+  .vfp .sc-grid > .sc-card:nth-child(4n + 2),
+  .vfp .sc-grid > .sc-card:nth-child(4n + 3),
+  .vfp .sc-grid > .sc-card:nth-child(4n + 4) { grid-column: auto; }
+}

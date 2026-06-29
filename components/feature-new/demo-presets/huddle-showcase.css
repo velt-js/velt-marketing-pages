@@ -1,0 +1,146 @@
+/* ---------- Huddle showcase artifacts (.hud-*) ----------
+   Mock-UI cards for the /huddle Capabilities grid, reusing the comments +
+   approval-flows design language: white labeled cards (apf-card) over the
+   shared cmh-cc head/body chrome, chip pills, Av avatars, the apf-gov key/value
+   rows, and the cmh-cmt plain comment. Only genuinely new huddle patterns —
+   voice/video rooms, participant rosters, the screen-share frame, and the
+   instant no-link flow — live here, namespaced .hud- and scoped under .vfp. */
+
+/* Voice room — a horizontal row of participants with a live waveform under the
+   active speaker (audio card, wide tile). */
+.vfp .hud-voice { display: flex; align-items: flex-start; justify-content: space-around; gap: 14px; padding: 4px 2px 2px; }
+.vfp .hud-voice-tile { display: flex; flex-direction: column; align-items: center; gap: 9px; flex: 1; min-width: 0; }
+.vfp .hud-voice-ring { position: relative; padding: 4px; border-radius: 50%; border: 2px solid transparent; }
+.vfp .hud-voice-ring--live { border-color: var(--vlp-color-green-approval); background: var(--vlp-color-approve-soft); }
+.vfp .hud-voice-tile .av-c { width: 50px; height: 50px; font-size: 15px; }
+.vfp .hud-voice-mic { position: absolute; right: -1px; bottom: -1px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; border: 2px solid #fff; }
+.vfp .hud-voice-mic svg { width: 11px; height: 11px; }
+.vfp .hud-voice-mic--on { background: var(--vlp-color-green-approval); color: #fff; }
+.vfp .hud-voice-mic--off { background: var(--vlp-bg-skeleton, #ececec); color: var(--vlp-color-text-subtle); }
+.vfp .hud-voice-meta { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.vfp .hud-voice-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .hud-voice-sub { font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-text-muted); }
+
+/* Live audio waveform — decorative animated bars, reused by the roster rows. */
+.vfp .hud-wave { display: inline-flex; align-items: center; gap: 2.5px; height: 14px; }
+.vfp .hud-wave i { width: 2.5px; border-radius: 999px; background: var(--vlp-color-green-approval); transform-origin: center; animation: hud-wave-bounce 1s ease-in-out infinite; }
+.vfp .hud-wave i:nth-child(1) { height: 6px; animation-delay: -0.8s; }
+.vfp .hud-wave i:nth-child(2) { height: 12px; animation-delay: -0.6s; }
+.vfp .hud-wave i:nth-child(3) { height: 14px; animation-delay: -0.4s; }
+.vfp .hud-wave i:nth-child(4) { height: 9px; animation-delay: -0.2s; }
+.vfp .hud-wave i:nth-child(5) { height: 12px; animation-delay: 0s; }
+@keyframes hud-wave-bounce { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1); } }
+@media (prefers-reduced-motion: reduce) { .vfp .hud-wave i { animation: none; } }
+
+/* Video room — face tiles in a grid (video card, narrow tile). */
+.vfp .hud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.vfp .hud-tile { position: relative; aspect-ratio: 4 / 3; border-radius: 12px; background-size: cover; background-position: center; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.vfp .hud-tile--live { box-shadow: inset 0 0 0 2px var(--vlp-color-green-approval); }
+.vfp .hud-tile-tag { position: absolute; left: 7px; bottom: 7px; display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.55); color: #fff; font-size: 11px; font-weight: 600; letter-spacing: -0.22px; }
+.vfp .hud-tile-cam { position: absolute; right: 7px; top: 7px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: rgba(0, 0, 0, 0.55); color: #fff; }
+.vfp .hud-tile-cam svg { width: 12px; height: 12px; }
+
+/* Screen-share frame — a mock window sharing the document (screen-share card). */
+.vfp .hud-screen { border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.vfp .hud-screen-top { display: flex; align-items: center; gap: 6px; padding: 8px 11px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .hud-screen-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--vlp-border-default); flex: none; }
+.vfp .hud-screen-title { margin-left: 6px; font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .hud-screen-share { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800; letter-spacing: 0.4px; color: var(--vlp-color-accent); }
+.vfp .hud-screen-share i { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-accent); }
+.vfp .hud-screen-doc { display: grid; gap: 9px; padding: 13px 14px 15px; }
+.vfp .hud-screen-doc .cmh-doc { margin: 0; font-size: 12px; }
+.vfp .hud-screen-by { display: inline-flex; align-items: center; gap: 8px; margin-top: 11px; padding: 7px 12px 7px 7px; border-radius: 999px; border: 1px solid rgba(0, 0, 0, 0.08); background: #fff; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); width: fit-content; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .hud-screen-by .av-c { width: 22px; height: 22px; font-size: 9px; flex: none; }
+
+/* Participant roster — stacked rows with mic state (presence card). */
+.vfp .hud-roster { display: flex; flex-direction: column; gap: 8px; }
+.vfp .hud-person { display: flex; align-items: center; gap: 10px; padding: 8px 11px; border: 1px solid rgba(0, 0, 0, 0.07); border-radius: 12px; background: #fff; }
+.vfp .hud-person--live { border-color: var(--vlp-color-accent-wash); }
+.vfp .hud-person .av-c { width: 30px; height: 30px; flex: none; }
+.vfp .hud-person-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .hud-person-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .hud-person-sub { font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-text-muted); }
+.vfp .hud-mute { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--vlp-bg-wash); color: var(--vlp-color-text-subtle); }
+.vfp .hud-mute svg { width: 13px; height: 13px; }
+
+/* Instant no-link flow — a one-click huddle that needs no URL or invite. */
+.vfp .hud-instant { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; padding: 4px 2px 2px; }
+.vfp .hud-instant-btn { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: var(--vlp-color-accent); color: #fff; font-size: 13.5px; font-weight: 700; letter-spacing: -0.27px; box-shadow: 0 6px 16px color-mix(in srgb, var(--vlp-color-accent) 30%, transparent); }
+.vfp .hud-instant-btn i { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+.vfp .hud-instant-arrow { display: grid; place-items: center; width: 22px; height: 22px; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .hud-instant-arrow svg { width: 20px; height: 20px; }
+.vfp .hud-instant-live { display: inline-flex; align-items: center; gap: 9px; padding: 7px 14px 7px 10px; border-radius: 999px; border: 1px solid var(--vlp-color-accent-wash); background: var(--vlp-color-accent-soft); font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-accent-ink); }
+.vfp .hud-stack { display: inline-flex; align-items: center; }
+.vfp .hud-stack .av-c { width: 24px; height: 24px; flex: none; margin-left: -8px; border: 2px solid #fff; font-size: 9px; }
+.vfp .hud-stack .av-c:first-child { margin-left: 0; }
+.vfp .hud-nope { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .hud-nope-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-size: 12px; font-weight: 500; letter-spacing: -0.24px; }
+.vfp .hud-nope-pill svg { width: 12px; height: 12px; flex: none; color: var(--vlp-color-reject); }
+.vfp .hud-nope-pill span { text-decoration: line-through; text-decoration-color: rgba(0, 0, 0, 0.28); }
+
+/* Huddle chat — ephemeral note under the bubbles (chat card, narrow tile). */
+.vfp .hud-chat { display: flex; flex-direction: column; gap: 13px; }
+.vfp .hud-chat-note { display: flex; align-items: center; gap: 7px; margin-top: 1px; padding-top: 11px; border-top: 1px solid var(--vlp-border-subtle); font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+.vfp .hud-chat-note svg { width: 13px; height: 13px; flex: none; color: var(--vlp-color-text-subtle); }
+
+/* Related teasers — compact mini-cards echoing each sibling feature. */
+.vfp .hud-rel { display: grid; gap: 10px; }
+.vfp .hud-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 5px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .hud-rel-cap svg { width: 14px; height: 14px; flex: none; color: var(--vlp-color-accent); }
+.vfp .hud-rel-name { font-size: 12.5px; font-weight: 700; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .hud-rel-time { font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .hud-rel-line { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+
+/* Comment-row echo (related/comments). */
+.vfp .hud-rel-cmt { display: flex; gap: 9px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .hud-rel-cmt .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .hud-rel-cmt-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .hud-rel-top { display: flex; align-items: baseline; gap: 7px; }
+.vfp .hud-rel-resolved { display: inline-flex; align-items: center; gap: 5px; width: fit-content; margin-top: 1px; font-size: 11px; font-weight: 600; letter-spacing: -0.22px; color: #0c6a41; }
+.vfp .hud-rel-resolved svg { width: 12px; height: 12px; flex: none; }
+
+/* Recording mini echo (related/recording). */
+.vfp .hud-rel-rec { display: flex; align-items: center; gap: 10px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .hud-rel-rec-play { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 9px; background: var(--vlp-color-accent); box-shadow: 0 4px 12px rgba(255, 79, 0, 0.28); }
+.vfp .hud-rel-rec-play svg { width: 12px; height: 12px; margin-left: 2px; color: #fff; }
+.vfp .hud-rel-rec-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.vfp .hud-rel-rec-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.vfp .hud-rel-chip { padding: 2px 8px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 600; letter-spacing: 0.03em; }
+.vfp .hud-rel-rec-dur { flex: none; font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; color: var(--vlp-color-text-muted); }
+
+/* Make-it-yours · look — a themed in-call huddle room: participant tiles with a
+   speaking ring + mic/cam badges over your control bar (customization preview). */
+.vfp .hud-look { padding: 8px 0; }
+.vfp .hud-look-room { width: 100%; max-width: 360px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; padding: 16px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 18px; background: #fff; box-shadow: 0 14px 34px rgba(0, 0, 0, 0.1); }
+.vfp .hud-look-stage { display: flex; align-items: flex-start; justify-content: space-around; gap: 12px; }
+.vfp .hud-look-tile { display: flex; flex-direction: column; align-items: center; gap: 7px; flex: 1; min-width: 0; }
+.vfp .hud-look-ring { position: relative; padding: 3px; border-radius: 50%; border: 2px solid transparent; }
+.vfp .hud-look-ring--live { border-color: var(--vlp-color-green-approval); background: var(--vlp-color-approve-soft); }
+.vfp .hud-look-tile .av-c { width: 46px; height: 46px; font-size: 14px; }
+.vfp .hud-look-badge { position: absolute; right: -2px; bottom: -2px; width: 21px; height: 21px; border-radius: 50%; display: grid; place-items: center; border: 2px solid #fff; }
+.vfp .hud-look-badge svg { width: 11px; height: 11px; }
+.vfp .hud-look-badge--on { background: var(--vlp-color-green-approval); color: #fff; }
+.vfp .hud-look-badge--off { background: var(--vlp-bg-skeleton, #ececec); color: var(--vlp-color-text-subtle); }
+.vfp .hud-look-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .hud-look-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); }
+.vfp .hud-look-bar { display: flex; align-items: center; gap: 9px; padding: 9px 11px; border-radius: 14px; background: var(--vlp-bg-section-alt); border: 1px solid var(--vlp-border-subtle); }
+.vfp .hud-look-ctrl { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 50%; background: #fff; border: 1px solid var(--vlp-border-default); color: var(--vlp-color-ink-soft); }
+.vfp .hud-look-ctrl svg { width: 15px; height: 15px; }
+.vfp .hud-look-ctrl--on { background: var(--vlp-color-accent); border-color: var(--vlp-color-accent); color: #fff; }
+.vfp .hud-look-bar-sp { flex: 1; }
+.vfp .hud-look-live { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 6px 13px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 11.5px; font-weight: 700; letter-spacing: 0.02em; }
+.vfp .hud-look-live i { width: 7px; height: 7px; border-radius: 50%; background: var(--vlp-color-accent); }
+
+/* Make-it-yours · behavior — a compact config panel: huddle type/scope/join
+   rules over the shared apf-gov key/value rows, with a webhook footer. */
+.vfp .hud-cfg { width: 100%; max-width: 360px; margin: 0 auto; padding: 6px 16px 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.vfp .hud-cfg-seg { display: inline-flex; align-items: center; gap: 3px; padding: 3px; border-radius: 999px; background: var(--vlp-bg-wash); }
+.vfp .hud-cfg-opt { padding: 3px 10px; border-radius: 999px; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 600; letter-spacing: -0.1px; color: var(--vlp-color-text-subtle); }
+.vfp .hud-cfg-opt--on { background: var(--vlp-color-accent); color: #fff; }
+
+/* Presence roster echo (related/presence). */
+.vfp .hud-rel-presence { display: flex; align-items: center; gap: 11px; padding: 10px 11px; border-radius: 11px; background: var(--vlp-bg-section-alt); }
+.vfp .hud-rel-stack { display: inline-flex; align-items: center; }
+.vfp .hud-rel-stack .av-c { width: 28px; height: 28px; flex: none; margin-left: -9px; border: 2px solid var(--vlp-bg-section-alt); font-size: 10px; }
+.vfp .hud-rel-stack .av-c:first-child { margin-left: 0; }
+.vfp .hud-rel-talking { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: #0c6a41; }

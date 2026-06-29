@@ -1,0 +1,89 @@
+/* Reusable logo marquee. Per-instance tuning arrives as CSS variables
+   (--lc-gap, --lc-duration, --lc-logo-height) set inline by the component, so
+   the same stylesheet serves every placement. Not scoped to .vlp on purpose —
+   the component is meant to be reusable across pages. */
+.lc-viewport {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, var(--vlp-color-ink) 6%, var(--vlp-color-ink) 94%, transparent);
+  mask-image: linear-gradient(to right, transparent, var(--vlp-color-ink) 6%, var(--vlp-color-ink) 94%, transparent);
+}
+
+/* Optional full-viewport-width breakout (parent should be a centered column). */
+.lc-viewport--bleed {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Two identical sets scroll left; translateX(-50%) lands set 2 exactly where
+   set 1 began, so the loop is seamless. */
+.lc-track {
+  display: flex;
+  width: max-content;
+  animation: lc-scroll var(--lc-duration, 45s) linear infinite;
+}
+
+.lc-viewport:hover .lc-track {
+  animation-play-state: paused;
+}
+
+/* padding-right matches the gap so spacing stays uniform across the seam. */
+.lc-set {
+  display: flex;
+  align-items: center;
+  gap: var(--lc-gap, 96px);
+  padding-right: var(--lc-gap, 96px);
+  flex-shrink: 0;
+}
+
+/* Width and height are set inline per logo (contained into a uniform box) so
+   optical sizes stay balanced; object-fit guards natural-ratio raster logos. */
+.lc-logo {
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Non-card slot: a fixed-height, centered box so every logo shares the same
+   vertical footprint even when ratio-capping shortens a wide wordmark. */
+.lc-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--lc-slot-height, 26px);
+}
+
+/* Card-chip variant: each logo sits in a padded, rounded container. */
+.lc-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: calc(var(--lc-slot-height, 26px) + 2 * var(--vlp-space-4));
+  padding: var(--vlp-space-4) 28px;
+  border-radius: var(--vlp-radius-xl);
+}
+
+/* Muted ink silhouettes for light backgrounds. The exported cells are already
+   ink-on-transparent, so brightness(0) just normalises any stray color and the
+   opacity gives the understated trusted-by look. */
+.lc-viewport--mono .lc-logo {
+  opacity: 0.5;
+}
+
+@keyframes lc-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lc-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .lc-set--dup {
+    display: none;
+  }
+}

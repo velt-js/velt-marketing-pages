@@ -1,0 +1,173 @@
+.vlp .ent-section {
+  background: var(--vlp-bg-card-dark);
+  color: var(--vlp-color-cream);
+}
+
+.vlp .ent-container {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .ent-header-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--vlp-gap-section);
+  align-items: end;
+}
+
+.vlp .ent-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .ent-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .ent-heading {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 18ch;
+}
+
+.vlp .ent-desc {
+  font-size: var(--vlp-btn-primary-font-lg);
+  line-height: 1.6;
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .ent-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-11);
+}
+
+.vlp .ent-pillar {
+  background: var(--vlp-bg-pillar);
+  border: var(--vlp-border-width) solid var(--vlp-color-ink-soft);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-space-5);
+}
+
+.vlp .ent-pillar-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-mono-sm);
+  letter-spacing: 0.05em;
+  color: var(--vlp-color-text-faint);
+  margin-bottom: var(--vlp-space-3-5);
+}
+
+.vlp .ent-pillar-title {
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-regular);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.vlp .ent-pillar-body {
+  font-size: var(--vlp-text-body-sm);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .ent-pillar-mono {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-mono-sm);
+  line-height: 1.9;
+  color: var(--vlp-border-subtle);
+  margin-top: var(--vlp-space-3-5);
+}
+
+.vlp .ent-regions-mono {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-mono-sm);
+  color: var(--vlp-border-subtle);
+  margin-top: var(--vlp-space-3-5);
+}
+
+.vlp .ent-pillar-link {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-accent);
+  margin-top: var(--vlp-space-3);
+}
+
+.vlp .ent-uptime-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-3-5);
+}
+
+.vlp .ent-uptime-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-faint);
+}
+
+.vlp .ent-uptime-value {
+  font-size: var(--vlp-text-body-lg);
+  color: var(--vlp-color-success);
+}
+
+.vlp .ent-actions {
+  display: flex;
+  gap: var(--vlp-space-3-5);
+  margin-top: var(--vlp-space-8);
+}
+
+.vlp .ent-btn-light {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-light-font-md);
+  background: var(--vlp-btn-light-bg);
+  color: var(--vlp-btn-light-text);
+  padding: var(--vlp-btn-light-padding-md);
+  border-radius: var(--vlp-btn-light-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+.vlp .ent-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-outline-dark-font-md);
+  background: var(--vlp-btn-outline-dark-bg);
+  color: var(--vlp-btn-outline-dark-text);
+  padding: var(--vlp-btn-outline-dark-padding-md);
+  border-radius: var(--vlp-btn-outline-dark-radius);
+  border: var(--vlp-btn-outline-dark-border);
+  transition: var(--vlp-btn-transition);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .vlp .ent-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .ent-header-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .ent-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+}

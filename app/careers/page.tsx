@@ -32,7 +32,7 @@ const CAREERS_BREADCRUMB = buildBreadcrumbList([
 const CAREERS_WEBPAGE = buildWebPageSchema({
   name: "Careers | Velt",
   description:
-    "Join Velt — building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
+    "Join Velt: building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
   url: `${SITE_URL}/careers`,
   breadcrumb: CAREERS_BREADCRUMB,
 });
@@ -40,7 +40,7 @@ const CAREERS_WEBPAGE = buildWebPageSchema({
 export const metadata = buildPageMetadata({
   title: "Careers",
   description:
-    "Join Velt — building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
+    "Join Velt: building the collaboration layer of the internet. Open roles across engineering, support, and QA. Remote-first, ex-Google founders, YC W22.",
   path: "/careers",
 });
 
@@ -128,7 +128,7 @@ export default function CareersPage() {
           decorated
           eyebrow={{ label: "We're hiring", dotColor: "#86efac" }}
           heading="Build the collaboration layer of the internet"
-          subheading="Velt is on a mission to redefine how people work together online. Join a small, technical team of builders — backed by Y Combinator and trusted by Google, Pendo, Runway, and 50+ companies."
+          subheading="Velt is on a mission to redefine how people work together online. Join a small, technical team of builders, backed by Y Combinator and trusted by Google, Pendo, Runway, and 50+ companies."
           primaryCta={{
             label: "View open roles",
             href: "#open-roles",
@@ -201,8 +201,8 @@ function MissionSection() {
             margin: 0,
           }}
         >
-          We&apos;re building drop-in collaboration primitives — comments,
-          presence, cursors, huddles, notifications — that ship in days, not
+          We&apos;re building drop-in collaboration primitives (comments,
+          presence, cursors, huddles, notifications) that ship in days, not
           months. Velt is the infrastructure powering the next generation of
           multiplayer SaaS, and we&apos;re looking for builders who want to
           shape it with us.

@@ -24,7 +24,7 @@ import {
 } from "@/app/_seo/schema";
 
 const PAGE_DESCRIPTION =
-  "Add commenting features to your app in days, not months. Velt's AI-powered Comments SDK ships drop-in components for text, area, video, and inline comments — like Google Docs, Figma, and Frame.io.";
+  "Add commenting features to your app in days, not months. Velt's AI-powered Comments SDK ships drop-in components for text, area, video, and inline comments, like Google Docs, Figma, and Frame.io.";
 
 const ADD_COMMENTS_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -74,7 +74,7 @@ const FEATURE_CARDS: SecurityCardData[] = [
   {
     title: "Recordings",
     subtitle:
-      "Add audio, video, or screen recordings to any comment — with transcripts and summaries generated for you.",
+      "Add audio, video, or screen recordings to any comment, with transcripts and summaries generated for you.",
     visual: (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -142,7 +142,7 @@ const addCommentsFAQ: FaqEntry[] = [
   {
     question: "Does it work with my editor or canvas?",
     answer:
-      "Yes. Velt ships first-class integrations for Tiptap, Lexical, BlockNote, Slate, CodeMirror, React Flow, and major charting libraries (Chart.js, nivo, HighCharts). For everything else — custom canvases, video players, dashboards — we have generic anchoring APIs that bind comments to any DOM element or coordinate.",
+      "Yes. Velt ships first-class integrations for Tiptap, Lexical, BlockNote, Slate, CodeMirror, React Flow, and major charting libraries (Chart.js, nivo, HighCharts). For everything else (custom canvases, video players, dashboards), we have generic anchoring APIs that bind comments to any DOM element or coordinate.",
   },
   {
     question: "What types of comments are supported?",
@@ -181,7 +181,7 @@ export default function AddCommentsQuickPage() {
           decorated
           eyebrow={{ label: "Comments SDK" }}
           heading="Add comments to your app in days, not months."
-          subheading="Drop in production-ready commenting — threaded replies, @mentions, reactions, recordings, and task management — with one component."
+          subheading="Drop in production-ready commenting (threaded replies, @mentions, reactions, recordings, and task management) with one component."
           primaryCta={{
             label: "Get Free API Key",
             href: "https://console.velt.dev/",
@@ -209,7 +209,7 @@ export default function AddCommentsQuickPage() {
 
         <LibraryGetStartedCallout
           heading="Production-ready in five lines of code"
-          body="Install the SDK, wrap your app in VeltProvider, and drop in VeltComments. That's it — comments, mentions, notifications, and recordings light up across your product."
+          body="Install the SDK, wrap your app in VeltProvider, and drop in VeltComments. That's it: comments, mentions, notifications, and recordings light up across your product."
           viewDocsHref="https://velt.dev/docs/async-collaboration/comments/setup"
           getApiKeyHref="https://console.velt.dev/"
           codeSnippet={{ code: INSTALL_SNIPPET, language: "tsx" }}

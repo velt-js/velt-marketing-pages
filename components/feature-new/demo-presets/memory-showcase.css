@@ -1,0 +1,169 @@
+/* ---------- Memory showcase artifacts (.mem-*) ----------
+   Mock-UI cards for the /memory Capabilities grid, reusing the comments +
+   approval-flows design language: white labeled cards (.apf-card) over the
+   shared .cmh-cc head / body chrome, with .chip status pills and the .av-c
+   avatars. Only genuinely new patterns live here; everything is namespaced
+   .mem- and scoped under .vfp. */
+
+/* Generic vertical stack shared by several cards. */
+.vfp .mem-list { display: flex; flex-direction: column; gap: 8px; }
+
+/* Decision / precedent / source rows — leading mark, label + meta, a chip. */
+.vfp .mem-row { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .mem-row .av-c { width: 30px; height: 30px; flex: none; }
+.vfp .mem-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mem-row-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mem-row-meta { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .mem-row .chip { flex: none; }
+
+/* Tinted file-icon tile used by knowledge / checklist source rows. */
+.vfp .mem-src-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--vlp-bg-section-alt); border: 1px solid var(--vlp-border-subtle); }
+.vfp .mem-src-ic svg { width: 17px; height: 17px; }
+.vfp .mem-src-ic--pdf { color: #c0392b; }
+.vfp .mem-src-ic--csv { color: #0c6a41; }
+.vfp .mem-src-ic--xlsx { color: #1a7f4b; }
+.vfp .mem-src-ic--list { color: #7c3aed; }
+
+/* Down connector between stacked nodes. */
+.vfp .mem-down { display: grid; place-items: center; height: 22px; color: var(--vlp-color-text-subtle); }
+.vfp .mem-down svg { width: 18px; height: 18px; }
+
+/* Citation pills (suggestions / nl-queries). */
+.vfp .mem-cites { display: flex; flex-wrap: wrap; gap: 7px; }
+.vfp .mem-cite { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; }
+.vfp .mem-cite svg { width: 11px; height: 11px; flex: none; }
+
+/* Confidence / drift meter. */
+.vfp .mem-meter { display: flex; flex-direction: column; gap: 5px; }
+.vfp .mem-meter-track { position: relative; height: 8px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); overflow: hidden; }
+.vfp .mem-meter-fill { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--vlp-color-green-approval); }
+.vfp .mem-meter-fill--warn { background: #e8912e; }
+.vfp .mem-meter-scale { display: flex; justify-content: space-between; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+
+/* Suggestion — recommendation verdict + confidence + source pills. */
+.vfp .mem-suggest { display: flex; flex-direction: column; gap: 12px; }
+.vfp .mem-suggest-rec { display: flex; align-items: center; gap: 11px; }
+.vfp .mem-suggest-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .mem-suggest-ic svg { width: 15px; height: 15px; }
+.vfp .mem-suggest-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mem-suggest-verdict { font-size: 14px; font-weight: 700; letter-spacing: -0.28px; color: #000; }
+.vfp .mem-suggest-sub { font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+
+/* Semantic search — query bar, two embedding spaces, and a top match. */
+.vfp .mem-search { display: flex; flex-direction: column; gap: 10px; }
+.vfp .mem-search-bar { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--vlp-border-default); border-radius: 999px; background: var(--vlp-bg-section-alt); font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .mem-search-bar svg { width: 13px; height: 13px; flex: none; }
+.vfp .mem-space { display: flex; align-items: center; gap: 10px; }
+.vfp .mem-space-label { width: 92px; flex: none; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink-soft); }
+.vfp .mem-cells { flex: 1; min-width: 0; display: flex; gap: 3px; }
+.vfp .mem-cells i { flex: 1; height: 12px; border-radius: 3px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .mem-cells i.on { background: var(--vlp-color-accent-wash); }
+.vfp .mem-space-tag { flex: none; font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .mem-match { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--vlp-color-accent-wash); border-radius: 12px; background: var(--vlp-color-accent-soft); }
+.vfp .mem-match .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .mem-match-main { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mem-match-score { flex: none; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 700; color: #0c6a41; }
+
+/* Ask Memory — an NL question fanning down into a grounded, cited answer. */
+.vfp .mem-ask { display: flex; flex-direction: column; gap: 4px; }
+.vfp .mem-ask-q { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .mem-ask-ic { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: 8px; background: #fff; border: 1px solid var(--vlp-border-subtle); color: var(--vlp-color-accent); }
+.vfp .mem-ask-ic svg { width: 14px; height: 14px; }
+.vfp .mem-ask-text { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .mem-ask-answer { display: flex; flex-direction: column; gap: 9px; padding: 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); }
+.vfp .mem-ask-head { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .mem-ask-head .cmh-cc-mark { width: 20px; height: 20px; }
+.vfp .mem-ask-head .cmh-cc-mark svg { width: 14px; height: 14px; }
+.vfp .mem-ask-head .chip { margin-left: auto; }
+.vfp .mem-ask-body { margin: 0; font-size: 13px; line-height: 1.45; letter-spacing: -0.26px; color: rgba(0, 0, 0, 0.75); }
+
+/* Living checklist — a source file producing a versioned, citeable diff. */
+.vfp .mem-diff { display: flex; flex-direction: column; gap: 8px; }
+.vfp .mem-diff-row { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 10px; font-size: 13px; font-weight: 500; letter-spacing: -0.26px; }
+.vfp .mem-diff-row--add { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .mem-diff-row--del { background: var(--vlp-color-reject-soft); color: #99291c; }
+.vfp .mem-diff-sign { font-family: var(--vlp-font-mono); font-size: 14px; font-weight: 700; flex: none; }
+.vfp .mem-diff-row .chip { margin-left: auto; flex: none; }
+
+/* Agent grounding — query / skip / human-decision steps. */
+.vfp .mem-steps { display: flex; flex-direction: column; gap: 0; }
+.vfp .mem-step { display: flex; align-items: center; gap: 11px; padding: 11px 2px; }
+.vfp .mem-step + .mem-step { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .mem-step-ic { width: 28px; height: 28px; flex: none; border-radius: 8px; display: grid; place-items: center; }
+.vfp .mem-step-ic svg { width: 15px; height: 15px; }
+.vfp .mem-step-ic--agent { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mem-step-ic--skip { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .mem-step-ic--human { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .mem-step-main { flex: 1; min-width: 0; font-size: 13px; line-height: 1.4; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); }
+.vfp .mem-step-main strong { font-weight: 700; color: var(--vlp-color-ink); }
+.vfp .mem-step .chip { margin-left: auto; flex: none; }
+
+/* Drift detection — declared vs observed, a drift meter, and an alert note. */
+.vfp .mem-drift { display: flex; flex-direction: column; gap: 10px; }
+.vfp .mem-drift-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.vfp .mem-drift-label { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .mem-drift-val { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .mem-drift-val--warn { color: #8a5a13; }
+.vfp .mem-alert { display: flex; align-items: center; gap: 8px; margin-top: 2px; padding: 8px 12px; border-radius: 10px; background: var(--vlp-color-amber-soft); color: #8a5a13; font-size: 12.5px; letter-spacing: -0.25px; }
+.vfp .mem-alert svg { width: 14px; height: 14px; flex: none; }
+
+/* Declared decisions — a declared rule overriding an inferred pattern. */
+.vfp .mem-rules { display: flex; flex-direction: column; gap: 8px; }
+.vfp .mem-rule { display: flex; align-items: center; gap: 9px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .mem-rule-pin { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: 8px; background: #eef1fb; color: #2a37d8; }
+.vfp .mem-rule-pin svg { width: 14px; height: 14px; }
+.vfp .mem-rule-declared { flex: none; font-size: 13.5px; font-weight: 700; letter-spacing: -0.27px; color: #000; }
+.vfp .mem-rule-arrow { display: grid; place-items: center; width: 18px; height: 18px; flex: none; color: var(--vlp-color-green-approval); }
+.vfp .mem-rule-arrow svg { width: 16px; height: 16px; }
+.vfp .mem-rule-inferred { flex: 1; min-width: 0; font-size: 13px; letter-spacing: -0.26px; color: var(--vlp-color-text-muted); }
+.vfp .mem-rule-expr { flex: none; font-family: var(--vlp-font-mono); font-size: 12px; padding: 3px 8px; border-radius: 7px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .mem-rule--code .chip { margin-left: auto; flex: none; }
+
+/* Reviewer profile — a header identity over reused .apf-gov stat rows. */
+.vfp .mem-profile { display: flex; flex-direction: column; gap: 12px; }
+.vfp .mem-profile-head { display: flex; align-items: center; gap: 11px; }
+.vfp .mem-profile-head .av-c { width: 38px; height: 38px; flex: none; }
+.vfp .mem-profile-id { display: flex; flex-direction: column; gap: 1px; }
+.vfp .mem-profile-name { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; color: #000; }
+.vfp .mem-profile-role { font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+
+/* Make-it-yours look — a branded precedent panel: decision rows with a
+   verdict chip over the citation pills they were drawn from. */
+.vfp .mem-look-head { background: linear-gradient(120deg, #6a1fb3, #c97bff); }
+.vfp .mem-look-mark { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(255, 255, 255, 0.18); }
+.vfp .mem-look-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .mem-look-brand { font-weight: 700; letter-spacing: -0.3px; }
+.vfp .mem-look-row { display: flex; flex-direction: column; gap: 9px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .mem-look-top { display: flex; align-items: center; gap: 10px; }
+.vfp .mem-look-dec { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mem-look-top .chip { flex: none; }
+
+/* Make-it-yours behavior — grounding config rows (key / value, sources, a
+   compact confidence-threshold meter, scope). */
+.vfp .mem-cfg { display: flex; flex-direction: column; gap: 0; }
+.vfp .mem-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 2px; min-height: 40px; }
+.vfp .mem-cfg-row + .mem-cfg-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .mem-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); flex: none; }
+.vfp .mem-cfg-val { min-width: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .mem-cfg-srcs .mem-src-ic { width: 26px; height: 26px; }
+.vfp .mem-cfg-srcs .mem-src-ic svg { width: 15px; height: 15px; }
+.vfp .mem-cfg-meter { position: relative; width: 72px; height: 6px; flex: none; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); overflow: hidden; }
+.vfp .mem-cfg-num { font-family: var(--vlp-font-mono); font-size: 12.5px; font-weight: 700; color: var(--vlp-color-ink); }
+
+/* Related primitives (compact teaser cards). */
+.vfp .mem-rel { display: grid; gap: 8px; }
+.vfp .mem-rel-find { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .mem-rel-find .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .mem-rel-find-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.vfp .mem-rel-find-head { display: flex; align-items: center; gap: 7px; }
+.vfp .mem-rel-find-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .mem-rel-find-body { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .mem-rel-sig { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .mem-rel-sig svg { width: 13px; height: 13px; flex: none; color: #2a37d8; }
+.vfp .mem-rel-step { display: flex; align-items: center; gap: 10px; }
+.vfp .mem-rel-step + .mem-rel-step { border-top: 1px solid var(--vlp-border-subtle); padding-top: 8px; }
+.vfp .mem-rel-step .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .mem-rel-step-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mem-rel-step-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mem-rel-step-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); }
+.vfp .mem-rel-step .chip { flex: none; }

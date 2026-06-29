@@ -1,0 +1,2387 @@
+[
+  {
+    "name": "Tiptap",
+    "slug": "tiptap",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 1,
+    "heroTitle": "Comments and co-editing, built for Tiptap",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Tiptap editor, for your users and your AI agents. Threads stay pinned to the content as the document changes, and every agent edit lands as a suggestion your users approve, so a comment on paragraph three is still on paragraph three after a rewrite.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Tiptap yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Tiptap, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Tiptap's transactions are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong line. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Tiptap: your users and your AI agents work in the same editor, with comment threads anchored to each node, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on any node or range, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "Yjs conflict-free merge on the ProseMirror document.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line or a missing disclosure on the node and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/tiptap-crdt-react + @veltdev/tiptap-crdt + @veltdev/types + @tiptap/core + @tiptap/starter-kit + yjs",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Tiptap is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Tiptap editor."
+      },
+      {
+        "question": "Do comments survive every Tiptap transaction?",
+        "answer": "Yes. Robust anchoring binds each thread to its node, so a comment rides edits and re-renders instead of detaching."
+      },
+      {
+        "question": "Do custom nodes and marks work?",
+        "answer": "Yes. Velt anchors to any node or range, including custom nodes and marks."
+      },
+      {
+        "question": "Can an AI agent edit alongside my users, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the node as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Lexical",
+    "slug": "lexical",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 2,
+    "heroTitle": "Comments and co-editing, built for Lexical",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Lexical editor, for your users and your AI agents. Threads stay pinned to nodes as the document tree updates, and every agent edit lands as a suggestion your users approve, so a comment on a heading never jumps to the paragraph below it.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Lexical yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Lexical, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Lexical's node-tree updates are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Lexical: your users and your AI agents work in the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on nodes and ranges, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge across clients on the node tree.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line or a missing disclosure on the node and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/lexical-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Lexical is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Lexical editor."
+      },
+      {
+        "question": "Do comments survive Lexical node-tree updates?",
+        "answer": "Yes. Robust anchoring binds each thread to its node, so a comment rides updates and re-renders instead of detaching."
+      },
+      {
+        "question": "Do custom and decorator nodes work?",
+        "answer": "Yes. Velt anchors to any node or range, including custom and decorator nodes."
+      },
+      {
+        "question": "Can an agent post on a node, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the node as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Slate",
+    "slug": "slatejs",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 3,
+    "heroTitle": "Comments and co-editing, built for Slate",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Slate editor, for your users and your AI agents. Threads stay pinned to the node tree as the document changes, and every agent edit lands as a suggestion your users approve, so a comment survives a normalization instead of detaching from the block it was about.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Slate yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Slate, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Slate's normalizations are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Slate: your users and your AI agents work in the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on nodes and ranges, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the Slate document.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the node and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/slate-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Slate is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Slate editor."
+      },
+      {
+        "question": "Do comments hold across Slate normalizations?",
+        "answer": "Yes. Robust anchoring binds each thread to its node, so a comment survives normalizations instead of detaching."
+      },
+      {
+        "question": "Do custom elements and voids work?",
+        "answer": "Yes. Velt anchors to any node or range, including custom elements and void nodes."
+      },
+      {
+        "question": "Can an agent suggest on a node, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the node as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "PlateJS",
+    "slug": "platejs",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 4,
+    "heroTitle": "Comments and co-editing, built for Plate",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Plate editor, for your users and your AI agents. Threads stay pinned to the node tree as blocks move, and every agent edit lands as a suggestion your users approve, so a note on the callout block stays on the callout, not the paragraph that replaced it.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Plate yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Plate, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Plate's block moves are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong block. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Plate: your users and your AI agents work in the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on blocks and ranges, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the Slate-based document.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the block and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/plate-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Plate is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Plate editor."
+      },
+      {
+        "question": "Do comments work alongside Plate plugins?",
+        "answer": "Yes. Velt anchors to blocks and ranges alongside any Plate plugin, without conflicts."
+      },
+      {
+        "question": "Do custom blocks work?",
+        "answer": "Yes. Velt anchors to any block or range, including custom Plate blocks."
+      },
+      {
+        "question": "Can an agent suggest on a block, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the block as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "CodeMirror",
+    "slug": "codemirror",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 5,
+    "heroTitle": "Comments and co-editing, built for CodeMirror",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your CodeMirror instance, for your users and your AI agents. Threads stay pinned to the line as the buffer changes, and every agent edit lands as a suggestion your users approve, so a review comment on line 42 rides the edits above it instead of sliding off.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into CodeMirror yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in CodeMirror, and your AI agents need that same buffer with a human approving before they touch user work. Comments that survive CodeMirror's buffer changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong line. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for CodeMirror: your users and your AI agents work the same buffer, with comment threads anchored to the line, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the buffer as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments inline on lines and selections, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "Conflict-free co-editing on the buffer.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the buffer.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the buffer.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the file, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every review on the file, exportable.",
+        "featureHref": "/audit-trail"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a code-review agent flags a bug or style issue on the exact line and proposes the fix as a suggestion; your user approves or rejects it like a pull request, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/codemirror-crdt-react + @veltdev/codemirror-crdt + @veltdev/types + codemirror + @codemirror/state + @codemirror/view + y-codemirror.next + yjs",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on CodeMirror is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same CodeMirror instance."
+      },
+      {
+        "question": "Do comments hold in large files?",
+        "answer": "Yes. Robust anchoring binds each thread to its line, so comments hold as the buffer grows and edits above them shift line numbers."
+      },
+      {
+        "question": "Do all language modes work?",
+        "answer": "Yes. Velt anchors to lines and selections regardless of the language mode configured on the instance."
+      },
+      {
+        "question": "Can an agent leave a code-review comment on a line, for a human to approve?",
+        "answer": "Yes. An agent posts a suggestion on the exact line as a first-class user, and a human approves or rejects it like a pull request."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Ace Editor",
+    "slug": "ace",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 6,
+    "heroTitle": "Comments and co-editing, built for Ace",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Ace editor, for your users and your AI agents. Threads stay pinned to the line as the buffer changes, and every agent edit lands as a suggestion your users approve, so a review on a function stays put as lines move above it.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Ace yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Ace, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Ace's buffer changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong line. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Ace: your users and your AI agents work in the same editor, with comment threads anchored to the line, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments inline on lines and selections, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "Conflict-free co-editing on the document.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every review on the file, exportable.",
+        "featureHref": "/audit-trail"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a code-review agent flags a bug or style issue on the exact line and proposes the fix as a suggestion; your user approves or rejects it like a pull request, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/ace-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Ace is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Ace editor."
+      },
+      {
+        "question": "Do comments hold across Ace modes?",
+        "answer": "Yes. Robust anchoring binds each thread to its line, so comments hold regardless of the syntax mode configured."
+      },
+      {
+        "question": "Do large documents work?",
+        "answer": "Yes. Velt anchors to lines and selections in documents of any size."
+      },
+      {
+        "question": "Can an agent leave a review comment on a line, for a human to approve?",
+        "answer": "Yes. An agent posts a suggestion on the exact line as a first-class user, and a human approves or rejects it like a pull request."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Quill",
+    "slug": "quill",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 7,
+    "heroTitle": "Comments and co-editing, built for Quill",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Quill editor, for your users and your AI agents. Threads stay pinned to the content as the delta changes, and every agent edit lands as a suggestion your users approve, so a comment on a quoted passage holds as the delta updates around it.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Quill yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Quill, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Quill's deltas are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong range. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Quill: your users and your AI agents work in the same editor, with comment threads anchored to the range, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on ranges and formats, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the delta.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the range and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/quill-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Quill is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Quill editor."
+      },
+      {
+        "question": "Do comments hold across Quill deltas?",
+        "answer": "Yes. Robust anchoring binds each thread to its range, so a comment holds as the delta updates around it."
+      },
+      {
+        "question": "Do custom formats and blots work?",
+        "answer": "Yes. Velt anchors to ranges regardless of custom formats or blots configured on the editor."
+      },
+      {
+        "question": "Can an agent suggest on a range, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the range as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Draft.js",
+    "slug": "draftjs",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 8,
+    "heroTitle": "Comments and co-editing, built for Draft.js",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Draft.js editor, for your users and your AI agents. Threads stay pinned to content blocks as they change, and every agent edit lands as a suggestion your users approve, so a note on the image block stays on the image, not the caption beneath it.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Draft.js yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Draft.js, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive Draft.js's content-state changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong block. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Draft.js: your users and your AI agents work in the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on blocks and ranges, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the content state.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the block and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/draftjs-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Draft.js is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Draft.js editor."
+      },
+      {
+        "question": "Do comments hold across Draft.js content states?",
+        "answer": "Yes. Robust anchoring binds each thread to its block, so a comment rides content-state changes instead of detaching."
+      },
+      {
+        "question": "Do entities and decorators work?",
+        "answer": "Yes. Velt anchors to blocks and ranges regardless of custom entities or decorators on the editor."
+      },
+      {
+        "question": "Can an agent suggest on a block, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the block as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "BlockNote",
+    "slug": "blocknote",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 9,
+    "heroTitle": "Comments and co-editing, built for BlockNote",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your BlockNote editor, for your users and your AI agents. Threads stay pinned to the block as content moves, and every agent edit lands as a suggestion your users approve, so a comment on the checklist block stays with it when the list reorders.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into BlockNote yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in BlockNote, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive BlockNote's block updates are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong block. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for BlockNote: your users and your AI agents work in the same editor, with comment threads anchored to the block, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on blocks and ranges, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "Yjs conflict-free merge on the block document.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the block and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/blocknote-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on BlockNote is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same BlockNote editor."
+      },
+      {
+        "question": "Do comments survive BlockNote block edits?",
+        "answer": "Yes. Robust anchoring binds each thread to its block, so a comment stays with the block as content moves and reorders."
+      },
+      {
+        "question": "Do custom blocks work?",
+        "answer": "Yes. Velt anchors to any block or range, including custom BlockNote blocks."
+      },
+      {
+        "question": "Can an agent suggest on a block, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the block as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "TinyMCE",
+    "slug": "tinymce",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 10,
+    "heroTitle": "Comments and co-editing, built for TinyMCE",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your TinyMCE editor, for your users and your AI agents. Threads stay pinned to the element as the content changes, and every agent edit lands as a suggestion your users approve, so a comment on a table cell holds as the surrounding copy grows.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into TinyMCE yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in TinyMCE, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive TinyMCE's content changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong element. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for TinyMCE: your users and your AI agents work in the same editor, with comment threads anchored to the element, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on ranges and elements, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the editor content.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the element and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/tinymce-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on TinyMCE is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same TinyMCE editor."
+      },
+      {
+        "question": "Do comments work with TinyMCE plugins?",
+        "answer": "Yes. Velt anchors to elements and ranges alongside any TinyMCE plugin, without conflicts."
+      },
+      {
+        "question": "Classic and inline modes?",
+        "answer": "Yes. Velt works with both the classic and inline TinyMCE configurations."
+      },
+      {
+        "question": "Can an agent suggest on an element, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the element as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Monaco",
+    "slug": "monaco",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 11,
+    "heroTitle": "Comments and co-editing, built for Monaco",
+    "heroSecondary": "Add comments and co-editing to Monaco, the editor behind VS Code, for your users and your AI agents. Threads stay pinned to the line as the buffer changes, and every agent edit lands as a suggestion your users approve, so a review on a function stays on that function as the file grows.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Monaco yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Monaco, and your AI agents need that same buffer with a human approving before they touch user work. Comments that survive Monaco's model changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong line. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Monaco: your users and your AI agents work the same buffer, with comment threads anchored to the line, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the buffer as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments inline on lines and selections, in the editor and the diff view, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "Conflict-free co-editing on the model.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the buffer.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the buffer.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the file, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every review on the file, exportable.",
+        "featureHref": "/audit-trail"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a code-review agent flags a bug or style issue on the exact line and proposes the fix as a suggestion; your user approves or rejects it like a pull request, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/monaco-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Monaco is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same Monaco instance."
+      },
+      {
+        "question": "Do comments hold in large files?",
+        "answer": "Yes. Robust anchoring binds each thread to its line, so comments hold as the buffer grows and lines shift above them."
+      },
+      {
+        "question": "Does the diff editor work?",
+        "answer": "Yes. Velt anchors comments to lines and selections in both the standard and diff editor views."
+      },
+      {
+        "question": "Can an agent leave a review comment on a generated function, for a human to approve?",
+        "answer": "Yes. An agent posts a suggestion on the exact line as a first-class user, and a human approves or rejects it like a pull request."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "ProseMirror",
+    "slug": "prosemirror",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 12,
+    "heroTitle": "Comments and co-editing, built for ProseMirror",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your ProseMirror editor, for your users and your AI agents. Threads ride every transaction, and every agent edit lands as a suggestion your users approve, so a comment stays on the node instead of drifting off when the document transacts.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into ProseMirror yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in ProseMirror, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive ProseMirror's transactions are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for ProseMirror: your users and your AI agents work in the same editor, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on nodes and ranges, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the ProseMirror document.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the node and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/prosemirror-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on ProseMirror is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same ProseMirror editor."
+      },
+      {
+        "question": "Do comments survive custom schemas?",
+        "answer": "Yes. Robust anchoring binds each thread to its node, so comments hold across any custom schema."
+      },
+      {
+        "question": "Do node views work?",
+        "answer": "Yes. Velt anchors to any node or range, including nodes rendered via custom node views."
+      },
+      {
+        "question": "Can an agent suggest on a node, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the node as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "CKEditor",
+    "slug": "ckeditor",
+    "kind": "surface",
+    "category": "text-code-editors",
+    "beta": false,
+    "order": 13,
+    "heroTitle": "Comments and co-editing, built for CKEditor",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your CKEditor instance, for your users and your AI agents. Threads stay pinned to the model as content changes, and every agent edit lands as a suggestion your users approve, so a comment on a clause holds as the model updates around it.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into CKEditor yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in CKEditor, and your AI agents need that same editor with a human approving before they touch user work. Comments that survive CKEditor's model changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong model range. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for CKEditor: your users and your AI agents work in the same editor, with comment threads anchored to the model range, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the editor as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on ranges and elements, with replies, @mentions, reactions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the CKEditor model.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections in the editor.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the editor.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Single editor mode",
+        "body": "Run Velt review on a single editor instance without multiplayer.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "a brand-and-compliance agent flags an off-message line on the content and suggests the rewrite as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/ckeditor-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on CKEditor is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Velt adds threaded comments and conflict-free co-editing on the same CKEditor instance."
+      },
+      {
+        "question": "Do comments work with CKEditor plugins?",
+        "answer": "Yes. Velt anchors to ranges and elements alongside any CKEditor plugin, without conflicts."
+      },
+      {
+        "question": "How are real-time conflicts handled?",
+        "answer": "Conflict-free CRDT merge resolves concurrent edits on the model, so no overwrite or lost work."
+      },
+      {
+        "question": "Can an agent suggest on the content, with a human approving?",
+        "answer": "Yes. An agent posts a suggestion on the model range as a first-class user, and a human approves or rejects before it lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs without you standing up a websocket fleet or merge backend."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Apryse",
+    "slug": "apryse",
+    "kind": "surface",
+    "category": "documents-pdf",
+    "beta": false,
+    "order": 20,
+    "heroTitle": "Comments and annotations, built for Apryse",
+    "heroSecondary": "Add comments and shared annotations, plus live presence, to documents in your Apryse viewer, for your users and your AI agents. Threads stay pinned to the page and region as the file re-renders, and every agent markup lands for your reviewer to approve, so the markup stays on the clause it was about.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Annotations",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Apryse yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Apryse, and your AI agents need that same document with a human approving before they touch user work. Comments that survive Apryse's re-renders are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong region. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Apryse: your users and your AI agents work the same document, with comment threads anchored to the page and region, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the document as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Anchored to page regions, with replies, @mentions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Annotations",
+        "body": "Shared, live-synced markup on the page region.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live presence on the document.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose redlines as accept-or-reject suggestions.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the page.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every markup and approval on the matter, exportable.",
+        "featureHref": "/audit-trail"
+      }
+    ],
+    "agentsCardBody": "A clause-review agent flags a missing indemnity or an off-standard term on the page region and suggests the redline as a first-class user; counsel approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/apryse-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Apryse is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments and annotations, or co-editing?",
+        "answer": "A PDF is read-only, so you annotate it; comments and shared annotations both work."
+      },
+      {
+        "question": "Do comments hold across PDF and office formats?",
+        "answer": "Yes. Threads are anchored to the page and region, not to a byte offset, so they survive format changes and re-renders."
+      },
+      {
+        "question": "Do they interop with Apryse annotations?",
+        "answer": "Yes. The Velt adapter maps to Apryse's annotation layer so native and Velt annotations coexist on the same document."
+      },
+      {
+        "question": "Can an agent flag a region, for counsel to approve?",
+        "answer": "Yes. An agent posts a comment or suggestion on the region as a first-class user, and a human approves or rejects before anything changes."
+      },
+      {
+        "question": "Is there an exportable record for the security review?",
+        "answer": "Yes. The audit trail captures every markup and approval on the matter and is exportable via API."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Nutrient",
+    "slug": "nutrient",
+    "kind": "surface",
+    "category": "documents-pdf",
+    "beta": false,
+    "order": 21,
+    "heroTitle": "Comments and annotations, built for Nutrient",
+    "heroSecondary": "Add comments and shared annotations, plus live presence, to PDFs in your Nutrient viewer, for your users and your AI agents. Threads stay pinned to the page and region across versions, and every agent markup lands for your reviewer to approve, so the markup stays where it belongs.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Annotations",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Nutrient yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Nutrient, and your AI agents need that same document with a human approving before they touch user work. Comments that survive Nutrient's version changes are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong region. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Nutrient: your users and your AI agents work the same document, with comment threads anchored to the page and region, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the document as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Anchored to page regions, with replies, @mentions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Annotations",
+        "body": "Shared, live-synced markup on the page region.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live presence on the document.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose redlines as accept-or-reject suggestions.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the page.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every markup and approval on the matter, exportable.",
+        "featureHref": "/audit-trail"
+      }
+    ],
+    "agentsCardBody": "A clause-review agent flags a missing term on the page region and suggests the redline as a first-class user; your reviewer approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/nutrient-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Nutrient is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments and annotations, or co-editing?",
+        "answer": "Annotations on a read surface; comments and shared annotations both work on PDFs in Nutrient."
+      },
+      {
+        "question": "Do comments interop with Nutrient annotations?",
+        "answer": "Yes. The Velt adapter maps to Nutrient's annotation layer so the two coexist on the same document without conflict."
+      },
+      {
+        "question": "Do they work on mobile?",
+        "answer": "Yes. Velt's primitives follow Nutrient's mobile rendering, so threads anchor correctly on phone and tablet viewports."
+      },
+      {
+        "question": "Can an agent flag a region, for a human to approve?",
+        "answer": "Yes. An agent posts a comment or suggestion on the region as a first-class user, and a human approves or rejects before anything changes."
+      },
+      {
+        "question": "Is there an exportable record?",
+        "answer": "Yes. The audit trail captures every markup and approval and is exportable via API."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "SuperDoc",
+    "slug": "superdoc",
+    "kind": "surface",
+    "category": "documents-pdf",
+    "beta": false,
+    "order": 22,
+    "heroTitle": "Comments and co-editing, built for SuperDoc",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your SuperDoc editor, for your users and your AI agents. Threads stay pinned to the paragraph as the document edits, and every agent edit lands as a suggestion your users approve, so a comment on a clause stays on that clause through a redraft.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into SuperDoc yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in SuperDoc, and your AI agents need that same document with a human approving before they touch user work. Comments that survive SuperDoc's docx edits are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong paragraph. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for SuperDoc: your users and your AI agents work the same document, with comment threads anchored to the paragraph, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the document as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "On paragraphs and ranges, with replies, @mentions, and attachments.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT merge on the docx content, so two people work the same document without overwrites.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live presence on the document.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose redlines as accept-or-reject suggestions.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context on the document.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the document, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every markup and approval on the matter, exportable.",
+        "featureHref": "/audit-trail"
+      }
+    ],
+    "agentsCardBody": "A clause-review agent flags an off-standard term on the paragraph and suggests the redline as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/superdoc-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on SuperDoc is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. SuperDoc is a docx editor so Velt wires full CRDT co-editing alongside comment threads on the same document."
+      },
+      {
+        "question": "Do comments hold with docx fidelity?",
+        "answer": "Yes. Threads anchor to paragraphs by stable identifier, not byte offset, so they survive reformatting, copy-paste, and round-trips through docx."
+      },
+      {
+        "question": "Do tracked changes interop?",
+        "answer": "Yes. Velt suggestions map to the tracked-change model so suggestions your agents propose appear alongside native tracked changes."
+      },
+      {
+        "question": "Can an agent suggest a redline, for a human to approve?",
+        "answer": "Yes. An agent posts the suggestion on the paragraph as a first-class user, and a human approves or rejects before the change lands."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt handles the realtime sync and persistence; you wrap your app in VeltProvider with your API key and mount the adapter."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "SpreadJS",
+    "slug": "spreadjs",
+    "kind": "surface",
+    "category": "grids-tables",
+    "beta": false,
+    "order": 30,
+    "heroTitle": "Comments and co-editing, built for SpreadJS",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your SpreadJS workbook, for your users and your AI agents. Threads stay pinned to the cell as the sheet recalculates, and every agent edit lands as a suggestion your users approve, so the question on a cell stays on that cell.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into SpreadJS yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in SpreadJS, and your AI agents need that same workbook with a human approving before they touch user work. Comments that survive SpreadJS's recalcs are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong cell. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for SpreadJS: your users and your AI agents work the same workbook, with comment threads anchored to the cell, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the workbook as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Cell-level comments with replies and @mentions, pinned to the cell through recalcs and across multiple sheets.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT shared cell state so two users write to the same workbook without overwrites.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections on the sheet, so everyone knows who is where.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose cell changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints for the workbook, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every change to the number, every approval, exportable.",
+        "featureHref": "/audit-trail"
+      }
+    ],
+    "agentsCardBody": "A checking agent flags the cell where a formula breaks or a number misses the model and comments on it as a first-class user; your reviewer approves the correction, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/spreadjs-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on SpreadJS is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. You can ship comments alone or add co-editing via the CRDT adapter; they are independent capabilities."
+      },
+      {
+        "question": "Do comments hold across formulas and multiple sheets?",
+        "answer": "Yes. Comment threads are anchored to the cell reference, not the rendered position, so they survive recalculations and cross-sheet moves."
+      },
+      {
+        "question": "Do large workbooks work?",
+        "answer": "Yes. The adapter is designed for production workbook sizes; anchoring is by cell reference, not DOM position."
+      },
+      {
+        "question": "Can an agent flag an outlier cell, for a human to approve?",
+        "answer": "Yes. An agent posts a comment or suggestion on the cell as a first-class user, and a human approves or rejects before any value changes."
+      },
+      {
+        "question": "Is there a record of who approved each change?",
+        "answer": "Yes. Every approval fires a webhook event and is written to the audit trail, exportable for compliance."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "AG Grid",
+    "slug": "ag-grid",
+    "kind": "surface",
+    "category": "grids-tables",
+    "beta": false,
+    "order": 31,
+    "heroTitle": "Comments and co-editing, built for AG Grid",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your AG Grid tables, for your users and your AI agents. Threads stay pinned to the cell as rows sort and filter, and every agent edit lands as a suggestion your users approve, so the question on Q3 stays on Q3.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into AG Grid yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in AG Grid, and your AI agents need that same table with a human approving before they touch user work. Comments that survive AG Grid's sort and filter are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong cell. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for AG Grid: your users and your AI agents work the same table, with comment threads anchored to the cell, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the table as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Comments on cells and rows, pinned to the cell reference so they survive sort, filter, and grouping.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT shared cell state so two users write to the same grid without overwrites.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections on the grid, so everyone knows who is where.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose cell changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints for the table, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every cell change and approval, exportable for compliance.",
+        "featureHref": "/audit-trail"
+      }
+    ],
+    "agentsCardBody": "A checking agent flags the cell where a number misses the model and comments on Q3 as a first-class user; your reviewer approves the correction, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/ag-grid-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on AG Grid is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. You can ship comments alone or add co-editing via the CRDT adapter; they are independent capabilities."
+      },
+      {
+        "question": "Do comments survive virtualized rows?",
+        "answer": "Yes. Comments anchor to the cell reference in the data model, not the DOM row, so virtual scrolling and row windowing do not affect them."
+      },
+      {
+        "question": "Do they work with grouping?",
+        "answer": "Yes. Thread anchors follow the row identity through group collapse, expand, and re-sort."
+      },
+      {
+        "question": "Can an agent flag a cell, for a human to approve?",
+        "answer": "Yes. An agent posts a comment or suggestion on the cell as a first-class user, and a human approves or rejects before any value changes."
+      },
+      {
+        "question": "Is there a record of who approved each change?",
+        "answer": "Yes. Every approval fires a webhook event and is written to the audit trail, exportable for compliance."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "TanStack Table",
+    "slug": "tanstack",
+    "kind": "surface",
+    "category": "grids-tables",
+    "beta": false,
+    "order": 32,
+    "heroTitle": "Comments and co-editing, built for TanStack Table",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your TanStack Table, for your users and your AI agents. Threads stay pinned to the cell as the table sorts and paginates, and every agent edit lands as a suggestion your users approve, so a comment never lands on the wrong row.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "Yes",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into TanStack Table yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in TanStack Table, and your AI agents need that same table with a human approving before they touch user work. Comments that survive TanStack Table's sort and paginate are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong cell. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for TanStack: your users and your AI agents work the same table, with comment threads anchored to the cell, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "Your AI agent comments and suggests on the table as a first-class user; a human approves or rejects, and on approval the change fires through your webhook with a permanent record.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Comments on cells and rows, pinned to the row identity so they survive sort, pagination, and server-side data updates.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT shared cell state so two users write to the same table without overwrites.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and selections on the table, so everyone knows who is where.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Suggestions",
+        "body": "Propose cell changes as accept-or-reject suggestions, reviewed like a diff.",
+        "featureHref": "/suggestions"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints for the table, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Audit trail",
+        "body": "Every cell change and approval, exportable for compliance.",
+        "featureHref": "/audit-trail"
+      }
+    ],
+    "agentsCardBody": "A checking agent flags the cell where a value misses the model and comments on the row as a first-class user; your reviewer approves the correction, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/tanstack-crdt-react",
+    "migrateLine": "Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on TanStack Table is a suggestion your user approves or rejects, on the record.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. You can ship comments alone or add co-editing via the CRDT adapter; they are independent capabilities."
+      },
+      {
+        "question": "Does it work headless and virtualized?",
+        "answer": "Yes. TanStack Table is headless by design; the Velt adapter anchors to the data model, not the rendered DOM, so it works with any virtualization layer."
+      },
+      {
+        "question": "With server-side data?",
+        "answer": "Yes. Thread anchors follow the row and cell identity in the data model, so server-side pagination and sorting do not affect them."
+      },
+      {
+        "question": "Can an agent flag a cell, for a human to approve?",
+        "answer": "Yes. An agent posts a comment or suggestion on the cell as a first-class user, and a human approves or rejects before any value changes."
+      },
+      {
+        "question": "Is there a record of who approved each change?",
+        "answer": "Yes. Every approval fires a webhook event and is written to the audit trail, exportable for compliance."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "React Flow",
+    "slug": "react-flow",
+    "kind": "surface",
+    "category": "canvas-diagram",
+    "beta": false,
+    "order": 40,
+    "heroTitle": "Comments and co-editing, built for React Flow",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your React Flow canvas, for your users and your AI agents. Threads stay pinned to the node as the graph moves, and every agent edit lands as a suggestion your users approve, so every comment stays on the node it was about.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "n/a",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into React Flow yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in React Flow, and your AI agents need that same canvas with a human approving before they touch user work. Comments that survive as the React Flow graph moves are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for React Flow: your users and your AI agents work the same canvas, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "An agent proposes a node or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on nodes and edges, with replies, @mentions, reactions, and attachments, that stay pinned to the node as the graph moves.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT co-editing of the graph, so two people move nodes and add edges without overwrites or merge conflicts.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and who is here right now, on the canvas.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context when showing beats typing.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the canvas, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "An agent proposes a node or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/reactflow-crdt",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on React Flow is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Comments anchor to nodes and edges; co-editing keeps the graph in sync across clients with CRDT conflict-free merge."
+      },
+      {
+        "question": "Do custom nodes work?",
+        "answer": "Yes. Comments and presence attach to any node type, including custom nodes."
+      },
+      {
+        "question": "Can two people co-edit the graph?",
+        "answer": "Yes. The CRDT adapter merges concurrent node moves, edge changes, and additions without overwrites."
+      },
+      {
+        "question": "Can an agent propose a change, for a human to approve?",
+        "answer": "Yes. An agent posts a node or layout suggestion as a first-class user; your user approves or rejects it, and on approval the change fires through your webhook with a permanent record."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs the collaboration layer for you."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Konva",
+    "slug": "konva",
+    "kind": "surface",
+    "category": "canvas-diagram",
+    "beta": false,
+    "order": 41,
+    "heroTitle": "Comments and co-editing, built for Konva",
+    "heroSecondary": "Add comments and co-editing, plus live presence, to your Konva canvas, for your users and your AI agents. Threads stay pinned to the shape as the canvas pans and zooms, and every agent edit lands as a suggestion your users approve, so every comment stays on the shape it was about.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Yes",
+      "suggestions": "n/a",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Konva yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Konva, and your AI agents need that same canvas with a human approving before they touch user work. Comments that survive Konva's pan and zoom are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong shape. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Konva: your users and your AI agents work the same canvas, with comment threads anchored to the shape, and every agent suggestion is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "An agent proposes a shape or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on shapes, with replies, @mentions, reactions, and attachments, that stay pinned to the shape as the canvas pans and zooms.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Co-editing",
+        "body": "CRDT shared shape state, so two people move and modify shapes without overwrites or merge conflicts.",
+        "featureHref": "/multiplayer-editing"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and who is here right now, on the canvas.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      },
+      {
+        "title": "Recording",
+        "body": "Pin a quick voice, screen, or video clip in context when showing beats typing.",
+        "featureHref": "/recording"
+      },
+      {
+        "title": "Version history",
+        "body": "Named checkpoints on the canvas, saved and restored by API.",
+        "featureHref": "/multiplayer-editing"
+      }
+    ],
+    "agentsCardBody": "An agent proposes a shape or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/konva-crdt-react",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Konva is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
+    "faq": [
+      {
+        "question": "Comments only, or co-editing too?",
+        "answer": "Both. Comments anchor to shapes; co-editing keeps the shared shape state in sync across clients with CRDT conflict-free merge."
+      },
+      {
+        "question": "Do custom shapes work?",
+        "answer": "Yes. Comments and presence attach to any Konva shape, including custom shape classes."
+      },
+      {
+        "question": "Does it survive pan, zoom, and the transformer?",
+        "answer": "Yes. Comment threads stay pinned to the shape through pan, zoom, and transformer interactions."
+      },
+      {
+        "question": "Can an agent propose a change, for a human to approve?",
+        "answer": "Yes. An agent posts a shape or layout suggestion as a first-class user; your user approves or rejects it, and on approval the change fires through your webhook with a permanent record."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs the collaboration layer for you."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Chart.js",
+    "slug": "chartjs",
+    "kind": "surface",
+    "category": "charts-dataviz",
+    "beta": false,
+    "order": 50,
+    "heroTitle": "Comments and annotations, built for Chart.js",
+    "heroSecondary": "Add comments and shared annotations, plus live presence, to your Chart.js charts, for your users and your AI agents. Threads stay pinned to the data point as the chart re-renders, and every agent annotation lands for your reviewer to approve, so reviewers discuss the spike on the spike.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Annotations",
+      "suggestions": "n/a",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Chart.js yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Chart.js, and your AI agents need that same chart with a human approving before they touch user work. Comments that survive Chart.js's re-renders are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong data point. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Chart.js: your users and your AI agents work the same chart, with comment threads anchored to the data point and series, and every agent annotation is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on data points and series, with replies, @mentions, reactions, and attachments, that stay pinned to the point as the chart re-renders.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Annotations",
+        "body": "Shared, live-synced markup on the data point, anchored as the chart re-renders, so every reviewer sees the same callouts on the same spike.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and who is here right now, on the chart.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      }
+    ],
+    "agentsCardBody": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/chartjs-react",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Chart.js is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
+    "faq": [
+      {
+        "question": "Comments and annotations, or co-editing?",
+        "answer": "You annotate a rendered chart; comments and shared annotations both work. A chart is a read surface rendered from a data array, so the shared state is markup, not co-editing."
+      },
+      {
+        "question": "Do comments anchor to data points?",
+        "answer": "Yes. Threads stay pinned to the data point and series as the chart re-renders."
+      },
+      {
+        "question": "Do they survive a data refresh?",
+        "answer": "Yes. Anchoring is stable across data refreshes and chart re-renders."
+      },
+      {
+        "question": "Can an agent annotate an anomaly, for a human to approve?",
+        "answer": "Yes. An analysis agent posts an annotation on the data point as a first-class user; your reviewer approves it before it appears in the report, with a permanent record of who allowed what."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs the collaboration layer for you."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Highcharts",
+    "slug": "highcharts",
+    "kind": "surface",
+    "category": "charts-dataviz",
+    "beta": false,
+    "order": 51,
+    "heroTitle": "Comments and annotations, built for Highcharts",
+    "heroSecondary": "Add comments and shared annotations, plus live presence, to your Highcharts charts, for your users and your AI agents. Threads stay pinned to the data point as the chart re-renders, and every agent annotation lands for your reviewer to approve, so reviewers discuss the spike on the spike.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Annotations",
+      "suggestions": "n/a",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Highcharts yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Highcharts, and your AI agents need that same chart with a human approving before they touch user work. Comments that survive Highcharts's re-renders are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong data point. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Highcharts: your users and your AI agents work the same chart, with comment threads anchored to the data point and series, and every agent annotation is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on data points and series, with replies, @mentions, reactions, and attachments, that stay pinned to the point as the chart re-renders.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Annotations",
+        "body": "Shared, live-synced markup on the data point, anchored through re-renders, so every reviewer sees the same callouts on the same spike.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and who is here right now, on the chart.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      }
+    ],
+    "agentsCardBody": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/highcharts-react",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Highcharts is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
+    "faq": [
+      {
+        "question": "Comments and annotations, or co-editing?",
+        "answer": "Annotations on a rendered chart. A chart is a read surface, so the shared state is markup; comments and shared annotations both work."
+      },
+      {
+        "question": "Do comments anchor to series and points?",
+        "answer": "Yes. Threads stay pinned to the data point and series as the chart re-renders."
+      },
+      {
+        "question": "Do they survive a data update?",
+        "answer": "Yes. Anchoring is stable across data updates and chart re-renders."
+      },
+      {
+        "question": "Can an agent annotate a point, for a human to approve?",
+        "answer": "Yes. An analysis agent posts an annotation on the data point as a first-class user; your reviewer approves it before it appears in the report, with a permanent record of who allowed what."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs the collaboration layer for you."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Nivo",
+    "slug": "nivo",
+    "kind": "surface",
+    "category": "charts-dataviz",
+    "beta": false,
+    "order": 52,
+    "heroTitle": "Comments and annotations, built for Nivo",
+    "heroSecondary": "Add comments and shared annotations, plus live presence, to your Nivo charts, for your users and your AI agents. Threads stay pinned to the data point as the chart re-renders, and every agent annotation lands for your reviewer to approve, so reviewers discuss the spike on the spike.",
+    "heroDemoKey": "",
+    "capabilities": {
+      "comments": "Yes",
+      "coEditing": "Annotations",
+      "suggestions": "n/a",
+      "presence": "Yes",
+      "agents": "Yes"
+    },
+    "problemHeader": "Build this into Nivo yourself, and you rebuild it on every release.",
+    "problemBody": "Your users expect to comment and co-edit in Nivo, and your AI agents need that same chart with a human approving before they touch user work. Comments that survive Nivo's re-renders are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong data point. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "builtForLine": "Velt is the review and collaboration layer built for Nivo: your users and your AI agents work the same chart, with comment threads anchored to the data point and series, and every agent annotation is a change a human approves before it lands.",
+    "featureCards": [
+      {
+        "title": "Agents as first-class users",
+        "body": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
+        "featureHref": "/review-agents"
+      },
+      {
+        "title": "Comments",
+        "body": "Threaded comments on data points and series, with replies, @mentions, reactions, and attachments, that stay pinned to the point as the chart re-renders.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Annotations",
+        "body": "Shared, live-synced markup on the data point, anchored through re-renders, so every reviewer sees the same callouts on the same spike.",
+        "featureHref": "/comments"
+      },
+      {
+        "title": "Presence and cursors",
+        "body": "Live named cursors and who is here right now, on the chart.",
+        "featureHref": "/presence"
+      },
+      {
+        "title": "Notifications",
+        "body": "In-app, email, and Slack alerts on every comment and @mention, so a review never stalls.",
+        "featureHref": "/notifications"
+      }
+    ],
+    "agentsCardBody": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
+    "setupPackages": "@veltdev/react + @veltdev/nivo-react",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Nivo is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
+    "faq": [
+      {
+        "question": "Comments and annotations, or co-editing?",
+        "answer": "Annotations on a rendered chart. A chart is a read surface, so the shared state is markup; comments and shared annotations both work."
+      },
+      {
+        "question": "Do comments anchor to the data layer?",
+        "answer": "Yes. Threads stay pinned to the data point and series as the chart re-renders."
+      },
+      {
+        "question": "Do they survive a re-render?",
+        "answer": "Yes. Anchoring is stable across data updates and chart re-renders."
+      },
+      {
+        "question": "Can an agent annotate a point, for a human to approve?",
+        "answer": "Yes. An analysis agent posts an annotation on the data point as a first-class user; your reviewer approves it before it appears in the report, with a permanent record of who allowed what."
+      },
+      {
+        "question": "Do I need a backend?",
+        "answer": "No. Velt runs the collaboration layer for you."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ]
+  },
+  {
+    "name": "Cursor",
+    "slug": "cursor",
+    "kind": "plugin",
+    "category": "plugin",
+    "beta": false,
+    "order": 60,
+    "heroTitle": "Build with Velt from inside Cursor",
+    "heroSecondary": "Install the Velt plugin for Cursor to get skills, rules, an expert agent, and an MCP server for the Velt SDK, so Cursor scaffolds and wires Velt's review layer, comments, co-editing, presence, and agent suggestions a human approves, into your app for you.",
+    "heroDemoKey": "",
+    "valueProps": [
+      "One-command setup from the editor.",
+      "An expert agent that knows the Velt SDK.",
+      "Rules and skills that keep the integration correct and on-pattern."
+    ],
+    "setupNote": "Install from the Cursor plugin directory; confirm exact contents at build.",
+    "faq": [
+      {
+        "question": "What does the plugin install?",
+        "answer": "The plugin installs skills, rules, an expert agent grounded in the Velt SDK, and an MCP server, so Cursor can scaffold and wire the full Velt review layer into your app."
+      },
+      {
+        "question": "How does it differ from copy-paste setup?",
+        "answer": "The plugin gives Cursor structured knowledge of the Velt SDK via rules and an expert agent, so the integration stays correct and on-pattern rather than relying on ad-hoc prompting."
+      },
+      {
+        "question": "Does it use the Velt MCP server?",
+        "answer": "Yes. The plugin includes the Velt MCP server, which gives Cursor's agent access to the Velt SDK context at build time."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ],
+    "metaTitle": ""
+  },
+  {
+    "name": "Claude Code",
+    "slug": "claude",
+    "kind": "plugin",
+    "category": "plugin",
+    "beta": false,
+    "order": 61,
+    "heroTitle": "Build with Velt from inside Claude Code",
+    "heroSecondary": "Install the Velt plugin for Claude Code to get skills, rules, an expert agent, and an MCP server for the Velt SDK, so Claude scaffolds and wires Velt's review layer, comments, co-editing, presence, and agent suggestions a human approves, into your product.",
+    "heroDemoKey": "",
+    "valueProps": [
+      "Agent-driven setup from the terminal.",
+      "An expert agent grounded in the Velt SDK.",
+      "Skills and rules that keep the build on-pattern."
+    ],
+    "setupNote": "Install the Velt plugin for Claude Code; confirm exact contents at build.",
+    "faq": [
+      {
+        "question": "What does the plugin install?",
+        "answer": "The plugin installs skills, rules, an expert agent grounded in the Velt SDK, and an MCP server, so Claude Code can scaffold and wire the full Velt review layer into your product."
+      },
+      {
+        "question": "Does it use the Velt MCP server?",
+        "answer": "Yes. The plugin includes the Velt MCP server, which grounds the agent in Velt SDK context during the build."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ],
+    "metaTitle": ""
+  },
+  {
+    "name": "Chat SDK Adapter",
+    "slug": "chat-sdk",
+    "kind": "agent",
+    "category": "agent-integration",
+    "beta": false,
+    "order": 70,
+    "heroTitle": "Build bots that read and reply in your comment threads",
+    "heroSecondary": "Connect a cross-platform Chat SDK bot to your Velt comment threads with @veltdev/chat-sdk-adapter. A webhook fires when a user @-mentions the bot or reacts, and the bot replies in the same thread, grounded with the document and the anchored text.",
+    "heroDemoKey": "",
+    "valueProps": [
+      "Velt is the comment-thread surface for the Chat SDK, so the same bot logic runs on Velt, Slack, Discord, and every other Chat SDK adapter. It maps Chat SDK channels to documents, threads to comment annotations, and messages to comments.",
+      "Bots read and reply in-thread on @-mention.",
+      "Reactions trigger bot actions (reading works on all plans; writing reactions needs a self-hosted reactions service).",
+      "One bot, many platforms on one Chat SDK codebase."
+    ],
+    "setupNote": "@veltdev/chat-sdk-adapter plus a webhook endpoint; docs velt.dev/docs/ai/chat-sdk-adapter.",
+    "faq": [
+      {
+        "question": "How is a bot triggered?",
+        "answer": "A Velt webhook fires on @-mention or reaction: comment.add, comment_annotation.add, comment.reaction_add, or comment.reaction_delete."
+      },
+      {
+        "question": "Can the same bot run on Slack and Velt?",
+        "answer": "Yes. The Chat SDK adapter maps Velt threads to the Chat SDK's channel and message model, so the same bot codebase runs on Velt, Slack, Discord, and every other Chat SDK adapter."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ],
+    "metaTitle": ""
+  },
+  {
+    "name": "MCP server",
+    "slug": "mcp",
+    "kind": "agent",
+    "category": "agent-integration",
+    "beta": true,
+    "order": 71,
+    "heroTitle": "Let agents read your Velt review data and propose changes",
+    "heroSecondary": "The Velt MCP server gives any MCP-capable agent the review context on a document, comments, threads, and decisions, and lets it add comments and propose changes in-thread. Agents read what humans decided and propose the next change; a human approves before anything lands.",
+    "heroDemoKey": "",
+    "valueProps": [
+      "Agents read review context over MCP.",
+      "Agents add comments and propose changes in-thread, with human approval required (write scope in beta).",
+      "Works with any MCP client."
+    ],
+    "setupNote": "Enable the Velt MCP server; docs velt.dev/docs/mcp/mcp.",
+    "faq": [
+      {
+        "question": "What can an agent do over MCP?",
+        "answer": "Read the review context on a document, including comments, threads, and decisions, and add comments or proposed changes in-thread."
+      },
+      {
+        "question": "Is it read-only or can it write?",
+        "answer": "Agents can read review context on all plans. Write scope, adding comments and proposing changes, is in beta."
+      },
+      {
+        "question": "Does a human still approve?",
+        "answer": "Yes, always. Any change an agent proposes requires human approval before it lands."
+      },
+      {
+        "question": "How is Velt priced?",
+        "answer": "On usage, not seats or integrations: you pay for documents with review activity in a month, with a free tier for development and early production."
+      }
+    ],
+    "metaTitle": ""
+  }
+]

@@ -127,7 +127,7 @@ async function main() {
       step2: {
         _type: "migrationStep",
         title: "2. Transfer to Velt",
-        description: "One click transfer to Velt database",
+        description: "One-click transfer to Velt database",
       },
       step3: {
         _type: "migrationStep",

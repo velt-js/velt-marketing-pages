@@ -1,30 +1,20 @@
-// /enterprise — composed entirely from feature-page template components.
-// Hero matches /features/*; the four enterprise pillars live inside a single
-// purple tabbed band (EnterpriseTabsSection), replacing the previous four
-// stacked sections + hand-rolled illustration.
+// /enterprise — the enterprise landing page, restyled onto the new editorial
+// .vlp design system. Composition: light hero, trusted-by logo marquee, the
+// four enterprise pillars in a tabbed band, a Support bento, a Security bento
+// with the SOC 2 / HIPAA certification pill, the interactive customer
+// showcase, and a dark conversion CTA banner, inside the shared Nav/Footer.
 //
-// Anchor IDs land as follows (Nav.tsx dropdown targets):
-//   #self-hosting         — inside EnterpriseTabsSection, also default tab
-//   #compliance-tools     — inside EnterpriseTabsSection
-//   #advanced-encryption  — inside EnterpriseTabsSection
-//   #access-controls      — inside EnterpriseTabsSection
-//   #support              — on the Support Security-wrapper
-//   #security             — on the Security Security-wrapper
-//
-// The Support and Security sections both reuse the <Security /> component
-// (light bento, 2-on-top + 1-wide-on-bottom) with different props. Support
-// renders the SLA timeline image as the wide bottom card and skips the
-// certification pill; Security renders the cert pill as the wide bottom
-// card placement. Card visuals are PNGs under public/images/enterprise/.
+// Pillar anchor ids (#self-hosting, #compliance-tools, #advanced-encryption,
+// #access-controls) live inside EnterprisePillars; #support and #security land
+// on the two bento sections below.
 
-import { Footer } from "@/components/home/Footer";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { PageHero } from "@/components/library/PageHero";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { CustomerUI } from "@/components/home/CustomerUI";
-import { Security, CardVisual } from "@/components/home/Security";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import { EnterpriseTabsSection } from "@/components/enterprise/EnterpriseTabsSection";
+import LandingShell from "@/components/landing-new/LandingShell";
+import LandingHero from "@/components/landing-new/LandingHero";
+import SectionHead from "@/components/landing-new/SectionHead";
+import LogoStripBand from "@/components/landing-new/LogoStripBand";
+import EnterprisePillars from "@/components/landing-new/EnterprisePillars";
+import CustomerShowcase from "@/components/home-new/CustomerShowcase";
+import CtaBanner from "@/components/home-new/CtaBanner";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
@@ -33,170 +23,181 @@ import {
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
+const CONSOLE_URL = "https://console.velt.dev/";
+
+const ENTERPRISE_DESCRIPTION =
+  "Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime. SOC 2 Type II, HIPAA BAA, and enterprise-grade SLAs.";
+
 const ENTERPRISE_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
   { name: "Enterprise", url: `${SITE_URL}/enterprise` },
 ]);
 
 const ENTERPRISE_WEBPAGE = buildWebPageSchema({
-  name: "Velt for Enterprise — Self-hosting, Compliance & Dedicated Support",
-  description:
-    "Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime. SOC 2 Type II, HIPAA BAA, and enterprise-grade SLAs.",
+  name: "Velt for Enterprise: Self-hosting, Compliance & Dedicated Support",
+  description: ENTERPRISE_DESCRIPTION,
   url: `${SITE_URL}/enterprise`,
   breadcrumb: ENTERPRISE_BREADCRUMB,
 });
 
 export const metadata = buildPageMetadata({
-  title: "Velt for Enterprise — Self-hosting, Compliance & Dedicated Support",
-  description:
-    "Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime. SOC 2 Type II, HIPAA BAA, and enterprise-grade SLAs.",
+  title: "Velt for Enterprise: Self-hosting, Compliance & Dedicated Support",
+  description: ENTERPRISE_DESCRIPTION,
   path: "/enterprise",
   ogImage: "/og/enterprise.png",
 });
 
+// Support bento: two cards on top + one wide card on the bottom.
+const SUPPORT_CARDS: Array<{ title: string; body: string; image: string }> = [
+  {
+    title: "Complimentary design and implementation support",
+    body: "We help you design and ship your collaboration layer, from onboarding through deployment.",
+    image: "/images/enterprise/support/design-support.jpg",
+  },
+  {
+    title: "Dedicated CSM",
+    body: "A dedicated customer success manager embedded in your workflow via a shared Slack channel.",
+    image: "/images/enterprise/support/dedicated-csm.jpg",
+  },
+];
+
+// Security bento: two cards on top + the certification pill on the bottom.
+const SECURITY_CARDS: Array<{ title: string; body: string; image: string }> = [
+  {
+    title: "Multi-region hosting",
+    body: "Host your data where you need it, with multi-region deployment options.",
+    image: "/images/security/Mutli%20Region%20Hosting.png",
+  },
+  {
+    title: "Isolated servers and data storage",
+    body: "Your customer data is logically isolated and never co-mingled with other tenants.",
+    image: "/images/security/Isolated%20Data.png",
+  },
+];
+
+/**
+ * The Velt for Enterprise landing page.
+ * @returns {JSX.Element} The rendered page.
+ */
 export default function EnterprisePage() {
   return (
     <>
       <JsonLd id="ld-enterprise-webpage" data={ENTERPRISE_WEBPAGE} />
       <JsonLd id="ld-enterprise-breadcrumb" data={ENTERPRISE_BREADCRUMB} />
-      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
-        <PageHero
-          decorated
-          heading="The Collaboration Stack For Enterprise"
-          subheading="Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime"
+
+      <LandingShell>
+        <LandingHero
+          eyebrow="Enterprise"
+          heading="The collaboration stack for enterprise"
+          subheading="Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime."
           primaryCta={{ label: "Book Demo", href: "/book-demo" }}
-          secondaryCta={{
-            label: "Get Free API Key",
-            href: "https://console.velt.dev/",
-            newTab: true,
-          }}
+          secondaryCta={{ label: "Get Free API Key", href: CONSOLE_URL, newTab: true }}
+          semiboldHeading
         />
 
-        <TrustedLogos />
+        <LogoStripBand alt />
 
-        <EnterpriseTabsSection />
+        <EnterprisePillars />
 
-        {/* Support — light bento. 2-on-top: Complimentary Design & Implementation
-         *  Support (Velt Dev panel mock) and Dedicated CSM (Slack channel mock).
-         *  1-wide-on-bottom: Priority Support SLAs (SLA timeline mock anchored
-         *  to the right half). No cert pill, no testimonial. */}
-        <div id="support" style={{ scrollMarginTop: 100 }}>
-          <Security
-            heading="Support So Seamless, It Feels In-House"
-            subheading="Expert support embedded in your workflow, from onboarding to deployment"
-            primaryCta={{ label: "View Docs", href: "https://velt.dev/docs/" }}
-            secondaryCta={{ label: "Request Demo", href: "/book-demo" }}
-            cards={[
-              {
-                title: "Complimentary Design & Implementation Support",
-                subtitle: "Host your data where you need it",
-                visual: (
-                  <CardVisual src="/images/enterprise/support/design-support.jpg" />
-                ),
-              },
-              {
-                title: "Dedicated CSM",
-                subtitle:
-                  "Enable Loom-style recording. Your users can record their screen, camera or audio",
-                visual: (
-                  <CardVisual src="/images/enterprise/support/dedicated-csm.jpg" />
-                ),
-              },
-            ]}
-            wideBottomCard={{
-              title: "Priority Support SLAs",
-              subtitle:
-                "Guaranteed response times so your team is never blocked",
-              visual: (
-                /* eslint-disable-next-line @next/next/no-img-element */
-                <img
-                  src="/images/enterprise/support/slas.jpg"
-                  alt=""
-                  aria-hidden="true"
-                  style={{
-                    width: "100%",
-                    maxWidth: 540,
-                    height: "auto",
-                    display: "block",
-                  }}
-                />
-              ),
-            }}
-            certification={null}
-            testimonial={null}
-          />
-        </div>
-
-        {/* Security — light bento. 2-on-top: Multi Region Hosting + Isolated
-         *  Server and Data Storage (existing PNG visuals). Bottom: Security
-         *  Certification pill with SOC2 + HIPAA badges (rendered by the
-         *  Security component's built-in certification slot). */}
-        <div id="security" style={{ scrollMarginTop: 100 }}>
-          <Security
-            paddingTop={80}
-            paddingBottom={80}
-            heading="Everything You Need to Keep Your Data Safe and Secure"
-            subheading="All components come with different modes and setups to fit your app perfectly"
-            primaryCta={{
-              label: "Visit Trust Centre",
-              href: "https://trust.velt.dev/",
-            }}
-            secondaryCta={{ label: "Request Demo", href: "/book-demo" }}
-            cards={[
-              {
-                title: "Multi Region Hosting",
-                subtitle: "Host your data where you need it",
-                visual: (
-                  <CardVisual src="/images/security/Mutli%20Region%20Hosting.png" />
-                ),
-              },
-              {
-                title: "Isolated Servers and Data Storage",
-                subtitle:
-                  "Enable Loom-style recording. Your users can record their screen, camera or audio",
-                visual: (
-                  <CardVisual src="/images/security/Isolated%20Data.png" />
-                ),
-              },
-            ]}
-            wideBottomCard={null}
-            certification={{
-              title: "Security Certification",
-              subtitle: "SOC2 Type, HIPAA with BAA",
-              badges: [
-                {
-                  src: "/images/security/badge-soc2.png",
-                  alt: "AICPA SOC",
-                  width: 90,
-                  height: 90,
-                },
-                {
-                  src: "/images/security/badge-hipaa.png",
-                  alt: "HIPAA",
-                  width: 90,
-                  height: 90,
-                },
-              ],
-            }}
-            testimonial={null}
-          />
-        </div>
-
-        <CustomerUI />
-
-        <div
-          className="full-bleed-bg"
-          style={{ background: "#fff", height: 120 }}
-          aria-hidden="true"
-        />
-
-        <FeatureCustomerCarousel />
-
-        <section data-getstarted>
-          <GetStartedSteps />
-          <Footer />
+        {/* Support — two cards on top, priority SLAs as the wide bottom card. */}
+        <section id="support" className="lp-section lp-section--alt" style={{ scrollMarginTop: 100 }}>
+          <div className="lp-wrap">
+            <SectionHead
+              eyebrow="Support"
+              heading="Support so seamless, it feels in-house"
+              subheading="Expert support embedded in your workflow, from onboarding to deployment."
+            />
+            <div className="lp-cta-row" style={{ marginBottom: 32 }}>
+              <a className="lp-btn-primary hdark" href="https://velt.dev/docs/" target="_blank" rel="noopener">
+                View Docs
+              </a>
+              <a className="lp-btn-secondary houtline" href="/book-demo">
+                Request Demo
+              </a>
+            </div>
+            <div className="lp-bento lp-bento--2col">
+              {SUPPORT_CARDS.map((card) => (
+                <article className="lp-card hcard" key={card.title}>
+                  <div className="lp-card-media">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={card.image} alt="" aria-hidden="true" />
+                  </div>
+                  <div className="lp-card-body">
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </div>
+                </article>
+              ))}
+              <article className="lp-card lp-card--wide">
+                <div className="lp-card-body">
+                  <h3>Priority support SLAs</h3>
+                  <p>Guaranteed response times so your team is never blocked.</p>
+                </div>
+                <div className="lp-wide-media">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/enterprise/support/slas.jpg" alt="" aria-hidden="true" />
+                </div>
+              </article>
+            </div>
+          </div>
         </section>
-      </div>
+
+        {/* Security — two cards on top, SOC 2 / HIPAA certification pill below. */}
+        <section id="security" className="lp-section" style={{ scrollMarginTop: 100 }}>
+          <div className="lp-wrap">
+            <SectionHead
+              eyebrow="Security"
+              heading="Everything you need to keep your data safe and secure"
+              subheading="All components come with different modes and setups to fit your app perfectly."
+            />
+            <div className="lp-cta-row" style={{ marginBottom: 32 }}>
+              <a className="lp-btn-primary hdark" href="https://trust.velt.dev/" target="_blank" rel="noopener">
+                Visit Trust Centre
+              </a>
+              <a className="lp-btn-secondary houtline" href="/book-demo">
+                Request Demo
+              </a>
+            </div>
+            <div className="lp-bento lp-bento--2col">
+              {SECURITY_CARDS.map((card) => (
+                <article className="lp-card hcard" key={card.title}>
+                  <div className="lp-card-media">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={card.image} alt="" aria-hidden="true" />
+                  </div>
+                  <div className="lp-card-body">
+                    <h3>{card.title}</h3>
+                    <p>{card.body}</p>
+                  </div>
+                </article>
+              ))}
+              <div className="lp-cert">
+                <div className="lp-card-body" style={{ padding: 0 }}>
+                  <h3>Security certification</h3>
+                  <p>SOC 2 Type II, HIPAA with BAA.</p>
+                </div>
+                <div className="lp-cert-badges">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/security/badge-soc2.png" alt="AICPA SOC 2" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/images/security/badge-hipaa.png" alt="HIPAA" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <CustomerShowcase />
+
+        <CtaBanner
+          dark
+          kicker="See it live"
+          heading="Watch Velt run on your own product."
+          ctaLabel="Book Demo"
+          ctaHref="/book-demo"
+          microcopy="30 minutes, with an engineer, not a sales deck."
+        />
+      </LandingShell>
     </>
   );
 }

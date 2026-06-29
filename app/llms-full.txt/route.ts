@@ -20,7 +20,7 @@ import { getAllPageMarkdowns } from "@/lib/markdown";
 export const revalidate = 3600;
 
 const SEPARATOR = "\n\n---\n\n";
-const HEADER = `# Velt — Full Marketing Site
+const HEADER = `# Velt: Full Marketing Site
 
 > Plain-text concatenation of every public marketing page on velt.dev (excluding /docs/*, which Mintlify serves at velt.dev/docs/llms-full.txt). Pages are separated by "---" and ordered roughly by importance.
 

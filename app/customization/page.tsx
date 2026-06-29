@@ -1,134 +1,43 @@
-// /customization — Figma node 294:19676 in HqWIZdR6ISJmaG2n4o3gr8.
-// Static page; copy and assets pulled from Figma. Sections from top:
-// PageHero (decorated) → TrustedLogos → WaysToCustomizeHeader (dark
-// 3×2 anchor cards) → CustomizationStack (white wrapper holding 6
-// deep-dive cards + the BuildYourOwnUICTA banner) → CustomerUI ("How
-// Customers Use Velt", reused from homepage) → ExamplesCarousel →
-// FeatureCustomerCarousel → GetStartedSteps → Footer.
+// New-theme /customization page.
 //
-// Nav theme switch: data-outcomes lives on CustomizationStack (flips
-// nav white the moment the white panel hits the strip);
-// FeatureCustomerCarousel already carries data-getstarted (flips back
-// to dark).
+// Rendered fully locally from app/customization/content.tsx — no Sanity document
+// is read or written. This replaces the previous old-theme static page; the old
+// components under components/customization/* are left in place (unused). The
+// page reuses the standard feature-new sections plus two bespoke sections (the
+// presentation Spectrum and the examples Gallery) via CustomizationView.
 
-import { Footer } from "@/components/home/Footer";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { PageHero } from "@/components/library/PageHero";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
-import { CustomerUI } from "@/components/home/CustomerUI";
+import type { Metadata } from "next";
 
-import { WaysToCustomizeHeader } from "@/components/customization/WaysToCustomizeHeader";
-import { CustomizationStack } from "@/components/customization/CustomizationStack";
-import { BuildYourOwnUICTA } from "@/components/customization/BuildYourOwnUICTA";
-import { ExamplesCarousel } from "@/components/customization/ExamplesCarousel";
-import { LayoutCustomization } from "@/components/customization/ways/LayoutCustomization";
-import { CustomCSSStyling } from "@/components/customization/ways/CustomCSSStyling";
-import { TemplateVariables } from "@/components/customization/ways/TemplateVariables";
-import { ConditionalRendering } from "@/components/customization/ways/ConditionalRendering";
-import { CustomFunctionality } from "@/components/customization/ways/CustomFunctionality";
-import { ComponentVariants } from "@/components/customization/ways/ComponentVariants";
+import StaticFeaturePage from "@/app/_seo/StaticFeaturePage";
+import CustomizationView from "@/components/feature-new/CustomizationView";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
-import { JsonLd } from "@/app/_seo/JsonLd";
-import {
-  SITE_URL,
-  buildBreadcrumbList,
-  buildWebPageSchema,
-} from "@/app/_seo/schema";
-import { CUSTOMIZATION_WEBPAGE_SCHEMA } from "@/lib/bespoke-jsonld";
 
-const CUSTOMIZATION_BREADCRUMB = buildBreadcrumbList([
-  { name: "Home", url: SITE_URL },
-  { name: "Customization", url: `${SITE_URL}/customization` },
-]);
+import { customizationContent, spectrumContent, galleryContent } from "./content";
 
-const CUSTOMIZATION_WEBPAGE = buildWebPageSchema({
-  name: "Velt Customization: Themes, Components, APIs",
+export const metadata: Metadata = buildPageMetadata({
+  title: "Velt Customization: themes, components, APIs",
   description:
-    "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
-  url: `${SITE_URL}/customization`,
-  breadcrumb: CUSTOMIZATION_BREADCRUMB,
-});
-
-export const metadata = buildPageMetadata({
-  title: "Velt Customization: Themes, Components, APIs",
-  description:
-    "Velt components can look and function the way you want — fully customizable layout, CSS, conditional rendering, and APIs.",
+    "Make Velt's collaboration UI match your product: CSS theming, wireframes, primitives in your own UI library, headless hooks, and behavior APIs.",
   path: "/customization",
   ogImage: "/og/customization.png",
 });
 
+/**
+ * The Customization marketing page.
+ * @returns {JSX.Element} The rendered page.
+ */
 export default function CustomizationPage() {
   return (
-    <>
-      <JsonLd id="ld-customization-webpage" data={CUSTOMIZATION_WEBPAGE} />
-      <JsonLd
-        id="ld-customization-breadcrumb"
-        data={CUSTOMIZATION_BREADCRUMB}
+    <StaticFeaturePage
+      content={customizationContent}
+      pageTitle="Customization"
+      description={customizationContent.hero.secondary}
+    >
+      <CustomizationView
+        content={customizationContent}
+        spectrum={spectrumContent}
+        gallery={galleryContent}
       />
-      {/* Framer-ported bespoke schema (Script 17): customization
-          keyword list + SoftwareApplication featureList. */}
-      <JsonLd
-        id="ld-customization-framer"
-        data={CUSTOMIZATION_WEBPAGE_SCHEMA}
-      />
-      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
-        <PageHero
-          decorated
-          heading="Fully Customizable Collaboration Experiences"
-          subheading="Velt components can look and function the way you want"
-          primaryCta={{
-            label: "View Docs",
-            href: "https://velt.dev/docs/",
-            newTab: true,
-          }}
-          secondaryCta={{
-            label: "Sneak Peek",
-            href: "#way-1",
-            leadingIcon: (
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden
-              >
-                <path
-                  d="M8 5v14l11-7z"
-                  fill="#fff"
-                  stroke="#fff"
-                  strokeWidth="1.5"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            ),
-          }}
-        />
-
-        <TrustedLogos />
-
-        <WaysToCustomizeHeader />
-
-        <CustomizationStack>
-          <LayoutCustomization />
-          <CustomCSSStyling />
-          <TemplateVariables />
-          <ConditionalRendering />
-          <CustomFunctionality />
-          <ComponentVariants />
-          <BuildYourOwnUICTA />
-        </CustomizationStack>
-
-        <CustomerUI />
-
-        <ExamplesCarousel />
-
-        <FeatureCustomerCarousel />
-
-        <GetStartedSteps />
-
-        <Footer />
-      </div>
-    </>
+    </StaticFeaturePage>
   );
 }

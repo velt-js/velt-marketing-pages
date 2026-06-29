@@ -3,6 +3,55 @@ import type { NextConfig } from "next";
 import { buildBlogRedirectEntries } from "./lib/blog-redirects";
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "X-Frame-Options",
+            value: "SAMEORIGIN",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+          // Report-only CSP: the site loads scripts from many third-party
+          // origins (Mixpanel, Amplitude, gtag/Google, Reddit, Twitter,
+          // Apollo, reb2b, Common Room, Intercom, Calendly, Sanity, Vercel,
+          // Superflow CDN). An enforcing Content-Security-Policy would break
+          // these integrations without an exhaustive allowlist audit.
+          // Report-Only lets us observe violations without breaking anything.
+          {
+            key: "Content-Security-Policy-Report-Only",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: blob:",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "img-src 'self' data: blob: https:",
+              "connect-src 'self' https: wss:",
+              "frame-src 'self' https:",
+              "media-src 'self' https: blob:",
+              "worker-src 'self' blob:",
+            ].join("; "),
+          },
+        ],
+      },
+    ];
+  },
   reactStrictMode: false,
   turbopack: {
     root: path.join(__dirname),
@@ -127,11 +176,26 @@ const nextConfig: NextConfig = {
         destination: "/:slug",
         permanent: true,
       },
+      // v2 feature pages moved from /new-features/:slug to the canonical root
+      // URL (see app/(features)/[slug]/page.tsx). Fold the old prefixed URLs
+      // and any external links onto the flat route.
+      {
+        source: "/new-features/:slug",
+        destination: "/:slug",
+        permanent: true,
+      },
       // Sanity slug for the recordings feature is plural; canonical URL
       // is the singular /recording (matches legacy velt.dev).
       {
         source: "/recordings",
         destination: "/recording",
+        permanent: true,
+      },
+      // Legacy /activity-logs URL (docs + agent deep links) folds onto the
+      // canonical Audit Trail feature page.
+      {
+        source: "/activity-logs",
+        destination: "/audit-trail",
         permanent: true,
       },
       // /notion-like-comments, /google-spreadsheets-like-comments and
@@ -156,13 +220,10 @@ const nextConfig: NextConfig = {
       },
       // Cole's 404 list (Slack, May 2026): non-blog routes that 404'd
       // in Search Console. /use-cases and /implementation-comparison
-      // have no app routes — sent to home per Cole. /notifications →
-      // the quick-start landing. /blog/velt.dev was an invalid blog slug.
-      {
-        source: "/notifications",
-        destination: "/add-notifications-quick",
-        permanent: true,
-      },
+      // have no app routes — sent to home per Cole. /blog/velt.dev was an
+      // invalid blog slug. (/notifications is now a real v2 feature page at
+      // the root, so its former redirect to /add-notifications-quick was
+      // removed; /add-notifications-quick remains a standalone landing.)
       {
         source: "/use-cases",
         destination: "/",
@@ -176,6 +237,19 @@ const nextConfig: NextConfig = {
       {
         source: "/blog/velt.dev",
         destination: "/",
+        permanent: true,
+      },
+      // Vertical "solutions" pages moved from /solutions/:slug to the
+      // canonical /for/:slug route (see app/for/[slug]/page.tsx). Keep the
+      // old URLs alive for SEO and any external links.
+      {
+        source: "/solutions/:slug",
+        destination: "/for/:slug",
+        permanent: true,
+      },
+      {
+        source: "/solutions",
+        destination: "/for",
         permanent: true,
       },
       // Broken-link audit (Jun 2026): several blog post bodies link to the

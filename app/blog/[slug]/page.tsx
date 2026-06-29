@@ -1,9 +1,8 @@
-import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBlogPostBySlug, getAllBlogPosts } from "@/sanity/queries";
-import { PortableTextRenderer } from "@/components/PortableText";
-import { Footer } from "@/components/home/Footer";
+import Nav from "@/components/home-new/Nav";
+import Footer from "@/components/home-new/Footer";
+import BlogArticle from "@/components/blog-new/BlogArticle";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
   ORG_ID,
@@ -13,6 +12,7 @@ import {
   buildBreadcrumbList,
 } from "@/app/_seo/schema";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
+import "@/components/home-new/styles.css";
 
 /**
  * Build a BlogPosting JSON-LD payload from a Sanity blog document.
@@ -139,72 +139,39 @@ export default async function BlogPostPage({
   ]);
 
   return (
-    <div data-getstarted className="min-h-screen bg-black text-white font-urbanist" style={{ paddingTop: 80 }}>
+    <div className="vlp">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       {blogPostingSchema ? (
         <JsonLd id="ld-blog-post" data={blogPostingSchema} />
       ) : null}
       <JsonLd id="ld-blog-post-breadcrumb" data={blogBreadcrumb} />
-      <article className="max-w-3xl mx-auto px-6 py-16">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">{post.title}</h1>
-          {post.description && (
-            <p className="text-lg text-white/60 mb-6">{post.description}</p>
-          )}
-          <div className="flex items-center gap-4 text-sm text-white/40">
-            {post.author && <span>{post.author.name}</span>}
-            {post.publishedAt && (
-              <>
-                <span>&middot;</span>
-                <time>
-                  {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
-              </>
-            )}
-          </div>
-        </div>
 
-        {/* Featured image */}
-        {post.featuredImage && (
-          <div className="relative aspect-[16/9] mb-12 overflow-hidden rounded-xl bg-white/5">
-            <Image
-              src={post.featuredImage}
-              alt={post.title}
-              fill
-              sizes="(min-width: 768px) 768px, 100vw"
-              priority
-              className="object-cover"
-            />
-          </div>
-        )}
+      {/* Per-post structured data authored in Sanity (raw JSON-LD strings). */}
+      {post.blogPostingSchema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: post.blogPostingSchema }}
+        />
+      ) : null}
+      {post.faqSchema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: post.faqSchema }}
+        />
+      ) : null}
 
-        {/* Body */}
-        {post.body && (
-          <div className="prose-invert max-w-none">
-            <PortableTextRenderer value={post.body} />
-          </div>
-        )}
-
-        {/* JSON-LD structured data */}
-        {post.blogPostingSchema && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: post.blogPostingSchema }}
-          />
-        )}
-        {post.faqSchema && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: post.faqSchema }}
-          />
-        )}
-
-      </article>
-      <Footer />
+      <Nav />
+      <div className="vlp-page">
+        <a id="top" />
+        <BlogArticle post={post} />
+        <Footer />
+      </div>
     </div>
   );
 }

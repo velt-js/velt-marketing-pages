@@ -1,19 +1,18 @@
-// /customers — single index page (no [slug]). Composition mirrors the
-// Figma 2026 template (HqWIZdR6ISJmaG2n4o3gr8 node 534:3821):
-//   1. Hero (PageHero, decorated)
-//   2. CustomerUI ("How [Pendo] Integrates Velt" — defaults match Figma)
-//   3. CustomersLogoGrid (3 × 9 grid of B&W customer logos)
-//   4. FeatureCustomerCarousel ("Our Customers Trust Us")
-//   5. GetStartedSteps + Footer
+// /customers — recreated on the editorial home-new theme (scoped under
+// `.vlp`, canonical `--vlp-*` tokens; see design-guides/DESIGN.md). Mirrors
+// the /pricing + /blog + /comparison redesign: hero + stat row → logo wall →
+// testimonial grid → final CTA. Customer logo data still lives in
+// components/customers/customer-logos.ts; testimonial copy is ported into
+// components/customers-new/CustomersStories.tsx. All SEO/JSON-LD preserved.
 
-import { Footer } from "@/components/home/Footer";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { CustomerUI } from "@/components/home/CustomerUI";
-import { PageHero } from "@/components/library/PageHero";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import Nav from "@/components/home-new/Nav";
+import Footer from "@/components/home-new/Footer";
+import CustomersHero from "@/components/customers-new/CustomersHero";
+import CustomersLogos from "@/components/customers-new/CustomersLogos";
+import CustomersStories from "@/components/customers-new/CustomersStories";
+import CustomersCta from "@/components/customers-new/CustomersCta";
+import "@/components/home-new/styles.css";
 
-import { CustomersLogoGrid } from "@/components/customers/CustomersLogoGrid";
-import { customerLogos } from "@/components/customers/customer-logos";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
@@ -45,58 +44,31 @@ export const metadata = buildPageMetadata({
 
 export default function CustomersPage() {
   return (
-    <>
+    <div className="vlp">
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-customers-webpage" data={CUSTOMERS_WEBPAGE} />
       <JsonLd id="ld-customers-breadcrumb" data={CUSTOMERS_BREADCRUMB} />
       {/* Framer-ported bespoke schema (Script 14): adds the
-          SoftwareApplication mainEntity, 37 customer Organization
-          mentions, and 5 Review entities with ratingValue 5 — the
-          ratings are the most SEO-valuable piece. */}
+          SoftwareApplication mainEntity, customer Organization mentions, and
+          Review entities with ratingValue 5 — the ratings are the most
+          SEO-valuable piece. */}
       <JsonLd id="ld-customers-framer" data={CUSTOMERS_WEBPAGE_SCHEMA} />
-      <div className="relative bg-black text-white font-urbanist w-full overflow-x-hidden">
-        <PageHero
-          decorated
-          heading="Products using Velt to boost engagement and growth"
-          subheading="Explore 15+ customers interfaces featuring Velt"
-          primaryCta={{
-            label: "Start Free Trial",
-            href: "https://console.velt.dev/",
-            newTab: true,
-          }}
-          secondaryCta={{
-            label: "View Docs",
-            href: "https://velt.dev/docs/",
-            newTab: true,
-          }}
-        />
 
-        {/* Wrap CustomerUI in a full-bleed white panel with rounded top
-         *  corners so the dark PageHero above shows through the curve.
-         *  Pairs with CustomersLogoGrid's rounded BOTTOM corners — together
-         *  the white block (CustomerUI + logo grid) reads as one rounded
-         *  panel sandwiched between the dark hero above and the dark
-         *  customer carousel below. */}
-        <div
-          className="full-bleed-bg"
-          style={{
-            background: "#FFFFFF",
-            borderTopLeftRadius: 52,
-            borderTopRightRadius: 52,
-            overflow: "hidden",
-          }}
-        >
-          <CustomerUI />
-        </div>
-
-        <CustomersLogoGrid entries={customerLogos} />
-
-        <FeatureCustomerCarousel />
-
-        <section data-getstarted>
-          <GetStartedSteps />
-          <Footer />
-        </section>
+      <Nav />
+      <div className="vlp-page">
+        <a id="top" />
+        <CustomersHero />
+        <CustomersLogos />
+        <CustomersStories />
+        <CustomersCta />
+        <Footer />
       </div>
-    </>
+    </div>
   );
 }

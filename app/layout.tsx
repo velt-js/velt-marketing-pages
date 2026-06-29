@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Urbanist, Fira_Mono, Fira_Code, Poppins, Geist_Mono } from "next/font/google";
+import { Urbanist, Poppins, Inter_Tight } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { JsonLd } from "./_seo/JsonLd";
@@ -15,20 +15,6 @@ const urbanist = Urbanist({
   display: "swap",
 });
 
-const firaMono = Fira_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  display: "swap",
-  variable: "--font-fira-mono",
-});
-
-const firaCode = Fira_Code({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-fira-code",
-});
-
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -36,11 +22,13 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const geistMono = Geist_Mono({
+// Inter Tight is used for the new homepage body copy via --vlp-font-body.
+// Self-hosted via next/font to avoid a runtime CDN request to fonts.googleapis.com.
+const interTight = Inter_Tight({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-geist-mono",
+  variable: "--font-inter-tight",
 });
 
 const DEFAULT_TITLE = "The Collaboration Stack for B2B | Velt";
@@ -88,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${firaMono.variable} ${firaCode.variable} ${poppins.variable} ${geistMono.variable}`}
+      className={`${poppins.variable} ${interTight.variable}`}
     >
       <body className={urbanist.className} style={{ overflowX: "hidden" }}>
         {children}
@@ -99,10 +87,16 @@ export default function RootLayout({
         <JsonLd id="ld-organization" data={buildOrganizationSchema()} />
         <JsonLd id="ld-website" data={buildWebSiteSchema()} />
       </body>
-      <Script
+      {/* <Script
         id="superflowToolbarScript"
         data-sf-platform="other-manual"
         src="https://cdn.velt.dev/lib/superflow.js?apiKey=aU1MxKP0rca2UXwKi8bl&projectId=620866069199868"
+        strategy="afterInteractive"
+      /> */}
+      <Script
+        id="superflowToolbarScript"
+        data-sf-platform="other-manual"
+              src="https://cdn.velt.dev/lib/superflow.js?apiKey=aU1MxKP0rca2UXwKi8bl&projectId=4748301242587831"
         strategy="afterInteractive"
       />
       {/* Site-wide third-party analytics ported from the legacy

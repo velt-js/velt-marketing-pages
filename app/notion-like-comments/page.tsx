@@ -64,7 +64,7 @@ const FEATURE_BLOCKS: FeatureBlock[] = [
   {
     title:
       "Implement comments like you see in Notion Database entries by using our inline comments component",
-    body: "Anchor threaded comments to any row, field, or block inside your database views. Comments stay pinned as users edit, sort, and reorder — exactly like Notion.",
+    body: "Anchor threaded comments to any row, field, or block inside your database views. Comments stay pinned as users edit, sort, and reorder, exactly like Notion.",
     videoSrc: "/videos/notion-like-comments/inline-comments.mp4",
     videoPoster: "/images/notion-like-comments/inline-comments-poster.jpg",
   },
@@ -77,7 +77,7 @@ const FEATURE_BLOCKS: FeatureBlock[] = [
   },
   {
     title: "Velt comments come with native notifications support",
-    body: "Velt Comments and Notifications work together to bring users back to your platform — in-app, email, and Slack notifications fire instantly whenever a teammate replies or @mentions them.",
+    body: "Velt Comments and Notifications work together to bring users back to your platform: in-app, email, and Slack notifications fire instantly whenever a teammate replies or @mentions them.",
     videoSrc: "/videos/notion-like-comments/notifications.mp4",
     videoPoster: "/images/notion-like-comments/notifications-poster.jpg",
   },

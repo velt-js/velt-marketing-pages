@@ -22,7 +22,7 @@ type DemoTab = {
 };
 
 // TODO(yoen): per-product GitHub repo URLs. Using org root as a stopgap.
-const GITHUB_ORG = "https://github.com/veltdev";
+const GITHUB_ORG = "https://github.com/velt-js";
 
 // Per-tab demo URLs — confirmed against the live iframes on velt.dev.
 // Each tab loads its own dedicated product-specific demo app.

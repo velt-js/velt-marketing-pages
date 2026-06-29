@@ -1,0 +1,104 @@
+/* legal-new — privacy & terms shell in the new editorial theme. Scoped under
+   .vlp and driven entirely by --vlp-* tokens (DESIGN.md). */
+
+.vlp .legal-wrap {
+  max-width: var(--vlp-content-medium);
+  margin: 0 auto;
+  padding-left: var(--vlp-gutter);
+  padding-right: var(--vlp-gutter);
+}
+
+/* ── Hero: light, left-aligned editorial header ─────────────────────────── */
+.vlp .legal-hero {
+  background: var(--vlp-bg-page);
+  padding-top: var(--vlp-space-20);
+  padding-bottom: var(--vlp-space-12);
+}
+
+.vlp .legal-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .legal-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+/* Triple-class specificity keeps the display weight regular, beating the
+   global `.vlp.vlp h1` semibold rule (DESIGN.md §1: hero title is 400). */
+.vlp .legal-hero .legal-title {
+  font-size: var(--vlp-text-hero);
+  line-height: var(--vlp-leading-display-tight);
+  letter-spacing: var(--vlp-tracking-tight);
+  font-weight: var(--vlp-weight-regular);
+  color: var(--vlp-color-text);
+}
+
+.vlp .legal-sub {
+  margin-top: var(--vlp-space-5);
+  max-width: 56ch;
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+/* Visually-hidden section heading. Keeps the document a labelled H2 so the
+   page heading order stays H1 → H2 → footer H3 (no skipped levels) without
+   adding a visible heading above the embedded policy card. */
+.vlp .legal-doc-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Body: cream band, document in a white reading card ─────────────────── */
+.vlp .legal-body {
+  background: var(--vlp-bg-section-alt);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  padding-top: var(--vlp-space-14);
+  padding-bottom: var(--vlp-space-24);
+}
+
+.vlp .legal-doc {
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  box-shadow: var(--vlp-shadow-sm);
+  padding: clamp(16px, 4vw, 40px);
+  overflow: hidden;
+}
+
+/* Termly embeds a fixed-height document; keep the height and let width fill. */
+.vlp .legal-frame {
+  display: block;
+  width: 100%;
+  height: 1600px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .vlp .legal-hero {
+    padding-top: var(--vlp-space-16);
+    padding-bottom: var(--vlp-space-10);
+  }
+  .vlp .legal-body {
+    padding-top: var(--vlp-space-12);
+    padding-bottom: var(--vlp-space-18);
+  }
+}

@@ -1,0 +1,59 @@
+/* Compact feature-map showcase atoms for the LEGAL solutions page (.slg-*).
+   Small previews that echo the redesigned feature cards inside the tiny
+   feature-map tiles. New COMPACT patterns only; the shared .cmh-/.apf-/.afc-
+   families stay in styles.css and are reused here by class name. The
+   surrounding .prim-stage already supplies the white card frame, so these
+   atoms stay flat (no heavy shadow). Every rule is scoped under .vfp. */
+
+/* Shared compact byline: avatar + name + meta + a trailing status chip. */
+.vfp .slg-byline { display: flex; align-items: center; gap: 8px; }
+.vfp .slg-byline .av-c { width: 24px; height: 24px; flex: none; }
+.vfp .slg-byline-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .slg-byline-meta { font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .slg-byline .chip { margin-left: auto; }
+
+/* Mono uppercase caption, used as a field / clause label header. */
+.vfp .slg-cap { display: flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .slg-cap .chip { margin-left: auto; }
+
+/* Quiet supporting line beneath a preview. */
+.vfp .slg-note { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--vlp-color-text-muted); }
+
+/* Suggested-edit diff — compact red→green pills with a thin arrow between. */
+.vfp .slg-diff { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.vfp .slg-del { background: #ffe2e2; color: #e62e2e; text-decoration: line-through; border-radius: 6px; padding: 2px 7px; font-size: 12px; font-weight: 500; letter-spacing: -0.2px; }
+.vfp .slg-ins { background: #f0ffdd; color: #0f7014; text-decoration: none; border-radius: 6px; padding: 2px 7px; font-size: 12px; font-weight: 500; letter-spacing: -0.2px; }
+.vfp .slg-arrow { width: 14px; height: 14px; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .slg-arrow svg { display: block; width: 100%; height: 100%; }
+
+/* Approval chain — compact stacked steps with a status glyph and a chip. */
+.vfp .slg-chain { display: flex; flex-direction: column; }
+.vfp .slg-chain-row { display: flex; align-items: center; gap: 9px; padding: 8px 0; }
+.vfp .slg-chain-row + .slg-chain-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .slg-step { width: 20px; height: 20px; border-radius: 50%; flex: none; display: grid; place-items: center; }
+.vfp .slg-step svg { width: 12px; height: 12px; }
+.vfp .slg-step--done { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .slg-step--wait { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .slg-step-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .slg-chain-row .chip { margin-left: auto; }
+
+/* Signed-event key/value card (audit trail) — mono keys, values, signed badge. */
+.vfp .slg-kv { display: flex; flex-direction: column; }
+.vfp .slg-kv-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 7px 0; }
+.vfp .slg-kv-row + .slg-kv-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .slg-kv-key { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .slg-kv-val { font-family: var(--vlp-font-mono); font-size: 11.5px; font-weight: 600; letter-spacing: -0.1px; color: var(--vlp-color-ink); }
+.vfp .slg-sig { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #0c6a41; }
+.vfp .slg-sig svg { width: 12px; height: 12px; flex: none; }
+
+/* Single-editor / pen handoff — an editor row over read-only watcher rows. */
+.vfp .slg-pen-rows { display: flex; flex-direction: column; gap: 8px; }
+.vfp .slg-pen-row { display: flex; align-items: center; gap: 9px; }
+.vfp .slg-pen-row .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .slg-pen-main { display: flex; flex-direction: column; min-width: 0; }
+.vfp .slg-pen-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .slg-pen-sub { font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .slg-pen-tag { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.vfp .slg-pen-tag svg { width: 12px; height: 12px; flex: none; }
+.vfp .slg-pen-tag--pen { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .slg-pen-tag--read { background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }

@@ -1,0 +1,29 @@
+/* In production: customer proof tabbed by vertical (pc-card shell).
+   Scoped under .vfp. */
+.vfp .prod-shell { margin-top: 44px; }
+
+/* The whole tabbed shell is a dark "app window": dark card, dark tab bar. */
+.vfp .prod-shell.pc-card { background: var(--vlp-color-dark-2); border-color: var(--vlp-color-dark-line); box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6); }
+.vfp .prod-shell .pc-tabs { background: var(--vlp-color-ink); border-bottom-color: var(--vlp-color-dark-line); }
+.vfp .prod-shell .pc-tab { color: var(--vlp-color-text-on-dark-muted); }
+.vfp .prod-shell .pc-tab:hover { color: #fff; }
+.vfp .prod-shell .pc-tab[aria-selected="true"] { background: rgba(255, 255, 255, 0.08); color: #fff; box-shadow: none; }
+.vfp .prod-shell .pc-body { padding: 0; }
+.vfp .prod-shell .pc-pane { padding: 26px 28px; display: grid; grid-template-rows: 1fr auto; gap: 18px; min-height: 560px; }
+.vfp .prod-shot { display: grid; place-items: center; }
+.vfp .prod-shot > * { width: 100%; max-width: 560px; }
+
+/* Audit log re-skinned for the dark frame. */
+.vfp .prod-shell .audit { background: var(--vlp-color-ink); border-color: var(--vlp-color-dark-line); box-shadow: none; }
+.vfp .prod-shell .audit-head { background: rgba(255, 255, 255, 0.04); border-bottom-color: var(--vlp-color-dark-line); color: var(--vlp-color-text-on-dark-muted); }
+.vfp .prod-shell .audit-head .exp { color: var(--vlp-color-accent); }
+.vfp .prod-shell .audit-row + .audit-row { border-top-color: var(--vlp-color-dark-line); }
+.vfp .prod-shell .audit-row .ts { color: #8a897f; }
+.vfp .prod-shell .audit-row .ev { color: var(--vlp-color-text-on-dark-muted); }
+.vfp .prod-shell .audit-row .ev strong { color: #fff; }
+.vfp .prod-shell .chip-agent { background: rgba(245, 78, 0, 0.18); color: #ffb892; }
+.vfp .prod-shell .chip-pending { background: rgba(192, 133, 50, 0.2); color: #e5b873; }
+.vfp .prod-shell .chip-approved { background: rgba(18, 131, 82, 0.2); color: #7fd6a6; }
+.vfp .prod-shell .chip-rejected { background: rgba(192, 57, 43, 0.2); color: #f0a89c; }
+.vfp .prod-caption { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: var(--vlp-color-text-muted); text-align: center; text-wrap: pretty; }
+.vfp .prod-caption a { font-weight: 600; color: var(--vlp-color-accent); }

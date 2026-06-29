@@ -1,0 +1,154 @@
+/* ---------- Audit-trail showcase artifacts (.aud-*) ----------
+   Mock-UI cards for the /audit-trail Capabilities grid. Reuses the shared
+   comments / approval-flows design language (labeled cmh-cc / apf-card cards
+   with colored header bars, chips, avatars) and only adds the audit-specific
+   building blocks here: key/value record rows, event lists, signed/immutable
+   record badges, a confidence meter, a decision-chain timeline, recording
+   lanes, and export format rows. Every rule is scoped under .vfp. */
+
+/* Key/value record rows (attribution, judgment, query). */
+.vfp .aud-kv { display: flex; flex-direction: column; gap: 0; }
+.vfp .aud-kv-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 2px; min-height: 38px; }
+.vfp .aud-kv-row + .aud-kv-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .aud-kv-key { font-family: var(--vlp-font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); flex: none; }
+.vfp .aud-kv-val { min-width: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: var(--vlp-color-ink); text-align: right; }
+.vfp .aud-kv-user .av-c { width: 22px; height: 22px; flex: none; font-size: 9px; }
+.vfp .aud-kv-note { font-weight: 500; font-style: italic; color: var(--vlp-color-ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .aud-kv-code { font-family: var(--vlp-font-mono); font-size: 12.5px; font-weight: 600; padding: 2px 8px; border-radius: 7px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+
+/* Confidence meter (judgment). */
+.vfp .aud-meter { width: 70px; height: 6px; flex: none; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); overflow: hidden; }
+.vfp .aud-meter-fill { display: block; height: 100%; border-radius: 999px; background: var(--vlp-color-green-approval); }
+
+/* Event list rows (capture, custom-events). */
+.vfp .aud-evt { display: flex; flex-direction: column; gap: 0; }
+.vfp .aud-evt-row { display: flex; align-items: center; gap: 11px; padding: 11px 2px; }
+.vfp .aud-evt-row + .aud-evt-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .aud-evt-ic { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 9px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .aud-evt-ic svg { width: 16px; height: 16px; }
+.vfp .aud-evt-name { font-family: var(--vlp-font-mono); font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); flex: none; }
+.vfp .aud-evt-meta { flex: 1; min-width: 0; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* "recorded" badge (capture rows). */
+.vfp .aud-rec-badge { display: inline-flex; align-items: center; gap: 4px; flex: none; padding: 4px 9px; border-radius: 999px; background: var(--vlp-color-approve-soft); color: #0c6a41; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; }
+.vfp .aud-rec-badge svg { width: 12px; height: 12px; flex: none; }
+
+/* Chain of custody (agents): an agent finding + a human decision in one trail. */
+.vfp .aud-coc { display: flex; flex-direction: column; gap: 0; }
+.vfp .aud-coc .afc { padding: 0; border: none; border-radius: 0; background: transparent; box-shadow: none; }
+.vfp .aud-coc-item { display: flex; flex-direction: column; gap: 8px; }
+.vfp .aud-coc-item .aud-judge { margin-left: 39px; }
+.vfp .aud-coc-tie { display: flex; align-items: center; gap: 10px; padding: 12px 2px; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .aud-coc-tie::before, .vfp .aud-coc-tie::after { content: ""; flex: 1; height: 1px; background: var(--vlp-border-default); }
+.vfp .aud-judge { display: inline-flex; align-items: center; width: max-content; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; }
+.vfp .aud-judge--agent { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .aud-judge--human { background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .aud-coc .cmh-cmt-main .aud-judge { margin-top: 6px; }
+
+/* Recording lanes: pipeline (always on) vs feed UI (opt-in). */
+.vfp .aud-lanes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.vfp .aud-lane { display: flex; flex-direction: column; gap: 12px; padding: 16px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.vfp .aud-lane--ghost { background: var(--vlp-bg-section-alt); box-shadow: none; }
+.vfp .aud-lane-head { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: var(--vlp-color-ink); }
+.vfp .aud-lane-ic { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 8px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .aud-lane-ic svg { width: 15px; height: 15px; }
+.vfp .aud-lane-tag { margin-left: auto; flex: none; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: -0.22px; }
+.vfp .aud-lane-tag--on { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .aud-lane-tag--opt { background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }
+.vfp .aud-lane-lines { display: flex; flex-direction: column; gap: 10px; }
+.vfp .aud-line { display: flex; align-items: center; gap: 9px; }
+.vfp .aud-line-dot { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--vlp-color-green-approval); }
+.vfp .aud-lane--ghost .aud-line-dot { background: var(--vlp-border-default); }
+.vfp .aud-line-bar { height: 11px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .aud-lane-foot { margin: 0; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+
+/* Query result line. */
+.vfp .aud-query-result { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 9px 12px; border-radius: 10px; background: var(--vlp-color-approve-soft); font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: #0c6a41; }
+.vfp .aud-query-arrow { font-family: var(--vlp-font-mono); font-weight: 700; }
+.vfp .aud-query-result .chip { margin-left: auto; }
+
+/* Decision-chain timeline (decisions). */
+.vfp .aud-chain { display: flex; flex-direction: column; gap: 0; }
+.vfp .aud-chain-step { position: relative; display: flex; align-items: flex-start; gap: 12px; padding: 4px 0 18px; }
+.vfp .aud-chain-step:last-child { padding-bottom: 2px; }
+.vfp .aud-chain-node { position: relative; display: grid; place-items: center; width: 22px; height: 22px; flex: none; }
+.vfp .aud-chain-dot { width: 11px; height: 11px; border-radius: 50%; border: 2px solid var(--vlp-color-accent); background: #fff; }
+.vfp .aud-chain-step:not(:last-child) .aud-chain-node::after { content: ""; position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 2px; bottom: -16px; background: var(--vlp-border-default); }
+.vfp .aud-chain-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.vfp .aud-chain-label { margin: 0; font-size: 13.5px; letter-spacing: -0.27px; color: var(--vlp-color-ink-soft); }
+.vfp .aud-chain-label strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .aud-chain-meta { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.01em; color: var(--vlp-color-text-subtle); }
+.vfp .aud-chain-step > .chip { flex: none; margin-top: 2px; }
+
+/* Immutable linked records (immutable). */
+.vfp .aud-immut { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.vfp .aud-immut-case { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .aud-immut-cap { margin: 0 0 2px; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+.vfp .aud-rec { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; background: #fff; font-family: var(--vlp-font-mono); font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); }
+.vfp .aud-rec svg { width: 13px; height: 13px; flex: none; }
+.vfp .aud-rec--locked { color: var(--vlp-color-ink); }
+.vfp .aud-rec--locked svg { color: #2a37d8; }
+.vfp .aud-rec--struck { font-family: var(--vlp-font-body); font-weight: 500; color: var(--vlp-color-text-subtle); text-decoration: line-through; background: var(--vlp-bg-wash); box-shadow: none; }
+.vfp .aud-rec-tag { font-family: var(--vlp-font-body); font-weight: 600; font-size: 10.5px; padding: 2px 7px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }
+.vfp .aud-rec--locked .aud-rec-tag { background: #eef1fb; color: #2a37d8; }
+.vfp .aud-link { display: inline-flex; align-items: center; gap: 5px; padding-left: 4px; font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-text-muted); }
+.vfp .aud-link svg { width: 13px; height: 13px; flex: none; color: var(--vlp-color-text-subtle); }
+
+/* Export formats (exports). */
+.vfp .aud-export { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 16px; align-items: center; }
+.vfp .aud-export-set { display: flex; flex-direction: column; gap: 9px; padding: 14px; border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .aud-export-set-cap { margin: 0; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+.vfp .aud-export-stack { display: flex; flex-direction: column; gap: 6px; }
+.vfp .aud-export-stack span { height: 9px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .aud-export-stack span:nth-child(1) { width: 88%; }
+.vfp .aud-export-stack span:nth-child(2) { width: 64%; }
+.vfp .aud-export-stack span:nth-child(3) { width: 78%; }
+.vfp .aud-export-meta { margin: 2px 0 0; font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.01em; color: var(--vlp-color-text-subtle); }
+.vfp .aud-fmt { display: flex; flex-direction: column; gap: 0; }
+.vfp .aud-fmt-row { display: flex; align-items: center; gap: 10px; padding: 9px 2px; }
+.vfp .aud-fmt-row + .aud-fmt-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .aud-fmt-ic { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 8px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .aud-fmt-ic svg { width: 15px; height: 15px; }
+.vfp .aud-fmt-name { font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: var(--vlp-color-ink); flex: none; }
+.vfp .aud-fmt-meta { flex: 1; min-width: 0; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+.vfp .aud-soon { flex: none; padding: 3px 9px; border-radius: 999px; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; }
+
+/* Related primitives (compact teaser cards). */
+.vfp .aud-rel { display: grid; gap: 8px; }
+.vfp .aud-rel-step { display: flex; align-items: center; gap: 10px; }
+.vfp .aud-rel-step .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .aud-rel-step-name { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .aud-rel-step .chip { flex: none; }
+.vfp .aud-rel-chain .apf-note { margin-top: 2px; }
+.vfp .aud-rel-find { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .aud-rel-find .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .aud-rel-find-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.vfp .aud-rel-find-head { display: flex; align-items: center; gap: 7px; }
+.vfp .aud-rel-find-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .aud-rel-find-body { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .aud-rel-flow { display: flex; align-items: center; gap: 9px; }
+.vfp .aud-rel-node { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 7px 11px; border-radius: 999px; background: var(--vlp-bg-wash); font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .aud-rel-node svg { width: 14px; height: 14px; flex: none; color: var(--vlp-color-text-muted); }
+.vfp .aud-rel-node--db { background: #eef1fb; color: var(--vlp-color-ink); }
+.vfp .aud-rel-node--db svg { color: #2a37d8; }
+.vfp .aud-rel-conn { flex: 1; min-width: 14px; height: 2px; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .aud-rel-cap { margin: 0; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+
+/* Make-it-yours look — a branded audit log over event rows with signed
+   badges, plus the config card's format chips. */
+.vfp .aud-look-head { background: linear-gradient(120deg, #2a37d8, #6a1fb3); }
+.vfp .aud-look-mark { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(255, 255, 255, 0.18); }
+.vfp .aud-look-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .aud-look-brand { font-weight: 700; letter-spacing: -0.3px; }
+.vfp .aud-look-ic { background: #eef1fb; color: #2a37d8; }
+.vfp .aud-look-sign { background: #eef1fb; color: #2a37d8; }
+.vfp .aud-look-sign svg { color: #2a37d8; }
+
+/* Config format chips (exports row in the behavior card). */
+.vfp .aud-cfg-fmt { display: inline-flex; align-items: center; flex: none; padding: 3px 9px; border-radius: 7px; background: var(--vlp-bg-wash); font-family: var(--vlp-font-mono); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink-soft); }
+
+@media (max-width: 1024px) {
+  .vfp .aud-lanes,
+  .vfp .aud-immut,
+  .vfp .aud-export { grid-template-columns: 1fr; }
+}

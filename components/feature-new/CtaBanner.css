@@ -1,0 +1,18 @@
+/* Reusable inline CTA banner. Scoped under .vfp. */
+.vfp .cta-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  border-radius: var(--vlp-radius-lg-feature);
+  padding: 28px 32px;
+  border: 2px solid var(--vlp-border-default);
+  color: var(--vlp-color-ink);
+}
+.vfp .cta-banner .t { font-family: var(--vlp-font-heading); font-size: 20px; font-weight: 600; letter-spacing: -0.018em; color: var(--vlp-color-ink); }
+.vfp .cta-banner .m { font-size: 14px; color: var(--vlp-color-text-muted); margin-top: 5px; }
+
+/* Banner action is a black (ink) button, not the orange accent. */
+.vfp .cta-banner .btn-primary { background: var(--vlp-color-ink); }
+.vfp .cta-banner .btn-primary:hover { background: var(--vlp-color-ink-hover); }

@@ -14,6 +14,33 @@ import { SITE_URL } from "./schema";
 const SITE_NAME = "Velt";
 const DEFAULT_OG_IMAGE = "/opengraph-image.png";
 
+/**
+ * Generic meta description used as a fallback when a page's CMS document is
+ * missing, so dynamic routes never drop the description entirely.
+ */
+export const FALLBACK_META_DESCRIPTION =
+  "Velt adds commenting, presence, approvals, and review workflows to your product.";
+
+/**
+ * Convert a URL slug into a human-readable, title-cased label
+ * (e.g. "sales-enablement" → "Sales Enablement"). Used to build a sane
+ * fallback title when a Sanity document is unavailable.
+ *
+ * @param {string} slug - The URL slug segment.
+ * @returns {string} A title-cased label derived from the slug.
+ */
+export function slugToTitle(slug: string): string {
+  try {
+    return slug
+      .split(/[-_/]+/)
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  } catch {
+    return slug;
+  }
+}
+
 export type BuildPageMetadataInput = {
   /** Page title without site suffix. The site name is appended automatically. */
   title: string;

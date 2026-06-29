@@ -1,0 +1,151 @@
+.vlp .footer-root {
+  background: var(--vlp-color-dark-2);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+}
+
+.vlp .footer-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-16) var(--vlp-gutter) 32px;
+}
+
+.vlp .footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: var(--vlp-space-8);
+}
+
+@media (max-width: 768px) {
+  .vlp .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--vlp-space-8) var(--vlp-space-6);
+  }
+  /* Brand/intro column spans the full row above the link columns. */
+  .vlp .footer-grid > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .vlp .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vlp .footer-brand-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: var(--vlp-space-3-5);
+}
+
+.vlp .footer-brand-logo {
+  display: block;
+  height: 22px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+
+.vlp .footer-tagline {
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-on-dark-muted);
+  max-width: 34ch;
+}
+
+.vlp .footer-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-4);
+  margin-top: var(--vlp-space-4);
+}
+
+.vlp .footer-badge-logo {
+  display: block;
+  height: 52px;
+  width: 52px;
+  object-fit: contain;
+  /* Dark badge backgrounds add nothing on the dark footer, so only the light
+     marks show — the seals blend seamlessly instead of sitting on a visible disc. */
+  mix-blend-mode: plus-lighter;
+}
+
+/* HIPAA seal reads as a desaturated mark on the dark footer, matching the
+   original libraries footer treatment. */
+.vlp .footer-badge-logo--hipaa {
+  filter: grayscale(1);
+}
+
+.vlp .footer-badge {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Official Y Combinator square mark (orange #FB651E / white Y). Sized and
+   rounded to read as a tidy badge alongside the circular SOC 2 / HIPAA seals.
+   Luminosity blend + lowered opacity desaturate the orange so it matches the
+   muted seal treatment on the dark footer. */
+.vlp .footer-badge-yc-logo {
+  display: block;
+  box-sizing: border-box;
+  height: 48px;
+  width: 48px;
+  padding: 6px;
+  object-fit: contain;
+  border-radius: var(--vlp-radius-sm, 6px);
+  mix-blend-mode: luminosity;
+  opacity: 0.6;
+}
+
+.vlp .footer-col-heading {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  color: var(--vlp-color-text-subtle);
+  margin-bottom: var(--vlp-space-3-5);
+}
+
+.vlp .footer-col-links {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: var(--vlp-text-body-sm-plus);
+  color: var(--vlp-color-text-on-dark-muted);
+}
+
+.vlp .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--vlp-space-3);
+  margin-top: var(--vlp-gap-section);
+  padding-top: var(--vlp-space-6);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-on-dark-muted);
+  letter-spacing: 0.03em;
+}
+
+.vlp .footer-legal {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-4);
+}
+
+.vlp .footer-socials {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vlp-color-text-on-dark-muted);
+  transition: color 0.15s ease;
+}
+
+.vlp .footer-social-link:hover {
+  color: var(--vlp-color-text-on-dark);
+}

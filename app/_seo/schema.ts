@@ -14,7 +14,7 @@ export const ORG_LOGO_WIDTH = 1200;
 export const ORG_LOGO_HEIGHT = 512;
 export const ORG_OG_IMAGE = `${SITE_URL}/opengraph-image.png`;
 export const ORG_DESCRIPTION =
-  "Velt is a collaboration SDK for B2B SaaS — add real-time multiplayer features like comments, live cursors, notifications, and presence to your product in minutes.";
+  "Velt is embeddable review and approval for AI-native apps: comments, approval flows, review agents, suggestions, audit trails, memory, and notifications in one SDK.";
 
 // Stable `@id` URIs. Schema.org recommends a hash fragment so the
 // identifier is namespaced under the canonical URL.
@@ -24,8 +24,8 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const ORG_SAME_AS: string[] = [
   "https://github.com/velt-js",
   "https://www.ycombinator.com/companies/velt",
-  "https://x.com/velt_dev",
-  "https://www.linkedin.com/company/velt-dev",
+  "https://x.com/veltjs",
+  "https://www.linkedin.com/company/veltjs",
 ];
 
 /**
@@ -208,4 +208,125 @@ export function buildFaqPageSchemaFromEntries(
     .map(({ question, answer }) => ({ question, answer }));
   if (pairs.length === 0) return {};
   return buildFaqPageSchema(pairs);
+}
+
+/**
+ * Build an ItemList schema. Used by the integrations hub so the published
+ * spoke roster is a crawlable index of items.
+ *
+ * @param params - List metadata.
+ * @param params.name - The list name.
+ * @param params.items - Ordered list of {name, url} entries.
+ * @returns A schema.org ItemList node.
+ */
+export function buildItemListSchema({
+  name,
+  items,
+}: {
+  name: string;
+  items: Array<{ name: string; url: string }>;
+}): Record<string, unknown> {
+  try {
+    return {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name,
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    };
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Build a Blog listing schema for the /blog index. Emits a `Blog` node whose
+ * `blogPost` array holds a lightweight `BlogPosting` per published post so
+ * crawlers can index the listing as a blog and discover each entry. The
+ * publisher is linked to the site-wide Organization via its `@id`.
+ *
+ * @param params - Listing metadata.
+ * @param params.url - Absolute canonical URL of the blog index.
+ * @param params.posts - Published posts (most-recent first). Each maps to a
+ *                       BlogPosting node; entries without a title are skipped.
+ * @returns A schema.org Blog node.
+ */
+export function buildBlogListingSchema({
+  url,
+  posts,
+}: {
+  url: string;
+  posts: Array<{
+    slug: string;
+    title: string;
+    description?: string;
+    publishedAt?: string;
+    featuredImage?: string;
+  }>;
+}): Record<string, unknown> {
+  try {
+    const blogPost = posts
+      .filter((post) => Boolean(post?.title))
+      .map((post) => {
+        const postUrl = `${SITE_URL}/blog/${post.slug}`;
+        const node: Record<string, unknown> = {
+          "@type": "BlogPosting",
+          headline: post.title,
+          url: postUrl,
+          mainEntityOfPage: postUrl,
+        };
+        if (post.description) node.description = post.description;
+        if (post.publishedAt) node.datePublished = post.publishedAt;
+        if (post.featuredImage) node.image = post.featuredImage;
+        return node;
+      });
+    return {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      name: `${ORG_NAME} Blog`,
+      url,
+      isPartOf: { "@id": WEBSITE_ID },
+      publisher: { "@id": ORG_ID },
+      inLanguage: "en-US",
+      blogPost,
+    };
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Build a HowTo schema from an ordered list of step strings. Used by each
+ * integration spoke's setup section ("Add Velt to {Name}").
+ *
+ * @param params - HowTo metadata.
+ * @param params.name - The HowTo name, e.g. "Add Velt to Tiptap".
+ * @param params.steps - Ordered step descriptions.
+ * @returns A schema.org HowTo node.
+ */
+export function buildHowToSchema({
+  name,
+  steps,
+}: {
+  name: string;
+  steps: string[];
+}): Record<string, unknown> {
+  try {
+    return {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name,
+      step: steps.map((text, index) => ({
+        "@type": "HowToStep",
+        position: index + 1,
+        text,
+      })),
+    };
+  } catch {
+    return {};
+  }
 }

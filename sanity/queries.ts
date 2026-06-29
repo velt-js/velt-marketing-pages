@@ -339,6 +339,154 @@ export async function getFeaturePageBySlug(slug: string) {
   );
 }
 
+// Feature page v2 (v10 template) queries — rendered at /new-features/<slug>.
+export async function getAllFeatureV2Slugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "featurePageV2" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getFeaturePageV2BySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "featurePageV2" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      beta,
+      breadcrumbLabel,
+      hero {
+        kicker, title, secondary, accent, microcopy,
+        primaryCta, secondaryCta, buildChip,
+        demoTabs[] { id, label, demoPreset }
+      },
+      logoStrip {
+        label,
+        migration { label, links[] }
+      },
+      whatItIs {
+        kicker, heading, body, docLinks[], scene
+      },
+      howItWorks {
+        kicker, heading, support,
+        steps[] { kicker, title, filename, code, copyText },
+        mechanics { heading, body, microcopy },
+        buildVsBuy { heading, items, close },
+        mcp { heading, sub, tabs[] { id, label, command } },
+        integrations[] { label, chips[] { label, href, newTab, icon } },
+        ctaBanner { title, microcopy, cta, variant }
+      },
+      showcase {
+        kicker, heading, support,
+        cards[] { num, name, codeKicker, headline, preview, code, copyText, comingSoon },
+        docLinks[],
+        interstitial { quote, who }
+      },
+      details {
+        kicker, heading, support, visibleCount,
+        items[] { label, soon }
+      },
+      makeItYours {
+        kicker, heading, support,
+        cards[] { iconKey, title, body, preview, code, copyText },
+        interstitial { quote, who }
+      },
+      inProduction {
+        kicker, heading, support,
+        tabs[] {
+          id, label, demoPreset, caption, link,
+          "screenshotUrl": screenshot.asset->url
+        },
+        whereItFits { label, links[] },
+        ctaBanner { title, microcopy, cta, variant }
+      },
+      related {
+        kicker, heading, support,
+        cards[] { iconKey, title, body, visual, link }
+      },
+      enterprise { badges, line, links[], cta },
+      testimonials {
+        kicker, heading, support,
+        cards[] { metric, quote, who }
+      },
+      faq {
+        kicker, heading,
+        items[] { question, answer }
+      },
+      finalCta { title, primaryCta, secondaryCta, microcopies },
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
+    }
+  `,
+    { slug }
+  );
+}
+
+// ---- Solution page (vertical, v1) queries --------------------------------
+
+export async function getAllSolutionSlugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "solutionPageV1" && defined(slug.current)].slug.current`
+  );
+}
+
+export async function getSolutionPageBySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "solutionPageV1" && slug.current == $slug][0] {
+      _id,
+      title,
+      "slug": slug.current,
+      breadcrumbLabel,
+      hero {
+        kicker, title, secondary, microcopy,
+        primaryCta, secondaryCta, buildChip, visual
+      },
+      logoStrip {
+        label,
+        migration { label, links[] }
+      },
+      reviewReality {
+        kicker, heading, items, close
+      },
+      theLoop {
+        kicker, heading, body,
+        beats[] { num, title, body, visual, beta, links[] },
+        caption
+      },
+      featureMap {
+        kicker, heading, support,
+        cards[] { num, name, oneLiner, link, code, preview, beta }
+      },
+      agentLayer {
+        kicker, heading, body, visual
+      },
+      inProduction {
+        kicker, heading, body, metric, quote, who,
+        "screenshotUrl": screenshot.asset->url,
+        visual,
+        ctaBanner { title, microcopy, cta, variant }
+      },
+      compliance {
+        kicker, heading, lead,
+        items[] { title, body, link },
+        note
+      },
+      faq {
+        kicker, heading,
+        items[] { question, answer }
+      },
+      finalCta { title, primaryCta, secondaryCta, microcopies },
+      metaTitle,
+      metaDescription,
+      "ogImage": ogImage.asset->url
+    }
+  `,
+    { slug }
+  );
+}
+
 // Demo page queries
 export async function getAllDemoPages() {
   return client.fetch(`
@@ -671,5 +819,125 @@ export async function getIntegrationPageBySlug(slug: string) {
     }
   `,
     { slug },
+  );
+}
+
+// ---- Libraries v2 collection (libraryPageV2 + librariesHubPage) ----
+// These power the redesigned /libraries hub and /libraries/{slug} pages
+// (v2-first, with the legacy libraryPage queries below as the v1 fallback).
+
+/**
+ * All published libraryPageV2 slugs (the 28 surface/plugin/agent pages).
+ * @returns {Promise<string[]>} Slug strings for generateStaticParams.
+ */
+export async function getAllLibraryV2Slugs(): Promise<string[]> {
+  return client.fetch(
+    `*[_type == "libraryPageV2" && defined(slug.current)].slug.current`,
+  );
+}
+
+/**
+ * Lightweight projection of every libraryPageV2 doc, used by the hub grid,
+ * the capability matrix, and a page's category-filtered "related" siblings.
+ * @returns {Promise<unknown[]>} Ordered roster rows.
+ */
+export async function getAllLibrariesV2() {
+  return client.fetch(
+    `
+    *[_type == "libraryPageV2" && defined(slug.current)] | order(order asc, name asc) {
+      _id,
+      name,
+      "slug": slug.current,
+      kind,
+      category,
+      beta,
+      order,
+      heroTitle,
+      capabilities,
+      "logo": logo.asset->url
+    }
+  `,
+  );
+}
+
+/**
+ * Full content for a single libraryPageV2 page.
+ * @param {string} slug The URL slug, e.g. "tiptap".
+ * @returns {Promise<unknown>} The v2 document, or null when not found.
+ */
+export async function getLibraryPageV2BySlug(slug: string) {
+  return client.fetch(
+    `
+    *[_type == "libraryPageV2" && slug.current == $slug][0] {
+      _id,
+      name,
+      "slug": slug.current,
+      kind,
+      category,
+      beta,
+      order,
+      "logo": logo.asset->url,
+      heroTitle,
+      heroSecondary,
+      heroDemoKey,
+      capabilities,
+      problemHeader,
+      problemBody,
+      builtForLine,
+      featureCards[]{ title, body, featureHref },
+      agentsCardBody,
+      setupPackages,
+      migrateLine,
+      valueProps,
+      setupNote,
+      faq[]{ question, answer },
+      metaTitle,
+      metaDescription
+    }
+  `,
+    { slug },
+  );
+}
+
+/**
+ * The libraries hub singleton document.
+ * @returns {Promise<unknown>} The librariesHubPage doc, or null.
+ */
+export async function getLibrariesHubPage() {
+  return client.fetch(
+    `
+    *[_type == "librariesHubPage"][0] {
+      _id,
+      hero,
+      logoStripLabel,
+      whatItIsHeader,
+      whatItIsBody,
+      whatItIsCards[]{ title, body, featureHref },
+      howItWorksHeader,
+      howItWorksSteps[]{ title, body, code },
+      mcpBanner,
+      buildVsBuy,
+      gridHeader,
+      gridSupportLine,
+      surfacesSubheader,
+      matrixSubheader,
+      matrixCaption,
+      buildWithIntro,
+      agentsInsideIntro,
+      stackLabel,
+      stackLinks[]{ label, group, href },
+      byosHeader,
+      byosBody,
+      verticalsHeader,
+      verticals[]{ label, body, forHref },
+      relatedHeader,
+      relatedPrimitives[]{ title, body, featureHref },
+      enterpriseLine,
+      faq[]{ question, answer },
+      finalCta,
+      metaTitle,
+      metaDescription
+    }
+  `,
   );
 }

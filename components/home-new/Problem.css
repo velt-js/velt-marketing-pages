@@ -1,0 +1,235 @@
+.vlp .problem-section {
+  background: var(--vlp-color-cream);
+}
+
+.vlp .problem-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-30) var(--vlp-gutter);
+}
+
+/* Left/right split: heading block on the left, checklist on the right.
+   The heading column is fixed-ish so the long checklist sentences get the
+   wider track; both columns top-align. */
+.vlp .problem-grid {
+    display: flex;
+    justify-content: space-between;
+  /* display: grid;
+  grid-template-columns: minmax(0, 460px) minmax(0, 1fr); */
+  gap: var(--vlp-space-16);
+  align-items: stretch;
+}
+
+/* Left column stretches to the row height (set by the taller checklist) so
+   the qualifier can pin to the bottom via margin-top: auto. */
+.vlp .problem-col-left {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--vlp-content-prose);
+}
+
+.vlp .problem-col-right {
+    max-width: var(--vlp-content-prose);
+}
+
+@media (max-width: 768px) {
+  /* The grid is laid out with flexbox, so collapse via flex-direction rather
+     than grid-template-columns (the old grid rule was a no-op here). */
+  .vlp .problem-grid {
+    flex-direction: column;
+    gap: var(--vlp-space-8);
+  }
+
+  .vlp .problem-inner {
+    padding: var(--vlp-space-16) var(--vlp-gutter);
+  }
+}
+
+.vlp .problem-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-card-padding);
+}
+
+.vlp .problem-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .problem-heading {
+  font-size: var(--vlp-text-section);
+  line-height: 1.12;
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+}
+
+.vlp .problem-subtext {
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .problem-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-2-5);
+}
+
+.vlp .problem-label {
+  display: flex;
+  gap: var(--vlp-space-3);
+  align-items: flex-start;
+  background: var(--vlp-color-white);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-space-3-5) var(--vlp-space-4);
+  cursor: pointer;
+  font-size: var(--vlp-btn-primary-font-lg);
+  line-height: 1.45;
+  /* Hidden until the list scrolls into view, then revealed with a stagger
+     (see .is-visible nth-child delays below). */
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.vlp .problem-checklist.is-visible .problem-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.vlp .problem-checklist.is-visible .problem-label:nth-child(1) { transition-delay: 0s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(2) { transition-delay: 0.09s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(3) { transition-delay: 0.18s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(4) { transition-delay: 0.27s; }
+.vlp .problem-checklist.is-visible .problem-label:nth-child(5) { transition-delay: 0.36s; }
+
+/* Reduced-motion users get the content immediately, no slide/fade. */
+@media (prefers-reduced-motion: reduce) {
+  .vlp .problem-label {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.vlp .problem-checkbox {
+  margin-top: 3px;
+  accent-color: var(--vlp-color-accent);
+  width: 15px;
+  height: 15px;
+}
+
+/* The label text. The strike lives on an inline inner span so the gradient
+   "line" paints per line box (box-decoration-break: clone) — each wrapped
+   line gets its own strikethrough that draws left-to-right when checked. */
+.vlp .problem-strike {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 60%;
+  background-size: 0% 1.5px;
+  transition: background-size 0.4s ease, color 0.4s ease;
+}
+
+.vlp .problem-checkbox:checked + span .problem-strike {
+  background-size: 100% 1.5px;
+  color: var(--vlp-color-strike);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .problem-strike {
+    transition: none;
+  }
+}
+
+/* Contextual reveal line shown when 2+ checklist items are checked.
+   Hidden by default; .is-visible transitions it in. */
+.vlp .problem-familiar {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-4);
+  flex-wrap: wrap;
+  margin-top: var(--vlp-space-4);
+  padding: var(--vlp-space-3-5) var(--vlp-space-4);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  background: var(--vlp-color-white);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.vlp .problem-familiar.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .problem-familiar {
+    transition: none;
+  }
+}
+
+.vlp .problem-familiar-text {
+  font-size: var(--vlp-btn-primary-font-lg);
+  color: var(--vlp-color-ink);
+  line-height: 1.45;
+}
+
+.vlp .problem-familiar-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--vlp-space-1-5) var(--vlp-space-3);
+  background: var(--vlp-color-ink);
+  color: var(--vlp-color-white);
+  border-radius: var(--vlp-radius-sm, 6px);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.vlp .problem-familiar-cta:hover {
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .problem-familiar-cta {
+    transition: none;
+  }
+}
+
+.vlp .problem-qualifier-wrapper {
+  margin-top: auto;
+  padding-top: var(--vlp-space-10);
+}
+
+.vlp .problem-qualifier-comment {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
+  margin-bottom: 12px;
+}
+
+.vlp .problem-qualifier-text {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-ink);
+  max-width: 60ch;
+  letter-spacing: var(--vlp-tracking-snug);
+}

@@ -127,7 +127,7 @@ async function main() {
       step2: {
         _type: "migrationStep",
         title: "2. Transfer to Velt",
-        description: "One click transfer to Velt database",
+        description: "One-click transfer to the Velt database",
       },
       step3: {
         _type: "migrationStep",
@@ -136,7 +136,7 @@ async function main() {
       },
       testimonial: {
         _type: "migrationStepsTestimonial",
-        name: "Linda Belcher",
+        name: "Linda Mercer",
         role: "Product Manager @HeyGen",
         avatar: lindaAvatar,
         quotePrefix: "Velt hosts all collaboration functionalities needed to ",
@@ -165,7 +165,7 @@ async function main() {
         _key: "row-full-customization",
         eyebrow: "02",
         heading: "Full Customization",
-        description: "Bring in your design system or cusotmize CSS directly",
+        description: "Bring in your design system or customize CSS directly",
         image: featureCustomizationImage,
         imagePosition: "left",
       },

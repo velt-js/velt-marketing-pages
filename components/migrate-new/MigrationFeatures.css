@@ -1,0 +1,193 @@
+.vlp .mig-feat {
+  background: var(--vlp-bg-page);
+}
+
+.vlp .mig-feat-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .mig-feat-intro {
+  max-width: var(--vlp-content-narrow);
+  margin-bottom: var(--vlp-space-16);
+}
+
+.vlp .mig-feat-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .mig-feat-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .mig-feat-intro-title {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 22ch;
+}
+
+.vlp .mig-feat-intro-sub {
+  margin-top: var(--vlp-space-4);
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  max-width: 54ch;
+}
+
+/* ── Rows ───────────────────────────────────────────────────── */
+.vlp .mig-feat-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-20);
+}
+
+.vlp .mig-feat-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--vlp-gap-section);
+  align-items: center;
+}
+
+.vlp .mig-feat-row--flip .mig-feat-row-text {
+  order: 2;
+}
+
+.vlp .mig-feat-row--flip .mig-feat-row-visual {
+  order: 1;
+}
+
+/* Rows with no image and no custom visual collapse to a single full-width
+   text column, so no empty reserved column or stray divider is rendered. */
+.vlp .mig-feat-row--no-visual {
+  grid-template-columns: 1fr;
+}
+
+.vlp .mig-feat-row-eyebrow {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+}
+
+.vlp .mig-feat-row-title {
+  margin-top: var(--vlp-space-3);
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .mig-feat-row-desc {
+  margin-top: var(--vlp-space-4);
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  max-width: 48ch;
+}
+
+.vlp .mig-feat-row-chips-label {
+  margin-top: var(--vlp-space-6);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+}
+
+.vlp .mig-feat-row-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-3);
+}
+
+.vlp .mig-feat-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--vlp-space-1-5) var(--vlp-space-3);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-pill);
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-ink);
+  background: var(--vlp-bg-card);
+  transition: border-color var(--vlp-transition-fast);
+}
+
+.vlp a.mig-feat-chip:hover {
+  border-color: var(--vlp-color-ink);
+}
+
+.vlp .mig-feat-row-visual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--vlp-radius-card);
+  overflow: hidden;
+  background: var(--vlp-color-cream);
+  border: var(--vlp-card-border);
+}
+
+.vlp .mig-feat-row-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* The injected custom visual (e.g. FeatureExtensiveVisual) brings its own
+   card chrome, so the wrapper drops the cream fill, border, and fixed
+   aspect ratio. It needs a *definite* height (not just min-height) because
+   the custom visual sizes itself with `height: 100%`, and the row uses
+   `align-items: center` (so the item is not stretched) — with only a
+   min-height the percentage would resolve to auto and the card would
+   collapse to a thin line. */
+.vlp .mig-feat-row-visual--custom {
+  aspect-ratio: auto;
+  height: 420px;
+  min-height: 420px;
+  background: transparent;
+  border: 0;
+  overflow: visible;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vlp .mig-feat-row {
+    grid-template-columns: 1fr;
+    gap: var(--vlp-space-6);
+  }
+  .vlp .mig-feat-row--flip .mig-feat-row-text {
+    order: 1;
+  }
+  .vlp .mig-feat-row--flip .mig-feat-row-visual {
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .mig-feat-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter);
+  }
+  .vlp .mig-feat-rows {
+    gap: var(--vlp-space-16);
+  }
+  .vlp .mig-feat-intro {
+    margin-bottom: var(--vlp-space-12);
+  }
+}

@@ -1,0 +1,99 @@
+/* Legal-tech contract-review board (.lgl-*) — the "In production · Legal"
+   dummy-app surface, in the same dark visual language as the other in-production
+   boards: an icon rail + a contract document with one clause highlighted under
+   review, a collaborator stack + Share in the header, and a right-hand comment
+   thread negotiating the highlighted clause. Scoped under .vfp to match the rest
+   of the feature-page proof surfaces. Mirrors Figma "Legal Tech" (937:2773). */
+.vfp .lgl-board {
+  position: relative;
+  display: flex;
+  gap: 28px;
+  padding: 20px 22px;
+  border: 1px solid var(--vlp-border-on-dark);
+  border-radius: var(--vlp-radius-lg-feature);
+  background: var(--vlp-color-dark-2);
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* Left icon rail. */
+.vfp .lgl-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
+.vfp .lgl-rail-group { display: flex; flex-direction: column; gap: 12px; }
+.vfp .lgl-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
+.vfp .lgl-rail-btn.on { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.vfp .lgl-rail-btn svg { width: 16px; height: 16px; }
+
+/* Main board area. */
+.vfp .lgl-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; min-height: 460px; }
+
+/* Header: document title + collaborator presence and Share. */
+.vfp .lgl-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.vfp .lgl-head { min-width: 0; }
+.vfp .lgl-eyebrow { margin: 0; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.5); }
+.vfp .lgl-title { margin: 8px 0 0; font-family: var(--vlp-font-heading); font-weight: 700; font-size: 20px; letter-spacing: -0.03em; color: #fff; }
+.vfp .lgl-top-right { display: flex; align-items: center; gap: 10px; flex: none; }
+.vfp .lgl-avatars { display: flex; }
+.vfp .lgl-av { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); border: 1.5px solid var(--vlp-color-dark-2); color: #fff; font-size: 10px; font-weight: 700; }
+.vfp .lgl-av + .lgl-av { margin-left: -8px; }
+.vfp .lgl-share { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 28px; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 12px; font-weight: 500; letter-spacing: -0.01em; }
+.vfp .lgl-share svg { width: 13px; height: 13px; }
+
+/* Body: the agreement document next to the negotiation thread. */
+.vfp .lgl-body { display: flex; gap: 28px; flex: 1; min-height: 0; }
+
+/* Agreement document, with a soft bottom fade as it runs off the surface. */
+.vfp .lgl-doc { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; -webkit-mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); mask-image: linear-gradient(to bottom, #000 88%, transparent 100%); }
+.vfp .lgl-clause { display: flex; flex-direction: column; gap: 6px; }
+.vfp .lgl-clause-label { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255, 255, 255, 0.4); }
+.vfp .lgl-clause-body { margin: 0; font-size: 13px; line-height: 1.7; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.6); }
+.vfp .lgl-mark { background: rgba(255, 186, 89, 0.24); color: #fff; border-radius: 3px; padding: 1px 3px; box-shadow: inset 0 -2px 0 rgba(255, 186, 89, 0.4); }
+
+/* Negotiation thread. */
+.vfp .lgl-comments { flex: none; width: 232px; display: flex; flex-direction: column; gap: 12px; }
+.vfp .lgl-cm { display: flex; gap: 10px; padding: 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06); background: rgba(255, 255, 255, 0.04); opacity: 0.55; }
+.vfp .lgl-cm.is-active { opacity: 1; border-color: rgba(255, 255, 255, 0.16); background: rgba(255, 255, 255, 0.08); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.7); }
+.vfp .lgl-cm-av { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); color: #fff; font-size: 10px; font-weight: 700; }
+.vfp .lgl-cm-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.vfp .lgl-cm-head { display: flex; align-items: baseline; gap: 7px; }
+.vfp .lgl-cm-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
+.vfp .lgl-cm-time { font-size: 11px; font-weight: 500; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.45); }
+.vfp .lgl-cm-body { margin: 0; font-size: 12px; line-height: 1.5; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.7); }
+.vfp .lgl-cm-mention { font-weight: 600; color: #ff956e; }
+
+@media (max-width: 720px) {
+  .vfp .lgl-body { flex-direction: column; }
+  .vfp .lgl-comments { width: 100%; }
+}
+
+/* Light-mode variant (.lgl-board--light) — inverted surface for the /for/legal
+   solutions hero. The demo-shell and demo-stage become transparent so the board
+   bleeds to the section edge; the right-hand comment column bleeds off the right
+   edge. Per-element recolors ensure legibility on white. */
+.vfp .lgl-board--light { background: #fff; border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.25); }
+
+.vfp .demo-shell:has(.lgl-board--light) { background: transparent; border: none; box-shadow: none; overflow: visible; }
+.vfp .demo-stage:has(.lgl-board--light) { background: transparent; padding: 0; min-height: 0; overflow: visible; }
+.vfp .demo-stage .lgl-board--light { width: 960px; }
+
+/* Rail */
+.vfp .lgl-board--light .lgl-rail-btn { border-color: rgba(0, 0, 0, 0.08); color: rgba(0, 0, 0, 0.45); }
+.vfp .lgl-board--light .lgl-rail-btn.on { background: rgba(0, 0, 0, 0.06); color: #16150f; }
+
+/* Header */
+.vfp .lgl-board--light .lgl-eyebrow { color: rgba(0, 0, 0, 0.5); }
+.vfp .lgl-board--light .lgl-title { color: #16150f; }
+.vfp .lgl-board--light .lgl-av { border-color: #fff; }
+.vfp .lgl-board--light .lgl-share { background: rgba(0, 0, 0, 0.06); color: #16150f; }
+
+/* Agreement document */
+.vfp .lgl-board--light .lgl-clause-label { color: rgba(0, 0, 0, 0.45); }
+.vfp .lgl-board--light .lgl-clause-body { color: rgba(0, 0, 0, 0.62); }
+.vfp .lgl-board--light .lgl-mark { background: rgba(255, 186, 89, 0.5); color: #3d2c00; box-shadow: inset 0 -2px 0 rgba(255, 186, 89, 0.85); }
+
+/* Negotiation thread */
+.vfp .lgl-board--light .lgl-cm { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.08); }
+.vfp .lgl-board--light .lgl-cm.is-active { background: #fff; border-color: rgba(0, 0, 0, 0.14); box-shadow: 0 12px 30px -18px rgba(0, 0, 0, 0.35); }
+.vfp .lgl-board--light .lgl-cm-name { color: #16150f; }
+.vfp .lgl-board--light .lgl-cm-time { color: rgba(0, 0, 0, 0.45); }
+.vfp .lgl-board--light .lgl-cm-body { color: rgba(0, 0, 0, 0.7); }
+.vfp .lgl-board--light .lgl-cm-mention { color: var(--vlp-color-accent); }

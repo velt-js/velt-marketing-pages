@@ -1,0 +1,563 @@
+.vlp .collab-section {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .collab-header {
+  max-width: var(--vlp-content-narrow);
+}
+
+.vlp .collab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .collab-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .collab-title {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+}
+
+.vlp .collab-desc {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
+}
+
+.vlp .collab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-10);
+}
+
+.vlp .collab-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-space-4);
+}
+
+/* ── Card head: name left, Preview | Code toggle right ──────── */
+.vlp .collab-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-2);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .collab-card-h4 {
+  font-size: var(--vlp-text-body);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: -0.01em;
+}
+
+/* Preview and code panes share one grid cell so the card height equals the
+   taller pane; switching tabs swaps visibility without reflowing the grid. */
+.vlp .collab-stack {
+  display: grid;
+}
+
+.vlp .collab-stack > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.vlp .collab-code-host {
+  display: grid;
+  align-items: start;
+}
+
+.vlp .collab-pane-hidden {
+  visibility: hidden;
+}
+
+.vlp .collab-card-folds {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-subtle);
+  margin-top: var(--vlp-space-2);
+}
+
+.vlp .collab-card-folds a {
+  color: var(--vlp-color-accent);
+}
+
+.vlp .collab-card-p {
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
+}
+
+.vlp .collab-svg-on-dark { color: var(--vlp-color-white); }
+.vlp .collab-svg-ink { color: var(--vlp-color-ink); }
+.vlp .collab-svg-muted { color: var(--vlp-color-text-subtle); }
+.vlp .collab-svg-green { color: var(--vlp-color-green); }
+.vlp .collab-svg-kebab { color: var(--vlp-color-kebab); }
+
+/* ── Artifact stage ─────────────────────────────────────── */
+.vlp .collab-stage {
+  position: relative;
+  height: 168px;
+  overflow: hidden;
+}
+
+/* ── Presence (folds in Live Cursors) ───────────────────── */
+.vlp .presence-stage {
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.vlp .pr-facepile {
+  display: flex;
+}
+
+/* Cursors strip inside Presence: humans plus an agent-labeled cursor. */
+.vlp .cs-strip {
+  position: relative;
+  width: 100%;
+  height: 56px;
+}
+
+.vlp .cs-strip .cs-anna {
+  position: absolute;
+  left: 16px;
+  top: 4px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.vlp .cs-strip .cs-emma {
+  position: absolute;
+  right: 16px;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+}
+
+.vlp .cs-name-agent {
+  background: var(--vlp-btn-bg);
+  font-family: var(--vlp-font-mono);
+}
+
+.vlp .pr-ava {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-white);
+  border: 3px solid var(--vlp-color-white);
+  margin-left: -12px;
+}
+
+.vlp .pr-ava:first-child { margin-left: 0; }
+.vlp .pr-ava-green { background: var(--vlp-color-green-ui); }
+.vlp .pr-ava-gold { background: var(--vlp-color-amber); }
+.vlp .pr-ava-pink { background: var(--vlp-color-pink-muted); }
+.vlp .pr-ava-ai {
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-label);
+}
+
+/* Image-backed human avatars (Unsplash faces). */
+.vlp .pr-ava-img {
+  overflow: hidden;
+  background: var(--vlp-color-cream);
+}
+
+.vlp .pr-ava-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Keep the presence dot above the clipped image. */
+.vlp .pr-ava-img .pr-dot {
+  z-index: 1;
+}
+
+/* Gradient flower agent avatar sits in the facepile like a person. */
+.vlp .pr-ava-flower {
+  overflow: hidden;
+  background: transparent;
+  padding: 0;
+}
+
+.vlp .pr-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--vlp-color-presence-online);
+  border: 3px solid var(--vlp-color-white);
+}
+
+/* ── Cursors (rendered inside the Presence strip) ───────── */
+.vlp .cs-pointer {
+  display: block;
+  width: 34px;
+  height: 36px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.vlp .cs-anna .cs-ava {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin-bottom: -24px;
+  border-radius: 50%;
+  background: var(--vlp-color-purple);
+  color: var(--vlp-color-white);
+  font-size: 12px;
+  font-weight: var(--vlp-weight-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--vlp-color-white);
+  box-shadow: 0 0 0 1.5px var(--vlp-color-purple);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.vlp .cs-anna .cs-ava img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vlp .cs-anna .cs-pointer {
+  margin-left: -19px;
+  margin-bottom: 0;
+  transform: scaleX(-1);
+}
+
+.vlp .cs-emma .cs-name {
+  position: relative;
+  margin-left: -12px;
+  margin-top: 28px;
+  background: #fe965c;
+  color: var(--vlp-color-white);
+  font-size: var(--vlp-text-tag);
+  font-weight: var(--vlp-weight-semibold);
+  line-height: 1;
+  padding: 5px 12px;
+  border-radius: var(--vlp-radius-pill);
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  flex-shrink: 0;
+}
+
+/* ── Multiplayer Editing ────────────────────────────────── */
+.vlp .multi-stage {
+  padding: var(--vlp-space-5) 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--vlp-gap-tight);
+}
+
+.vlp .ml-line {
+  position: relative;
+  height: 12px;
+  border-radius: 6px;
+  background: var(--vlp-bg-skeleton);
+}
+
+.vlp .ml-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 6px;
+  background: var(--vlp-bg-skeleton);
+}
+
+.vlp .ml-fill-pink { background: rgba(233, 52, 191, 0.16); }
+.vlp .ml-fill-green { background: rgba(13, 154, 93, 0.16); }
+
+.vlp .ml-flag {
+  position: absolute;
+  top: -16px;
+  font-size: var(--vlp-text-micro);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-white);
+  padding: 1px 7px 1px 6px;
+  border-radius: var(--vlp-radius-sm) 3px 3px 0;
+  white-space: nowrap;
+}
+
+.vlp .ml-flag::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 1.5px;
+  height: 16px;
+}
+
+.vlp .ml-flag-pink {
+  left: 46%;
+  background: var(--vlp-color-pink);
+}
+.vlp .ml-flag-pink::before { background: var(--vlp-color-pink); }
+
+.vlp .ml-flag-green {
+  left: 70%;
+  background: var(--vlp-color-green);
+}
+.vlp .ml-flag-green::before { background: var(--vlp-color-green); }
+
+/* ── Recording ──────────────────────────────────────────── */
+.vlp .rec-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: var(--vlp-space-4);
+}
+
+.vlp .rc-control {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-gap-tight);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-demo-alt);
+  border-radius: var(--vlp-radius-pill);
+  padding: 7px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.vlp .rc-screen {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--vlp-color-purple);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .rc-time {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-ink);
+  letter-spacing: 0.02em;
+}
+
+.vlp .rc-pause {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.vlp .rc-pause i {
+  width: 3px;
+  height: 13px;
+  border-radius: 1px;
+  background: var(--vlp-btn-bg);
+}
+
+.vlp .rc-stop {
+  width: 13px;
+  height: 13px;
+  border-radius: var(--vlp-radius-sm);
+  background: var(--vlp-color-orange);
+}
+
+.vlp .rc-close {
+  display: inline-flex;
+}
+
+.vlp .rc-cam {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .rc-ava {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--vlp-color-green-ui);
+  color: var(--vlp-color-white);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2.5px solid var(--vlp-color-purple);
+  box-shadow: 0 0 0 2px var(--vlp-color-white);
+}
+
+.vlp .rc-cam-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-demo-alt);
+  border-radius: var(--vlp-radius-pill);
+  padding: 6px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Huddle ─────────────────────────────────────────────── */
+.vlp .huddle-stage {
+  padding: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.vlp .hd-panel {
+  width: 100%;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-demo-alt);
+  border-radius: 10px;
+  padding: 11px 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.vlp .hd-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 9px;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-demo-faint);
+}
+
+.vlp .hd-head-txt {
+  font-size: var(--vlp-text-tag);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .hd-kebab {
+  margin-left: auto;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vlp .hd-kebab i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--vlp-color-kebab);
+}
+
+.vlp .hd-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  padding: 8px 0 2px;
+}
+
+.vlp .hd-ava {
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  border-radius: 50%;
+  color: var(--vlp-color-white);
+  font-size: var(--vlp-text-micro);
+  font-weight: var(--vlp-weight-semibold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .hd-ava-you { background: var(--vlp-color-purple); }
+.vlp .hd-ava-linda { background: var(--vlp-color-amber); }
+
+.vlp .hd-name {
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .hd-muted { margin-left: auto; display: inline-flex; }
+
+.vlp .hd-bars {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.vlp .hd-bars i {
+  width: 2.5px;
+  border-radius: 1px;
+}
+
+.vlp .hd-bars i:nth-child(1) { height: 5px; }
+.vlp .hd-bars i:nth-child(2) { height: 11px; }
+.vlp .hd-bars i:nth-child(3) { height: 7px; }
+
+.vlp .hd-bars-gold i { background: var(--vlp-color-yellow); }
+
+.vlp .hd-leave {
+  width: 100%;
+  margin-top: var(--vlp-space-2-5);
+  border: var(--vlp-border-width) solid var(--vlp-color-orange);
+  background: var(--vlp-bg-card);
+  color: var(--vlp-color-orange);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  font-weight: var(--vlp-weight-semibold);
+  padding: 7px;
+  border-radius: var(--vlp-radius-pill);
+  cursor: pointer;
+}
+
+.vlp .collab-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
+  margin-top: 28px;
+}
+
+/* Media queries can't read CSS custom properties, so this collapse to a
+   single column needs a literal breakpoint (aligned to the phone width). */
+@media (max-width: 768px) {
+  .vlp .collab-grid { grid-template-columns: 1fr; }
+}

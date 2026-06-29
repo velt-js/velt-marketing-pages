@@ -1,0 +1,157 @@
+/* ---------- Multiplayer-editing showcase artifacts (.mpe-*) ----------
+   Mock-UI cards for the /multiplayer-editing Capabilities grid, reusing the
+   comments + approval-flows design language: white labeled cards (apf-card)
+   over the shared cmh-cc head/body chrome, plus apf-tag, chip, int-chip and
+   the Av atoms. Only genuinely new co-editing patterns live here; everything
+   is namespaced .mpe- and scoped under .vfp. */
+
+/* Shared down-arrow connector between stacked steps. */
+.vfp .mpe-down { display: grid; place-items: center; height: 18px; color: var(--vlp-color-text-subtle); }
+.vfp .mpe-down svg { width: 16px; height: 16px; }
+
+/* Generic person / status rows (single-editor, offline). */
+.vfp .mpe-rows { display: flex; flex-direction: column; gap: 10px; }
+.vfp .mpe-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; }
+.vfp .mpe-row .av-c { width: 30px; height: 30px; flex: none; }
+.vfp .mpe-row-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 8px; }
+.vfp .mpe-row-ic svg { width: 16px; height: 16px; }
+.vfp .mpe-row-ic--queued { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .mpe-row-ic--merged { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .mpe-row-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mpe-row-name { font-size: 14px; font-weight: 700; letter-spacing: -0.28px; color: #000; }
+.vfp .mpe-row-sub { font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+
+/* Green "holds the pen" / editing tag. */
+.vfp .mpe-pen { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; background: var(--vlp-color-approve-soft); color: #0c6a41; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; white-space: nowrap; flex: none; }
+.vfp .mpe-pen svg { width: 12px; height: 12px; flex: none; }
+
+/* Pen-handoff flow: pill steps joined by arrows (single-editor). */
+.vfp .mpe-flow { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding: 11px 12px; border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .mpe-flow-step { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: #fff; border: 1px solid var(--vlp-border-subtle); font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); white-space: nowrap; }
+.vfp .mpe-flow-step svg { width: 13px; height: 13px; flex: none; color: var(--vlp-color-text-muted); }
+.vfp .mpe-flow-arrow { display: inline-grid; place-items: center; color: var(--vlp-color-text-subtle); flex: none; }
+.vfp .mpe-flow-arrow svg { width: 15px; height: 15px; }
+
+/* Live-state sync: two client panes reflecting one value (state-sync). */
+.vfp .mpe-sync { display: flex; flex-direction: column; gap: 10px; }
+.vfp .mpe-panes { display: flex; align-items: stretch; gap: 6px; }
+.vfp .mpe-pane { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 10px 11px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); }
+.vfp .mpe-pane--live { border-color: var(--vlp-color-accent-wash); background: var(--vlp-color-accent-soft); }
+.vfp .mpe-pane-label { display: flex; align-items: center; gap: 6px; font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .mpe-pane-label .av-c { width: 16px; height: 16px; flex: none; font-size: 7px; }
+.vfp .mpe-pane-val { font-family: var(--vlp-font-mono); font-size: 12.5px; font-weight: 700; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-pane--live .mpe-pane-val { color: var(--vlp-color-accent-ink); }
+.vfp .mpe-sync-mid { display: grid; place-items: center; width: 26px; flex: none; color: var(--vlp-color-green-approval); }
+.vfp .mpe-sync-mid svg { width: 17px; height: 17px; }
+
+/* Conflict-free merge doc: skeleton lines carrying two named carets (merge). */
+.vfp .mpe-doc { display: flex; flex-direction: column; gap: 16px; padding: 16px 14px 14px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); }
+.vfp .mpe-eline { position: relative; display: flex; align-items: center; gap: 8px; }
+.vfp .mpe-bar { height: 9px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .mpe-caret { position: relative; width: 2px; height: 18px; border-radius: 1px; flex: none; }
+.vfp .mpe-clabel { position: absolute; bottom: 100%; left: -1px; margin-bottom: 3px; padding: 1px 6px; border-radius: 4px 4px 4px 0; font-size: 9.5px; font-weight: 700; color: #fff; white-space: nowrap; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18); }
+
+/* Live presence stage: a doc paragraph carrying named cursors (presence). */
+.vfp .mpe-present { display: flex; flex-direction: column; gap: 12px; }
+.vfp .mpe-present-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vfp .mpe-stack { display: inline-flex; isolation: isolate; }
+.vfp .mpe-stack .av-c { width: 28px; height: 28px; margin-left: -8px; border: 2px solid #fff; flex: none; }
+.vfp .mpe-stack .av-c:first-child { margin-left: 0; }
+.vfp .mpe-stage { display: flex; flex-direction: column; gap: 14px; padding: 18px 16px 16px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); }
+.vfp .mpe-stage .cmh-doc { margin: 0; }
+
+/* Version checkpoints: a saved-snapshot timeline (checkpoints). */
+.vfp .mpe-snaps { position: relative; display: flex; flex-direction: column; }
+.vfp .mpe-snaps-rail { position: absolute; left: 7px; top: 18px; bottom: 18px; width: 2px; background: var(--vlp-border-subtle); }
+.vfp .mpe-snap { position: relative; display: flex; align-items: center; gap: 12px; padding: 11px 2px 11px 24px; }
+.vfp .mpe-snap + .mpe-snap { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .mpe-snap-dot { position: absolute; left: 3px; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--vlp-color-accent); background: #fff; z-index: 1; }
+.vfp .mpe-snap--current .mpe-snap-dot { background: var(--vlp-color-accent); }
+.vfp .mpe-snap-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mpe-snap-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .mpe-snap-meta { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .mpe-snap-btn { display: inline-flex; align-items: center; gap: 5px; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--vlp-border-default); background: #fff; font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-ink); white-space: nowrap; flex: none; }
+.vfp .mpe-snap-btn svg { width: 12px; height: 12px; flex: none; }
+
+/* End-to-end encryption: plaintext sealed with your key into ciphertext. */
+.vfp .mpe-enc { display: flex; flex-direction: column; gap: 8px; }
+.vfp .mpe-enc-cell { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .mpe-enc-cell--cipher { background: var(--vlp-bg-section-alt); }
+.vfp .mpe-enc-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 8px; }
+.vfp .mpe-enc-ic svg { width: 16px; height: 16px; }
+.vfp .mpe-enc-ic--plain { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-enc-ic--key { background: #efe7fb; color: #6a1fb3; }
+.vfp .mpe-enc-ic--cipher { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .mpe-enc-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .mpe-enc-label { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .mpe-enc-sub { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .mpe-cipher { font-family: var(--vlp-font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--vlp-color-text-subtle); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* CRDT store types (stores). */
+.vfp .mpe-stores { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.vfp .mpe-store { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 13px 8px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .mpe-store-ic { width: 32px; height: 32px; flex: none; display: grid; place-items: center; border-radius: 9px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-store-ic svg { width: 17px; height: 17px; }
+.vfp .mpe-store-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .mpe-store-type { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+
+/* Server writes via REST: a request line + JSON body, clients pick it up. */
+.vfp .mpe-req { display: flex; flex-direction: column; gap: 10px; }
+.vfp .mpe-req-card { border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); overflow: hidden; }
+.vfp .mpe-req-line { display: flex; align-items: center; gap: 9px; padding: 10px 12px; border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .mpe-req-verb { padding: 2px 8px; border-radius: 6px; background: var(--vlp-color-approve-soft); color: #0c6a41; font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; flex: none; }
+.vfp .mpe-req-path { font-family: var(--vlp-font-mono); font-size: 12px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-req-body { margin: 0; padding: 11px 13px; font-family: var(--vlp-font-mono); font-size: 11.5px; line-height: 1.6; color: var(--vlp-color-ink-soft); white-space: pre; overflow-x: auto; }
+.vfp .mpe-req-k { color: var(--vlp-color-text-muted); }
+.vfp .mpe-req-s { color: var(--vlp-color-green-approval); }
+
+/* Related-feature teasers — compact tiles echoing the linked primitive (a
+   suggestion diff, a presence stack, a comment row) over a connector caption
+   naming how multiplayer editing hands off to it. */
+.vfp .mpe-rel { display: grid; gap: 12px; padding: 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .mpe-rel .cmh-cmt > .av-c { width: 28px; height: 28px; }
+.vfp .mpe-rel .cmh-cmt-name { font-size: 14px; letter-spacing: -0.28px; }
+.vfp .mpe-rel .cmh-cmt-time { font-size: 12px; }
+.vfp .mpe-rel .cmh-cmt-body { font-size: 12.5px; }
+.vfp .mpe-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .mpe-rel-cap strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .mpe-rel-arrow { display: inline-grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-rel-arrow svg { width: 12px; height: 12px; }
+.vfp .mpe-rel-diff { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.vfp .mpe-rel-diff-arrow { display: inline-grid; place-items: center; width: 16px; height: 16px; flex: none; color: rgba(0, 0, 0, 0.45); }
+.vfp .mpe-rel-diff-arrow svg { width: 16px; height: 16px; }
+.vfp .mpe-rel-acts { display: flex; align-items: center; gap: 8px; }
+.vfp .mpe-rel-stack { display: flex; align-items: center; gap: 12px; }
+.vfp .mpe-rel-stack-avs { display: inline-flex; }
+.vfp .mpe-rel-stack-avs .av-c { width: 30px; height: 30px; margin-left: -8px; border: 2px solid #fff; flex: none; }
+.vfp .mpe-rel-stack-avs .av-c:first-child { margin-left: 0; }
+
+/* MAKE IT YOURS — LOOK: a themed editor binding (mini toolbar + adapter tag)
+   over a live doc line with a recolored caret/selection, above the caret knobs. */
+.vfp .mpe-look { gap: 14px; }
+.vfp .mpe-look-editor { border: 1px solid var(--vlp-border-default); border-radius: 14px; background: var(--vlp-bg-page); overflow: hidden; }
+.vfp .mpe-look-tb { display: flex; align-items: center; gap: 6px; padding: 8px 11px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .mpe-look-tbtn { display: grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 6px; background: #fff; border: 1px solid var(--vlp-border-subtle); font-size: 11px; color: var(--vlp-color-ink-soft); }
+.vfp .mpe-look-tbadge { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 11px; font-weight: 600; letter-spacing: -0.22px; }
+.vfp .mpe-look-tbadge svg { width: 13px; height: 13px; flex: none; }
+.vfp .mpe-look-doc { margin: 0; padding: 22px 14px 16px; }
+.vfp .mpe-look-knobs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.vfp .mpe-look-sw { width: 18px; height: 18px; flex: none; border-radius: 6px; border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.vfp .mpe-look-sw--1 { background: oklch(0.60 0.13 35); }
+.vfp .mpe-look-sw--2 { background: #5b7fb8; }
+.vfp .mpe-look-knob { display: inline-flex; align-items: center; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink-soft); }
+.vfp .mpe-look-knob--dark { background: var(--vlp-color-ink); border-color: var(--vlp-color-ink); color: #fff; }
+
+/* MAKE IT YOURS — BEHAVIOR: co-editing config as labeled key/value rows. */
+.vfp .mpe-cfg { gap: 9px; }
+.vfp .mpe-cfg-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 13px; background: #fff; }
+.vfp .mpe-cfg-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 9px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-cfg-ic svg { width: 16px; height: 16px; }
+.vfp .mpe-cfg-ic--rest { background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .mpe-cfg-ic--key { background: #efe7fb; color: #6a1fb3; }
+.vfp .mpe-cfg-ic--off { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .mpe-cfg-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .mpe-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.01em; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-cfg-sub { font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-cfg-types { display: flex; flex-wrap: wrap; gap: 5px; }
+.vfp .mpe-cfg-type { padding: 2px 8px; border-radius: 6px; background: var(--vlp-bg-section-alt); border: 1px solid var(--vlp-border-subtle); font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.01em; color: var(--vlp-color-ink-soft); }

@@ -1,0 +1,153 @@
+/* ---------- Review-agents showcase artifacts (.rav-*) ----------
+   Mock-UI cards for the /review-agents Capabilities grid, reusing the comments
+   + approval-flows design language: white labeled cards (apf-card) over the
+   shared cmh-cc head/body chrome, the afc agent-finding card, and the apc- and
+   apf- approval-chain rows. Only genuinely new patterns live here; everything
+   is namespaced .rav- and scoped under .vfp. */
+
+/* Built-in agents — a two-column grid of toggleable agent rows. */
+.vfp .rav-builtins { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+.vfp .rav-toggle { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border: 1px solid rgba(0, 0, 0, 0.07); border-radius: 12px; background: #fff; }
+.vfp .rav-toggle--full { grid-column: 1 / -1; }
+.vfp .rav-toggle--off { background: var(--vlp-bg-section-alt); }
+.vfp .rav-toggle-name { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .rav-toggle-dot { width: 7px; height: 7px; border-radius: 2.5px; background: var(--vlp-color-accent-wash); flex: none; }
+.vfp .rav-toggle--off .rav-toggle-name { color: var(--vlp-color-text-muted); }
+.vfp .rav-toggle--off .rav-toggle-dot { background: var(--vlp-border-default); }
+.vfp .rav-switch { position: relative; width: 34px; height: 20px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); flex: none; }
+.vfp .rav-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22); }
+.vfp .rav-switch--on { background: var(--vlp-color-green-approval); }
+.vfp .rav-switch--on::after { left: auto; right: 2px; }
+
+/* Custom agents — typed instruction, the assistant's sharpened version, and
+   test samples it proved itself on. */
+.vfp .rav-custom { display: flex; flex-direction: column; gap: 10px; }
+.vfp .rav-step-label { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+.vfp .rav-prompt { margin-top: 4px; padding: 10px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); font-size: 13.5px; line-height: 1.45; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .rav-prompt em { font-style: italic; color: var(--vlp-color-ink-soft); }
+.vfp .rav-refine { display: flex; align-items: flex-start; gap: 9px; padding: 11px 12px; border: 1px solid var(--vlp-color-accent-wash); border-radius: 12px; background: var(--vlp-color-accent-soft); }
+.vfp .rav-refine-text { flex: 1; min-width: 0; font-size: 13px; line-height: 1.45; letter-spacing: -0.26px; color: var(--vlp-color-accent-ink); }
+.vfp .rav-samples { display: flex; flex-direction: column; gap: 6px; margin-top: 2px; }
+.vfp .rav-sample { display: flex; align-items: center; gap: 8px; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+
+/* Small status tick used in samples / verify rows. */
+.vfp .rav-tick { display: inline-grid; place-items: center; width: 18px; height: 18px; flex: none; border-radius: 50%; background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .rav-tick svg { width: 11px; height: 11px; }
+
+/* Enforcement modes — blocking gate vs advisory warning. */
+.vfp .rav-modes { display: flex; flex-direction: column; gap: 10px; }
+.vfp .rav-mode { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; }
+.vfp .rav-mode-ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: none; }
+.vfp .rav-mode-ic svg { width: 17px; height: 17px; }
+.vfp .rav-mode-ic--block { background: var(--vlp-color-reject-soft); color: #99291c; }
+.vfp .rav-mode-ic--advisory { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .rav-mode-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.vfp .rav-mode-name { font-size: 14px; font-weight: 700; letter-spacing: -0.28px; color: #000; }
+.vfp .rav-mode-sub { font-size: 13px; line-height: 1.4; letter-spacing: -0.26px; color: var(--vlp-color-text-muted); }
+
+/* Knowledge — a Memory source feeding a finding that cites it. */
+.vfp .rav-know { display: flex; flex-direction: column; gap: 4px; }
+.vfp .rav-source { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .rav-source-ic { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 8px; background: #fff; border: 1px solid var(--vlp-border-subtle); color: #7c3aed; }
+.vfp .rav-source-ic svg { width: 17px; height: 17px; }
+.vfp .rav-source-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .rav-source-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .rav-source-meta { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .rav-down { display: grid; place-items: center; height: 22px; color: var(--vlp-color-text-subtle); }
+.vfp .rav-down svg { width: 18px; height: 18px; }
+.vfp .rav-finding { padding: 12px 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); }
+.vfp .rav-cite { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; }
+.vfp .rav-cite svg { width: 11px; height: 11px; flex: none; }
+
+/* Auto-fixes — a verify note beneath the agent finding card. */
+.vfp .rav-verify { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding: 8px 12px; border-radius: 10px; background: var(--vlp-color-approve-soft); color: #0c6a41; font-size: 12.5px; letter-spacing: -0.25px; }
+.vfp .rav-verify svg { width: 14px; height: 14px; flex: none; }
+
+/* Reruns — how a resubmit treats fixed / open / new findings. */
+.vfp .rav-states { display: flex; flex-direction: column; gap: 0; }
+.vfp .rav-state { display: flex; align-items: center; gap: 11px; padding: 11px 2px; }
+.vfp .rav-state + .rav-state { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rav-state-ic { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.vfp .rav-state-ic svg { width: 15px; height: 15px; }
+.vfp .rav-state-ic--fixed { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .rav-state-ic--open { background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .rav-state-ic--new { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .rav-state-main { flex: 1; min-width: 0; font-size: 13px; line-height: 1.4; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); }
+.vfp .rav-state-main strong { font-weight: 700; color: var(--vlp-color-ink); }
+
+/* Workflows — an agent node fanning into pass / fail destinations. */
+.vfp .rav-pipe { display: flex; flex-direction: column; align-items: center; }
+.vfp .rav-pipe-node { display: inline-flex; align-items: center; gap: 10px; padding: 10px 15px; border: 1px solid var(--vlp-color-accent-wash); border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .rav-pipe-node .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .rav-pipe-name { display: flex; flex-direction: column; gap: 1px; }
+.vfp .rav-pipe-name b { font-size: 14px; font-weight: 700; letter-spacing: -0.28px; color: #000; }
+.vfp .rav-pipe-name span { font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-text-muted); }
+.vfp .rav-edge--pass { color: #0c6a41; }
+.vfp .rav-edge--fail { color: #99291c; }
+.vfp .rav-dest-ic { display: inline-grid; place-items: center; width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .rav-dest-ic svg { width: 13px; height: 13px; }
+.vfp .rav-dest-ic--fail { background: var(--vlp-color-reject-soft); color: #99291c; }
+
+/* Checklist import — a source file converted into focused agents. */
+.vfp .rav-checklist { display: flex; flex-direction: column; gap: 4px; }
+.vfp .rav-agent-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* Confidence — a finding with a confidence bar and a checked/not-checked note. */
+.vfp .rav-conf { display: flex; flex-direction: column; gap: 12px; padding: 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); }
+.vfp .rav-conf-head { display: flex; align-items: center; gap: 10px; }
+.vfp .rav-conf-head .av-c { width: 28px; height: 28px; flex: none; }
+.vfp .rav-conf-name { flex: 1; min-width: 0; font-size: 14px; font-weight: 700; letter-spacing: -0.28px; color: #000; }
+.vfp .rav-conf-pill { display: inline-flex; align-items: center; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-approve-soft); color: #0c6a41; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.01em; }
+.vfp .rav-conf-body { font-size: 13px; line-height: 1.45; letter-spacing: -0.26px; color: rgba(0, 0, 0, 0.75); }
+.vfp .rav-conf-meter { display: flex; flex-direction: column; gap: 5px; }
+.vfp .rav-conf-track { position: relative; height: 8px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ececec); overflow: hidden; }
+.vfp .rav-conf-fill { position: absolute; inset: 0 auto 0 0; border-radius: 999px; background: var(--vlp-color-green-approval); }
+.vfp .rav-conf-scale { display: flex; justify-content: space-between; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .rav-checks { display: flex; flex-direction: column; gap: 7px; padding-top: 2px; border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rav-check { display: flex; align-items: center; gap: 8px; margin-top: 5px; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .rav-check:first-child { margin-top: 7px; }
+.vfp .rav-check-ic { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.vfp .rav-check-ic svg { width: 11px; height: 11px; }
+.vfp .rav-check-ic--yes { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .rav-check-ic--no { background: var(--vlp-bg-wash); color: var(--vlp-color-text-subtle); }
+
+/* ---- Make it yours · Look: the themed finding component + theme controls ---- */
+.vfp .rav-look { display: flex; flex-direction: column; gap: 12px; }
+.vfp .rav-look-controls { display: flex; flex-direction: column; gap: 0; padding: 2px 14px 4px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: var(--vlp-bg-section-alt); }
+.vfp .rav-look-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
+.vfp .rav-look-row + .rav-look-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rav-look-key { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); }
+.vfp .rav-look-badges { display: inline-flex; align-items: center; gap: 8px; }
+.vfp .rav-look-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 7px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; }
+.vfp .rav-look-badge svg { width: 12px; height: 12px; flex: none; }
+.vfp .rav-look-swatch { width: 16px; height: 16px; flex: none; border-radius: 5px; border: 1px solid rgba(0, 0, 0, 0.08); }
+.vfp .rav-look-swatch--a { background: var(--vlp-color-accent); }
+.vfp .rav-look-swatch--b { background: #1f2a57; }
+.vfp .rav-look-tags { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---- Make it yours · Behavior: per-agent config rows ---- */
+.vfp .rav-cfg { display: flex; flex-direction: column; gap: 0; }
+.vfp .rav-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; }
+.vfp .rav-cfg-row + .rav-cfg-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .rav-cfg-row--col { flex-direction: column; align-items: flex-start; gap: 8px; }
+.vfp .rav-cfg-key { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); }
+.vfp .rav-cfg-val { display: inline-flex; align-items: center; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.vfp .rav-cfg-row--col .rav-cfg-val { justify-content: flex-start; }
+.vfp .rav-cfg-sig { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: #0c6a41; }
+.vfp .rav-cfg-sig svg { width: 13px; height: 13px; flex: none; }
+
+/* Segmented controls shared by the Look (confidence) + Behavior (enforcement,
+   scope) cards. */
+.vfp .rav-look-seg,
+.vfp .rav-cfg-seg,
+.vfp .rav-scope { display: inline-flex; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden; }
+.vfp .rav-look-seg-opt,
+.vfp .rav-cfg-seg-opt,
+.vfp .rav-scope-seg { padding: 4px 9px; font-size: 11px; font-weight: 600; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); background: #fff; white-space: nowrap; }
+.vfp .rav-look-seg-opt + .rav-look-seg-opt,
+.vfp .rav-cfg-seg-opt + .rav-cfg-seg-opt,
+.vfp .rav-scope-seg + .rav-scope-seg { border-left: 1px solid rgba(0, 0, 0, 0.08); }
+.vfp .rav-look-seg-opt--on,
+.vfp .rav-scope-seg--on { background: var(--vlp-color-ink); color: #fff; }
+.vfp .rav-cfg-seg-opt--block.rav-cfg-seg-opt--on { background: var(--vlp-color-reject-soft); color: #99291c; }
+.vfp .rav-cfg-seg-opt--advisory.rav-cfg-seg-opt--on { background: var(--vlp-color-amber-soft); color: #8a5a13; }

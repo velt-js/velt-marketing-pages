@@ -97,7 +97,7 @@ export default function LiveblocksAlternativePage() {
           <Support competitorLabel={COMPETITOR_LABEL} />
           <ComparePricingCTA
             competitorLabel="Liveblocks"
-            subheading="Velt charges for real collaboration usage. Liveblocks charges for active documents — including ones with no collaboration."
+            subheading="Velt charges for real collaboration usage. Liveblocks charges for active documents, including ones with no collaboration."
           />
         </SixReasonsSection>
 

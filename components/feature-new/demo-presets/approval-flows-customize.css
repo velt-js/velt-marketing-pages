@@ -1,0 +1,25 @@
+/* ---------- Approval-flows "Make it yours" artifacts (.afz-*) ----------
+   Look + Behavior preview cards for the /approval-flows customize section,
+   reusing the shared apf-/cmh- approval design language: white labeled cards
+   over the cmh-cc head/body chrome and the apc- approval chain. Only genuinely
+   new patterns live here; everything is namespaced .afz- and scoped under .vfp. */
+
+/* Look: white-label theme tokens beneath the themed approval components, then
+   the prebuilt sibling component family as chips. */
+.vfp .afz-theme { display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .afz-swatch { width: 18px; height: 18px; flex: none; border-radius: 6px; border: 1px solid rgba(0, 0, 0, 0.08); }
+.vfp .afz-swatch--brand { background: var(--vlp-color-accent); }
+.vfp .afz-swatch--ink { background: #1f2a57; }
+.vfp .afz-swatch--soft { background: var(--vlp-color-accent-soft); }
+.vfp .afz-theme-label { margin-left: 2px; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .afz-parts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+
+/* Behavior: JSON definition rows — node ids, routing predicate, and the scope
+   segmented control (sit inside the shared apf-gov-row chrome). */
+.vfp .afz-ids { display: inline-flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.vfp .afz-id { font-family: var(--vlp-font-mono); font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-accent-ink); background: var(--vlp-color-accent-soft); border-radius: 7px; padding: 3px 8px; }
+.vfp .afz-cond { font-family: var(--vlp-font-mono); font-size: 11.5px; letter-spacing: -0.23px; color: #2a37d8; background: #eef1fb; border-radius: 7px; padding: 3px 8px; }
+.vfp .afz-scope { display: inline-flex; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden; }
+.vfp .afz-scope-seg { padding: 4px 9px; font-size: 11px; font-weight: 600; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); background: #fff; }
+.vfp .afz-scope-seg + .afz-scope-seg { border-left: 1px solid rgba(0, 0, 0, 0.08); }
+.vfp .afz-scope-seg--on { background: var(--vlp-color-ink); color: #fff; }

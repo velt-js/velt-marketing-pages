@@ -1,0 +1,152 @@
+.vlp .cus-section {
+  background: var(--vlp-bg-page);
+}
+
+.vlp .cus-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .cus-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .cus-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .cus-title {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  margin-bottom: var(--vlp-gap-section);
+}
+
+/* Masonry columns keep variable-length cards tight without row gaps. */
+.vlp .cus-grid {
+  column-count: 3;
+  column-gap: var(--vlp-gap-card);
+}
+
+.vlp .cus-card {
+  break-inside: avoid;
+  margin-bottom: var(--vlp-gap-card);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-card-padding);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .cus-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-3);
+  margin-bottom: var(--vlp-space-1);
+}
+
+.vlp .cus-card-logo {
+  height: 20px;
+  max-width: 120px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+  /* trust-us logos are tinted white for the dark carousel; brightness(0)
+     renders them as ink wordmarks on the light cards. */
+  filter: brightness(0);
+  opacity: 0.7;
+}
+
+.vlp .cus-card-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: 0.05em;
+  color: var(--vlp-color-accent);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.vlp .cus-card-quote {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-medium);
+  line-height: 1.35;
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .cus-card-body {
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .cus-card-author {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+  margin-top: var(--vlp-space-2);
+  padding-top: var(--vlp-space-4);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-faint);
+}
+
+.vlp .cus-card-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.vlp .cus-card-author-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.vlp .cus-card-author-name {
+  font-size: var(--vlp-text-body-sm-plus);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .cus-card-author-role {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-faint);
+}
+
+@media (max-width: 900px) {
+  .vlp .cus-grid {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .cus-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter);
+  }
+}
+
+@media (max-width: 560px) {
+  .vlp .cus-grid {
+    column-count: 1;
+  }
+}

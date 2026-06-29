@@ -1,0 +1,384 @@
+/* Solutions (vertical) page section styles. Scoped under .vfp so they inherit
+   the feature-page design tokens (surfaces, ink, brand, type, shape). Only the
+   vertical-specific sections live here; hero, logo strip, FAQ, and final CTA
+   reuse their feature-page stylesheets. */
+
+/* ---------- The Review Reality (checklist) ---------- */
+/* Two-column split (mirrors the homepage Problem section): heading block on
+   the left, the checklist on the right. The left column stretches to the row
+   height so the close note can pin to the bottom via margin-top: auto. */
+.vfp .reality-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: stretch;
+}
+.vfp .reality-col-left {
+  display: flex;
+  flex-direction: column;
+}
+.vfp .reality-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 0;
+  max-width: none;
+}
+.vfp .reality-item {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 20px 22px;
+  background: var(--vlp-bg-page);
+  border: 1px solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-xl);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .reality-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--vlp-color-accent-soft);
+  color: var(--vlp-color-accent);
+  margin-top: 1px;
+}
+.vfp .reality-item p {
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--vlp-color-ink-soft);
+  text-wrap: pretty;
+}
+.vfp .reality-close {
+  margin-top: auto;
+  padding-top: 40px;
+  font-family: var(--vlp-font-mono);
+  font-size: 13.5px;
+  color: var(--vlp-color-text-muted);
+  max-width: 760px;
+}
+
+/* ---------- The Loop (vertical stepped flow) ---------- */
+/* Two-column split (mirrors the Review Reality section): heading + body on the
+   left, the stepped flow of beats on the right. Each beat is a card with its
+   own inline artifact, threaded onto a single vertical spine so the steps read
+   as one linear sequence. */
+.vfp .loop-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+  gap: 64px;
+  align-items: start;
+  margin-top: 44px;
+}
+.vfp .loop-col-left {
+  position: sticky;
+  top: 92px;
+  display: flex;
+  flex-direction: column;
+}
+.vfp .loop-lead {
+  margin-top: 20px;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--vlp-color-text-muted);
+  text-wrap: pretty;
+}
+.vfp .loop-flow { display: grid; gap: 0; }
+.vfp .loop-beat {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  gap: 22px;
+  padding-bottom: 26px;
+  position: relative;
+}
+.vfp .loop-beat:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 18.5px;
+  top: 40px;
+  bottom: -4px;
+  width: 1.5px;
+  background: var(--vlp-border-default);
+}
+.vfp .loop-beat .beat-n {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--vlp-border-default);
+  background: var(--vlp-bg-page);
+  display: grid;
+  place-items: center;
+  font-family: var(--vlp-font-mono);
+  font-size: 13px;
+  color: var(--vlp-color-ink-soft);
+  z-index: 1;
+}
+.vfp .loop-beat .beat-card {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: var(--vlp-radius-xl);
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+  padding: 16px 18px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+.vfp .loop-beat .beat-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.vfp .loop-beat .beat-title { font-size: 15.5px; font-weight: 600; letter-spacing: -0.012em; }
+.vfp .loop-beat .beat-body { font-size: 13.5px; line-height: 1.6; color: var(--vlp-color-text-muted); text-wrap: pretty; }
+.vfp .loop-beat .beat-visual { margin-top: 2px; }
+.vfp .loop-beat .chip-beta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--vlp-color-accent-soft);
+  color: var(--vlp-color-accent-ink);
+  white-space: nowrap;
+}
+.vfp .loop-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.vfp .loop-links .beat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--vlp-font-mono);
+  font-size: 12px;
+  color: var(--vlp-color-accent);
+  font-weight: 500;
+  width: fit-content;
+}
+.vfp .loop-links .beat-link:hover { color: var(--vlp-color-accent-muted); }
+.vfp .loop-caption {
+  margin-top: 24px;
+  font-family: var(--vlp-font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--vlp-color-text-subtle);
+}
+
+/* ============================================================
+   The Loop — dark stage treatment (static, no motion)
+   A dark spotlight band: brand-glow background, the steps as
+   dark glass cards with glowing nodes, and the artifacts reading
+   as bright UI windows on dark.
+   ============================================================ */
+.vfp .loop-stage {
+  position: relative;
+  background: linear-gradient(180deg, #1b1a14 0%, var(--vlp-color-ink) 60%, #201f18 100%);
+  border-top: 1px solid var(--vlp-color-dark-line);
+  border-bottom: 1px solid var(--vlp-color-dark-line);
+}
+.vfp .loop-stage .wrap { position: relative; z-index: 1; }
+
+/* heading column recolored for dark */
+.vfp .loop-stage .sec-head h2 { color: #fff; }
+.vfp .loop-stage .kicker { color: #ffb38f; }
+.vfp .loop-stage .loop-lead { color: var(--vlp-color-text-on-dark-muted); }
+.vfp .loop-stage .loop-caption { color: #908d83; }
+
+/* connector spine recolored to a dim brand */
+.vfp .loop-stage .loop-beat:not(:last-child)::before { background: rgba(245, 78, 0, 0.24); }
+
+/* glowing step nodes */
+.vfp .loop-stage .loop-beat .beat-n {
+  background: #221f18;
+  border: 1px solid rgba(245, 78, 0, 0.55);
+  color: #ffd9c5;
+  box-shadow: 0 0 14px -2px rgba(245, 78, 0, 0.45);
+}
+
+/* dark glass cards */
+.vfp .loop-stage .loop-beat .beat-card {
+  background: rgba(40, 39, 31, 0.66);
+  border: 1px solid var(--vlp-color-dark-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 20px 44px -26px rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.vfp .loop-stage .loop-beat .beat-card:hover {
+  border-color: rgba(245, 78, 0, 0.5);
+  box-shadow: 0 0 0 1px rgba(245, 78, 0, 0.2), 0 22px 50px -26px rgba(245, 78, 0, 0.32);
+}
+.vfp .loop-stage .loop-beat .beat-title { color: #fff; }
+.vfp .loop-stage .loop-beat .beat-body { color: var(--vlp-color-text-on-dark-muted); }
+.vfp .loop-stage .loop-links .beat-link { color: #ff8a55; }
+.vfp .loop-stage .loop-links .beat-link:hover { color: #ffb38f; }
+.vfp .loop-stage .loop-beat .chip-beta { background: rgba(245, 78, 0, 0.18); color: #ffb38f; }
+
+/* ---------- Feature Map (cards) ---------- */
+.vfp .fm-beta {
+  margin-left: 8px;
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+  background: var(--vlp-color-accent-soft);
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+.vfp .fm-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--vlp-color-accent);
+}
+.vfp .fm-link:hover { color: var(--vlp-color-accent-muted); }
+.vfp .fm-link svg { width: 14px; height: 14px; }
+/* Keep the reused homepage primitive cards from widening the page: let the grid
+   tracks shrink and contain any wide preview demo to internal scroll rather than
+   letting it poke out and drive page-level horizontal overflow. */
+.vfp .sc-grid > .fm-card { min-width: 0; }
+.vfp .fm-card .prim-stack,
+.vfp .fm-card .prim-stage { min-width: 0; }
+.vfp .fm-card .prim-stage { overflow-x: auto; }
+
+/* ---------- Agent Action Layer ---------- */
+.vfp .agent-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 48px;
+  align-items: center;
+}
+.vfp .agent-copy { display: grid; gap: 16px; }
+.vfp .agent-copy h2 { font-size: clamp(26px, 3.2vw, 36px); line-height: 1.14; }
+.vfp .agent-body { font-size: 16px; line-height: 1.65; color: var(--vlp-color-text-muted); text-wrap: pretty; }
+.vfp .agent-stage {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: var(--vlp-radius-lg-feature);
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-lg);
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- In Production (case study) ---------- */
+.vfp .case-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: center;
+  margin-top: 40px;
+}
+.vfp .case-copy { display: grid; gap: 24px; }
+.vfp .case-body { font-size: 16.5px; line-height: 1.65; color: var(--vlp-color-ink-soft); text-wrap: pretty; }
+.vfp .case-quote {
+  border-left: 3px solid var(--vlp-color-accent);
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+}
+.vfp .case-metric {
+  font-family: var(--vlp-font-heading);
+  font-size: clamp(22px, 6vw, 28px);
+  font-weight: 700;
+  color: var(--vlp-color-accent);
+  line-height: 1;
+}
+.vfp .case-quote blockquote { font-size: 17px; line-height: 1.5; color: var(--vlp-color-ink); text-wrap: pretty; }
+.vfp .case-quote figcaption { font-family: var(--vlp-font-mono); font-size: 12.5px; color: var(--vlp-color-text-muted); }
+.vfp .case-stage {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: var(--vlp-radius-lg-feature);
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-lg);
+  overflow: hidden;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+/* ---------- Compliance strip (dark band) ---------- */
+.vfp .comp-strip { background: var(--vlp-color-ink); color: #fff; padding: 80px 0; }
+.vfp .comp-head { display: grid; gap: 14px; max-width: 640px; margin-bottom: 40px; }
+.vfp .comp-kicker { color: #fff; }
+.vfp .comp-kicker::before { background: var(--vlp-color-accent); }
+.vfp .comp-head h2 { color: #fff; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.14; }
+.vfp .comp-lead { font-size: 15.5px; line-height: 1.6; color: var(--vlp-color-text-on-dark-muted); text-wrap: pretty; }
+.vfp .comp-items {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.vfp .comp-item {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--vlp-color-dark-line);
+  border-radius: var(--vlp-radius-xl);
+}
+.vfp .comp-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: rgba(247, 180, 143, 0.12);
+}
+.vfp .comp-icon svg { color: #f7b48f; }
+.vfp .comp-item-body h3 { font-family: var(--vlp-font-heading); font-size: 16px; color: #fff; margin-bottom: 6px; }
+.vfp .comp-item-body p { font-size: 14px; line-height: 1.6; color: var(--vlp-color-text-on-dark-muted); text-wrap: pretty; }
+.vfp .comp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #f7b48f;
+}
+.vfp .comp-link svg { width: 13px; height: 13px; }
+.vfp .comp-note {
+  margin-top: 28px;
+  font-family: var(--vlp-font-mono);
+  font-size: 12.5px;
+  color: var(--vlp-color-text-on-dark-muted);
+  max-width: 760px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .vfp .reality-grid,
+  .vfp .loop-grid,
+  .vfp .agent-grid,
+  .vfp .case-grid { grid-template-columns: 1fr; gap: 36px; }
+  .vfp .loop-col-left { position: static; top: auto; }
+  .vfp .comp-items { grid-template-columns: 1fr; }
+  .vfp .reality-close { margin-top: 0; padding-top: 0; }
+}
+@media (max-width: 768px) {
+  /* Single column everywhere on phones; tighten the stepped flow + checklist so
+     they read cleanly and reduce oversized section/card padding. */
+  .vfp .reality-item { grid-template-columns: 24px 1fr; gap: 12px; padding: 16px; }
+  .vfp .loop-beat { grid-template-columns: 30px minmax(0, 1fr); gap: 16px; }
+  .vfp .loop-beat:not(:last-child)::before { left: 14.5px; }
+  .vfp .loop-beat .beat-n { width: 30px; height: 30px; font-size: 12px; }
+  .vfp .comp-strip { padding: 56px 0; }
+  .vfp .comp-head { margin-bottom: 28px; }
+  .vfp .comp-item { padding: 18px; }
+  .vfp .agent-stage,
+  .vfp .case-stage { padding: 16px; }
+}
+@media (max-width: 480px) {
+  .vfp .comp-strip { padding: 48px 0; }
+  .vfp .reality-item { padding: 14px; }
+  .vfp .loop-beat .beat-card { padding: 14px; }
+}

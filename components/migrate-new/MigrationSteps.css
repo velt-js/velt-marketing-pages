@@ -1,0 +1,247 @@
+.vlp .mig-steps {
+  background: var(--vlp-bg-section-alt);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .mig-steps-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .mig-steps-head {
+  max-width: var(--vlp-content-narrow);
+}
+
+.vlp .mig-steps-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .mig-steps-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .mig-steps-title {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 20ch;
+}
+
+.vlp .mig-steps-title-accent {
+  color: var(--vlp-color-accent);
+}
+
+.vlp .mig-steps-sub {
+  margin-top: var(--vlp-space-4);
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  max-width: 54ch;
+}
+
+.vlp .mig-steps-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-3);
+  margin-top: var(--vlp-space-6);
+}
+
+.vlp .mig-steps-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-primary-font-lg);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-lg);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+.vlp .mig-steps-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-secondary-font-lg);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  padding: var(--vlp-btn-secondary-padding-lg);
+  border-radius: var(--vlp-btn-secondary-radius);
+  border: var(--vlp-btn-secondary-border);
+  transition: var(--vlp-btn-transition);
+}
+
+/* ── Step cards ─────────────────────────────────────────────── */
+.vlp .mig-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-gap-section);
+}
+
+.vlp .mig-step-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+  padding: var(--vlp-card-padding-lg);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+}
+
+.vlp .mig-step-num {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .mig-step-title {
+  font-size: var(--vlp-text-card);
+  line-height: var(--vlp-leading-title-sm);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .mig-step-desc {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+}
+
+/* ── Data-flow strip (competitor → Data.json → Velt DB) ─────── */
+.vlp .mig-steps-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-space-3);
+  margin-top: var(--vlp-gap-section);
+  padding: var(--vlp-card-padding);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+}
+
+.vlp .mig-flow-node {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  padding: var(--vlp-space-2-5) var(--vlp-space-4);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-pill);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-muted);
+  background: var(--vlp-bg-page);
+}
+
+.vlp .mig-flow-node--velt {
+  color: var(--vlp-color-accent);
+  border-color: var(--vlp-color-accent);
+}
+
+.vlp .mig-flow-logo {
+  height: 16px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.vlp .mig-flow-arrow {
+  color: var(--vlp-color-text-subtle);
+  flex-shrink: 0;
+}
+
+/* ── Testimonial quote card ─────────────────────────────────── */
+.vlp .mig-steps-quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-5);
+  margin-top: var(--vlp-gap-card);
+  padding: var(--vlp-card-padding-lg);
+  background: var(--vlp-bg-card-dark);
+  border-radius: var(--vlp-radius-card);
+}
+
+.vlp .mig-steps-quote-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+}
+
+.vlp .mig-steps-quote-text {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-quote);
+  line-height: 1.3;
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-text-on-dark);
+  max-width: 38ch;
+}
+
+.vlp .mig-steps-quote-text-accent {
+  color: var(--vlp-color-accent);
+}
+
+.vlp .mig-steps-quote-author {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .mig-steps-quote-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.vlp .mig-steps-quote-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-mono);
+}
+
+.vlp .mig-steps-quote-name {
+  color: var(--vlp-color-text-on-dark);
+}
+
+.vlp .mig-steps-quote-role {
+  color: var(--vlp-color-text-on-dark-muted);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vlp .mig-steps-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .mig-steps-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter);
+  }
+}

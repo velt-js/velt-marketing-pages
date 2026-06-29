@@ -5,6 +5,13 @@
 
 import { TestimonialStrip, type TestimonialStripProps } from "./TestimonialStrip";
 
+// Shared destinations for the Get-Started CTAs. "Try for Free" points at the
+// public console (signup), matching every other "Get Free API Key" CTA on the
+// site; "View Docs" points at the docs site, matching the other "View Docs"
+// links across the marketing pages.
+const CONSOLE_URL = "https://console.velt.dev/";
+const DOCS_URL = "https://velt.dev/docs/";
+
 // Default testimonial rendered at the bottom of the Get-Started card
 // across library and feature pages. Live site shows Hope Callaway here;
 // individual callers can override via the `testimonial` prop.
@@ -13,7 +20,7 @@ const HOPE_CALLAWAY: TestimonialStripProps = {
   role: "Senior PM @Leadpages",
   avatarSrc: "/images/features/comments/trust-us/avatar-hope.png",
   quote:
-    "With Velt, Implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
+    "With Velt, implementation took weeks, instead of the quarters it would have taken, even with 3 FTEs",
   accentFragment: "",
 };
 
@@ -31,7 +38,7 @@ function Step1Column({ packageName = "@veltdev/client" }: { packageName?: string
           1. Initialize Velt
         </h3>
         <p className="font-urbanist text-white" style={{ fontSize: 14, lineHeight: 1, opacity: 0.52, letterSpacing: "-0.03em" }}>
-          Setting up velt takes 2 minutes
+          Setting up Velt takes 2 minutes
         </p>
       </div>
 
@@ -342,7 +349,10 @@ export function GetStartedSteps({
           </p>
         </div>
         <div className="flex items-start gap-3">
-          <button
+          <a
+            href={DOCS_URL}
+            target="_blank"
+            rel="noopener"
             className="flex items-center justify-center gap-1 rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", border: "2px solid #625df5" }}
           >
@@ -362,8 +372,11 @@ export function GetStartedSteps({
             >
               View Docs
             </span>
-          </button>
-          <button
+          </a>
+          <a
+            href={CONSOLE_URL}
+            target="_blank"
+            rel="noopener"
             className="flex items-center justify-center rounded-lg"
             style={{ width: 156, height: 44, padding: "8px 16px", background: "#625df5" }}
           >
@@ -373,7 +386,7 @@ export function GetStartedSteps({
             >
               Try for Free
             </span>
-          </button>
+          </a>
         </div>
       </div>
 

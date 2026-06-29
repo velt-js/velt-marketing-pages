@@ -1,0 +1,15 @@
+/* Little big details: expandable wall of micro-capability labels.
+   Scoped under .vfp. */
+.vfp .details-wall { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--vlp-border-subtle); border: 1px solid var(--vlp-border-subtle); border-radius: var(--vlp-radius-lg-feature); overflow: hidden; margin-top: 44px; }
+.vfp .detail-item { display: flex; align-items: center; gap: 10px; background: var(--vlp-bg-page); padding: 16px 20px; font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: var(--vlp-color-ink-soft); }
+.vfp .detail-item::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-accent); flex: none; }
+.vfp .detail-item.hidden-detail { display: none; }
+.vfp .details-wall.expanded .detail-item.hidden-detail { display: flex; }
+.vfp .details-toggle { display: flex; justify-content: center; margin-top: 28px; }
+
+@media (max-width: 1024px) {
+  .vfp .details-wall { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .vfp .details-wall { grid-template-columns: 1fr; }
+}

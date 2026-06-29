@@ -44168,7 +44168,7 @@
   },
   {
     "slug": "tiptap-vs-velt-comments-sdk-comparison",
-    "title": "Tiptap v.s. Velt: Commenting SDK",
+    "title": "Tiptap vs. Velt: Commenting SDK",
     "description": "Compare Tiptap Comments vs Velt Comments SDK. Tiptap offers basic text editor commenting while Velt provides 25+ collaboration features in 10 lines of code.",
     "publishedAt": "2025-10-30T00:00:00.000Z",
     "authorName": "Rakesh Goyal",
@@ -92742,7 +92742,7 @@
   {
     "slug": "best-commenting-sdk-use-cases",
     "title": "Best Commenting SDK Use Cases",
-    "description": "commenting-sdk-use-cases",
+    "description": "Learn about the best use cases for commenting SDKs, including design reviews and content collaboration.",
     "publishedAt": "2025-06-25T00:00:00.000Z",
     "authorName": "Rakesh Goyal",
     "category": "General",

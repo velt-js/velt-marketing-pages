@@ -1,0 +1,84 @@
+.vlp .trust-section {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-gutter);
+  margin-inline: auto;
+}
+
+/* Split header: stat on the left, mono note on the right. */
+.vlp .trust-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--vlp-gap-card);
+  margin-bottom: var(--vlp-trust-header-gap-bottom);
+}
+
+.vlp .trust-stat-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .trust-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .trust-highlight {
+  color: var(--vlp-color-accent);
+  font-weight: var(--vlp-weight-medium);
+}
+
+.vlp .trust-sub {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-subtle);
+}
+
+/* Featured row: the four lead logos as larger static cards. */
+.vlp .trust-featured {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--vlp-gap-card);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .trust-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 28px;
+}
+
+.vlp .trust-card-logo {
+  width: auto;
+  /* Brand logos ship white; render as muted gray silhouettes on the card. */
+  filter: brightness(0);
+  opacity: 0.5;
+}
+
+/* Stack the featured cards two-up, then one-up, on narrow viewports. */
+@media (max-width: 1024px) {
+  .vlp .trust-featured {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .trust-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--vlp-space-2);
+  }
+
+  .vlp .trust-featured {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,152 @@
+/* ---------- Notifications showcase artifacts (.ntf-*) ----------
+   Mock-UI cards for the /notifications Capabilities grid, reusing the comments +
+   approval-flows design language: labeled apf-card / cmh-cc shells with colored
+   header bars, cmh-inrow inbox rows, chips, avatars, and the afc agent-finding
+   card. Only genuinely new notification patterns live here — a mini email
+   preview, a batching funnel, per-channel preference toggles, a REST-to-inbox
+   bridge, permission-scoped lanes, and a self-host data split. Everything is
+   namespaced .ntf- and scoped under .vfp. */
+
+/* Channel destination chip (webhooks route, inbox footers). */
+.vfp .ntf-chan { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; background: var(--vlp-bg-wash); font-size: 12px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-ink-soft); }
+.vfp .ntf-chan svg { width: 13px; height: 13px; flex: none; }
+.vfp .ntf-chan-dot { width: 7px; height: 7px; border-radius: 2.5px; flex: none; background: var(--vlp-color-accent-wash); }
+
+/* Email notifications — a compact email preview that the SDK fired off. */
+.vfp .ntf-mail { display: flex; flex-direction: column; gap: 10px; }
+.vfp .ntf-mail-card { border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); overflow: hidden; }
+.vfp .ntf-mail-bar { display: flex; align-items: center; gap: 9px; padding: 9px 12px; border-bottom: 1px solid var(--vlp-border-subtle); background: #fff; }
+.vfp .ntf-mail-ic { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 7px; background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .ntf-mail-ic svg { width: 15px; height: 15px; }
+.vfp .ntf-mail-from { min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .ntf-mail-addr { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: -0.1px; color: var(--vlp-color-text-muted); }
+.vfp .ntf-mail-to { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-mail-body { padding: 11px 13px; display: flex; flex-direction: column; gap: 6px; }
+.vfp .ntf-mail-subj { font-size: 13px; font-weight: 700; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .ntf-mail-prev { font-size: 12px; line-height: 1.45; letter-spacing: -0.24px; color: var(--vlp-color-ink-soft); }
+.vfp .ntf-mail-prev .ntf-mention { color: #7c3aed; font-weight: 600; }
+.vfp .ntf-mail-foot { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* Delivery status line (email, custom). */
+.vfp .ntf-deliver { display: inline-flex; align-items: center; gap: 6px; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .ntf-deliver-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; background: var(--vlp-color-green-approval); }
+
+/* Batching and digests — a burst of pings funnelling into one digest. */
+.vfp .ntf-batch { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.vfp .ntf-batch-pings { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; max-width: 230px; }
+.vfp .ntf-batch-ping { width: 9px; height: 9px; border-radius: 50%; background: var(--vlp-color-accent-wash); }
+.vfp .ntf-batch-ping--seen { background: var(--vlp-border-default); }
+.vfp .ntf-batch-count { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); }
+.vfp .ntf-batch-funnel { display: grid; place-items: center; height: 26px; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-batch-funnel svg { width: 19px; height: 19px; }
+.vfp .ntf-batch-digest { width: 100%; display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid var(--vlp-color-accent-wash); border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .ntf-batch-digest-ic { display: grid; place-items: center; width: 32px; height: 32px; flex: none; border-radius: 9px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .ntf-batch-digest-ic svg { width: 17px; height: 17px; }
+.vfp .ntf-batch-digest-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .ntf-batch-digest-title { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .ntf-batch-digest-sub { font-size: 11.5px; letter-spacing: -0.23px; color: var(--vlp-color-text-muted); }
+
+/* Per-user preferences — per-channel ALL / MINE / NONE segmented control. */
+.vfp .ntf-prefs { display: flex; flex-direction: column; gap: 10px; }
+.vfp .ntf-pref { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: #fff; }
+.vfp .ntf-pref-ic { display: grid; place-items: center; width: 28px; height: 28px; flex: none; border-radius: 8px; color: #fff; }
+.vfp .ntf-pref-ic svg { width: 15px; height: 15px; }
+.vfp .ntf-pref-name { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .ntf-pref-label { font-size: 14px; font-weight: 600; letter-spacing: -0.28px; color: var(--vlp-color-ink); }
+.vfp .ntf-pref-scope { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-seg { display: inline-flex; flex: none; padding: 2px; border-radius: 999px; background: var(--vlp-bg-wash); }
+.vfp .ntf-seg-opt { padding: 4px 11px; border-radius: 999px; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); }
+.vfp .ntf-seg-opt--on { background: var(--vlp-color-ink); color: #fff; }
+
+/* Custom notifications via REST — a POST request becomes one inbox item. */
+.vfp .ntf-cust { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px; }
+.vfp .ntf-rest { display: flex; flex-direction: column; gap: 9px; padding: 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .ntf-rest-line { display: flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 11.5px; letter-spacing: -0.1px; color: var(--vlp-color-ink-soft); }
+.vfp .ntf-rest-verb { padding: 2px 7px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-weight: 700; }
+.vfp .ntf-rest-types { display: flex; flex-wrap: wrap; gap: 6px; }
+.vfp .ntf-rest-type { font-family: var(--vlp-font-mono); font-size: 10.5px; padding: 3px 8px; border-radius: 999px; background: #fff; border: 1px solid var(--vlp-border-subtle); color: var(--vlp-color-text-muted); }
+.vfp .ntf-cust-arrow { display: grid; place-items: center; width: 24px; height: 24px; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-cust-arrow svg { width: 20px; height: 20px; }
+.vfp .ntf-cust-inbox { display: flex; align-items: flex-start; gap: 10px; padding: 12px 13px; border: 1px solid var(--vlp-color-accent-wash); border-radius: 12px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .ntf-cust-inbox-ic { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 9px; background: var(--vlp-color-amber-soft); color: #8a5a13; }
+.vfp .ntf-cust-inbox-ic svg { width: 16px; height: 16px; }
+.vfp .ntf-cust-inbox-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .ntf-cust-inbox-title { font-size: 13px; line-height: 1.4; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); }
+.vfp .ntf-cust-inbox-title strong { font-weight: 700; color: var(--vlp-color-ink); }
+
+/* Permission-scoped feeds — what reaches each side, what never does. */
+.vfp .ntf-scope { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.vfp .ntf-lane { display: flex; flex-direction: column; gap: 10px; padding: 13px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; }
+.vfp .ntf-lane--blocked { background: var(--vlp-bg-section-alt); }
+.vfp .ntf-lane-head { display: flex; align-items: center; gap: 8px; }
+.vfp .ntf-lane-ic { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 8px; background: var(--vlp-bg-wash); color: var(--vlp-color-ink-soft); }
+.vfp .ntf-lane-ic svg { width: 15px; height: 15px; }
+.vfp .ntf-lane-title { flex: 1; min-width: 0; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .ntf-lane-row { display: flex; align-items: flex-start; gap: 9px; padding: 10px 11px; border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .ntf-lane--blocked .ntf-lane-row { background: var(--vlp-bg-wash); }
+.vfp .ntf-lane-row-main { flex: 1; min-width: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .ntf-lane-foot { display: flex; align-items: center; gap: 7px; margin-top: auto; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); }
+.vfp .ntf-lane-mark { display: inline-grid; place-items: center; width: 18px; height: 18px; flex: none; border-radius: 50%; }
+.vfp .ntf-lane-mark svg { width: 11px; height: 11px; }
+.vfp .ntf-lane-mark--ok { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .ntf-lane-mark--no { background: var(--vlp-bg-wash); color: var(--vlp-color-text-subtle); }
+
+/* Self-host data split — full content on your servers, ids with Velt. */
+.vfp .ntf-host { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: stretch; }
+.vfp .ntf-host-col { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: 14px; }
+.vfp .ntf-host-col--yours { border: 1px solid var(--vlp-color-accent-wash); background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); }
+.vfp .ntf-host-col--velt { border: 1px solid rgba(0, 0, 0, 0.08); background: var(--vlp-bg-section-alt); }
+.vfp .ntf-host-cap { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .ntf-host-cap-ic { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 8px; }
+.vfp .ntf-host-cap-ic svg { width: 15px; height: 15px; }
+.vfp .ntf-host-col--yours .ntf-host-cap-ic { background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .ntf-host-col--velt .ntf-host-cap-ic { background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }
+.vfp .ntf-host-content { font-size: 12.5px; line-height: 1.5; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); padding: 10px 11px; border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .ntf-host-content strong { font-weight: 700; color: var(--vlp-color-ink); }
+.vfp .ntf-host-ids { display: flex; flex-direction: column; gap: 6px; }
+.vfp .ntf-host-id { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: -0.1px; color: var(--vlp-color-text-muted); padding: 6px 9px; border-radius: 8px; background: #fff; border: 1px solid var(--vlp-border-subtle); }
+.vfp .ntf-host-tag { align-self: flex-start; margin-top: auto; }
+.vfp .ntf-host-divider { display: grid; place-items: center; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-host-divider svg { width: 20px; height: 20px; }
+
+@media (max-width: 1024px) {
+  .vfp .ntf-cust,
+  .vfp .ntf-host { grid-template-columns: 1fr; }
+  .vfp .ntf-cust-arrow,
+  .vfp .ntf-host-divider { transform: rotate(90deg); }
+}
+
+/* Make-it-yours look — a branded inbox: themed unread dots over reused
+   cmh-inrow notification rows, footed by channel chips. */
+.vfp .ntf-look-head { background: linear-gradient(120deg, #2a37d8, #7c3aed); }
+.vfp .ntf-look-mark { display: grid; place-items: center; width: 20px; height: 20px; flex: none; border-radius: 6px; background: rgba(255, 255, 255, 0.18); }
+.vfp .ntf-look-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .ntf-look-brand { font-weight: 700; letter-spacing: -0.3px; }
+.vfp .ntf-look-unread { background: #7c3aed; }
+.vfp .ntf-look-chans { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--vlp-border-subtle); }
+
+/* Make-it-yours behavior — delivery config: a channel chip row over key/value
+   rows (digest, per-user segmented prefs, a REST custom-event endpoint). */
+.vfp .ntf-cfg { display: flex; flex-direction: column; gap: 0; }
+.vfp .ntf-cfg-chans { display: flex; flex-wrap: wrap; gap: 7px; padding: 2px 0 12px; }
+.vfp .ntf-cfg-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 2px; min-height: 40px; border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .ntf-cfg-key { font-family: var(--vlp-font-mono); font-size: 12px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); flex: none; }
+.vfp .ntf-cfg-val { min-width: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .ntf-cfg-rest { font-family: var(--vlp-font-mono); font-size: 12px; font-weight: 600; color: var(--vlp-color-ink-soft); }
+
+/* Related-feature teasers — compact tiles echoing the linked primitive (a
+   comment row, an approval chain, an agent finding) over a connector caption
+   naming the hand-off into the notifications feed. */
+.vfp .ntf-rel { display: grid; gap: 12px; padding: 14px; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 14px; background: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
+.vfp .ntf-rel .cmh-cmt > .av-c { width: 28px; height: 28px; }
+.vfp .ntf-rel .cmh-cmt-name { font-size: 14px; letter-spacing: -0.28px; }
+.vfp .ntf-rel .cmh-cmt-time { font-size: 12px; }
+.vfp .ntf-rel .cmh-cmt-body { font-size: 12.5px; }
+.vfp .ntf-rel-chain { display: flex; flex-direction: column; gap: 8px; }
+.vfp .ntf-rel-step { display: flex; align-items: center; gap: 9px; padding: 8px 10px; border-radius: 10px; background: var(--vlp-bg-section-alt); }
+.vfp .ntf-rel-step .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .ntf-rel-step-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .ntf-rel-cap { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .ntf-rel-cap strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .ntf-rel-arrow { display: inline-grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
+.vfp .ntf-rel-arrow svg { width: 12px; height: 12px; }

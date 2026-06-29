@@ -62,7 +62,7 @@ type FeatureBlock = FeatureVideoBlockProps;
 const FEATURE_BLOCKS: FeatureBlock[] = [
   {
     title: "Quickly add commenting to any product that uses Tiptap Editor",
-    body: "Drop in Velt's Tiptap extension and let your users leave inline, text-anchored comments inside any Tiptap-powered editor — no custom plumbing required.",
+    body: "Drop in Velt's Tiptap extension and let your users leave inline, text-anchored comments inside any Tiptap-powered editor: no custom plumbing required.",
     videoSrc: "/videos/tiptap-editor-comments/quickly-add-commenting.mp4",
     videoPoster:
       "/images/tiptap-editor-comments/quickly-add-commenting-poster.jpg",
@@ -79,7 +79,7 @@ const FEATURE_BLOCKS: FeatureBlock[] = [
   {
     title:
       "Supercharged commenting with features like assignment, file attachments, recordings, emoji reactions, and shareable links",
-    body: "Every Velt comment ships with the power tools your users expect — assign threads to teammates, attach files, drop in screen recordings, react with emoji, and share a deep link to any comment.",
+    body: "Every Velt comment ships with the power tools your users expect: assign threads to teammates, attach files, drop in screen recordings, react with emoji, and share a deep link to any comment.",
     videoSrc: "/videos/tiptap-editor-comments/supercharged-features.mp4",
     videoPoster:
       "/images/tiptap-editor-comments/supercharged-features-poster.jpg",

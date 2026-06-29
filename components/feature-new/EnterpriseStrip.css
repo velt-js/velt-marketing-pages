@@ -1,0 +1,8 @@
+/* Enterprise readiness strip on a dark band. Scoped under .vfp. */
+.vfp .ent-strip { background: var(--vlp-color-ink); color: #fff; padding: 56px 0; }
+.vfp .ent-inner { display: grid; gap: 22px; justify-items: center; text-align: center; }
+.vfp .ent-badges { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.vfp .ent-badge { display: inline-flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 600; color: #fff; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--vlp-color-dark-line); border-radius: 999px; padding: 9px 16px; }
+.vfp .ent-badge svg { color: #f7b48f; }
+.vfp .ent-line { font-size: 14.5px; line-height: 1.6; color: var(--vlp-color-text-on-dark-muted); max-width: 640px; text-wrap: pretty; }
+.vfp .ent-line a { color: #f7b48f; font-weight: 600; }

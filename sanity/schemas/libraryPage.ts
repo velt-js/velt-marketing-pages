@@ -440,7 +440,7 @@ export const bentoCard = defineType({
       name: "illustrationKey",
       title: "Illustration",
       description:
-        "Picks a registered React illustration from components/library/illustrations. Use this OR Card Image — not both.",
+        "Picks a registered React illustration from components/library/illustrations. Use this OR Card Image, not both.",
       type: "string",
       options: {
         list: ILLUSTRATION_KEYS.map((key) => ({
@@ -453,7 +453,7 @@ export const bentoCard = defineType({
       name: "image",
       title: "Card Image",
       description:
-        "Illustration-only PNG/SVG (no baked-in title) — rendered top-aligned at full width. Title and description still render as a CMS-driven overlay at the bottom-left.",
+        "Illustration-only PNG/SVG (no baked-in title), rendered top-aligned at full width. Title and description still render as a CMS-driven overlay at the bottom-left.",
       type: "image",
       options: { hotspot: false },
     }),

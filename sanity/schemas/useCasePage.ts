@@ -128,7 +128,7 @@ export const useCasePage = defineType({
       name: "thumbnail",
       title: "Listing Thumbnail",
       description:
-        "Image shown on the /use-case listing card (594×404). Optional — listing card can fall back to a static image.",
+        "Image shown on the /use-case listing card (594×404). Optional: listing card can fall back to a static image.",
       type: "image",
       group: "identity",
       options: { hotspot: false },

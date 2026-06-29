@@ -1,0 +1,71 @@
+/* Compact feature-map (fm/) tiles for the Sales Enablement solutions page.
+   These echo the redesigned feature-page showcase cards (Comments, Approval
+   Flows, Review Agents) but in a smaller footprint that fits the feature-map
+   grid. Base atoms come from the global .cmh-, .apf-, .apc-, chip and Av
+   families in styles.css; the .sse- classes below only add the compact card
+   shells and the few patterns those families do not already cover. All rules
+   are scoped under .vfp to match the solutions-page sandbox. */
+
+/* Compact white card shell — the small analog of .cmh-cc / .apf-card. */
+.vfp .sse-mini {
+  width: 100%;
+  display: grid;
+  gap: 11px;
+  padding: 14px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+}
+
+/* Byline row: avatar + name, with a trailing chip pushed to the right. */
+.vfp .sse-byline { display: flex; align-items: center; gap: 9px; }
+.vfp .sse-byline .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .sse-byline-name { font-family: var(--vlp-font-heading); font-weight: 700; font-size: 13.5px; letter-spacing: -0.27px; color: #000; }
+.vfp .sse-byline .chip { margin-left: auto; }
+
+/* Stacked agent findings (review-agents): one muted-dot row per flag. */
+.vfp .sse-finds { display: grid; gap: 8px; }
+.vfp .sse-find { display: flex; align-items: center; gap: 9px; font-size: 13px; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); }
+.vfp .sse-find-dot { width: 6px; height: 6px; border-radius: 50%; flex: none; background: var(--vlp-color-accent); }
+
+/* Notification body line + channel chips (in-app / email / Slack). */
+.vfp .sse-note { margin: 0; font-size: 13px; line-height: 1.4; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); }
+.vfp .sse-channels { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.vfp .sse-ch { display: inline-flex; align-items: center; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); background: var(--vlp-bg-wash); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+
+/* Audit trail: attributed events streaming into an export/download button.
+   The stream rows feed into a short funnel of descending dots that drain into
+   a prominent ink Export button — an exportable record of who did what, when. */
+.vfp .sse-audit { gap: 13px; }
+.vfp .sse-aud-shield { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex: none; border-radius: 8px; color: var(--vlp-color-accent); background: var(--vlp-color-accent-soft); }
+.vfp .sse-aud-shield svg { width: 15px; height: 15px; }
+
+/* Stacked attributed event rows (actor · action · timestamp). */
+.vfp .sse-aud-stream { display: grid; gap: 9px; }
+.vfp .sse-aud-row { display: flex; align-items: center; gap: 11px; padding: 11px 13px; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 12px; background: #faf9f7; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); }
+.vfp .sse-aud-row .av-c { width: 26px; height: 26px; flex: none; font-size: 10px; }
+.vfp .sse-aud-ev { flex: 1; min-width: 0; font-size: 13px; letter-spacing: -0.26px; color: var(--vlp-color-ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vfp .sse-aud-ev strong { color: var(--vlp-color-ink); font-weight: 700; }
+.vfp .sse-aud-ts { flex: none; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+
+/* Funnel: a single-file stream of dots flowing down a faint guide line into
+   the export button — the events being collected into an exportable record. */
+.vfp .sse-aud-funnel { position: relative; justify-self: center; width: 2px; height: 26px; margin: 1px 0; border-radius: 2px; background: linear-gradient(to bottom, var(--vlp-color-accent-wash), transparent); }
+.vfp .sse-aud-funnel i { position: absolute; left: 50%; top: 0; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: var(--vlp-color-accent); box-shadow: 0 0 0 3px var(--vlp-color-accent-soft); animation: sse-aud-drain 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite; }
+.vfp .sse-aud-funnel i:nth-child(2) { animation-delay: 0.8s; }
+.vfp .sse-aud-funnel i:nth-child(3) { animation-delay: 1.6s; }
+
+/* Prominent ink export button — the download affordance the events flow into. */
+.vfp .sse-aud-export { display: flex; align-items: center; gap: 8px; width: 100%; padding: 10px 14px; border: none; border-radius: var(--vlp-radius-md); background: var(--vlp-color-ink); color: var(--vlp-color-cream); font-family: var(--vlp-font-heading); font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; cursor: pointer; }
+.vfp .sse-aud-export svg { width: 16px; height: 16px; flex: none; }
+.vfp .sse-aud-export-label { flex: 1; text-align: left; }
+.vfp .sse-aud-fmt { flex: none; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 500; letter-spacing: 0.04em; color: var(--vlp-color-cream); background: rgba(255, 255, 255, 0.16); border-radius: 999px; padding: 3px 8px; }
+
+@keyframes sse-aud-drain { 0% { transform: translateY(-4px); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .vfp .sse-aud-funnel i { animation: none; opacity: 1; }
+  .vfp .sse-aud-funnel i:nth-child(1) { top: 2px; }
+  .vfp .sse-aud-funnel i:nth-child(2) { top: 10px; }
+  .vfp .sse-aud-funnel i:nth-child(3) { top: 18px; }
+}

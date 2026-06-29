@@ -35,7 +35,7 @@ const YC_BREADCRUMB = buildBreadcrumbList([
 const YC_WEBPAGE = buildWebPageSchema({
   name: "For YC | Velt",
   description:
-    "Y Combinator companies get $499/mo for the first year on Velt — ship comments, notifications, multiplayer editing, presence, and cursors in about a week instead of 4-5 months.",
+    "Y Combinator companies get $499/mo for the first year on Velt: ship comments, notifications, multiplayer editing, presence, and cursors in about a week instead of 4-5 months.",
   url: `${SITE_URL}/yc`,
   breadcrumb: YC_BREADCRUMB,
 });
@@ -43,7 +43,7 @@ const YC_WEBPAGE = buildWebPageSchema({
 export const metadata = buildPageMetadata({
   title: "For YC",
   description:
-    "Y Combinator companies get $499/mo for the first year on Velt — ship comments, notifications, multiplayer editing, presence, and cursors in about a week instead of 4-5 months.",
+    "Y Combinator companies get $499/mo for the first year on Velt: ship comments, notifications, multiplayer editing, presence, and cursors in about a week instead of 4-5 months.",
   path: "/yc",
   ogImage: "/og/yc.png",
 });
@@ -70,7 +70,7 @@ const YC_CARDS: SecurityCardData[] = [
   {
     title: "Full feature suite",
     subtitle:
-      "Comments, notifications, recordings, multiplayer editing, presence, cursors, huddles, and reactions — all in one SDK with one bill.",
+      "Comments, notifications, recordings, multiplayer editing, presence, cursors, huddles, and reactions, all in one SDK with one bill.",
     visual: (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -98,7 +98,7 @@ const YC_CARDS: SecurityCardData[] = [
   {
     title: "Enterprise-grade encryption",
     subtitle:
-      "SOC 2 Type II and HIPAA-ready encryption, audit logs, and granular access controls — the security posture your enterprise customers will ask for on day one.",
+      "SOC 2 Type II and HIPAA-ready encryption, audit logs, and granular access controls: the security posture your enterprise customers will ask for on day one.",
     visual: (
       // eslint-disable-next-line @next/next/no-img-element
       <img
@@ -123,12 +123,12 @@ const ycFAQ: FaqEntry[] = [
   {
     question: "How much does it cost?",
     answer:
-      "$499/month for the first year, flat. After the first year you move onto standard Velt pricing — book a call and we'll walk through the numbers based on your usage.",
+      "$499/month for the first year, flat. After the first year you move onto standard Velt pricing. Book a call and we'll walk through the numbers based on your usage.",
   },
   {
     question: "What's included in the YC plan?",
     answer:
-      "The full Velt feature suite — Comments, Notifications, Recordings, Multiplayer Editing, Live State Sync, Live Selection, Huddle, Presence, Cursors, and Reactions — plus the managed infrastructure, pre-built schemas, and enterprise-grade encryption that ship with every Velt account.",
+      "The full Velt feature suite (Comments, Notifications, Recordings, Multiplayer Editing, Live State Sync, Live Selection, Huddle, Presence, Cursors, and Reactions) plus the managed infrastructure, pre-built schemas, and enterprise-grade encryption that ship with every Velt account.",
   },
   {
     question: "How do I claim it?",
@@ -146,7 +146,7 @@ const PROCESS_STEPS: Array<{ step: string; title: string; body: string }> = [
   {
     step: "01",
     title: "Get a free API key",
-    body: "Sign up at console.velt.dev with your YC email so we can verify your batch. Start integrating immediately — no call required to start.",
+    body: "Sign up at console.velt.dev with your YC email so we can verify your batch. Start integrating immediately: no call required to start.",
   },
   {
     step: "02",
@@ -320,7 +320,7 @@ export default function YcPage() {
           decorated
           eyebrow={{ label: "$499/mo for YC teams under $1M ARR", dotColor: "#FFCD2E" }}
           heading="Make something people want"
-          subheading="Ship the high-quality collaborative features users expect from the best YC companies — comments, notifications, multiplayer editing, presence, and cursors. Live in a week, not 4-5 months."
+          subheading="Ship the high-quality collaborative features users expect from the best YC companies: comments, notifications, multiplayer editing, presence, and cursors. Live in a week, not 4-5 months."
           primaryCta={{ label: "Book a call", href: "/book-demo" }}
           secondaryCta={{
             label: "Get free API key",

@@ -10,6 +10,19 @@ import {
 } from "./marketingPage";
 import { customer } from "./customer";
 import { integrationPage } from "./integrationPage";
+import {
+  integrationLibrary,
+  integrationCapabilities,
+  integrationFeatureCard,
+} from "./integrationLibrary";
+import {
+  integrationsHubPage,
+  integrationsHubHero,
+  integrationsHowItWorksStep,
+  integrationsStackLink,
+  integrationsVertical,
+  integrationsFinalCta,
+} from "./integrationsHubPage";
 import { demoPage } from "./demoPage";
 import { examplePage } from "./examplePage";
 import {
@@ -71,6 +84,12 @@ import {
   featureCustomerCard,
 } from "./featurePage";
 import {
+  featurePageV2,
+  vfpCtaBanner,
+  vfpInterstitial,
+} from "./featurePageV2";
+import { solutionPageV1 } from "./solutionPageV1";
+import {
   sectionFeatureGrid,
   featureItem,
 } from "./sections/featureGrid";
@@ -90,10 +109,14 @@ export const schemaTypes = [
   marketingPage,
   customer,
   integrationPage,
+  integrationLibrary,
+  integrationsHubPage,
   demoPage,
   examplePage,
   libraryPage,
   featurePage,
+  featurePageV2,
+  solutionPageV1,
   useCasePage,
   migrationPage,
 
@@ -103,9 +126,22 @@ export const schemaTypes = [
   getStartedSteps,
   faqItem,
 
+  // featurePageV2 sub-types
+  vfpCtaBanner,
+  vfpInterstitial,
+
   // Reusable building blocks
   ctaLink,
   bentoCard,
+
+  // integrationLibrary + integrationsHubPage sub-types
+  integrationCapabilities,
+  integrationFeatureCard,
+  integrationsHubHero,
+  integrationsHowItWorksStep,
+  integrationsStackLink,
+  integrationsVertical,
+  integrationsFinalCta,
 
   // blogPost sub-types
   blogBodyImage,

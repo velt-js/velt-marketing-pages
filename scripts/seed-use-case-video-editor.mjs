@@ -122,7 +122,7 @@ async function main() {
         eyebrow: "Build",
         heading: "Your users can create storyboards together",
         description:
-          "Users can co-create storyboards collaboratively without ever leaving your video editor.",
+          "Users can create storyboards collaboratively without ever leaving your video editor.",
         features: sharedFeatures,
         image: rowImage,
         imagePosition: "right",
@@ -131,7 +131,7 @@ async function main() {
         _type: "useCaseFeatureRow",
         _key: "row-review",
         eyebrow: "Review",
-        heading: "Frame by frame feedback and everything in between",
+        heading: "Frame-by-frame feedback and everything in between",
         description:
           "Users can directly comment on individual frames or on segments of the media timeline.",
         features: sharedFeatures,
@@ -169,7 +169,7 @@ async function main() {
           _key: "integration",
           question: "How long does integration take?",
           answer:
-            "Most teams ship a working integration in under a week. Drop-in components cover the common surfaces (comments, presence, notifications, huddles); the API surface customises behaviour.",
+            "Most teams ship a working integration in under a week. Drop-in components cover the common surfaces (comments, presence, notifications, huddles); the API surface customizes behavior.",
         },
         {
           _key: "customize",

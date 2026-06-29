@@ -1,16 +1,16 @@
 // Shared helpers for LLM-friendly text endpoints. Consumed by:
-//   - app/llms.txt/route.ts         — curated index
-//   - app/llms-full.txt/route.ts    — full concatenated content
-//   - app/api/md/[[...slug]]/route.ts — per-page .md endpoint
+//   - app/llms.txt/route.ts         : curated index
+//   - app/llms-full.txt/route.ts    : full concatenated content
+//   - app/api/md/[[...slug]]/route.ts : per-page .md endpoint
 //     (reached via middleware.ts which rewrites velt.dev/foo.md → here)
 //
 // Two responsibilities:
-//   1. portableTextToMarkdown — serialize Sanity Portable Text blocks to
+//   1. portableTextToMarkdown: serialize Sanity Portable Text blocks to
 //      CommonMark. Handles headings (h1-h4), paragraphs, ordered/bullet
 //      lists with nesting, blockquotes, code blocks, inline marks
 //      (strong/em/code/link), and Sanity's `code` + `image` + `table`
 //      block types.
-//   2. getPageMarkdown / getAllPageMarkdowns — central lookup that
+//   2. getPageMarkdown / getAllPageMarkdowns: central lookup that
 //      returns { url, title, markdown } for every marketing-site URL.
 //      Static React pages have hand-authored markdown summaries; Sanity
 //      docs are fetched fresh and serialized on demand.
@@ -20,18 +20,31 @@ import {
   getAllBlogPosts,
   getAllDemoPages,
   getAllFeaturePages,
+  getAllFeatureV2Slugs,
   getAllIntegrationSlugs,
   getAllLibraryPages,
+  getAllLibrariesV2,
+  getAllLibraryV2Slugs,
+  getAllSolutionSlugs,
   getAllUseCasePages,
   getBlogPostBySlug,
   getDemoPageBySlug,
   getFeaturePageBySlug,
+  getFeaturePageV2BySlug,
   getIntegrationPageBySlug,
   getLibraryPageBySlug,
+  getLibraryPageV2BySlug,
   getMigrationPageBySlug,
+  getSolutionPageBySlug,
   getUseCasePageBySlug,
 } from "@/sanity/queries";
 import { sanitySlugToUrl, urlSlugToSanity } from "@/lib/feature-slugs";
+import type { FeaturePageContent } from "@/components/feature-new/content";
+import type { SpectrumContent } from "@/components/feature-new/Spectrum";
+import type { GalleryContent } from "@/components/feature-new/ExamplesGallery";
+import { customizationContent, spectrumContent, galleryContent } from "@/app/customization/content";
+import { devtoolsContent } from "@/app/devtools/content";
+import { platformContent } from "@/app/platform/content";
 
 export const SITE_URL = "https://velt.dev";
 
@@ -214,6 +227,43 @@ function bullet(label: string, href?: string | null): string {
 
 function joinSections(parts: Array<string | null | undefined>): string {
   return parts.filter((p): p is string => Boolean(p && p.trim())).join("\n\n");
+}
+
+// ---------------------------------------------------------------------------
+// CTA strip: removes marketing call-to-action links/text from .md mirrors.
+// Goal: zero occurrences of "Get Free API Key" or "Book Demo" in any output.
+// Does NOT touch the rendered HTML pages.
+// ---------------------------------------------------------------------------
+
+/**
+ * Remove CTA links and bare CTA text from a markdown string. Also collapses
+ * dangling " · " separators and 3+ consecutive blank lines to 2.
+ *
+ * @param md - Raw markdown string produced by a page serializer.
+ * @returns Cleaned markdown with no CTA phrases.
+ */
+function stripCtas(md: string): string {
+  const CTA_PATTERN =
+    /get free api key|get api key|book a demo|book demo|book a slot|book a consult|book a migration call|apply now/i;
+
+  // Remove markdown links whose visible text matches CTA_PATTERN
+  let result = md.replace(/\[([^\]]+)\]\([^)]+\)/g, (match, label: string) => {
+    if (CTA_PATTERN.test(label)) return "";
+    return match;
+  });
+
+  // Remove bare standalone CTA strings that survived as plain text
+  result = result.replace(/\bGet Free API Key\b/g, "");
+  result = result.replace(/\bBook Demo\b/g, "");
+
+  // Clean up leftover " · " separators at the start or end of lines
+  result = result.replace(/^ ?· ?/gm, "");
+  result = result.replace(/ ?· ?$/gm, "");
+
+  // Collapse 3+ consecutive blank lines to 2
+  result = result.replace(/\n{4,}/g, "\n\n\n");
+
+  return result.trim();
 }
 
 // ---------------------------------------------------------------------------
@@ -433,6 +483,301 @@ async function featureMarkdown(urlSlug: string): Promise<PageMarkdown | null> {
   };
 }
 
+// ---------------------------------------------------------------------------
+// v2 feature page serializer
+// ---------------------------------------------------------------------------
+
+/**
+ * Serialize a v2 feature page (featurePageV2 Sanity type) to markdown.
+ * Returns null when the document is missing or has no hero title.
+ *
+ * @param slug - The URL slug, used verbatim for the canonical URL.
+ */
+async function featureV2Markdown(slug: string): Promise<PageMarkdown | null> {
+  const doc = await getFeaturePageV2BySlug(slug) as {
+    title?: string;
+    hero?: {
+      title?: string;
+      secondary?: string;
+      kicker?: string;
+    };
+    whatItIs?: { heading?: string; body?: string };
+    howItWorks?: {
+      heading?: string;
+      support?: string;
+      steps?: Array<{ title?: string; code?: string; filename?: string }>;
+      mechanics?: { body?: string };
+      buildVsBuy?: { items?: string[] };
+    };
+    showcase?: {
+      heading?: string;
+      support?: string;
+      cards?: Array<{ name?: string; headline?: string; code?: string }>;
+      interstitial?: { quote?: string; who?: string };
+    };
+    details?: {
+      heading?: string;
+      support?: string;
+      items?: Array<{ label?: string; soon?: boolean }>;
+    };
+    makeItYours?: {
+      heading?: string;
+      support?: string;
+      cards?: Array<{ title?: string; body?: string; code?: string }>;
+    };
+    inProduction?: {
+      heading?: string;
+      support?: string;
+      tabs?: Array<{ caption?: string }>;
+      whereItFits?: { links?: Array<{ label?: string; href?: string }> };
+    };
+    testimonials?: {
+      heading?: string;
+      cards?: Array<{ metric?: string; quote?: string; who?: string }>;
+    };
+    faq?: { items?: Array<{ question?: string; answer?: string }> };
+  } | null;
+
+  if (!doc?.hero?.title) return null;
+
+  const parts: string[] = [];
+
+  // Lead paragraph from hero
+  if (doc.hero?.secondary) parts.push(clean(doc.hero.secondary));
+
+  // What it is
+  const wii = doc.whatItIs;
+  if (wii?.heading || wii?.body) {
+    if (wii?.heading) parts.push(heading(2, clean(wii.heading)));
+    if (wii?.body) parts.push(clean(wii.body));
+  }
+
+  // How it works
+  const hiw = doc.howItWorks;
+  if (hiw?.heading || hiw?.support) {
+    if (hiw?.heading) parts.push(heading(2, clean(hiw.heading)));
+    if (hiw?.support) parts.push(clean(hiw.support));
+    for (const step of hiw?.steps ?? []) {
+      if (step?.title) parts.push(heading(3, clean(step.title)));
+      if (step?.code) parts.push("```\n" + step.code + "\n```");
+    }
+    if (hiw?.mechanics?.body) parts.push(clean(hiw.mechanics.body));
+    const bvbItems = hiw?.buildVsBuy?.items ?? [];
+    if (bvbItems.length > 0) {
+      parts.push(
+        bvbItems
+          .map((item) => bullet(clean(typeof item === "string" ? item : String(item))))
+          .filter(Boolean)
+          .join("\n")
+      );
+    }
+  }
+
+  // Showcase
+  const sc = doc.showcase;
+  if (sc?.heading || sc?.support) {
+    if (sc?.heading) parts.push(heading(2, clean(sc.heading)));
+    if (sc?.support) parts.push(clean(sc.support));
+    for (const card of sc?.cards ?? []) {
+      const cardTitle = clean(card?.headline ?? card?.name ?? "");
+      if (cardTitle) parts.push(heading(3, cardTitle));
+      if (card?.code) parts.push("```\n" + card.code + "\n```");
+    }
+    if (sc?.interstitial?.quote) {
+      parts.push(`> ${clean(sc.interstitial.quote)}`);
+    }
+  }
+
+  // Details
+  const det = doc.details;
+  if (det?.heading || det?.support) {
+    if (det?.heading) parts.push(heading(2, clean(det.heading)));
+    if (det?.support) parts.push(clean(det.support));
+    const detItems = (det?.items ?? [])
+      .map((item) => {
+        const label = clean(item?.label ?? "");
+        if (!label) return "";
+        return bullet(item?.soon ? `${label} (coming soon)` : label);
+      })
+      .filter(Boolean);
+    if (detItems.length > 0) parts.push(detItems.join("\n"));
+  }
+
+  // Make it yours
+  const miy = doc.makeItYours;
+  if (miy?.heading || miy?.support) {
+    if (miy?.heading) parts.push(heading(2, clean(miy.heading)));
+    if (miy?.support) parts.push(clean(miy.support));
+    for (const card of miy?.cards ?? []) {
+      if (card?.title) parts.push(heading(3, clean(card.title)));
+      if (card?.body) parts.push(clean(card.body));
+      if (card?.code) parts.push("```\n" + card.code + "\n```");
+    }
+  }
+
+  // In production (no ctaBanner)
+  const inp = doc.inProduction;
+  if (inp?.heading || inp?.support) {
+    if (inp?.heading) parts.push(heading(2, clean(inp.heading)));
+    if (inp?.support) parts.push(clean(inp.support));
+    for (const tab of inp?.tabs ?? []) {
+      if (tab?.caption) parts.push(clean(tab.caption));
+    }
+    const fitLinks = (inp?.whereItFits?.links ?? [])
+      .map((link) => bullet(clean(link?.label ?? ""), link?.href ?? undefined))
+      .filter(Boolean);
+    if (fitLinks.length > 0) parts.push(fitLinks.join("\n"));
+  }
+
+  // Testimonials
+  const test = doc.testimonials;
+  if (test?.heading) {
+    parts.push(heading(2, clean(test.heading)));
+    for (const card of test?.cards ?? []) {
+      if (!card?.quote) continue;
+      const prefix = card?.metric ? `${clean(card.metric)}: ` : "";
+      parts.push(`> ${prefix}${clean(card.quote)}`);
+      if (card?.who) parts.push(`- ${clean(card.who)}`);
+    }
+  }
+
+  // FAQ
+  const faqMd = faqMarkdown(doc.faq);
+  if (faqMd) parts.push(faqMd);
+
+  return {
+    url: `${SITE_URL}/${slug}`,
+    title: clean(doc.title ?? doc.hero.title ?? ""),
+    markdown: joinSections(parts),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Solution page serializer
+// ---------------------------------------------------------------------------
+
+/**
+ * Serialize a v1 solution/vertical page (solutionPageV1 Sanity type) to markdown.
+ * Returns null when the document is missing or has no hero title.
+ *
+ * @param slug - The URL slug; the canonical URL will be /for/{slug}.
+ */
+async function solutionMarkdown(slug: string): Promise<PageMarkdown | null> {
+  const doc = await getSolutionPageBySlug(slug) as {
+    title?: string;
+    hero?: { title?: string; secondary?: string };
+    reviewReality?: { heading?: string; items?: string[]; close?: string };
+    theLoop?: {
+      heading?: string;
+      body?: string;
+      beats?: Array<{ title?: string; body?: string; beta?: boolean }>;
+    };
+    featureMap?: {
+      heading?: string;
+      support?: string;
+      cards?: Array<{ name?: string; oneLiner?: string; code?: string }>;
+    };
+    agentLayer?: { heading?: string; body?: string };
+    inProduction?: {
+      heading?: string;
+      body?: string;
+      metric?: string;
+      quote?: string;
+      who?: string;
+    };
+    compliance?: {
+      heading?: string;
+      lead?: string;
+      items?: Array<{ title?: string; body?: string }>;
+    };
+    faq?: { items?: Array<{ question?: string; answer?: string }> };
+  } | null;
+
+  if (!doc?.hero?.title) return null;
+
+  const parts: string[] = [];
+
+  // Lead paragraph from hero
+  if (doc.hero?.secondary) parts.push(clean(doc.hero.secondary));
+
+  // Review reality
+  const rr = doc.reviewReality;
+  if (rr?.heading) {
+    parts.push(heading(2, clean(rr.heading)));
+    const rrItems = (rr?.items ?? [])
+      .map((item) => bullet(clean(typeof item === "string" ? item : String(item))))
+      .filter(Boolean);
+    if (rrItems.length > 0) parts.push(rrItems.join("\n"));
+    if (rr?.close) parts.push(clean(rr.close));
+  }
+
+  // The loop
+  const tl = doc.theLoop;
+  if (tl?.heading || tl?.body) {
+    if (tl?.heading) parts.push(heading(2, clean(tl.heading)));
+    if (tl?.body) parts.push(clean(tl.body));
+    for (const beat of tl?.beats ?? []) {
+      if (beat?.title) {
+        const beatTitle = beat?.beta ? `${clean(beat.title)} (beta)` : clean(beat.title);
+        parts.push(heading(3, beatTitle));
+      }
+      if (beat?.body) parts.push(clean(beat.body));
+    }
+  }
+
+  // Feature map
+  const fm = doc.featureMap;
+  if (fm?.heading || fm?.support) {
+    if (fm?.heading) parts.push(heading(2, clean(fm.heading)));
+    if (fm?.support) parts.push(clean(fm.support));
+    for (const card of fm?.cards ?? []) {
+      if (card?.name) parts.push(heading(3, clean(card.name)));
+      if (card?.oneLiner) parts.push(clean(card.oneLiner));
+      if (card?.code) parts.push("```\n" + card.code + "\n```");
+    }
+  }
+
+  // Agent layer
+  const al = doc.agentLayer;
+  if (al?.heading || al?.body) {
+    if (al?.heading) parts.push(heading(2, clean(al.heading)));
+    if (al?.body) parts.push(clean(al.body));
+  }
+
+  // In production (no ctaBanner)
+  const inp = doc.inProduction;
+  if (inp?.heading || inp?.body) {
+    if (inp?.heading) parts.push(heading(2, clean(inp.heading)));
+    if (inp?.body) parts.push(clean(inp.body));
+    if (inp?.metric) parts.push(clean(inp.metric));
+    if (inp?.quote) {
+      parts.push(`> ${clean(inp.quote)}`);
+      if (inp?.who) parts.push(`- ${clean(inp.who)}`);
+    }
+  }
+
+  // Compliance
+  const comp = doc.compliance;
+  if (comp?.heading || comp?.lead) {
+    if (comp?.heading) parts.push(heading(2, clean(comp.heading)));
+    if (comp?.lead) parts.push(clean(comp.lead));
+    for (const item of comp?.items ?? []) {
+      if (item?.title) parts.push(heading(3, clean(item.title)));
+      if (item?.body) parts.push(clean(item.body));
+    }
+  }
+
+  // FAQ
+  const faqMd = faqMarkdown(doc.faq);
+  if (faqMd) parts.push(faqMd);
+
+  return {
+    url: `${SITE_URL}/for/${slug}`,
+    title: clean(doc.title ?? doc.hero.title ?? ""),
+    markdown: joinSections(parts),
+  };
+}
+
 type LibraryDoc = {
   title?: string;
   tagline?: string;
@@ -485,6 +830,82 @@ async function libraryMarkdown(slug: string): Promise<PageMarkdown | null> {
   return {
     url: `${SITE_URL}/libraries/${slug}`,
     title: doc.title ?? doc.hero.heading,
+    markdown: joinSections(parts),
+  };
+}
+
+type LibraryV2Doc = {
+  name?: string;
+  kind?: string;
+  beta?: boolean;
+  heroTitle?: string;
+  heroSecondary?: string;
+  problemHeader?: string;
+  problemBody?: string;
+  builtForLine?: string;
+  featureCards?: Array<{ title?: string; body?: string; featureHref?: string }>;
+  agentsCardBody?: string;
+  setupPackages?: string;
+  valueProps?: string[];
+  setupNote?: string;
+  faq?: Array<{ question?: string; answer?: string }>;
+};
+
+// .md mirror for the v2 libraries (libraryPageV2). Built from the same fields
+// the SpokeView renders, so /libraries/{slug}.md matches the page.
+async function libraryV2Markdown(slug: string): Promise<PageMarkdown | null> {
+  const doc = (await getLibraryPageV2BySlug(slug)) as LibraryV2Doc | null;
+  if (!doc?.name) return null;
+  const betaSuffix = doc.beta ? " (beta)" : "";
+  const title = `${doc.heroTitle ?? `Velt for ${doc.name}`}${betaSuffix}`;
+  const parts: string[] = [];
+  if (doc.heroSecondary) parts.push(clean(doc.heroSecondary));
+  if (doc.problemBody) {
+    parts.push(heading(2, doc.problemHeader ?? `Why build with Velt on ${doc.name}`));
+    parts.push(clean(doc.problemBody));
+  }
+  if (doc.builtForLine) {
+    parts.push(heading(2, `Built for ${doc.name}`));
+    parts.push(clean(doc.builtForLine));
+  }
+  if (doc.featureCards && doc.featureCards.length > 0) {
+    parts.push(heading(2, "Features"));
+    parts.push(
+      doc.featureCards
+        .map((card) => {
+          const body = card.body ? `: ${clean(card.body)}` : "";
+          const href = card.featureHref ? ` (${SITE_URL}${card.featureHref})` : "";
+          return `- **${clean(card.title ?? "")}**${body}${href}`;
+        })
+        .join("\n"),
+    );
+  }
+  if (doc.agentsCardBody) {
+    parts.push(heading(2, "Agents"));
+    parts.push(clean(doc.agentsCardBody));
+  }
+  if (doc.valueProps && doc.valueProps.length > 0) {
+    parts.push(heading(2, "What you get"));
+    parts.push(doc.valueProps.map((prop) => `- ${clean(prop)}`).join("\n"));
+  }
+  if (doc.setupPackages) {
+    parts.push(heading(2, "Setup"));
+    parts.push("```bash\nnpm install " + doc.setupPackages.trim() + "\n```");
+  } else if (doc.setupNote) {
+    parts.push(heading(2, "Setup"));
+    parts.push(clean(doc.setupNote));
+  }
+  if (doc.faq && doc.faq.length > 0) {
+    parts.push(heading(2, "FAQ"));
+    parts.push(
+      doc.faq
+        .map((entry) => `**${clean(entry.question ?? "")}** ${clean(entry.answer ?? "")}`)
+        .join("\n\n"),
+    );
+  }
+  return {
+    url: `${SITE_URL}/libraries/${slug}`,
+    title,
     markdown: joinSections(parts),
   };
 }
@@ -605,7 +1026,7 @@ async function useCaseMarkdown(slug: string): Promise<PageMarkdown | null> {
       .map((s) => clean(s ?? ""))
       .filter(Boolean)
       .join(", ");
-    if (attribution) parts.push(`— ${attribution}`);
+    if (attribution) parts.push(`- ${attribution}`);
   }
   parts.push(faqMarkdown(doc.faq));
   return {
@@ -643,7 +1064,7 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
   if (subheading) parts.push(clean(subheading));
 
   // Three optional content slots from the Sanity schema (connect / payload /
-  // unified) — these mirror the on-page sections rendered by
+  // unified) -- these mirror the on-page sections rendered by
   // IntegrationConnectSection.
   if (doc.connectBody) {
     parts.push(heading(2, `Connect ${doc.name}`));
@@ -677,7 +1098,248 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
 }
 
 // ---------------------------------------------------------------------------
-// Static-page registry — hand-authored markdown summaries for React pages
+// In-repo new-theme platform pages: /customization, /devtools, /platform.
+// These render locally from typed FeaturePageContent modules in
+// app/<slug>/content.tsx (NOT from Sanity). Serialize that same content so the
+// .md mirrors and llms-full.txt reflect the live page, not the stale legacy
+// sources (the v1 Sanity docs `dev-tools`/`admin-console` or the old
+// hand-authored STATIC_PAGES summary). CTA/chrome stripping (mirror-purity,
+// CI gate 7) is applied by the callers via stripCtas().
+// ---------------------------------------------------------------------------
+
+type InRepoFeaturePage = {
+  content: FeaturePageContent;
+  /** Include the per-card fenced code block (agents quote these). */
+  includeCardCode: boolean;
+  /** Spectrum diagram (customization only). */
+  spectrum?: SpectrumContent;
+  /** Examples gallery, which replaces the In Production section (customization only). */
+  gallery?: GalleryContent;
+};
+
+const IN_REPO_FEATURE_PAGES: Record<string, InRepoFeaturePage> = {
+  customization: {
+    content: customizationContent,
+    includeCardCode: true,
+    spectrum: spectrumContent,
+    gallery: galleryContent,
+  },
+  devtools: { content: devtoolsContent, includeCardCode: false },
+  platform: { content: platformContent, includeCardCode: false },
+};
+
+/** Serialize the showcase cards. With code: "### name" + headline + fenced
+ * code; without: a "- **name**: headline" markdown list. */
+function showcaseContentMarkdown(
+  showcase: FeaturePageContent["showcase"],
+  includeCode: boolean
+): string {
+  const cards = showcase?.cards ?? [];
+  if (cards.length === 0) return "";
+  const parts: string[] = [];
+  if (showcase.heading) parts.push(heading(2, clean(showcase.heading)));
+  if (showcase.support) parts.push(clean(showcase.support));
+  if (includeCode) {
+    for (const card of cards) {
+      const name = clean(card?.name ?? "");
+      if (name) parts.push(heading(3, name));
+      const headline = clean(card?.headline ?? "");
+      if (headline) parts.push(headline);
+      const code = typeof card?.code === "string" ? card.code.trim() : "";
+      if (code) parts.push("```\n" + code + "\n```");
+    }
+  } else {
+    const list = cards
+      .map((card) => {
+        const name = clean(card?.name ?? "");
+        const headline = clean(card?.headline ?? "");
+        if (!name) return "";
+        return headline ? `- **${name}**: ${headline}` : `- ${name}`;
+      })
+      .filter(Boolean);
+    if (list.length > 0) parts.push(list.join("\n"));
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize the Little Big Details wall as a bulleted index. */
+function detailsContentMarkdown(details: FeaturePageContent["details"]): string {
+  const items = (details?.items ?? [])
+    .map((item) => {
+      const label = clean(item?.label ?? "");
+      if (!label) return "";
+      return `- ${item?.soon ? `${label} (coming soon)` : label}`;
+    })
+    .filter(Boolean);
+  if (items.length === 0) return "";
+  const parts: string[] = [];
+  if (details.heading) parts.push(heading(2, clean(details.heading)));
+  parts.push(items.join("\n"));
+  return parts.join("\n\n");
+}
+
+/** Serialize the In Production section as where-it-fits text (captions + the
+ * where-it-fits link labels), no visuals or CTAs. */
+function inProductionContentMarkdown(
+  inProduction: FeaturePageContent["inProduction"]
+): string {
+  const tabs = inProduction?.tabs ?? [];
+  const links = inProduction?.whereItFits?.links ?? [];
+  if (tabs.length === 0 && links.length === 0) return "";
+  const parts: string[] = [];
+  if (inProduction?.heading) parts.push(heading(2, clean(inProduction.heading)));
+  if (inProduction?.support) parts.push(clean(inProduction.support));
+  const captions = tabs
+    .map((tab) => {
+      const label = clean(tab?.label ?? "");
+      const caption = clean(tab?.caption ?? "");
+      if (!caption) return "";
+      return label ? `- **${label}**: ${caption}` : `- ${caption}`;
+    })
+    .filter(Boolean);
+  if (captions.length > 0) parts.push(captions.join("\n"));
+  if (links.length > 0) {
+    parts.push(heading(3, clean(inProduction?.whereItFits?.label ?? "Where it fits")));
+    parts.push(
+      links.map((link) => bullet(clean(link?.label ?? ""))).filter(Boolean).join("\n")
+    );
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize the examples gallery (customization) as captioned analogies plus
+ * the where-it-fits link labels. */
+function galleryContentMarkdown(gallery: GalleryContent): string {
+  const parts: string[] = [];
+  if (gallery.heading) parts.push(heading(2, clean(gallery.heading)));
+  if (gallery.support) parts.push(clean(gallery.support));
+  const items = (gallery.items ?? [])
+    .map((item) => {
+      const label = clean(item?.label ?? "");
+      const analogy = clean(item?.analogy ?? "");
+      if (!label) return "";
+      return analogy ? `- **${label}**: ${analogy}` : `- ${label}`;
+    })
+    .filter(Boolean);
+  if (items.length > 0) parts.push(items.join("\n"));
+  const links = gallery.whereItFits?.links ?? [];
+  if (links.length > 0) {
+    parts.push(heading(3, clean(gallery.whereItFits?.label ?? "Where it fits")));
+    parts.push(
+      links.map((link) => bullet(clean(link?.label ?? ""))).filter(Boolean).join("\n")
+    );
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize the customization spectrum as a text diagram: the layers, the
+ * effort axis, and the behavior axis. */
+function spectrumContentMarkdown(spectrum: SpectrumContent): string {
+  const parts: string[] = [];
+  if (spectrum.heading) parts.push(heading(2, clean(spectrum.heading)));
+  if (spectrum.support) parts.push(clean(spectrum.support));
+  const layers = (spectrum.layers ?? [])
+    .map((layer) => {
+      const name = clean(layer?.name ?? "");
+      const sub = clean(layer?.sub ?? "");
+      if (!name) return "";
+      return sub ? `- **${name}**: ${sub}` : `- ${name}`;
+    })
+    .filter(Boolean);
+  if (layers.length > 0) parts.push(layers.join("\n"));
+  if (spectrum.axisLeft || spectrum.axisRight) {
+    parts.push(`*${clean(spectrum.axisLeft ?? "")} to ${clean(spectrum.axisRight ?? "")}*`);
+  }
+  const behaviorItems = (spectrum.behaviorItems ?? []).map((item) => clean(item)).filter(Boolean);
+  if (behaviorItems.length > 0) {
+    parts.push(`**${clean(spectrum.behaviorLabel ?? "Behavior")}**: ${behaviorItems.join(", ")}`);
+  }
+  return parts.join("\n\n");
+}
+
+/** Serialize a FaqContent block to "## FAQ" + "### question" + answer. */
+function faqContentMarkdown(faq: FeaturePageContent["faq"]): string {
+  const items = (faq?.items ?? []).filter((item) => item?.q);
+  if (items.length === 0) return "";
+  const parts: string[] = [heading(2, "FAQ")];
+  for (const item of items) {
+    parts.push(`### ${clean(item.q)}`);
+    if (item.a) parts.push(clean(item.a));
+  }
+  return parts.join("\n\n");
+}
+
+/**
+ * Serialize a new-theme FeaturePageContent module to the .md mirror body:
+ * hero (secondary + accent), what-it-is, how-it-works mechanics, the showcase
+ * cards, the details wall, the where-it-fits captions (or the gallery for
+ * customization), and the FAQ. No nav/footer/CTA chrome.
+ *
+ * @param entry - The registered in-repo page (content + serialization options).
+ * @returns The CommonMark body (no leading H1; the route prepends the title).
+ */
+function featureContentToMarkdown(entry: InRepoFeaturePage): string {
+  const content = entry.content;
+  const parts: string[] = [];
+
+  if (content.hero?.secondary) parts.push(clean(content.hero.secondary));
+  if (content.hero?.accent) parts.push(clean(content.hero.accent));
+
+  if (content.whatItIs?.heading) parts.push(heading(2, clean(content.whatItIs.heading)));
+  if (typeof content.whatItIs?.body === "string" && content.whatItIs.body) {
+    parts.push(clean(content.whatItIs.body));
+  }
+
+  const mechanics = content.howItWorks?.mechanics;
+  if (mechanics?.heading) parts.push(heading(2, clean(mechanics.heading)));
+  if (typeof mechanics?.body === "string" && mechanics.body) {
+    parts.push(clean(mechanics.body));
+  }
+
+  if (entry.spectrum) {
+    const spectrumMd = spectrumContentMarkdown(entry.spectrum);
+    if (spectrumMd) parts.push(spectrumMd);
+  }
+
+  const showcaseMd = showcaseContentMarkdown(content.showcase, entry.includeCardCode);
+  if (showcaseMd) parts.push(showcaseMd);
+
+  const detailsMd = detailsContentMarkdown(content.details);
+  if (detailsMd) parts.push(detailsMd);
+
+  if (entry.gallery) {
+    const galleryMd = galleryContentMarkdown(entry.gallery);
+    if (galleryMd) parts.push(galleryMd);
+  } else {
+    const inProductionMd = inProductionContentMarkdown(content.inProduction);
+    if (inProductionMd) parts.push(inProductionMd);
+  }
+
+  const faqMd = faqContentMarkdown(content.faq);
+  if (faqMd) parts.push(faqMd);
+
+  return joinSections(parts);
+}
+
+/**
+ * Build the PageMarkdown for one of the in-repo new-theme platform pages, or
+ * null if the slug is not one of them. The title is the hero H1 so the .md
+ * mirror, the on-page H1, and the WebPage JSON-LD all agree.
+ *
+ * @param slug - The single-segment URL slug (e.g. "customization").
+ */
+function inRepoFeatureMarkdown(slug: string): PageMarkdown | null {
+  const entry = IN_REPO_FEATURE_PAGES[slug];
+  if (!entry) return null;
+  return {
+    url: `${SITE_URL}/${slug}`,
+    title: clean(entry.content.hero.title),
+    markdown: featureContentToMarkdown(entry),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Static-page registry: hand-authored markdown summaries for React pages
 // whose meaningful content is buried in JSX. Order is the ordering the
 // llms-full.txt route emits (high-priority pages first).
 // ---------------------------------------------------------------------------
@@ -685,21 +1347,21 @@ async function integrationMarkdown(slug: string): Promise<PageMarkdown | null> {
 const STATIC_PAGES: PageMarkdown[] = [
   {
     url: `${SITE_URL}/`,
-    title: "Velt — The Collaboration Stack for B2B",
+    title: "Velt: The Collaboration Stack for B2B",
     markdown: `Velt is the review and approval infrastructure layer for AI-generated work. Add powerful real-time and multiplayer features to your product with an embeddable SDK for comments, presence, annotations, notifications, recordings, and approval workflows.
 
 ## What you get
 
-- **Comments** — block-anchored inline comments, threaded replies, reactions
-- **Notifications** — in-app, email, and Slack delivery with native UI
-- **Recordings** — Loom-style screen and webcam recording with auto-generated links
-- **Presence & multiplayer** — live cursors, avatars, follow-me mode, shared state
-- **Approval workflows** — review queues, status tracking, approve/reject UI
-- **Admin console & analytics** — moderation, analytics, audit logs out of the box
+- **Comments**: block-anchored inline comments, threaded replies, reactions
+- **Notifications**: in-app, email, and Slack delivery with native UI
+- **Recordings**: Loom-style screen and webcam recording with auto-generated links
+- **Presence & multiplayer**: live cursors, avatars, follow-me mode, shared state
+- **Approval workflows**: review queues, status tracking, approve/reject UI
+- **Admin console & analytics**: moderation, analytics, audit logs out of the box
 
 ## Built for B2B SaaS
 
-Used by Stensul, trumpet, Privado, Cofactr, OpenEnvoy, and others. SOC 2 Type II and HIPAA compliant. Pre-built drop-in components for React, Next.js, Angular, Vue, and Vanilla JS — or use the headless APIs.
+Used by Stensul, trumpet, Privado, Cofactr, OpenEnvoy, and others. SOC 2 Type II and HIPAA compliant. Pre-built drop-in components for React, Next.js, Angular, Vue, and Vanilla JS, or use the headless APIs.
 
 ## Integration in minutes
 
@@ -709,12 +1371,12 @@ Most teams ship a working integration in under 30 minutes. The free Hacker plan 
   },
   {
     url: `${SITE_URL}/pricing`,
-    title: "Velt Pricing — Collaboration SDK Plans",
-    markdown: `Pay only for meaningful collaboration usage. Velt bills on MADs (Monthly Active Documents) — a document only counts when it has active CRUD operations from a Velt feature like comments, notifications, or CRDT. Documents that are merely initialized don't count.
+    title: "Velt Pricing: Collaboration SDK Plans",
+    markdown: `Pay only for meaningful collaboration usage. Velt bills on MADs (Monthly Active Documents): a document only counts when it has active CRUD operations from a Velt feature like comments, notifications, or CRDT. Documents that are merely initialized don't count.
 
 ## Plans
 
-### Hacker — Free
+### Hacker: Free
 For hackathon or side projects.
 - 100 MADs
 - All Features (15+)
@@ -724,7 +1386,7 @@ For hackathon or side projects.
 - Real-time infrastructure
 - Dev environments only (no production deployment)
 
-### Growth — Contract-based
+### Growth: Contract-based
 For teams shipping collaboration features to production.
 - Everything in Hacker
 - Production deployment
@@ -732,7 +1394,7 @@ For teams shipping collaboration features to production.
 - Priority support
 - Advanced webhooks and APIs
 
-### Enterprise — Contract-based
+### Enterprise: Contract-based
 For organizations with security, compliance, or self-hosting needs.
 - Everything in Growth
 - SOC 2 Type II / HIPAA
@@ -742,32 +1404,32 @@ For organizations with security, compliance, or self-hosting needs.
 
 ## Why MAD-based pricing?
 
-Most collaboration vendors charge per MAR (Monthly Active Room) — a room counts as active when any user connects, even if nothing happens. Velt only charges for documents where users actually use collaboration features. Typically about 20% of MARs perform meaningful collaboration actions, so MAD-based pricing is significantly cheaper for most workloads.
+Most collaboration vendors charge per MAR (Monthly Active Room): a room counts as active when any user connects, even if nothing happens. Velt only charges for documents where users actually use collaboration features. Typically about 20% of MARs perform meaningful collaboration actions, so MAD-based pricing is significantly cheaper for most workloads.
 
 ## Discounts
 
-Special deals for early-stage startups (apply via the startup discount form). Volume discounts on Growth and Enterprise — book a demo to discuss.
+Special deals for early-stage startups (apply via the startup discount form). Volume discounts on Growth and Enterprise, book a demo to discuss.
 
 [Get Free API Key](https://console.velt.dev/) · [Book a Demo](${SITE_URL}/book-demo)`,
   },
   {
     url: `${SITE_URL}/features`,
-    title: "Velt Features — Full List",
-    markdown: `Velt ships 15+ collaboration features as drop-in components or headless APIs. Mix and match — install the package, drop in the React components you need, and the rest of the SDK stays dormant.
+    title: "Velt Features: Full List",
+    markdown: `Velt ships 15+ collaboration features as drop-in components or headless APIs. Mix and match: install the package, drop in the React components you need, and the rest of the SDK stays dormant.
 
 ## Core features
 
-- **Comments** — block-anchored, threaded, with replies and reactions
-- **Notifications** — in-app, email, Slack delivery with native UI
-- **Recordings** — Loom-style screen + webcam capture
-- **Multiplayer** — live cursors, avatars, follow-me mode
-- **Presence** — see who's online and where
-- **Reactions** — emoji reactions on any element
-- **Mentions** — @-mentions with notifications and permissions
-- **Tasks** — turn comments into tasks with assignees and statuses
-- **Activity logs** — full audit trail of every action
-- **Admin console** — moderate content, view analytics, manage users
-- **Webhooks & API** — sync events into your backend or other tools
+- **Comments**: block-anchored, threaded, with replies and reactions
+- **Notifications**: in-app, email, Slack delivery with native UI
+- **Recordings**: Loom-style screen + webcam capture
+- **Multiplayer**: live cursors, avatars, follow-me mode
+- **Presence**: see who's online and where
+- **Reactions**: emoji reactions on any element
+- **Mentions**: @-mentions with notifications and permissions
+- **Tasks**: turn comments into tasks with assignees and statuses
+- **Activity logs**: full audit trail of every action
+- **Admin console**: moderate content, view analytics, manage users
+- **Webhooks & API**: sync events into your backend or other tools
 
 ## Platforms
 
@@ -826,7 +1488,7 @@ Every component is themeable via design tokens, or run headless and render your 
 
 ## Velt vs. Liveblocks
 
-Velt ships ready-to-use UI components for comments, notifications, recordings, and approvals out of the box. Liveblocks focuses on primitives (presence, storage, broadcast) — you build the UI yourself. Velt also includes recordings, an admin console, approval workflows, and email/Slack notifications natively. Liveblocks doesn't.
+Velt ships ready-to-use UI components for comments, notifications, recordings, and approvals out of the box. Liveblocks focuses on primitives (presence, storage, broadcast), and you build the UI yourself. Velt also includes recordings, an admin console, approval workflows, and email/Slack notifications natively. Liveblocks doesn't.
 
 Velt's MAD-based pricing typically runs ~5x cheaper than Liveblocks' MAR pricing for the same workload.
 
@@ -834,7 +1496,7 @@ Velt's MAD-based pricing typically runs ~5x cheaper than Liveblocks' MAR pricing
 
 ## Velt vs. Cord
 
-Cord shut down in 2024. Velt offers a drop-in replacement with similar comment APIs plus the rest of the collaboration stack — notifications, recordings, presence, admin console.
+Cord shut down in 2024. Velt offers a drop-in replacement with similar comment APIs plus the rest of the collaboration stack: notifications, recordings, presence, admin console.
 
 [Migrate from Cord](${SITE_URL}/migrate-from-cord-to-velt)
 
@@ -846,19 +1508,19 @@ Building a production-grade comments system takes 3-6 engineering months and ~5 
   },
   {
     url: `${SITE_URL}/customers`,
-    title: "Velt Customers — Trusted by Google, Pendo & More",
+    title: "Velt Customers: Trusted by Google, Pendo & More",
     markdown: `Velt powers collaboration features for B2B SaaS products across enterprise, growth-stage, and high-velocity teams. Customers report 26% engagement increase, 3 FTEs saved, and 5x faster shipping after adopting Velt.
 
 ## Featured customers
 
-- **Google** — collaboration features inside internal tools
-- **Pendo** — in-app commenting on product analytics
-- **Runway** — collaborative review on AI video edits
-- **Stensul** — comments and approvals on marketing emails
-- **trumpet** — buyer collaboration on B2B sales rooms
-- **Privado** — comments on privacy assessments
-- **Cofactr** — collaboration on supply-chain workflows
-- **OpenEnvoy** — collaborative invoice review
+- **Google**: collaboration features inside internal tools
+- **Pendo**: in-app commenting on product analytics
+- **Runway**: collaborative review on AI video edits
+- **Stensul**: comments and approvals on marketing emails
+- **trumpet**: buyer collaboration on B2B sales rooms
+- **Privado**: comments on privacy assessments
+- **Cofactr**: collaboration on supply-chain workflows
+- **OpenEnvoy**: collaborative invoice review
 
 ## Stories
 
@@ -867,39 +1529,16 @@ Customers use Velt to add comments to product analytics dashboards, marketing em
 [Read customer stories](${SITE_URL}/customers) · [Book a demo](${SITE_URL}/book-demo)`,
   },
   {
-    url: `${SITE_URL}/customization`,
-    title: "Customizing the Velt UI",
-    markdown: `Every Velt component is themeable via design tokens, or you can run the SDK headless and render your own UI on top of the APIs.
-
-## Themed mode
-
-Drop in the React components and override CSS custom properties to match your brand — colors, typography, spacing, border radius. Components inherit your tokens by default.
-
-## Composable mode
-
-Compose smaller UI primitives (CommentBubble, NotificationItem, ReactionPicker) into your own layouts. Pull from the same data source as the default UI.
-
-## Headless mode
-
-Use the Velt hooks and APIs without rendering any of our UI. Build your own React, Angular, Vue, or Vanilla JS components on top — Velt handles the data, real-time sync, and storage.
-
-## Server-side customization
-
-Customize comment metadata, notification copy, recipient lists, email templates, and permissions via webhooks and the REST API.
-
-[Customization docs](${SITE_URL}/docs)`,
-  },
-  {
     url: `${SITE_URL}/liveblocks-alternative`,
-    title: "Liveblocks Alternative — Why Teams Pick Velt",
-    markdown: `Velt is a Liveblocks alternative for B2B SaaS teams that want a full collaboration stack — not just primitives.
+    title: "Liveblocks Alternative: Why Teams Pick Velt",
+    markdown: `Velt is a Liveblocks alternative for B2B SaaS teams that want a full collaboration stack, not just primitives.
 
 ## What's different
 
-- **Drop-in UI** — Velt ships components for comments, notifications, recordings, approvals, admin console. Liveblocks ships primitives (presence, storage, broadcast). With Velt you get a working UI on day one; with Liveblocks you build it yourself.
-- **More features** — Recordings, admin console, approval workflows, email/Slack notifications. Liveblocks doesn't ship these.
-- **MAD pricing** — Velt bills on documents with actual collaboration. Liveblocks bills on MAR (any connected room). For the same workload Velt is typically ~5x cheaper.
-- **Faster to ship** — Most teams ship a working Velt integration in under 30 minutes vs. weeks for a custom Liveblocks build.
+- **Drop-in UI**: Velt ships components for comments, notifications, recordings, approvals, admin console. Liveblocks ships primitives (presence, storage, broadcast). With Velt you get a working UI on day one; with Liveblocks you build it yourself.
+- **More features**: Recordings, admin console, approval workflows, email/Slack notifications. Liveblocks doesn't ship these.
+- **MAD pricing**: Velt bills on documents with actual collaboration. Liveblocks bills on MAR (any connected room). For the same workload Velt is typically ~5x cheaper.
+- **Faster to ship**: Most teams ship a working Velt integration in under 30 minutes vs. weeks for a custom Liveblocks build.
 
 ## When to pick Liveblocks instead
 
@@ -910,7 +1549,7 @@ If you need only presence and shared state for a Figma-like app and you have eng
   {
     url: `${SITE_URL}/launch-kit`,
     title: "Velt Launch Kit",
-    markdown: `Pre-built launch assets for teams adopting Velt — landing page templates, customer announcement copy, in-app onboarding sequences, and support documentation.
+    markdown: `Pre-built launch assets for teams adopting Velt: landing page templates, customer announcement copy, in-app onboarding sequences, and support documentation.
 
 ## What's included
 
@@ -925,7 +1564,7 @@ If you need only presence and shared state for a Figma-like app and you have eng
   // (built from Sanity) so it always reflects the live integration roster.
   {
     url: `${SITE_URL}/add-comments-quick`,
-    title: "Add Comments to Your Product — Fast",
+    title: "Add Comments to Your Product: Fast",
     markdown: `Add a production-ready commenting system to your product in under 30 minutes. Drop in the Velt React components, point them at your DOM, and you have block-anchored inline comments, threaded replies, reactions, mentions, and notifications.
 
 ## What ships
@@ -949,8 +1588,8 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
   },
   {
     url: `${SITE_URL}/add-notifications-quick`,
-    title: "Add Notifications to Your Product — Fast",
-    markdown: `Drop in a production-ready notification system — in-app inbox UI, native email delivery, Slack integration, and webhook events — in under 30 minutes.
+    title: "Add Notifications to Your Product: Fast",
+    markdown: `Drop in a production-ready notification system: in-app inbox UI, native email delivery, Slack integration, and webhook events, in under 30 minutes.
 
 ## What ships
 
@@ -965,8 +1604,8 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
   },
   {
     url: `${SITE_URL}/add-recording-quick`,
-    title: "Add Recordings to Your Product — Fast",
-    markdown: `Add Loom-style screen and webcam recording to your product in under 30 minutes. Users record from anywhere in your app and share a link — Velt handles storage, transcoding, and playback.
+    title: "Add Recordings to Your Product: Fast",
+    markdown: `Add Loom-style screen and webcam recording to your product in under 30 minutes. Users record from anywhere in your app and share a link; Velt handles storage, transcoding, and playback.
 
 ## What ships
 
@@ -981,7 +1620,7 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
   {
     url: `${SITE_URL}/google-spreadsheets-like-comments`,
     title: "Google Sheets-like Comments in Your Product",
-    markdown: `Add Google Sheets-style cell-anchored commenting to your spreadsheet or table product. Comments attach to individual cells, ranges, rows, or columns — and stay anchored even as users edit, sort, and filter.
+    markdown: `Add Google Sheets-style cell-anchored commenting to your spreadsheet or table product. Comments attach to individual cells, ranges, rows, or columns, and stay anchored even as users edit, sort, and filter.
 
 ## Use cases
 
@@ -1008,7 +1647,7 @@ Wrap your app, point Velt at your user object, drop in the comment components, s
 ## Three building blocks
 
 ### Inline comments on database entries
-Anchor threaded comments to any row, field, or block inside your database views. Comments stay pinned as users edit, sort, and reorder — exactly like Notion.
+Anchor threaded comments to any row, field, or block inside your database views. Comments stay pinned as users edit, sort, and reorder, exactly like Notion.
 
 ### Stream comments on pages
 Drop a stream comment composer into any doc or page. Users leave threaded comments, replies, and reactions on the right rail without leaving your product.
@@ -1040,8 +1679,8 @@ Velt anchors comments to any DOM element or document range. Works with custom bl
   },
   {
     url: `${SITE_URL}/knock-like-notifications`,
-    title: "Knock Alternative — Build Notifications Fast",
-    markdown: `Velt is a Knock alternative for teams that want in-app notifications, email, Slack, and webhooks — plus the rest of the collaboration stack (comments, recordings, presence) in one SDK.
+    title: "Knock Alternative: Build Notifications Fast",
+    markdown: `Velt is a Knock alternative for teams that want in-app notifications, email, Slack, and webhooks, plus the rest of the collaboration stack (comments, recordings, presence) in one SDK.
 
 ## What ships
 
@@ -1063,13 +1702,13 @@ Velt anchors comments to any DOM element or document range. Works with custom bl
   {
     url: `${SITE_URL}/migrate-from-cord-to-velt`,
     title: "Migrate from Cord to Velt",
-    markdown: `Cord shut down in 2024. Velt is a drop-in replacement with a similar comment API plus the rest of the collaboration stack — notifications, recordings, presence, admin console.
+    markdown: `Cord shut down in 2024. Velt is a drop-in replacement with a similar comment API plus the rest of the collaboration stack: notifications, recordings, presence, admin console.
 
 ## Migration in three steps
 
-1. **Install** — \`npm install @veltdev/react\`. Wrap your app with VeltProvider, pass your existing user object.
-2. **Swap components** — Replace Cord's CommentThread, ComposerWeb, etc. with Velt's equivalents. APIs are similar; most call sites need only a one-line change.
-3. **Wire notifications** — Velt notifications work out of the box. Point your existing notification routing at Velt's webhooks.
+1. **Install**: \`npm install @veltdev/react\`. Wrap your app with VeltProvider, pass your existing user object.
+2. **Swap components**: Replace Cord's CommentThread, ComposerWeb, etc. with Velt's equivalents. APIs are similar; most call sites need only a one-line change.
+3. **Wire notifications**: Velt notifications work out of the box. Point your existing notification routing at Velt's webhooks.
 
 Most Cord migrations take 1-3 days end-to-end. White-glove migration support is included for Growth and Enterprise customers.
 
@@ -1078,26 +1717,26 @@ Most Cord migrations take 1-3 days end-to-end. White-glove migration support is 
   {
     url: `${SITE_URL}/migrate-from-liveblocks-to-velt`,
     title: "Migrate from Liveblocks to Velt",
-    markdown: `Move from Liveblocks primitives to Velt's full collaboration stack. Teams typically migrate to get ready-to-use UI for comments, notifications, recordings, and approvals — and to cut spend with MAD-based pricing.
+    markdown: `Move from Liveblocks primitives to Velt's full collaboration stack. Teams typically migrate to get ready-to-use UI for comments, notifications, recordings, and approvals, and to cut spend with MAD-based pricing.
 
 ## Why teams migrate
 
 - **Drop-in UI** instead of building components on top of primitives
-- **More features** — recordings, admin console, approval workflows, email/Slack notifications
-- **Lower bill** — MAD pricing is typically ~5x cheaper than MAR for the same workload
+- **More features**: recordings, admin console, approval workflows, email/Slack notifications
+- **Lower bill**: MAD pricing is typically ~5x cheaper than MAR for the same workload
 
 ## Migration in three steps
 
-1. **Install Velt** alongside Liveblocks — they can coexist during the migration.
+1. **Install Velt** alongside Liveblocks, they can coexist during the migration.
 2. **Replace components** one feature at a time. Comments and notifications first, then presence, then storage.
-3. **Cut over** — remove Liveblocks and reconcile any custom UI you built.
+3. **Cut over**: remove Liveblocks and reconcile any custom UI you built.
 
 Most migrations finish in 1-2 weeks. White-glove migration support is included for Growth and Enterprise.
 
 [Book a migration call](${SITE_URL}/book-demo) · [Get Free API Key](https://console.velt.dev/)`,
   },
   // ---------------------------------------------------------------------------
-  // Lower-priority but still public pages — included so every route in app/
+  // Lower-priority but still public pages: included so every route in app/
   // has a .md sibling. Kept terse; the HTML pages hold the full content.
   // ---------------------------------------------------------------------------
   {
@@ -1109,7 +1748,7 @@ Most migrations finish in 1-2 weeks. White-glove migration support is included f
 
 - Live demo of the feature(s) most relevant to your product
 - Architecture overview and integration guidance
-- Pricing walkthrough — MAD-based pricing, volume discounts, startup discounts
+- Pricing walkthrough: MAD-based pricing, volume discounts, startup discounts
 - Q&A on security, compliance (SOC 2 Type II, HIPAA), and self-hosting
 
 [Book a slot](${SITE_URL}/book-demo) · [Get Free API Key](https://console.velt.dev/)`,
@@ -1140,7 +1779,7 @@ Roles update frequently. See the live list at ${SITE_URL}/careers.
 
 - Architecture review of your existing app
 - Working prototype using Velt SDK + your data model
-- Custom UI build assistance — React, Next.js, Angular, Vue, vanilla JS
+- Custom UI build assistance: React, Next.js, Angular, Vue, vanilla JS
 - Help with auth, permissions, real-time scaling, and notifications
 
 ## Who this is for
@@ -1157,7 +1796,7 @@ Teams with a tight ship date or an unusual use case (custom editors, regulated i
 ## What's included
 
 - Discounted Growth plan pricing
-- Free integration support — we'll pair with your engineers on the first build
+- Free integration support: we'll pair with your engineers on the first build
 - Direct line to the Velt founders
 - Priority feature requests
 
@@ -1189,7 +1828,7 @@ Teams with a tight ship date or an unusual use case (custom editors, regulated i
 - Data retention and deletion timelines
 - Contact information for privacy requests (privacy@velt.dev)
 
-The full text of the Privacy Policy is the canonical legal document — see ${SITE_URL}/privacy for the authoritative version.`,
+The full text of the Privacy Policy is the canonical legal document; see ${SITE_URL}/privacy for the authoritative version.`,
   },
   {
     url: `${SITE_URL}/terms`,
@@ -1209,7 +1848,7 @@ The full text of the Privacy Policy is the canonical legal document — see ${SI
 - Termination and survival
 - Governing law and dispute resolution
 
-The full text of the Terms of Service is the canonical legal document — see ${SITE_URL}/terms for the authoritative version.`,
+The full text of the Terms of Service is the canonical legal document; see ${SITE_URL}/terms for the authoritative version.`,
   },
 ];
 
@@ -1230,7 +1869,7 @@ function urlPath(url: string): string {
 
 // Pages explicitly excluded from the LLM endpoints (privacy/legal,
 // transactional, or low-content placeholders).
-// Paths we will never serve as markdown — Sanity Studio admin UI and the
+// Paths we will never serve as markdown: Sanity Studio admin UI and the
 // internal /api/* namespace. Everything else in app/ gets a .md endpoint.
 const EXCLUDED_PATHS = new Set<string>(["/studio"]);
 
@@ -1255,7 +1894,7 @@ async function blogIndexMarkdown(): Promise<PageMarkdown> {
     publishedAt?: string;
   }>;
   const lines: string[] = [
-    "All Velt blog posts — guides, comparisons, tutorials, product updates, and thought leadership on collaboration, real-time infrastructure, and developer tooling.",
+    "All Velt blog posts: guides, comparisons, tutorials, product updates, and thought leadership on collaboration, real-time infrastructure, and developer tooling.",
     "",
     "## Posts",
   ];
@@ -1272,19 +1911,29 @@ async function blogIndexMarkdown(): Promise<PageMarkdown> {
 }
 
 async function librariesIndexMarkdown(): Promise<PageMarkdown> {
-  const libs = (await getAllLibraryPages().catch(() => [])) as Array<{
-    slug: string;
-    title: string;
-    category?: string;
-    tagline?: string;
-  }>;
+  const [v2Libs, v1Libs] = await Promise.all([
+    getAllLibrariesV2().catch(() => []) as Promise<
+      Array<{ slug?: string; name?: string; beta?: boolean }>
+    >,
+    getAllLibraryPages().catch(() => []) as Promise<
+      Array<{ slug: string; title: string; tagline?: string }>
+    >,
+  ]);
   const lines: string[] = [
-    "Velt provides 8+ purpose-built libraries that wrap the SDK for specific frameworks, editors, and document types. Use a library to get a drop-in integration in minutes — or use the headless SDK directly.",
+    "Add comments, co-editing, presence, and agent review to any editor, grid, canvas, or chart, for your users and your AI agents, or bring your own surface. Each library anchors Velt's review primitives to the surface you already render.",
     "",
     "## Libraries",
   ];
-  for (const lib of libs) {
-    if (!lib?.slug || !lib?.title) continue;
+  const seen = new Set<string>();
+  for (const lib of v2Libs) {
+    if (!lib?.slug || !lib?.name || seen.has(lib.slug)) continue;
+    seen.add(lib.slug);
+    const tag = lib.beta ? " (beta)" : "";
+    lines.push(`- [${lib.name}${tag}](${SITE_URL}/libraries/${lib.slug})`);
+  }
+  for (const lib of v1Libs) {
+    if (!lib?.slug || !lib?.title || seen.has(lib.slug)) continue;
+    seen.add(lib.slug);
     const tag = lib.tagline ? `: ${clean(lib.tagline)}` : "";
     lines.push(`- [${lib.title}](${SITE_URL}/libraries/${lib.slug})${tag}`);
   }
@@ -1303,14 +1952,14 @@ async function demosIndexMarkdown(): Promise<PageMarkdown> {
     category?: string;
   }>;
   const lines: string[] = [
-    "Live demo gallery — interactive product demos showing how Velt powers collaboration in real applications.",
+    "Live demo gallery: interactive product demos showing how Velt powers collaboration in real applications.",
     "",
     "## Demos",
   ];
   for (const demo of demos) {
     if (!demo?.slug || !demo?.title) continue;
     const meta = [demo.appName, demo.category].filter(Boolean).join(", ");
-    const suffix = meta ? ` — ${meta}` : "";
+    const suffix = meta ? `: ${meta}` : "";
     lines.push(`- [${demo.title}](${SITE_URL}/demos/${demo.slug})${suffix}`);
   }
   return {
@@ -1327,7 +1976,7 @@ async function useCaseIndexMarkdown(): Promise<PageMarkdown> {
     tagline?: string;
   }>;
   const lines: string[] = [
-    "Use-case pages explore how teams in specific verticals — video editing, design tools, data platforms, and more — use Velt to add collaboration.",
+    "Use-case pages explore how teams in specific verticals (video editing, design tools, data platforms, and more) use Velt to add collaboration.",
     "",
     "## Use cases",
   ];
@@ -1343,7 +1992,7 @@ async function useCaseIndexMarkdown(): Promise<PageMarkdown> {
   };
 }
 
-// Sanity-only integration listing — there's no getAllIntegrationPages helper
+// Sanity-only integration listing: there's no getAllIntegrationPages helper
 // today, so we fetch the slugs and pull title + tagline + category for each.
 type IntegrationListItem = {
   slug: string;
@@ -1354,7 +2003,7 @@ type IntegrationListItem = {
 
 async function getAllIntegrationsList(): Promise<IntegrationListItem[]> {
   // Exclude drafts (Sanity stores draft revisions as drafts.<id>); otherwise
-  // each integration shows up twice — once for the published doc, once for
+  // each integration shows up twice: once for the published doc, once for
   // the draft. getAllIntegrationSlugs() has the same shape; if you need to
   // dedupe further, normalize on slug.current.
   return client.fetch<IntegrationListItem[]>(
@@ -1377,7 +2026,7 @@ async function integrationsIndexMarkdown(): Promise<PageMarkdown> {
     if (!bySlug.has(item.slug)) bySlug.set(item.slug, item);
   }
   const lines: string[] = [
-    "Velt connects to the tools your team already uses — Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment, and more. Each integration ships with a working drop-in flow you can configure from the Velt dashboard.",
+    "Velt connects to the tools your team already uses: Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment, and more. Each integration ships with a working drop-in flow you can configure from the Velt dashboard.",
     "",
     "## Integrations",
   ];
@@ -1385,8 +2034,8 @@ async function integrationsIndexMarkdown(): Promise<PageMarkdown> {
     const meta = [item.category, item.tagline]
       .map((s) => clean(s ?? ""))
       .filter(Boolean)
-      .join(" — ");
-    const suffix = meta ? ` — ${meta}` : "";
+      .join(": ");
+    const suffix = meta ? `: ${meta}` : "";
     lines.push(
       `- [${item.name}](${SITE_URL}/integrations/${item.slug})${suffix}`
     );
@@ -1414,15 +2063,27 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
   let path = rawPath.startsWith("/") ? rawPath : `/${rawPath}`;
   if (path.length > 1 && path.endsWith("/")) path = path.slice(0, -1);
   if (path === "" || path === "/") {
-    return STATIC_BY_PATH.get("/") ?? null;
+    const home = STATIC_BY_PATH.get("/");
+    if (!home) return null;
+    return { ...home, markdown: stripCtas(home.markdown) };
   }
   if (isExcludedPath(path)) return null;
 
+  // In-repo new-theme platform pages (/customization, /devtools, /platform):
+  // serve markdown derived from the live app/<slug>/content.tsx, not the stale
+  // legacy Sanity docs or the old STATIC_PAGES summary. Checked before the
+  // static registry so the new content always wins.
+  const inRepoSlug = path.slice(1);
+  if (IN_REPO_FEATURE_PAGES[inRepoSlug]) {
+    const inRepo = inRepoFeatureMarkdown(inRepoSlug);
+    if (inRepo) return { ...inRepo, markdown: stripCtas(inRepo.markdown) };
+  }
+
   // Static-page registry first (covers /pricing, /enterprise, etc.)
   const staticMatch = STATIC_BY_PATH.get(path);
-  if (staticMatch) return staticMatch;
+  if (staticMatch) return { ...staticMatch, markdown: stripCtas(staticMatch.markdown) };
 
-  // Index pages — dynamically built from Sanity data
+  // Index pages: dynamically built from Sanity data
   try {
     if (path === "/blog") return await blogIndexMarkdown();
     if (path === "/libraries") return await librariesIndexMarkdown();
@@ -1443,7 +2104,10 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
       return await demoMarkdown(segments[1]);
     }
     if (segments[0] === "libraries" && segments.length === 2) {
-      return await libraryMarkdown(segments[1]);
+      return (
+        (await libraryV2Markdown(segments[1])) ??
+        (await libraryMarkdown(segments[1]))
+      );
     }
     if (segments[0] === "use-case" && segments.length === 2) {
       return await useCaseMarkdown(segments[1]);
@@ -1462,10 +2126,18 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
     if (path === "/migrate-from-liveblocks-to-velt") {
       return await migrationMarkdown("liveblocks", path);
     }
+    // Solution/vertical pages at /for/<slug>
+    if (segments[0] === "for" && segments.length === 2) {
+      const sol = await solutionMarkdown(segments[1]);
+      if (sol) return { ...sol, markdown: stripCtas(sol.markdown) };
+    }
     // Top-level dynamic feature pages (/comments, /notifications, etc.)
+    // Try v2 first, fall back to v1 if not found.
     if (segments.length === 1) {
-      const feature = await featureMarkdown(segments[0]);
-      if (feature) return feature;
+      const v2 = await featureV2Markdown(segments[0]);
+      if (v2) return { ...v2, markdown: stripCtas(v2.markdown) };
+      const v1 = await featureMarkdown(segments[0]);
+      if (v1) return { ...v1, markdown: stripCtas(v1.markdown) };
     }
   } catch {
     return null;
@@ -1476,7 +2148,7 @@ export async function getPageMarkdown(rawPath: string): Promise<PageMarkdown | n
 /**
  * Build the ordered list of all marketing-site pages with markdown bodies.
  * Used by /llms-full.txt to concatenate the entire site. Sanity fetches
- * are individually try/caught — a single failing page doesn't kill the
+ * are individually try/caught: a single failing page doesn't kill the
  * whole response.
  */
 export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
@@ -1490,13 +2162,20 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     "/enterprise",
     "/comparison",
     "/customers",
-    "/customization",
     "/liveblocks-alternative",
     "/launch-kit",
   ];
   for (const p of priorityPaths) {
     const md = STATIC_BY_PATH.get(p);
-    if (md) results.push(md);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
+  }
+
+  // 1b) In-repo new-theme platform pages, serialized from app/<slug>/content.tsx.
+  // Pushed before the Sanity-backed feature loop below so they win the URL
+  // de-dupe over the stale legacy v1 docs (dev-tools, admin-console).
+  for (const slug of ["customization", "devtools", "platform"]) {
+    const md = inRepoFeatureMarkdown(slug);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 
   // 2) Static SEO/landing pages (lower priority)
@@ -1513,7 +2192,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
   ];
   for (const p of seoPaths) {
     const md = STATIC_BY_PATH.get(p);
-    if (md) results.push(md);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 
   // 3) Index pages built from Sanity listings (includes /integrations)
@@ -1527,7 +2206,7 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
     try {
       results.push(await builder());
     } catch {
-      // Skip silently — a Sanity outage shouldn't kill the whole file.
+      // Skip silently: a Sanity outage shouldn't kill the whole file.
     }
   }
 
@@ -1544,22 +2223,28 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
   ];
   for (const p of lowPriorityPaths) {
     const md = STATIC_BY_PATH.get(p);
-    if (md) results.push(md);
+    if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
   }
 
   // 5) Sanity-backed dynamic pages
   const [
     blogPosts,
+    featureV2Slugs,
     featurePages,
+    solutionSlugs,
     libraryPages,
+    libraryV2Slugs,
     demoPages,
     useCasePages,
     migrationSlugs,
     integrationSlugs,
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
+    getAllFeatureV2Slugs().catch(() => [] as string[]),
     getAllFeaturePages().catch(() => []),
+    getAllSolutionSlugs().catch(() => [] as string[]),
     getAllLibraryPages().catch(() => []),
+    getAllLibraryV2Slugs().catch(() => [] as string[]),
     getAllDemoPages().catch(() => []),
     getAllUseCasePages().catch(() => []),
     client
@@ -1579,6 +2264,16 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
       // Skip failing post.
     }
   }
+  // v2 feature pages (before v1 so v2 wins the URL de-dupe below)
+  for (const slug of featureV2Slugs) {
+    if (!slug) continue;
+    try {
+      const md = await featureV2Markdown(slug);
+      if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
+    } catch {
+      // Skip.
+    }
+  }
   for (const feat of featurePages as Array<{ slug: string }>) {
     if (!feat?.slug) continue;
     const urlSlug = sanitySlugToUrl(feat.slug);
@@ -1589,10 +2284,17 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
       // Skip.
     }
   }
-  for (const lib of libraryPages as Array<{ slug: string }>) {
-    if (!lib?.slug) continue;
+  // /libraries serves v2-first with v1 fallback; enumerate the union once and
+  // resolve each slug the same way the route does (v2 then v1).
+  const allLibrarySlugs = new Set<string>([
+    ...(libraryV2Slugs as string[]),
+    ...(libraryPages as Array<{ slug: string }>)
+      .map((lib) => lib?.slug)
+      .filter((slug): slug is string => Boolean(slug)),
+  ]);
+  for (const slug of allLibrarySlugs) {
     try {
-      const md = await libraryMarkdown(lib.slug);
+      const md = (await libraryV2Markdown(slug)) ?? (await libraryMarkdown(slug));
       if (md) results.push(md);
     } catch {
       // Skip.
@@ -1637,12 +2339,27 @@ export async function getAllPageMarkdowns(): Promise<PageMarkdown[]> {
       // Skip.
     }
   }
+  // Solution/vertical pages at /for/<slug>
+  for (const slug of solutionSlugs) {
+    if (!slug) continue;
+    try {
+      const md = await solutionMarkdown(slug);
+      if (md) results.push({ ...md, markdown: stripCtas(md.markdown) });
+    } catch {
+      // Skip.
+    }
+  }
 
-  // De-dupe by URL — guards against any registry/sanity overlap.
+  // De-dupe by URL: guards against any registry/sanity overlap.
   const seen = new Set<string>();
-  return results.filter((r) => {
+  const deduped = results.filter((r) => {
     if (seen.has(r.url)) return false;
     seen.add(r.url);
     return true;
   });
+
+  // Final mirror-purity pass: strip CTA strings from every page type in one
+  // place, so llms-full.txt stays CTA-free even for page types whose
+  // serializers do not strip individually. stripCtas is idempotent.
+  return deduped.map((r) => ({ ...r, markdown: stripCtas(r.markdown) }));
 }

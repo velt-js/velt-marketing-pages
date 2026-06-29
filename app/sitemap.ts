@@ -3,8 +3,10 @@ import {
   getAllBlogPosts,
   getAllDemoSlugs,
   getAllFeatureSlugs,
+  getAllFeatureV2Slugs,
   getAllIntegrationSlugs,
   getAllLibrarySlugs,
+  getAllLibraryV2Slugs,
   getAllMigrationSlugs,
   getAllUseCaseSlugs,
 } from "@/sanity/queries";
@@ -58,6 +60,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/comparison`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/liveblocks-alternative`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${BASE}/customization`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/devtools`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/platform`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/use-case`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/consult`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: `${BASE}/add-comments-quick`, lastModified: now, changeFrequency: "weekly", priority: 0.6 },
@@ -83,8 +87,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [
     blogPosts,
     demoSlugs,
+    featureV2Slugs,
     featureSlugs,
     librarySlugs,
+    libraryV2Slugs,
     migrationSlugs,
     useCaseSlugs,
     integrationSlugs,
@@ -92,8 +98,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ] = await Promise.all([
     getAllBlogPosts().catch(() => []),
     getAllDemoSlugs().catch(() => []),
+    getAllFeatureV2Slugs().catch(() => []),
     getAllFeatureSlugs().catch(() => []),
     getAllLibrarySlugs().catch(() => []),
+    getAllLibraryV2Slugs().catch(() => []),
     getAllMigrationSlugs().catch(() => []),
     getAllUseCaseSlugs().catch(() => []),
     getAllIntegrationSlugs().catch(() => []),
@@ -118,16 +126,52 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  const featureEntries: MetadataRoute.Sitemap = (featureSlugs as string[]).map(
-    (slug) => ({
-      url: `${BASE}/${sanitySlugToUrl(slug)}`,
+  // Feature pages live at the site root. v2 (featurePageV2) slugs are already
+  // the canonical URL. The remaining v1 (featurePage) docs are the legacy
+  // pages with no v2 equivalent (/platform, /devtools, /webhooks-and-api);
+  // map them through sanitySlugToUrl and dedupe against the v2 set so a slug
+  // owned by both generations (e.g. notifications) is only emitted once.
+  //
+  // These v1 docs still exist in the CMS but were superseded by v2 pages; their
+  // URLs are now 301 redirects (see next.config.ts), so they must not appear in
+  // the sitemap: comments/notifications -> served by v2 at the same URL,
+  // recordings -> /recording, multiplayer -> /multiplayer-editing,
+  // activity-logs -> /audit-trail.
+  const SUPERSEDED_V1_SLUGS = new Set([
+    "comments",
+    "recordings",
+    "multiplayer",
+    "activity-logs",
+  ]);
+  // /devtools and /platform are served by in-repo static routes and are listed
+  // explicitly in staticRoutes above. Skip their legacy v1 Sanity docs
+  // (dev-tools, admin-console) here so the sitemap entry no longer depends on
+  // the CMS and is not emitted twice.
+  const STATIC_ROUTE_V1_SLUGS = new Set(["dev-tools", "admin-console"]);
+  const featureUrlPaths = new Set<string>(featureV2Slugs as string[]);
+  for (const slug of featureSlugs as string[]) {
+    if (SUPERSEDED_V1_SLUGS.has(slug)) continue;
+    if (STATIC_ROUTE_V1_SLUGS.has(slug)) continue;
+    featureUrlPaths.add(sanitySlugToUrl(slug));
+  }
+  const featureEntries: MetadataRoute.Sitemap = [...featureUrlPaths].map(
+    (urlPath) => ({
+      url: `${BASE}/${urlPath}`,
       lastModified: now,
       changeFrequency: "weekly" as const,
       priority: 0.7,
     })
   );
 
-  const libraryEntries: MetadataRoute.Sitemap = (librarySlugs as string[]).map(
+  // /libraries serves v2-first with v1 fallback, so the sitemap is the union
+  // of both slug sets (v2 surfaces/plugins/agents plus any v1-only libraries).
+  const allLibrarySlugs = [
+    ...new Set([
+      ...(libraryV2Slugs as string[]),
+      ...(librarySlugs as string[]),
+    ]),
+  ];
+  const libraryEntries: MetadataRoute.Sitemap = allLibrarySlugs.map(
     (slug) => ({
       url: `${BASE}/libraries/${slug}`,
       lastModified: now,

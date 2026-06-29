@@ -26,7 +26,7 @@ export default function ThankYouPage() {
         <PageHero
           decorated={false}
           eyebrow={{ label: "Request received", dotColor: "#0D9A5D" }}
-          heading="Thanks — we'll be in touch"
+          heading="Thanks, we'll be in touch"
           subheading={THANK_YOU_DESCRIPTION}
           primaryCta={{
             label: "Read the Docs",

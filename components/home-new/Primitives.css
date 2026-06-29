@@ -1,0 +1,1525 @@
+/* ── Section shell ─────────────────────────────────────────── */
+.vlp .prim-section {
+  background: var(--vlp-color-cream);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .prim-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter) 64px;
+}
+
+/* ── Intro block ───────────────────────────────────────────── */
+.vlp .prim-intro {
+  max-width: var(--vlp-content-narrow);
+}
+
+.vlp .prim-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .prim-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .prim-intro-h2 {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+}
+
+.vlp .prim-intro-p {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-4);
+}
+
+/* ── Card grid — asymmetric widths that flip each row ──────── */
+/* A 5-col track: wide cards span 3 (~60%), narrow span 2 (~40%). The
+   span pattern flips per row (wide|narrow, then narrow|wide, …). Default
+   align-items: stretch keeps both cards in a row the same height, so no
+   gaps form under the shorter one. */
+.vlp .prim-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-11);
+}
+
+.vlp .prim-grid > .prim-card2:nth-child(1) { grid-column: span 3; }
+.vlp .prim-grid > .prim-card2:nth-child(2) { grid-column: span 2; }
+.vlp .prim-grid > .prim-card2:nth-child(3) { grid-column: span 2; }
+.vlp .prim-grid > .prim-card2:nth-child(4) { grid-column: span 3; }
+.vlp .prim-grid > .prim-card2:nth-child(5) { grid-column: span 3; }
+.vlp .prim-grid > .prim-card2:nth-child(6) { grid-column: span 2; }
+
+/* The finale card spans the full width of the grid. */
+.vlp .prim-card-wide {
+  grid-column: 1 / -1;
+}
+
+/* Preview and code share one grid cell, so the card's height is the taller
+   of the two panes. Switching tabs swaps visibility without resizing the
+   card — no jump, and no cascade through the equal-height row. The stack
+   grows to fill the equalized card height (no dead space under the demo). */
+.vlp .prim-card2 > .prim-stack {
+  display: grid;
+}
+.vlp .prim-stack > * {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+/* Code card stretches to fill the cell so its fill reaches the card edges. */
+.vlp .prim-code-host {
+  display: grid;
+}
+.vlp .prim-pane-hidden {
+  visibility: hidden;
+}
+
+/* ── Card shell ────────────────────────────────────────────── */
+.vlp .prim-card2 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-6);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-2xl);
+  padding: var(--vlp-space-10);
+}
+
+.vlp .prim-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-gap-card);
+}
+
+/* ── Kicker: orange number badge + name ────────────────────── */
+.vlp .prim-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-gap-tight);
+}
+
+.vlp .prim-kicker-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-text-on-accent);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  font-weight: var(--vlp-weight-medium);
+  text-transform: uppercase;
+}
+
+.vlp .prim-kicker-name {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+}
+
+/* ── Preview | Code pill toggle ────────────────────────────── */
+.vlp .prim-tabs {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--vlp-space-1);
+}
+
+.vlp .prim-tab {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-snug);
+  text-transform: uppercase;
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  border-radius: var(--vlp-chip-radius);
+  cursor: pointer;
+  transition: var(--vlp-btn-transition), color 0.15s;
+}
+.vlp .prim-tab:hover {
+outline: 2px solid var(--vlp-bg-accent-focus);
+}
+
+.vlp .prim-tab-active {
+  background: var(--vlp-bg-accent-subtle);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .prim-tab-inactive {
+  color: rgba(38, 37, 30, 0.52);
+}
+
+/* ── Headline + support + Explore pill ─────────────────────── */
+.vlp .prim-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--vlp-space-6);
+  margin-top: auto;
+}
+
+.vlp .prim-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-2);
+}
+
+.vlp .prim-h3 {
+  font-size: var(--vlp-text-card);
+  line-height: 1.3;
+  letter-spacing: var(--vlp-tracking-tight);
+  color: var(--vlp-color-ink);
+  text-wrap: balance;
+}
+
+.vlp .prim-card-support {
+  font-size: var(--vlp-btn-primary-font-lg);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  font-size: var(--vlp-btn-primary-font-lg);
+  letter-spacing: -0.01em;
+  padding: var(--vlp-btn-primary-padding-sm);
+  border-radius: var(--vlp-btn-primary-radius);
+}
+
+/* @maya mention inside comment threads */
+.vlp .prim-mention {
+  color: var(--vlp-color-accent);
+}
+
+/* ── Preview frame (holds each primitive's live mock) ──────── */
+.vlp .prim-stage {
+  border: var(--vlp-border-width) solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-xl);
+  padding: var(--vlp-space-6);
+  background: var(--vlp-bg-card);
+}
+
+/* ── Comment thread (Comments preview) ─────────────────────── */
+.vlp .prim-thread {
+  display: flex;
+  flex-direction: column;
+}
+
+.vlp .prim-msg {
+  display: flex;
+  gap: var(--vlp-gap-card);
+}
+
+.vlp .prim-msg:not(:last-child) .prim-msg-body {
+  padding-bottom: 20px;
+}
+
+.vlp .prim-msg-rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: stretch;
+}
+
+.vlp .prim-msg-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--vlp-color-text-on-accent);
+  font-size: var(--vlp-btn-primary-font-lg);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: -0.01em;
+}
+
+.vlp .prim-msg-avatar--green { background: var(--vlp-color-green-ui); }
+.vlp .prim-msg-avatar--teal { background: var(--vlp-color-teal); }
+
+/* Dashed vertical rule drawn as a 2px-wide gradient rather than a
+   border-left. A border on a 0-width flex item renders to the LEFT of the
+   centered box, so it sat ~2px off the avatar's center; a real 2px element
+   centers exactly under the 32px avatar via the rail's align-items: center. */
+.vlp .prim-msg-line {
+  flex: 1;
+  width: 2px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--vlp-color-thread-line) 0 3px,
+    transparent 3px 7px
+  );
+  margin-top: var(--vlp-space-1-5);
+}
+
+.vlp .prim-msg-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vlp .prim-msg-head {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.vlp .prim-msg-name {
+  font-size: var(--vlp-btn-primary-font-lg);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: -0.01em;
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-msg-time {
+  font-size: var(--vlp-text-label);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-msg-text {
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: -0.01em;
+  color: rgba(38, 37, 30, 0.8);
+}
+
+/* ── Document + contextual comment (Comments preview) ──────── */
+/* A faux text document (skeleton lines, one highlighted) with a floating
+   contextual comment card anchored over the highlighted line. */
+.vlp .prim-doc {
+  position: relative;
+  min-height: 192px;
+}
+
+.vlp .prim-doc-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-4);
+  padding-top: var(--vlp-space-2);
+}
+
+.vlp .prim-doc-line {
+  height: 12px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-bg-skeleton);
+}
+
+.vlp .prim-doc-line--hl {
+  background: rgba(255, 205, 46, 0.4);
+}
+
+.vlp .prim-doc-comment {
+  position: absolute;
+  right: 0;
+  top: 28px;
+  width: 72%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-4);
+  padding: var(--vlp-space-5);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-2xl);
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vlp .prim-doc-comment-head {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+}
+
+.vlp .prim-doc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: 6px 11px;
+  border-radius: var(--vlp-radius-pill);
+  background: rgba(98, 93, 245, 0.1);
+  color: var(--vlp-color-purple);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .prim-doc-status-dot {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-chevron {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.vlp .prim-doc-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: 6px 10px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-bg-surface-muted);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-doc-flag-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-head-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  margin-left: auto;
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-doc-action-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-resolve {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid var(--vlp-color-green-approval);
+  color: var(--vlp-color-green-approval);
+}
+
+.vlp .prim-doc-resolve-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-doc-comment-msg {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+}
+
+.vlp .prim-doc-avatar {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.vlp .prim-doc-name {
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-doc-time {
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-doc-read {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--vlp-color-purple);
+}
+
+.vlp .prim-doc-comment-text {
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-doc-mention {
+  padding: 1px 4px;
+  border-radius: var(--vlp-radius-md);
+  background: rgba(98, 93, 245, 0.12);
+  color: var(--vlp-color-purple);
+  font-weight: var(--vlp-weight-medium);
+}
+
+/* ── Customer quote block ──────────────────────────────────── */
+/* Spec 2.6 card anatomy: the attributed customer quote sits behind a left
+   rule. The rule is an accent-tinted 2px border with padding so the avatar
+   and text clear it. */
+.vlp .prim-quote {
+  display: flex;
+  gap: var(--vlp-gap-card);
+  align-items: flex-start;
+  padding-left: var(--vlp-space-4);
+  border-left: 2px solid var(--vlp-color-accent);
+}
+
+.vlp .prim-quote-avatar {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--vlp-border-default);
+  object-fit: cover;
+}
+
+.vlp .prim-quote-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-1);
+  padding-top: 2px;
+}
+
+.vlp .prim-quote-attr {
+  font-size: var(--vlp-text-label);
+  letter-spacing: -0.01em;
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-quote-body {
+  font-family: var(--vlp-font-heading);
+  font-weight: var(--vlp-weight-medium);
+  font-size: var(--vlp-text-body);
+  line-height: 1.3;
+  color: var(--vlp-color-ink);
+}
+
+/* ── Demo mocks (flattened: sit directly on the card) ──────── */
+.vlp .prim-card {
+  background: transparent;
+}
+
+/* Audit-trail mock */
+.vlp .prim-card-overflow {
+  background: transparent;
+}
+
+/* ── Code view (filled, frameless) ─────────────────────────── */
+.vlp .prim-code-card {
+  background: var(--vlp-color-cream);
+  border-radius: var(--vlp-card-radius);
+  overflow: hidden;
+}
+
+.vlp .prim-code-header {
+  display: flex;
+  padding: 8px 12px;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-faint);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-code-copy {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--vlp-color-text-subtle);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vlp .prim-code-copy:hover {
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-pre {
+  margin: 0;
+  padding: 12px 14px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  line-height: 1.65;
+  color: var(--vlp-color-ink);
+  overflow-x: auto;
+}
+
+/* Approval flows (03) and Audit trail (04) sit in one row, so the taller of
+   the two drives the shared height. Tightening their code line-height keeps
+   the row compact (03's snippet is the long one) without affecting the other
+   cards' code blocks. */
+.vlp .prim-grid > .prim-card2:nth-child(3) .prim-pre,
+.vlp .prim-grid > .prim-card2:nth-child(4) .prim-pre {
+  line-height: var(--vlp-leading-body);
+}
+
+/* ── Thread / comment rows inside white cards ──────────────── */
+
+/* Row with bottom divider (border-bottom) */
+.vlp .prim-thread-row-top {
+  display: flex;
+  gap: var(--vlp-space-2-5);
+  padding-bottom: 14px;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+/* Row below divider (padding-top) */
+.vlp .prim-thread-row-bot {
+  display: flex;
+  gap: var(--vlp-space-2-5);
+  padding-top: 14px;
+}
+
+/* ── Avatar circles ────────────────────────────────────────── */
+
+/* AI — dark, 26px, Geist Mono 9px */
+.vlp .prim-avatar-ai-26 {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--vlp-font-mono);
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* AI — dark, 22px, Geist Mono 9px (approval rows) */
+.vlp .prim-avatar-ai-22 {
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  border-radius: 50%;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--vlp-font-mono);
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* MK — amber, 22px, 9px (no mono) */
+.vlp .prim-avatar-mk-22 {
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  border-radius: 50%;
+  background: var(--vlp-color-amber);
+  color: var(--vlp-color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* JR — grey (brand step), 22px */
+.vlp .prim-avatar-jr-22 {
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  border-radius: 50%;
+  background: var(--vlp-color-text-faint);
+  color: var(--vlp-color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* SP — light grey, 22px, muted text */
+.vlp .prim-avatar-sp-22 {
+  width: var(--vlp-size-logomark);
+  height: var(--vlp-size-logomark);
+  border-radius: 50%;
+  background: var(--vlp-border-default);
+  color: var(--vlp-color-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* AI — dark, 24px, Geist Mono 9px (memory card) */
+.vlp .prim-avatar-ai-24 {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--vlp-btn-bg);
+  color: var(--vlp-color-cream);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--vlp-font-mono);
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* ── Thread sub-elements shared across cards ───────────────── */
+
+/* Name line inside thread */
+.vlp .prim-thread-name {
+  font-size: var(--vlp-text-body-sm);
+}
+
+/* Thread body paragraph */
+.vlp .prim-thread-p {
+  font-size: var(--vlp-text-body-sm);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-ink);
+  margin-top: 3px;
+}
+
+.vlp .prim-thread-p--mt4 {
+  margin-top: 4px;
+}
+
+/* ── Comment card internal thread (flex:1 div in review-agents) */
+.vlp .prim-thread-body {
+  flex: 1;
+}
+
+/* ── Approval flows: workflow DAG (Altana demo) ────────────── */
+/* Vertical graph: a single Agent source node fans out to two PARALLEL human
+   reviewers, which merge into one exec-sponsor sink, plus a reject branch.
+   Connectors are thin dashed segments drawn with bordered spans so the
+   parallel structure reads at card size without any new dependency. */
+.vlp .prim-dag {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.vlp .prim-dag-row {
+  display: flex;
+}
+
+.vlp .prim-dag-row--source,
+.vlp .prim-dag-row--sink {
+  justify-content: center;
+}
+
+.vlp .prim-dag-row--parallel {
+  gap: var(--vlp-space-2-5);
+}
+
+/* Each leaf in the parallel row shares the width evenly. */
+.vlp .prim-dag-row--parallel > .prim-dag-node {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Node card — avatar + label + status badge, stacked. */
+.vlp .prim-dag-node {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  font-size: var(--vlp-text-body-sm-plus);
+  padding: var(--vlp-space-2) var(--vlp-space-3);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-xl);
+  background: var(--vlp-bg-card);
+}
+
+.vlp .prim-dag-row--source > .prim-dag-node,
+.vlp .prim-dag-row--sink > .prim-dag-node {
+  min-width: 60%;
+}
+
+.vlp .prim-dag-node--muted .prim-dag-node-label {
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-dag-node-label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The badge tokens (prim-badge-done/pending/waiting) carry margin-left:auto,
+   which lands them on the right of each node — keep that. */
+
+/* Fan-out connector: a center trunk drops from the source, a horizontal split
+   spreads to two arms feeding the parallel reviewers. */
+.vlp .prim-dag-fan {
+  position: relative;
+  height: 20px;
+}
+
+.vlp .prim-dag-fan-trunk {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-fan-split {
+  position: absolute;
+  top: 10px;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-fan-arm {
+  position: absolute;
+  top: 10px;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-fan-arm--left {
+  left: 25%;
+}
+
+.vlp .prim-dag-fan-arm--right {
+  left: 75%;
+}
+
+/* Merge connector: mirror of the fan, two arms rise from the reviewers into a
+   center trunk that drops to the sink. */
+.vlp .prim-dag-merge {
+  position: relative;
+  height: 20px;
+}
+
+.vlp .prim-dag-merge-arm {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-merge-arm--left {
+  left: 25%;
+}
+
+.vlp .prim-dag-merge-arm--right {
+  left: 75%;
+}
+
+.vlp .prim-dag-merge-split {
+  position: absolute;
+  top: 8px;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+.vlp .prim-dag-merge-trunk {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 2px;
+  height: 10px;
+  background: var(--vlp-color-timeline-dash);
+}
+
+/* Reject branch: a dashed accent line peeling off below the graph, returning
+   to the author. Marked with the accent color so it reads as the failure path. */
+.vlp .prim-dag-reject {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  margin-top: var(--vlp-space-3-5);
+  padding-top: var(--vlp-space-3-5);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .prim-dag-reject-branch {
+  flex-shrink: 0;
+  width: 28px;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--vlp-color-accent) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.vlp .prim-dag-reject-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-accent-muted);
+}
+
+/* Status badge — done/approved (green fill) */
+.vlp .prim-badge-done {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-green-approval);
+  background: var(--vlp-bg-green-highlight);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
+}
+
+/* Status badge — pending (muted fill) */
+.vlp .prim-badge-pending {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-muted);
+  background: var(--vlp-bg-surface-muted);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
+}
+
+/* Status text — waiting (no border) */
+.vlp .prim-badge-waiting {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-subtle);
+}
+
+/* ── Audit trail card internals ────────────────────────────── */
+.vlp .prim-audit-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 9px;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-audit-export {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .prim-audit-log {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-muted-outline-font);
+}
+
+.vlp .prim-audit-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+  padding-block: 8px;
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-faint);
+}
+
+/* Last audit row has no border */
+.vlp .prim-audit-row-last {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+  padding-block: 8px;
+}
+
+.vlp .prim-audit-ts {
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-audit-desc {
+  flex: 1;
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-audit-strong {
+  font-weight: var(--vlp-weight-medium);
+}
+
+/* Status tag — agent (muted fill) */
+.vlp .prim-tag-agent {
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-text-muted);
+  background: var(--vlp-bg-surface-muted);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
+}
+
+/* Status tag — approved (green fill) */
+.vlp .prim-tag-approved {
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-green-approval);
+  background: var(--vlp-bg-green-highlight);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
+}
+
+/* Status tag — rejected (accent fill) */
+.vlp .prim-tag-rejected {
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-accent-muted);
+  background: var(--vlp-bg-accent-subtle);
+  padding: 3px 10px;
+  border-radius: var(--vlp-radius-pill);
+}
+
+/* ── Suggestions card internals ────────────────────────────── */
+.vlp .prim-sug-p {
+  font-size: var(--vlp-text-label);
+  line-height: 1.7;
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-sug-del {
+  background: var(--vlp-bg-suggestion-del);
+  color: var(--vlp-color-accent-muted);
+  text-decoration: line-through;
+}
+
+.vlp .prim-sug-ins {
+  background: var(--vlp-bg-suggestion-ins);
+  color: var(--vlp-color-green-ui);
+}
+
+.vlp .prim-sug-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-3-5);
+  padding-top: 14px;
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .prim-sug-accept {
+  font-size: var(--vlp-btn-primary-font-xs);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-xs);
+  border-radius: var(--vlp-btn-primary-radius);
+}
+
+.vlp .prim-sug-reject {
+  font-size: var(--vlp-btn-primary-font-xs);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  border: var(--vlp-btn-compact-outline-border);
+  padding: var(--vlp-btn-primary-padding-xs);
+  border-radius: var(--vlp-btn-primary-radius);
+}
+
+.vlp .prim-sug-agent {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-muted);
+}
+
+/* ── Memory card internals ─────────────────────────────────── */
+.vlp .prim-mem {
+  display: flex;
+  flex-direction: column;
+}
+
+.vlp .prim-mem-grad-avatar {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-mem-title {
+  margin-top: var(--vlp-space-4);
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-mem-body {
+  margin-top: var(--vlp-space-2);
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink-soft);
+}
+
+.vlp .prim-mem-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-4);
+}
+
+.vlp .prim-mem-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  padding: 5px 11px 5px 9px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-color-cream);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink-soft);
+}
+
+.vlp .prim-mem-chip-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-mem-footer {
+  margin-top: var(--vlp-space-5);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-muted-outline-font);
+  letter-spacing: var(--vlp-tracking-mono);
+  color: var(--vlp-color-text-subtle);
+}
+
+/* ── Review-agents card: trigger → fan-out to two agent nodes ───── */
+.vlp .prim-ra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--vlp-space-2) 0 var(--vlp-space-1);
+}
+
+.vlp .prim-ra-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  padding: 7px 14px;
+  border-radius: var(--vlp-radius-pill);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .prim-ra-pill--source {
+  background: var(--vlp-bg-surface-muted);
+  color: var(--vlp-color-text-muted);
+}
+
+.vlp .prim-ra-pill--trigger {
+  background: rgba(192, 133, 50, 0.13);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-ra-pill-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-ra-pill-icon--bolt {
+  color: var(--vlp-color-amber);
+}
+
+.vlp .prim-ra-stem {
+  width: 2px;
+  height: 18px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan {
+  position: relative;
+  width: 100%;
+  height: 24px;
+}
+
+.vlp .prim-ra-fan-trunk {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan-split {
+  position: absolute;
+  top: 12px;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan-arm {
+  position: absolute;
+  top: 12px;
+  width: 2px;
+  height: 12px;
+  background: var(--vlp-border-default);
+}
+
+.vlp .prim-ra-fan-arm--left { left: 25%; }
+.vlp .prim-ra-fan-arm--right { left: 75%; }
+
+.vlp .prim-ra-nodes {
+  display: flex;
+  width: 100%;
+}
+
+.vlp .prim-ra-node {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--vlp-space-3);
+  padding: 0 var(--vlp-space-3);
+}
+
+.vlp .prim-ra-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-ra-node-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vlp-space-1);
+}
+
+.vlp .prim-ra-node-name {
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-ra-node-sub {
+  font-size: var(--vlp-text-label);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-text-muted);
+  max-width: 22ch;
+}
+
+/* ── Review-agents: horizontal (left-to-right) layout ──────────── */
+.vlp .prim-ra--horizontal {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-stem {
+  width: 32px;
+  height: 2px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan {
+  width: 52px;
+  height: auto;
+  align-self: stretch;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-trunk {
+  top: 50%;
+  left: 0;
+  width: 26px;
+  height: 2px;
+  transform: translateY(-50%);
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-split {
+  top: 25%;
+  left: 26px;
+  width: 2px;
+  height: 50%;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-arm {
+  top: 25%;
+  left: 26px;
+  width: 26px;
+  height: 2px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-fan-arm--right {
+  top: 75%;
+  left: 26px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-nodes {
+  flex-direction: column;
+  width: auto;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-node {
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  gap: var(--vlp-space-3);
+  padding: var(--vlp-space-3) 0;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-avatar {
+  width: 46px;
+  height: 46px;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-node-text {
+  align-items: flex-start;
+}
+
+.vlp .prim-ra--horizontal .prim-ra-node-sub {
+  max-width: none;
+  white-space: nowrap;
+}
+
+/* ── NEW badge (in card kicker) ────────────────────────────── */
+.vlp .prim-badge-new {
+  font-family: var(--vlp-font-mono);
+  font-size: 9px;
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-white);
+  padding: 2px 7px;
+  border-radius: var(--vlp-chip-radius);
+}
+
+/* ── Notifications card internals ──────────────────────────── */
+.vlp .prim-notif {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-8);
+}
+
+.vlp .prim-notif-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: calc(var(--vlp-space-2) * -1);
+}
+
+.vlp .prim-notif-head-title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-notif-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: var(--vlp-radius-pill);
+  background: #fa3737;
+  color: var(--vlp-color-white);
+  font-size: var(--vlp-text-tag);
+  font-weight: var(--vlp-weight-semibold);
+}
+
+.vlp .prim-notif-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-6);
+}
+
+.vlp .prim-notif-item {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .prim-notif-grad-avatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.vlp .prim-notif-item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.vlp .prim-notif-item-title {
+  font-size: var(--vlp-text-label);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink-soft);
+}
+
+.vlp .prim-notif-item-title strong {
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .prim-notif-item-sub {
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-muted);
+  margin-top: 2px;
+  line-height: var(--vlp-leading-body);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vlp .prim-notif-time {
+  flex-shrink: 0;
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-notif-channels {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  margin-top: calc(var(--vlp-space-8) / -2);
+  padding-top: var(--vlp-space-4);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .prim-notif-channels-label {
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .prim-notif-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-1-5);
+}
+
+.vlp .prim-notif-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1-5);
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-ink-soft);
+  background: var(--vlp-color-cream);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  padding: 4px 11px 4px 8px;
+  border-radius: var(--vlp-radius-pill);
+}
+
+.vlp .prim-notif-chip-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+/* ── Review-agents card internals ──────────────────────────── */
+.vlp .prim-findings-badge {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-accent-muted);
+  border: var(--vlp-border-width) solid var(--vlp-color-accent-border-muted);
+  padding: 1px 6px;
+  border-radius: var(--vlp-chip-radius);
+  margin-left: 4px;
+}
+
+.vlp .prim-agent-actions {
+  display: flex;
+  gap: var(--vlp-space-2);
+  margin-top: var(--vlp-space-2-5);
+}
+
+.vlp .prim-agent-accept {
+  font-size: var(--vlp-btn-muted-outline-font);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-muted-outline-padding);
+  border-radius: var(--vlp-btn-primary-radius);
+}
+
+.vlp .prim-agent-dismiss {
+  font-size: var(--vlp-btn-muted-outline-font);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-muted-outline-text);
+  border: var(--vlp-btn-muted-outline-border);
+  padding: var(--vlp-btn-muted-outline-padding);
+  border-radius: var(--vlp-btn-primary-radius);
+}
+
+.vlp .prim-brand-ref {
+  font-family: var(--vlp-font-mono);
+  color: var(--vlp-color-accent);
+}
+
+.vlp .prim-code-str {
+  color: var(--vlp-color-green-ui);
+}
+
+.vlp .prim-code-kw {
+  color: var(--vlp-color-amber);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+/* 5-col asymmetric grid collapses to 2 col on tablet (resetting the
+   per-row span pattern so cards don't request implicit tracks), then a
+   single column on phones. */
+@media (max-width: 1024px) {
+  .vlp .prim-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .vlp .prim-grid > .prim-card2:nth-child(1),
+  .vlp .prim-grid > .prim-card2:nth-child(2),
+  .vlp .prim-grid > .prim-card2:nth-child(3),
+  .vlp .prim-grid > .prim-card2:nth-child(4),
+  .vlp .prim-grid > .prim-card2:nth-child(5),
+  .vlp .prim-grid > .prim-card2:nth-child(6) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .prim-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .prim-card2 {
+    padding: var(--vlp-space-6);
+  }
+}

@@ -1,0 +1,6 @@
+/* Compact atoms for the approval-flows "Related primitives" teaser cards
+   (.afrl-*). Scoped under .vfp; only the new channel-chip cluster lives here —
+   the rest of the related cards reuse the global .cmh-* / apf- atoms. */
+
+.vfp .afrl-chans { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+.vfp .afrl-chan { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }

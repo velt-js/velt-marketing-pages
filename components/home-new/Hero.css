@@ -1,0 +1,452 @@
+.vlp .hero {
+  max-width: var(--vlp-content-max);
+  min-height: 580px;
+  margin: 0 auto;
+  padding: var(--vlp-space-18) var(--vlp-gutter) var(--vlp-space-10);
+  display: grid;
+  /* minmax(0, …) lets the columns honor the fr ratio exactly instead of the
+     artifact's intrinsic min-width inflating the right column toward 50/50. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--vlp-space-14);
+  align-items: center;
+}
+
+/* Compliance badges: compact icon + label chips replacing the old eyebrow. */
+.vlp .hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  margin-bottom: var(--vlp-space-6);
+}
+
+.vlp .hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 9px;
+  /* background: var(--vlp-bg-surface-muted); */
+  border-radius: var(--vlp-radius-lg);
+}
+
+.vlp .hero-badge-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--vlp-color-accent);
+}
+
+.vlp .hero-badge-label {
+  font-size: var(--vlp-text-tag);
+  font-weight: var(--vlp-weight-bold);
+  letter-spacing: var(--vlp-tracking-snug);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-strong);
+  white-space: nowrap;
+}
+
+.vlp .hero-title {
+  font-size: var(--vlp-text-hero);
+  line-height: 1;
+  letter-spacing: var(--vlp-tracking-tight);
+  font-weight: var(--vlp-weight-regular);
+  text-wrap: balance;
+}
+
+.vlp .hero-sub {
+  font-size: var(--vlp-text-body-lg);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  max-width: 46ch;
+  margin-top: var(--vlp-space-6);
+}
+
+.vlp .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-3);
+  margin-top: var(--vlp-space-8);
+}
+
+.vlp .hero-feature-strip {
+  margin-top: var(--vlp-space-5);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-primary-font-lg);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-lg);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+.vlp .hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-secondary-font-lg);
+  background: var(--vlp-btn-secondary-bg);
+  color: var(--vlp-btn-secondary-text);
+  padding: var(--vlp-btn-secondary-padding-lg);
+  border-radius: var(--vlp-btn-secondary-radius);
+  border: var(--vlp-btn-secondary-border);
+  transition: var(--vlp-btn-transition);
+}
+
+/* ── Hero artifact: table + anchored comment → webhook ─────────── */
+/* Composition tuned to the reference mockup: comment overlaps the Pro
+   row from the left, top-right anchored near the $85 cell; dashed elbow
+   exits comment mid-right into the webhook at bottom-right. */
+.vlp .hero-artifact {
+  position: relative;
+}
+
+.vlp .hero-art-stage {
+  position: relative;
+  min-height: 276px;
+}
+
+/* ── Q3 Pricing table ──────────────────────────────────────────── */
+.vlp .hero-art-table {
+  width: 100%;
+}
+
+.vlp .hero-art-title {
+  font-size: var(--vlp-text-lead);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-tight);
+  color: var(--vlp-color-ink);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .hero-art-grid {
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-xl);
+  overflow: hidden;
+}
+
+.vlp .hero-art-row {
+  display: flex;
+}
+
+.vlp .hero-art-row:not(:first-child) {
+  border-top: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .hero-art-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 11px 12px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-tight);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .hero-art-cell:not(:first-child) {
+  border-left: var(--vlp-border-width) solid var(--vlp-border-subtle);
+}
+
+.vlp .hero-art-cell--head {
+  background: var(--vlp-bg-surface-muted);
+}
+
+.vlp .hero-art-cell--hl {
+  position: relative;
+  overflow: hidden;
+  background: var(--vlp-bg-green-highlight);
+  box-shadow: inset 0 0 0 1px var(--vlp-color-green-approval);
+  /* This cell sits at the grid's bottom-right; match the grid's inner radius so
+     the green inset border follows the rounded corner instead of being clipped. */
+  border-bottom-right-radius: calc(var(--vlp-radius-xl) - var(--vlp-border-width));
+}
+
+.vlp .hero-art-cell--hl::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 0;
+  border-color: transparent var(--vlp-color-green-approval) transparent transparent;
+}
+
+/* Contextual comment: overlaps Pro row, top-right anchored to $85 cell */
+.vlp .hero-art-comment {
+  position: absolute;
+  left: 112px;
+  top: 150px;
+  width: 48%;
+  z-index: 2;
+  background: var(--vlp-bg-card);
+  border: var(--vlp-border-width) solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-card-radius);
+  overflow: hidden;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  transform-origin: 100% 0;
+}
+
+.vlp .hero-art-comment-head {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  padding: 8px 10px;
+  background: var(--vlp-color-green-approval);
+  color: var(--vlp-color-white);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .hero-art-avatar-k {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--vlp-color-yellow);
+  color: var(--vlp-color-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: var(--vlp-weight-medium);
+}
+
+.vlp .hero-art-resolve {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--vlp-color-white);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.vlp .hero-art-resolve:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.vlp .hero-art-resolve-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.vlp .hero-art-comment-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-2-5);
+  padding: 12px;
+}
+
+.vlp .hero-art-agent {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+}
+
+.vlp .hero-art-avatar-a {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--vlp-color-teal);
+  color: var(--vlp-color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vlp-btn-primary-font-micro);
+  font-weight: var(--vlp-weight-medium);
+}
+
+.vlp .hero-art-agent-name {
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-ink);
+}
+
+.vlp .hero-art-agent-time {
+  font-size: var(--vlp-text-body-sm);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.vlp .hero-art-agent-msg {
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.vlp .hero-art-reply {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-1, 4px);
+  align-self: flex-start;
+  margin-top: var(--vlp-space-1, 4px);
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgba(0, 0, 0, 0.55);
+  font-family: inherit;
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-medium);
+  letter-spacing: var(--vlp-tracking-snug);
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.vlp .hero-art-reply:hover {
+  color: var(--vlp-color-ink);
+}
+
+.vlp .hero-art-reply-icon {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+/* Dashed elbow: comment mid-right → webhook top */
+.vlp .hero-art-connector {
+  position: absolute;
+  left: 63%;
+  top: 180px;
+  width: 37%;
+  height: 96px;
+  z-index: 1;
+  pointer-events: none;
+  color: var(--vlp-color-connector-ink);
+  overflow: visible;
+}
+
+.vlp .hero-art-webhook {
+  position: absolute;
+  right: -52px;
+  bottom: -52px;
+  z-index: 2;
+  width: 196px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-gap-tight);
+  padding: 12px;
+  background: var(--vlp-bg-webhook);
+  border-radius: var(--vlp-radius-xl);
+}
+
+.vlp .hero-art-webhook-row {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+}
+
+.vlp .hero-art-post {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  font-weight: var(--vlp-weight-medium);
+  color: var(--vlp-color-blue);
+  background: rgba(111, 163, 247, 0.12);
+  padding: 2px 5px;
+  border-radius: var(--vlp-chip-radius);
+}
+
+.vlp .hero-art-webhook-url {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-on-dark-muted-rgb);
+}
+
+.vlp .hero-art-bolt {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--vlp-color-blue);
+}
+
+.vlp .hero-art-webhook-event {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-blue);
+}
+
+/* ── Staged reveal: table → cell highlight → comment opens → dashed
+      elbow draws → webhook appears. Pure CSS, one pass on load. ─── */
+@keyframes heroArtRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroCellGreen {
+  from { background-color: rgba(19, 130, 82, 0); box-shadow: inset 0 0 0 1px rgba(19, 130, 82, 0); }
+  to   { background-color: var(--vlp-bg-green-highlight); box-shadow: inset 0 0 0 1px var(--vlp-color-green-approval); }
+}
+@keyframes heroCommentOpen {
+  from { opacity: 0; transform: scale(0.94) translateY(6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes heroDrawConnector {
+  0%   { clip-path: inset(0 100% 100% 0); }
+  55%  { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+.vlp .hero-art-table    { animation: heroArtRise 0.55s ease both; }
+.vlp .hero-art-cell--hl { animation: heroCellGreen 0.5s ease 0.85s both; }
+.vlp .hero-art-comment  { animation: heroCommentOpen 0.55s cubic-bezier(0.22, 1, 0.36, 1) 1.35s both; }
+.vlp .hero-art-connector { animation: heroDrawConnector 0.7s ease 1.95s both; }
+.vlp .hero-art-webhook  { animation: heroArtRise 0.45s ease 2.45s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .hero-art-table,
+  .vlp .hero-art-cell--hl,
+  .vlp .hero-art-comment,
+  .vlp .hero-art-connector,
+  .vlp .hero-art-webhook {
+    animation: none;
+  }
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .vlp .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: var(--vlp-space-12);
+    padding-top: var(--vlp-space-12);
+  }
+
+  /* The webhook intentionally bleeds past the right edge on desktop; on a
+     single-column phone layout that bleed would push the page wider than the
+     viewport, so clip the artifact horizontally and pin the webhook inside. */
+  .vlp .hero-artifact {
+    overflow-x: clip;
+  }
+
+  .vlp .hero-art-stage {
+    margin-bottom: var(--vlp-space-12);
+  }
+
+  .vlp .hero-art-webhook {
+    right: 0;
+    bottom: 0;
+  }
+}

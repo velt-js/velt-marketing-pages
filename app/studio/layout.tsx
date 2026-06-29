@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Velt Marketing — Sanity Studio",
+  title: "Velt Marketing: Sanity Studio",
 };
 
 export default function StudioLayout({

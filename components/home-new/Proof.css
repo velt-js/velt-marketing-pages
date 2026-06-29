@@ -1,0 +1,245 @@
+.vlp .proof-section {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .proof-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .proof-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .proof-heading {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+}
+
+.vlp .proof-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-10);
+  align-items: stretch;
+}
+
+.vlp .proof-dark-card {
+  background: var(--vlp-bg-card-dark);
+  color: var(--vlp-color-cream);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-card-padding-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-3);
+}
+
+.vlp .proof-dark-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--vlp-space-3);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .proof-dark-card-company {
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-medium);
+}
+
+.vlp .proof-badge-orange {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: 0.05em;
+  color: var(--vlp-color-accent);
+  border: var(--vlp-chip-border-accent);
+  padding: var(--vlp-chip-padding-sm);
+  border-radius: var(--vlp-chip-radius);
+}
+
+.vlp .proof-dark-card-title {
+  font-size: var(--vlp-text-quote);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: var(--vlp-weight-regular);
+  text-wrap: balance;
+}
+
+.vlp .proof-dark-card-body {
+  font-size: var(--vlp-text-body-md);
+  line-height: 1.6;
+  color: var(--vlp-color-text-subtle);
+  text-wrap: balance;
+}
+
+.vlp .proof-attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--vlp-space-2-5);
+  margin-top: var(--vlp-space-5);
+}
+
+.vlp .proof-avatar-dm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--vlp-color-amber);
+  color: var(--vlp-color-white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--vlp-btn-primary-font-micro);
+}
+
+.vlp .proof-attribution-name {
+  font-size: var(--vlp-text-body-sm);
+}
+
+.vlp .proof-attribution-role {
+  display: block;
+  color: var(--vlp-color-text-faint);
+  font-size: var(--vlp-btn-muted-outline-font);
+}
+
+.vlp .proof-case-study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-accent);
+  margin-top: var(--vlp-space-4-5);
+}
+
+/* Stats sit in a bordered grid of three equal columns spanning the card,
+   split by hairline dividers. */
+.vlp .proof-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: auto;
+  border: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+}
+
+.vlp .proof-stat {
+  padding: var(--vlp-card-padding) var(--vlp-space-5);
+}
+
+.vlp .proof-stat + .proof-stat {
+  border-left: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+}
+
+.vlp .proof-stat-number {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-card);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vlp .proof-stat-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-faint);
+  letter-spacing: 0.04em;
+  margin-top: var(--vlp-space-1-5);
+}
+
+.vlp .proof-right-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-gap-card);
+}
+
+.vlp .proof-small-card {
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-card-radius);
+  padding: var(--vlp-card-padding);
+  flex: 1;
+}
+
+.vlp .proof-small-card-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: 0.05em;
+  color: var(--vlp-color-accent);
+  margin-bottom: var(--vlp-space-2-5);
+}
+
+.vlp .proof-small-card-quote {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-medium);
+  line-height: 1.4;
+}
+
+.vlp .proof-small-card-attribution {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  color: var(--vlp-color-text-muted);
+  margin-top: var(--vlp-space-2-5);
+}
+
+.vlp .proof-logos {
+  margin-top: var(--vlp-gap-section);
+}
+
+.vlp .proof-cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-gap-card);
+  margin-top: var(--vlp-space-11);
+}
+
+.vlp .proof-cta-microcopy {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-btn-primary-font-micro);
+  letter-spacing: 0.04em;
+  color: var(--vlp-color-text-subtle);
+}
+
+.vlp .proof-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-btn-gap);
+  font-size: var(--vlp-btn-primary-font-md);
+  background: var(--vlp-btn-primary-bg);
+  color: var(--vlp-btn-primary-text);
+  padding: var(--vlp-btn-primary-padding-md);
+  border-radius: var(--vlp-btn-primary-radius);
+  transition: var(--vlp-btn-transition);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .vlp .proof-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Stack the three stat columns and swap the vertical dividers for
+   horizontal ones once the row is too narrow to read across. */
+@media (max-width: 480px) {
+  .vlp .proof-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .vlp .proof-stat + .proof-stat {
+    border-left: none;
+    border-top: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+  }
+}

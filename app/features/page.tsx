@@ -1,19 +1,14 @@
-// /features landing page — lists every Velt feature from Sanity.
-// Composition mirrors /libraries: dark hero → trusted logos → light grid →
-// security → FAQ → get started → footer. The grid here is inlined because
-// the feature card data shape differs from libraries and we don't want to
-// generalize AllLibraries until a second consumer needs it.
+// /features landing page — the "All features" index/hub. Lists every Velt
+// feature from Sanity, reskinned into the new editorial theme (.vlp chrome +
+// the shared .vintg hub system) to match the homepage and the /integrations and
+// /libraries hubs. Content/data and the SEO graph (WebPage + Breadcrumb +
+// FAQPage + ItemList JSON-LD, metadata) are preserved; only the skin changed.
 
-import Link from "next/link";
-
-import { Footer } from "@/components/home/Footer";
-import { Security } from "@/components/home/Security";
-import { GetStartedSteps } from "@/components/home/GetStartedSteps";
-import { TrustedLogos } from "@/components/home/TrustedLogos";
-import { PageHero } from "@/components/library/PageHero";
-import { LibraryFAQ } from "@/components/library/LibraryFAQ";
+import FeaturesHubView, {
+  type FeatureListItem,
+} from "@/components/features-new/FeaturesHubView";
 import { sharedFAQ } from "@/components/library/shared-content";
-import { FeatureCustomerCarousel } from "@/components/feature/FeatureCustomerCarousel";
+import type { FaqEntry } from "@/components/libraries-new/content";
 import { getAllFeaturePages } from "@/sanity/queries";
 import { sanitySlugToUrl } from "@/lib/feature-slugs";
 import { JsonLd } from "@/app/_seo/JsonLd";
@@ -21,6 +16,7 @@ import {
   SITE_URL,
   buildBreadcrumbList,
   buildFaqPageSchemaFromEntries,
+  buildItemListSchema,
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
@@ -33,7 +29,7 @@ const FEATURES_BREADCRUMB = buildBreadcrumbList([
 const FEATURES_WEBPAGE = buildWebPageSchema({
   name: "Features | Velt",
   description:
-    "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+    "Velt's collaboration features: Commenting, Notifications, Presence, Cursors, Huddle, and more.",
   url: `${SITE_URL}/features`,
   breadcrumb: FEATURES_BREADCRUMB,
 });
@@ -45,201 +41,36 @@ export const revalidate = 60;
 export const metadata = buildPageMetadata({
   title: "Features",
   description:
-    "Velt's collaboration features — Commenting, Notifications, Presence, Cursors, Huddle, and more.",
+    "Velt's collaboration features: Commenting, Notifications, Presence, Cursors, Huddle, and more.",
   path: "/features",
 });
-
-type FeatureListItem = {
-  _id: string;
-  title: string;
-  slug: string;
-  category?: string;
-  tagline?: string;
-  logo?: string;
-};
 
 export default async function FeaturesLandingPage() {
   const items = ((await getAllFeaturePages()) ?? []) as FeatureListItem[];
 
+  const itemList = buildItemListSchema({
+    name: "Velt features",
+    items: items.map((item) => ({
+      name: item?.title ?? "",
+      url: `${SITE_URL}/${sanitySlugToUrl(item?.slug ?? "")}`,
+    })),
+  });
+
   return (
     <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+
       <JsonLd id="ld-features-webpage" data={FEATURES_WEBPAGE} />
       <JsonLd id="ld-features-breadcrumb" data={FEATURES_BREADCRUMB} />
       <JsonLd id="ld-features-faq" data={FEATURES_FAQ_SCHEMA} />
-      <div
-        className="relative bg-black text-white font-urbanist w-full overflow-x-hidden"
-      >
-        <PageHero
-          decorated
-          heading="Built for Modern Collaboration"
-          subheading="Drop-in collaboration primitives — comments, presence, cursors, huddles, and more."
-          primaryCta={{
-            label: "Get Free API Key",
-            href: "https://console.velt.dev/",
-            newTab: true,
-          }}
-          secondaryCta={{ label: "Book Demo", href: "/book-demo" }}
-        />
+      <JsonLd id="ld-features-itemlist" data={itemList} />
 
-        <TrustedLogos />
-
-        <FeaturesGrid items={items} />
-
-        <Security />
-
-        <FeatureCustomerCarousel />
-
-        <LibraryFAQ items={sharedFAQ} />
-
-        <GetStartedSteps />
-
-        <Footer />
-      </div>
+      <FeaturesHubView items={items} faq={sharedFAQ as FaqEntry[]} />
     </>
-  );
-}
-
-function FeaturesGrid({ items }: { items: FeatureListItem[] }) {
-  return (
-    <section
-      data-outcomes
-      className="flex flex-col items-center bg-white full-bleed-bg"
-      style={{
-        padding: "100px 80px",
-        gap: 52,
-        marginTop: 80,
-        borderTopLeftRadius: 48,
-        borderTopRightRadius: 48,
-      }}
-    >
-      <div
-        className="flex flex-col items-center text-center"
-        style={{ gap: 16, maxWidth: 820 }}
-      >
-        <h2
-          className="font-urbanist font-bold"
-          style={{
-            fontSize: 52,
-            lineHeight: "120%",
-            letterSpacing: "-0.03em",
-            color: "rgb(0, 0, 0)",
-            margin: 0,
-          }}
-        >
-          Explore Velt Features
-        </h2>
-        <p
-          className="font-urbanist"
-          style={{
-            fontSize: 18,
-            lineHeight: 1.4,
-            color: "rgb(0, 0, 0)",
-            opacity: 0.6,
-            margin: 0,
-          }}
-        >
-          Pick a building block and ship in days, not months.
-        </p>
-      </div>
-
-      {items.length === 0 ? (
-        <p
-          className="font-urbanist"
-          style={{ fontSize: 16, color: "rgb(0, 0, 0)", opacity: 0.6 }}
-        >
-          No feature pages yet. Add one in{" "}
-          <Link
-            href="/studio"
-            className="text-velt-purple hover:underline"
-          >
-            Sanity Studio
-          </Link>
-          .
-        </p>
-      ) : (
-        <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 24,
-            width: "100%",
-            maxWidth: 1280,
-          }}
-        >
-          {items.map((item) => (
-            <Link
-              key={item._id}
-              href={`/${sanitySlugToUrl(item.slug)}`}
-              className="group flex flex-col"
-              style={{
-                background: "rgb(247, 247, 247)",
-                border: "1px solid rgba(0,0,0,0.04)",
-                borderRadius: 16,
-                padding: 32,
-                gap: 16,
-                minHeight: 200,
-                textDecoration: "none",
-                transition: "background 200ms ease, box-shadow 200ms ease",
-              }}
-            >
-              {item.logo ? (
-                <div style={{ height: 32 }}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={item.logo}
-                    alt={item.title}
-                    style={{
-                      height: 32,
-                      maxWidth: "60%",
-                      objectFit: "contain",
-                      display: "block",
-                    }}
-                  />
-                </div>
-              ) : null}
-              <h3
-                className="font-urbanist font-semibold"
-                style={{
-                  fontSize: 24,
-                  lineHeight: 1.2,
-                  color: "rgb(0, 0, 0)",
-                  margin: 0,
-                }}
-              >
-                {item.title}
-              </h3>
-              {item.tagline ? (
-                <p
-                  className="font-urbanist"
-                  style={{
-                    fontSize: 16,
-                    lineHeight: 1.4,
-                    color: "rgb(0, 0, 0)",
-                    opacity: 0.6,
-                    margin: 0,
-                  }}
-                >
-                  {item.tagline}
-                </p>
-              ) : null}
-              {item.category ? (
-                <span
-                  className="font-urbanist font-semibold"
-                  style={{
-                    fontSize: 12,
-                    letterSpacing: "0.05em",
-                    textTransform: "uppercase",
-                    color: "var(--color-velt-purple)",
-                    marginTop: "auto",
-                  }}
-                >
-                  {item.category}
-                </span>
-              ) : null}
-            </Link>
-          ))}
-        </div>
-      )}
-    </section>
   );
 }

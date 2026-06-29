@@ -1,0 +1,400 @@
+// OG (social preview) image generator for the Velt marketing site, new theme.
+//
+// Mirrors the approved minimal template in scripts/og/home.html: top orange
+// rule, inline Velt logo SVG (#26251e), mono eyebrow with an orange dot, a big
+// Urbanist title with exactly one orange accent word/phrase, a muted sub, and
+// an optional mono feature/keyword strip.
+//
+// For each entry in DATA we write scripts/og/_tmp.html and shell out to Chrome
+// headless to screenshot a 1200x630 viewport at 2x -> 2400x1260 PNG in
+// public/og/<slug>.png. Chrome needs network for the Google Fonts request.
+//
+// Usage: node scripts/og/generate.mjs
+
+import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+import { dirname, join, resolve } from "node:path";
+import { writeFileSync, mkdirSync, rmSync } from "node:fs";
+
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = resolve(SCRIPT_DIR, "..", "..");
+const OUT_DIR = join(REPO_ROOT, "public", "og");
+// Per-process temp dir so concurrent generators (other agents may run the same
+// script) never read each other's half-written _tmp.html — that cross-
+// contamination produces wrong or ERR_FILE_NOT_FOUND screenshots.
+const TMP_DIR = join(SCRIPT_DIR, `.tmp-core-${process.pid}`);
+const CHROME =
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+
+// Inline Velt logo, copied verbatim from scripts/og/home.html (fill #26251e).
+const LOGO_SVG = `<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg" aria-label="Velt">
+      <g fill="#26251e">
+        <path d="M143.704 82.6134L119.425 118.225L167.443 122.002L143.704 82.6134Z" />
+        <path d="M150.175 80.4508L169.598 111.745L167.441 81.5297L150.175 80.4508Z" />
+        <path d="M174.451 91.8011L176.609 119.319L186.86 111.764L174.451 91.8011Z" />
+        <path d="M186.321 120.402L177.688 126.876L180.926 144.682L186.321 120.402Z" />
+        <path d="M147.488 170.566L172.306 133.877L177.162 158.697L147.488 170.566Z" />
+        <path d="M143.314 179.366L146.55 187.548L164.822 170.727L143.314 179.366Z" />
+        <path d="M137.179 182.241L115.388 193.137L140.374 190.549L137.179 182.241Z" />
+        <path d="M128.026 179.284L99.227 193.725L93.1001 174.028L128.026 179.284Z" />
+        <path d="M85.9748 173.591L91.3689 191.18L65.6874 176.063L85.9748 173.591Z" />
+        <path d="M61.5785 134.19L58.9374 170.099L82.7043 167.289L61.5785 134.19Z" />
+        <path d="M55.297 128.177L52.993 160.209L40.3498 131.549L55.297 128.177Z" />
+        <path d="M46.4059 94.4762L39.9998 124.823L54.6682 121.62L46.4059 94.4762Z" />
+        <path d="M49.9999 83.5575L59.9461 115.701L83.1544 75.6897L49.9999 83.5575Z" />
+        <path d="M113.544 128.94L93.4376 167.287L133.477 173.352L113.544 128.94Z" />
+        <path d="M167.644 128.403L139.62 170.574L119.001 124.99L167.644 128.403Z" />
+        <path d="M108.088 124.989L64.8499 127.147L88.0501 163.306L108.088 124.989Z" />
+        <path d="M89.6077 77.8758L64.8499 120.312L108.539 118.231L89.6077 77.8758Z" />
+        <path d="M137.823 79.3875L114.232 114.624L95.3126 74.6382L137.823 79.3875Z" />
+        <path d="M138.363 55.2502L145.946 73.6339L160.499 74.6292L138.363 55.2502Z" />
+        <path d="M167.844 69.3535L167.447 71.9576L159.188 64.4504L167.844 69.3535Z" />
+        <path d="M128.093 48.3L99.0626 68.369L138.357 72.8883L128.093 48.3Z" />
+        <path d="M86.2625 51.2764L91.6242 65.6007L116.75 48L86.2625 51.2764Z" />
+        <path d="M80.2356 54.1377L57.5124 74.8862L85.4331 68.3565L80.2356 54.1377Z" />
+        <path d="M271.502 175.188L234.862 75.3777H274.937L293.829 136.065L312.913 75.3777H348.217L311.768 175.188H271.502ZM405.325 177.668C373.456 177.668 349.985 159.539 349.985 126.523V124.997C349.985 92.5539 374.792 72.515 405.325 72.515C433.377 72.515 457.232 88.5459 457.232 124.424V133.585H387.96C388.914 145.608 395.974 152.096 406.661 152.096C417.157 152.096 421.164 147.134 422.309 141.409H457.422C454.369 164.31 437.003 177.668 405.325 177.668ZM388.151 113.928H420.973C420.592 103.24 415.439 96.7518 405.325 96.7518C396.165 96.7518 389.677 102.668 388.151 113.928ZM473.932 175.188V32.0566H511.335V175.188H473.932ZM574.654 177.478C551.181 177.478 537.824 166.791 537.824 141.791V100.569H526.182V75.3777H537.824V54.9578H575.417V75.3777H594.5V100.569H575.417V138.165C575.417 145.034 579.042 147.897 585.15 147.897C588.584 147.897 591.256 147.516 594.5 146.371V174.616C589.92 175.951 582.859 177.478 574.654 177.478Z" />
+      </g>
+    </svg>`;
+
+/**
+ * Build the full OG HTML document for one entry.
+ * @param {{eyebrow: string, titleHtml: string, sub: string, strip?: string, titleSize?: number, titleMaxWidth?: string}} entry
+ * @returns {string} The HTML document string.
+ */
+function buildHtml(entry) {
+  const titleSize = entry.titleSize ?? 76;
+  const titleMaxWidth = entry.titleMaxWidth ?? "17ch";
+  const strip = entry.strip
+    ? `\n  <p class="feature-strip">${entry.strip}</p>`
+    : "";
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #26251e;
+    --cream: #f7f7f4;
+    --white: #ffffff;
+    --accent: #f54e00;
+    --text-muted: #7a7974;
+    --text-subtle: #a1a19f;
+    --border-subtle: #e6e5e0;
+    --font-body: 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Urbanist', sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 1200px; height: 630px; }
+
+  body {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    background: var(--white);
+    color: var(--ink);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 96px;
+  }
+
+  /* one quiet accent: a thin orange rule at the very top */
+  .topline {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--accent);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+  .brand svg { height: 34px; width: auto; display: block; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  .eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  .title {
+    font-family: var(--font-heading);
+    font-size: ${titleSize}px;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+    color: var(--ink);
+    max-width: ${titleMaxWidth};
+    text-wrap: balance;
+  }
+  .title .accent { color: var(--accent); }
+
+  .sub {
+    font-size: 24px;
+    line-height: 1.45;
+    color: var(--text-muted);
+    max-width: 40ch;
+    margin-top: 32px;
+  }
+
+  .feature-strip {
+    margin-top: 56px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+  }
+</style>
+</head>
+<body>
+  <div class="topline"></div>
+
+  <div class="brand">
+    ${LOGO_SVG}
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span>${entry.eyebrow}</div>
+
+  <h1 class="title">${entry.titleHtml}</h1>
+
+  <p class="sub">${entry.sub}</p>${strip}
+</body>
+</html>`;
+}
+
+/** Shorthand for an orange accent span that never wraps mid-phrase. */
+const accent = (word) =>
+  `<span class="accent" style="white-space:nowrap">${word}</span>`;
+
+const DATA = [
+  {
+    slug: "pricing",
+    eyebrow: "Pricing",
+    titleHtml: `Pay only for ${accent("meaningful")} collaboration.`,
+    sub: "Usage-based pricing on monthly active documents — not seats, not connections. Start free, scale when your product does.",
+    strip: "Free tier · No card · Billed on MADs · Cancel anytime",
+  },
+  {
+    slug: "comparison",
+    eyebrow: "Comparison",
+    titleHtml: `Better experience, ${accent("90% less")} code.`,
+    sub: "See how Velt outperforms the alternatives across the six things that actually matter in production.",
+    strip: "25+ features · Ships in a day · SOC 2 · HIPAA",
+  },
+  {
+    slug: "enterprise",
+    eyebrow: "Enterprise",
+    titleHtml: `The collaboration stack for ${accent("enterprise")}.`,
+    sub: "Self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime.",
+    strip: "SOC 2 Type II · HIPAA BAA · SLAs · Self-hosting",
+  },
+  {
+    slug: "platform",
+    eyebrow: "Admin Console",
+    titleHtml: `A ${accent("control plane")} for the review layer you run.`,
+    sub: "Measure adoption, debug live, explore and export data, and automate Velt via REST APIs and webhooks.",
+    strip: "Adoption · Live debug · Data export · Config",
+    titleSize: 64,
+  },
+  {
+    slug: "devtools",
+    eyebrow: "DevTools",
+    titleHtml: `Debug your Velt integration in the ${accent("browser")}.`,
+    sub: "A Chrome extension with a data inspector, live event stream, component inspector, and SDK switching.",
+    strip: "Data inspector · Event stream · Component inspector",
+    titleSize: 64,
+  },
+  {
+    slug: "webhooks-and-api",
+    eyebrow: "Webhooks & API",
+    titleHtml: `Extend Velt with webhooks and a ${accent("REST API")}.`,
+    sub: "Perform CRUD on every feature, receive signed events with retries, transform payloads, and sync to Slack.",
+    strip: "REST API · Signed events · Retries · Slack sync",
+    titleSize: 64,
+  },
+  {
+    slug: "customization",
+    eyebrow: "Customization",
+    titleHtml: `Make Velt match ${accent("your product")}.`,
+    sub: "CSS theming, wireframes, primitives in your own UI library, headless hooks, and behavior APIs.",
+    strip: "Theming · Primitives · Headless hooks · APIs",
+  },
+  {
+    slug: "launch-kit",
+    eyebrow: "Launch Kit",
+    titleHtml: `Ship your collaboration launch ${accent("faster")}.`,
+    sub: "Pre-built assets — email templates, social graphics, and website designs — for your feature launch.",
+    strip: "Email · Social · Website · Free Figma file",
+  },
+  {
+    slug: "book-demo",
+    eyebrow: "See it live",
+    titleHtml: `Book a demo with an ${accent("engineer")}.`,
+    sub: "See how Velt adds powerful collaboration to your app. 30 minutes, with an engineer, not a sales deck.",
+    strip: "30 minutes · Real engineer · No sales deck",
+  },
+  {
+    slug: "careers",
+    eyebrow: "We're hiring",
+    titleHtml: `Build the ${accent("collaboration layer")} of the internet.`,
+    sub: "Join a small, technical team of builders — backed by Y Combinator and trusted by 50+ companies.",
+    strip: "Remote-first · Meaningful equity · YC W22",
+    titleSize: 62,
+  },
+  {
+    slug: "customers",
+    eyebrow: "Customers",
+    titleHtml: `Trusted by Google, Pendo, and ${accent("50+ teams")}.`,
+    sub: "Teams ship Velt collaboration to millions of users — 26% more engagement, 5x faster than building in-house.",
+    strip: "Google · Pendo · Runway · 50+ companies",
+    titleSize: 64,
+  },
+  {
+    slug: "consult",
+    eyebrow: "Free consultation",
+    titleHtml: `A ${accent("free")} design consultation for your product.`,
+    sub: "Ex-Google and Netflix PMs and designers audit your product and ship custom collaboration mockups.",
+    strip: "Product audit · Custom mockups · Rollout plan",
+    titleSize: 64,
+  },
+  {
+    slug: "features",
+    eyebrow: "Features",
+    titleHtml: `Built for modern ${accent("collaboration")}.`,
+    sub: "Drop-in primitives — comments, presence, cursors, huddles, and more. Ship in days, not months.",
+    strip: "Comments · Presence · Cursors · Huddles · Notifications",
+  },
+  {
+    slug: "integrations",
+    eyebrow: "Integrations",
+    titleHtml: `Connect Velt to the tools you ${accent("already use")}.`,
+    sub: "Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, and Segment.",
+    strip: "Slack · Discord · Teams · Zapier · Segment",
+    titleSize: 64,
+  },
+  {
+    slug: "libraries",
+    eyebrow: "Libraries",
+    titleHtml: `Add Velt to ${accent("any editor")}, grid, or canvas.`,
+    sub: "Comments, co-editing, presence, and agent review for Tiptap, Monaco, AG Grid, React Flow, and more.",
+    strip: "Tiptap · Monaco · AG Grid · React Flow · PDFs",
+    titleSize: 64,
+  },
+  {
+    slug: "use-case",
+    eyebrow: "Use cases",
+    titleHtml: `Where will you integrate ${accent("Velt")}?`,
+    sub: "Explore 10+ use cases. Velt drops collaboration into whatever you're building.",
+    strip: "Video editor · Sheets · Analytics · Code IDE · Task manager",
+  },
+  {
+    slug: "demos",
+    eyebrow: "Demos",
+    titleHtml: `See Velt collaboration in ${accent("real apps")}.`,
+    sub: "Live product demos showcasing Velt collaboration features running in real applications.",
+    strip: "Comments · Presence · Notifications · Huddles",
+  },
+  {
+    slug: "blog",
+    eyebrow: "Blog",
+    titleHtml: `Guides and insights on ${accent("collaboration")}.`,
+    sub: "Comparisons and insights on collaboration SDKs, real-time features, and building better products.",
+    strip: "Guides · Comparisons · Engineering · Product",
+  },
+  {
+    slug: "privacy",
+    eyebrow: "Legal",
+    titleHtml: `${accent("Privacy")} policy.`,
+    sub: "How Velt collects, uses, and protects your information across our SDK and website.",
+    strip: "Data · Security · Compliance",
+  },
+  {
+    slug: "terms",
+    eyebrow: "Legal",
+    titleHtml: `${accent("Terms")} of service.`,
+    sub: "The terms governing your use of Velt's collaboration SDK, APIs, and website.",
+    strip: "SDK · APIs · Website",
+  },
+  {
+    slug: "thank-you",
+    eyebrow: "Request received",
+    titleHtml: `Thanks — we'll be ${accent("in touch")}.`,
+    sub: "Our team will reach out within one business day to schedule your demo.",
+    strip: "Demo · Within one business day",
+  },
+  {
+    slug: "yc",
+    eyebrow: "For YC teams",
+    titleHtml: `Make something ${accent("people want")}.`,
+    sub: "YC teams under $1M ARR get $499/mo for year one. Ship collaboration in a week, not 4-5 months.",
+    strip: "$499/mo · Year one · Under $1M ARR",
+  },
+];
+
+/**
+ * Render one entry to public/og/<slug>.png via Chrome headless.
+ * @param {object} entry The DATA entry.
+ * @returns {void}
+ */
+function render(entry) {
+  const html = buildHtml(entry);
+  const tmpHtml = join(TMP_DIR, `${entry.slug}.html`);
+  writeFileSync(tmpHtml, html, "utf8");
+  const outPath = join(OUT_DIR, `${entry.slug}.png`);
+  execFileSync(
+    CHROME,
+    [
+      "--headless=new",
+      "--disable-gpu",
+      "--hide-scrollbars",
+      "--force-device-scale-factor=2",
+      "--window-size=1200,630",
+      `--screenshot=${outPath}`,
+      "--default-background-color=00000000",
+      "--virtual-time-budget=4000",
+      `file://${tmpHtml}`,
+    ],
+    { stdio: "ignore" },
+  );
+  console.log(`✓ ${entry.slug}.png`);
+}
+
+function main() {
+  mkdirSync(OUT_DIR, { recursive: true });
+  mkdirSync(TMP_DIR, { recursive: true });
+  // Optional CLI filter: `node generate.mjs pricing webhooks-and-api` renders
+  // only those slugs. With no args, render every entry.
+  const only = process.argv.slice(2);
+  const entries = only.length
+    ? DATA.filter((entry) => only.includes(entry.slug))
+    : DATA;
+  try {
+    for (const entry of entries) {
+      render(entry);
+    }
+  } finally {
+    rmSync(TMP_DIR, { recursive: true, force: true });
+  }
+  console.log(`\nGenerated ${entries.length} OG images into public/og/`);
+}
+
+main();

@@ -1,0 +1,100 @@
+.vlp .cul-section {
+  background: var(--vlp-bg-section-alt);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .cul-inner {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .cul-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-4);
+}
+
+.vlp .cul-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .cul-title {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  max-width: 24ch;
+  margin-bottom: var(--vlp-gap-section);
+}
+
+.vlp .cul-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--vlp-gap-card);
+}
+
+.vlp .cul-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96px;
+  padding: var(--vlp-card-padding);
+  background: var(--vlp-bg-card);
+  border: var(--vlp-card-border);
+  border-radius: var(--vlp-radius-card);
+  transition: border-color var(--vlp-transition-fast),
+    transform var(--vlp-transition-fast);
+}
+
+.vlp .cul-logo {
+  max-width: 100%;
+  max-height: 32px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* Source PNGs are white-on-transparent (built for the dark legacy page);
+     brightness(0) renders them as ink silhouettes on the light cells. */
+  filter: brightness(0);
+  opacity: 0.55;
+  transition: opacity var(--vlp-transition-fast);
+}
+
+.vlp .cul-cell:hover .cul-logo {
+  opacity: 0.9;
+}
+
+@media (max-width: 1024px) {
+  .vlp .cul-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .vlp .cul-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter);
+  }
+  .vlp .cul-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .vlp .cul-cell {
+    height: 80px;
+    padding: var(--vlp-space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .vlp .cul-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

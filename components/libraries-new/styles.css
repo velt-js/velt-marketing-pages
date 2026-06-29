@@ -1,0 +1,649 @@
+/* Integrations hub + spoke sections. Scoped under .vintg, rendered inside the
+   shared .vlp > .vfp chrome (so home-new tokens and feature-new demo-atom
+   classes resolve). Editorial light system: ink on cream/white, orange accent
+   for eyebrows and links. Tokens come from components/home-new/styles.css. */
+
+.vintg {
+  background: var(--vlp-bg-page);
+  color: var(--vlp-color-text);
+  font-family: var(--vlp-font-body);
+}
+
+.vintg-wrap {
+  max-width: var(--vlp-content-max);
+  margin: 0 auto;
+  padding: 0 var(--vlp-gutter);
+}
+
+.vintg-section {
+  padding: var(--vlp-space-20) 0;
+  border-top: 1px solid var(--vlp-border-faint);
+}
+.vintg-section--alt {
+  background: var(--vlp-bg-section-alt);
+}
+.vintg-section--flush {
+  border-top: none;
+}
+
+/* Scoped under .vintg so margins beat the `.vfp p`/`.vfp h*` element resets
+   (specificity 0,1,1) that would otherwise zero them. */
+.vintg .vintg-eyebrow {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent);
+  margin: 0 0 var(--vlp-space-5);
+}
+
+.vintg-h2 {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-section);
+  font-weight: var(--vlp-weight-semibold);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-text);
+  margin: 0;
+}
+.vintg-h3 {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-card);
+  font-weight: var(--vlp-weight-semibold);
+  letter-spacing: var(--vlp-tracking-snug);
+  margin: 0;
+}
+.vintg-lead {
+  font-size: var(--vlp-text-lead);
+  line-height: var(--vlp-leading-relaxed);
+  color: var(--vlp-color-text-muted);
+  max-width: 56ch;
+}
+.vintg-body {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-relaxed);
+  color: var(--vlp-color-text-muted);
+}
+
+.vintg-sechead {
+  margin-bottom: var(--vlp-space-12);
+  max-width: 64ch;
+}
+/* When the header is immediately followed by a prose paragraph (the Problem
+   and Why-Velt sections) the 48px gap reads as too much; tighten it. Sections
+   whose header precedes a card grid keep the larger gap. */
+.vintg .vintg-sechead:has(+ .vintg-body) {
+  margin-bottom: var(--vlp-space-6);
+}
+.vintg-sechead .vintg-h2 + p {
+  margin-top: var(--vlp-space-4);
+}
+
+/* ---- Buttons ---- */
+.vintg-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-3);
+  align-items: center;
+}
+.vintg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--vlp-space-2);
+  height: 46px;
+  padding: 0 var(--vlp-space-6);
+  border-radius: var(--vlp-radius-md);
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-label);
+  font-weight: var(--vlp-weight-semibold);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+/* Scoped under .vintg so these beat the `.vfp a { color: inherit }` reset
+   (specificity 0,1,1) that would otherwise leave the dark button text dark. */
+.vintg .vintg-btn--primary {
+  background: var(--vlp-color-ink);
+  color: var(--vlp-color-white);
+}
+.vintg .vintg-btn--primary:hover {
+  background: var(--vlp-color-ink-hover);
+  color: var(--vlp-color-white);
+}
+.vintg .vintg-btn--secondary {
+  background: transparent;
+  color: var(--vlp-color-text);
+  border-color: var(--vlp-border-default);
+}
+.vintg .vintg-btn--secondary:hover {
+  background: var(--vlp-bg-soft-hover);
+}
+.vintg .vintg-micro {
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-subtle);
+  margin: var(--vlp-space-6) 0 0;
+}
+
+/* ---- Hero ---- */
+.vintg-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--vlp-space-16);
+  align-items: center;
+  padding: var(--vlp-space-24) 0 var(--vlp-space-20);
+}
+.vintg .vintg-hero h1 {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-hero);
+  font-weight: var(--vlp-weight-semibold);
+  line-height: var(--vlp-leading-display);
+  letter-spacing: var(--vlp-tracking-tight);
+  margin: 0 0 var(--vlp-space-6);
+  color: var(--vlp-color-text);
+}
+.vintg-hero .vintg-lead {
+  margin-bottom: var(--vlp-space-6);
+}
+.vintg-hero-visual {
+  min-width: 0;
+}
+/* Hero chip cluster as a fixed 3-column grid (3x2 for 6 chips) instead of a
+   ragged flex-wrap row. Each chip fills its cell so the grid reads evenly. */
+.vintg-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-space-2);
+}
+.vintg-hero-grid .vintg-chip {
+  width: 100%;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .vintg-hero-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Beta chip ---- */
+.vintg-beta {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 var(--vlp-space-2-5);
+  margin-left: var(--vlp-space-3);
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-bg-accent-subtle);
+  color: var(--vlp-color-accent-muted);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+/* ---- Card grids ---- */
+.vintg-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-space-4);
+}
+.vintg-cards--quad {
+  grid-template-columns: repeat(4, 1fr);
+}
+.vintg-card {
+  background: var(--vlp-bg-card);
+  border: 1px solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-2);
+}
+.vintg-card h3,
+.vintg-card h4 {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-semibold);
+  margin: 0;
+}
+.vintg-card p {
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin: 0;
+}
+.vintg .vintg-card-link {
+  margin-top: auto;
+  font-size: var(--vlp-text-body-sm);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-accent);
+  text-decoration: none;
+}
+.vintg .vintg-card-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- How it works steps ---- */
+.vintg-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-space-4);
+}
+.vintg-step {
+  background: var(--vlp-bg-card);
+  border: 1px solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-space-6);
+}
+.vintg-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: var(--vlp-radius-pill);
+  background: var(--vlp-color-ink);
+  color: var(--vlp-color-text-on-dark);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  margin-bottom: var(--vlp-space-3);
+}
+.vintg-step p {
+  font-size: var(--vlp-text-body-sm-plus);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  margin: 0 0 var(--vlp-space-3);
+}
+.vintg-code {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-mono-sm);
+  background: var(--vlp-color-dark-2);
+  color: var(--vlp-color-text-on-dark);
+  border-radius: var(--vlp-radius-md);
+  padding: var(--vlp-space-3);
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin: 0;
+}
+
+/* ---- Dark banners (mcp, build-vs-buy, enterprise) ---- */
+.vintg-banner {
+  background: var(--vlp-bg-card-dark);
+  color: var(--vlp-color-text-on-dark);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-space-8);
+  margin-top: var(--vlp-space-8);
+}
+.vintg-banner p {
+  margin: 0;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-relaxed);
+  color: var(--vlp-color-text-on-dark-muted);
+}
+.vintg-banner strong {
+  color: var(--vlp-color-text-on-dark);
+}
+
+/* ---- Statement (built-for / agents card) ---- */
+.vintg-statement {
+  border-left: 3px solid var(--vlp-color-accent);
+  padding-left: var(--vlp-space-6);
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-card);
+  font-weight: var(--vlp-weight-medium);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-text);
+  max-width: 60ch;
+}
+.vintg-agentcard {
+  background: var(--vlp-bg-accent-subtle);
+  border: 1px solid var(--vlp-color-accent-border-muted);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-space-6);
+  margin-top: var(--vlp-space-6);
+  display: flex;
+  gap: var(--vlp-space-4);
+  align-items: flex-start;
+}
+.vintg-agentcard .vintg-agentcard-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-accent-muted);
+  white-space: nowrap;
+  padding-top: var(--vlp-space-1);
+}
+.vintg-agentcard p {
+  margin: 0;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-relaxed);
+  color: var(--vlp-color-text);
+}
+
+/* ---- Value props (plugin/agent) ---- */
+.vintg-valueprops {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--vlp-space-4);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.vintg-valueprops li {
+  background: var(--vlp-bg-card);
+  border: 1px solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-space-6);
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text);
+}
+
+/* ---- Integration grid (carded bands of chips) ---- */
+.vintg-gridwrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-4);
+}
+.vintg .vintg-band-label {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-sm);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+  margin: 0;
+}
+.vintg .vintg-band-intro {
+  font-size: var(--vlp-text-body-sm-plus);
+  color: var(--vlp-color-text-muted);
+  margin: 0 0 var(--vlp-space-4);
+  max-width: 70ch;
+}
+/* Surface categories: a 2-col card grid; the first (largest) card spans full. */
+.vintg-surfgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--vlp-space-4);
+}
+.vintg-surfgrid > .vintg-bandcard--wide {
+  grid-column: 1 / -1;
+}
+.vintg-bandrow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--vlp-space-4);
+}
+.vintg-bandcard {
+  background: var(--vlp-bg-card);
+  border: 1px solid var(--vlp-border-card);
+  border-radius: var(--vlp-radius-card);
+  padding: var(--vlp-space-6);
+}
+.vintg .vintg-bandcard .vintg-catgroup-label {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+  margin: 0 0 var(--vlp-space-4);
+}
+.vintg-stackgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--vlp-space-6);
+}
+.vintg .vintg-stack-grouplabel {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+  margin: 0 0 var(--vlp-space-3);
+}
+.vintg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-2);
+}
+.vintg-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  height: 34px;
+  padding: 0 var(--vlp-space-4);
+  border-radius: var(--vlp-radius-md);
+  border: 1px solid var(--vlp-border-default);
+  background: var(--vlp-bg-card);
+  color: var(--vlp-color-text);
+  font-size: var(--vlp-text-body-sm-plus);
+  font-weight: var(--vlp-weight-medium);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.vintg-chip:hover {
+  border-color: var(--vlp-color-accent);
+  background: var(--vlp-bg-accent-focus);
+}
+.vintg-chip-logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.85;
+  transition: filter 0.15s ease, opacity 0.15s ease;
+}
+.vintg-chip:hover .vintg-chip-logo {
+  filter: none;
+  opacity: 1;
+}
+/* Wordmark logos (brand name already in the image): render wide, not a 16px
+   square, and the chip omits the redundant text label. */
+.vintg-chip-logo--wide {
+  width: auto;
+  max-width: 76px;
+  height: 18px;
+}
+.vintg-chip .vintg-chip-beta {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  color: var(--vlp-color-accent-muted);
+  text-transform: uppercase;
+}
+
+/* ---- Capability matrix ---- */
+.vintg-matrix-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--vlp-border-subtle);
+  border-radius: var(--vlp-radius-card);
+}
+.vintg-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--vlp-text-body-sm-plus);
+  min-width: 640px;
+}
+.vintg-matrix th,
+.vintg-matrix td {
+  padding: var(--vlp-space-3) var(--vlp-space-4);
+  text-align: center;
+  border-bottom: 1px solid var(--vlp-border-faint);
+}
+.vintg-matrix thead th {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-faint);
+  background: var(--vlp-bg-section-alt);
+  position: sticky;
+  top: 0;
+}
+.vintg-matrix tbody th {
+  text-align: left;
+  font-weight: var(--vlp-weight-semibold);
+  white-space: nowrap;
+}
+.vintg-matrix tbody th a {
+  color: var(--vlp-color-text);
+  text-decoration: none;
+}
+.vintg-matrix tbody th a:hover {
+  color: var(--vlp-color-accent);
+}
+.vintg-matrix tbody tr:hover {
+  background: var(--vlp-bg-surface-muted);
+}
+.vintg-cell-yes {
+  color: var(--vlp-color-green-approval);
+  font-weight: var(--vlp-weight-semibold);
+}
+.vintg-cell-alt {
+  color: var(--vlp-color-amber);
+  font-weight: var(--vlp-weight-medium);
+}
+.vintg-cell-na {
+  color: var(--vlp-color-text-subtle);
+}
+.vintg .vintg-matrix-caption {
+  margin-top: var(--vlp-space-4);
+  font-size: var(--vlp-text-body-sm);
+  color: var(--vlp-color-text-muted);
+  max-width: 80ch;
+}
+
+/* ---- Two-column prose (BYOS) ---- */
+.vintg-two {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: var(--vlp-space-12);
+  align-items: start;
+}
+
+/* ---- Setup steps (spoke) ---- */
+.vintg-setup-pkg {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-mono-sm);
+  background: var(--vlp-color-dark-2);
+  color: var(--vlp-color-text-on-dark);
+  border-radius: var(--vlp-radius-md);
+  padding: var(--vlp-space-1) var(--vlp-space-2);
+}
+
+/* ---- FAQ ---- */
+.vintg-faq {
+  border-top: 1px solid var(--vlp-border-subtle);
+}
+.vintg-faq details {
+  border-bottom: 1px solid var(--vlp-border-subtle);
+  padding: var(--vlp-space-5) 0;
+}
+.vintg-faq summary {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-body-lg);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-text);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--vlp-space-4);
+}
+.vintg-faq summary::-webkit-details-marker {
+  display: none;
+}
+.vintg-faq summary::after {
+  content: "+";
+  color: var(--vlp-color-text-subtle);
+  font-weight: var(--vlp-weight-regular);
+}
+.vintg-faq details[open] summary::after {
+  content: "\2212";
+}
+.vintg .vintg-faq details p {
+  margin: var(--vlp-space-3) 0 0;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-relaxed);
+  color: var(--vlp-color-text-muted);
+  max-width: 72ch;
+}
+
+/* ---- Feature showcase cards (reused feature-page Preview | Code chrome) ---- */
+/* Use a clean uniform 2-column grid instead of the feature-page wide/narrow
+   bento (which assumes hand-paired demo heights). Equal-width cards; a lonely
+   last card spans full width. */
+.vintg .sc-grid {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: var(--vlp-space-12);
+}
+.vintg .sc-grid > .sc-card:nth-child(4n + 1),
+.vintg .sc-grid > .sc-card:nth-child(4n + 2),
+.vintg .sc-grid > .sc-card:nth-child(4n + 3),
+.vintg .sc-grid > .sc-card:nth-child(4n + 4) {
+  grid-column: auto;
+}
+.vintg .sc-grid > .sc-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+/* Fill the equalized card height and vertically center the demo (no void
+   above the title), let it span the full card width (no squish), and drop the
+   redundant inner frame: the demos carry their own chrome and the card's own
+   40px padding already provides breathing room. */
+.vintg .sc-card .prim-stack {
+  flex: 1 1 auto;
+  grid-template-rows: 1fr;
+}
+.vintg .sc-card .prim-stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+/* ---- Related backlink ---- */
+.vintg .vintg-backlink {
+  display: inline-block;
+  margin-top: var(--vlp-space-6);
+  font-size: var(--vlp-text-body-sm-plus);
+  font-weight: var(--vlp-weight-semibold);
+  color: var(--vlp-color-accent);
+  text-decoration: none;
+}
+.vintg .vintg-backlink:hover {
+  text-decoration: underline;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .vintg-hero {
+    grid-template-columns: 1fr;
+    gap: var(--vlp-space-10);
+    padding-top: var(--vlp-space-16);
+  }
+  .vintg-cards,
+  .vintg-steps,
+  .vintg-valueprops {
+    grid-template-columns: 1fr;
+  }
+  .vintg-cards--quad {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .vintg .sc-grid {
+    grid-template-columns: 1fr;
+  }
+  .vintg-surfgrid,
+  .vintg-bandrow {
+    grid-template-columns: 1fr;
+  }
+  .vintg-two {
+    grid-template-columns: 1fr;
+    gap: var(--vlp-space-8);
+  }
+  .vintg-section {
+    padding: var(--vlp-space-16) 0;
+  }
+}

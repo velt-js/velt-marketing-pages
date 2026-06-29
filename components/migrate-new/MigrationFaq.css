@@ -1,0 +1,87 @@
+.vlp .mig-faq {
+  background: var(--vlp-color-cream);
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  border-bottom: var(--vlp-border-width) solid var(--vlp-border-default);
+}
+
+.vlp .mig-faq-inner {
+  max-width: var(--vlp-content-medium);
+  margin: 0 auto;
+  padding: var(--vlp-space-20) var(--vlp-gutter);
+}
+
+.vlp .mig-faq-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  margin-bottom: var(--vlp-space-5);
+}
+
+.vlp .mig-faq-eyebrow-dot {
+  width: var(--vlp-size-eyebrow-dot);
+  height: var(--vlp-size-eyebrow-dot);
+  border-radius: 50%;
+  background: var(--vlp-color-accent);
+}
+
+.vlp .mig-faq-heading {
+  font-size: var(--vlp-text-section);
+  line-height: 1.1;
+  letter-spacing: var(--vlp-tracking-snug);
+  font-weight: var(--vlp-weight-regular);
+  margin-bottom: 36px;
+}
+
+.vlp .mig-faq-row {
+  border-top: var(--vlp-border-width) solid var(--vlp-border-default);
+  padding: var(--vlp-space-5) 0;
+  cursor: pointer;
+}
+
+.vlp .mig-faq-row-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--vlp-gap-card);
+}
+
+.vlp .mig-faq-num {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  color: var(--vlp-color-text-subtle);
+  padding-top: 3px;
+}
+
+.vlp .mig-faq-question {
+  flex: 1;
+  font-size: var(--vlp-text-lead);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  margin: 0;
+  font-weight: inherit;
+}
+
+.vlp .mig-faq-toggle {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-body-lg);
+  color: var(--vlp-color-accent);
+  line-height: 1;
+}
+
+.vlp .mig-faq-answer {
+  font-size: var(--vlp-text-body-md);
+  line-height: 1.6;
+  color: var(--vlp-color-text-muted);
+  margin: 14px 0 0 32px;
+  max-width: 64ch;
+}
+
+@media (max-width: 768px) {
+  .vlp .mig-faq-inner {
+    padding: var(--vlp-space-14) var(--vlp-gutter);
+  }
+}

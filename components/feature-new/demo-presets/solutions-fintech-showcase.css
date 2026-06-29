@@ -1,0 +1,25 @@
+/* Compact feature-map (fm/*) preview patterns for the fintech solutions page.
+   Namespaced .sft-* and scoped under .vfp so they inherit the feature-page
+   tokens. Reuses global .cmh-* / .apf-* families for card chrome; these rules
+   only add the small, tile-sized layouts the global families do not cover. */
+
+.vfp .sft-chain { display: grid; gap: 8px; }
+.vfp .sft-step { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--vlp-border-subtle); border-radius: 10px; background: var(--vlp-bg-page); }
+.vfp .sft-step > .av-c { width: 28px; height: 28px; flex: none; font-size: 11px; }
+.vfp .sft-step-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .sft-step-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .sft-step-sub { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+
+.vfp .sft-res { display: grid; gap: 8px; }
+.vfp .sft-res-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 9px; padding: 8px 10px; border: 1px solid var(--vlp-border-subtle); border-radius: 10px; background: var(--vlp-bg-wash); }
+.vfp .sft-res-label { min-width: 0; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .sft-res-arrow { display: grid; place-items: center; width: 15px; height: 15px; color: var(--vlp-color-text-subtle); }
+.vfp .sft-res-arrow svg { width: 100%; height: 100%; }
+
+.vfp .sft-mem { display: grid; gap: 8px; }
+.vfp .sft-mem-row { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--vlp-border-subtle); border-radius: 10px; background: var(--vlp-bg-page); }
+.vfp .sft-mem-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.vfp .sft-mem-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .sft-mem-meta { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .sft-cite { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-size: 11px; font-weight: 600; white-space: nowrap; }
+.vfp .sft-cite svg { width: 12px; height: 12px; flex: none; }
