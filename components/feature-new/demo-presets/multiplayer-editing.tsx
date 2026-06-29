@@ -536,14 +536,20 @@ export function CoEditingHero({ editorName = "Tiptap" }: { editorName?: string }
  * integrations: a live co-edited document (two labeled cursors, Yjs merge) that
  * ALSO carries a contextual comment thread anchored to a highlighted span — both
  * Velt layers on one surface. Parametrized by editor name for the file crumb so
- * Tiptap, Lexical, BlockNote, … each read as their own editor.
+ * Tiptap, Lexical, BlockNote, … each read as their own editor. The app glyph is
+ * derived from the editor name (initials of multi-word names, else first two
+ * letters) so the chip reads as that integration, not a generic demo.
  * @param {{ editorName?: string }} props Editor label shown in the file crumb.
  * @returns {JSX.Element} The combined co-editing + comment frame.
  */
 export function CoEditingCommentHero({ editorName = "Tiptap" }: { editorName?: string } = {}) {
+  const words = editorName.trim().split(/\s+/).filter(Boolean);
+  const appGlyph = (
+    words.length > 1 ? words.slice(0, 2).map((word) => word[0]).join("") : editorName.slice(0, 2)
+  ).toUpperCase() || "ED";
   return (
     <Frame
-      app="ME"
+      app={appGlyph}
       crumb={<><b>brief-q3.md</b> <span className="sep">/</span> {editorName}</>}
       users={[
         { initials: "HO", tone: "a2", img: FACE.hope },
