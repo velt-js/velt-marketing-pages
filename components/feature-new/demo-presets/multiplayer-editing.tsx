@@ -531,6 +531,79 @@ export function CoEditingHero({ editorName = "Tiptap" }: { editorName?: string }
   );
 }
 
+/**
+ * CRDT co-editing + contextual comment hero. The flagship story for text-editor
+ * integrations: a live co-edited document (two labeled cursors, Yjs merge) that
+ * ALSO carries a contextual comment thread anchored to a highlighted span — both
+ * Velt layers on one surface. Parametrized by editor name for the file crumb so
+ * Tiptap, Lexical, BlockNote, … each read as their own editor.
+ * @param {{ editorName?: string }} props Editor label shown in the file crumb.
+ * @returns {JSX.Element} The combined co-editing + comment frame.
+ */
+export function CoEditingCommentHero({ editorName = "Tiptap" }: { editorName?: string } = {}) {
+  return (
+    <Frame
+      app="ME"
+      crumb={<><b>brief-q3.md</b> <span className="sep">/</span> {editorName}</>}
+      users={[
+        { initials: "HO", tone: "a2", img: FACE.hope },
+        { initials: "ET", tone: "a1", img: FACE.ethan },
+        { initials: "MA", tone: "a3", img: FACE.maya },
+      ]}
+    >
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">H2</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
+      </div>
+
+      <div className="cmh-td" style={{ minHeight: 236 }}>
+        <p className="cmh-td-doc" style={{ margin: "22px 0 0", maxWidth: "100%" }}>
+          The Q3 campaign centers on the <span className="cmh-mark" style={{ background: "rgba(255, 209, 102, 0.5)", boxShadow: "inset 0 -2px 0 rgba(255, 193, 7, 0.6)" }}>migration story</span>
+          <LiveCursor name="Hope" tone={CURSOR_HOPE} />: moving from async reviews to{" "}
+          <Sel tone={CURSOR_ETHAN}>live collaboration</Sel><LiveCursor name="Ethan" tone={CURSOR_ETHAN} />. Pricing:
+          three usage tiers from $0, no per-seat cost.
+        </p>
+
+        <div className="cmh-td-comment">
+          <div className="cmh-td-chead">
+            <span className="cmh-td-status">
+              <svg className="cmh-td-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg>
+              Open
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-flag">
+              <svg className="cmh-td-flagico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg>
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-actions">
+              <svg className="cmh-td-kebab" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+              <span className="cmh-td-resolve" aria-label="Resolve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+              </span>
+            </span>
+          </div>
+          <div className="cmh-td-msg">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="cmh-td-avatar" src={FACE.maya} alt="Maya" />
+            <span className="cmh-td-name">Maya</span>
+            <span className="cmh-td-time">14m</span>
+            <svg className="cmh-td-read" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 13l4 4 8-9" /><path d="M11 16l1.5 1.5L21 8" /></svg>
+          </div>
+          <p className="cmh-td-text">Let&apos;s lead with this. Strongest angle we have, <span className="cmh-td-mention">@Ethan</span> can you tighten the wording?</p>
+        </div>
+      </div>
+
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>live cursors + a comment anchored to the selection &middot; Yjs merges every keystroke</p>
+    </Frame>
+  );
+}
+
 export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   "multiplayer-editing/hero/co-editing": <CoEditingHero />,
 

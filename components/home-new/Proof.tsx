@@ -28,17 +28,29 @@ export default function Proof() {
 
           <div className="proof-right-col">
             <div className="proof-small-card">
-              <div className="proof-small-card-label">BUNDLED WITH MAGIC · GOOGLE</div>
+              <div className="proof-small-card-top">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="proof-small-card-logo" src="/images/features/comments/trust-us/logo-google.png" alt="Google" loading="lazy" />
+                <span className="proof-small-card-label">BUNDLED WITH MAGIC</span>
+              </div>
               <p className="proof-small-card-quote">Velt&rsquo;s commenting &amp; notifications are bundled with a lot of magic.</p>
               <div className="proof-small-card-attribution">Yuri Kleban · Sr. Product Manager</div>
             </div>
             <div className="proof-small-card">
-              <div className="proof-small-card-label">SHIPPED IN A WEEK · X</div>
+              <div className="proof-small-card-top">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="proof-small-card-logo" src="/images/features/comments/trust-us/logo-x.png" alt="X" loading="lazy" />
+                <span className="proof-small-card-label">SHIPPED IN A WEEK</span>
+              </div>
               <p className="proof-small-card-quote">We shipped full collaboration features in under one week.</p>
               <div className="proof-small-card-attribution">Chris Bakke · Head of Product</div>
             </div>
             <div className="proof-small-card">
-              <div className="proof-small-card-label">WAU UP 26% · METAIMPACT</div>
+              <div className="proof-small-card-top">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="proof-small-card-logo" src="/images/features/comments/trust-us/logo-metaimpact.png" alt="MetaImpact" loading="lazy" />
+                <span className="proof-small-card-label">WAU UP 26%</span>
+              </div>
               <p className="proof-small-card-quote">Velt increased our weekly active users by 26%.</p>
               <div className="proof-small-card-attribution">Jeff Cunning · CPO</div>
             </div>

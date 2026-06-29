@@ -6,7 +6,7 @@ import {
   Composer,
   FACES,
 } from "@/components/feature-new/demo-presets/hero-surface";
-import { CoEditingHero } from "@/components/feature-new/demo-presets/multiplayer-editing";
+import { CoEditingCommentHero } from "@/components/feature-new/demo-presets/multiplayer-editing";
 
 // Contextual hero visuals for the integrations spokes. The review layer (the
 // brand-agent finding + composer) stays constant, but the SURFACE behind it is
@@ -276,11 +276,11 @@ export function buildSpokeHeroVisual(
       );
     }
 
-    // Editor surfaces (Tiptap, Lexical, BlockNote, …) showcase live co-editing —
-    // the multiplayer story is the headline integration, so reuse the shared
-    // co-editing artifact with the editor's own name in the file crumb.
+    // Editor surfaces (Tiptap, Lexical, BlockNote, …) lead with both Velt layers
+    // at once: live CRDT co-editing plus a contextual comment anchored to the
+    // selection — the editor's own name fills the file crumb.
     if (category === "text-code-editors") {
-      return <CoEditingHero editorName={name} />;
+      return <CoEditingCommentHero editorName={name} />;
     }
 
     const { surface, body, delText, insText } = artifactFor(category);

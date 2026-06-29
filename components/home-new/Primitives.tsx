@@ -287,14 +287,14 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">Invoice.tsx<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `import { VeltComments } from <span class="prim-code-str">"@veltdev/react"</span>;
+                <div className="prim-code-header">App.tsx<CopyButton /></div>
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltProvider apiKey=<span class="prim-code-str">"API_KEY"</span>&gt;
+  &lt;VeltComments /&gt;
 
-    &lt;VeltComments
-      documentId={id}
-      mode=<span class="prim-code-str">"sidebar"</span>
-      attribution=<span class="prim-code-str">"strict"</span>
-    /&gt;` }} />
+  &lt;div className=<span class="prim-code-str">"toolbar"</span>&gt;
+    &lt;VeltCommentTool /&gt;
+  &lt;/div&gt;
+&lt;/VeltProvider&gt;` }} />
               </div>
             }
           />
@@ -321,11 +321,12 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">Editor.tsx<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltSuggestions
-      documentId={docId}
-      editor=<span class="prim-code-str">"tiptap"</span>
-      requireReview={<span class="prim-code-kw">true</span>}
-    /&gt;` }} />
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">const</span> { id } = <span class="prim-code-kw">await</span> commitSuggestion({
+  targetId: <span class="prim-code-str">'row.123'</span>,
+  newValue: { qty: 7, price: 99 },
+  summary: <span class="prim-code-str">'Bump qty + price'</span>,
+  metadata: { source: <span class="prim-code-str">'manual'</span> },
+});` }} />
               </div>
             }
           />
@@ -391,16 +392,18 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">approvals.ts<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.approvals.<span class="prim-code-kw">define</span>({
-      id: <span class="prim-code-str">"invoice-signoff"</span>,
-      steps: [
-        { role: <span class="prim-code-str">"reviewer"</span>, required: 2 },
-        { role: <span class="prim-code-str">"approver"</span> },
-        { role: <span class="prim-code-str">"compliance"</span>, final: <span class="prim-code-kw">true</span> }
-      ],
-      onSignoff: (e) =&gt; audit.export(e)
-    });` }} />
+                <div className="prim-code-header">create-workflow.sh<CopyButton /></div>
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">curl</span> -X POST <span class="prim-code-str">https://api.velt.dev/v2/workflow/definitions/create</span>
+{
+  <span class="prim-code-str">"definitionId"</span>: <span class="prim-code-str">"marketing-copy-approval"</span>,
+  <span class="prim-code-str">"name"</span>: <span class="prim-code-str">"Marketing copy approval"</span>,
+  <span class="prim-code-str">"scope"</span>: { <span class="prim-code-str">"level"</span>: <span class="prim-code-str">"apiKey"</span> },
+  <span class="prim-code-str">"nodes"</span>: [
+    { <span class="prim-code-str">"nodeId"</span>: <span class="prim-code-str">"agent-draft"</span>, <span class="prim-code-str">"type"</span>: <span class="prim-code-str">"agent"</span>,
+      <span class="prim-code-str">"config"</span>: { <span class="prim-code-str">"agentId"</span>: <span class="prim-code-str">"copy-agent-v1"</span> } },
+    ...
+  ]
+}` }} />
               </div>
             }
           />
@@ -485,11 +488,11 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">App.tsx<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltNotificationsTool
-      channels={[<span class="prim-code-str">"inbox"</span>, <span class="prim-code-str">"email"</span>, <span class="prim-code-str">"slack"</span>]}
-      routeBy=<span class="prim-code-str">"mention"</span>
-      slackWebhook={env.SLACK_URL}
-    /&gt;` }} />
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">import</span> { VeltNotificationsTool } <span class="prim-code-kw">from</span> <span class="prim-code-str">'@veltdev/react'</span>;
+
+&lt;div className=<span class="prim-code-str">"toolbar"</span>&gt;
+  &lt;VeltNotificationsTool /&gt;
+&lt;/div&gt;` }} />
               </div>
             }
           />
@@ -518,12 +521,17 @@ export default function Primitives() {
             }
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">memory.ts<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">const</span> ctx = <span class="prim-code-kw">await</span> velt.memory.query({
-      workflow: <span class="prim-code-str">"launch-email"</span>,
-      reviewer: user.id,
-      window: <span class="prim-code-str">"90d"</span>,
-    });` }} />
+                <div className="prim-code-header">ingest.sh<CopyButton /></div>
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">curl</span> -X POST <span class="prim-code-str">https://api.velt.dev/v2/memory/knowledge/ingest</span>
+<span class="prim-code-str">"data"</span>: {
+  <span class="prim-code-str">"source"</span>: <span class="prim-code-str">"inline"</span>,
+  <span class="prim-code-str">"file"</span>: {
+    <span class="prim-code-str">"base64"</span>: <span class="prim-code-str">"$(base64 -w0 brand-guidelines.pdf)"</span>,
+    <span class="prim-code-str">"mimeType"</span>: <span class="prim-code-str">"application/pdf"</span>,
+    <span class="prim-code-str">"fileName"</span>: <span class="prim-code-str">"brand-guidelines.pdf"</span>,
+    <span class="prim-code-str">"fileSize"</span>: 184320
+  }
+}` }} />
               </div>
             }
           />
