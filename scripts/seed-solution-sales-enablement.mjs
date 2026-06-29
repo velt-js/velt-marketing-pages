@@ -216,7 +216,7 @@ const doc = {
   agentLayer: {
     kicker: "Agent action layer",
     heading: "Agents draft. Your users and their clients decide.",
-    body: "In sales enablement the stake is the client's brand. An email that reaches a bank's customers with the wrong disclaimer, or a deck that misquotes the client's pricing, is not a bug ticket; it is a fired agency. So every agent action in Velt arrives as a proposal: the generated subject line variant, the brand fix, the rewritten claim, each one a comment or suggestion with Approve and Reject attached. On approve, the change applies through your webhook with a permanent record of who allowed what; on reject, nothing touches the asset and the rejection is logged. The agent never holds write access to client content. With Memory, agents also read what this team already settled, so the tagline the client approved in March stops getting re-flagged in June.",
+    body: "In sales enablement, the stake is the client's brand. An email that reaches a bank's customers with the wrong disclaimer, or a deck that misquotes the client's pricing, is not a bug ticket; it is a fired agency. So every agent action in Velt arrives as a proposal: the generated subject line variant, the brand fix, the rewritten claim, each one a comment or suggestion with Approve and Reject attached. On approve, the change applies through your webhook with a permanent record of who allowed what; on reject, nothing touches the asset and the rejection is logged. The agent never holds write access to client content. With Memory, agents also read what this team already settled, so the tagline the client approved in March stops getting re-flagged in June.",
     visual: "solutions/sales-enablement/agent",
   },
 

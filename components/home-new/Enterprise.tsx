@@ -73,7 +73,7 @@ export default function Enterprise({
             <div className="ent-pillar">
               <div className="ent-pillar-label">PILLAR 04 · COMPLIANCE</div>
               <h3 className="ent-pillar-title">SOC 2 Type II.</h3>
-              <p className="ent-pillar-body">The answers your buyer's security team asks for, ready before they ask.</p>
+              <p className="ent-pillar-body">The information your buyer's security team asks for, ready before they ask.</p>
               <div className="ent-pillar-mono">SOC 2 report under NDA<br />HIPAA BAA available<br />PEN TESTS regular</div>
               <div className="ent-pillar-link">trust.velt.dev</div>
             </div>

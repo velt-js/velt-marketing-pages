@@ -182,7 +182,7 @@ export const SECTIONS: Section[] = [
     ],
   },
   {
-    title: "Realtime Features",
+    title: "Real-time Features",
     accent: "#f2a52f",
     rows: [
       {
@@ -285,8 +285,8 @@ export const SECTIONS: Section[] = [
         values: [cross, cross, check],
       },
       { label: "Workflow Builder", values: [cross, cross, check] },
-      { label: "Realtime Server", values: [check, check, check] },
-      { label: "Realtime Database", values: [check, check, check] },
+      { label: "Real-time Server", values: [check, check, check] },
+      { label: "Real-time Database", values: [check, check, check] },
       { label: "File Storage", values: [check, check, check] },
       { label: "REST APIs", values: [check, check, check] },
       {

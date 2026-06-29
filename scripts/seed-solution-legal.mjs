@@ -207,7 +207,7 @@ const doc = {
   agentLayer: {
     kicker: "Agent action layer",
     heading: "Agents propose the clause. Counsel accepts it.",
-    body: "An agent that flags a missing limitation-of-liability clause and proposes fallback language is a first-pass reviewer that never sleeps. An agent that rewrites the contract on its own is a problem no engagement letter covers. In Velt, every agent proposal lands as a suggestion on the exact clause, with the rationale attached and Accept and Reject on the dialog. On accept, your code applies the language and the record carries who allowed it; on reject, nothing changes and the reason is logged. The agent never holds write access to contracts, clauses, or matter data. In legal work the redline is the product: a change without an author and an acceptor is not a redline, it is a liability.",
+    body: "An agent that flags a missing limitation-of-liability clause and proposes fallback language is a first-pass reviewer that never sleeps. An agent that rewrites the contract on its own is a problem no engagement letter covers. In Velt, every agent proposal lands as a suggestion on the exact clause, with the rationale attached and Accept and Reject on the dialog. On acceptance, your code applies the language and the record carries who allowed it; on rejection, nothing changes and the reason is logged. The agent never holds write access to contracts, clauses, or matter data. In legal work the redline is the product: a change without an author and an acceptor is not a redline, it is a liability.",
     visual: "solutions/legal/agent",
   },
 
@@ -236,7 +236,7 @@ const doc = {
         },
         {
           title: "Residency for client data",
-          body: "Data residency options including the EU; self-host data providers keep comment and suggestion content plus user PII on your infrastructure, and Velt stores minimal identifiers.",
+          body: "Data residency options including the EU; self-hosted data providers keep comment and suggestion content plus user PII on your infrastructure, and Velt stores minimal identifiers.",
           link: cta("Self-hosting", "/self-hosting"),
         },
         {

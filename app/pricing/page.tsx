@@ -35,7 +35,7 @@ const PRICING_FAQ_FOR_SCHEMA: Array<{ question: string; answer: string }> = [
   {
     question: "What is a MAD (Monthly Active Document)?",
     answer:
-      "An active document is a unique document that has CRUD operations performed on it by any Velt Feature during the month. Note: This excludes documents that were merely initiated without any CRUD operations being performed on features like comments, notifications, CRDT, etc.",
+      "An active document is a unique document that has CRUD operations performed on it by any Velt Feature during the month. Note: This excludes documents that were merely initiated without any CRUD operations being performed using features like comments, notifications, CRDT, etc.",
   },
   {
     question:

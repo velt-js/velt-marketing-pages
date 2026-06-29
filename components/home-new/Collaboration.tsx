@@ -112,17 +112,17 @@ export default function Collaboration() {
               <div className="pr-facepile">
                 <span className="pr-ava pr-ava-img">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={FACE_ANNA} alt="" />
+                  <img src={FACE_ANNA} alt="Anna" />
                   <i className="pr-dot"></i>
                 </span>
                 <span className="pr-ava pr-ava-img">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={FACE_MIKE} alt="" />
+                  <img src={FACE_MIKE} alt="Mike" />
                   <i className="pr-dot"></i>
                 </span>
                 <span className="pr-ava pr-ava-img">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={FACE_SARA} alt="" />
+                  <img src={FACE_SARA} alt="Sara" />
                 </span>
                 <FlowerAvatar tone="violet" uid="pr-agent" className="pr-ava pr-ava-flower" />
               </div>

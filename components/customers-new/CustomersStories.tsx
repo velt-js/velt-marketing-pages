@@ -92,7 +92,7 @@ const STORIES: Story[] = [
     logoAlt: "eqtble",
     label: "HAPPIER CUSTOMERS",
     quote: "Boosted customer happiness.",
-    body: "Commenting was something we knew we wanted in our app, but with limited resources it wasn't going to be prioritized, until we found Velt. The team was fantastic to work with.",
+    body: "Commenting was something we knew we wanted in our app, but with limited resources, it wasn't going to be prioritized until we found Velt. The team was fantastic to work with.",
     authorName: "Ethan Veres",
     authorRole: "Co-founder & CTO · eqtble",
     avatarSrc: `${TRUST_BASE}/avatar-ethan.png`,

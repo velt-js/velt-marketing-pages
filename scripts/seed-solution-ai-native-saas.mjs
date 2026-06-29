@@ -100,7 +100,7 @@ const doc = {
   theLoop: {
     kicker: "The loop",
     heading: "Agents propose. Humans approve.",
-    body: "Your users want agents that act. Nobody wants agents that act alone. Velt is the layer between an agent's suggestion and a change to your users' data. Every agent suggestion becomes a comment with an action attached. A human approves or rejects. On approve, the change fires through your webhook with a permanent record of who allowed what; on reject, nothing happens and the rejection is logged. The agent never holds write access to your data.",
+    body: "Your users want agents that act. Nobody wants agents that act alone. Velt is the layer between an agent's suggestion and a change to your users' data. Every agent suggestion becomes a comment with an action attached. A human approves or rejects. On approval, the change fires through your webhook with a permanent record of who allowed what; on rejection, nothing happens and the rejection is logged. The agent never holds write access to your data.",
     beats: keyed(
       [
         {
@@ -157,7 +157,7 @@ const doc = {
           num: "02",
           name: "Suggestions",
           oneLiner:
-            "Model-produced changes render as inline diffs on user content. Accept applies the change or fires your webhook; reject leaves the data untouched.",
+            "Model-produced changes render as inline diffs on user content. Accept applies the change or fires your webhook; Reject leaves the data untouched.",
           link: cta("Explore Suggestions", "/suggestions"),
           code: "<VeltSuggestions />",
           preview: "solutions/ai-native-saas/fm/suggestions",
@@ -208,7 +208,7 @@ const doc = {
   agentLayer: {
     kicker: "Agent action layer",
     heading: "Agents propose. Your users decide.",
-    body: "For AI-native products the stake is the user's data itself: the rows, fields, and content one unsupervised write can corrupt, and the trust that never comes back after it does. So every agent action in Velt arrives as a proposal: the generated draft, the model-produced change, the agent's output, each one a comment or suggestion with Approve and Reject attached. On approve, the change fires through your webhook with a permanent record of who allowed what; on reject, nothing happens and the rejection is logged. The agent never holds write access to your data. This shape is reversible, so you can build opinionated flows on top later; uniform, so you ship one consent pattern everywhere instead of per-feature approval UIs; and audit-complete by construction. For higher-stakes actions, escalate the consent: from one click, to quorum, to type-the-name confirmation. When Velt's built-in review agents reach GA, they slot into this same loop as a first pass on generated drafts before your users ever look.",
+    body: "For AI-native products, the stake is the user's data itself: the rows, fields, and content one unsupervised write can corrupt, and the trust that never comes back after it does. So every agent action in Velt arrives as a proposal: the generated draft, the model-produced change, the agent's output, each one a comment or suggestion with Approve and Reject attached. On approval, the change fires through your webhook with a permanent record of who allowed what; on rejection, nothing happens and the rejection is logged. The agent never holds write access to your data. This shape is reversible, so you can build opinionated flows on top later; uniform, so you ship one consent pattern everywhere instead of per-feature approval UIs; and audit-complete by construction. For higher-stakes actions, escalate the consent: from one click, to quorum, to type-the-name confirmation. When Velt's built-in review agents reach GA, they slot into this same loop as a first pass on generated drafts before your users ever look.",
     visual: "solutions/ai-native-saas/agent",
   },
 
@@ -233,7 +233,7 @@ const doc = {
       [
         {
           title: "Human oversight by construction",
-          body: "Approval before action is the mechanism; immutable records are the evidence. For buyers the EU AI Act actually covers, Article 14's human-oversight requirement maps directly to this loop, scoped to the features in scope and never implying every AI feature is.",
+          body: "Approval before action is the mechanism; immutable records are the evidence. For buyers that the EU AI Act actually covers, Article 14's human-oversight requirement maps directly to this loop, scoped to the features in scope and never implying every AI feature is.",
           link: cta("Governance", "/governance"),
         },
         {

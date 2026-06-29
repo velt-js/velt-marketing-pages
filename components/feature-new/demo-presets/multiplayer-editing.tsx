@@ -522,7 +522,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
         <LiveCursor name="Ethan" tone={CURSOR_ETHAN} />
       </p>
 
-      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>two cursors, one document &middot; Yjs merges both streams, zero conflict</p>
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>two cursors, one document &middot; Yjs merges both streams, zero conflicts</p>
     </Frame>
   ),
 
@@ -614,7 +614,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
           <CursorTag name="Agent" kind="agent" />
         </div>
       </DocSurface>
-      <p className="code-microcopy">both streams live and interleaved, zero conflict &middot; consent-gated edits go through Suggestions</p>
+      <p className="code-microcopy">both streams live and interleaved, zero conflicts &middot; consent-gated edits go through Suggestions</p>
     </div>
   ),
 
@@ -685,7 +685,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
       </div>
       <div className="apf-note apf-note--ok">
         <span className="chip chip-approved">0 conflicts</span>
-        <span>Both edits kept, neither loses a keystroke</span>
+        <span>Both edits are kept, and neither loses a keystroke</span>
       </div>
     </MpeCard>
   ),

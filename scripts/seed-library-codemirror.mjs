@@ -199,7 +199,7 @@ async function main() {
     inlineTestimonial: {
       name: "Ethan Veres",
       role: "CTO @eqtble",
-      quote: "Commenting is something we wanted in our app, Velt made it possible",
+      quote: "Commenting is something we wanted in our app; Velt made it possible",
       avatar: avatarEthan,
     },
     getStartedCallout: {

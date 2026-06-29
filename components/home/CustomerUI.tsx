@@ -62,7 +62,7 @@ export const DEFAULT_CUSTOMERS: Customer[] = [
     productSrc: "/images/home/customer-heygen.png",
     testimonialAuthor: "Yuri Kleban",
     testimonialRole: "Senior PM @Google",
-    testimonialQuote: "Velt gave great 1 on 1 support, added features fast, and offered highly customizable components.",
+    testimonialQuote: "Velt gave great 1-on-1 support, added features fast, and offered highly customizable components.",
     testimonialHighlight: "highly customizable components",
     testimonialAvatarSrc: "/images/home/avatar-heygen.png",
   },

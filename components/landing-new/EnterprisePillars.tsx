@@ -112,7 +112,7 @@ const PILLARS: Pillar[] = [
       name: "Yuri Kleban",
       role: "Senior PM @ Google",
       quote:
-        "Velt gave great 1 on 1 support, added features fast, and offered highly customizable components.",
+        "Velt gave great 1-on-1 support, added features fast, and offered highly customizable components.",
       avatarSrc: "/images/features/comments/trust-us/avatar-yuri.png",
     },
   },

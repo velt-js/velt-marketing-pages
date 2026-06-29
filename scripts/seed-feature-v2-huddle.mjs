@@ -521,7 +521,7 @@ const doc = {
         {
           question: "How is this different from embedding Zoom?",
           answer:
-            "Zoom is a meeting product: scheduled, link-based, with its own app and account model, and it is very good at that. A Velt huddle is a feature of your product: it starts with one click on the document, with no link and no calendar, participants are your existing signed-in users, and it is scoped to the work being discussed. It is also part of the same SDK as comments, presence, and recording, so there is no second vendor and no second user system.",
+            "Zoom is a meeting product: scheduled, link-based, with its own app and account model, and it is very good at that. A Velt huddle is a feature of your product: it starts with one click on the document, with no link and no calendar; participants are your existing signed-in users; and it is scoped to the work being discussed. It is also part of the same SDK as comments, presence, and recording, so there is no second vendor and no second user system.",
         },
         {
           question: "How do I add huddles to a React app?",

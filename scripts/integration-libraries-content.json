@@ -1860,7 +1860,7 @@
       "agents": "Yes"
     },
     "problemHeader": "Build this into React Flow yourself, and you rebuild it on every release.",
-    "problemBody": "Your users expect to comment and co-edit in React Flow, and your AI agents need that same canvas with a human approving before they touch user work. Comments that survive React Flow's the graph moving are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
+    "problemBody": "Your users expect to comment and co-edit in React Flow, and your AI agents need that same canvas with a human approving before they touch user work. Comments that survive as the React Flow graph moves are a multi-quarter build, and the moment anchoring breaks, feedback lands on the wrong node. Co-editing is the harder half: rolled by hand, it means overwrites, lost work, and merge conflicts, the \"my changes disappeared\" bug reports, plus a websocket fleet and offline merge to keep alive. And the harder question is your agents: a useful agent needs to change the work, but an agent with write access to user content is what your buyers' security review blocks, so without a consent step, you choose between an agent that is useful and an agent that is safe. Every quarter spent on this is a quarter not spent on your own product.",
     "builtForLine": "Velt is the review and collaboration layer built for React Flow: your users and your AI agents work the same canvas, with comment threads anchored to the node, and every agent suggestion is a change a human approves before it lands.",
     "featureCards": [
       {
@@ -1901,7 +1901,7 @@
     ],
     "agentsCardBody": "An agent proposes a node or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
     "setupPackages": "@veltdev/react + @veltdev/reactflow-crdt",
-    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on React Flow is a suggestion your user approves or rejects, on the record. Compare, Migration Guide.",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on React Flow is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
     "faq": [
       {
         "question": "Comments only, or co-editing too?",
@@ -1988,7 +1988,7 @@
     ],
     "agentsCardBody": "An agent proposes a shape or layout change on the canvas as a suggestion, as a first-class user; your user approves or rejects, and on approval the change fires through your webhook with a permanent record of who allowed what.",
     "setupPackages": "@veltdev/react + @veltdev/konva-crdt-react",
-    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Konva is a suggestion your user approves or rejects, on the record. Compare, Migration Guide.",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Konva is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
     "faq": [
       {
         "question": "Comments only, or co-editing too?",
@@ -2065,7 +2065,7 @@
     ],
     "agentsCardBody": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
     "setupPackages": "@veltdev/react + @veltdev/chartjs-react",
-    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Chart.js is a suggestion your user approves or rejects, on the record. Compare, Migration Guide.",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Chart.js is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
     "faq": [
       {
         "question": "Comments and annotations, or co-editing?",
@@ -2142,7 +2142,7 @@
     ],
     "agentsCardBody": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
     "setupPackages": "@veltdev/react + @veltdev/highcharts-react",
-    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Highcharts is a suggestion your user approves or rejects, on the record. Compare, Migration Guide.",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Highcharts is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
     "faq": [
       {
         "question": "Comments and annotations, or co-editing?",
@@ -2219,7 +2219,7 @@
     ],
     "agentsCardBody": "An analysis agent annotates the anomaly on the data point and proposes the caption as a first-class user; your reviewer approves it before it goes into the report, with a permanent record of who allowed what.",
     "setupPackages": "@veltdev/react + @veltdev/nivo-react",
-    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Nivo is a suggestion your user approves or rejects, on the record. Compare, Migration Guide.",
+    "migrateLine": "Migrated from Liveblocks or Cord? Liveblocks syncs people and agents into your app's state; Velt adds the step Liveblocks does not. Every agent change on Nivo is a suggestion your user approves or rejects, on the record. Compare them in our Migration Guide.",
     "faq": [
       {
         "question": "Comments and annotations, or co-editing?",

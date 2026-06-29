@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     path: "/",
     socialTitle: "Velt | Add a pull request to your product",
   }),
-  title: { absolute: "Velt | Add a pull request to your product" },
+  title: { absolute: "Velt | Add a pull request to your product — Review SDK" },
 };
 
 // SoftwareApplication schema for the homepage. `applicationCategory:

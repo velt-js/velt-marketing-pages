@@ -123,7 +123,7 @@ const doc = {
         {
           num: "3",
           title: "Comments resolve on the artifact",
-          body: "The compliance officer answers the flagged disclosure line in a thread on the filing itself, with internal deliberation scoped to the team. A workflow step can require all comments resolved before the filing advances, and Memory keeps what was settled from being re-flagged.",
+          body: "The compliance officer answers the flagged disclosure line in a thread on the filing itself, with internal deliberation scoped to the team. A workflow step can require all comments to be resolved before the filing advances, and Memory keeps what was settled from being re-flagged.",
           visual: "solutions/compliance/loop/3",
           links: keyed([cta("Comments", "/comments"), cta("Memory", "/memory")]),
         },
@@ -216,7 +216,7 @@ const doc = {
   agentLayer: {
     kicker: "Agent action layer",
     heading: "Agents check the filing. A human signs it.",
-    body: "An agent that checks every disclosure against the policy library is a tireless first-pass reviewer. An agent that edits the filing on its own is a regulatory finding waiting to happen. In Velt, every agent finding lands as a comment with Approve and Reject attached. On approve, the fix applies through your webhook with a permanent record of who allowed it; on reject, nothing changes and the rejection is logged. The agent never holds write access to policies, filings, or attestations. In compliance the stakes are the control itself: if AI can change the artifact without a name attached, the review your product sells stops being evidence.",
+    body: "An agent that checks every disclosure against the policy library is a tireless first-pass reviewer. An agent that edits the filing on its own is a regulatory finding waiting to happen. In Velt, every agent finding lands as a comment with Approve and Reject attached. On approve, the fix applies through your webhook with a permanent record of who allowed it; on reject, nothing changes and the rejection is logged. The agent never holds write access to policies, filings, or attestations. In compliance, the stakes are the control itself: if AI can change the artifact without a name attached, the review your product sells stops being evidence.",
     visual: "solutions/compliance/agent",
   },
 
@@ -251,7 +251,7 @@ const doc = {
         },
         {
           title: "Residency for regulated data",
-          body: "Data residency options including EU; self-host data providers keep comment and review content plus user PII on your infrastructure, and Velt stores minimal identifiers.",
+          body: "Data residency options include the EU; self-host data providers keep comment and review content plus user PII on your infrastructure, and Velt stores minimal identifiers.",
           link: cta("Self-hosting", "/self-hosting"),
         },
       ],

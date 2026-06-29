@@ -209,7 +209,7 @@ async function main() {
       name: "Ethan Veres",
       role: "CTO @eqtble",
       quote:
-        "Commenting is something we wanted in our app, Velt made it possible",
+        "Commenting is something we wanted in our app; Velt made it possible",
       accentFragment: "Velt made it possible",
       accentColor: "#0085ff",
       avatar: avatarEthan,

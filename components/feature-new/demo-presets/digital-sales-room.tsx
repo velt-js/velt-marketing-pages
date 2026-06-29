@@ -15,7 +15,7 @@ import "./digital-sales-room.css";
 // hoisted to constants.
 const DSR_GREETING = "Hey Conductor!";
 const DSR_GREETING_BODY =
-  "This Digital Sales Room gives you everything you need to move forward - from proposal to plan.";
+  "This Digital Sales Room gives you everything you need to move forward — from proposal to plan.";
 const DSR_PLAN_TITLE = "Our Mutual Action Plan";
 const DSR_COMMENT_AUTHOR = "Maya";
 const DSR_COMMENT_TIME = "2m";

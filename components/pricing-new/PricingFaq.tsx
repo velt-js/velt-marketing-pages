@@ -21,7 +21,7 @@ const FAQS: PricingFaqItem[] = [
         An active document is a unique document that has CRUD operations
         performed on it by any Velt feature during the month. This excludes
         documents that were merely initiated without any CRUD operations being
-        performed on features like comments, notifications, CRDT, etc.
+        performed using features like comments, notifications, CRDT, etc.
       </>
     ),
   },

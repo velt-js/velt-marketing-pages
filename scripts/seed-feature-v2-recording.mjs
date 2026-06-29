@@ -154,7 +154,7 @@ const doc = {
         "permission flows and GDPR deletion paths",
       ],
       close:
-        "Teams that build it budget a quarter for the recorder alone; the editor and transcription are each their own project. The 3 steps above replace all three.",
+        "Teams that build it budget a quarter for the recorder alone; the editor and transcription are each their own projects. The 3 steps above replace all three.",
     },
     mcp: {
       heading: "MCP: the faster path.",
@@ -562,7 +562,7 @@ const doc = {
         {
           question: "Where are recordings stored? Can they stay on our infrastructure?",
           answer:
-            "By default Velt stores them. With the recorder data provider, recorded files, user identity, transcription, and attachment URLs stay on your storage (any provider: S3, Google Cloud Storage, Azure Blob, or your own servers) while Velt keeps only minimal identifiers. See /self-hosting.",
+            "By default, Velt stores them. With the recorder data provider, recorded files, user identity, transcription, and attachment URLs stay on your storage (any provider: S3, Google Cloud Storage, Azure Blob, or your own servers) while Velt keeps only minimal identifiers. See /self-hosting.",
         },
         {
           question: "Can recordings be attached to comments?",

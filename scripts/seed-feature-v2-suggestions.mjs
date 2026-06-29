@@ -272,7 +272,7 @@ const doc = {
           name: "Stale and drift detection",
           codeKicker: "// stale",
           headline:
-            "If the target is gone at accept time the suggestion goes stale and does not apply; if the live value moved since capture, a drift flag is recorded, best-effort, not blocking.",
+            "If the target is gone at accept time, the suggestion goes stale and does not apply; if the live value moved since capture, a drift flag is recorded, best-effort, not blocking.",
           preview: "suggestions/showcase/stale",
           code: "// status: stale \u00b7 does not apply\n// driftDetected: true \u00b7 best-effort",
         },
@@ -310,7 +310,7 @@ const doc = {
       [
         { label: "One-attribute targets (data-velt-suggestion-target) with delegated listeners that track elements added to the DOM later" },
         { label: "Commit semantics per input type: text-like inputs commit on blur; select, checkbox, and radio commit on change" },
-        { label: "No-op guard: focus and blur without a change never creates a suggestion; unchanged values are rejected" },
+        { label: "No-op guard: focus and blur without a change never create a suggestion; unchanged values are rejected" },
         { label: "Per-user suggestion mode toggle, global and not persisted across reloads" },
         { label: "Reactive mode state: useSuggestionModeState and isSuggestionModeEnabled$" },
         { label: "Auto-commit hook (onTargetEditCommit) with custom summary and metadata per suggestion" },
@@ -536,7 +536,7 @@ const doc = {
         {
           question: "What if the content changed before a reviewer accepts?",
           answer:
-            "If the target no longer resolves at accept time, the suggestion goes stale instead of applying. If the live value moved since the proposal was captured, a drift flag is recorded (best-effort, requires a registered getter); in v1 the accept still applies, with a confirmation prompt planned. A stale target never applies.",
+            "If the target no longer resolves at accept time, the suggestion goes stale instead of applying. If the live value moved since the proposal was captured, a drift flag is recorded (best-effort, requires a registered getter); in v1, the accept still applies, with a confirmation prompt planned. A stale target never applies.",
         },
         {
           question: "Do suggestions require Velt Comments?",

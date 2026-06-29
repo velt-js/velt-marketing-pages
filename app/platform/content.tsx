@@ -152,7 +152,7 @@ export const platformContent: FeaturePageContent = {
         name: "AI chat in the console",
         codeKicker: "// ai chat",
         headline:
-          "Ask plain English questions about your setup, usage, and data, and get answers without writing a query. The console's built-in assistant for debugging and reporting.",
+          "Ask plain-English questions about your setup, usage, and data, and get answers without writing a query. The console's built-in assistant for debugging and reporting.",
         preview: D["showcase/ai-chat"],
         code: "// ask: which documents had the most review activity?\n// the assistant reads your console data",
         copyText: "ask: which documents had the most review activity?",
@@ -162,7 +162,7 @@ export const platformContent: FeaturePageContent = {
         name: "Live debugger",
         codeKicker: "// debugger",
         headline:
-          "Watch Velt state, data, events, and components update live as your users and agents act. Find the broken wire in minutes, not a support thread.",
+          "Watch Velt state, data, events, and components update live as your users and agents act. Find the broken wire in minutes, not in a support thread.",
         preview: D["showcase/live-debugger"],
         code: "// state · data · events · components, live",
         copyText: "state · data · events · components, live",
@@ -262,7 +262,7 @@ export const platformContent: FeaturePageContent = {
         id: "sales",
         label: "Sales enablement",
         visual: D["in-production/sales"],
-        caption: "Watch adoption climb as teams comment and approve on assets, and export the activity for QBRs.",
+        caption: "Watch adoption climb as teams comment on and approve assets, and export the activity for QBRs.",
         link: { label: "For sales enablement", href: "/for/sales-enablement" },
       },
       {

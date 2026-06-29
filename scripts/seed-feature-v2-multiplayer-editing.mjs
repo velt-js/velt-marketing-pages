@@ -235,7 +235,7 @@ const doc = {
           name: "Single editor mode",
           codeKicker: "// single editor",
           headline:
-            "One person holds the pen, everyone else watches live, read-only enforced by the SDK. Overwrite bugs during handoffs are gone, and passing the pen is a request-and-accept, never a race.",
+            "One person holds the pen while everyone else watches live; read-only access is enforced by the SDK. Overwrite bugs during handoffs are gone, and passing the pen is a request-and-accept, never a race.",
           preview: "multiplayer-editing/showcase/single-editor",
           code: "<VeltSingleEditorModePanel />\n// request, accept, reject access",
         },
@@ -563,7 +563,7 @@ const doc = {
             "Install @veltdev/react and the CRDT package for your editor (for Tiptap, @veltdev/tiptap-crdt-react), wrap your app in VeltProvider with your API key, set the document, then call useCollaboration with an editorId and add the returned extension to your editor. The quickstart and the Tiptap setup guide walk through it.",
         },
         {
-          question: "How do you prevent two people overwriting each other?",
+          question: "How do you prevent two people from overwriting each other?",
           answer:
             "Two ways, both built in. Co-editing merges concurrent edits with Yjs CRDTs, so simultaneous changes combine instead of colliding. Single editor mode locks editing to one person while everyone else watches live, with request and handoff APIs for passing access. Use merge when everyone should type at once, the lock when exactly one person should.",
         },

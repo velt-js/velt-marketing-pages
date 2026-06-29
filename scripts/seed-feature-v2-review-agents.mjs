@@ -263,7 +263,7 @@ const doc = {
           name: "Blocking and advisory modes",
           codeKicker: "// modes",
           headline:
-            "A toggle per agent: blocking findings gate content until resolved, advisory findings warn and record any override. PII removal is a gate; brand voice is a suggestion.",
+            "A toggle per agent: blocking findings gate content until resolved; advisory findings warn and record any override. PII removal is a gate; brand voice is a suggestion.",
           preview: "review-agents/showcase/modes",
           code: 'velt.agents.update("pii", { mode: "blocking" });',
         },
@@ -290,7 +290,7 @@ const doc = {
           name: "Match-and-merge reruns",
           codeKicker: "// reruns",
           headline:
-            "On resubmit, fixed findings resolve, open ones persist with their reply threads, only genuinely new issues notify. The second pass on a filing reads like progress, not a fresh pile.",
+            "On resubmit, fixed findings resolve and open ones persist with their reply threads; only genuinely new issues notify. The second pass on a filing reads like progress, not a fresh pile.",
           preview: "review-agents/showcase/reruns",
           code: '// resubmit: fixed resolve, open persist\nvelt.agents.run({ match: "merge" });',
         },
@@ -299,7 +299,7 @@ const doc = {
           name: "Agent nodes in approval workflows",
           codeKicker: "// workflows",
           headline:
-            "Any agent runs as a step in an approval pipeline: pass advances the deck or budget, fail routes to a specialist. First-pass review happens before a human\u2019s queue fills.",
+            "Any agent runs as a step in an approval pipeline: pass advances the deck or budget; fail routes to a specialist. First-pass review happens before a human\u2019s queue fills.",
           preview: "review-agents/showcase/workflows",
           code: '// agent as an approval node\n{ type: "agent", onFail: "route:specialist" }',
         },
@@ -592,7 +592,7 @@ const doc = {
         {
           question: "Do review agents work with approval workflows?",
           answer:
-            "Yes. Any agent runs as a node in a Velt approval workflow: pass advances the work, fail routes it to the right human. The same agent can also run standalone on every submission, with no workflow at all.",
+            "Yes. Any agent runs as a node in a Velt approval workflow: pass advances the work; fail routes it to the right human. The same agent can also run standalone on every submission, with no workflow at all.",
         },
         {
           question: "Can agents use our brand guidelines or QA checklist?",

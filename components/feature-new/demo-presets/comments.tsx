@@ -435,7 +435,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
               <span className="cmh-cmt-name">Rogers</span>
               <span className="cmh-cmt-time">2m</span>
             </div>
-            <p className="cmh-cmt-body"><span className="cmh-cc-mention">@Maya</span> Update text based off this</p>
+            <p className="cmh-cmt-body"><span className="cmh-cc-mention">@Maya</span> Update text based on this</p>
             <div className="cmh-att-file">
               <span className="cmh-att-file-info">
                 <svg className="cmh-att-pdf" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -539,7 +539,7 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
             <span className="cmh-look-time">2m</span>
           </div>
           <p className="cmh-look-who"><strong>Kim</strong> &amp; 3 others</p>
-          <p className="cmh-cmt-body">We should be updating all the new assets with new logo</p>
+          <p className="cmh-cmt-body">We should be updating all the new assets with the new logo</p>
         </div>
       </div>
     </div>
