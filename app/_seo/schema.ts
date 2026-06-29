@@ -24,8 +24,8 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const ORG_SAME_AS: string[] = [
   "https://github.com/velt-js",
   "https://www.ycombinator.com/companies/velt",
-  "https://x.com/velt_dev",
-  "https://www.linkedin.com/company/velt-dev",
+  "https://x.com/veltjs",
+  "https://www.linkedin.com/company/veltjs",
 ];
 
 /**
