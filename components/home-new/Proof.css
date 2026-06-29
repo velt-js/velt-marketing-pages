@@ -93,16 +93,12 @@
   margin-top: var(--vlp-space-5);
 }
 
-.vlp .proof-avatar-dm {
+.vlp .proof-avatar {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: var(--vlp-color-amber);
-  color: var(--vlp-color-white);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: var(--vlp-btn-primary-font-micro);
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .vlp .proof-attribution-name {

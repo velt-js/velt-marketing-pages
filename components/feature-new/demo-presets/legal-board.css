@@ -73,7 +73,7 @@
 
 .vfp .demo-shell:has(.lgl-board--light) { background: transparent; border: none; box-shadow: none; overflow: visible; }
 .vfp .demo-stage:has(.lgl-board--light) { background: transparent; padding: 0; min-height: 0; overflow: visible; }
-.vfp .demo-stage .lgl-board--light { width: 960px; }
+.vfp .demo-stage .lgl-board--light { width: 840px; }
 
 /* Rail */
 .vfp .lgl-board--light .lgl-rail-btn { border-color: rgba(0, 0, 0, 0.08); color: rgba(0, 0, 0, 0.45); }

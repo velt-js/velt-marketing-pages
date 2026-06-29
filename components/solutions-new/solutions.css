@@ -3,6 +3,15 @@
    vertical-specific sections live here; hero, logo strip, FAQ, and final CTA
    reuse their feature-page stylesheets. */
 
+/* ---------- Hero artifact ---------- */
+/* Scale the hero demo artifact down a touch so it reads as a focused preview
+   rather than filling the whole stage. Origin is top-center so it stays
+   aligned with the stage padding. */
+.vfp .demo-stage .s-hero-artifact {
+  transform: scale(0.92);
+  transform-origin: top center;
+}
+
 /* ---------- The Review Reality (checklist) ---------- */
 /* Two-column split (mirrors the homepage Problem section): heading block on
    the left, the checklist on the right. The left column stretches to the row

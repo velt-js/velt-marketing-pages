@@ -6,6 +6,7 @@ import {
   Composer,
   FACES,
 } from "@/components/feature-new/demo-presets/hero-surface";
+import { CoEditingHero } from "@/components/feature-new/demo-presets/multiplayer-editing";
 
 // Contextual hero visuals for the integrations spokes. The review layer (the
 // brand-agent finding + composer) stays constant, but the SURFACE behind it is
@@ -273,6 +274,13 @@ export function buildSpokeHeroVisual(
           <Composer placeholder="Reply…" />
         </Frame>
       );
+    }
+
+    // Editor surfaces (Tiptap, Lexical, BlockNote, …) showcase live co-editing —
+    // the multiplayer story is the headline integration, so reuse the shared
+    // co-editing artifact with the editor's own name in the file crumb.
+    if (category === "text-code-editors") {
+      return <CoEditingHero editorName={name} />;
     }
 
     const { surface, body, delText, insText } = artifactFor(category);

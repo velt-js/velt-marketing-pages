@@ -486,15 +486,19 @@ function RelTile({ children, from, to }: { children: ReactNode; from: string; to
   );
 }
 
-export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
-  /**
-   * CO-EDITING: A document being edited simultaneously by Hope and Ethan.
-   * Each person has a live labeled cursor and a colored text selection highlight.
-   */
-  "multiplayer-editing/hero/co-editing": (
+/**
+ * CO-EDITING hero artifact: a document edited simultaneously by Hope and Ethan,
+ * each with a live labeled cursor and a colored selection highlight. Parametrized
+ * by editor name so integration spokes (Tiptap, Lexical, BlockNote, …) can reuse
+ * the exact component instead of a static per-page mock.
+ * @param {{ editorName?: string }} props Editor label shown in the file crumb.
+ * @returns {JSX.Element} The co-editing frame.
+ */
+export function CoEditingHero({ editorName = "Tiptap" }: { editorName?: string } = {}) {
+  return (
     <Frame
       app="ME"
-      crumb={<><b>brief-q3.md</b> <span className="sep">/</span> Tiptap</>}
+      crumb={<><b>brief-q3.md</b> <span className="sep">/</span> {editorName}</>}
       users={[
         { initials: "HO", tone: "a2", img: FACE.hope },
         { initials: "ET", tone: "a1", img: FACE.ethan },
@@ -524,7 +528,11 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
 
       <p className="code-microcopy" style={{ margin: "4px 0 0" }}>two cursors, one document &middot; Yjs merges both streams, zero conflicts</p>
     </Frame>
-  ),
+  );
+}
+
+export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
+  "multiplayer-editing/hero/co-editing": <CoEditingHero />,
 
   /**
    * SINGLE-EDITOR: Hope holds the pen; Ethan is watching live and can request access.
