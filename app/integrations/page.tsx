@@ -26,7 +26,7 @@ import {
   buildWebPageSchema,
 } from "@/app/_seo/schema";
 
-const TITLE = "Integrations";
+const TITLE = "Integrations: Slack, Teams, HubSpot, Zapier & More";
 const DESCRIPTION =
   "Connect Velt with the tools your team already uses: Slack, Discord, Microsoft Teams, HubSpot, Zapier, Sendgrid, Resend, Segment and more.";
 

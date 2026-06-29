@@ -85,7 +85,7 @@ export function FeatureCards({ cards }: { cards: FeatureCard[] }) {
     <div className="vintg-cards">
       {cards.map((card) => (
         <div key={card.title} className="vintg-card">
-          <h4>{card.title}</h4>
+          <h3>{card.title}</h3>
           {card.body ? <p>{card.body}</p> : null}
           {card.featureHref ? (
             <a className="vintg-card-link" href={card.featureHref}>

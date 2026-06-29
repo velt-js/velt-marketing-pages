@@ -45,6 +45,26 @@ import {
 
 export const revalidate = 60;
 
+// SEO meta-title overrides for feature slugs whose CMS `metaTitle` falls
+// outside the 50–60 char search-snippet window. These curated titles take
+// precedence so the rendered <title> is deterministic regardless of CMS
+// state. Keep each value between 50 and 60 characters (the " | Velt" suffix
+// is included so buildPageMetadata renders it verbatim as an absolute title).
+const FEATURE_META_TITLE_OVERRIDES: Record<string, string> = {
+  // CMS metaTitle "Presence | Agent or human presence, cursors, follow mode | Velt"
+  // renders at 63 chars, past the 60-char limit.
+  presence: "Presence SDK: Live Cursors, Avatars & Follow Mode | Velt",
+};
+
+// SEO meta-description overrides for feature slugs whose CMS `metaDescription`
+// falls outside the 120–160 char snippet window. These curated descriptions
+// take precedence so the rendered <meta name="description"> stays in range.
+const FEATURE_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
+  // CMS metaDescription is 101 chars, below the 120-char floor.
+  recording:
+    "Add Loom-style recording to your product. Capture voice, video, and screen pinned to the exact spot in the work, with a built-in video editor.",
+};
+
 // Legacy v1 (featurePage) docs still live in the CMS but were superseded by v2
 // pages; their old URLs now 301-redirect (see next.config.ts), so we skip them
 // here instead of prerendering pages that never serve. comments/notifications
@@ -97,8 +117,15 @@ export async function generateMetadata({
     // v2 first — featurePageV2 owns its slug.
     const v2 = await getFeaturePageV2BySlug(slug);
     if (v2) {
-      const title = v2.metaTitle ?? `${v2.hero?.title ?? v2.title} | Velt`;
-      const description = v2.metaDescription ?? v2.hero?.secondary ?? "";
+      const title =
+        FEATURE_META_TITLE_OVERRIDES[slug] ??
+        v2.metaTitle ??
+        `${v2.hero?.title ?? v2.title} | Velt`;
+      const description =
+        FEATURE_META_DESCRIPTION_OVERRIDES[slug] ??
+        v2.metaDescription ??
+        v2.hero?.secondary ??
+        "";
       return buildPageMetadata({
         title,
         description,
@@ -116,13 +143,20 @@ export async function generateMetadata({
     // fallback title. The component still calls notFound() independently.
     if (!doc) {
       return buildPageMetadata({
-        title: `${slugToTitle(slug)} | Velt`,
-        description: FALLBACK_META_DESCRIPTION,
+        title:
+          FEATURE_META_TITLE_OVERRIDES[slug] ?? `${slugToTitle(slug)} | Velt`,
+        description:
+          FEATURE_META_DESCRIPTION_OVERRIDES[slug] ?? FALLBACK_META_DESCRIPTION,
         path: `/${slug}`,
       });
     }
-    const title = doc.metaTitle ?? `${doc.hero.heading} | Velt`;
-    const description = doc.metaDescription ?? doc.hero.subheading ?? "";
+    const title =
+      FEATURE_META_TITLE_OVERRIDES[slug] ?? doc.metaTitle ?? `${doc.hero.heading} | Velt`;
+    const description =
+      FEATURE_META_DESCRIPTION_OVERRIDES[slug] ??
+      doc.metaDescription ??
+      doc.hero.subheading ??
+      "";
     // Prefer Sanity-supplied OG image. Fall back to a bundled per-slug image
     // (/og/{slug}.png) only when one actually exists — otherwise leave
     // `ogImage` undefined so the helper drops in the site-wide default.

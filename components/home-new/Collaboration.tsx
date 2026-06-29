@@ -38,7 +38,7 @@ function CollabCard({ name, oneLiner, folds, preview, codeFile, code }: CollabCa
   return (
     <div className="collab-card">
       <div className="collab-card-head">
-        <h4 className="collab-card-h4">{name}</h4>
+        <h3 className="collab-card-h4">{name}</h3>
         <div className="prim-tabs" role="tablist" aria-label={`${name} preview`}>
           <button
             type="button"

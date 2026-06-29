@@ -137,7 +137,7 @@ export default function HubView({ content }: HubViewProps) {
                 <div className="vintg-cards">
                   {content.verticals.items.map((vertical) => (
                     <div key={vertical.label} className="vintg-card">
-                      <h4>{vertical.label}</h4>
+                      <h3>{vertical.label}</h3>
                       {vertical.body ? <p>{vertical.body}</p> : null}
                       {vertical.forHref ? (
                         <a className="vintg-card-link" href={vertical.forHref}>
