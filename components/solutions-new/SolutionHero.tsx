@@ -46,7 +46,7 @@ export default function SolutionHero({ hero }: SolutionHeroProps) {
 
         <div className="demo-shell" aria-label="Solution demo">
           <div className="demo-stage">
-            {hero.visual}
+            <div className="s-hero-artifact">{hero.visual}</div>
             {hero.buildChip ? (
               <a
                 className="build-chip"

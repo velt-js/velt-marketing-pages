@@ -10,33 +10,49 @@ export default function Proof() {
         <div className="proof-grid">
 
           <div className="proof-dark-card">
-            <div className="proof-dark-card-header"><span className="proof-dark-card-company">OpenEnvoy</span><span className="proof-badge-orange">FEATURED · ANCHOR CUSTOMER</span></div>
-            <h3 className="proof-dark-card-title">500k+ comments processed without adding headcount.</h3>
-            <p className="proof-dark-card-body">OpenEnvoy gives every invoice review a timestamped, attributed audit trail. The migration took 3 days. Zero failed audits since.</p>
-            <div className="proof-attribution"><span className="proof-avatar-dm">DM</span><div className="proof-attribution-name">Daniel Mejia<span className="proof-attribution-role">VP Engineering · OpenEnvoy</span></div></div>
+            <div className="proof-dark-card-header"><span className="proof-dark-card-company">Leadpages</span><span className="proof-badge-orange">FEATURED · ANCHOR CUSTOMER</span></div>
+            <h3 className="proof-dark-card-title">3 FTEs of work, shipped in weeks — not quarters.</h3>
+            <p className="proof-dark-card-body">Implementing Velt took weeks, not the quarters it would have taken us to build in-house even with 3 FTE engineers. We&rsquo;re already seeing added value for our users and anticipate increased retention.</p>
+            <div className="proof-attribution">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="proof-avatar" src="/images/features/comments/trust-us/avatar-hope.png" alt="Hope Callaway" loading="lazy" />
+              <div className="proof-attribution-name">Hope Callaway<span className="proof-attribution-role">Senior PM · Leadpages</span></div>
+            </div>
             <a href="/customers" className="proof-case-study-link">Read the case study</a>
             <div className="proof-stats-row">
-              <div className="proof-stat"><div className="proof-stat-number">500k+</div><div className="proof-stat-label">COMMENTS</div></div>
-              <div className="proof-stat"><div className="proof-stat-number">0</div><div className="proof-stat-label">AUDITS FAILED</div></div>
-              <div className="proof-stat"><div className="proof-stat-number">3 FTE</div><div className="proof-stat-label">ENG SAVED</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">3 FTE</div><div className="proof-stat-label">SAVED</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">Weeks</div><div className="proof-stat-label">NOT QUARTERS</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">&uarr;</div><div className="proof-stat-label">RETENTION</div></div>
             </div>
           </div>
 
           <div className="proof-right-col">
             <div className="proof-small-card">
-              <div className="proof-small-card-label">FEATURE LAUNCHED · TRUMPET</div>
-              <p className="proof-small-card-quote">Engagement up 10% the week we shipped Velt.</p>
-              <div className="proof-small-card-attribution">Eliana Cohen · Product Lead</div>
+              <div className="proof-small-card-top">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="proof-small-card-logo" src="/images/features/comments/trust-us/logo-google.png" alt="Google" loading="lazy" />
+                <span className="proof-small-card-label">BUNDLED WITH MAGIC</span>
+              </div>
+              <p className="proof-small-card-quote">Velt&rsquo;s commenting &amp; notifications are bundled with a lot of magic.</p>
+              <div className="proof-small-card-attribution">Yuri Kleban · Sr. Product Manager</div>
             </div>
             <div className="proof-small-card">
-              <div className="proof-small-card-label">BUILD TIME SAVED · LEADPAGES</div>
-              <p className="proof-small-card-quote">We modeled $750k loaded for three engineers, two quarters. Velt shipped the same surface in weeks.</p>
-              <div className="proof-small-card-attribution">Jordan Lee · VP Engineering</div>
+              <div className="proof-small-card-top">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="proof-small-card-logo" src="/images/features/comments/trust-us/logo-x.png" alt="X" loading="lazy" />
+                <span className="proof-small-card-label">SHIPPED IN A WEEK</span>
+              </div>
+              <p className="proof-small-card-quote">We shipped full collaboration features in under one week.</p>
+              <div className="proof-small-card-attribution">Chris Bakke · Head of Product</div>
             </div>
             <div className="proof-small-card">
-              <div className="proof-small-card-label">DEAL CLOSED · CLOUDFACTORY</div>
-              <p className="proof-small-card-quote">We replaced Liveblocks in 3 days. BAA and SOC 2 closed the healthcare deal.</p>
-              <div className="proof-small-card-attribution">Erin Kwon · Platform Eng</div>
+              <div className="proof-small-card-top">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img className="proof-small-card-logo" src="/images/features/comments/trust-us/logo-metaimpact.png" alt="MetaImpact" loading="lazy" />
+                <span className="proof-small-card-label">WAU UP 26%</span>
+              </div>
+              <p className="proof-small-card-quote">Velt increased our weekly active users by 26%.</p>
+              <div className="proof-small-card-attribution">Jeff Cunning · CPO</div>
             </div>
           </div>
         </div>

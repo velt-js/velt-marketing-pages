@@ -6,6 +6,7 @@ import {
   Composer,
   FACES,
 } from "@/components/feature-new/demo-presets/hero-surface";
+import { CoEditingCommentHero } from "@/components/feature-new/demo-presets/multiplayer-editing";
 
 // Contextual hero visuals for the integrations spokes. The review layer (the
 // brand-agent finding + composer) stays constant, but the SURFACE behind it is
@@ -273,6 +274,13 @@ export function buildSpokeHeroVisual(
           <Composer placeholder="Reply…" />
         </Frame>
       );
+    }
+
+    // Editor surfaces (Tiptap, Lexical, BlockNote, …) lead with both Velt layers
+    // at once: live CRDT co-editing plus a contextual comment anchored to the
+    // selection — the editor's own name fills the file crumb.
+    if (category === "text-code-editors") {
+      return <CoEditingCommentHero editorName={name} />;
     }
 
     const { surface, body, delText, insText } = artifactFor(category);

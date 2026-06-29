@@ -407,6 +407,9 @@ const RESOURCES_LIBRARIES: NavEntry[] = [
 
 /** Resources links — more column. */
 const RESOURCES_MORE: NavEntry[] = [
+  { label: "Compare", href: "/comparison", icon: NAV_ICONS.grid },
+  { label: "Customers", href: "/customers", icon: NAV_ICONS.usersGroup },
+  { label: "Blog", href: "/blog", icon: NAV_ICONS.book },
   { label: "Enterprise", href: "/enterprise", icon: NAV_ICONS.shield },
   { label: "Launch kit", href: "/launch-kit", icon: NAV_ICONS.rocket },
   { label: "Migrate from Liveblocks", href: "/migrate/liveblocks", icon: NAV_ICONS.transfer },
@@ -416,9 +419,6 @@ const RESOURCES_MORE: NavEntry[] = [
 /** Inline (single) nav links. */
 const INLINE_LINKS: NavEntry[] = [
   { label: "Pricing", href: "/pricing" },
-  { label: "Compare", href: "/comparison" },
-  { label: "Customers", href: "/customers" },
-  { label: "Blog", href: "/blog" },
   { label: "Docs", href: DOCS_URL, external: true },
 ];
 

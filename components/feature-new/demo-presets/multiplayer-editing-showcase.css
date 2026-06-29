@@ -5,6 +5,11 @@
    the Av atoms. Only genuinely new co-editing patterns live here; everything
    is namespaced .mpe- and scoped under .vfp. */
 
+/* Co-editing hero microcopy — co-located so the CoEditingHero component carries
+   its own caption style onto pages that don't load HowItWorks.css (e.g. the
+   editor integration spokes). Mirrors the base .code-microcopy utility. */
+.vfp .code-microcopy { font-family: var(--vlp-font-mono); font-size: 12.5px; color: var(--vlp-color-text-subtle); }
+
 /* Shared down-arrow connector between stacked steps. */
 .vfp .mpe-down { display: grid; place-items: center; height: 18px; color: var(--vlp-color-text-subtle); }
 .vfp .mpe-down svg { width: 16px; height: 16px; }

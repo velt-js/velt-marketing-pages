@@ -29,7 +29,7 @@ type ShowcaseCardProps = {
  */
 export default function ShowcaseCard({ card, hideCodeTab = false }: ShowcaseCardProps) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
-  const kicker = card.codeKicker.replace(/^\/\/\s*/, "");
+  const kicker = card.codeKicker.replace(/^\/\/\s*/, "").replace(/\.tsx$/i, "");
 
   return (
     <article className="prim-card2 sc-card">
