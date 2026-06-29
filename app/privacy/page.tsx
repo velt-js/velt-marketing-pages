@@ -34,6 +34,7 @@ export const metadata = buildPageMetadata({
   title: "Privacy Policy",
   description: PRIVACY_DESCRIPTION,
   path: "/privacy",
+  ogImage: "/og/privacy.png",
 });
 
 export default function PrivacyPage() {

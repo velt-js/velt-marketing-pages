@@ -31,13 +31,14 @@ export async function generateMetadata(): Promise<Metadata> {
     const hub = await getLibrariesHubPage();
     const title = hub?.metaTitle ?? DEFAULT_TITLE;
     const description = hub?.metaDescription ?? DEFAULT_DESCRIPTION;
-    return buildPageMetadata({ title, description, path: "/libraries" });
+    return buildPageMetadata({ title, description, path: "/libraries", ogImage: "/og/libraries.png" });
   } catch (error) {
     console.error("libraries hub generateMetadata failed", error);
     return buildPageMetadata({
       title: DEFAULT_TITLE,
       description: DEFAULT_DESCRIPTION,
       path: "/libraries",
+      ogImage: "/og/libraries.png",
     });
   }
 }

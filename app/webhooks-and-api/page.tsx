@@ -19,6 +19,7 @@ export const metadata: Metadata = buildPageMetadata({
   description:
     "Integrate seamlessly with your systems. Velt's REST API and webhooks let you perform CRUD on every feature, receive signed events with retries, transform and encrypt payloads, and sync to Slack.",
   path: "/webhooks-and-api",
+  ogImage: "/og/webhooks-and-api.png",
 });
 
 /**

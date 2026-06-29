@@ -40,6 +40,7 @@ export const metadata = buildPageMetadata({
   description:
     "See how Google, Pendo, Runway, and 50+ companies use Velt to add collaboration features. Increased engagement by 26%, saved 3 FTEs, and shipped 5x faster.",
   path: "/customers",
+  ogImage: "/og/customers.png",
 });
 
 export default function CustomersPage() {

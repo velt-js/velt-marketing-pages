@@ -13,6 +13,7 @@ export const metadata = buildPageMetadata({
   description:
     "See how Velt can help you add powerful collaboration features to your app. 30 minutes, with an engineer, not a sales deck.",
   path: "/book-demo",
+  ogImage: "/og/book-demo.png",
 });
 
 /**
