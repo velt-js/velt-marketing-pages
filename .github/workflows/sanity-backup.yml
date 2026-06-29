@@ -1,0 +1,39 @@
+name: Sanity dataset backup
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 08:15 UTC.
+    - cron: "15 8 * * *"
+
+jobs:
+  export-production:
+    name: Export production dataset
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set backup filename
+        id: backup
+        run: echo "file=sanity-production-$(date -u +%Y-%m-%dT%H-%M-%SZ).tar.gz" >> "$GITHUB_OUTPUT"
+
+      - name: Export Sanity production dataset
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_BACKUP_TOKEN }}
+        run: |
+          if [ -z "$SANITY_AUTH_TOKEN" ]; then
+            echo "Missing SANITY_BACKUP_TOKEN GitHub secret" >&2
+            exit 1
+          fi
+
+          npx sanity@latest datasets export production "${{ steps.backup.outputs.file }}" --project-id fk9mezqa
+
+      - name: Upload backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanity-production-backup
+          path: ${{ steps.backup.outputs.file }}
+          retention-days: 30
