@@ -28,6 +28,8 @@ export const APPROVAL_FLOWS_DEMO_KEYS: string[] = [
   "approval-flows/in-production/sales",
   "approval-flows/in-production/fintech",
   "approval-flows/in-production/ops",
+  "approval-flows/in-production/compliance",
+  "approval-flows/in-production/legal",
   "approval-flows/in-production/ai",
   // Related primitives
   "approval-flows/related/review-agents",

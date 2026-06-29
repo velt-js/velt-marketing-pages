@@ -393,12 +393,12 @@ const doc = {
           label: "Sales enablement",
           demoPreset: "comments/in-production/sales",
           caption:
-            "Brand, legal, and the client comment on the deck, the email, the page itself. Feedback lands on the asset, not in an email chain about the asset.",
+            "Brand, legal, and the client comment on the deck, the email, the digital sales room itself. Feedback lands on the asset, not in an email chain about the asset.",
           link: cta("For sales enablement", "/for/sales-enablement"),
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "comments/in-production/fintech",
           caption:
             "Cell-level threads on budgets, forecasts, and filings. The question about Q3 sits on the Q3 cell, attributed, resolved, and on the record.",
@@ -413,8 +413,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "comments/in-production/compliance",
+          caption:
+            "Threads pinned to the exact control, filing line, or attestation. The deliberation stays internal until officers sign off, and every decision is on the record.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "comments/in-production/legal",
+          caption:
+            "Clause-level threads on the matter. Counsel debates the redline internally, the counterparty never sees it, and the attributed history survives the next revision.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "comments/in-production/ai",
           caption:
             "Every agent finding is a comment with Approve and Reject attached. The review loop for generated work runs on the same threads your users already know.",
@@ -429,6 +445,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

@@ -380,7 +380,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "suggestions/in-production/fintech",
           caption:
             "An analyst proposes a new value for the Q3 cell, and it stays pending until the controller accepts. The number never changes without a name attached.",
@@ -395,8 +395,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "suggestions/in-production/compliance",
+          caption:
+            "An officer proposes new control language on the exact attestation line, and it stays pending until a second officer accepts. The filing never changes without a name attached.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "suggestions/in-production/legal",
+          caption:
+            "Counsel proposes the clause redline as a suggestion the counterparty accepts or rejects in place. The negotiation happens on the contract itself, not in a forwarded Word doc.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "suggestions/in-production/ai",
           caption:
             "The agent proposes the fix on the exact field and waits. Accept applies it through your code; reject logs the reason. Users keep the AI on because it asks first.",
@@ -411,6 +427,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

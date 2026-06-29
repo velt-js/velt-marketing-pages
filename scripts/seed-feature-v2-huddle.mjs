@@ -385,7 +385,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "huddle/in-production/fintech",
           caption:
             "When the variance question is too tangled for a cell thread, the analyst and the controller talk over the live model. The forecast gets settled with the numbers on screen.",
@@ -400,8 +400,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "huddle/in-production/compliance",
+          caption:
+            "The flagged control needs the officer and the analyst at the same moment. The huddle starts on the controls register, screen share on the attestation in question, and the decision lands before filing.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "huddle/in-production/legal",
+          caption:
+            "Counsel and the deal team disagree on the liability cap, so they huddle on the clause itself. They settle the redline in one conversation on the matter, with no call scheduled.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "huddle/in-production/ai",
           caption:
             "An agent flags a clause and two reviewers disagree on the fix. They huddle on the document, decide together, and the decision lands back on the finding.",
@@ -416,6 +432,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

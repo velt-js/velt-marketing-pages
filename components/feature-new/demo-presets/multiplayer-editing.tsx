@@ -2,8 +2,10 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { DarkPanel, AvatarStack, CursorTag } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import { Av, DEL_STYLE, Frame, FACES, IconArrowRight, IconCheck, INS_STYLE } from "./hero-surface";
 
@@ -940,11 +942,15 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "multiplayer-editing/in-production/sales": <CrmPipelineBoard />,
+  "multiplayer-editing/in-production/sales": <DigitalSalesRoom />,
 
   "multiplayer-editing/in-production/fintech": <FintechBoard />,
 
   "multiplayer-editing/in-production/ops": <OperationsBoard />,
+
+  "multiplayer-editing/in-production/compliance": <ComplianceBoard />,
+
+  "multiplayer-editing/in-production/legal": <LegalBoard />,
 
   "multiplayer-editing/in-production/ai": <AiNativeBoard />,
 

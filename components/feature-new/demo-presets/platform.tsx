@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, DarkPanel } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
 import { OperationsBoard } from "./ops-board";
 import { Av, Composer, FACES, IconCheck, Presence } from "./hero-surface";
@@ -608,7 +608,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "in-production/sales": <CrmPipelineBoard />,
+  "in-production/sales": <DigitalSalesRoom />,
   "in-production/fintech": <FintechBoard />,
   "in-production/operations": <OperationsBoard />,
   "in-production/ai": <AiNativeBoard />,

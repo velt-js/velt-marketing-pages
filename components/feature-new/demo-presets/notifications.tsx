@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 
 import { NotifItem } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
@@ -1133,11 +1135,15 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "notifications/in-production/sales": <CrmPipelineBoard />,
+  "notifications/in-production/sales": <DigitalSalesRoom />,
 
   "notifications/in-production/fintech": <FintechBoard />,
 
   "notifications/in-production/ops": <OperationsBoard />,
+
+  "notifications/in-production/compliance": <ComplianceBoard />,
+
+  "notifications/in-production/legal": <LegalBoard />,
 
   "notifications/in-production/ai": <AiNativeBoard />,
 

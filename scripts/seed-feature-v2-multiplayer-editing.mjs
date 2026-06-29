@@ -424,7 +424,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "multiplayer-editing/in-production/fintech",
           caption:
             "Single editor lock on the filing: one analyst holds the pen while reviewers watch the cells change live. The handoff is requested, accepted, and on the record.",
@@ -439,8 +439,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "multiplayer-editing/in-production/compliance",
+          caption:
+            "The compliance team co-edits the disclosure live, a single-editor lock on the attestation line so two officers never overwrite each other. Reviewers watch the controls register change in real time before sign-off.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "multiplayer-editing/in-production/legal",
+          caption:
+            "Counsel and the deal team redline the clause together, edits merging mid-sentence with no versioned-email round-trip. The liability cap nobody saved still survives into the next revision.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "multiplayer-editing/in-production/ai",
           caption:
             "An agent rewrites one section while the human drafts another, and Yjs merges both streams without conflict. Generated work lands in the document, not in a paste buffer.",
@@ -455,6 +471,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

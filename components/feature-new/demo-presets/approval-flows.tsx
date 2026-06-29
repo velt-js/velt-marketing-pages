@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 
 import { AuditLog, Precedent } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
@@ -895,11 +897,15 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "approval-flows/in-production/sales": <CrmPipelineBoard />,
+  "approval-flows/in-production/sales": <DigitalSalesRoom />,
 
   "approval-flows/in-production/fintech": <FintechBoard />,
 
   "approval-flows/in-production/ops": <OperationsBoard />,
+
+  "approval-flows/in-production/compliance": <ComplianceBoard />,
+
+  "approval-flows/in-production/legal": <LegalBoard />,
 
   "approval-flows/in-production/ai": <AiNativeBoard />,
 

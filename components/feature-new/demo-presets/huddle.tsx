@@ -3,8 +3,10 @@ import type { ReactNode } from "react";
 import { AvatarStack, DarkPanel, NotifItem } from "../demos";
 import type { AvatarUser } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX } from "./hero-surface";
 import type { PresenceUser } from "./hero-surface";
@@ -798,11 +800,15 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "huddle/in-production/sales": <CrmPipelineBoard />,
+  "huddle/in-production/sales": <DigitalSalesRoom />,
 
   "huddle/in-production/fintech": <FintechBoard />,
 
   "huddle/in-production/ops": <OperationsBoard />,
+
+  "huddle/in-production/compliance": <ComplianceBoard />,
+
+  "huddle/in-production/legal": <LegalBoard />,
 
   "huddle/in-production/ai": <AiNativeBoard />,
 

@@ -23,6 +23,8 @@ export const RECORDING_DEMO_KEYS: string[] = [
   "recording/in-production/sales",
   "recording/in-production/fintech",
   "recording/in-production/ops",
+  "recording/in-production/compliance",
+  "recording/in-production/legal",
   "recording/in-production/ai",
   "recording/related/comments",
   "recording/related/huddle",

@@ -1,0 +1,68 @@
+/* Compliance controls-review board (.cpl-*) — the Comments page's "In
+   production · Compliance" dummy-app surface, in the same dark visual language
+   as the other in-production boards: an icon rail + a controls register with one
+   flagged attestation carrying an internal-scoped comment popover. Scoped under
+   .vfp to match the rest of the feature-page proof surfaces. */
+.vfp .cpl-board {
+  position: relative;
+  display: flex;
+  gap: 32px;
+  padding: 20px 22px;
+  border: 1px solid var(--vlp-border-on-dark);
+  border-radius: var(--vlp-radius-lg-feature);
+  background: var(--vlp-color-dark-2);
+  box-shadow: 0 30px 70px -34px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* Left icon rail. */
+.vfp .cpl-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
+.vfp .cpl-rail-group { display: flex; flex-direction: column; gap: 12px; }
+.vfp .cpl-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
+.vfp .cpl-rail-btn.on { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.vfp .cpl-rail-btn svg { width: 16px; height: 16px; }
+
+/* Main board area. */
+.vfp .cpl-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; min-height: 460px; }
+.vfp .cpl-eyebrow { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.32); }
+.vfp .cpl-filing { margin: 0 0 6px; font-family: var(--vlp-font-heading); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); }
+
+/* Controls register. */
+.vfp .cpl-list { position: relative; flex: 1; display: flex; flex-direction: column; gap: 8px; -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); }
+.vfp .cpl-row { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 16px; border-radius: 11px; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); }
+.vfp .cpl-row.is-active { border-color: var(--vlp-color-accent); }
+.vfp .cpl-row-lead { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.vfp .cpl-row-id { display: inline-flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.03em; color: rgba(255, 255, 255, 0.6); }
+.vfp .cpl-row-label { font-family: var(--vlp-font-heading); font-weight: 600; font-size: 13px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); }
+.vfp .cpl-row-trail { display: flex; align-items: center; gap: 12px; flex: none; }
+.vfp .cpl-row-meta { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255, 255, 255, 0.4); }
+
+/* Status chips. */
+.vfp .cpl-status { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
+.vfp .cpl-status-signed { background: rgba(18, 131, 82, 0.2); color: #7fd6a6; }
+.vfp .cpl-status-flagged { background: rgba(245, 78, 0, 0.18); color: #ffb892; }
+.vfp .cpl-status-review { background: rgba(192, 133, 50, 0.2); color: #e5b873; }
+.vfp .cpl-status-pending { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.6); }
+
+/* Comment-count badge (orange pill). */
+.vfp .cpl-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; padding: 2px 7px; border-radius: 16px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; line-height: 1; }
+.vfp .cpl-badge svg { width: 10px; height: 10px; }
+
+/* Anchored, internal-scoped comment popover over the flagged control. */
+.vfp .cpl-pop { position: absolute; top: 64%; left: 22%; z-index: 5; width: 308px; display: flex; gap: 12px; padding: 16px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45); }
+.vfp .cpl-pop-av { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); color: #fff; font-size: 13px; font-weight: 700; }
+.vfp .cpl-pop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+.vfp .cpl-pop-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.vfp .cpl-pop-name { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; color: #000; }
+.vfp .cpl-pop-time { font-size: 12px; font-weight: 500; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .cpl-pop-chip { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; padding: 2px 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.06); color: rgba(0, 0, 0, 0.6); font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; }
+.vfp .cpl-pop-chip svg { width: 11px; height: 11px; }
+.vfp .cpl-pop-body { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.75); }
+.vfp .cpl-pop-mention { font-weight: 600; color: var(--vlp-color-accent); }
+.vfp .cpl-pop-replies { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
+.vfp .cpl-pop-replies svg { width: 13px; height: 13px; }
+
+@media (max-width: 620px) {
+  .vfp .cpl-pop { left: 10%; width: 270px; }
+  .vfp .cpl-row-meta { display: none; }
+}

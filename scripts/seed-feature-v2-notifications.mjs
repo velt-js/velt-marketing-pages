@@ -384,7 +384,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "notifications/in-production/fintech",
           caption:
             "A sign-off request on the Q3 forecast reaches the controller as one digest, not a ping per cell. The close calendar holds because no approval waits unseen.",
@@ -399,8 +399,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "notifications/in-production/compliance",
+          caption:
+            "The attestation request reaches the compliance officer where they work: inbox, email, or their channel. The filing deadline holds because the sign-off was seen today, not the morning it was due.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "notifications/in-production/legal",
+          caption:
+            "The redline review reaches outside counsel by email and your team in-app, each seeing only their side. The matter moves because no request waits unread in someone\u2019s queue.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "notifications/in-production/ai",
           caption:
             "Agent findings land in the reviewer\u2019s feed the moment the run completes, batched into one digest. Generated work moves to a human decision instead of waiting to be discovered.",
@@ -415,6 +431,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

@@ -2,8 +2,10 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { AvatarStack, CursorTag } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import { Av, Composer, FACES, Frame, IconAgentMark, IconArrowRight } from "./hero-surface";
 
@@ -964,11 +966,15 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "presence/in-production/sales": <CrmPipelineBoard />,
+  "presence/in-production/sales": <DigitalSalesRoom />,
 
   "presence/in-production/fintech": <FintechBoard />,
 
   "presence/in-production/ops": <OperationsBoard />,
+
+  "presence/in-production/compliance": <ComplianceBoard />,
+
+  "presence/in-production/legal": <LegalBoard />,
 
   "presence/in-production/ai": <AiNativeBoard />,
 

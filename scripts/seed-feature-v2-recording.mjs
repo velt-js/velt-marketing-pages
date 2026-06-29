@@ -406,7 +406,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "recording/in-production/fintech",
           caption:
             "The variance explanation is a voice note on the Q3 cell, transcribed to text. Months later, the auditor reads what was said, when, and by whom.",
@@ -421,8 +421,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "recording/in-production/compliance",
+          caption:
+            "The officer records the attestation rationale as a voice note pinned to the control, transcribed to text. Months later, the examiner reads why the disclosure was approved, when, and by whom.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "recording/in-production/legal",
+          caption:
+            "Counsel records why the clause was accepted as a 60-second walkthrough pinned to the matter. The next reviewer reads the rationale instead of guessing at the redline history.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "recording/in-production/ai",
           caption:
             "A reviewer records why a generated draft was rejected; transcription turns the rationale into text the next reviewer and your agents can read.",
@@ -437,6 +453,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

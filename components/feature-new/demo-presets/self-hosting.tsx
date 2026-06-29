@@ -2,8 +2,10 @@ import { Fragment, type ReactNode } from "react";
 
 import { Precedent, ProvRow, ProvArrow, DarkPanel } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import { Frame, IconArrowRight, IconCheck, IconX } from "./hero-surface";
 
@@ -805,11 +807,15 @@ export const SELF_HOSTING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "self-hosting/in-production/sales": <CrmPipelineBoard />,
+  "self-hosting/in-production/sales": <DigitalSalesRoom />,
 
   "self-hosting/in-production/fintech": <FintechBoard />,
 
   "self-hosting/in-production/ops": <OperationsBoard />,
+
+  "self-hosting/in-production/compliance": <ComplianceBoard />,
+
+  "self-hosting/in-production/legal": <LegalBoard />,
 
   "self-hosting/in-production/ai": <AiNativeBoard />,
 

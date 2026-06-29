@@ -14,8 +14,10 @@ import { REVIEW_AGENTS_DEMOS } from "./demo-presets/review-agents";
 import { APPROVAL_FLOWS_DEMOS } from "./demo-presets/approval-flows";
 import { COMMENTS_DEMOS } from "./demo-presets/comments";
 import { AiNativeBoard } from "./demo-presets/ai-board";
-import { CrmPipelineBoard } from "./demo-presets/crm-board";
+import { ComplianceBoard } from "./demo-presets/compliance-board";
+import { DigitalSalesRoom } from "./demo-presets/digital-sales-room";
 import { FintechBoard } from "./demo-presets/fintech-board";
+import { LegalBoard } from "./demo-presets/legal-board";
 import { OperationsBoard } from "./demo-presets/ops-board";
 import { HUDDLE_DEMOS } from "./demo-presets/huddle";
 import { SUGGESTIONS_DEMOS } from "./demo-presets/suggestions";
@@ -797,11 +799,15 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "audit-trail/in-production/sales": <CrmPipelineBoard />,
+  "audit-trail/in-production/sales": <DigitalSalesRoom />,
 
   "audit-trail/in-production/fintech": <FintechBoard />,
 
   "audit-trail/in-production/operations": <OperationsBoard />,
+
+  "audit-trail/in-production/compliance": <ComplianceBoard />,
+
+  "audit-trail/in-production/legal": <LegalBoard />,
 
   "audit-trail/in-production/ai": <AiNativeBoard />,
 

@@ -377,7 +377,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "presence/in-production/fintech",
           caption:
             "Selection indicators sit on the exact cell each analyst is editing, and presence shows who is in the model right now. Close week runs without two people in one column.",
@@ -392,8 +392,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "presence/in-production/compliance",
+          caption:
+            "Officers show up in the controls register\u2019s avatar row, selection indicators on the exact attestation each is reviewing. Nobody signs off on a line another officer already has open.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "presence/in-production/legal",
+          caption:
+            "Counsel\u2019s cursors sit on the clause they are reading, and presence shows who is in the matter right now. The redline handoff happens once, to someone actually in the document.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "presence/in-production/ai",
           caption:
             "The agent joins the avatar row while it drafts, and follow mode lets the user ride along as it works. Generated work is watchable, not a spinner.",
@@ -408,6 +424,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

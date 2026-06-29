@@ -26,6 +26,8 @@ export const SUGGESTIONS_DEMO_KEYS: string[] = [
   "suggestions/in-production/sales",
   "suggestions/in-production/fintech",
   "suggestions/in-production/ops",
+  "suggestions/in-production/compliance",
+  "suggestions/in-production/legal",
   "suggestions/in-production/ai",
   // Related primitives
   "suggestions/related/comments",

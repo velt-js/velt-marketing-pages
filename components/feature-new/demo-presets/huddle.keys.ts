@@ -27,6 +27,8 @@ export const HUDDLE_DEMO_KEYS: string[] = [
   "huddle/in-production/sales",
   "huddle/in-production/fintech",
   "huddle/in-production/ops",
+  "huddle/in-production/compliance",
+  "huddle/in-production/legal",
   "huddle/in-production/ai",
   // Related primitives
   "huddle/related/comments",

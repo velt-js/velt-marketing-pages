@@ -2,8 +2,10 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { Precedent } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import {
   Av,
@@ -843,11 +845,15 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "memory/in-production/sales": <CrmPipelineBoard />,
+  "memory/in-production/sales": <DigitalSalesRoom />,
 
   "memory/in-production/fintech": <FintechBoard />,
 
   "memory/in-production/ops": <OperationsBoard />,
+
+  "memory/in-production/compliance": <ComplianceBoard />,
+
+  "memory/in-production/legal": <LegalBoard />,
 
   "memory/in-production/ai": <AiNativeBoard />,
 

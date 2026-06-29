@@ -26,6 +26,8 @@ export const SELF_HOSTING_DEMO_KEYS: string[] = [
   "self-hosting/in-production/sales",
   "self-hosting/in-production/fintech",
   "self-hosting/in-production/ops",
+  "self-hosting/in-production/compliance",
+  "self-hosting/in-production/legal",
   "self-hosting/in-production/ai",
   // Self-hosting — related primitives
   "self-hosting/related/comments",

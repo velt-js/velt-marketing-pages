@@ -28,6 +28,8 @@ export const REVIEW_AGENTS_DEMO_KEYS: string[] = [
   "review-agents/in-production/sales",
   "review-agents/in-production/fintech",
   "review-agents/in-production/ops",
+  "review-agents/in-production/compliance",
+  "review-agents/in-production/legal",
   "review-agents/in-production/ai",
   // Related
   "review-agents/related/comments",

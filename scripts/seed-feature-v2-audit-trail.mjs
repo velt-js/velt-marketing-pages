@@ -411,7 +411,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "audit-trail/in-production/fintech",
           caption:
             "Every transition timestamped and attributed. The examiner\u2019s sample request returns the complete chain.",
@@ -426,8 +426,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "audit-trail/in-production/compliance",
+          caption:
+            "Every control sign-off and attestation is recorded with who decided and why, timestamped and immutable. The examiner\u2019s sample request returns the complete chain.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "audit-trail/in-production/legal",
+          caption:
+            "Each clause decision and redline lands in one trail, attributed and on the record. Months later, who agreed to the cap answers itself.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "audit-trail/in-production/ai",
           caption:
             "Agent findings and human approvals land in one trail, with judge type marking each. AI oversight, queryable.",
@@ -442,6 +458,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

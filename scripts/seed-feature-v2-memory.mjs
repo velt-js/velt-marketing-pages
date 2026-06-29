@@ -401,7 +401,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "memory/in-production/fintech",
           caption:
             "Past sign-offs on budgets, forecasts, and filings become queryable precedent with reasoning attached. The auditor\u2019s question returns cited records in minutes.",
@@ -416,8 +416,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "memory/in-production/compliance",
+          caption:
+            "Past attestations and settled control decisions surface as precedent on the next filing. The examiner\u2019s question returns cited records with the reasoning attached, in minutes.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "memory/in-production/legal",
+          caption:
+            "Prior clause positions and the redlines counsel accepted last time surface on the new matter. The team stops re-litigating settled language, and the playbook holds as headcount grows.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "memory/in-production/ai",
           caption:
             "Agents read the decision history before reviewing generated work, so settled decisions stay settled. Every suggestion carries confidence and provenance.",
@@ -432,6 +448,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

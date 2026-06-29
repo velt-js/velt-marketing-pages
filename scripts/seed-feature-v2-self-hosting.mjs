@@ -397,7 +397,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "self-hosting/in-production/fintech",
           caption:
             "Comment threads on filings and forecasts persist to your database; Velt holds identifiers and timestamps. The vendor security review gets a field-level inventory instead of a promise.",
@@ -412,8 +412,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "self-hosting/in-production/compliance",
+          caption:
+            "Control threads and attestation notes persist to your database; Velt holds only identifiers and timestamps. The examiner\u2019s residency requirement is met without standing up a second architecture.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "self-hosting/in-production/legal",
+          caption:
+            "Clause comments and redline history write through your providers to your storage. Privileged matter data never leaves your region, and the vendor review gets a field-level inventory instead of a promise.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "self-hosting/in-production/ai",
           caption:
             "Agent findings written as comments persist through the same provider as human replies. One residency story covers generated work and human review alike.",
@@ -428,6 +444,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

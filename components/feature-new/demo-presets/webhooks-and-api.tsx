@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 import { AuditLog, DarkPanel, NotifItem } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
 import { OperationsBoard } from "./ops-board";
 
@@ -210,7 +210,7 @@ export const WEBHOOKS_DEMOS: Record<string, ReactNode> = {
   "in-production/operations": <OperationsBoard />,
   "in-production/fintech": <FintechBoard />,
   "in-production/ai": <AiNativeBoard />,
-  "in-production/sales": <CrmPipelineBoard />,
+  "in-production/sales": <DigitalSalesRoom />,
 
   "related/platform": (
     <div className="pv">

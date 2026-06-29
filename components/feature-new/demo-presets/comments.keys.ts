@@ -23,10 +23,12 @@ export const COMMENTS_DEMO_KEYS: string[] = [
   // Comments — make it yours
   "comments/make-it-yours/look",
   "comments/make-it-yours/behavior",
-  // Comments — in production
+  // Comments — in production (mirrors the Solutions nav, AI-native last)
   "comments/in-production/sales",
   "comments/in-production/fintech",
   "comments/in-production/ops",
+  "comments/in-production/compliance",
+  "comments/in-production/legal",
   "comments/in-production/ai",
   // Comments — related primitives
   "comments/related/suggestions",

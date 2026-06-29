@@ -424,7 +424,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "approval-flows/in-production/fintech",
           caption:
             "Invoices over the threshold route to the CFO, the filing needs two of three sign-offs, every step timestamped. The auditor\u2019s \u201Cwho approved this?\u201D has an answer on the record.",
@@ -439,8 +439,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "approval-flows/in-production/compliance",
+          caption:
+            "The disclosure walks the attestation chain: analyst first, compliance officer second, two of three sign-offs required before it files. A rejection routes back with the control gap attached.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "approval-flows/in-production/legal",
+          caption:
+            "Every contract routes through counsel before it leaves the building, escalating when the reviewer is off shift. The counterparty sees progress, never the internal debate over the redline.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "approval-flows/in-production/ai",
           caption:
             "Agent steps pre-screen generated work, humans hold the gates, and your publishing agent queries the approval state before acting. Nothing the AI produces ships unapproved.",
@@ -455,6 +471,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

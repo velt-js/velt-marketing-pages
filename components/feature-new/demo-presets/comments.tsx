@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 
 import { AvatarStack, DarkPanel } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
@@ -583,14 +585,19 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
   ),
 
   // Per-vertical "dummy app" surfaces for the In Production tabs: each renders a
-  // believable in-product window (Frame chrome + live presence + an anchored
-  // thread) for that vertical, so the proof section reads as a real screenshot
-  // rather than a bare comment card.
-  "comments/in-production/sales": <CrmPipelineBoard />,
+  // believable in-product window (app chrome + an anchored Velt thread) for that
+  // vertical, so the proof section reads as a real screenshot rather than a bare
+  // comment card. Tabs mirror the Solutions nav (AI-native last). Sales is the
+  // Figma "Digital Sales Room"; the rest reuse the shared vertical boards.
+  "comments/in-production/sales": <DigitalSalesRoom />,
 
   "comments/in-production/fintech": <FintechBoard />,
 
   "comments/in-production/ops": <OperationsBoard />,
+
+  "comments/in-production/compliance": <ComplianceBoard />,
+
+  "comments/in-production/legal": <LegalBoard />,
 
   "comments/in-production/ai": <AiNativeBoard />,
 

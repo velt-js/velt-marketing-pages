@@ -28,6 +28,8 @@ export const MULTIPLAYER_EDITING_DEMO_KEYS: string[] = [
   "multiplayer-editing/in-production/sales",
   "multiplayer-editing/in-production/fintech",
   "multiplayer-editing/in-production/ops",
+  "multiplayer-editing/in-production/compliance",
+  "multiplayer-editing/in-production/legal",
   "multiplayer-editing/in-production/ai",
   // related
   "multiplayer-editing/related/suggestions",

@@ -426,7 +426,7 @@ const doc = {
         },
         {
           id: "fintech",
-          label: "Fintech",
+          label: "Fintech & FP&A",
           demoPreset: "review-agents/in-production/fintech",
           caption:
             "PII Detection and Sensitive Data run as blocking gates on filings and forecasts before any human review. The numbers reach the approver clean, with every agent check on the record.",
@@ -441,8 +441,24 @@ const doc = {
           link: cta("For operations", "/for/operations"),
         },
         {
+          id: "compliance",
+          label: "Compliance",
+          demoPreset: "review-agents/in-production/compliance",
+          caption:
+            "Compliance agents pre-check every filing against the control library before a human opens it, flagging gaps as comments with Approve and Reject attached. Officers review queues that are mostly green, every check on the record.",
+          link: cta("For compliance", "/for/compliance"),
+        },
+        {
+          id: "legal",
+          label: "Legal",
+          demoPreset: "review-agents/in-production/legal",
+          caption:
+            "Clause agents screen each contract against your playbook the moment it lands, citing the exact term that drifts. Counsel reviews the exceptions, not the whole document, with a consent step on every finding.",
+          link: cta("For legal", "/for/legal"),
+        },
+        {
           id: "ai",
-          label: "AI-native",
+          label: "AI-native SaaS",
           demoPreset: "review-agents/in-production/ai",
           caption:
             "Agents review generated drafts the moment they land, flagging issues as comments with Approve and Reject attached. Your users trust the AI because a consent step sits on every finding.",
@@ -457,6 +473,8 @@ const doc = {
         cta("Sales enablement", "/for/sales-enablement"),
         cta("Fintech and FP&A", "/for/fintech"),
         cta("Operations", "/for/operations"),
+        cta("Compliance", "/for/compliance"),
+        cta("Legal", "/for/legal"),
         cta("AI-native SaaS", "/for/ai-native-saas"),
       ]),
     },

@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 
 import { NotifItem } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import {
   Av,
@@ -1112,11 +1114,15 @@ export const RECORDING_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "recording/in-production/sales": <CrmPipelineBoard />,
+  "recording/in-production/sales": <DigitalSalesRoom />,
 
   "recording/in-production/fintech": <FintechBoard />,
 
   "recording/in-production/ops": <OperationsBoard />,
+
+  "recording/in-production/compliance": <ComplianceBoard />,
+
+  "recording/in-production/legal": <LegalBoard />,
 
   "recording/in-production/ai": <AiNativeBoard />,
 

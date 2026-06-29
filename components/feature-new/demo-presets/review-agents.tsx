@@ -2,8 +2,10 @@ import type { ReactNode } from "react";
 
 import { Precedent, AvatarStack, NotifItem, Chip } from "../demos";
 import { AiNativeBoard } from "./ai-board";
-import { CrmPipelineBoard } from "./crm-board";
+import { ComplianceBoard } from "./compliance-board";
+import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
+import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
@@ -925,11 +927,15 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
 
-  "review-agents/in-production/sales": <CrmPipelineBoard />,
+  "review-agents/in-production/sales": <DigitalSalesRoom />,
 
   "review-agents/in-production/fintech": <FintechBoard />,
 
   "review-agents/in-production/ops": <OperationsBoard />,
+
+  "review-agents/in-production/compliance": <ComplianceBoard />,
+
+  "review-agents/in-production/legal": <LegalBoard />,
 
   "review-agents/in-production/ai": <AiNativeBoard />,
 
