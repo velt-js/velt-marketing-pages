@@ -83,6 +83,21 @@
   border-radius: var(--vlp-chip-radius);
 }
 
+.vlp .integ-tag-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px transparent;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.vlp .integ-tag-link:hover {
+  box-shadow: inset 0 0 0 1px var(--vlp-border-default);
+  transform: translateY(-1px);
+}
+
 .vlp .integ-tag-logo {
   display: block;
   width: var(--vlp-integ-logo-size);
