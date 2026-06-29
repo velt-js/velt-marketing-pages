@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
-import { Av, Composer, FACES, Frame, IconCheck, IconX } from "./hero-surface";
+import { Av, IconCheck } from "./hero-surface";
+import { OperationsBoard } from "./ops-board";
 
 import "./solutions-operations-showcase.css";
 
@@ -11,96 +12,9 @@ import "./solutions-operations-showcase.css";
 // instances. Voice is physical-world operations: orders, shipments, work
 // orders, change orders, manifests, dispatch, the field crew, the counterparty.
 
-// Personas mapped to shared headshots for the hero surface.
-const OPS_FACES = {
-  leo: FACES.ethan,   // Leo Chen · Dispatch lead (real headshot)
-} as const;
-
-/**
- * A two-column field row inside the work-order surface: label on the left,
- * value on the right. Used to display work-order attributes concisely.
- * @param {{ label: string; value: ReactNode }} props Field label and value.
- * @returns {JSX.Element} A field row.
- */
-function WoField({ label, value }: { label: string; value: ReactNode }) {
-  return (
-    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12.5 }}>
-      <span style={{ fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-text-muted)", fontSize: 11.5 }}>{label}</span>
-      <span style={{ color: "var(--vlp-color-ink)", fontWeight: 600 }}>{value}</span>
-    </div>
-  );
-}
-
 
 export const SOLUTIONS_OPERATIONS_DEMOS: Record<string, ReactNode> = {
-  "solutions/operations/hero": (
-    <Frame
-      app="WO"
-      crumb={<><b>Work order</b> <span className="sep">/</span> WO-2271</>}
-      users={[
-        { initials: "LE", tone: "a1", img: OPS_FACES.leo },
-        { initials: "RA", agent: true },
-      ]}
-    >
-      {/* Work-order fields */}
-      <div
-        style={{
-          display: "grid",
-          gap: 7,
-          padding: "10px 12px",
-          borderRadius: 10,
-          background: "var(--vlp-bg-wash)",
-          border: "1px solid var(--vlp-border-subtle)",
-        }}
-      >
-        <WoField label="site" value="Oakland Yard 3" />
-        <WoField label="crew" value="Field Unit 7" />
-        <WoField label="sign-off" value={<span className="chip chip-pending">awaiting field record</span>} />
-        <WoField label="release" value={<span className="chip chip-pending">hold · pending signature</span>} />
-      </div>
-
-      {/* Internal visibility chip */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <span className="chip chip-pending">internal</span>
-        <span style={{ fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>
-          counterparty sees only what is meant for them
-        </span>
-      </div>
-
-      {/* Agent finding */}
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="RA" agent />
-          Review Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">just now</span>
-        </div>
-        <p className="fb">
-          Hold shipment until field record WO-2271 is signed: counterparty release blocked.
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
-        </div>
-      </div>
-
-      {/* Dispatch note thread */}
-      <div className="thread">
-        <div className="thread-head">
-          <Av initials="LE" tone="a1" img={OPS_FACES.leo} />
-          <span className="who">Leo</span>
-          <span className="cmh-role">&middot; Dispatch</span>
-          <span className="cmh-when">3m</span>
-        </div>
-        <p className="thread-body">
-          Hold the shipment until the field record is signed. Do not release to carrier yet.{" "}
-          <span className="agent-tag">INTERNAL</span>
-        </p>
-      </div>
-
-      <Composer placeholder="Reply or @mention field crew&hellip;" you={OPS_FACES.leo} />
-    </Frame>
-  ),
+  "solutions/operations/hero": <OperationsBoard light />,
 
   "solutions/operations/loop": (
     <AuditLog

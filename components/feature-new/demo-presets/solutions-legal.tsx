@@ -1,7 +1,8 @@
 import type { ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
-import { Av, Composer, DEL_STYLE, FACES, Frame, IconArrowRight, IconCheck, IconX, INS_STYLE } from "./hero-surface";
+import { Av, FACES, IconArrowRight, IconCheck } from "./hero-surface";
+import { LegalBoard } from "./legal-board";
 
 import "./solutions-legal-showcase.css";
 
@@ -60,62 +61,7 @@ function IconEye() {
 }
 
 export const SOLUTIONS_LEGAL_DEMOS: Record<string, ReactNode> = {
-  "solutions/legal/hero": (
-    <Frame
-      app="ND"
-      crumb={<><b>Mutual NDA</b> <span className="sep">/</span> clause&nbsp;7</>}
-      users={[
-        { initials: "MA", tone: "a2", img: LEGAL_FACE.maya },
-        { initials: "RA", agent: true },
-      ]}
-    >
-      <p className="cmh-doc" style={{ fontSize: 13, lineHeight: 1.55, color: "var(--vlp-color-ink)", margin: 0 }}>
-        7.3&nbsp; The receiving party shall indemnify the disclosing party against{" "}
-        <span className="cmh-mark">any and all losses</span> arising from any breach.
-      </p>
-
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="RA" agent />
-          Review Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">now</span>
-        </div>
-        <p className="fb">
-          No liability cap: &ldquo;any and all losses&rdquo; is unbounded. Playbook caps at fees paid.
-        </p>
-        <p className="cmh-suggest">
-          <span className="lbl">Suggested fix</span>
-          <span className="body">
-            <del style={DEL_STYLE}>any and all losses</del>{" "}
-            <span style={{ color: "var(--vlp-color-text-subtle)" }}>&rarr;</span>{" "}
-            <ins style={INS_STYLE}>direct losses, capped at fees paid</ins>
-          </span>
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
-        </div>
-      </div>
-
-      <div className="thread cmh-pop">
-        <div className="thread-head">
-          <Av initials="MA" tone="a2" img={LEGAL_FACE.maya} />
-          <span className="who">Maya</span>
-          <span className="cmh-role">&middot; Counsel</span>
-          <span className="cmh-when">3m</span>
-        </div>
-        <p className="thread-body">
-          Agreed: accepting the cap. I&rsquo;ll note the rationale before we countersign.
-        </p>
-        <div style={{ marginTop: 2 }}>
-          <span className="chip chip-approved">counsel approved</span>
-        </div>
-      </div>
-
-      <Composer placeholder="Add a note to the matter&hellip;" you={LEGAL_FACE.maya} />
-    </Frame>
-  ),
+  "solutions/legal/hero": <LegalBoard light />,
 
   "solutions/legal/loop": (
     <AuditLog

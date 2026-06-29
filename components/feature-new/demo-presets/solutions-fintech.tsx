@@ -1,26 +1,15 @@
-import { Fragment, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
 import {
   AgentFindingCard,
   Av,
-  Composer,
-  DEL_STYLE,
-  FACES,
-  Frame,
   IconArrowRight,
-  IconCheck,
   IconReply,
-  IconX,
 } from "./hero-surface";
+import { FintechBoard } from "./fintech-board";
 
 import "./solutions-fintech-showcase.css";
-
-// Fintech hero personas mapped to shared headshots.
-const FINTECH_FACE = {
-  priya: FACES.fenne,
-  you: FACES.hope,
-} as const;
 
 /** @returns {JSX.Element} Lock glyph for signed / immutable audit events. */
 function IconLock() {
@@ -92,129 +81,12 @@ function IconBook() {
 // instances. Voice is fintech and FP&A: budgets, forecasts, models, cells, the
 // close, maker-checker, committee quorum, auditors and regulators.
 
-/**
- * Small quarterly forecast grid with one cell flagged for review. Renders the
- * fintech artifact (numbers in a grid) so a comment can anchor to a single cell.
- * @param {{ flagRow: number; flagCol: number }} props Zero-based row/column of the flagged cell.
- * @returns {JSX.Element} The forecast grid.
- */
-function ForecastGrid({ flagRow, flagCol }: { flagRow: number; flagCol: number }) {
-  const columns = ["", "Q1", "Q2", "Q3"];
-  const rows = [
-    { label: "Revenue", values: ["4.10", "4.45", "4.90"] },
-    { label: "Travel", values: ["0.22", "0.24", "0.41"] },
-    { label: "Headcount", values: ["1.80", "1.92", "2.05"] },
-  ];
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1.1fr 1fr 1fr 1fr",
-        border: "1px solid var(--vlp-border-subtle)",
-        borderRadius: 8,
-        overflow: "hidden",
-        fontFamily: "var(--vlp-font-mono)",
-        fontSize: 11.5,
-      }}
-    >
-      {columns.map((column) => (
-        <div
-          key={`head-${column}`}
-          style={{
-            padding: "6px 9px",
-            background: "var(--vlp-bg-wash)",
-            color: "var(--vlp-color-text-muted)",
-            borderBottom: "1px solid var(--vlp-border-subtle)",
-            textAlign: column ? "right" : "left",
-          }}
-        >
-          {column}
-        </div>
-      ))}
-      {rows.map((row, rowIndex) => (
-        <Fragment key={`row-${row.label}`}>
-          <div
-            style={{
-              padding: "6px 9px",
-              color: "var(--vlp-color-ink)",
-              borderTop: rowIndex ? "1px solid var(--vlp-border-subtle)" : "none",
-            }}
-          >
-            {row.label}
-          </div>
-          {row.values.map((value, colIndex) => {
-            const isFlagged = rowIndex === flagRow && colIndex === flagCol;
-            return (
-              <div
-                key={`cell-${row.label}-${colIndex}`}
-                style={{
-                  padding: "6px 9px",
-                  textAlign: "right",
-                  color: isFlagged ? "var(--vlp-color-accent)" : "var(--vlp-color-ink)",
-                  fontWeight: isFlagged ? 700 : 500,
-                  background: isFlagged ? "var(--vlp-color-accent-soft)" : "transparent",
-                  borderTop: rowIndex ? "1px solid var(--vlp-border-subtle)" : "none",
-                  borderLeft: "1px solid var(--vlp-border-subtle)",
-                }}
-              >
-                {value}
-              </div>
-            );
-          })}
-        </Fragment>
-      ))}
-    </div>
-  );
-}
-
 export const SOLUTIONS_FINTECH_DEMOS: Record<string, ReactNode> = {
-  "solutions/fintech/hero": (
-    <Frame
-      app="FP"
-      crumb={<><b>Q3 forecast</b> <span className="sep">/</span> FY26 plan</>}
-      users={[
-        { initials: "PR", tone: "a2", img: FINTECH_FACE.priya },
-        { initials: "RA", agent: true },
-      ]}
-    >
-      <ForecastGrid flagRow={1} flagCol={2} />
-
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="RA" agent />
-          Review Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">now</span>
-        </div>
-        <p className="fb">
-          Q3 travel is 18% over plan: variance note missing on this cell.
-        </p>
-        <p className="cmh-suggest">
-          <span className="lbl">Suggested note</span>
-          <span className="body">
-            <del style={DEL_STYLE}>(no note)</del>{" "}
-            <span style={{ color: "var(--vlp-color-text-subtle)" }}>&rarr;</span>{" "}
-            <ins style={{ ...DEL_STYLE, ...{ background: "var(--vlp-color-approve-soft)", color: "#0c6a41", textDecoration: "none" } }}>
-              Spike driven by Q3 offsite; CFO approved exception on 14 Jun.
-            </ins>
-          </span>
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Dismiss</button>
-        </div>
-      </div>
-
-      <div className="thread-head" style={{ gap: 9 }}>
-        <Av initials="PR" tone="a2" img={FINTECH_FACE.priya} />
-        <span className="who" style={{ fontSize: 12.5, fontWeight: 700 }}>Priya</span>
-        <span className="cmh-role">&middot; FP&amp;A lead</span>
-        <span className="chip chip-approved" style={{ marginLeft: "auto" }}>approved</span>
-      </div>
-
-      <Composer placeholder="Add a note or @mention&hellip;" you={FINTECH_FACE.you} />
-    </Frame>
-  ),
+  // Hero artifact: the light-mode invoice board, rendered wide so it bleeds off
+  // the right edge of the hero (same treatment as the Sales enablement hero,
+  // which uses <DigitalSalesRoom light />). Light + bleed CSS lives alongside the
+  // .fin-board base in ../styles.css (see .fin-board--light).
+  "solutions/fintech/hero": <FintechBoard light />,
 
   "solutions/fintech/loop": (
     <AuditLog

@@ -1,12 +1,13 @@
-/* Compliance controls-review board (.cpl-*) — the Comments page's "In
-   production · Compliance" dummy-app surface, in the same dark visual language
-   as the other in-production boards: an icon rail + a controls register with one
-   flagged attestation carrying an internal-scoped comment popover. Scoped under
-   .vfp to match the rest of the feature-page proof surfaces. */
+/* Compliance privacy-review board (.cpl-*) — the "In production · Compliance"
+   dummy-app surface, in the same dark visual language as the other in-production
+   boards: an icon rail + an agentic review (header with collaborator stack +
+   Share, agent-driven review steps in mixed states, and a Review Comments thread
+   where a policy agent flags the privacy risk). Scoped under .vfp to match the
+   rest of the feature-page proof surfaces. Mirrors Figma "Compliance" (938:2943). */
 .vfp .cpl-board {
   position: relative;
   display: flex;
-  gap: 32px;
+  gap: 28px;
   padding: 20px 22px;
   border: 1px solid var(--vlp-border-on-dark);
   border-radius: var(--vlp-radius-lg-feature);
@@ -19,50 +20,115 @@
 .vfp .cpl-rail { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; flex: none; }
 .vfp .cpl-rail-group { display: flex; flex-direction: column; gap: 12px; }
 .vfp .cpl-rail-btn { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; color: var(--vlp-color-text-on-dark-muted); }
-.vfp .cpl-rail-btn.on { background: rgba(255, 255, 255, 0.06); color: #fff; }
+.vfp .cpl-rail-btn.on { background: rgba(255, 255, 255, 0.1); color: #fff; }
 .vfp .cpl-rail-btn svg { width: 16px; height: 16px; }
 
 /* Main board area. */
-.vfp .cpl-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 10px; min-height: 460px; }
-.vfp .cpl-eyebrow { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255, 255, 255, 0.32); }
-.vfp .cpl-filing { margin: 0 0 6px; font-family: var(--vlp-font-heading); font-weight: 600; font-size: 15px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); }
+.vfp .cpl-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; min-height: 460px; }
 
-/* Controls register. */
-.vfp .cpl-list { position: relative; flex: 1; display: flex; flex-direction: column; gap: 8px; -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); mask-image: linear-gradient(to bottom, #000 86%, transparent 100%); }
-.vfp .cpl-row { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 16px; border-radius: 11px; border: 1px solid transparent; background: rgba(255, 255, 255, 0.04); }
-.vfp .cpl-row.is-active { border-color: var(--vlp-color-accent); }
-.vfp .cpl-row-lead { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.vfp .cpl-row-id { display: inline-flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.03em; color: rgba(255, 255, 255, 0.6); }
-.vfp .cpl-row-label { font-family: var(--vlp-font-heading); font-weight: 600; font-size: 13px; letter-spacing: -0.01em; color: var(--vlp-color-text-on-dark); }
-.vfp .cpl-row-trail { display: flex; align-items: center; gap: 12px; flex: none; }
-.vfp .cpl-row-meta { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(255, 255, 255, 0.4); }
+/* Header: review title + description, with collaborator presence and Share. */
+.vfp .cpl-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.vfp .cpl-head { min-width: 0; max-width: 540px; }
+.vfp .cpl-eyebrow { margin: 0; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.55); }
+.vfp .cpl-title { margin: 8px 0 0; font-family: var(--vlp-font-heading); font-weight: 700; font-size: 20px; letter-spacing: -0.03em; color: #fff; }
+.vfp .cpl-desc { margin: 10px 0 0; font-size: 12.5px; line-height: 1.55; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.55); }
+.vfp .cpl-started { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.6); }
+.vfp .cpl-started-av { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #5fa8ff, #2f6fd0); color: #fff; font-size: 9px; font-weight: 700; }
 
-/* Status chips. */
-.vfp .cpl-status { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
-.vfp .cpl-status-signed { background: rgba(18, 131, 82, 0.2); color: #7fd6a6; }
-.vfp .cpl-status-flagged { background: rgba(245, 78, 0, 0.18); color: #ffb892; }
-.vfp .cpl-status-review { background: rgba(192, 133, 50, 0.2); color: #e5b873; }
-.vfp .cpl-status-pending { background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.6); }
+.vfp .cpl-top-right { display: flex; align-items: center; gap: 10px; flex: none; }
+.vfp .cpl-avatars { display: flex; }
+.vfp .cpl-av { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); border: 1.5px solid var(--vlp-color-dark-2); color: #fff; font-size: 10px; font-weight: 700; }
+.vfp .cpl-av:first-child { background: linear-gradient(140deg, #5fa8ff, #2f6fd0); }
+.vfp .cpl-av + .cpl-av { margin-left: -8px; }
+.vfp .cpl-share { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 28px; background: rgba(255, 255, 255, 0.08); color: #fff; font-size: 12px; font-weight: 500; letter-spacing: -0.01em; }
+.vfp .cpl-share svg { width: 13px; height: 13px; }
 
-/* Comment-count badge (orange pill). */
-.vfp .cpl-badge { display: inline-flex; align-items: center; gap: 5px; flex: none; padding: 2px 7px; border-radius: 16px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; line-height: 1; }
+/* Agent-driven review steps. */
+.vfp .cpl-steps { display: flex; flex-direction: column; gap: 6px; }
+.vfp .cpl-step { display: flex; align-items: center; gap: 14px; padding: 11px 14px; border-radius: 8px; background: rgba(255, 255, 255, 0.04); }
+.vfp .cpl-step-label { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
+.vfp .cpl-step-status { flex: none; width: 158px; display: flex; align-items: center; gap: 8px; }
+.vfp .cpl-step-icon { flex: none; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; }
+.vfp .cpl-step-icon svg { width: 11px; height: 11px; }
+.vfp .cpl-step-icon.is-done { background: #1f9d63; color: #fff; }
+.vfp .cpl-step-icon.is-blocked { background: #e5484d; color: #fff; }
+.vfp .cpl-step-icon.is-todo { border: 1.5px solid rgba(255, 255, 255, 0.32); }
+.vfp .cpl-step-stat { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(255, 255, 255, 0.78); }
+
+/* Comment-count badge (orange pill) on a step. */
+.vfp .cpl-badge { flex: none; display: inline-flex; align-items: center; gap: 5px; min-width: 34px; justify-content: center; padding: 2px 7px; border-radius: 16px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 10px; font-weight: 600; line-height: 1; }
 .vfp .cpl-badge svg { width: 10px; height: 10px; }
+.vfp .cpl-badge.is-ghost { background: rgba(255, 255, 255, 0.08); min-width: 34px; height: 18px; }
 
-/* Anchored, internal-scoped comment popover over the flagged control. */
-.vfp .cpl-pop { position: absolute; top: 64%; left: 22%; z-index: 5; width: 308px; display: flex; gap: 12px; padding: 16px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 14px; box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.45); }
-.vfp .cpl-pop-av { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(140deg, #ff7a3c, var(--vlp-color-accent)); color: #fff; font-size: 13px; font-weight: 700; }
-.vfp .cpl-pop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px; }
-.vfp .cpl-pop-head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.vfp .cpl-pop-name { font-size: 14px; font-weight: 600; letter-spacing: -0.02em; color: #000; }
-.vfp .cpl-pop-time { font-size: 12px; font-weight: 500; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
-.vfp .cpl-pop-chip { display: inline-flex; align-items: center; gap: 4px; margin-left: auto; padding: 2px 8px; border-radius: 999px; background: rgba(0, 0, 0, 0.06); color: rgba(0, 0, 0, 0.6); font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; }
-.vfp .cpl-pop-chip svg { width: 11px; height: 11px; }
-.vfp .cpl-pop-body { margin: 0; font-size: 13.5px; line-height: 1.5; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.75); }
-.vfp .cpl-pop-mention { font-weight: 600; color: var(--vlp-color-accent); }
-.vfp .cpl-pop-replies { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; letter-spacing: -0.02em; color: rgba(0, 0, 0, 0.52); }
-.vfp .cpl-pop-replies svg { width: 13px; height: 13px; }
+/* Review comments. */
+.vfp .cpl-section-title { margin: 6px 0 0; font-family: var(--vlp-font-heading); font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: #fff; }
+.vfp .cpl-composer { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); }
+.vfp .cpl-composer-ph { font-size: 12px; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.45); }
+.vfp .cpl-composer-send { color: rgba(255, 255, 255, 0.45); display: inline-flex; }
+.vfp .cpl-composer-send svg { width: 16px; height: 16px; }
 
-@media (max-width: 620px) {
-  .vfp .cpl-pop { left: 10%; width: 270px; }
-  .vfp .cpl-row-meta { display: none; }
+/* Agent comment card. */
+.vfp .cpl-agent { display: flex; gap: 10px; padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.06); background: rgba(255, 255, 255, 0.06); }
+.vfp .cpl-agent-av { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(150deg, #b66bff, #6d28d9); color: #fff; }
+.vfp .cpl-agent-av svg { width: 13px; height: 13px; }
+.vfp .cpl-agent-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.vfp .cpl-agent-head { display: flex; align-items: baseline; gap: 7px; }
+.vfp .cpl-agent-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; color: #fff; }
+.vfp .cpl-agent-time { font-size: 11px; font-weight: 500; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.45); }
+.vfp .cpl-agent-body { margin: 0; font-size: 12.5px; line-height: 1.5; letter-spacing: -0.01em; color: rgba(255, 255, 255, 0.72); }
+.vfp .cpl-agent-mention { font-weight: 600; color: #ff956e; }
+
+@media (max-width: 720px) {
+  .vfp .cpl-step-status { width: auto; }
+  .vfp .cpl-head { max-width: none; }
 }
+
+/* Light-mode variant (.cpl-board--light) — inverted surface for the /for/compliance
+   solutions-page hero, mirroring the Fintech hero (.fin-board--light).
+   Overrides the dark tokens with light equivalents; the green/red status icons,
+   orange badge, blue presence gradient, and purple agent avatar carry over unchanged.
+   The right side of the step rows bleeds off the right viewport edge. */
+.vfp .cpl-board--light { background: #fff; border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.25); }
+
+/* Solutions hero: drop the shared cream demo-shell frame so the white board sits
+   directly on the page (its own border + shadow carry the surface), and let it
+   overflow the column. The clip then happens at the browser edge — `.f-hero` has
+   overflow:hidden and the body has overflow-x:hidden — rather than at this
+   wrapper. Scoped via :has() to only the hero that hosts this board. */
+.vfp .demo-shell:has(.cpl-board--light) { background: transparent; border: none; box-shadow: none; overflow: visible; }
+.vfp .demo-stage:has(.cpl-board--light) { background: transparent; padding: 0; min-height: 0; overflow: visible; }
+
+/* Render the board big at its full desktop composition; left-aligned so it
+   bleeds off the right edge of the viewport. Fixed width keeps the layout intact. */
+.vfp .demo-stage .cpl-board--light { width: 960px; }
+
+/* Per-element light recolors (dark→light). */
+.vfp .cpl-board--light .cpl-rail-btn { border-color: rgba(0, 0, 0, 0.08); color: rgba(0, 0, 0, 0.45); }
+.vfp .cpl-board--light .cpl-rail-btn.on { background: rgba(0, 0, 0, 0.06); color: #16150f; }
+
+.vfp .cpl-board--light .cpl-eyebrow { color: rgba(0, 0, 0, 0.5); }
+.vfp .cpl-board--light .cpl-title { color: #16150f; }
+.vfp .cpl-board--light .cpl-desc { color: rgba(0, 0, 0, 0.55); }
+.vfp .cpl-board--light .cpl-started { color: rgba(0, 0, 0, 0.55); }
+
+.vfp .cpl-board--light .cpl-av { border-color: #fff; }
+.vfp .cpl-board--light .cpl-share { background: rgba(0, 0, 0, 0.06); color: #16150f; }
+
+.vfp .cpl-board--light .cpl-step { background: rgba(0, 0, 0, 0.03); }
+.vfp .cpl-board--light .cpl-step-label { color: #16150f; }
+.vfp .cpl-board--light .cpl-step-stat { color: rgba(0, 0, 0, 0.65); }
+.vfp .cpl-board--light .cpl-step-icon.is-todo { border-color: rgba(0, 0, 0, 0.3); }
+
+.vfp .cpl-board--light .cpl-badge.is-ghost { background: rgba(0, 0, 0, 0.06); }
+
+.vfp .cpl-board--light .cpl-section-title { color: #16150f; }
+
+.vfp .cpl-board--light .cpl-composer { background: rgba(0, 0, 0, 0.03); }
+.vfp .cpl-board--light .cpl-composer-ph { color: rgba(0, 0, 0, 0.45); }
+.vfp .cpl-board--light .cpl-composer-send { color: rgba(0, 0, 0, 0.45); }
+
+.vfp .cpl-board--light .cpl-agent { background: #fff; border-color: rgba(0, 0, 0, 0.08); box-shadow: 0 10px 28px -18px rgba(0, 0, 0, 0.35); }
+.vfp .cpl-board--light .cpl-agent-name { color: #16150f; }
+.vfp .cpl-board--light .cpl-agent-time { color: rgba(0, 0, 0, 0.45); }
+.vfp .cpl-board--light .cpl-agent-body { color: rgba(0, 0, 0, 0.7); }
+.vfp .cpl-board--light .cpl-agent-mention { color: var(--vlp-color-accent); }

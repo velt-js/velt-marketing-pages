@@ -4,12 +4,10 @@ import { AuditLog, NotifItem, Precedent, ProvRow, ProvArrow } from "../demos";
 import {
   AgentFindingCard,
   Av,
-  Composer,
   FACES,
-  Frame,
-  IconCheck,
-  IconX,
 } from "./hero-surface";
+
+import { ComplianceBoard } from "./compliance-board";
 
 import "./solutions-compliance-showcase.css";
 
@@ -58,104 +56,9 @@ function IconQuorum() {
   );
 }
 
-/**
- * A single labeled field/value row inside the disclosure filing artifact.
- * Renders a label on the left and the value on the right, monospaced.
- * @param {{ label: string; value: ReactNode; flagged?: boolean }} props Field content and optional flag highlight.
- * @returns {JSX.Element} The field row.
- */
-function FilingField({ label, value, flagged }: { label: string; value: ReactNode; flagged?: boolean }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        fontFamily: "var(--vlp-font-mono)",
-        fontSize: 11.5,
-        padding: "5px 8px",
-        borderRadius: 6,
-        background: flagged ? "var(--vlp-color-accent-soft)" : "transparent",
-        border: flagged ? "1px solid var(--vlp-border-default)" : "1px solid transparent",
-      }}
-    >
-      <span style={{ color: "var(--vlp-color-text-muted)" }}>{label}</span>
-      <span
-        style={{
-          color: flagged ? "var(--vlp-color-accent)" : "var(--vlp-color-ink)",
-          fontWeight: flagged ? 700 : 500,
-        }}
-      >
-        {value}
-      </span>
-    </div>
-  );
-}
-
 
 export const SOLUTIONS_COMPLIANCE_DEMOS: Record<string, ReactNode> = {
-  "solutions/compliance/hero": (
-    <Frame
-      app="FL"
-      crumb={<><b>Disclosure filing</b> <span className="sep">/</span> FIL-2209</>}
-      users={[
-        { initials: "NI", tone: "a3", img: COMPLIANCE_FACE.nina },
-        { initials: "RA", agent: true },
-      ]}
-    >
-      {/* Filing field grid */}
-      <div
-        style={{
-          display: "grid",
-          gap: 3,
-          padding: "8px 0",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
-          marginBottom: 4,
-        }}
-      >
-        <FilingField label="Reporting period" value="Q3 2026" />
-        <FilingField label="Filing type" value="Form ADV-W" />
-        <FilingField label="Threshold" value="$500 M AUM" />
-        <FilingField label="Attestation" value="missing" flagged />
-      </div>
-
-      {/* Agent finding anchored to the flagged attestation field */}
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="RA" agent />
-          Review Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">now</span>
-        </div>
-        <p className="fb">
-          Officer attestation is required before filing. No signature on record for this reporting period.
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
-        </div>
-      </div>
-
-      {/* Officer sign-off row */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          paddingTop: 6,
-          fontFamily: "var(--vlp-font-mono)",
-          fontSize: 11.5,
-          color: "var(--vlp-color-text-muted)",
-        }}
-      >
-        <Av initials="NI" tone="a3" img={COMPLIANCE_FACE.nina} />
-        <span>Nina, Compliance Officer</span>
-        <span className="chip chip-approved" style={{ marginLeft: "auto" }}>signed off</span>
-      </div>
-
-      <Composer placeholder="Add a note to the filing record&hellip;" you={COMPLIANCE_FACE.nina} />
-    </Frame>
-  ),
+  "solutions/compliance/hero": <ComplianceBoard light />,
 
   "solutions/compliance/loop": (
     <AuditLog
