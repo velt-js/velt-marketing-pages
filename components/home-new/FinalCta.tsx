@@ -14,7 +14,7 @@ export default function FinalCta() {
             <a href="/book-demo" className="cta-btn-outline houtline">Book Demo</a>
           </div>
           <div className="cta-microcopy">DEMOS ARE 30 MINUTES, WITH AN ENGINEER, NOT A SALES DECK</div>
-          <div className="cta-footnote">Or <a href="/consult" className="cta-founder-link">talk to Rakesh, the founder</a></div>
+          <div className="cta-footnote">Or <a href="/book-demo" className="cta-founder-link">talk to Rakesh, the founder</a></div>
         </div>
       </section>
   );

@@ -10,7 +10,7 @@ export default function Proof() {
         <div className="proof-grid">
 
           <div className="proof-dark-card">
-            <div className="proof-dark-card-header"><span className="proof-dark-card-company">Leadpages</span><span className="proof-badge-orange">FEATURED · ANCHOR CUSTOMER</span></div>
+            <div className="proof-dark-card-header">{/* eslint-disable-next-line @next/next/no-img-element */}<img className="proof-dark-card-logo" src="/images/features/comments/trust-us/logo-leadpages.png" alt="Leadpages" loading="lazy" /><span className="proof-badge-orange">FEATURED · ANCHOR CUSTOMER</span></div>
             <h3 className="proof-dark-card-title">3 FTEs of work, shipped in weeks — not quarters.</h3>
             <p className="proof-dark-card-body">Implementing Velt took weeks, not the quarters it would have taken us to build in-house even with 3 FTE engineers. We&rsquo;re already seeing added value for our users and anticipate increased retention.</p>
             <div className="proof-attribution">
@@ -22,7 +22,7 @@ export default function Proof() {
             <div className="proof-stats-row">
               <div className="proof-stat"><div className="proof-stat-number">3 FTE</div><div className="proof-stat-label">SAVED</div></div>
               <div className="proof-stat"><div className="proof-stat-number">Weeks</div><div className="proof-stat-label">NOT QUARTERS</div></div>
-              <div className="proof-stat"><div className="proof-stat-number">&uarr;</div><div className="proof-stat-label">RETENTION</div></div>
+              <div className="proof-stat"><div className="proof-stat-number">Higher</div><div className="proof-stat-label">RETENTION</div></div>
             </div>
           </div>
 

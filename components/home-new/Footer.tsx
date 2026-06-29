@@ -99,6 +99,68 @@ const FOOTER_COLUMNS: FooterColumn[] = [
   },
 ];
 
+// Library/integration spokes grouped by surface category, mirroring the
+// /libraries hub. Every entry resolves to a real /libraries/{slug} page.
+// Arranged into three macro-columns so the band lines up under the main link
+// columns (PRIMITIVES / COLLABORATION / SOLUTIONS).
+const FOOTER_LIBRARY_COLUMNS: FooterColumn[][] = [
+  [
+    {
+      heading: "TEXT & CODE EDITORS",
+      links: [
+        { label: "Tiptap", href: "/libraries/tiptap" },
+        { label: "Lexical", href: "/libraries/lexical" },
+        { label: "Slate", href: "/libraries/slatejs" },
+        { label: "PlateJS", href: "/libraries/platejs" },
+        { label: "CodeMirror", href: "/libraries/codemirror" },
+        { label: "Ace Editor", href: "/libraries/ace" },
+        { label: "Quill", href: "/libraries/quill" },
+        { label: "Draft.js", href: "/libraries/draftjs" },
+        { label: "BlockNote", href: "/libraries/blocknote" },
+        { label: "TinyMCE", href: "/libraries/tinymce" },
+        { label: "Monaco", href: "/libraries/monaco" },
+        { label: "ProseMirror", href: "/libraries/prosemirror" },
+        { label: "CKEditor", href: "/libraries/ckeditor" },
+      ],
+    },
+  ],
+  [
+    {
+      heading: "DOCUMENTS & PDF",
+      links: [
+        { label: "Apryse", href: "/libraries/apryse" },
+        { label: "Nutrient", href: "/libraries/nutrient" },
+        { label: "SuperDoc", href: "/libraries/superdoc" },
+      ],
+    },
+    {
+      heading: "DIAGRAMS & CANVAS",
+      links: [
+        { label: "React Flow", href: "/libraries/react-flow" },
+        { label: "Konva", href: "/libraries/konva" },
+      ],
+    },
+  ],
+  [
+    {
+      heading: "GRIDS & TABLES",
+      links: [
+        { label: "SpreadJS", href: "/libraries/spreadjs" },
+        { label: "AG Grid", href: "/libraries/ag-grid" },
+        { label: "TanStack Table", href: "/libraries/tanstack" },
+      ],
+    },
+    {
+      heading: "CHARTS & DATA VIZ",
+      links: [
+        { label: "Chart.js", href: "/libraries/chartjs" },
+        { label: "Highcharts", href: "/libraries/highcharts" },
+        { label: "Nivo", href: "/libraries/nivo" },
+      ],
+    },
+  ],
+];
+
 const LEGAL_LINKS: FooterLink[] = [
   { label: "Privacy", href: "/privacy" },
   { label: "Terms", href: "/terms" },
@@ -179,6 +241,23 @@ export default function Footer() {
                   <FooterLinkItem key={link.label} link={link} />
                 ))}
               </div>
+            </div>
+          ))}
+        </div>
+        <div className="footer-libraries">
+          <h3 className="footer-col-heading footer-libraries-title">LIBRARIES</h3>
+          {FOOTER_LIBRARY_COLUMNS.map((groups) => (
+            <div className="footer-lib-col" key={groups[0].heading}>
+              {groups.map((group) => (
+                <div className="footer-lib-group" key={group.heading}>
+                  <p className="footer-lib-cat">{group.heading}</p>
+                  <div className="footer-col-links">
+                    {group.links.map((link) => (
+                      <FooterLinkItem key={link.label} link={link} />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           ))}
         </div>

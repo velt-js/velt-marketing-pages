@@ -58,7 +58,11 @@
 .vfp .build-chip:hover { background: var(--vlp-color-accent-muted); }
 
 @media (max-width: 1024px) {
-  .vfp .f-hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  /* minmax(0, 1fr) — not plain 1fr — so the column's min track is 0 and a
+     fixed-width demo board (e.g. the 960px solutions boards) can't drive the
+     single column's min-content up and stretch the hero copy off-screen. The
+     board still bleeds off the right edge, clipped by .f-hero's overflow. */
+  .vfp .f-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
 }
 @media (max-width: 768px) {
   .vfp .f-hero { padding: 48px 0; }

@@ -61,6 +61,14 @@
   font-weight: var(--vlp-weight-medium);
 }
 
+/* White Leadpages wordmark, sized to sit on the dark card in place of the
+   plain text company label. */
+.vlp .proof-dark-card-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
 .vlp .proof-badge-orange {
   font-family: var(--vlp-font-mono);
   font-size: var(--vlp-text-micro);

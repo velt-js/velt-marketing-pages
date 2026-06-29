@@ -112,6 +112,67 @@
   color: var(--vlp-color-text-on-dark-muted);
 }
 
+/* Libraries band: lists every integration spoke that has a page, grouped by
+   surface category. Shares the main footer grid tracks so the three macro
+   columns line up under PRIMITIVES / COLLABORATION / SOLUTIONS. No divider. */
+.vlp .footer-libraries {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  column-gap: var(--vlp-space-8);
+  row-gap: var(--vlp-space-5);
+  margin-top: var(--vlp-gap-section);
+}
+
+/* LIBRARIES sits on its own row above the columns so the three category
+   headings top-align with each other instead of being pushed down by it. */
+.vlp .footer-libraries-title {
+  grid-column: 2;
+  grid-row: 1;
+  margin-bottom: 0;
+}
+
+/* Skip the 2fr brand track; place the macro columns under the link columns. */
+.vlp .footer-libraries > .footer-lib-col:nth-child(2) { grid-column: 2; grid-row: 2; }
+.vlp .footer-libraries > .footer-lib-col:nth-child(3) { grid-column: 3; grid-row: 2; }
+.vlp .footer-libraries > .footer-lib-col:nth-child(4) { grid-column: 4; grid-row: 2; }
+
+.vlp .footer-lib-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-8);
+}
+
+.vlp .footer-lib-cat {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-micro);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  color: var(--vlp-color-text-on-dark-muted);
+  margin-bottom: var(--vlp-space-3-5);
+}
+
+@media (max-width: 768px) {
+  .vlp .footer-libraries {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--vlp-space-8) var(--vlp-space-6);
+  }
+  .vlp .footer-libraries-title {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .vlp .footer-libraries > .footer-lib-col:nth-child(2),
+  .vlp .footer-libraries > .footer-lib-col:nth-child(3),
+  .vlp .footer-libraries > .footer-lib-col:nth-child(4) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .vlp .footer-libraries {
+    grid-template-columns: 1fr;
+  }
+}
+
 .vlp .footer-bottom {
   display: flex;
   flex-wrap: wrap;
