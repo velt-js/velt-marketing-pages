@@ -25,11 +25,23 @@ function CollabCard({ card }: { card: MakeItYoursCard }) {
     <article className="collab-card">
       <div className="collab-head">
         <span className="collab-ic">{card.icon}</span>
-        <div className="pc-tabs" role="tablist">
-          <button type="button" role="tab" className="pc-tab" aria-selected={tab === "preview"} onClick={() => setTab("preview")}>
+        <div className="prim-tabs" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "preview"}
+            onClick={() => setTab("preview")}
+            className={tab === "preview" ? "prim-tab prim-tab-active" : "prim-tab prim-tab-inactive"}
+          >
             Preview
           </button>
-          <button type="button" role="tab" className="pc-tab" aria-selected={tab === "code"} onClick={() => setTab("code")}>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={tab === "code"}
+            onClick={() => setTab("code")}
+            className={tab === "code" ? "prim-tab prim-tab-active" : "prim-tab prim-tab-inactive"}
+          >
             Code
           </button>
         </div>

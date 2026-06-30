@@ -550,17 +550,17 @@ export default function Primitives() {
             preview={<ReviewAgentsArtifact orientation="horizontal" />}
             code={
               <div className="prim-code-card">
-                <div className="prim-code-header">agents.ts<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `velt.agents.<span class="prim-code-kw">define</span>({
-      id: <span class="prim-code-str">"launch-email"</span>,
-      checks: [
-        checks.disclaimer(<span class="prim-code-str">"policy-2025-04"</span>),
-        checks.noPII(),
-        checks.toneVsBaseline(),
-      ],
-      memory: <span class="prim-code-kw">true</span>,
-      onFinding: notify.reviewer,
-    });` }} />
+                <div className="prim-code-header">flag.sh<CopyButton /></div>
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">curl</span> -X POST <span class="prim-code-str">https://api.velt.dev/v2/commentannotations/add</span>
+{ <span class="prim-code-str">"data"</span>: { <span class="prim-code-str">"documentId"</span>: <span class="prim-code-str">"launch-email"</span>, ...
+  <span class="prim-code-str">"commentData"</span>: [{ <span class="prim-code-str">"commentText"</span>: <span class="prim-code-str">"Missing the required disclaimer."</span>,
+    <span class="prim-code-str">"agent"</span>: {
+      <span class="prim-code-str">"agentName"</span>: <span class="prim-code-str">"Compliance Agent"</span>,
+      <span class="prim-code-str">"reason"</span>: {
+        <span class="prim-code-str">"severity"</span>: <span class="prim-code-str">"high"</span>,
+        <span class="prim-code-str">"suggestedFix"</span>: <span class="prim-code-str">"Add the 2025 policy disclaimer."</span>, ...
+      }
+    } }] } }` }} />
               </div>
             }
           />

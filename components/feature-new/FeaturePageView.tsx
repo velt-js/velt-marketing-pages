@@ -5,6 +5,7 @@ import "./styles.css";
 
 import Nav from "@/components/home-new/Nav";
 import Footer from "@/components/home-new/Footer";
+import Integrations from "@/components/home-new/Integrations";
 import FeatureHero from "./FeatureHero";
 import LogoStrip from "./LogoStrip";
 import WhatItIs from "./WhatItIs";
@@ -51,6 +52,9 @@ export default function FeaturePageView({ content, enterpriseSection }: FeatureP
           <HowItWorks content={content.howItWorks} />
           <Showcase content={content.showcase} />
           <DetailsWall content={content.details} />
+          {/* The full home-new "Drops into the stack" integrations grid, scoped
+              to the comments page per request. Self-styled (.vlp-scoped). */}
+          {content.slug === "comments" ? <Integrations /> : null}
           {content.makeItYours ? <MakeItYours content={content.makeItYours} /> : null}
           {content.inProduction ? <InProduction content={content.inProduction} /> : null}
           <Related content={content.related} />
