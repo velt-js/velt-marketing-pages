@@ -8,7 +8,7 @@ import { DigitalSalesRoom } from "./digital-sales-room";
 import { FintechBoard } from "./fintech-board";
 import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
-import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX } from "./hero-surface";
+import { Av, Composer, FACES, Frame, IconArrowRight, IconBubble, IconCheck, IconX, Presence } from "./hero-surface";
 import type { PresenceUser } from "./hero-surface";
 
 import "./huddle-showcase.css";
@@ -19,10 +19,12 @@ import "./huddle-showcase.css";
 // live SDK instances: huddle never opens a real audio/video/screen channel
 // here, and agents are shown in presence only (they do not join the call).
 
-const LINE = "1px solid var(--line, #e7e2d9)";
-const SURFACE_BG = "var(--bg, #fff)";
-const BRAND = "var(--brand, #ff4f00)";
-const INK = "var(--ink, #0b353b)";
+// Aligned with the home + comments artifacts: editorial --vlp-* design tokens
+// (ink #26251e, accent #f54e00) rather than the legacy teal/orange palette.
+const LINE = "1px solid var(--vlp-border-default)";
+const SURFACE_BG = "var(--vlp-bg-card)";
+const BRAND = "var(--vlp-color-accent)";
+const INK = "var(--vlp-color-ink)";
 
 // Huddle-page personas mapped to shared headshots.
 const FACE = {
@@ -44,11 +46,12 @@ const REVIEW_TEAM: AvatarUser[] = [
   { initials: "CC", kind: "agent", name: "Clause Checker" },
 ];
 
-// Presence users for Frame headers — real faces + AI notetaker.
-const HUDDLE_PRESENCE: PresenceUser[] = [
+// Avatar stack shown in the hero document top bar (everyone on the doc).
+const HERO_PRESENCE: PresenceUser[] = [
   { initials: "MA", tone: "a2", img: FACE.maya },
+  { initials: "ET", tone: "a1", img: FACE.ethan },
+  { initials: "JD", tone: "a4", img: FACE.jordan },
   { initials: "SR", tone: "a3", img: FACE.sarah },
-  { initials: "NA", agent: true },
 ];
 
 /**
@@ -109,79 +112,6 @@ function HuddleBar({ users, channel }: { users: AvatarUser[]; channel?: string }
       </span>
       <AvatarStack users={users} />
       {channel ? <span style={{ fontSize: 11, fontWeight: 700, opacity: 0.62, color: INK }}>{channel}</span> : null}
-    </div>
-  );
-}
-
-/**
- * A single participant video tile with real face, name, and optional
- * speaking indicator ring.
- * @param {{ initials: string; name: string; img?: string; tone?: string; speaking?: boolean; agent?: boolean }} props Tile props.
- * @returns {JSX.Element} Participant tile.
- */
-function ParticipantTile({
-  initials,
-  name,
-  img,
-  tone,
-  speaking,
-  agent,
-}: {
-  initials: string;
-  name: string;
-  img?: string;
-  tone?: string;
-  speaking?: boolean;
-  agent?: boolean;
-}) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        gap: 5,
-      }}
-    >
-      <div
-        style={{
-          padding: 3,
-          borderRadius: "50%",
-          border: speaking ? `2px solid var(--vlp-color-green-approval)` : "2px solid transparent",
-          background: speaking ? "color-mix(in srgb, var(--vlp-color-green-approval) 12%, transparent)" : "transparent",
-        }}
-      >
-        <Av initials={initials} tone={tone} img={img} agent={agent} />
-      </div>
-      <span style={{ fontSize: 10, fontWeight: 600, color: "var(--vlp-color-text-muted)" }}>{name}</span>
-    </div>
-  );
-}
-
-/**
- * Mic/cam toggle call-control button with icon glyph and active state.
- * @param {{ label: string; icon: ReactNode; active?: boolean }} props Control props.
- * @returns {JSX.Element} Call-control button.
- */
-function CallCtrl({ label, icon, active = true }: { label: string; icon: ReactNode; active?: boolean }) {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-      <span
-        aria-label={label}
-        style={{
-          width: 36,
-          height: 36,
-          borderRadius: "50%",
-          display: "grid",
-          placeItems: "center",
-          background: active ? "var(--vlp-bg-wash)" : "var(--vlp-color-reject-soft)",
-          border: `1px solid ${active ? "var(--vlp-border-default)" : "var(--vlp-color-reject)"}`,
-          color: active ? "var(--vlp-color-ink)" : "var(--vlp-color-reject)",
-        }}
-      >
-        {icon}
-      </span>
-      <span style={{ fontSize: 9.5, fontWeight: 600, color: "var(--vlp-color-text-subtle)" }}>{label}</span>
     </div>
   );
 }
@@ -282,78 +212,272 @@ function IconPlay() {
   );
 }
 
+/** @returns {JSX.Element} Headphone glyph with a small signal mark for the huddle panel header. */
+function IconHeadphones() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 13v-1a8 8 0 0 1 16 0v1" />
+      <rect x="3" y="13" width="4.5" height="7" rx="1.6" />
+      <rect x="16.5" y="13" width="4.5" height="7" rx="1.6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Person-with-plus glyph for the invite control. */
+function IconUserPlus() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3.4" />
+      <path d="M3.5 20a5.5 5.5 0 0 1 11 0" />
+      <path d="M18 8v6M21 11h-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Vertical three-dot kebab glyph. */
+function IconKebab() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="5" r="1.7" />
+      <circle cx="12" cy="12" r="1.7" />
+      <circle cx="12" cy="19" r="1.7" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Filled phone glyph for the Leave button. */
+function IconPhone() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.5.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.3a1 1 0 0 1 1 1c0 1.2.2 2.4.57 3.5a1 1 0 0 1-.25 1z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Chain-link glyph for the Huddle Link button. */
+function IconLink() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M10 13a4 4 0 0 0 5.66 0l2.83-2.83a4 4 0 0 0-5.66-5.66L11.5 5.9" />
+      <path d="M14 11a4 4 0 0 0-5.66 0L5.5 13.83a4 4 0 0 0 5.66 5.66L12.5 18.1" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Camera glyph with a slash (camera off). */
+function IconCamOff() {
+  return (
+    <svg viewBox="0 0 16 16" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M10.5 6.5V5a1 1 0 0 0-1-1H4.2" />
+      <path d="M2 5.6V11a1 1 0 0 0 1 1h6.5" />
+      <path d="M10.5 8.5 14.5 6v6l-2.3-1.15" />
+      <line x1="2" y1="2" x2="14" y2="14" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Monitor glyph with a slash (screen-share off). */
+function IconScreenOff() {
+  return (
+    <svg viewBox="0 0 16 16" width={14} height={14} fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M1.5 3.2v6.3a1 1 0 0 0 1 1h9" />
+      <path d="M14.5 9.4V3.5a1 1 0 0 0-1-1H5.2" />
+      <path d="M5.5 14.5h5M8 11.5v3" />
+      <line x1="1.5" y1="1.5" x2="14.5" y2="14.5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Cursor / pointer glyph for the Follow-mode round button. */
+function IconPointer() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5 3l6 18 2.4-7.6L21 11 5 3z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Plus glyph for invite rows. */
+function IconPlus() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}
+
+/**
+ * Top-bar right cluster for hero document frames: a headphone "N in huddle"
+ * badge (when count is set) alongside the live presence stack.
+ * @param {{ count?: number }} props Optional in-huddle participant count.
+ * @returns {JSX.Element} The frame's right-side cluster.
+ */
+function HeroBarRight({ count }: { count?: number }) {
+  return (
+    <span className="hud-hero-bar-right">
+      {typeof count === "number" ? (
+        <span className="hud-hero-hbadge"><IconHeadphones />{count}</span>
+      ) : null}
+      <Presence users={HERO_PRESENCE} />
+    </span>
+  );
+}
+
+/**
+ * Document stage: skeleton body lines with one accent-highlighted line, used as
+ * the surface the floating huddle popup and a live cursor sit over. The popup is
+ * absolutely positioned, so `minHeight` reserves room for it (the frame clips
+ * overflow).
+ * @param {{ children?: ReactNode; cursor?: ReactNode; minHeight?: number }} props Floating overlay, optional cursor, and reserved stage height.
+ * @returns {JSX.Element} The document stage.
+ */
+function DocStage({ children, cursor, minHeight = 290 }: { children?: ReactNode; cursor?: ReactNode; minHeight?: number }) {
+  const widths = ["62%", "84%", "73%", "80%", null, "78%", "66%", "82%", "48%"];
+  return (
+    <div className="hud-hero-doc" style={{ minHeight }}>
+      {widths.map((width, index) =>
+        width === null ? (
+          <span key="hl" className="hud-hero-sk hud-hero-sk--hl" />
+        ) : (
+          <span key={index} className="hud-hero-sk" style={{ width }} />
+        ),
+      )}
+      {cursor}
+      {children}
+    </div>
+  );
+}
+
+/** @returns {JSX.Element} A teal "Sean" live cursor for the document stage. */
+function SeanCursor() {
+  return (
+    <div className="hud-hero-cur">
+      <svg className="hud-hero-cur-ptr" viewBox="0 0 14 18" fill="none" aria-hidden="true">
+        <path d="M1 1.5l11 5.5-5.5 1.5L5 15 1 1.5z" fill="#10b981" stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" />
+      </svg>
+      <span className="hud-hero-cur-name">Sean</span>
+    </div>
+  );
+}
+
+/**
+ * The live in-call huddle popup (light theme): a headphone header with invite +
+ * kebab controls, a participant roster (your muted controls, others' live
+ * waveforms), and a Leave button with a Follow-mode control.
+ * @returns {JSX.Element} The roster popup.
+ */
+function HuddleRosterPanel() {
+  return (
+    <div className="hud-hero-panel">
+      <div className="hud-hero-phead">
+        <span className="hud-hero-phones"><IconHeadphones /></span>
+        <span className="hud-hero-ptitle">3 people in Huddle</span>
+        <span className="hud-hero-pinvite" aria-label="Invite"><IconUserPlus /></span>
+        <span className="hud-hero-pkebab" aria-hidden="true"><IconKebab /></span>
+      </div>
+      <div className="hud-hero-prows">
+        <div className="hud-hero-prow">
+          <span className="hud-hero-pava hud-hero-pava--purple"><Av initials="YO" tone="a4" img={FACE.maya} /></span>
+          <span className="hud-hero-pname">You</span>
+          <span className="hud-hero-pctrls">
+            <span className="hud-hero-pctrl hud-hero-pctrl--off" aria-label="Mic off"><IconMicOff /></span>
+            <span className="hud-hero-pctrl hud-hero-pctrl--off" aria-label="Camera off"><IconCamOff /></span>
+            <span className="hud-hero-pctrl hud-hero-pctrl--off" aria-label="Screen off"><IconScreenOff /></span>
+          </span>
+        </div>
+        <div className="hud-hero-prow">
+          <span className="hud-hero-pava hud-hero-pava--gold"><Av initials="LI" tone="a2" img={FACE.sarah} /></span>
+          <span className="hud-hero-pname">Linda</span>
+          <span className="hud-wave hud-wave--gold" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+        </div>
+        <div className="hud-hero-prow">
+          <span className="hud-hero-pava hud-hero-pava--green"><Av initials="M" tone="a3" /></span>
+          <span className="hud-hero-pname">mihir@velt.dev</span>
+          <span className="hud-wave" aria-hidden="true"><i /><i /><i /><i /><i /></span>
+        </div>
+      </div>
+      <div className="hud-hero-pfoot">
+        <span className="hud-hero-leave"><IconPhone />LEAVE</span>
+        <span className="hud-hero-follow" aria-label="Follow"><IconPointer /></span>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A single contact row inside the invite popup.
+ * @param {{ img: string; name: string; invited?: boolean }} props Headshot, name, and invited state.
+ * @returns {JSX.Element} The invite row.
+ */
+function InviteRow({ img, name, invited }: { img: string; name: string; invited?: boolean }) {
+  return (
+    <div className="hud-hero-irow">
+      <span className="av-c av-photo hud-hero-iava" style={{ backgroundImage: `url(${img})` }} role="img" aria-label={name} />
+      <span className="hud-hero-iname">{name}</span>
+      {invited ? (
+        <span className="hud-hero-iinvited">Invited</span>
+      ) : (
+        <span className="hud-hero-iplus" aria-label={`Add ${name}`}><IconPlus /></span>
+      )}
+    </div>
+  );
+}
+
+/**
+ * The invite popup (dark theme): pull existing contacts into the huddle, or
+ * share a huddle link — the start-of-huddle "bring people in" surface.
+ * @returns {JSX.Element} The invite popup.
+ */
+function InvitePanel() {
+  return (
+    <div className="hud-hero-invite">
+      <div className="hud-hero-ihead">
+        <span className="hud-hero-iphones"><IconHeadphones /></span>
+        <span className="hud-hero-ititle">2 people in Huddle</span>
+        <span className="hud-hero-iadd" aria-label="Add people"><IconUserPlus /></span>
+        <span className="hud-hero-ikebab" aria-hidden="true"><IconKebab /></span>
+      </div>
+      <div className="hud-hero-isearch">
+        <span className="hud-hero-icaret" aria-hidden="true" />
+        Select a contact or invite
+      </div>
+      <div className="hud-hero-ilist">
+        <InviteRow img={FACE.ethan} name="Ben" />
+        <InviteRow img={FACES.roman} name="Vivek" invited />
+        <InviteRow img={FACES.hope} name="Emma" />
+        <InviteRow img={FACES.jeff} name="Rakesh" />
+      </div>
+      <div className="hud-hero-ifoot">
+        <span className="hud-hero-ilink"><IconLink />Huddle Link</span>
+        <span className="hud-hero-iinvite">Invite</span>
+      </div>
+    </div>
+  );
+}
+
 export const HUDDLE_DEMOS: Record<string, ReactNode> = {
   "huddle/hero/start": (
     <Frame
       app="HD"
-      crumb={<><b>contract.md</b> <span className="sep">/</span> Clause 7 · vendor rate</>}
-      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
+      crumb={<><b>Contract</b></>}
+      right={<HeroBarRight count={2} />}
     >
-      {/* Document excerpt */}
-      <p className="cmh-doc">
-        7.2 The vendor rate shall not exceed <span className="cmh-mark">12% of base contract value</span> per annum.
-      </p>
-
-      {/* Call-control bar */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          gap: 10,
-          padding: "12px 14px",
-          borderRadius: 14,
-          background: "var(--vlp-bg-section-alt)",
-          border: "1px solid var(--vlp-border-subtle)",
-        }}
-      >
-        <CallCtrl label="Mic" icon={<IconMic />} active />
-        <CallCtrl label="Cam" icon={<IconCam />} active />
-        <CallCtrl label="Share" icon={<IconScreen />} active />
-        <div style={{ flex: 1 }} />
-        <button
-          type="button"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 7,
-            fontSize: 12.5,
-            fontWeight: 700,
-            padding: "8px 16px",
-            borderRadius: 999,
-            border: "none",
-            color: "#fff",
-            background: "var(--vlp-color-accent)",
-            cursor: "default",
-          }}
-        >
-          <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff", display: "inline-block" }} />
-          Start huddle
-        </button>
-      </div>
-
-      <p className="code-microcopy">one click: no link, no invite, no calendar</p>
+      <DocStage cursor={<SeanCursor />} minHeight={414}>
+        <InvitePanel />
+      </DocStage>
+      <p className="code-microcopy">one click starts it — pull teammates in or share a link</p>
     </Frame>
   ),
 
   "huddle/hero/join": (
     <Frame
       app="HD"
-      crumb={<><b>contract.md</b> <span className="sep">/</span> huddle active</>}
-      users={HUDDLE_PRESENCE}
+      crumb={<><b>Contract</b></>}
+      right={<HeroBarRight count={3} />}
     >
-      {/* Participant tiles */}
-      <div style={{ display: "flex", gap: 14, alignItems: "flex-end" }}>
-        <ParticipantTile initials="MA" name="Maya" img={FACE.maya} tone="a2" speaking />
-        <ParticipantTile initials="SR" name="Sarah" img={FACE.sarah} tone="a3" />
-        <ParticipantTile initials="NA" name="Notetaker" agent />
-      </div>
-
-      {/* Live indicator pill */}
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <HuddleBar users={CALL_TEAM} channel="audio + video" />
-        <span className="chip chip-agent" style={{ fontSize: 10 }}>AI notetaker</span>
-      </div>
-
+      <DocStage cursor={<SeanCursor />}>
+        <HuddleRosterPanel />
+      </DocStage>
       <p className="code-microcopy">teammates in the doc see the live huddle and join in place</p>
     </Frame>
   ),
@@ -361,59 +485,49 @@ export const HUDDLE_DEMOS: Record<string, ReactNode> = {
   "huddle/hero/share": (
     <Frame
       app="HD"
-      crumb={<><b>contract.md</b> <span className="sep">/</span> screen sharing</>}
-      users={HUDDLE_PRESENCE}
+      crumb={<><b>Contract</b> <span className="sep">/</span> screen sharing</>}
+      right={<HeroBarRight count={3} />}
     >
-      {/* Shared screen rectangle */}
-      <div
-        style={{
-          border: `2px solid var(--vlp-color-accent)`,
-          borderRadius: 10,
-          background: "color-mix(in srgb, var(--vlp-color-accent) 5%, transparent)",
-          padding: "14px 16px",
-          display: "grid",
-          gap: 6,
-          position: "relative",
-        }}
-      >
-        <span
-          className="chip chip-agent"
-          style={{
-            position: "absolute",
-            top: -11,
-            left: 12,
-            fontSize: 10,
-            fontWeight: 800,
-            letterSpacing: 0.5,
-            background: "var(--vlp-color-accent)",
-            color: "#fff",
-          }}
-        >
-          ● SHARING
-        </span>
-        <p className="cmh-doc" style={{ margin: 0 }}>
-          7.2 The vendor rate shall not exceed <span className="cmh-mark">12% of base contract value</span> per annum.
-        </p>
-        <div className="sk" style={{ width: "70%" }} />
-        <div className="sk" style={{ width: "50%" }} />
+      <div className="hud-hero-share">
+        <div className="hud-hero-screen">
+          <div className="hud-hero-screen-top">
+            <span className="hud-hero-screen-dot" />
+            <span className="hud-hero-screen-dot" />
+            <span className="hud-hero-screen-dot" />
+            <span className="hud-hero-screen-title">contract.md</span>
+            <span className="hud-hero-screen-live"><i />SHARING</span>
+          </div>
+          <div className="hud-hero-screen-body">
+            <p className="cmh-doc" style={{ margin: 0 }}>
+              7.2 The vendor rate shall not exceed <span className="cmh-mark">12% of base contract value</span> per annum.
+            </p>
+            <span className="hud-hero-sk" style={{ width: "72%" }} />
+            <span className="hud-hero-sk" style={{ width: "54%" }} />
+          </div>
+        </div>
+
+        <div className="hud-hero-share-strip">
+          <span className="hud-hero-share-by">
+            <span className="hud-hero-pava hud-hero-pava--green"><Av initials="LI" tone="a3" img={FACE.sarah} /></span>
+            Linda is sharing
+          </span>
+          <span className="hud-hero-share-ctrls">
+            <span className="hud-hero-pctrl" aria-label="Mic"><IconMic /></span>
+            <span className="hud-hero-pctrl" aria-label="Camera"><IconCam /></span>
+            <span className="hud-hero-pctrl hud-hero-pctrl--on" aria-label="Sharing screen"><IconScreen /></span>
+          </span>
+        </div>
       </div>
 
-      {/* Overlaid participant strip */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{ display: "flex", gap: 8 }}>
-          <ParticipantTile initials="SR" name="Sarah (sharing)" img={FACE.sarah} tone="a3" speaking />
-          <ParticipantTile initials="MA" name="Maya" img={FACE.maya} tone="a2" />
-        </div>
-        <HuddleBar users={CALL_TEAM} channel="screen" />
-      </div>
+      <p className="code-microcopy">any participant shares their screen, right in the doc</p>
     </Frame>
   ),
 
   "huddle/hero/decide": (
     <Frame
       app="HD"
-      crumb={<><b>contract.md</b> <span className="sep">/</span> decision captured</>}
-      users={[{ initials: "MA", tone: "a2", img: FACE.maya }, { initials: "SR", tone: "a3", img: FACE.sarah }, { initials: "NA", agent: true }]}
+      crumb={<><b>Contract</b> <span className="sep">/</span> decision captured</>}
+      right={<HeroBarRight />}
     >
       {/* AI-generated summary card */}
       <div

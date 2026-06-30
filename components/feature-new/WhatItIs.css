@@ -6,6 +6,15 @@
 .vfp .wii-artifact { width: 100%; }
 
 .vfp .scene-card { border: 1px solid var(--vlp-border-default); border-radius: var(--vlp-radius-lg-feature); background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-md); overflow: hidden; }
+/* When the scene is itself a product-surface Frame (.cmh) — e.g. the
+   notifications "What it is" inbox — the Frame already provides the card
+   surface, so the shared .scene-card must not add a second card around it.
+   Strip the outer chrome and drop the Frame's hero-stacking bottom margin so
+   the artifact is one clean Frame with no empty card lip below the footer.
+   Only matches scenes whose direct child is a Frame (comments/audit scenes
+   wrap .scene-slide / .afw instead, so they are unaffected). */
+.vfp .scene-card:has(> .cmh) { border: none; border-radius: 0; background: none; box-shadow: none; overflow: visible; }
+.vfp .scene-card > .cmh { margin-bottom: 0; }
 .vfp .scene-slide { padding: 22px 24px 8px; display: grid; gap: 10px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
 .vfp .scene-slide .slide-tag { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); letter-spacing: 0.08em; text-transform: uppercase; }
 .vfp .scene-thread { margin: 16px; }

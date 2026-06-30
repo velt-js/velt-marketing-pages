@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { NotifItem } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -16,6 +15,7 @@ import {
   IconCheck,
   IconX,
   IconSearch,
+  IconReply,
 } from "./hero-surface";
 
 import "./notifications-showcase.css";
@@ -30,306 +30,9 @@ const FACE = {
   ethan: FACES.ethan,
 } as const;
 
-/**
- * A simulated notifications inbox panel with a tab row and notification items.
- * @param {{ tab?: string; children: ReactNode }} props Panel content.
- * @returns {JSX.Element} Inbox panel.
- */
-function Inbox({ tab = "For You", children }: { tab?: string; children: ReactNode }) {
-  const tabs = ["For You", "Document", "All"];
-  return (
-    <div className="audit" style={{ padding: 0, overflow: "hidden" }}>
-      <div className="audit-head" style={{ display: "flex", gap: 14 }}>
-        {tabs.map((label) => (
-          <span key={label} style={{ fontWeight: label === tab ? 700 : 400, opacity: label === tab ? 1 : 0.5 }}>
-            {label}
-          </span>
-        ))}
-      </div>
-      {children}
-    </div>
-  );
-}
-
-/**
- * A single toggle row in the notification preferences panel.
- * @param {{ channelClass: string; channelLabel: string; channelGlyph: string; value: "ALL" | "MINE" | "NONE" }} props Channel icon, label, and current setting.
- * @returns {JSX.Element} Preference row.
- */
-function PrefRow({
-  channelClass,
-  channelLabel,
-  channelGlyph,
-  value,
-}: {
-  channelClass: string;
-  channelLabel: string;
-  channelGlyph: string;
-  value: "ALL" | "MINE" | "NONE";
-}) {
-  const pillStyle = (active: boolean): React.CSSProperties => ({
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 10,
-    fontWeight: 700,
-    fontFamily: "var(--vlp-font-mono)",
-    letterSpacing: "0.05em",
-    padding: "2px 8px",
-    borderRadius: 999,
-    background: active ? "var(--vlp-color-ink)" : "transparent",
-    color: active ? "#fff" : "var(--vlp-color-text-muted)",
-    border: active ? "1px solid transparent" : "1px solid var(--vlp-border-default)",
-    cursor: "pointer",
-    transition: "background 0.12s ease, color 0.12s ease",
-  });
-
-  return (
-    <div className="notif-chan">
-      <span className={`ci ${channelClass}`}>{channelGlyph}</span>
-      <span style={{ flex: 1, fontSize: 12.5, fontWeight: 550, color: "var(--vlp-color-ink)" }}>{channelLabel}</span>
-      <div style={{ display: "flex", gap: 4 }}>
-        <span style={pillStyle(value === "ALL")}>ALL</span>
-        <span style={pillStyle(value === "MINE")}>MINE</span>
-        <span style={pillStyle(value === "NONE")}>NONE</span>
-      </div>
-    </div>
-  );
-}
-
-/**
- * A polished email-digest card surface used in the email hero tab.
- * @param {{ subject: string; from: string; preview: ReactNode; cta?: string }} props Email fields.
- * @returns {JSX.Element} Email card.
- */
-function EmailCard({
-  subject,
-  from,
-  preview,
-  cta = "Open in app",
-}: {
-  subject: string;
-  from: string;
-  preview: ReactNode;
-  cta?: string;
-}) {
-  return (
-    <div
-      style={{
-        border: "1px solid var(--vlp-border-default)",
-        borderRadius: 12,
-        background: "var(--vlp-bg-page)",
-        overflow: "hidden",
-        boxShadow: "var(--vlp-shadow-sm)",
-      }}
-    >
-      {/* Email header bar */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          padding: "10px 14px",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
-          background: "var(--vlp-bg-section-alt)",
-        }}
-      >
-        <span
-          style={{
-            width: 14,
-            height: 14,
-            borderRadius: 50,
-            background: "#fc5855",
-            display: "inline-block",
-          }}
-        />
-        <span
-          style={{
-            width: 14,
-            height: 14,
-            borderRadius: 50,
-            background: "#fdbc2c",
-            display: "inline-block",
-          }}
-        />
-        <span
-          style={{
-            width: 14,
-            height: 14,
-            borderRadius: 50,
-            background: "#27c840",
-            display: "inline-block",
-          }}
-        />
-        <span
-          style={{
-            flex: 1,
-            textAlign: "center",
-            fontFamily: "var(--vlp-font-mono)",
-            fontSize: 10.5,
-            color: "var(--vlp-color-text-subtle)",
-          }}
-        >
-          Mail
-        </span>
-      </div>
-
-      {/* Email meta */}
-      <div style={{ padding: "12px 16px 0" }}>
-        <p
-          style={{
-            margin: 0,
-            fontSize: 12,
-            color: "var(--vlp-color-text-muted)",
-            fontFamily: "var(--vlp-font-mono)",
-          }}
-        >
-          From: {from}
-        </p>
-        <p
-          style={{
-            margin: "4px 0 10px",
-            fontSize: 13.5,
-            fontWeight: 700,
-            color: "var(--vlp-color-ink)",
-          }}
-        >
-          {subject}
-        </p>
-        <div
-          style={{
-            borderTop: "1px solid var(--vlp-border-subtle)",
-            paddingTop: 10,
-            fontSize: 12.5,
-            color: "var(--vlp-color-ink-soft)",
-            lineHeight: 1.6,
-          }}
-        >
-          {preview}
-        </div>
-      </div>
-
-      {/* CTA button */}
-      <div style={{ padding: "10px 16px 14px" }}>
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-            background: "var(--vlp-color-accent)",
-            color: "#fff",
-            fontSize: 12,
-            fontWeight: 700,
-            fontFamily: "var(--vlp-font-heading)",
-            borderRadius: 8,
-            padding: "6px 14px",
-          }}
-        >
-          {cta}
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/**
- * A Slack-style message card: workspace bar, channel, avatar + message body.
- * @param {{ channel: string; author: string; authorImg?: string; authorInitials: string; authorTone?: string; agent?: boolean; body: ReactNode; meta?: string }} props Slack message fields.
- * @returns {JSX.Element} Slack card.
- */
-function SlackCard({
-  channel,
-  author,
-  authorImg,
-  authorInitials,
-  authorTone,
-  agent,
-  body,
-  meta = "just now",
-}: {
-  channel: string;
-  author: string;
-  authorImg?: string;
-  authorInitials: string;
-  authorTone?: string;
-  agent?: boolean;
-  body: ReactNode;
-  meta?: string;
-}) {
-  return (
-    <div
-      style={{
-        border: "1px solid var(--vlp-border-default)",
-        borderRadius: 12,
-        background: "var(--vlp-bg-page)",
-        overflow: "hidden",
-        boxShadow: "var(--vlp-shadow-sm)",
-      }}
-    >
-      {/* Slack sidebar strip */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          padding: "8px 14px",
-          borderBottom: "1px solid var(--vlp-border-subtle)",
-          background: "oklch(0.26 0.04 291)",
-        }}
-      >
-        <span
-          style={{
-            fontFamily: "var(--vlp-font-mono)",
-            fontSize: 10.5,
-            fontWeight: 700,
-            color: "rgba(255,255,255,0.55)",
-          }}
-        >
-          # {channel}
-        </span>
-        <span
-          style={{
-            marginLeft: "auto",
-            fontFamily: "var(--vlp-font-mono)",
-            fontSize: 9.5,
-            color: "rgba(255,255,255,0.35)",
-          }}
-        >
-          Slack
-        </span>
-      </div>
-
-      {/* Message row */}
-      <div style={{ display: "flex", gap: 10, padding: "12px 14px", alignItems: "flex-start" }}>
-        <Av initials={authorInitials} tone={authorTone} agent={agent} img={authorImg} />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 3 }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: "var(--vlp-color-ink)" }}>{author}</span>
-            {agent ? (
-              <span
-                style={{
-                  fontFamily: "var(--vlp-font-mono)",
-                  fontSize: 9.5,
-                  letterSpacing: "0.06em",
-                  color: "var(--vlp-color-accent-ink)",
-                  background: "var(--vlp-color-accent-soft)",
-                  borderRadius: 4,
-                  padding: "1px 5px",
-                }}
-              >
-                APP
-              </span>
-            ) : null}
-            <span style={{ fontSize: 11, color: "var(--vlp-color-text-subtle)", fontFamily: "var(--vlp-font-mono)" }}>
-              {meta}
-            </span>
-          </div>
-          <p style={{ margin: 0, fontSize: 12.5, color: "var(--vlp-color-ink-soft)", lineHeight: 1.5 }}>{body}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+// The mention copy reused verbatim across the email + Slack hero relays, so the
+// notification narrative reads identically on every channel.
+const HERO_MENTION_QUOTE = "\u201CCan you approve the revised projections before Friday close?\u201D";
 
 /** @returns {JSX.Element} Bell glyph for inbox / agent-activity headers. */
 function IconBell() {
@@ -347,6 +50,26 @@ function IconMail() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <rect x="3" y="5" width="18" height="14" rx="2.5" />
       <path d="M4 7l8 6 8-6" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Filled star glyph for the email-client toolbar. */
+function IconStar() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 3.2l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.9l-5.2 2.74.99-5.79-4.21-4.1 5.82-.85z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Archive-box glyph for the email-client toolbar. */
+function IconArchive() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="4" rx="1.5" />
+      <path d="M5 8v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8" />
+      <path d="M10 12h4" />
     </svg>
   );
 }
@@ -388,6 +111,18 @@ function IconBolt() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
       <path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13z" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} People glyph for the Teams channel preference row. */
+function IconUsers() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M3.5 19a5.5 5.5 0 0 1 11 0" />
+      <path d="M16 5.2a3.2 3.2 0 0 1 0 5.6" />
+      <path d="M17.5 13.6a5.5 5.5 0 0 1 3 5.4" />
     </svg>
   );
 }
@@ -518,56 +253,87 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
   "notifications/hero/inbox": (
     <Frame
       app="VC"
-      crumb={<><b>Notifications</b> <span className="sep">/</span> inbox</>}
-      right={<span className="cmh-search"><IconSearch />Search</span>}
+      crumb={<><b>Sales deck</b> <span className="sep">/</span> Q3 review</>}
+      right={
+        <span className="ntf-hero-bell" role="img" aria-label="3 unread notifications">
+          <IconBell />
+          <span className="ntf-hero-bell-badge">3</span>
+        </span>
+      }
     >
-      <div className="cmh-filters">
-        <span className="cmh-ft on">For You</span>
-        <span className="cmh-ft">Document</span>
-        <span className="cmh-ft">All</span>
-      </div>
-
-      <div className="cmh-group">Now</div>
-
-      <div className="cmh-inrow">
-        <span className="cmh-unread" />
-        <Av initials="RA" agent />
-        <div className="cmh-inmain">
-          <p className="t">
-            <b>Review Agent</b> flagged 3 pricing claims on Q3 deck
-            <span className="chip chip-agent" style={{ marginLeft: 6 }}>agent</span>
-          </p>
-          <p className="m"><span className="quote">&ldquo;conflicts with the rate table on slide 4&rdquo;</span></p>
+      <div className="ntf-hero-stage">
+        {/* Faint product backdrop so the panel reads as a real in-app dropdown. */}
+        <div className="ntf-hero-backdrop" aria-hidden="true">
+          <span className="ntf-bd-title" />
+          <span className="ntf-bd-line" style={{ width: "82%" }} />
+          <span className="ntf-bd-line" style={{ width: "64%" }} />
+          <span className="ntf-bd-line" style={{ width: "73%" }} />
+          <div className="ntf-bd-chart">
+            <span style={{ height: "46%" }} />
+            <span style={{ height: "68%" }} />
+            <span style={{ height: "38%" }} />
+            <span className="ntf-bd-chart-hot" style={{ height: "84%" }} />
+          </div>
         </div>
-        <span className="cmh-when">2m</span>
-      </div>
 
-      <div className="cmh-inrow">
-        <span className="cmh-unread" />
-        <Av initials="MA" tone="a2" img={FACE.maya} />
-        <div className="cmh-inmain">
-          <p className="t">
-            <b>Maya</b> assigned you the contract sign-off
-            <span className="chip chip-pending" style={{ marginLeft: 6 }}>assigned</span>
-          </p>
-          <p className="m">contract.pdf · due Friday</p>
+        {/* Notification panel anchored under the header bell. */}
+        <div className="ntf-hero-panel">
+          <span className="ntf-hero-panel-caret" aria-hidden="true" />
+          <div className="ntf-hero-panel-head">
+            <span className="ntf-hero-panel-title">
+              <IconBell />
+              Notifications
+              <span className="ntf-hero-panel-new">3 new</span>
+            </span>
+            <span className="cmh-search"><IconSearch />Search</span>
+          </div>
+
+          <div className="cmh-filters">
+            <span className="cmh-ft on">For You</span>
+            <span className="cmh-ft">Document</span>
+            <span className="cmh-ft">All</span>
+          </div>
+
+          <div className="cmh-group">Now</div>
+
+          <div className="cmh-inrow">
+            <span className="cmh-unread" />
+            <Av initials="RA" agent />
+            <div className="cmh-inmain">
+              <p className="t">
+                <b>Review Agent</b> flagged 3 pricing claims on Q3 deck
+              </p>
+              <p className="m"><span className="quote">&ldquo;conflicts with the rate table on slide 4&rdquo;</span></p>
+            </div>
+            <span className="cmh-when">2m</span>
+          </div>
+
+          <div className="cmh-inrow">
+            <span className="cmh-unread" />
+            <Av initials="MA" tone="a2" img={FACE.maya} />
+            <div className="cmh-inmain">
+              <p className="t">
+                <b>Maya</b> assigned you the contract sign-off
+              </p>
+              <p className="m">contract.pdf · due Friday</p>
+            </div>
+            <span className="cmh-when">8m</span>
+          </div>
+
+          <div className="cmh-group">Earlier</div>
+
+          <div className="cmh-inrow">
+            <span className="cmh-unread read" />
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <div className="cmh-inmain">
+              <p className="t">
+                <b>Sarah</b> resolved the Q3 forecast thread
+              </p>
+              <p className="m">forecast.xlsx · 12 updates batched</p>
+            </div>
+            <span className="cmh-when">1h</span>
+          </div>
         </div>
-        <span className="cmh-when">8m</span>
-      </div>
-
-      <div className="cmh-group">Earlier</div>
-
-      <div className="cmh-inrow">
-        <span className="cmh-unread read" />
-        <Av initials="SR" tone="a3" img={FACE.sarah} />
-        <div className="cmh-inmain">
-          <p className="t">
-            <b>Sarah</b> resolved the Q3 forecast thread
-            <span className="chip chip-approved" style={{ marginLeft: 6 }}>resolved</span>
-          </p>
-          <p className="m">forecast.xlsx · 12 updates batched</p>
-        </div>
-        <span className="cmh-when">1h</span>
       </div>
     </Frame>
   ),
@@ -575,80 +341,129 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
   "notifications/hero/email": (
     <Frame
       app="EM"
-      crumb={<><b>Email digest</b> <span className="sep">/</span> sign-off requested</>}
-      users={[{ initials: "ET", tone: "a1", img: FACE.ethan }]}
+      crumb={<><b>Mail</b> <span className="sep">/</span> Inbox</>}
+      right={<span className="ntf-mailc-unread">1 unread</span>}
     >
-      <EmailCard
-        from="notifications@velt.dev"
-        subject="Sign-off requested: Q3 forecast"
-        preview={
-          <>
-            <p style={{ margin: "0 0 6px" }}>
-              <Av initials="MA" tone="a2" img={FACE.maya} />
-            </p>
-            <p style={{ margin: "0 0 6px" }}>
-              <b>Maya</b> mentioned you on <b>Q3 forecast</b>
-            </p>
-            <p style={{ margin: "0 0 8px", fontStyle: "italic", color: "var(--vlp-color-text-muted)" }}>
-              &ldquo;Can you approve the revised projections before Friday close?&rdquo;
-            </p>
-            <p style={{ margin: 0, fontSize: 11, color: "var(--vlp-color-text-subtle)", fontFamily: "var(--vlp-font-mono)" }}>
-              forecast.xlsx · cell B12 · Q3
-            </p>
-          </>
-        }
-        cta="Open in app →"
-      />
+      <div className="ntf-mailc">
+        {/* Inbox list pane. */}
+        <div className="ntf-mailc-list">
+          <div className="ntf-mailc-li ntf-mailc-li--on">
+            <span className="ntf-mailc-li-top">
+              <span className="ntf-mailc-li-from">Velt</span>
+              <span className="ntf-mailc-li-time">9:02</span>
+            </span>
+            <span className="ntf-mailc-li-subj">Sign-off requested: Q3 forecast</span>
+          </div>
+          <div className="ntf-mailc-li">
+            <span className="ntf-mailc-li-top">
+              <span className="ntf-mailc-li-from">Sarah Lin</span>
+              <span className="ntf-mailc-li-time">8:40</span>
+            </span>
+            <span className="ntf-mailc-li-subj">Re: forecast figures</span>
+          </div>
+          <div className="ntf-mailc-li">
+            <span className="ntf-mailc-li-top">
+              <span className="ntf-mailc-li-from">Acme Billing</span>
+              <span className="ntf-mailc-li-time">Mon</span>
+            </span>
+            <span className="ntf-mailc-li-subj">Your July invoice is ready</span>
+          </div>
+        </div>
+
+        {/* Reading pane: the opened Velt notification email. */}
+        <div className="ntf-mailc-read">
+          <div className="ntf-mailc-tools">
+            <span className="ntf-mailc-tool"><IconArchive /></span>
+            <span className="ntf-mailc-tool"><IconReply /></span>
+            <span className="ntf-mailc-tool ntf-mailc-tool--star"><IconStar /></span>
+          </div>
+
+          <div className="ntf-mail-card">
+            <div className="ntf-mail-bar">
+              <span className="ntf-mail-ic"><IconMail /></span>
+              <span className="ntf-mail-from">
+                <span className="ntf-mail-addr">notifications@velt.dev</span>
+                <span className="ntf-mail-to">to ethan@acme.com</span>
+              </span>
+              <span className="ntf-hmail-time">9:02 AM</span>
+            </div>
+            <div className="ntf-mail-body">
+              <span className="ntf-mail-subj">Sign-off requested: Q3 forecast</span>
+              <span className="ntf-hmail-sender">
+                <Av initials="MA" tone="a2" img={FACE.maya} />
+                <span className="ntf-hmail-sender-txt"><b>Maya</b> mentioned you on <b>Q3 forecast</b></span>
+              </span>
+              <p className="ntf-quote">{HERO_MENTION_QUOTE}</p>
+              <span className="ntf-hmail-meta">forecast.xlsx · cell B12 · Q3</span>
+              <span className="ntf-hmail-cta">Open in app<IconArrowRight /></span>
+            </div>
+          </div>
+
+          <div className="ntf-mail-foot">
+            <span className="ntf-deliver"><span className="ntf-deliver-dot" />delivered · hasn&rsquo;t opened the app</span>
+          </div>
+        </div>
+      </div>
     </Frame>
   ),
 
   "notifications/hero/slack": (
     <Frame
       app="SL"
-      crumb={<><b>Slack</b> <span className="sep">/</span> #reviews</>}
+      crumb={<><b>Acme HQ</b> <span className="sep">/</span> #reviews</>}
       users={[{ initials: "ET", tone: "a1", img: FACE.ethan }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
     >
-      <SlackCard
-        channel="reviews"
-        author="Velt"
-        authorInitials="VL"
-        agent
-        body={
-          <>
-            <b>Maya</b> mentioned <b>@Ethan</b> on <b>Q3 forecast</b>
-            <br />
-            <span style={{ color: "var(--vlp-color-text-muted)" }}>
-              &ldquo;Can you approve the revised projections before Friday close?&rdquo;
-            </span>
-            <br />
-            <span
-              style={{
-                display: "inline-block",
-                marginTop: 6,
-                fontSize: 11.5,
-                fontWeight: 600,
-                color: "var(--vlp-color-accent-ink)",
-                textDecoration: "underline",
-              }}
-            >
-              app.acme.com/forecast
-            </span>
-          </>
-        }
-        meta="2:41 PM"
-      />
-
-      <div className="finding cmh-finding" style={{ marginTop: 2 }}>
-        <div className="fh">
-          <Av initials="RA" agent />
-          Review Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">2:39 PM</span>
+      <div className="ntf-slack">
+        {/* Workspace + channel rail, so the relay reads as a real Slack window. */}
+        <div className="ntf-slack-side" aria-hidden="true">
+          <span className="ntf-slack-ws">A</span>
+          <span className="ntf-slack-ch">#general</span>
+          <span className="ntf-slack-ch ntf-slack-ch--on">#reviews</span>
+          <span className="ntf-slack-ch">#design</span>
+          <span className="ntf-slack-ch ntf-slack-ch--dm"><span className="ntf-slack-presence" />Maya</span>
         </div>
-        <p className="fb">3 pricing claims flagged on Q3 deck: opens to approve-or-reject queue.</p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Approve all</button>
-          <button type="button" className="cmh-btn reject"><IconX />Dismiss</button>
+
+        <div className="ntf-slack-main">
+          <div className="ntf-slack-head">
+            <span className="ntf-slack-head-ch">#reviews</span>
+            <span className="ntf-slack-head-meta">8 members</span>
+          </div>
+
+          <div className="ntf-slack-feed">
+            <div className="cmh-cmt cmh-cmt--plain">
+              <Av initials="VL" tone="a4" />
+              <div className="cmh-cmt-main">
+                <div className="cmh-cmt-head">
+                  <span className="cmh-cmt-name">Velt</span>
+                  <span className="chip chip-agent">app</span>
+                  <span className="cmh-cmt-time">2:41 PM</span>
+                </div>
+                <p className="cmh-cmt-body"><b>Maya</b> mentioned <b>@Ethan</b> on <b>Q3 forecast</b></p>
+                <p className="ntf-quote">{HERO_MENTION_QUOTE}</p>
+                <span className="ntf-link">app.acme.com/forecast</span>
+              </div>
+            </div>
+
+            <div className="finding cmh-finding">
+              <div className="fh">
+                <Av initials="RA" agent />
+                Review Agent
+                <span className="chip chip-agent">agent</span>
+                <span className="cmh-when">2:39 PM</span>
+              </div>
+              <p className="fb">3 pricing claims flagged on Q3 deck: opens to approve-or-reject queue.</p>
+              <div className="cmh-acts">
+                <button type="button" className="cmh-btn approve"><IconCheck />Approve all</button>
+                <button type="button" className="cmh-btn reject"><IconX />Dismiss</button>
+              </div>
+              <span className="ntf-slack-thread"><IconReply />2 replies · last 1m ago</span>
+            </div>
+          </div>
+
+          <div className="ntf-slack-composer">
+            <span className="ntf-slack-composer-ph">Message #reviews</span>
+            <span className="ntf-slack-send"><IconArrowRight /></span>
+          </div>
         </div>
       </div>
     </Frame>
@@ -660,60 +475,87 @@ export const NOTIFICATIONS_DEMOS: Record<string, ReactNode> = {
       crumb={<><b>Preferences</b> <span className="sep">/</span> notifications</>}
       users={[{ initials: "ET", tone: "a1", img: FACE.ethan }]}
     >
-      <p
-        style={{
-          margin: 0,
-          fontSize: 11.5,
-          color: "var(--vlp-color-text-muted)",
-          fontFamily: "var(--vlp-font-mono)",
-          letterSpacing: "0.02em",
-        }}
-      >
-        ethan@acme.com · per-document or org-wide
-      </p>
+      <p className="ntf-hpref-head">ethan@acme.com · per-document or org-wide</p>
 
-      <div className="notif-chans">
-        <PrefRow channelClass="ci-app" channelLabel="In-app" channelGlyph="⬛" value="ALL" />
-        <PrefRow channelClass="ci-mail" channelLabel="Email" channelGlyph="✉" value="MINE" />
-        <PrefRow channelClass="ci-slack" channelLabel="Slack" channelGlyph="⚡" value="MINE" />
-        <PrefRow channelClass="ci-teams" channelLabel="Teams" channelGlyph="T" value="NONE" />
+      <div className="ntf-prefs">
+        <ChannelPref channelClass="ci-app" glyph={<IconBell />} label="In-app" scope="every event" value="ALL" />
+        <ChannelPref channelClass="ci-mail" glyph={<IconMail />} label="Email" scope="mentions & assignments" value="MINE" />
+        <ChannelPref channelClass="ci-slack" glyph={<IconBolt />} label="Slack" scope="mentions & assignments" value="MINE" />
+        <ChannelPref channelClass="ci-teams" glyph={<IconUsers />} label="Teams" scope="silenced" value="NONE" />
       </div>
 
-      <p
-        style={{
-          margin: 0,
-          fontSize: 11,
-          color: "var(--vlp-color-text-subtle)",
-          fontFamily: "var(--vlp-font-mono)",
-        }}
-      >
-        ALL = every event · MINE = mentions &amp; assignments · NONE = silent
-      </p>
+      <p className="ntf-hpref-legend">ALL = every event · MINE = mentions &amp; assignments · NONE = silent</p>
     </Frame>
   ),
 
   "notifications/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14, padding: 18 }}>
-      <Inbox>
-        <NotifItem
-          avatar={{ initials: "MR", kind: "agent" }}
-          title={<><strong>Margin Review Agent</strong> flagged 3 pricing claims on the Q3 deck</>}
-          meta="opens to findings"
-          actions
-        />
-        <NotifItem
-          avatar={{ initials: "MA", kind: "human" }}
-          title={<><strong>Maya</strong> assigned you the contract sign-off, due Friday</>}
-          chip={{ label: "human", kind: "pending" }}
-        />
-        <NotifItem
-          avatar={{ initials: "12", kind: "human" }}
-          title={<>12 updates on the Acme renewal, batched</>}
-          chip={{ label: "digest", kind: "approved" }}
-        />
-      </Inbox>
-      <p className="code-microcopy">one feed, both actor types, consent where the agent&rsquo;s work lands</p>
-    </div>
+    <Frame
+      app="VN"
+      crumb={<><b>Notifications</b> <span className="sep">/</span> Inbox</>}
+      right={
+        <div className="cmh-present">
+          <div className="stack">
+            <Av initials="MR" agent />
+            <Av initials="MA" tone="a2" img={FACE.maya} />
+          </div>
+          <span className="ntf-wii-actors">both actor types</span>
+        </div>
+      }
+    >
+      <div className="cmh-filters">
+        <span className="cmh-ft on">For You</span>
+        <span className="cmh-ft">Document</span>
+        <span className="cmh-ft">All</span>
+      </div>
+
+      <div className="cmh-group">Inbox</div>
+
+      <div className="cmh-inrow">
+        <span className="cmh-unread" />
+        <Av initials="MR" agent />
+        <div className="cmh-inmain">
+          <p className="t">
+            <b>Margin Review Agent</b> flagged 3 pricing claims on the Q3 deck
+            <span className="chip chip-agent" style={{ marginLeft: 6 }}>agent</span>
+          </p>
+          <p className="m">opens to findings</p>
+          <div className="cmh-acts ntf-wii-acts">
+            <button type="button" className="cmh-btn approve">Approve</button>
+            <button type="button" className="cmh-btn reject">Reject</button>
+          </div>
+        </div>
+        <span className="cmh-when">2m</span>
+      </div>
+
+      <div className="cmh-inrow">
+        <span className="cmh-unread" />
+        <Av initials="MA" tone="a2" img={FACE.maya} />
+        <div className="cmh-inmain">
+          <p className="t">
+            <b>Maya</b> assigned you the contract sign-off, due Friday
+            <span className="chip chip-pending" style={{ marginLeft: 6 }}>human</span>
+          </p>
+        </div>
+        <span className="cmh-when">8m</span>
+      </div>
+
+      <div className="cmh-inrow">
+        <span className="cmh-unread read" />
+        <span className="ntf-wii-digest" role="img" aria-label="Batched digest"><IconStack /></span>
+        <div className="cmh-inmain">
+          <p className="t">
+            12 updates on the Acme renewal, batched
+            <span className="chip chip-approved" style={{ marginLeft: 6 }}>digest</span>
+          </p>
+        </div>
+        <span className="cmh-when">1h</span>
+      </div>
+
+      <p className="ntf-wii-foot">
+        <span className="ntf-wii-foot-dot" />
+        one feed, both actor types, consent where the agent&rsquo;s work lands
+      </p>
+    </Frame>
   ),
 
   // In-app inbox (wide tile): the prebuilt tool + panel — For You / Document /

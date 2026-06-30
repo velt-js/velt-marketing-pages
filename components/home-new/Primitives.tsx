@@ -321,7 +321,9 @@ export default function Primitives() {
             code={
               <div className="prim-code-card">
                 <div className="prim-code-header">Editor.tsx<CopyButton /></div>
-                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">const</span> { id } = <span class="prim-code-kw">await</span> commitSuggestion({
+                <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">const</span> suggestionElement = client.getSuggestionElement();
+
+<span class="prim-code-kw">const</span> { id } = <span class="prim-code-kw">await</span> suggestionElement.commitSuggestion({
   targetId: <span class="prim-code-str">'row.123'</span>,
   newValue: { qty: 7, price: 99 },
   summary: <span class="prim-code-str">'Bump qty + price'</span>,

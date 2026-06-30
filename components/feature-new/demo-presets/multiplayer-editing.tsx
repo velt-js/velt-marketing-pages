@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
-import { DarkPanel, AvatarStack, CursorTag } from "../demos";
+import { AvatarStack, CursorTag, DarkPanel } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -8,6 +8,7 @@ import { FintechBoard } from "./fintech-board";
 import { LegalBoard } from "./legal-board";
 import { OperationsBoard } from "./ops-board";
 import { Av, DEL_STYLE, Frame, FACES, IconArrowRight, IconCheck, INS_STYLE } from "./hero-surface";
+import { isWordmarkLibraryLogo, libraryLogo } from "@/components/libraries-new/library-logos";
 
 import "./multiplayer-editing-showcase.css";
 
@@ -35,12 +36,21 @@ const CURSOR_ETHAN: CSSProperties = { color: "#5b7fb8", background: "#5b7fb8" };
  */
 function LiveCursor({ name, tone }: { name: string; tone: CSSProperties }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "flex-end", gap: 0, position: "relative", verticalAlign: "bottom", userSelect: "none" }}>
-      <span style={{ display: "inline-block", width: 2, height: 16, borderRadius: 1, background: tone.color as string, flexShrink: 0 }} />
+    <span style={{
+      position: "relative",
+      display: "inline-block",
+      width: 2,
+      height: "1.15em",
+      borderRadius: 1,
+      background: tone.color as string,
+      verticalAlign: "-0.2em",
+      margin: "0 1px",
+      userSelect: "none",
+    }}>
       <span style={{
         position: "absolute",
         bottom: "100%",
-        left: 0,
+        left: -1,
         whiteSpace: "nowrap",
         fontSize: 10,
         fontWeight: 700,
@@ -103,35 +113,35 @@ function LockBadge({ name, img }: { name: string; img: string }) {
 }
 
 /**
- * Mini "client tab" pane used in pairs to show two clients sharing the same
- * live state value. Highlighted variant signals the pane that was just updated.
- * @param {{ label: string; value: string; highlight?: boolean }} props Tab label, state value string, and optional active highlight.
- * @returns {JSX.Element} Client pane.
+ * One client "browser tab" pane for the state-sync hero: a real pipeline-board
+ * surface (tab header, a status filter row, and a couple of deal rows) shown in
+ * pairs so the same useLiveState filter selection appears in both clients. The
+ * live variant carries an accent ring to mark the tab that drove the change.
+ * @param {{ name: string; img: string; tone: string; live?: boolean }} props Person name, headshot, avatar tone, and active-tab highlight.
+ * @returns {JSX.Element} Client board pane.
  */
-function ClientPane({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+function StateSyncPane({ name, img, tone, live }: { name: string; img: string; tone: string; live?: boolean }) {
   return (
-    <div style={{
-      flex: 1,
-      border: `1.5px solid ${highlight ? "color-mix(in srgb, var(--vlp-color-accent) 45%, transparent)" : "var(--vlp-border-default)"}`,
-      borderRadius: 10,
-      background: highlight ? "var(--vlp-color-accent-soft)" : "var(--vlp-bg-page)",
-      padding: "10px 12px",
-      display: "grid",
-      gap: 6,
-    }}>
-      <span style={{ fontSize: 10, fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-text-subtle)", letterSpacing: "0.05em", textTransform: "uppercase" }}>{label}</span>
-      <span style={{
-        fontSize: 12.5,
-        fontWeight: 700,
-        color: highlight ? "var(--vlp-color-accent-ink)" : "var(--vlp-color-ink)",
-        fontFamily: "var(--vlp-font-mono)",
-      }}>{value}</span>
+    <div className={`mpe-ss-pane${live ? " mpe-ss-pane--live" : ""}`}>
+      <div className="mpe-ss-tabhead">
+        <Av initials={name.slice(0, 2).toUpperCase()} tone={tone} img={img} />
+        {name}&apos;s tab
+      </div>
+      <div className="mpe-ss-filters">
+        <span className="mpe-ss-ft">All</span>
+        <span className="mpe-ss-ft mpe-ss-ft--on">Open</span>
+        <span className="mpe-ss-ft">Won</span>
+      </div>
+      <ul className="mpe-ss-list">
+        <li className="mpe-ss-rowi"><span className="mpe-ss-dot" /><span className="mpe-ss-rowtxt">Acme Corp</span><span className="mpe-ss-amt">$48k</span></li>
+        <li className="mpe-ss-rowi"><span className="mpe-ss-dot" /><span className="mpe-ss-rowtxt">Globex</span><span className="mpe-ss-amt">$22k</span></li>
+      </ul>
     </div>
   );
 }
 
 /**
- * Bidirectional sync-pulse arrow column rendered between two ClientPane elements.
+ * Bidirectional sync-pulse arrow column rendered between two synced panes.
  * Uses --vlp-color-green-approval to convey "live and healthy".
  * @returns {JSX.Element} Sync indicator.
  */
@@ -235,56 +245,12 @@ function IconSync() {
   );
 }
 
-/** @returns {JSX.Element} Git-merge glyph for conflict-free CRDT merges. */
-function IconMerge() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="6" cy="6" r="2.4" />
-      <circle cx="6" cy="18" r="2.4" />
-      <circle cx="18" cy="15" r="2.4" />
-      <path d="M6 8.4v7.2M8.3 7.2A6 6 0 0 0 15.6 14" />
-    </svg>
-  );
-}
-
-/** @returns {JSX.Element} People glyph for live presence. */
-function IconUsers() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="9" cy="8" r="3" />
-      <path d="M3 20a6 6 0 0 1 12 0" />
-      <path d="M16 5.5a3 3 0 0 1 0 5M17 14.2A6 6 0 0 1 21 20" />
-    </svg>
-  );
-}
-
-/** @returns {JSX.Element} History / version-snapshot glyph for checkpoints. */
-function IconHistory() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M3.05 11a9 9 0 1 1 .5 4" />
-      <path d="M3 21v-5h5" />
-      <path d="M12 7v5l3 2" />
-    </svg>
-  );
-}
-
 /** @returns {JSX.Element} Refresh-loop glyph for the restore affordance. */
 function IconRestore() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M3.05 11a9 9 0 1 1 .5 4" />
       <path d="M3 21v-5h5" />
-    </svg>
-  );
-}
-
-/** @returns {JSX.Element} Shield glyph for end-to-end encryption. */
-function IconShield() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
-      <path d="M9 12l2 2 4-4" />
     </svg>
   );
 }
@@ -410,38 +376,30 @@ function IconXmlStore() {
 }
 
 /**
- * A labeled showcase card: the shared white apf-card shell with a colored
- * cmh-cc header bar (icon + title + pill) over a cmh-cc body.
- * @param {{ tone: string; icon: ReactNode; title: string; pill: string; narrow?: boolean; children: ReactNode }} props Header tone class suffix, header glyph, title, pill text, narrow-tile flag, and body content.
- * @returns {JSX.Element} Labeled capability card.
+ * A clean showcase card: a plain white product-mock surface (no decorative
+ * header bar) matching the home + comments page artifacts. The capability's
+ * name, kicker, and supporting copy are supplied by the surrounding
+ * ShowcaseCard chrome, so the artifact itself stays an unlabeled mock.
+ * @param {{ narrow?: boolean; children: ReactNode }} props Narrow-tile flag and body content.
+ * @returns {JSX.Element} Clean capability card.
  */
 function MpeCard({
-  tone,
-  icon,
-  title,
-  pill,
   narrow,
   children,
 }: {
-  tone: string;
-  icon: ReactNode;
-  title: string;
-  pill: string;
   narrow?: boolean;
   children: ReactNode;
 }) {
-  return (
-    <div className="pv">
-      <div className={`apf-card${narrow ? " apf-card--narrow" : ""}`}>
-        <div className={`cmh-cc-head apf-head--${tone}`}>
-          {icon}
-          {title}
-          <span className="cmh-cc-pill">{pill}</span>
-        </div>
-        <div className="cmh-cc-body">{children}</div>
+  try {
+    return (
+      <div className="pv">
+        <div className={`mpe-cap${narrow ? " mpe-cap--narrow" : ""}`}>{children}</div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    console.error("MpeCard failed", error);
+    return null;
+  }
 }
 
 /**
@@ -517,16 +475,13 @@ export function CoEditingHero({ editorName = "Tiptap" }: { editorName?: string }
       </div>
 
       <p className="cmh-doc" style={{ margin: 0 }}>
-        The Q3 campaign centers on the <Sel tone={CURSOR_HOPE}>migration story</Sel>: moving teams
-        from async reviews to <LiveCursor name="Hope" tone={CURSOR_HOPE} /> live collaboration inside the product itself.
+        The Q3 campaign centers on the <Sel tone={CURSOR_HOPE}>migration story</Sel><LiveCursor name="Hope" tone={CURSOR_HOPE} />: moving teams
+        from async reviews to live collaboration inside the product itself.
       </p>
 
       <p className="cmh-doc" style={{ margin: "6px 0 0" }}>
-        Pricing: <Sel tone={CURSOR_ETHAN}>three usage tiers, starting at $0</Sel>: no per-seat cost.{" "}
-        <LiveCursor name="Ethan" tone={CURSOR_ETHAN} />
+        Pricing: <Sel tone={CURSOR_ETHAN}>three usage tiers, starting at $0</Sel><LiveCursor name="Ethan" tone={CURSOR_ETHAN} />: no per-seat cost.
       </p>
-
-      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>two cursors, one document &middot; Yjs merges both streams, zero conflicts</p>
     </Frame>
   );
 }
@@ -610,6 +565,75 @@ export function CoEditingCommentHero({ editorName = "Tiptap" }: { editorName?: s
   );
 }
 
+/**
+ * The editor, canvas, and grid libraries Velt co-editing binds to, mirroring
+ * the homepage Integrations section (EDITORS + CANVAS & DATA). Slugs key into
+ * the shared library-logos map so each chip shows the real brand logo; wordmark
+ * logos render wide with the text label hidden. `soon` flags bindings that are
+ * not yet generally available.
+ */
+const EDITOR_LIBRARIES: { slug: string; label: string; soon?: boolean }[] = [
+  { slug: "tiptap", label: "Tiptap" },
+  { slug: "lexical", label: "Lexical", soon: true },
+  { slug: "blocknote", label: "BlockNote" },
+  { slug: "slatejs", label: "Slate" },
+  { slug: "codemirror", label: "CodeMirror" },
+  { slug: "prosemirror", label: "ProseMirror" },
+  { slug: "quill", label: "Quill" },
+  { slug: "tinymce", label: "TinyMCE" },
+  { slug: "ckeditor", label: "CKEditor" },
+  { slug: "monaco", label: "Monaco" },
+  { slug: "ace", label: "Ace" },
+  { slug: "draftjs", label: "Draft.js" },
+  { slug: "apryse", label: "Apryse" },
+  { slug: "nutrient", label: "Nutrient" },
+  { slug: "superdoc", label: "SuperDoc" },
+  { slug: "platejs", label: "Plate" },
+  { slug: "react-flow", label: "React Flow" },
+  { slug: "ag-grid", label: "AG Grid" },
+  { slug: "tanstack", label: "TanStack" },
+  { slug: "chartjs", label: "Chart.js" },
+  { slug: "highcharts", label: "Highcharts" },
+  { slug: "nivo", label: "Nivo" },
+];
+
+/**
+ * Logo chip-cloud of every editor/canvas/grid library Velt co-editing supports,
+ * using the same brand logos as the homepage Integrations section.
+ * @returns {JSX.Element} The library logo chips.
+ */
+function EditorLibChips() {
+  try {
+    return (
+      <div className="int-chips">
+        {EDITOR_LIBRARIES.map((lib) => {
+          const logo = libraryLogo(lib.slug);
+          const wordmark = isWordmarkLibraryLogo(lib.slug);
+          return (
+            <span className="int-chip" key={lib.slug}>
+              {logo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  className={wordmark ? "int-chip-logo int-chip-logo--wordmark" : "int-chip-logo"}
+                  src={logo}
+                  alt={wordmark ? lib.label : ""}
+                />
+              ) : (
+                <i />
+              )}
+              {wordmark ? null : lib.label}
+              {lib.soon ? <span className="mpe-chip-soon">soon</span> : null}
+            </span>
+          );
+        })}
+      </div>
+    );
+  } catch (error) {
+    console.error("EditorLibChips failed", error);
+    return null;
+  }
+}
+
 export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   "multiplayer-editing/hero/co-editing": <CoEditingHero />,
 
@@ -647,8 +671,6 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
           <button type="button" className="cmh-btn approve" style={{ fontSize: 11 }}>Request the pen</button>
         </div>
       </div>
-
-      <p className="code-microcopy" style={{ margin: 0 }}>pen passes on accept: no racing, no overwrite</p>
     </Frame>
   ),
 
@@ -659,23 +681,17 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   "multiplayer-editing/hero/state-sync": (
     <Frame
       app="ME"
-      crumb={<><b>board</b> <span className="sep">/</span> useLiveState</>}
+      crumb={<><b>Pipeline board</b> <span className="sep">/</span> filters</>}
       users={[
         { initials: "HO", tone: "a2", img: FACE.hope },
         { initials: "ET", tone: "a1", img: FACE.ethan },
       ]}
     >
-      <div style={{ display: "flex", gap: 8, alignItems: "stretch" }}>
-        <ClientPane label="Tab A &middot; Hope" value='status: "open"' highlight />
+      <div className="mpe-ss">
+        <StateSyncPane name="Hope" img={FACE.hope} tone="a2" live />
         <SyncPulse />
-        <ClientPane label="Tab B &middot; Ethan" value='status: "open"' />
+        <StateSyncPane name="Ethan" img={FACE.ethan} tone="a1" />
       </div>
-
-      <DarkPanel footer="local-first &middot; offline-safe &middot; any JSON">
-        {"const [filters, setFilters] = useLiveState(\n  \"board-filters\", { status: \"all\" },\n);\n// every connected client reflects the change"}
-      </DarkPanel>
-
-      <p className="code-microcopy" style={{ margin: 0 }}>Hope changes the filter: Ethan&apos;s tab updates instantly, no refresh</p>
     </Frame>
   ),
 
@@ -708,7 +724,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // SINGLE-EDITOR (wide): one pen, a live audience, read-only enforced — an
   // editor row + watcher row over a request → accept → pass handoff strip.
   "multiplayer-editing/showcase/single-editor": (
-    <MpeCard tone="navy" icon={<IconPen />} title="Single-editor mode" pill="read-only enforced">
+    <MpeCard>
       <div className="mpe-rows">
         <div className="mpe-row">
           <Av initials="HO" tone="a2" img={FACE.hope} />
@@ -740,7 +756,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // STATE-SYNC (narrow): useLiveState — two client tabs reflect one value, a
   // bidirectional sync arrow between them.
   "multiplayer-editing/showcase/state-sync": (
-    <MpeCard tone="slate" icon={<IconSync />} title="Shared live state" pill="useLiveState" narrow>
+    <MpeCard narrow>
       <div className="mpe-sync">
         <div className="mpe-panes">
           <div className="mpe-pane mpe-pane--live">
@@ -764,7 +780,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // MERGE (narrow): Yjs CRDT merges concurrent edits — skeleton doc lines each
   // carrying a named live caret, no keystroke lost.
   "multiplayer-editing/showcase/merge": (
-    <MpeCard tone="plum" icon={<IconMerge />} title="Conflict-free merge" pill="Yjs CRDT" narrow>
+    <MpeCard narrow>
       <div className="mpe-doc">
         <EditLine width="58%" tone={CURSOR_HOPE} name="Hope" align="start" />
         <EditLine width="74%" tone={CURSOR_ETHAN} name="Ethan" align="end" />
@@ -780,7 +796,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // PRESENCE (wide): avatars · named cursors · live selection — a presence
   // stack over a live doc paragraph with two labeled cursors + a selection.
   "multiplayer-editing/showcase/presence": (
-    <MpeCard tone="teal" icon={<IconUsers />} title="Live presence" pill="3 online">
+    <MpeCard>
       <div className="mpe-present">
         <div className="mpe-present-top">
           <span className="mpe-stack">
@@ -804,7 +820,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // CHECKPOINTS (wide): named version snapshots saved + restored by API, the
   // restore broadcasting to every client — a small saved-snapshot timeline.
   "multiplayer-editing/showcase/checkpoints": (
-    <MpeCard tone="ink" icon={<IconHistory />} title="Version checkpoints" pill="named snapshots">
+    <MpeCard>
       <div className="mpe-snaps">
         <span className="mpe-snaps-rail" aria-hidden="true" />
         <div className="mpe-snap mpe-snap--current">
@@ -842,7 +858,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // ENCRYPTION (narrow): your keys encrypt synced content — Velt moves
   // ciphertext, never the content. A plaintext → key → ciphertext flow.
   "multiplayer-editing/showcase/encryption": (
-    <MpeCard tone="navy" icon={<IconShield />} title="End-to-end encryption" pill="your keys" narrow>
+    <MpeCard narrow>
       <div className="mpe-enc">
         <div className="mpe-enc-cell">
           <span className="mpe-enc-ic mpe-enc-ic--plain"><IconDoc /></span>
@@ -874,7 +890,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // OFFLINE (narrow): offline edits queue locally and merge on reconnect — a
   // queued-offline row flowing down into a merged-on-reconnect row.
   "multiplayer-editing/showcase/offline": (
-    <MpeCard tone="slate" icon={<IconCloudOff />} title="Offline-safe" pill="local-first" narrow>
+    <MpeCard narrow>
       <div className="mpe-rows">
         <div className="mpe-row">
           <span className="mpe-row-ic mpe-row-ic--queued"><IconCloudOff /></span>
@@ -897,16 +913,11 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
     </MpeCard>
   ),
 
-  // EDITORS (wide): drop-in bindings for popular editors plus the core library.
+  // EDITORS (wide): drop-in bindings across every supported editor, canvas, and
+  // grid library — real brand logos, mirroring the homepage Integrations set.
   "multiplayer-editing/showcase/editors": (
-    <MpeCard tone="purple" icon={<IconPlug />} title="Editor bindings" pill="drop-in">
-      <div className="int-chips">
-        <span className="int-chip"><i />Tiptap</span>
-        <span className="int-chip"><i />React Flow</span>
-        <span className="int-chip"><i />CodeMirror</span>
-        <span className="int-chip"><i />BlockNote</span>
-        <span className="int-chip"><i />Lexical (soon)</span>
-      </div>
+    <MpeCard>
+      <EditorLibChips />
       <p className="code-microcopy" style={{ marginTop: 12 }}>plus the core library for your own editor, whiteboard, or grid</p>
     </MpeCard>
   ),
@@ -914,7 +925,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // STORES (wide): framework-agnostic CRDT store types with subscriptions and a
   // typed React hook — a grid of the four shared data structures.
   "multiplayer-editing/showcase/stores": (
-    <MpeCard tone="teal" icon={<IconStack />} title="CRDT stores" pill="framework-agnostic">
+    <MpeCard>
       <div className="mpe-stores">
         <div className="mpe-store">
           <span className="mpe-store-ic"><IconTextStore /></span>
@@ -944,7 +955,7 @@ export const MULTIPLAYER_EDITING_DEMOS: Record<string, ReactNode> = {
   // SERVER-WRITES (narrow): a REST CRDT update — connected clients pick up the
   // change. A request line + JSON body over a live "picked up" note.
   "multiplayer-editing/showcase/server-writes": (
-    <MpeCard tone="ink" icon={<IconServer />} title="Server writes" pill="REST API" narrow>
+    <MpeCard narrow>
       <div className="mpe-req">
         <div className="mpe-req-card">
           <div className="mpe-req-line">

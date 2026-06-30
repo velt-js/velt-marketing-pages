@@ -12,6 +12,99 @@
 .vfp .ntf-chan svg { width: 13px; height: 13px; flex: none; }
 .vfp .ntf-chan-dot { width: 7px; height: 7px; border-radius: 2.5px; flex: none; background: var(--vlp-color-accent-wash); }
 
+/* ---------- Notifications hero artifacts (hero tabs) ----------
+   Email digest, Slack relay, and preference panels for the four /notifications
+   hero tabs. Built on the shared Frame + cmh-* surface so they match the
+   comments hero, reusing the showcase .ntf-mail* / .ntf-prefs primitives and
+   adding only the hero-specific extras (sender row, quote, CTA, meta lines). */
+
+/* Muted italic mention quote, shared by the email + Slack hero relays. */
+.vfp .ntf-quote { margin: 0; font-size: 12.5px; line-height: 1.5; letter-spacing: -0.25px; font-style: italic; color: var(--vlp-color-text-muted); }
+
+/* Inline link affordance (Slack relay deep-link back into the app). */
+.vfp .ntf-link { align-self: flex-start; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-accent-ink); text-decoration: underline; text-underline-offset: 2px; }
+
+/* Email digest hero — a fuller preview than the narrow showcase tile. */
+.vfp .ntf-hmail-time { margin-left: auto; flex: none; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-hmail-sender { display: flex; align-items: center; gap: 9px; }
+.vfp .ntf-hmail-sender .av-c { width: 24px; height: 24px; flex: none; }
+.vfp .ntf-hmail-sender-txt { min-width: 0; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .ntf-hmail-sender-txt b { font-weight: 700; color: var(--vlp-color-ink); }
+.vfp .ntf-hmail-meta { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-hmail-cta { align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; padding: 7px 13px; border-radius: 8px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-heading); font-size: 12px; font-weight: 700; letter-spacing: -0.24px; }
+.vfp .ntf-hmail-cta svg { width: 13px; height: 13px; flex: none; }
+
+/* Preferences hero — mono meta lines above/below the channel control. */
+.vfp .ntf-hpref-head { margin: 0; font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .ntf-hpref-legend { margin: 0; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+
+/* In-app inbox hero — an in-product surface (mirrors the comments Freestyle
+   hero): a faint product backdrop with a notification panel anchored under the
+   header bell, so the inbox reads as a live dropdown over real work rather than
+   a bare list. The panel reuses the shared .cmh-* inbox rows. */
+
+/* Header bell with unread count badge (sits in the Frame's right slot). */
+.vfp .ntf-hero-bell { position: relative; display: inline-grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 9px; background: var(--vlp-bg-page); border: 1px solid var(--vlp-border-default); color: var(--vlp-color-ink-soft); }
+.vfp .ntf-hero-bell svg { width: 16px; height: 16px; }
+.vfp .ntf-hero-bell-badge { position: absolute; top: -6px; right: -6px; min-width: 16px; height: 16px; padding: 0 4px; display: grid; place-items: center; border-radius: 999px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 700; border: 2px solid var(--vlp-bg-section-alt); }
+
+/* Stage holds the layered backdrop + the floating panel. */
+.vfp .ntf-hero-stage { position: relative; min-height: 308px; }
+
+/* Faint product behind the panel: a doc title, body lines, and a small chart
+   whose hot bar echoes the "pricing claim on Q3 deck" the agent flagged. */
+.vfp .ntf-hero-backdrop { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 12px; padding: 4px 2px; opacity: 0.6; filter: saturate(0.65); pointer-events: none; }
+.vfp .ntf-bd-title { width: 42%; height: 13px; border-radius: 5px; background: var(--vlp-bg-wash); }
+.vfp .ntf-bd-line { height: 9px; border-radius: 5px; background: var(--vlp-bg-wash); }
+.vfp .ntf-bd-chart { margin-top: auto; display: flex; align-items: flex-end; gap: 20px; height: 116px; padding: 0 4px; border-bottom: 2px solid var(--vlp-border-subtle); }
+.vfp .ntf-bd-chart span { flex: 1; max-width: 52px; border-radius: 3px 3px 0 0; background: #cfe2f7; }
+.vfp .ntf-bd-chart .ntf-bd-chart-hot { background: #9cc6f2; }
+
+/* The anchored notification dropdown. */
+.vfp .ntf-hero-panel { position: relative; z-index: 1; width: min(360px, 100%); margin-left: auto; display: grid; gap: 9px; padding: 12px 14px 14px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); box-shadow: 0 18px 46px rgba(0, 0, 0, 0.16); }
+.vfp .ntf-hero-panel-caret { position: absolute; top: -7px; right: 18px; width: 12px; height: 12px; background: var(--vlp-bg-page); border-left: 1px solid var(--vlp-border-default); border-top: 1px solid var(--vlp-border-default); border-radius: 3px 0 0 0; transform: rotate(45deg); }
+.vfp .ntf-hero-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 9px; border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .ntf-hero-panel-title { display: inline-flex; align-items: center; gap: 7px; font-family: var(--vlp-font-heading); font-size: 13px; font-weight: 700; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .ntf-hero-panel-title svg { width: 15px; height: 15px; flex: none; color: var(--vlp-color-accent); }
+.vfp .ntf-hero-panel-new { font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.03em; color: var(--vlp-color-accent-ink); background: var(--vlp-color-accent-soft); border-radius: 999px; padding: 3px 7px; }
+
+/* Email hero — an inline two-pane email client: the inbox list beside the
+   opened Velt notification reading pane (no modal overlay). */
+.vfp .ntf-mailc-unread { font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.03em; color: var(--vlp-color-accent-ink); background: var(--vlp-color-accent-soft); border-radius: 999px; padding: 3px 8px; flex: none; }
+.vfp .ntf-mailc { display: grid; grid-template-columns: 150px 1fr; align-items: start; }
+.vfp .ntf-mailc-list { display: flex; flex-direction: column; gap: 4px; padding-right: 13px; border-right: 1px solid var(--vlp-border-subtle); }
+.vfp .ntf-mailc-li { display: flex; flex-direction: column; gap: 3px; padding: 9px 10px; border-radius: 10px; }
+.vfp .ntf-mailc-li--on { background: var(--vlp-color-accent-soft); }
+.vfp .ntf-mailc-li-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.vfp .ntf-mailc-li-from { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; font-weight: 700; letter-spacing: -0.23px; color: var(--vlp-color-ink); }
+.vfp .ntf-mailc-li-time { flex: none; font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-mailc-li-subj { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; letter-spacing: -0.22px; color: var(--vlp-color-text-muted); }
+.vfp .ntf-mailc-read { min-width: 0; display: grid; gap: 8px; padding-left: 14px; }
+.vfp .ntf-mailc-tools { display: flex; align-items: center; gap: 3px; }
+.vfp .ntf-mailc-tool { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 7px; color: var(--vlp-color-text-muted); }
+.vfp .ntf-mailc-tool svg { width: 15px; height: 15px; }
+.vfp .ntf-mailc-tool--star { margin-left: auto; color: #e6a817; }
+
+/* Slack hero — a two-pane Slack window: a workspace + channel rail beside the
+   channel feed (Velt relay + agent finding) and a Slack-style composer. */
+.vfp .ntf-slack { display: grid; grid-template-columns: 116px 1fr; gap: 13px; }
+.vfp .ntf-slack-side { display: flex; flex-direction: column; gap: 3px; padding: 10px 9px; border: 1px solid var(--vlp-border-subtle); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .ntf-slack-ws { display: grid; place-items: center; width: 26px; height: 26px; margin-bottom: 7px; border-radius: 8px; background: var(--vlp-color-accent); color: #fff; font-family: var(--vlp-font-heading); font-size: 12px; font-weight: 800; }
+.vfp .ntf-slack-ch { display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-radius: 7px; font-size: 12px; letter-spacing: -0.24px; color: var(--vlp-color-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vfp .ntf-slack-ch--on { background: var(--vlp-color-ink); color: #fff; font-weight: 600; }
+.vfp .ntf-slack-presence { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--vlp-color-green-approval); }
+.vfp .ntf-slack-main { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.vfp .ntf-slack-head { display: flex; align-items: baseline; gap: 9px; padding-bottom: 10px; border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .ntf-slack-head-ch { font-family: var(--vlp-font-heading); font-size: 14px; font-weight: 800; letter-spacing: -0.28px; color: var(--vlp-color-ink); }
+.vfp .ntf-slack-head-meta { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-slack-feed { display: flex; flex-direction: column; gap: 13px; }
+.vfp .ntf-slack-thread { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-accent-ink); }
+.vfp .ntf-slack-thread svg { width: 13px; height: 13px; flex: none; }
+.vfp .ntf-slack-composer { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--vlp-border-default); border-radius: 10px; background: var(--vlp-bg-page); }
+.vfp .ntf-slack-composer-ph { flex: 1; min-width: 0; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-text-subtle); }
+.vfp .ntf-slack-send { display: grid; place-items: center; width: 27px; height: 27px; flex: none; border-radius: 7px; background: var(--vlp-color-accent); color: #fff; }
+.vfp .ntf-slack-send svg { width: 14px; height: 14px; }
+
 /* Email notifications — a compact email preview that the SDK fired off. */
 .vfp .ntf-mail { display: flex; flex-direction: column; gap: 10px; }
 .vfp .ntf-mail-card { border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 12px; background: var(--vlp-bg-section-alt); overflow: hidden; }
@@ -150,3 +243,29 @@
 .vfp .ntf-rel-cap strong { font-weight: 600; color: var(--vlp-color-ink); }
 .vfp .ntf-rel-arrow { display: inline-grid; place-items: center; flex: none; width: 18px; height: 18px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
 .vfp .ntf-rel-arrow svg { width: 12px; height: 12px; }
+
+/* ---------- Notifications "What it is" scene (.ntf-wii-*) ----------
+   The "What it is" inbox is wrapped in the shared Frame (.cmh) so it reads as
+   the same product-surface family as the comments / audit-trail heroes. It
+   reuses the .cmh-* inbox rows (filters, group, .cmh-inrow / .cmh-inmain),
+   the .cmh-acts + .cmh-btn approve/reject actions, the .chip atoms, and the
+   .av-c avatars (agent flower / human headshot) — so only the bits unique to
+   this scene live here. Scoped under .vfp. */
+
+/* Header presence cluster: a mono actor-kind label beside the reused
+   .cmh-present avatar stack, naming the feed's two actor types in the chrome. */
+.vfp .ntf-wii-actors { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; color: var(--vlp-color-text-muted); white-space: nowrap; }
+
+/* Batched-digest actor avatar: a neutral stacked-layers glyph badge sized to
+   match the 26px .av-c headshots (mirrors the audit-trail .audw-sys system
+   glyph) so the agent / human / digest rows align in one feed. */
+.vfp .ntf-wii-digest { display: grid; place-items: center; width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); box-shadow: inset 0 0 0 1px var(--vlp-border-subtle); }
+.vfp .ntf-wii-digest svg { width: 14px; height: 14px; }
+
+/* Inline agent-finding actions (Approve / Reject) inside the first row body. */
+.vfp .ntf-wii-acts { margin-top: 8px; }
+
+/* Full-bleed mono consent footer: bleeds the 16px .cmh-body padding to the
+   frame edges (mirroring the audit-trail .audw-export-foot status strip). */
+.vfp .ntf-wii-foot { display: flex; align-items: center; gap: 8px; margin: 3px -16px -16px; padding: 10px 16px; border-top: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.01em; color: var(--vlp-color-text-muted); }
+.vfp .ntf-wii-foot-dot { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--vlp-color-green-approval); }

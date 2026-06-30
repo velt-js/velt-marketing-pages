@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 
+import FlowerAvatar from "../../home-new/FlowerAvatar";
 import { AvatarStack, CursorTag } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
@@ -119,64 +120,15 @@ function PsCursor({
           fontSize: 10.5,
           fontWeight: 600,
           lineHeight: 1,
-          padding: "3px 7px",
+          padding: "4px 9px",
           borderRadius: 999,
           whiteSpace: "nowrap",
-          marginTop: 2,
+          marginTop: 1,
+          marginLeft: -3,
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.14)",
         }}
       >
         {label ?? name}
-      </span>
-    </div>
-  );
-}
-
-/**
- * A roster row showing a person's avatar, name, and online/away badge.
- * @param {{ initials: string; tone: "a1" | "a2" | "a3" | "a4"; img?: string; name: string; away?: boolean }} props Row content.
- * @returns {JSX.Element} Presence roster row.
- */
-function RosterRow({
-  initials,
-  tone,
-  img,
-  name,
-  away,
-}: {
-  initials: string;
-  tone: "a1" | "a2" | "a3" | "a4";
-  img?: string;
-  name: string;
-  away?: boolean;
-}) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-      <div style={{ position: "relative", flexShrink: 0 }}>
-        <Av initials={initials} tone={tone} img={img} />
-        <span
-          style={{
-            position: "absolute",
-            bottom: -1,
-            right: -1,
-            width: 8,
-            height: 8,
-            borderRadius: "50%",
-            background: away ? "var(--vlp-color-text-subtle)" : "var(--vlp-color-green-approval)",
-            border: "1.5px solid var(--vlp-bg-page)",
-          }}
-        />
-      </div>
-      <span style={{ fontSize: 12.5, fontWeight: 600, color: "var(--vlp-color-ink)", flex: 1 }}>{name}</span>
-      <span
-        style={{
-          fontSize: 10,
-          fontWeight: 600,
-          color: away ? "var(--vlp-color-text-subtle)" : "var(--vlp-color-green-approval)",
-          fontFamily: "var(--vlp-font-mono)",
-          letterSpacing: "0.04em",
-        }}
-      >
-        {away ? "away" : "live"}
       </span>
     </div>
   );
@@ -196,36 +148,60 @@ function SelectionSpan({
   color: string;
   name: string;
 }) {
+  const styleVars = {
+    ["--sel"]: color,
+    ["--selink"]: `color-mix(in srgb, ${color}, #000 55%)`,
+  } as CSSProperties;
   return (
-    <span style={{ position: "relative", display: "inline" }}>
-      <span
-        style={{
-          background: color,
-          borderRadius: 3,
-          padding: "1px 2px",
-        }}
-      >
-        {children}
-      </span>
-      <span
-        style={{
-          position: "absolute",
-          top: -18,
-          left: 0,
-          background: color,
-          color: "#fff",
-          fontSize: 9.5,
-          fontWeight: 700,
-          padding: "2px 6px",
-          borderRadius: 999,
-          whiteSpace: "nowrap",
-          lineHeight: 1.2,
-          filter: "brightness(0.88)",
-        }}
-      >
-        {name}
-      </span>
+    <span className="prs-sel" style={styleVars}>
+      <span className="prs-sel-hl">{children}</span>
+      <span className="prs-sel-flag">{name}</span>
     </span>
+  );
+}
+
+/**
+ * A home-style live cursor: either an avatar-anchored pointer (ringed headshot
+ * + pointer) when `img` is set, or a pointer + colored name pill otherwise.
+ * Color drives both the pointer fill and the pill/ring via the --cur property.
+ * @param {{ name?: string; color: string; img?: string; mono?: boolean; style?: CSSProperties }} props Cursor name, color, optional headshot, mono-pill flag, and absolute-position style.
+ * @returns {JSX.Element} Live cursor.
+ */
+function HomeCursor({
+  name,
+  color,
+  img,
+  mono,
+  style,
+}: {
+  name?: string;
+  color: string;
+  img?: string;
+  mono?: boolean;
+  style?: CSSProperties;
+}) {
+  const styleVars = { ...style, ["--cur"]: color } as CSSProperties;
+  const pointer = (
+    <svg className="prs-cur-ptr" viewBox="0 0 14 18" fill="none" aria-hidden="true">
+      <path d="M1 1.5l11 5.5-5.5 1.5L5 15 1 1.5z" fill={color} stroke="#fff" strokeWidth="1.2" strokeLinejoin="round" />
+    </svg>
+  );
+  if (img) {
+    return (
+      <div className="prs-cur prs-cur--avatar" style={styleVars}>
+        <span className="prs-cur-ava">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img} alt={name ?? ""} />
+        </span>
+        {pointer}
+      </div>
+    );
+  }
+  return (
+    <div className="prs-cur" style={styleVars}>
+      {pointer}
+      <span className={`prs-cur-name${mono ? " prs-cur-name--mono" : ""}`}>{name}</span>
+    </div>
   );
 }
 
@@ -395,24 +371,60 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
         { initials: "YO", tone: TONE.you, img: FACE.you },
       ]}
     >
-      <p className="cmh-doc" style={{ marginBottom: 4 }}>
-        Who&rsquo;s in this document right now:
-      </p>
-      <div
-        style={{
-          border: "1px solid var(--vlp-border-default)",
-          borderRadius: 10,
-          background: "var(--vlp-bg-section-alt)",
-          padding: "10px 14px",
-          display: "grid",
-          gap: 10,
-        }}
-      >
-        <RosterRow initials="MA" tone={TONE.maya} img={FACE.maya} name="Maya" />
-        <RosterRow initials="DV" tone={TONE.dev} img={FACE.dev} name="Dev" />
-        <RosterRow initials="YO" tone={TONE.you} img={FACE.you} name="You" away />
+      <div className="prs-hero-head">
+        <span className="prs-hero-title">Who&rsquo;s in this document right now</span>
+        <span className="cmh-live"><i />3 here</span>
       </div>
-      <p className="cmh-doc" style={{ opacity: 0.55, fontSize: 11 }}>
+      <div className="prs-hero-pile" aria-hidden="true">
+        <span className="prs-hero-face">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={FACE.maya} alt="" />
+          <i className="prs-hero-fdot" />
+        </span>
+        <span className="prs-hero-face">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={FACE.dev} alt="" />
+          <i className="prs-hero-fdot" />
+        </span>
+        <span className="prs-hero-face">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={FACE.you} alt="" />
+          <i className="prs-hero-fdot prs-hero-fdot--away" />
+        </span>
+        <span className="prs-hero-face prs-hero-face--agent">
+          <FlowerAvatar tone="violet" uid="prs-hero-agent" />
+        </span>
+      </div>
+      <div className="prs-hero-roster">
+        <PersonRow
+          initials="MA"
+          tone={TONE.maya}
+          img={FACE.maya}
+          name="Maya"
+          sub="editing Sheet 1"
+          state="on"
+          right={<span className="cmh-live"><i />live</span>}
+        />
+        <PersonRow
+          initials="DV"
+          tone={TONE.dev}
+          img={FACE.dev}
+          name="Dev"
+          sub="viewing"
+          state="on"
+          right={<span className="cmh-live"><i />live</span>}
+        />
+        <PersonRow
+          initials="YO"
+          tone={TONE.you}
+          img={FACE.you}
+          name="You"
+          sub="idle 4m"
+          state="away"
+          right={<span className="prs-tag">away</span>}
+        />
+      </div>
+      <p className="code-microcopy" style={{ margin: 0 }}>
         2 active · 1 away · avatars update in real time
       </p>
     </Frame>
@@ -430,33 +442,25 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
         { initials: "DV", tone: TONE.dev, img: FACE.dev },
       ]}
     >
-      <div
-        style={{
-          border: "1px solid var(--vlp-border-default)",
-          borderRadius: 10,
-          background: "var(--vlp-bg-page)",
-          padding: 14,
-          position: "relative",
-          minHeight: 110,
-        }}
-      >
-        <p className="cmh-doc">
+      <div className="prs-canvas" style={{ minHeight: 150 }}>
+        <p className="cmh-doc" style={{ margin: 0 }}>
           7.2 The Provider shall indemnify and hold harmless the Client against all
           claims arising from the Services provided under this agreement.
         </p>
-        <div className="sk" style={{ width: "75%", marginTop: 8 }} />
-        <div className="sk" style={{ width: "55%", marginTop: 6 }} />
-        {/* Maya's cursor — upper-left area */}
-        <PsCursor
+        <div className="sk" style={{ width: "75%" }} />
+        <div className="sk" style={{ width: "55%" }} />
+        {/* Maya — avatar-anchored cursor, upper-left */}
+        <HomeCursor
           name="Maya"
-          color="oklch(0.60 0.13 35)"
-          style={{ position: "absolute", top: 28, left: 22 }}
+          color="oklch(0.58 0.16 32)"
+          img={FACE.maya}
+          style={{ top: 18, left: 18 }}
         />
-        {/* Dev's cursor — lower-right area */}
-        <PsCursor
+        {/* Dev — pointer + name pill, lower-right */}
+        <HomeCursor
           name="Dev"
           color="#5b7fb8"
-          style={{ position: "absolute", bottom: 22, right: 28 }}
+          style={{ bottom: 20, right: 30 }}
         />
       </div>
     </Frame>
@@ -473,16 +477,8 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
         { initials: "DV", tone: TONE.dev, img: FACE.dev },
       ]}
     >
-      <div
-        style={{
-          border: "1px solid var(--vlp-border-default)",
-          borderRadius: 10,
-          background: "var(--vlp-bg-page)",
-          padding: "20px 14px 14px",
-          position: "relative",
-        }}
-      >
-        <p className="cmh-doc" style={{ lineHeight: 1.9 }}>
+      <div className="prs-canvas" style={{ minHeight: "auto", paddingTop: 26 }}>
+        <p className="cmh-doc" style={{ margin: 0, lineHeight: 2 }}>
           7.2 The Provider shall{" "}
           <SelectionSpan color="oklch(0.88 0.08 35)" name="Maya">
             indemnify and hold harmless
@@ -494,7 +490,7 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
           from the Services.
         </p>
       </div>
-      <p className="cmh-doc" style={{ opacity: 0.55, fontSize: 11 }}>
+      <p className="code-microcopy" style={{ margin: 0 }}>
         each selection is attributed in real time · no conflicts
       </p>
     </Frame>
@@ -509,62 +505,26 @@ export const PRESENCE_DEMOS: Record<string, ReactNode> = {
       users={[{ initials: "MA", tone: TONE.maya, img: FACE.maya }]}
     >
       {/* Follow banner */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          background: "oklch(0.88 0.08 35 / 0.25)",
-          border: "1px solid oklch(0.80 0.10 35 / 0.4)",
-          borderRadius: 10,
-          padding: "8px 12px",
-        }}
-      >
+      <div className="prs-follow-banner">
         <Av initials="MA" tone={TONE.maya} img={FACE.maya} />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <p style={{ margin: 0, fontSize: 12.5, fontWeight: 700, color: "var(--vlp-color-ink)" }}>
-            Following Maya
-          </p>
-          <p style={{ margin: 0, fontSize: 11, color: "var(--vlp-color-text-muted)" }}>
-            Your viewport mirrors hers · click anywhere to break free
-          </p>
-        </div>
-        <button
-          type="button"
-          style={{
-            fontSize: 11,
-            fontWeight: 600,
-            color: "var(--vlp-color-text-muted)",
-            background: "var(--vlp-bg-page)",
-            border: "1px solid var(--vlp-border-default)",
-            borderRadius: 7,
-            padding: "4px 10px",
-            cursor: "pointer",
-          }}
-        >
-          Stop
-        </button>
+        <span className="prs-follow-main">
+          <span className="prs-follow-title">Following Maya</span>
+          <span className="prs-follow-sub">Your viewport mirrors hers · click anywhere to break free</span>
+        </span>
+        <button type="button" className="prs-follow-stop">Stop</button>
       </div>
 
       {/* Simulated viewport: Maya's cursor on doc text */}
-      <div
-        style={{
-          border: "1px solid var(--vlp-border-default)",
-          borderRadius: 10,
-          background: "var(--vlp-bg-page)",
-          padding: "14px 14px 14px",
-          position: "relative",
-          minHeight: 88,
-        }}
-      >
-        <p className="cmh-doc">
+      <div className="prs-canvas" style={{ minHeight: 92 }}>
+        <p className="cmh-doc" style={{ margin: 0 }}>
           7.3 Liability shall not exceed the fees paid in the preceding{" "}
           <span className="cmh-mark">twelve (12) months</span> of service.
         </p>
-        <PsCursor
+        <HomeCursor
           name="Maya"
-          color="oklch(0.60 0.13 35)"
-          style={{ position: "absolute", bottom: 16, right: 22 }}
+          color="oklch(0.58 0.16 32)"
+          img={FACE.maya}
+          style={{ bottom: 14, right: 22 }}
         />
       </div>
 

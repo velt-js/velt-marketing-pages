@@ -1,8 +1,10 @@
 import type { ReactNode } from "react";
 
 import "./audit-trail-showcase.css";
-import { AuditLog, Precedent, DarkPanel } from "./demos";
-import { Av, AgentFindingCard, FACES } from "./demo-presets/hero-surface";
+import "./demo-presets/approval-flows-whatitis.css";
+import "./demo-presets/audit-trail-whatitis.css";
+import type { ChipKind } from "./demos";
+import { Av, AgentFindingCard, FACES, Frame, type PresenceUser } from "./demo-presets/hero-surface";
 import { ShieldIcon, VeltMark } from "./icons";
 import type { FeatureNewDemoKey } from "./demo-keys";
 import { MEMORY_DEMOS } from "./demo-presets/memory";
@@ -36,20 +38,161 @@ import { SOLUTIONS_LEGAL_DEMOS } from "./demo-presets/solutions-legal";
 // visuals from here, so a CMS-driven page renders byte-for-byte like its
 // static reference. Visuals are simulated, not live SDK instances.
 
-const HERO_EXPORT = `POST /v2/activities/get
-{ "data": { "documentId": "filing-q3" } }
-
-[{
-  "actionType": "approval.changed",
-  "actionUser": "sarah@acme.com",
-  "note": "Cleared with legal"
-}]`;
-
 // Audit-trail showcase personas mapped to the shared headshots.
 const AUD_FACE = {
   sarah: FACES.hope,
   maya: FACES.fenne,
 } as const;
+
+// Actor types sharing one audit trail: an AI agent, a human, or a system/webhook
+// actor. Drives the per-row avatar (agent flower / headshot / webhook glyph) and
+// the mono actor-kind label across the hero feed and the "What it is" timeline.
+const ACTOR_AGENT = "agent";
+const ACTOR_HUMAN = "human";
+const ACTOR_SYSTEM = "system";
+
+// App badge shown in every audit-trail hero <Frame> chrome (matches the "VC" /
+// "SD" badges on the comments hero surfaces).
+const AUDIT_APP = "AT";
+
+type AuditActor = typeof ACTOR_AGENT | typeof ACTOR_HUMAN | typeof ACTOR_SYSTEM;
+
+type AuditChip = { label: string; kind: ChipKind };
+
+/** @returns {JSX.Element} Webhook / system glyph for system-actor audit rows. */
+function IconWebhook() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M9 9a3 3 0 1 1 4.2 2.75L16 17" />
+      <path d="M14.5 17a3 3 0 1 1-2.9-3.75" />
+      <path d="M9.5 11.25 6.6 16.2A3 3 0 1 0 9 21" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} History / clock-arrow glyph for the audit-trail head bars. */
+function IconHistory() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M3.5 12a8.5 8.5 0 1 1 2.6 6.1" />
+      <path d="M3.5 18v-4h4" />
+      <path d="M12 7.5V12l3 1.8" />
+    </svg>
+  );
+}
+
+/**
+ * Per-actor avatar for one audit entry: the agent-flower mark for agent actors,
+ * a real headshot for humans, and a neutral webhook glyph badge for system
+ * actors — so all three actor types align in one trail.
+ * @param {{ actor: AuditActor; initials: string; img?: string }} props Actor type, fallback initials, and optional headshot URL.
+ * @returns {JSX.Element} The actor avatar.
+ */
+function AuditAvatar({ actor, initials, img }: { actor: AuditActor; initials: string; img?: string }) {
+  if (actor === ACTOR_SYSTEM) {
+    return (
+      <span className="audw-sys" role="img" aria-label={initials}>
+        <IconWebhook />
+      </span>
+    );
+  }
+  return <Av initials={initials} agent={actor === ACTOR_AGENT} img={img} />;
+}
+
+/**
+ * Audit-trail hero <Frame> header right-slot: an overlapping participant avatar
+ * stack beside a mono meta label, mirroring the comments-hero presence cluster
+ * so the audit-trail surfaces read as the same family of in-product frames.
+ * @param {{ users: PresenceUser[]; meta: string }} props Participants on the trail and the mono meta text (filter / who·when·why).
+ * @returns {JSX.Element} The header meta cluster.
+ */
+function AuditHeaderMeta({ users, meta }: { users: PresenceUser[]; meta: string }) {
+  return (
+    <div className="audw-hmeta">
+      <div className="audw-hstack">
+        {users?.map((user, index) => (
+          <Av key={`${user?.initials}-${index}`} initials={user?.initials} tone={user?.tone} agent={user?.agent} img={user?.img} />
+        ))}
+      </div>
+      <span className="audw-hfilter">{meta}</span>
+    </div>
+  );
+}
+
+/**
+ * One flat audit-feed row for the hero timeline / history surfaces: a mono
+ * timestamp, the per-actor avatar, the attributed event, and the colour-coded
+ * status chip.
+ * @param {{ ts: string; actor: AuditActor; initials: string; img?: string; ev: ReactNode; chip: AuditChip }} props Row content.
+ * @returns {JSX.Element} An audit-feed row.
+ */
+function AuditRow({
+  ts,
+  actor,
+  initials,
+  img,
+  ev,
+  chip,
+}: {
+  ts: string;
+  actor: AuditActor;
+  initials: string;
+  img?: string;
+  ev: ReactNode;
+  chip: AuditChip;
+}) {
+  return (
+    <div className="audw-row">
+      <span className="audw-row-ts">{ts}</span>
+      <AuditAvatar actor={actor} initials={initials} img={img} />
+      <span className="audw-row-ev">{ev}</span>
+      <span className={`chip chip-${chip.kind}`}>{chip.label}</span>
+    </div>
+  );
+}
+
+/**
+ * One timeline node card for the "What it is" scene: the per-actor avatar beside
+ * a mono "timestamp · actor" meta line and the attributed event line, with the
+ * colour-coded status chip pinned right. Sibling nodes are joined by the thin
+ * .audw-stem spine so the run reads as one trail.
+ * @param {{ ts: string; actor: AuditActor; initials: string; img?: string; name: ReactNode; ev: ReactNode; chip: AuditChip }} props Node content.
+ * @returns {JSX.Element} A timeline node card.
+ */
+function AuditNode({
+  ts,
+  actor,
+  initials,
+  img,
+  name,
+  ev,
+  chip,
+}: {
+  ts: string;
+  actor: AuditActor;
+  initials: string;
+  img?: string;
+  name: ReactNode;
+  ev: ReactNode;
+  chip: AuditChip;
+}) {
+  return (
+    <div className={`audw-node${actor === ACTOR_SYSTEM ? " audw-node--system" : ""}`}>
+      <AuditAvatar actor={actor} initials={initials} img={img} />
+      <span className="audw-node-main">
+        <span className="audw-node-meta">
+          {ts}
+          <span className="afw-dot">·</span>
+          <span className={`audw-node-kind${actor === ACTOR_AGENT ? " audw-node-kind--agent" : ""}`}>{actor}</span>
+        </span>
+        <span className="audw-node-line">
+          <strong>{name}</strong> {ev}
+        </span>
+      </span>
+      <span className={`chip chip-${chip.kind}`}>{chip.label}</span>
+    </div>
+  );
+}
 
 /** @returns {JSX.Element} Activity / pulse glyph for the capture + recording cards. */
 function IconPulse() {
@@ -253,119 +396,206 @@ function IconKey() {
 
 const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
   "audit-trail/hero/timeline": (
-    <AuditLog
-      head={{ left: "Quarterly filing · today", right: "filter: all features" }}
-      rows={[
-        {
-          ts: "09:02:11",
-          ev: (
-            <>
-              <strong>Brand Agent</strong> flagged a pricing claim
-            </>
-          ),
-          chip: { label: "agent", kind: "agent" },
-        },
-        {
-          ts: "09:14:40",
-          ev: (
-            <>
-              <strong>Maya</strong> replied: “Second claim is sourced, see footnote 4”
-            </>
-          ),
-          chip: { label: "human", kind: "pending" },
-        },
-        {
-          ts: "09:21:03",
-          ev: (
-            <>
-              <strong>Sarah</strong> approved: “Looks good”
-            </>
-          ),
-          chip: { label: "approved", kind: "approved" },
-        },
-        {
-          ts: "09:21:04",
-          ev: (
-            <>
-              <strong>Webhook</strong> review.approved delivered
-            </>
-          ),
-          chip: { label: "200", kind: "approved" },
-        },
-      ]}
-    />
+    <Frame
+      app={AUDIT_APP}
+      crumb={<><b>Audit trail</b> <span className="sep">/</span> Quarterly filing</>}
+      right={
+        <AuditHeaderMeta
+          users={[
+            { initials: "BA", agent: true },
+            { initials: "MA", tone: "a2", img: AUD_FACE.maya },
+            { initials: "SR", tone: "a3", img: AUD_FACE.sarah },
+          ]}
+          meta="filter: all features"
+        />
+      }
+    >
+      <div className="audw-feed">
+        <AuditRow
+          ts="09:02:11"
+          actor={ACTOR_AGENT}
+          initials="BA"
+          ev={<><strong>Brand Agent</strong> flagged a pricing claim</>}
+          chip={{ label: "agent", kind: "agent" }}
+        />
+        <AuditRow
+          ts="09:14:40"
+          actor={ACTOR_HUMAN}
+          initials="MA"
+          img={AUD_FACE.maya}
+          ev={<><strong>Maya</strong> replied: “Second claim is sourced, see footnote 4”</>}
+          chip={{ label: "human", kind: "pending" }}
+        />
+        <AuditRow
+          ts="09:21:03"
+          actor={ACTOR_HUMAN}
+          initials="SR"
+          img={AUD_FACE.sarah}
+          ev={<><strong>Sarah</strong> approved: “Looks good”</>}
+          chip={{ label: "approved", kind: "approved" }}
+        />
+        <AuditRow
+          ts="09:21:04"
+          actor={ACTOR_SYSTEM}
+          initials="Webhook"
+          ev={<><strong>Webhook</strong> review.approved delivered</>}
+          chip={{ label: "200", kind: "approved" }}
+        />
+      </div>
+    </Frame>
   ),
 
   "audit-trail/hero/export": (
-    <DarkPanel footer="structured JSON · filterable · PDF & CSV (coming soon)">{HERO_EXPORT}</DarkPanel>
+    <Frame
+      app={AUDIT_APP}
+      crumb={<><b>Audit trail</b> <span className="sep">/</span> activities.get</>}
+      right={<span className="audw-hfilter">POST · JSON</span>}
+    >
+      <p className="audw-export-req">
+        <b>documentId</b> = filing-q3 · 1 activity returned
+      </p>
+      <div className="audw-export-rec">
+        <div className="audw-rec-row">
+          <span className="audw-rec-key">actionType</span>
+          <code className="afw-code">approval.changed</code>
+        </div>
+        <div className="audw-rec-row">
+          <span className="audw-rec-key">actionUser</span>
+          <span className="audw-rec-val">
+            <Av initials="SR" img={AUD_FACE.sarah} />
+            sarah@acme.com
+          </span>
+        </div>
+        <div className="audw-rec-row">
+          <span className="audw-rec-key">note</span>
+          <span className="audw-rec-val audw-rec-note">“Cleared with legal”</span>
+        </div>
+      </div>
+      <div className="audw-fmts">
+        <span className="chip chip-approved">JSON</span>
+        <span className="chip-soon">CSV soon</span>
+        <span className="chip-soon">PDF soon</span>
+      </div>
+      <div className="audw-export-foot">
+        <span className="audw-export-pulse" />
+        structured JSON · filterable · PDF &amp; CSV (coming soon)
+      </div>
+    </Frame>
   ),
 
   "audit-trail/hero/history": (
-    <AuditLog
-      head={{ left: "statusHistory · filing-q3", right: "who · when · why" }}
-      rows={[
-        {
-          ts: "Mon 14:01",
-          ev: (
-            <>
-              <strong>Jordan</strong> submitted for review
-            </>
-          ),
-          chip: { label: "submitted", kind: "pending" },
-        },
-        {
-          ts: "Mon 14:03",
-          ev: (
-            <>
-              <strong>Compliance Agent</strong> passed
-            </>
-          ),
-          chip: { label: "agent", kind: "agent" },
-        },
-        {
-          ts: "Tue 09:21",
-          ev: (
-            <>
-              <strong>Sarah</strong> approved · “Cleared with legal”
-            </>
-          ),
-          chip: { label: "approved", kind: "approved" },
-        },
-      ]}
-    />
+    <Frame
+      app={AUDIT_APP}
+      crumb={<><b>statusHistory</b> <span className="sep">/</span> filing-q3</>}
+      right={
+        <AuditHeaderMeta
+          users={[
+            { initials: "JO", tone: "a1", img: FACES.jeff },
+            { initials: "CA", agent: true },
+            { initials: "SR", tone: "a3", img: AUD_FACE.sarah },
+          ]}
+          meta="who · when · why"
+        />
+      }
+    >
+      <div className="audw-feed">
+        <AuditRow
+          ts="Mon 14:01"
+          actor={ACTOR_HUMAN}
+          initials="JO"
+          img={FACES.jeff}
+          ev={<><strong>Jordan</strong> submitted for review</>}
+          chip={{ label: "submitted", kind: "pending" }}
+        />
+        <AuditRow
+          ts="Mon 14:03"
+          actor={ACTOR_AGENT}
+          initials="CA"
+          ev={<><strong>Compliance Agent</strong> passed</>}
+          chip={{ label: "agent", kind: "agent" }}
+        />
+        <AuditRow
+          ts="Tue 09:21"
+          actor={ACTOR_HUMAN}
+          initials="SR"
+          img={AUD_FACE.sarah}
+          ev={<><strong>Sarah</strong> approved · “Cleared with legal”</>}
+          chip={{ label: "approved", kind: "approved" }}
+        />
+      </div>
+    </Frame>
   ),
 
   "audit-trail/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14, padding: 18 }}>
-      <AuditLog
-        head={{ left: "Quarterly filing · audit timeline" }}
-        rows={[
-          {
-            ts: "09:02",
-            ev: (
-              <>
-                <strong>Brand Agent</strong> flagged 2 claims · judge type AGENT · confidence 0.88
-              </>
-            ),
-            chip: { label: "agent", kind: "agent" },
-          },
-          {
-            ts: "09:14",
-            ev: (
-              <>
-                <strong>Maya</strong> replied: “Second claim is sourced, see footnote 4” · judge type HUMAN
-              </>
-            ),
-            chip: { label: "human", kind: "pending" },
-          },
-        ]}
-      />
-      <Precedent
-        heading="statusHistory · expanded"
-        body={"status: Approved · changedBy: Sarah · changedAt: 09:21:03 · note: “Cleared with legal.”"}
-        meta="written synchronously with the status change"
-      />
-      <p className="code-microcopy">one trail, both actor types, the why attached to the decision</p>
+    <div className="afw">
+      <div className="afw-head">
+        <span className="afw-head-title">
+          <IconHistory />
+          Quarterly filing · audit trail
+        </span>
+        <span className="afw-head-meta">one trail · agent + human</span>
+      </div>
+
+      <div className="afw-body">
+        <div className="audw-trail">
+          <AuditNode
+            ts="09:02"
+            actor={ACTOR_AGENT}
+            initials="BA"
+            name="Brand Agent"
+            ev="flagged a pricing claim"
+            chip={{ label: "agent", kind: "agent" }}
+          />
+          <span className="audw-stem" aria-hidden="true" />
+          <AuditNode
+            ts="09:14"
+            actor={ACTOR_HUMAN}
+            initials="MA"
+            img={AUD_FACE.maya}
+            name="Maya"
+            ev="replied “sourced, see footnote 4”"
+            chip={{ label: "human", kind: "pending" }}
+          />
+          <span className="audw-stem" aria-hidden="true" />
+          <AuditNode
+            ts="09:21"
+            actor={ACTOR_HUMAN}
+            initials="SR"
+            img={AUD_FACE.sarah}
+            name="Sarah"
+            ev="approved “Cleared with legal”"
+            chip={{ label: "approved", kind: "approved" }}
+          />
+          <span className="audw-stem" aria-hidden="true" />
+          <AuditNode
+            ts="09:21"
+            actor={ACTOR_SYSTEM}
+            initials="Webhook"
+            name="Webhook"
+            ev="review.approved delivered"
+            chip={{ label: "200", kind: "approved" }}
+          />
+        </div>
+
+        <div className="afw-override">
+          <p className="afw-override-head">
+            <ShieldIcon />
+            statusHistory · recorded
+          </p>
+          <p className="afw-override-body">
+            Every decision lands on one trail — the status change written as{" "}
+            <code className="afw-code">changedBy: Sarah</code> with the reason attached.
+          </p>
+          <p className="afw-override-meta">
+            <span className="afw-consent">
+              <IconCheck />
+              consent visible
+            </span>
+            <span className="afw-dot">·</span>
+            both actor types
+          </p>
+        </div>
+      </div>
     </div>
   ),
 

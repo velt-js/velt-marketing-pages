@@ -20,6 +20,8 @@ import {
 } from "./hero-surface";
 
 import "./memory-showcase.css";
+import "./approval-flows-whatitis.css";
+import "./memory-whatitis.css";
 
 // Simulated-UI demo nodes for the /new-features/memory page. Keys match
 // components/feature-new/demo-keys.ts; resolved by demo-registry.tsx.
@@ -31,24 +33,6 @@ const MEM_FACE = {
   dev: FACES.ethan,
   roman: FACES.roman,
 } as const;
-
-/**
- * A compact list of "precedent" chips (who / when / decision).
- * @param {{ items: { who: string; when: string; kind: "human" | "agent" }[] }} props Chip rows.
- * @returns {JSX.Element} Chip list.
- */
-function PrecedentChips({ items }: { items: { who: string; when: string; kind: "human" | "agent" }[] }) {
-  return (
-    <div className="int-chips">
-      {items.map((item, index) => (
-        <span className="int-chip" key={`${item.who}-${index}`}>
-          <i style={{ background: item.kind === "agent" ? "var(--vlp-color-accent)" : undefined }} />
-          {item.who} · {item.when}
-        </span>
-      ))}
-    </div>
-  );
-}
 
 /**
  * A single line in the grounding context stack — shows a prior decision or
@@ -355,6 +339,46 @@ function VectorCells({ pattern }: { pattern: number[] }) {
   );
 }
 
+/**
+ * One row in the "What it is" precedent feed: an actor avatar (agent flower or
+ * human headshot), a name with a muted mono meta line, and a colour-coded chip.
+ * The emphasized variant marks the grounded recommendation drawn from the feed.
+ * @param {{ initials: string; tone?: string; img?: string; agent?: boolean; name: string; meta: string; chipKind: string; chipLabel: string; emphasis?: boolean }} props Row content.
+ * @returns {JSX.Element} Precedent feed row.
+ */
+function MemFeedRow({
+  initials,
+  tone,
+  img,
+  agent,
+  name,
+  meta,
+  chipKind,
+  chipLabel,
+  emphasis,
+}: {
+  initials: string;
+  tone?: string;
+  img?: string;
+  agent?: boolean;
+  name: string;
+  meta: string;
+  chipKind: string;
+  chipLabel: string;
+  emphasis?: boolean;
+}) {
+  return (
+    <div className={`mw-row ${emphasis ? "mw-row--sugg" : "mw-row--entry"}`}>
+      <Av initials={initials} tone={tone} img={img} agent={agent} />
+      <span className="mw-main">
+        <span className="mw-name">{name}</span>
+        <span className="mw-meta">{meta}</span>
+      </span>
+      <span className={`chip chip-${chipKind}`}>{chipLabel}</span>
+    </div>
+  );
+}
+
 export const MEMORY_DEMOS: Record<string, ReactNode> = {
   "memory/hero/precedent": (
     <Frame
@@ -365,28 +389,63 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
         { initials: "MY", tone: "a2", img: MEM_FACE.maya },
       ]}
     >
-      {/* Agent message surfacing prior decision before re-flagging */}
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="MA" agent />
-          Memory Agent
-          <span className="chip chip-agent">agent</span>
-          <span className="cmh-when">now</span>
-        </div>
-        <p className="fb">
-          I found a prior decision on this clause: indemnity cap was reviewed and approved in March. Not re-flagging.
-        </p>
+      {/* Editor toolbar — the contract opens in a live document surface */}
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">❝</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
       </div>
 
-      {/* Precedent card: who approved, when, real face */}
-      <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-        <Av initials="MY" tone="a2" img={MEM_FACE.maya} />
-        <Precedent
-          style={{ flex: 1, minWidth: 0 }}
-          heading="precedent · clause 12 indemnity"
-          body="Approved by Maya (Legal) · 14 Mar 2026 · cap set at 2× annual fees; no further liability."
-          meta="source: contract-v1.pdf · thread #2281"
-        />
+      <div className="cmh-td" style={{ minHeight: 288 }}>
+        <p className="cmh-td-doc" style={{ margin: "6px 0 0", maxWidth: "100%" }}>
+          12. Indemnity. The Provider shall indemnify the Client against third-party claims; aggregate liability is{" "}
+          <span
+            className="cmh-mark"
+            style={{
+              background: "var(--vlp-color-yellow, #FFCD2E)",
+              boxShadow: "none",
+              color: "var(--vlp-color-ink, #26251e)",
+              borderRadius: 4,
+              padding: "1px 4px",
+            }}
+          >
+            capped at 2× annual fees, with no further liability
+          </span>
+          .
+        </p>
+
+        {/* Memory surfaces the prior decision as a thread anchored to the cap clause */}
+        <div className="cmh-td-comment" style={{ width: "86%" }}>
+          <div className="cmh-td-msg">
+            <Av initials="MA" agent />
+            <span className="cmh-td-name">Memory Agent</span>
+            <span className="chip chip-agent">agent</span>
+            <span className="cmh-td-time">now</span>
+            <span className="cmh-td-actions">
+              <svg className="cmh-td-kebab" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+              <span className="cmh-td-resolve" aria-label="Resolve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+              </span>
+            </span>
+          </div>
+
+          <p className="cmh-td-text">
+            I found a prior decision on this clause: indemnity cap was reviewed and approved in March. Not re-flagging.
+          </p>
+
+          {/* Surfaced precedent, attributed to the human who approved it */}
+          <Precedent
+            lead={<Av initials="MY" tone="a2" img={MEM_FACE.maya} />}
+            heading="precedent · clause 12 indemnity"
+            body="Approved by Maya (Legal) · 14 Mar 2026 · cap set at 2× annual fees; no further liability."
+            meta="source: contract-v1.pdf · thread #2281"
+          />
+        </div>
       </div>
 
       <Composer placeholder="Add context or override…" you={MEM_FACE.sarah} />
@@ -461,19 +520,66 @@ export const MEMORY_DEMOS: Record<string, ReactNode> = {
   ),
 
   "memory/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14, padding: 18 }}>
-      <PrecedentChips
-        items={[
-          { who: "Maya approved identical indemnity", when: "Mar 12", kind: "human" },
-          { who: "Prior agent finding accepted", when: "same clause", kind: "agent" },
-        ]}
-      />
-      <Precedent
-        heading="AI suggestion"
-        body="Recommend approve · Confidence 91% · based on 47 similar judgments"
-        meta="every entry shows who decided, when, and why"
-      />
-      <p className="code-microcopy">both actor types feed the precedent; the human makes the call</p>
+    <div className="afw">
+      <div className="afw-head">
+        <span className="afw-head-title">
+          <IconHistory />
+          Precedent · clause 12 indemnity
+        </span>
+        <span className="afw-head-meta">agent + human · grounded</span>
+      </div>
+
+      <div className="afw-body">
+        <div className="mw-feed">
+          <MemFeedRow
+            img={MEM_FACE.maya}
+            initials="MY"
+            tone="a2"
+            name="Maya · Legal"
+            meta="approved identical indemnity · Mar 12"
+            chipKind="approved"
+            chipLabel="approved"
+          />
+          <span className="mw-stem" aria-hidden="true" />
+          <MemFeedRow
+            agent
+            initials="RA"
+            name="Review Agent"
+            meta="prior finding accepted · same clause"
+            chipKind="agent"
+            chipLabel="agent"
+          />
+          <span className="mw-stem" aria-hidden="true" />
+          <MemFeedRow
+            emphasis
+            agent
+            initials="AI"
+            name="Recommend approve"
+            meta="confidence 91% · 47 similar judgments"
+            chipKind="approved"
+            chipLabel="suggestion"
+          />
+        </div>
+
+        <div className="afw-override">
+          <p className="afw-override-head">
+            <IconUser />
+            human decides
+          </p>
+          <p className="afw-override-body">
+            Both actor types feed the precedent; the recommendation is advisory — written to{" "}
+            <code className="afw-code">precedent</code> with who decided, when, and why.
+          </p>
+          <p className="afw-override-meta">
+            <span className="afw-consent">
+              <IconCheck />
+              consent visible
+            </span>
+            <span className="afw-dot">·</span>
+            the human makes the call
+          </p>
+        </div>
+      </div>
     </div>
   ),
 
