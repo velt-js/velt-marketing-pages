@@ -1,0 +1,24 @@
+/* Memory "What it is" scene (.mw-*). One clause whose review history is the
+   precedent: a human decision and a prior agent finding both feed the log, a
+   grounded recommendation is drawn from them, and a human still owns the call.
+   Reuses the sibling approval-flows .afw shell (head bar + accent-wash footer)
+   so the feature pages read as one family; the .mw-* classes carry only the
+   precedent-feed rows and their thin joining spine. Scoped under .vfp; the
+   scene-card is the outer frame, so .afw carries no border/shadow of its own. */
+
+.vfp .mw-feed { display: grid; }
+
+/* Feed row — the shared node language: actor avatar, a name with a muted mono
+   meta line beneath, then a colour-coded chip pinned right. Agent vs human is
+   carried by the avatar (flower vs headshot) and the chip. */
+.vfp .mw-row { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 11px 14px; }
+.vfp .mw-row--entry { border: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); }
+.vfp .mw-row--sugg { border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); }
+.vfp .mw-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.vfp .mw-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-ink); }
+.vfp .mw-meta { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .mw-row .chip { margin-left: auto; flex: none; }
+
+/* Thin spine joining the feed rows (mirrors .afw-pipe / .raw-stem / .sgw-stem).
+   The stem aligns under the 26px avatar centre (row padding-left 14 + radius 13). */
+.vfp .mw-stem { width: 2px; height: 14px; margin-left: 27px; border-radius: 1px; background: var(--vlp-color-timeline-dash); justify-self: start; }

@@ -55,8 +55,9 @@ export function AuditLog({
 }
 
 /**
- * Highlighted "precedent / statusHistory" card.
- * @param {{ heading: string; body: ReactNode; meta?: string; style?: CSSProperties }} props Precedent content.
+ * Highlighted "precedent / statusHistory" card. When `lead` is provided it is
+ * rendered inside the card (e.g. an avatar) to the left of the text content.
+ * @param {{ heading: string; body: ReactNode; meta?: string; style?: CSSProperties; lead?: ReactNode }} props Precedent content.
  * @returns {JSX.Element} Precedent card.
  */
 export function Precedent({
@@ -64,19 +65,38 @@ export function Precedent({
   body,
   meta,
   style,
+  lead,
 }: {
   heading: string;
   body: ReactNode;
   meta?: string;
   style?: CSSProperties;
+  lead?: ReactNode;
 }) {
-  return (
-    <div className="precedent" style={style}>
-      <p className="ph">{heading}</p>
-      <p className="pb">{body}</p>
-      {meta ? <p className="pm">{meta}</p> : null}
-    </div>
-  );
+  try {
+    const content = (
+      <>
+        <p className="ph">{heading}</p>
+        <p className="pb">{body}</p>
+        {meta ? <p className="pm">{meta}</p> : null}
+      </>
+    );
+    if (lead) {
+      return (
+        <div className="precedent precedent--lead" style={style}>
+          <span className="precedent-lead">{lead}</span>
+          <div className="precedent-content">{content}</div>
+        </div>
+      );
+    }
+    return (
+      <div className="precedent" style={style}>
+        {content}
+      </div>
+    );
+  } catch {
+    return <div className="precedent" style={style} />;
+  }
 }
 
 /**

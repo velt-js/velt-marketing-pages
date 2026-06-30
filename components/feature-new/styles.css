@@ -230,6 +230,9 @@
 .vfp .precedent .ph { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-accent-ink); }
 .vfp .precedent .pb { font-size: 12.5px; color: var(--vlp-color-ink-soft); line-height: 1.5; }
 .vfp .precedent .pm { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); }
+.vfp .precedent--lead { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .precedent--lead .precedent-lead { flex: none; }
+.vfp .precedent--lead .precedent-content { flex: 1; min-width: 0; display: grid; gap: 7px; }
 
 .vfp .prov-row { display: flex; align-items: center; gap: 8px; border: 1px solid var(--vlp-border-default); border-radius: 8px; padding: 9px 12px; font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-ink-soft); background: var(--vlp-bg-page); }
 .vfp .prov-row .arr { color: var(--vlp-color-green-approval); flex: none; }
