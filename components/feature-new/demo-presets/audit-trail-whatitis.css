@@ -1,14 +1,17 @@
 /* Audit-trail new-theme artifacts (.audw-*). The "What it is" scene rebuilds the
    old <AuditLog>+<Precedent> pair onto the sibling approval-flows .afw shell
    (cream head bar + accent-wash recorded footer) so the audit-trail page reads
-   as one family with approval-flows / review-agents / suggestions; the .audw-*
+   as one family with approval-flows / review-agents / suggestions; the three
+   hero tabs (Timeline / Export / Workflow history) instead reuse the comments
+   hero's product-surface <Frame> (.cmh) so they read as the same family of
+   in-product surfaces as the comments / memory hero artifacts. The .audw-*
    classes carry only the audit-specific bits: timeline node rows that pair a
    timestamp + per-actor avatar (agent flower, human headshot, or a system
-   webhook glyph), the bare hero audit-log feed, and the warm structured-export
+   webhook glyph), the framed hero audit-log feed, and the warm structured-export
    card that replaces the old dark JSON panel. Reuses .afw-* (imported alongside
-   from demo-registry.tsx) plus the shared .chip / .av-c atoms. Every rule is
-   scoped under .vfp; the scene-card is the outer frame, so .afw carries no
-   border/shadow of its own. */
+   from demo-registry.tsx) plus the shared .cmh-* / .chip / .av-c atoms. Every
+   rule is scoped under .vfp; the scene-card is the outer frame, so .afw carries
+   no border/shadow of its own. */
 
 /* ── Shared actor avatar ──────────────────────────────────────────────────── */
 /* System / webhook actor: a neutral glyph badge sized to match the .av-c
@@ -37,15 +40,32 @@
    stem aligns under the 26px avatar centre (card padding-left 13 + radius 13). */
 .vfp .audw-stem { width: 2px; height: 13px; margin-left: 26px; border-radius: 1px; background: var(--vlp-color-timeline-dash); justify-self: start; }
 
-/* ── Hero audit-log feed (bare surface, not wrapped in a Frame) ───────────── */
-/* Self-contained surface that mirrors the homepage primitives audit card
-   (components/home-new/Primitives.css .prim-stage + .prim-audit-*): a flat,
-   shadowless white frame over a feed of attributed, timestamped rows with
-   per-actor avatars, divided by hairline rules. */
-.vfp .audw-log { border: 1px solid var(--vlp-border-card); border-radius: var(--vlp-radius-xl); background: var(--vlp-bg-card); overflow: hidden; }
-.vfp .audw-feed { display: flex; flex-direction: column; }
-.vfp .audw-row { display: grid; grid-template-columns: auto 26px minmax(0, 1fr) auto; gap: 11px; align-items: center; padding: 11px 16px; }
-.vfp .audw-row + .audw-row { border-top: 1px solid var(--vlp-border-faint); }
+/* ── Hero surfaces: wrapped in the shared <Frame> (.cmh) ──────────────────── */
+/* The three hero tabs reuse the comments hero's product-surface <Frame> (app
+   badge + breadcrumb + a participant avatar stack / mono meta in the cream bar,
+   over a padded .cmh-body), so the audit-trail hero reads as one family with
+   the comments / memory hero artifacts. Only the audit-specific bits live here;
+   the frame chrome, .av-c avatars, and .chip atoms come from the shared
+   .cmh-* / .av-* / .chip rules in styles.css (chips keep their default palette
+   so agent reads accent, like the comments hero). */
+
+/* Header right-slot: an overlapping participant avatar stack beside a mono meta
+   label, mirroring the comments-hero presence cluster (the 2px avatar ring
+   matches the cream .cmh-bar so the stack reads as embedded). */
+.vfp .audw-hmeta { display: inline-flex; align-items: center; gap: 11px; flex: none; }
+.vfp .audw-hstack { display: flex; }
+.vfp .audw-hstack .av-c { width: 24px; height: 24px; margin-left: -7px; border: 2px solid var(--vlp-bg-section-alt); font-size: 9.5px; }
+.vfp .audw-hstack .av-c:first-child { margin-left: 0; }
+.vfp .audw-hfilter { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); white-space: nowrap; }
+
+/* Timeline / Workflow-history feed: attributed, timestamped rows inside the
+   frame body, divided by hairlines (matching the comments inbox .cmh-inrow
+   list). Columns: mono timestamp · per-actor avatar · event · status chip. */
+.vfp .audw-feed { display: grid; }
+.vfp .audw-row { display: grid; grid-template-columns: auto 26px minmax(0, 1fr) auto; gap: 11px; align-items: center; padding: 12px 0; }
+.vfp .audw-row:first-child { padding-top: 2px; }
+.vfp .audw-row:last-child { padding-bottom: 0; }
+.vfp .audw-row + .audw-row { border-top: 1px solid var(--vlp-border-subtle); }
 .vfp .audw-row-ts { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); white-space: nowrap; }
 .vfp .audw-row-ev { min-width: 0; font-size: 12.5px; line-height: 1.45; color: var(--vlp-color-ink-soft); }
 .vfp .audw-row-ev strong { font-weight: 600; color: var(--vlp-color-ink); }
@@ -56,12 +76,11 @@
   .vfp .audw-row-ts { grid-column: 1 / -1; }
 }
 
-/* ── Hero structured export (warm card, replaces the dark JSON panel) ──────── */
-/* The same .afw-head surface over a request line and one returned activity
-   rendered as warm key/value rows on the accent wash, the available export
-   formats as chips, and a live delivery pulse footer. */
-.vfp .audw-export { border: 1px solid var(--vlp-border-card); border-radius: var(--vlp-radius-xl); background: var(--vlp-bg-card); overflow: hidden; display: grid; }
-.vfp .audw-export-body { display: grid; gap: 12px; padding: 14px 16px; }
+/* ── Hero structured export (warm card inside the frame body) ──────────────── */
+/* A request line, one returned activity rendered as warm key/value rows on the
+   accent wash, the available export formats as chips, and a full-bleed live
+   delivery-pulse footer — all flowing in the shared .cmh-body (16px padding,
+   13px gap), so the export tab matches the timeline / history frames. */
 .vfp .audw-export-req { margin: 0; font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.01em; color: var(--vlp-color-text-muted); }
 .vfp .audw-export-req b { font-weight: 600; color: var(--vlp-color-ink-soft); }
 .vfp .audw-export-rec { border: 1px solid var(--vlp-color-accent-wash); background: var(--vlp-color-accent-soft); border-radius: 12px; padding: 11px 13px; display: grid; gap: 8px; }
@@ -71,22 +90,7 @@
 .vfp .audw-rec-val .av-c { width: 20px; height: 20px; flex: none; font-size: 8.5px; }
 .vfp .audw-rec-note { font-style: italic; }
 .vfp .audw-fmts { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-.vfp .audw-export-foot { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-top: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.01em; color: var(--vlp-color-text-muted); }
+/* Negative margins bleed the footer to the frame edges (cancelling the 16px
+   .cmh-body padding) so it reads as a real window status strip. */
+.vfp .audw-export-foot { display: flex; align-items: center; gap: 8px; margin: 3px -16px -16px; padding: 10px 16px; border-top: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.01em; color: var(--vlp-color-text-muted); }
 .vfp .audw-export-pulse { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--vlp-color-green-approval); }
-
-/* ── Hero theme: match the homepage primitives audit card ─────────────────── */
-/* The three hero tabs (Timeline / Export / Workflow history) adopt the home-page
-   artifact look (components/home-new/Primitives.css .prim-audit-header +
-   .prim-tag-*): a frameless hairline-divider header (no cream .afw-head fill)
-   and smaller, flatter status pills on the neutral/green palette where orange
-   reads as a rejection, not as an agent. Scoped to the hero surfaces so the
-   sibling "What it is" scene (.afw) and other .afw-head / .chip artifacts keep
-   their own feature-page styling. */
-.vfp .audw-log .afw-head,
-.vfp .audw-export .afw-head { background: transparent; }
-
-.vfp .audw-log .chip,
-.vfp .audw-export .chip { font-size: var(--vlp-text-micro); font-weight: var(--vlp-weight-medium); padding: 3px 10px; }
-.vfp .audw-log .chip-agent { background: var(--vlp-bg-surface-muted); color: var(--vlp-color-text-muted); }
-.vfp .audw-log .chip-approved,
-.vfp .audw-export .chip-approved { background: var(--vlp-bg-green-highlight); color: var(--vlp-color-green-approval); }

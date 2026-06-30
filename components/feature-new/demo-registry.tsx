@@ -4,7 +4,7 @@ import "./audit-trail-showcase.css";
 import "./demo-presets/approval-flows-whatitis.css";
 import "./demo-presets/audit-trail-whatitis.css";
 import type { ChipKind } from "./demos";
-import { Av, AgentFindingCard, FACES } from "./demo-presets/hero-surface";
+import { Av, AgentFindingCard, FACES, Frame, type PresenceUser } from "./demo-presets/hero-surface";
 import { ShieldIcon, VeltMark } from "./icons";
 import type { FeatureNewDemoKey } from "./demo-keys";
 import { MEMORY_DEMOS } from "./demo-presets/memory";
@@ -51,6 +51,10 @@ const ACTOR_AGENT = "agent";
 const ACTOR_HUMAN = "human";
 const ACTOR_SYSTEM = "system";
 
+// App badge shown in every audit-trail hero <Frame> chrome (matches the "VC" /
+// "SD" badges on the comments hero surfaces).
+const AUDIT_APP = "AT";
+
 type AuditActor = typeof ACTOR_AGENT | typeof ACTOR_HUMAN | typeof ACTOR_SYSTEM;
 
 type AuditChip = { label: string; kind: ChipKind };
@@ -93,6 +97,26 @@ function AuditAvatar({ actor, initials, img }: { actor: AuditActor; initials: st
     );
   }
   return <Av initials={initials} agent={actor === ACTOR_AGENT} img={img} />;
+}
+
+/**
+ * Audit-trail hero <Frame> header right-slot: an overlapping participant avatar
+ * stack beside a mono meta label, mirroring the comments-hero presence cluster
+ * so the audit-trail surfaces read as the same family of in-product frames.
+ * @param {{ users: PresenceUser[]; meta: string }} props Participants on the trail and the mono meta text (filter / who·when·why).
+ * @returns {JSX.Element} The header meta cluster.
+ */
+function AuditHeaderMeta({ users, meta }: { users: PresenceUser[]; meta: string }) {
+  return (
+    <div className="audw-hmeta">
+      <div className="audw-hstack">
+        {users?.map((user, index) => (
+          <Av key={`${user?.initials}-${index}`} initials={user?.initials} tone={user?.tone} agent={user?.agent} img={user?.img} />
+        ))}
+      </div>
+      <span className="audw-hfilter">{meta}</span>
+    </div>
+  );
 }
 
 /**
@@ -372,14 +396,20 @@ function IconKey() {
 
 const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
   "audit-trail/hero/timeline": (
-    <div className="audw-log">
-      <div className="afw-head">
-        <span className="afw-head-title">
-          <IconHistory />
-          Quarterly filing · today
-        </span>
-        <span className="afw-head-meta">filter: all features</span>
-      </div>
+    <Frame
+      app={AUDIT_APP}
+      crumb={<><b>Audit trail</b> <span className="sep">/</span> Quarterly filing</>}
+      right={
+        <AuditHeaderMeta
+          users={[
+            { initials: "BA", agent: true },
+            { initials: "MA", tone: "a2", img: AUD_FACE.maya },
+            { initials: "SR", tone: "a3", img: AUD_FACE.sarah },
+          ]}
+          meta="filter: all features"
+        />
+      }
+    >
       <div className="audw-feed">
         <AuditRow
           ts="09:02:11"
@@ -412,61 +442,62 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
           chip={{ label: "200", kind: "approved" }}
         />
       </div>
-    </div>
+    </Frame>
   ),
 
   "audit-trail/hero/export": (
-    <div className="audw-export">
-      <div className="afw-head">
-        <span className="afw-head-title">
-          <IconDownload />
-          POST · activities.get
-        </span>
-        <span className="afw-head-meta">filing-q3 · JSON</span>
+    <Frame
+      app={AUDIT_APP}
+      crumb={<><b>Audit trail</b> <span className="sep">/</span> activities.get</>}
+      right={<span className="audw-hfilter">POST · JSON</span>}
+    >
+      <p className="audw-export-req">
+        <b>documentId</b> = filing-q3 · 1 activity returned
+      </p>
+      <div className="audw-export-rec">
+        <div className="audw-rec-row">
+          <span className="audw-rec-key">actionType</span>
+          <code className="afw-code">approval.changed</code>
+        </div>
+        <div className="audw-rec-row">
+          <span className="audw-rec-key">actionUser</span>
+          <span className="audw-rec-val">
+            <Av initials="SR" img={AUD_FACE.sarah} />
+            sarah@acme.com
+          </span>
+        </div>
+        <div className="audw-rec-row">
+          <span className="audw-rec-key">note</span>
+          <span className="audw-rec-val audw-rec-note">“Cleared with legal”</span>
+        </div>
       </div>
-      <div className="audw-export-body">
-        <p className="audw-export-req">
-          <b>documentId</b> = filing-q3 · 1 activity returned
-        </p>
-        <div className="audw-export-rec">
-          <div className="audw-rec-row">
-            <span className="audw-rec-key">actionType</span>
-            <code className="afw-code">approval.changed</code>
-          </div>
-          <div className="audw-rec-row">
-            <span className="audw-rec-key">actionUser</span>
-            <span className="audw-rec-val">
-              <Av initials="SR" img={AUD_FACE.sarah} />
-              sarah@acme.com
-            </span>
-          </div>
-          <div className="audw-rec-row">
-            <span className="audw-rec-key">note</span>
-            <span className="audw-rec-val audw-rec-note">“Cleared with legal”</span>
-          </div>
-        </div>
-        <div className="audw-fmts">
-          <span className="chip chip-approved">JSON</span>
-          <span className="chip-soon">CSV soon</span>
-          <span className="chip-soon">PDF soon</span>
-        </div>
+      <div className="audw-fmts">
+        <span className="chip chip-approved">JSON</span>
+        <span className="chip-soon">CSV soon</span>
+        <span className="chip-soon">PDF soon</span>
       </div>
       <div className="audw-export-foot">
         <span className="audw-export-pulse" />
         structured JSON · filterable · PDF &amp; CSV (coming soon)
       </div>
-    </div>
+    </Frame>
   ),
 
   "audit-trail/hero/history": (
-    <div className="audw-log">
-      <div className="afw-head">
-        <span className="afw-head-title">
-          <IconHistory />
-          statusHistory · filing-q3
-        </span>
-        <span className="afw-head-meta">who · when · why</span>
-      </div>
+    <Frame
+      app={AUDIT_APP}
+      crumb={<><b>statusHistory</b> <span className="sep">/</span> filing-q3</>}
+      right={
+        <AuditHeaderMeta
+          users={[
+            { initials: "JO", tone: "a1", img: FACES.jeff },
+            { initials: "CA", agent: true },
+            { initials: "SR", tone: "a3", img: AUD_FACE.sarah },
+          ]}
+          meta="who · when · why"
+        />
+      }
+    >
       <div className="audw-feed">
         <AuditRow
           ts="Mon 14:01"
@@ -492,7 +523,7 @@ const AUDIT_TRAIL_DEMOS: Record<string, ReactNode> = {
           chip={{ label: "approved", kind: "approved" }}
         />
       </div>
-    </div>
+    </Frame>
   ),
 
   "audit-trail/what-it-is/scene": (

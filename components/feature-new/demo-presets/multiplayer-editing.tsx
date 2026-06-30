@@ -35,12 +35,21 @@ const CURSOR_ETHAN: CSSProperties = { color: "#5b7fb8", background: "#5b7fb8" };
  */
 function LiveCursor({ name, tone }: { name: string; tone: CSSProperties }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "flex-end", gap: 0, position: "relative", verticalAlign: "bottom", userSelect: "none" }}>
-      <span style={{ display: "inline-block", width: 2, height: 16, borderRadius: 1, background: tone.color as string, flexShrink: 0 }} />
+    <span style={{
+      position: "relative",
+      display: "inline-block",
+      width: 2,
+      height: "1.15em",
+      borderRadius: 1,
+      background: tone.color as string,
+      verticalAlign: "-0.2em",
+      margin: "0 1px",
+      userSelect: "none",
+    }}>
       <span style={{
         position: "absolute",
         bottom: "100%",
-        left: 0,
+        left: -1,
         whiteSpace: "nowrap",
         fontSize: 10,
         fontWeight: 700,
