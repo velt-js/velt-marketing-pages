@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, ProvArrow, Precedent } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -16,11 +15,14 @@ import {
   Frame,
   IconArrowRight,
   IconCheck,
+  IconReply,
   IconX,
   INS_STYLE,
 } from "./hero-surface";
 
 import "./suggestions-showcase.css";
+import "./approval-flows-whatitis.css";
+import "./suggestions-whatitis.css";
 
 // Simulated-UI demo nodes for the /new-features/suggestions page. Keys match
 // components/feature-new/demo-presets/suggestions.keys.ts and are merged into
@@ -34,92 +36,67 @@ const FACE = {
   you: FACES.jeff,
 } as const;
 
-type AvatarKind = "human" | "agent" | "away";
+// "What it is" scene constants: one rate cell, two proposals (agent + human).
+const ACTOR_AGENT = "agent";
+const ACTOR_HUMAN = "human";
+const AGENT_NAME = "Rate Checker";
+const TARGET_CELL = "Rate";
+const CURRENT_VALUE = "12.0";
+const APPLIED_VALUE = "10.5";
+
+type SuggestionActor = typeof ACTOR_AGENT | typeof ACTOR_HUMAN;
+type SuggestionStatus = "accepted" | "rejected";
 
 /**
- * A framed "field" surface used to host suggestion diffs and review actions.
- * @param {{ children: ReactNode }} props Surface content.
- * @returns {JSX.Element} Field surface.
+ * One suggestion node for the "What it is" scene: an actor (agent flower or
+ * human headshot) proposing a del → ins diff on the shared cell, with the
+ * owner's accept/reject decision shown as a colour-coded chip plus a rationale.
+ * Sibling nodes are joined by the thin .sgw-stem spine so both proposals read
+ * as edits to one primitive.
+ * @param {{ name: string; actor: SuggestionActor; initials: string; img?: string; from: ReactNode; to: ReactNode; status: SuggestionStatus; note: string }} props Node content.
+ * @returns {JSX.Element} A suggestion proposal node.
  */
-function FieldSurface({ children }: { children: ReactNode }) {
-  return (
-    <div
-      style={{
-        border: "1px solid var(--line, #e7e2d9)",
-        borderRadius: 12,
-        background: "var(--bg, #fff)",
-        padding: 14,
-        display: "grid",
-        gap: 8,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-/**
- * Old-value to proposed-value diff, struck-through original then accent target.
- * @param {{ from: ReactNode; to: ReactNode }} props Before and after values.
- * @returns {JSX.Element} Inline diff.
- */
-function Diff({ from, to }: { from: ReactNode; to: ReactNode }) {
-  return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13 }}>
-      <span style={{ textDecoration: "line-through", opacity: 0.5 }}>{from}</span>
-      <ProvArrow />
-      <span style={{ fontWeight: 700, color: "var(--brand, #ff4f00)" }}>{to}</span>
-    </span>
-  );
-}
-
-/**
- * Pending suggestion card: author, target, diff, optional rationale, and either
- * accept/reject actions or a resolved outcome chip.
- * @param {{ author: { initials: string; kind?: AvatarKind; name?: string }; target: string; from: ReactNode; to: ReactNode; rationale?: string; decided?: "accepted" | "rejected"; rejectReason?: string }} props Suggestion data.
- * @returns {JSX.Element} Suggestion card.
- */
-function SuggestionCard({
-  author,
-  target,
+function SuggestionNode({
+  name,
+  actor,
+  initials,
+  img,
   from,
   to,
-  rationale,
-  decided,
-  rejectReason,
+  status,
+  note,
 }: {
-  author: { initials: string; kind?: AvatarKind; name?: string };
-  target: string;
+  name: string;
+  actor: SuggestionActor;
+  initials: string;
+  img?: string;
   from: ReactNode;
   to: ReactNode;
-  rationale?: string;
-  decided?: "accepted" | "rejected";
-  rejectReason?: string;
+  status: SuggestionStatus;
+  note: string;
 }) {
+  const isAgent = actor === ACTOR_AGENT;
   return (
-    <FieldSurface>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <AvatarStack users={[author]} />
-        <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--ink, #0b353b)" }}>
-          {author.name}
+    <div className={`sgw-node${status === "rejected" ? " sgw-node--rejected" : ""}`}>
+      <div className="sgw-node-head">
+        <Av initials={initials} agent={isAgent} img={img} tone="a2" />
+        <span className="sgw-node-id">
+          <span className="sgw-node-name">{name}</span>
+          <span className={`sgw-node-kind${isAgent ? " sgw-node-kind--agent" : ""}`}>{actor}</span>
         </span>
-        <Chip kind="pending">suggestion</Chip>
+        <span className={`chip chip-${status === "accepted" ? "approved" : "rejected"}`}>{status}</span>
       </div>
-      <p style={{ margin: 0, fontSize: 12, opacity: 0.65 }}>{target}</p>
-      <Diff from={from} to={to} />
-      {rationale ? <p style={{ margin: 0, fontSize: 12, opacity: 0.8 }}>{rationale}</p> : null}
-      {decided ? (
-        <Chip kind={decided === "accepted" ? "approved" : "rejected"}>{decided}</Chip>
-      ) : (
-        <div style={{ display: "flex", gap: 6 }}>
-          <Chip kind="approved">Accept</Chip>
-          <Chip kind="rejected">Reject</Chip>
-        </div>
-      )}
-      {rejectReason ? (
-        <p style={{ margin: 0, fontSize: 11.5, opacity: 0.6 }}>reason: {rejectReason}</p>
-      ) : null}
-    </FieldSurface>
+      <div className="sgw-node-diff">
+        <span className="sgw-node-cell">{TARGET_CELL}</span>
+        <del style={DEL_STYLE}>{from}</del>
+        <span className="sgw-node-arrow" aria-hidden="true">{"→"}</span>
+        <ins style={INS_STYLE}>{to}</ins>
+      </div>
+      <p className="sgw-node-note">
+        {status === "rejected" ? <span className="sgw-node-reason">reason</span> : null}
+        {note}
+      </p>
+    </div>
   );
 }
 
@@ -219,6 +196,17 @@ function IconShuffle() {
   );
 }
 
+/** @returns {JSX.Element} Table glyph with one highlighted cell for the scene head. */
+function IconTableCell() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 10h18M9 10v10" />
+      <rect x="3" y="10" width="6" height="5" fill="currentColor" stroke="none" opacity="0.18" />
+    </svg>
+  );
+}
+
 /** @returns {JSX.Element} Funnel glyph for the suggestion-queries header. */
 function IconFilter() {
   return (
@@ -228,8 +216,18 @@ function IconFilter() {
   );
 }
 
-export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
-  "suggestions/hero/editor": (
+/**
+ * TEXT-EDITOR SUGGESTION hero artifact: a live contract document where a
+ * reviewer's edit posts as a suggestion anchored to the exact clause it
+ * touches. Mirrors the text-editor comment surface used across editor
+ * integrations (toolbar + an inline redline + an anchored thread with the
+ * Open/resolve chrome), but the thread carries a Suggested edit (del -> ins)
+ * plus Accept / Reject consent actions: the suggestion lives as a real comment
+ * on the line, not a separate panel.
+ * @returns {JSX.Element} The text-editor suggestion frame.
+ */
+function SuggestionEditorHero() {
+  return (
     <Frame
       app="CT"
       crumb={<><b>contract.md</b> <span className="sep">/</span> Clause 4</>}
@@ -249,39 +247,65 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
         <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
       </div>
 
-      <p className="cmh-doc">
-        The Provider shall deliver the project within{" "}
-        <span className="cmh-mark">
-          <del style={DEL_STYLE}>30 calendar days</del>{" "}
-          <ins style={INS_STYLE}>14 business days</ins>
-        </span>{" "}
-        of the signed order.
-      </p>
-
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="SR" tone="a3" img={FACE.sarah} />
-          Sarah
-          <span className="cmh-role">· Legal</span>
-          <span className="cmh-when">just now</span>
-        </div>
-        <p className="cmh-suggest">
-          <span className="lbl">Suggested edit</span>
-          <span className="body">
-            <del style={DEL_STYLE}>30 calendar days</del>
-            {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
+      <div className="cmh-td" style={{ minHeight: 262 }}>
+        <p className="cmh-td-doc" style={{ margin: "22px 0 0", maxWidth: "100%" }}>
+          The Provider shall deliver the project within{" "}
+          <span className="cmh-mark" style={{ background: "transparent", boxShadow: "none", padding: 0 }}>
+            <del style={DEL_STYLE}>30 calendar days</del>{" "}
             <ins style={INS_STYLE}>14 business days</ins>
-          </span>
+          </span>{" "}
+          of the signed order.
         </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+
+        <div className="cmh-td-comment" style={{ width: "82%" }}>
+          <div className="cmh-td-chead">
+            <span className="cmh-td-status">
+              <svg className="cmh-td-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg>
+              Open
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-flag">
+              <svg className="cmh-td-flagico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg>
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-actions">
+              <svg className="cmh-td-kebab" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+              <span className="cmh-td-resolve" aria-label="Resolve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+              </span>
+            </span>
+          </div>
+          <div className="cmh-td-msg">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="cmh-td-avatar" src={FACE.sarah} alt="Sarah" />
+            <span className="cmh-td-name">Sarah</span>
+            <span className="cmh-role">· Legal</span>
+            <span className="cmh-td-time">just now</span>
+          </div>
+          <p className="cmh-suggest">
+            <span className="lbl">Suggested edit</span>
+            <span className="body">
+              <del style={DEL_STYLE}>30 calendar days</del>
+              {" "}
+              <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>
+              {" "}
+              <ins style={INS_STYLE}>14 business days</ins>
+            </span>
+          </p>
+          <div className="cmh-acts">
+            <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+            <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+          </div>
         </div>
       </div>
 
-      <Composer placeholder="Reply to Sarah…" you={FACE.you} />
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>a suggested edit anchored to the exact clause &middot; accept to apply the redline</p>
     </Frame>
-  ),
+  );
+}
+
+export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
+  "suggestions/hero/editor": <SuggestionEditorHero />,
 
   "suggestions/hero/custom": (
     <Frame
@@ -352,63 +376,108 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
 
   "suggestions/hero/agent": (
     <Frame
-      app="RC"
-      crumb={<><b>rates.csv</b> <span className="sep">/</span> row 14</>}
+      app="PR"
+      crumb={<><b>pricing.csv</b> <span className="sep">/</span> Pro · Proposed</>}
       users={[
-        { initials: "RN", tone: "a1", img: FACE.roman },
-        { initials: "RA", agent: true },
+        { initials: "KM", tone: "a2", img: FACE.maya },
+        { initials: "PA", agent: true },
       ]}
     >
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="RA" agent />
-          Rate Checker Agent
-          <span className="cmh-when">now</span>
+      {/* A spreadsheet cell carrying an anchored agent suggestion, approved by a human */}
+      <div className="sgn-csv-wrap">
+        <div className="sgn-csv" role="table" aria-label="Pricing">
+          <div className="sgn-csv-row sgn-csv-row--head" role="row">
+            <span role="columnheader">Plan</span>
+            <span role="columnheader">Current</span>
+            <span role="columnheader">Proposed</span>
+          </div>
+          <div className="sgn-csv-row" role="row">
+            <span role="cell">Starter</span>
+            <span role="cell">$29</span>
+            <span role="cell">$35</span>
+          </div>
+          <div className="sgn-csv-row" role="row">
+            <span role="cell">Pro</span>
+            <span role="cell">$79</span>
+            <span className="sgn-csv-cell--target" role="cell">$85</span>
+          </div>
         </div>
-        <p className="fb">
-          Vendor rate on row 14 is 12% above the contracted cap. Proposing a corrected value.
-        </p>
-        <p className="cmh-suggest">
-          <span className="body">
-            <del style={DEL_STYLE}>8.25%</del>
-            {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
-            <ins style={INS_STYLE}>7.35%</ins>
-          </span>
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+
+        <div className="sgn-csv-pop">
+          <div className="sgn-csv-pop-head">
+            <Av initials="KM" tone="a2" img={FACE.maya} />
+            <span className="sgn-csv-pop-by">Approved by Kim</span>
+            <span className="sgn-csv-pop-check"><IconCheck /></span>
+          </div>
+          <div className="sgn-csv-pop-body">
+            <div className="sgn-csv-pop-meta">
+              <Av initials="PA" agent />
+              <span className="sgn-csv-pop-name">Pricing Agent</span>
+              <span className="sgn-csv-pop-time">58m</span>
+            </div>
+            <p className="sgn-csv-pop-text">
+              Proposed Pro price was $92, above the approved Q3 band. I suggest $85, the band maximum.
+            </p>
+            <span className="sgn-csv-pop-reply"><IconReply />Reply</span>
+          </div>
         </div>
       </div>
-
-      <Composer placeholder="Reply or override…" you={FACE.you} />
     </Frame>
   ),
 
   "suggestions/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <p className="code-microcopy">Pricing table · Rate cell mid-review</p>
-      <SuggestionCard
-        author={{ initials: "RC", kind: "agent", name: "Rate Checker" }}
-        target="Rate"
-        from="12.0"
-        to="10.5"
-        rationale="Vendor rate is 12% over the contracted cap"
-        decided="accepted"
-      />
-      <SuggestionCard
-        author={{ initials: "AN", kind: "human", name: "Analyst" }}
-        target="Rate"
-        from="12.0"
-        to="11.4"
-        decided="rejected"
-        rejectReason="Use the agent's contracted figure"
-      />
-      <Precedent
-        heading="applied value · Rate"
-        body="10.5 · accepted from Rate Checker · your code wrote the change"
-        meta="one primitive, both actors, consent visible"
-      />
+    <div className="afw">
+      <div className="afw-head">
+        <span className="afw-head-title">
+          <IconTableCell />
+          Pricing table · {TARGET_CELL} cell
+        </span>
+        <span className="afw-head-meta">one cell · agent + human</span>
+      </div>
+
+      <div className="afw-body">
+        <div className="sgw-stack">
+          <SuggestionNode
+            name={AGENT_NAME}
+            actor={ACTOR_AGENT}
+            initials="RC"
+            from={CURRENT_VALUE}
+            to={APPLIED_VALUE}
+            status="accepted"
+            note="Vendor rate is 12% over the contracted cap"
+          />
+          <span className="sgw-stem" aria-hidden="true" />
+          <SuggestionNode
+            name="Analyst"
+            actor={ACTOR_HUMAN}
+            initials="AN"
+            img={FACE.maya}
+            from={CURRENT_VALUE}
+            to="11.4"
+            status="rejected"
+            note="Use the agent's contracted figure"
+          />
+        </div>
+
+        <div className="afw-override">
+          <p className="afw-override-head">
+            <IconBolt />
+            applied value · {TARGET_CELL}
+          </p>
+          <p className="afw-override-body">
+            Owner accepted {AGENT_NAME}&rsquo;s edit — <code className="afw-code">{APPLIED_VALUE}</code> written
+            by your code, never by Velt.
+          </p>
+          <p className="afw-override-meta">
+            <span className="afw-consent">
+              <IconCheck />
+              consent visible
+            </span>
+            <span className="afw-dot">·</span>
+            one primitive, both actors
+          </p>
+        </div>
+      </div>
     </div>
   ),
 

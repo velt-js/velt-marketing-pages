@@ -1,0 +1,40 @@
+/* Approval-flows "What it is" scene (.afw-*). One pipeline where agent + human
+   steps coexist, with an audited override beneath. Scoped under .vfp; borrows
+   the home-page polish (prim-dag node rows, a prim-ra pipeline spine, the
+   audit-header surface bar, and the prim-mem precedent chips). The scene-card
+   is the outer frame, so .afw carries no border/shadow of its own. */
+
+.vfp .afw { display: grid; }
+
+/* Surface bar — mirrors the shared .audit-head: cream strip, hairline divider,
+   ink title left, mono accent meta right. */
+.vfp .afw-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 18px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .afw-head-title { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-ink); }
+.vfp .afw-head-title svg { width: 15px; height: 15px; flex: none; color: var(--vlp-color-text-muted); }
+.vfp .afw-head-meta { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-accent); white-space: nowrap; }
+
+.vfp .afw-body { display: grid; gap: 14px; padding: 16px 18px 18px; }
+
+/* Pipeline: stacked apc-row node cards joined by a thin spine so the run reads
+   as one DAG, not a flat list. The stem aligns under the 40px avatar centre
+   (row padding-left 12 + avatar radius 20 = 32). */
+.vfp .apc-chain.afw-chain { gap: 0; }
+.vfp .afw-pipe { width: 2px; height: 14px; margin-left: 31px; border-radius: 1px; background: var(--vlp-color-timeline-dash); }
+
+/* Per-row right cluster: a muted mono actor label + the colour-coded status
+   chip. Agent vs human is carried by the avatar and the accented actor label. */
+.vfp .afw-tags { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.vfp .afw-kind { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .afw-kind--agent { color: var(--vlp-color-accent-ink); }
+
+/* Override card — the audited overrideOfAi, kept on the orange accent wash so
+   the consent gate reads as the emphasis of the scene. */
+.vfp .afw-override { border: 1px solid var(--vlp-color-accent-wash); background: var(--vlp-color-accent-soft); border-radius: 14px; padding: 13px 15px; display: grid; gap: 8px; }
+.vfp .afw-override-head { display: inline-flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--vlp-color-accent-ink); }
+.vfp .afw-override-head svg { width: 14px; height: 14px; flex: none; }
+.vfp .afw-override-body { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--vlp-color-ink-soft); }
+.vfp .afw-code { font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-accent-ink); background: var(--vlp-bg-page); border: 1px solid var(--vlp-color-accent-wash); border-radius: 6px; padding: 1px 6px; }
+.vfp .afw-override-meta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .afw-consent { display: inline-flex; align-items: center; gap: 5px; color: var(--vlp-color-green-approval); }
+.vfp .afw-consent svg { width: 12px; height: 12px; flex: none; }
+.vfp .afw-dot { color: var(--vlp-color-text-subtle); }

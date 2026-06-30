@@ -405,6 +405,11 @@ export async function getFeaturePageV2BySlug(slug: string) {
         cards[] { iconKey, title, body, visual, link }
       },
       enterprise { badges, line, links[], cta },
+      enterprisePillars {
+        eyebrow, heading, description,
+        pillars[] { label, title, body, monoLines, regionsMono, uptime { label, value }, footerLink },
+        primaryCta, secondaryCta
+      },
       testimonials {
         kicker, heading, support,
         cards[] { metric, quote, who }

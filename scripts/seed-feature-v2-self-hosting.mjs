@@ -496,6 +496,59 @@ const doc = {
     cta: cta("Book Demo", "/book-demo"),
   },
 
+  // Polished dark 4-pillar "Built for enterprise" section. When present this
+  // renders in place of the Enterprise Readiness Strip above (see
+  // components/feature-new/FeaturePageView.tsx). Mirrors the homepage reference
+  // design (components/home-new/Enterprise.tsx).
+  enterprisePillars: {
+    eyebrow: "Built for enterprise",
+    heading: "Built for your customers' compliance.",
+    description:
+      "Per-feature data providers keep content and PII on your infrastructure. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.",
+    pillars: keyed(
+      [
+        {
+          label: "PILLAR 01 \u00B7 DEPLOYMENT",
+          title: "Your data stays yours.",
+          body: "Velt stores minimal identifiers. Everything sensitive lives where you say it does.",
+          monoLines: [
+            "\u25B8 comments \u2192 your db",
+            "\u25B8 recordings \u2192 your S3",
+            "\u25B8 user PII \u2192 never leaves",
+          ],
+          footerLink: "velt.dev/self-hosting",
+        },
+        {
+          label: "PILLAR 02 \u00B7 RELIABILITY",
+          title: "99.999% SLA",
+          body: "Reliability terms in writing for enterprise plans, with a public status page your team can watch.",
+          uptime: { label: "trailing 90d", value: "100.000%" },
+          footerLink: "status.velt.dev",
+        },
+        {
+          label: "PILLAR 03 \u00B7 GLOBAL",
+          title: "42 regions",
+          body: "Multi-region infrastructure with residency pinning, so review stays fast wherever your users work.",
+          regionsMono: ["us-east, eu-west,", "ap-south, +39 more"],
+        },
+        {
+          label: "PILLAR 04 \u00B7 COMPLIANCE",
+          title: "SOC 2 Type II.",
+          body: "The information your buyer's security team asks for, ready before they ask.",
+          monoLines: [
+            "SOC 2 report under NDA",
+            "HIPAA BAA available",
+            "PEN TESTS regular",
+          ],
+          footerLink: "trust.velt.dev",
+        },
+      ],
+      "vfpEnterprisePillar",
+    ),
+    primaryCta: cta("Book Demo", "/book-demo"),
+    secondaryCta: cta("Governance", "/governance"),
+  },
+
   // Proof / testimonial wall intentionally left empty: anonymous testimonials
   // removed; TestimonialWall renders nothing when there are no cards.
   testimonials: {

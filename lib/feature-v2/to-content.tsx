@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { resolveDemo, resolveIcon } from "@/components/feature-new/demo-registry";
 import type {
   CtaLink,
+  EnterprisePillar,
+  EnterprisePillarsContent,
   FeaturePageContent,
   IntegrationChip,
 } from "@/components/feature-new/content";
@@ -222,6 +224,23 @@ interface RawEnterprise {
   links?: RawCta[] | null;
   cta?: RawCta | null;
 }
+interface RawEnterprisePillar {
+  label?: string | null;
+  title?: string | null;
+  body?: string | null;
+  monoLines?: string[] | null;
+  regionsMono?: string[] | null;
+  uptime?: { label?: string | null; value?: string | null } | null;
+  footerLink?: string | null;
+}
+interface RawEnterprisePillars {
+  eyebrow?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  pillars?: RawEnterprisePillar[] | null;
+  primaryCta?: RawCta | null;
+  secondaryCta?: RawCta | null;
+}
 interface RawTestimonialCard {
   metric?: string | null;
   quote?: string | null;
@@ -267,6 +286,7 @@ export interface FeaturePageV2Doc {
   inProduction?: RawInProduction | null;
   related?: RawRelated | null;
   enterprise?: RawEnterprise | null;
+  enterprisePillars?: RawEnterprisePillars | null;
   testimonials?: RawTestimonials | null;
   faq?: RawFaq | null;
   finalCta?: RawFinalCta | null;
@@ -341,6 +361,64 @@ function buildEnterpriseLine(line: string, links: CtaLink[]): ReactNode {
   } catch (error) {
     console.error("buildEnterpriseLine failed", error);
     return line;
+  }
+}
+
+/**
+ * Map a raw enterprise pillar to the content shape, dropping empty optional
+ * blocks so the section component can apply its defaults where appropriate.
+ * @param {RawEnterprisePillar} raw The raw pillar object.
+ * @returns {EnterprisePillar} The mapped pillar.
+ */
+function mapEnterprisePillar(raw: RawEnterprisePillar): EnterprisePillar {
+  try {
+    const monoLines = Array.isArray(raw?.monoLines) ? raw.monoLines : undefined;
+    const regionsMono = Array.isArray(raw?.regionsMono) ? raw.regionsMono : undefined;
+    const uptime = raw?.uptime?.value
+      ? { label: raw.uptime?.label ?? "", value: raw.uptime.value }
+      : undefined;
+    return {
+      label: raw?.label ?? "",
+      title: raw?.title ?? "",
+      body: raw?.body ?? "",
+      monoLines: monoLines && monoLines.length > 0 ? monoLines : undefined,
+      regionsMono: regionsMono && regionsMono.length > 0 ? regionsMono : undefined,
+      uptime,
+      footerLink: raw?.footerLink ?? undefined,
+    };
+  } catch (error) {
+    console.error("mapEnterprisePillar failed", error);
+    return { label: "", title: "", body: "" };
+  }
+}
+
+/**
+ * Map the raw enterprise-pillars object to content, or undefined when the
+ * section is absent. Returning undefined lets FeaturePageView fall back to the
+ * default compliance-badge strip; an empty object enables the polished section
+ * with its built-in default copy/pillars.
+ * @param {Nullable<RawEnterprisePillars>} raw The raw object.
+ * @returns {EnterprisePillarsContent | undefined} The mapped content.
+ */
+function mapEnterprisePillars(
+  raw: Nullable<RawEnterprisePillars>,
+): EnterprisePillarsContent | undefined {
+  try {
+    if (!raw) return undefined;
+    const pillars = Array.isArray(raw.pillars)
+      ? raw.pillars.map(mapEnterprisePillar)
+      : undefined;
+    return {
+      eyebrow: raw.eyebrow ?? undefined,
+      heading: raw.heading ?? undefined,
+      description: raw.description ?? undefined,
+      pillars: pillars && pillars.length > 0 ? pillars : undefined,
+      primaryCta: raw.primaryCta ? mapCta(raw.primaryCta) : undefined,
+      secondaryCta: raw.secondaryCta ? mapCta(raw.secondaryCta) : undefined,
+    };
+  } catch (error) {
+    console.error("mapEnterprisePillars failed", error);
+    return undefined;
   }
 }
 
@@ -549,6 +627,8 @@ export function toFeaturePageContent(doc: FeaturePageV2Doc): FeaturePageContent 
       line: buildEnterpriseLine(enterprise.line ?? "", mapCtas(enterprise.links)),
       cta: mapCta(enterprise.cta),
     },
+
+    enterprisePillars: mapEnterprisePillars(doc.enterprisePillars),
 
     testimonials: {
       kicker: testimonials.kicker ?? "",

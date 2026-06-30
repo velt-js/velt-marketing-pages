@@ -53,7 +53,7 @@ export default function CustomizationView({ content, spectrum, gallery }: Custom
           <DetailsWall content={content.details} />
           {content.makeItYours ? <MakeItYours content={content.makeItYours} /> : null}
           <ExamplesGallery content={gallery} />
-          <Related content={content.related} />
+          {content.related ? <Related content={content.related} /> : null}
           <EnterpriseStrip content={content.enterprise} />
           <TestimonialWall content={content.testimonials} />
           <Faq content={content.faq} />

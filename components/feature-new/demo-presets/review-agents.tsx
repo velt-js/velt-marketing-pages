@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { Precedent, AvatarStack, NotifItem, Chip } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -20,7 +19,9 @@ import {
   IconX,
 } from "./hero-surface";
 
+import "./approval-flows-whatitis.css";
 import "./review-agents-showcase.css";
+import "./review-agents-whatitis.css";
 
 // Simulated-UI demo nodes for the /new-features/review-agents page. Keys match
 // components/feature-new/demo-presets/review-agents.keys.ts; resolved by
@@ -31,10 +32,6 @@ const FACE = {
   sarah: FACES.hope,
   alex: FACES.ethan,
 } as const;
-
-const INK = "var(--ink, #0b353b)";
-const LINE = "var(--line, #e7e2d9)";
-const BG = "var(--bg, #fff)";
 
 /**
  * Minimal agent finding card matching the .cmh-finding / .finding gold standard
@@ -107,6 +104,91 @@ function HeroFinding({
 }
 
 /**
+ * FINDINGS-AS-COMMENTS hero artifact: a live marketing-email document where a
+ * review agent's finding posts as a comment anchored to the exact text it
+ * flags. Mirrors the text-editor comment surface used across editor
+ * integrations (toolbar + a marked selection + an anchored thread with the
+ * Open/resolve chrome), but the thread author is the Brand Agent and the body
+ * carries a suggested fix plus Approve / Reject consent actions: the finding
+ * lives as a real comment, not a separate panel.
+ * @returns {JSX.Element} The finding-as-comment frame.
+ */
+function FindingCommentHero() {
+  return (
+    <Frame
+      app="EM"
+      crumb={<><b>marketing-email.md</b> <span className="sep">/</span> Lexical</>}
+      users={[
+        { initials: "BA", agent: true },
+        { initials: "SR", tone: "a3", img: FACE.sarah },
+      ]}
+    >
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">H2</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
+      </div>
+
+      <div className="cmh-td" style={{ minHeight: 318 }}>
+        <p className="cmh-td-doc" style={{ margin: "22px 0 0", maxWidth: "100%" }}>
+          <span className="cmh-mark" style={{ background: "rgba(255, 209, 102, 0.5)", boxShadow: "inset 0 -2px 0 rgba(255, 193, 7, 0.6)" }}>Launch Your Review Agents</span>
+          {" "}&mdash; ship marketing your brand team already trusts. Every headline on-spec,
+          every pricing claim cited. Plans start at $49/seat, no annual lock-in.
+        </p>
+
+        <div className="cmh-td-comment" style={{ width: "82%" }}>
+          <div className="cmh-td-chead">
+            <span className="cmh-td-status">
+              <svg className="cmh-td-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg>
+              Open
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-flag">
+              <svg className="cmh-td-flagico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg>
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-actions">
+              <svg className="cmh-td-kebab" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+              <span className="cmh-td-resolve" aria-label="Resolve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+              </span>
+            </span>
+          </div>
+          <div className="cmh-td-msg">
+            <Av initials="BA" agent />
+            <span className="cmh-td-name">Brand Agent</span>
+            <span className="cmh-td-time">just now</span>
+            <span className="chip chip-agent" style={{ marginLeft: "auto" }}>AI</span>
+          </div>
+          <p className="cmh-td-text">Headline uses title case. Brand guidelines &sect;3.1 require sentence case.</p>
+          <p className="cmh-suggest">
+            <span className="lbl">Suggested fix</span>
+            <span className="body">
+              <del style={DEL_STYLE}>Launch Your Review Agents</del>
+              {" "}
+              <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>
+              {" "}
+              <ins style={INS_STYLE}>Launch your review agents</ins>
+            </span>
+          </p>
+          <div className="cmh-acts">
+            <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
+            <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>findings post as comments anchored to the exact text &middot; approve to apply the fix</p>
+    </Frame>
+  );
+}
+
+/**
  * A labelled key-value row for the DEFINE config card.
  * @param {{ label: string; value: ReactNode }} props Row label and value.
  * @returns {JSX.Element} Config row.
@@ -149,61 +231,13 @@ function SkLine({ width, dim }: { width: string; dim?: boolean }) {
   return <div className={dim ? "sk d" : "sk"} style={{ width }} />;
 }
 
-/**
- * Agent finding card: AI-badged avatar, the finding body, optional confidence,
- * a knowledge citation, a suggested fix, and Approve/Reject consent buttons.
- * Renders a resolved state instead of the buttons when `resolved` is set.
- * @param {{ agent: string; initials?: string; confidence?: string; body: ReactNode; citation?: string; fix?: string; resolved?: boolean }} props Finding content.
- * @returns {JSX.Element} Finding card.
- */
-function FindingCard({
-  agent,
-  initials = "BA",
-  confidence,
-  body,
-  citation,
-  fix,
-  resolved,
-}: {
-  agent: string;
-  initials?: string;
-  confidence?: string;
-  body: ReactNode;
-  citation?: string;
-  fix?: string;
-  resolved?: boolean;
-}) {
+/** @returns {JSX.Element} Shield glyph for the resolved-with-consent card head. */
+function IconShield() {
   return (
-    <div
-      style={{
-        border: `1px solid ${LINE}`,
-        borderRadius: 12,
-        background: BG,
-        padding: 14,
-        display: "grid",
-        gap: 10,
-      }}
-    >
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <AvatarStack users={[{ initials, kind: "agent", name: agent }]} />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: INK }}>{agent}</p>
-          {confidence ? (
-            <p style={{ margin: "2px 0 0", fontSize: 11.5, opacity: 0.6 }}>Confidence {confidence}</p>
-          ) : null}
-        </div>
-        {resolved ? <Chip kind="approved">resolved</Chip> : <Chip kind="agent">AI</Chip>}
-      </div>
-      <p style={{ margin: 0, fontSize: 13, lineHeight: 1.45, color: INK }}>{body}</p>
-      {citation ? <p style={{ margin: 0, fontSize: 11.5, opacity: 0.6 }}>{citation}</p> : null}
-      {fix ? <p className="code-microcopy">Suggested fix: {fix}</p> : null}
-      {resolved ? null : (
-        <div style={{ display: "flex", gap: 6 }}>
-          <span className="chip chip-approved">Approve</span>
-          <span className="chip chip-rejected">Reject</span>
-        </div>
-      )}
-    </div>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 3 5 6v5c0 4.4 3 8.5 7 10 4-1.5 7-5.6 7-10V6l-7-3z" />
+      <path d="M9 12l2 2 4-4" />
+    </svg>
   );
 }
 
@@ -438,28 +472,7 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
     </Frame>
   ),
 
-  "review-agents/hero/findings": (
-    <Frame
-      app="EM"
-      crumb={<><b>marketing-email.md</b> <span className="sep">/</span> findings</>}
-      users={[{ initials: "BA", agent: true }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
-    >
-      <HeroFinding
-        agentName="Brand Agent"
-        agentInitials="BA"
-        body="Headline uses title case. Brand guidelines §3.1 require sentence case."
-        delText="Launch Your Review Agents"
-        insText="Launch your review agents"
-      />
-      <HeroFinding
-        agentName="Brand Agent"
-        agentInitials="BA"
-        body="Pricing claim on line 4 has no cited source. Add a reference or remove the figure."
-        delText="$49/seat"
-        insText="$49/seat [1]"
-      />
-    </Frame>
-  ),
+  "review-agents/hero/findings": <FindingCommentHero />,
 
   "review-agents/hero/accept": (
     <Frame
@@ -521,25 +534,82 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "review-agents/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14, padding: 18 }}>
-      <p className="code-microcopy">Marketing email mid-review · one thread, both actors</p>
-      <FindingCard
-        agent="Brand Agent"
-        initials="BA"
-        confidence="91%"
-        body={<>Headline uses title case. Brand guidelines (section 3.1) require sentence case.</>}
-        citation="cites brand-guidelines · §3.1"
-        fix="sentence case headline"
-      />
-      <NotifItem
-        avatar={{ initials: "SA", kind: "human" }}
-        title={<><strong>Sarah</strong>: &ldquo;Good catch, also watch the subject line.&rdquo;</>}
-      />
-      <Precedent
-        heading="resolved"
-        body="Creator accepted the fix · content updated · agent reran and verified"
-        meta="consent visible on every finding"
-      />
+    <div className="afw">
+      <div className="afw-head">
+        <span className="afw-head-title">
+          <IconFile />
+          Marketing email · mid-review
+        </span>
+        <span className="afw-head-meta">one thread · agent + human</span>
+      </div>
+
+      <div className="afw-body">
+        <div className="raw-thread">
+          <div className="raw-finding">
+            <div className="raw-finding-head">
+              <Av initials="BA" agent />
+              <span className="raw-finding-id">
+                <span className="raw-finding-name">Brand Agent</span>
+                <span className="raw-finding-conf">Confidence 91%</span>
+              </span>
+              <span className="chip chip-agent">AI</span>
+            </div>
+            <p className="raw-finding-body">
+              Headline uses title case. Brand guidelines (section 3.1) require sentence case.
+            </p>
+            <span className="rav-cite">
+              <IconBook />
+              cites brand-guidelines · §3.1
+            </span>
+            <p className="cmh-suggest">
+              <span className="lbl">Suggested fix</span>
+              <span className="body">
+                <del style={DEL_STYLE}>Launch Your Review Agents</del>
+                {" "}
+                <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>
+                {" "}
+                <ins style={INS_STYLE}>Launch your review agents</ins>
+              </span>
+            </p>
+            <div className="cmh-acts">
+              <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
+              <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+            </div>
+          </div>
+
+          <span className="raw-stem" aria-hidden="true" />
+
+          <div className="raw-reply">
+            <Av initials="SR" tone="a3" img={FACE.sarah} />
+            <span className="raw-reply-main">
+              <span className="raw-reply-head">
+                <span className="raw-reply-name">Sarah</span>
+                <span className="raw-reply-kind">human</span>
+              </span>
+              <p className="raw-reply-body">&ldquo;Good catch, also watch the subject line.&rdquo;</p>
+            </span>
+          </div>
+        </div>
+
+        <div className="afw-override">
+          <p className="afw-override-head">
+            <IconShield />
+            resolved
+          </p>
+          <p className="afw-override-body">
+            Creator accepted the fix — <code className="afw-code">content updated</code>, agent reran and
+            verified.
+          </p>
+          <p className="afw-override-meta">
+            <span className="afw-consent">
+              <IconCheck />
+              consent visible
+            </span>
+            <span className="afw-dot">·</span>
+            every finding
+          </p>
+        </div>
+      </div>
     </div>
   ),
 

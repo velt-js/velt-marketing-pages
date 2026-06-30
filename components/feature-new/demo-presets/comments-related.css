@@ -4,3 +4,19 @@
 
 .vfp .crl-chans { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
 .vfp .crl-chan { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 999px; border: 1px solid var(--vlp-border-default); background: var(--vlp-bg-page); font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+
+/* "One thread, both actors" scene (comments what-it-is): a real conversation —
+   slide header + stacked, divided plain comment rows — reusing the shared
+   .cmh-* atoms so it matches the Capabilities cards. */
+.vfp .cmh-scene-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vfp .cmh-scene-avs { display: inline-flex; align-items: center; }
+.vfp .cmh-scene-avs .av-c { width: 22px; height: 22px; flex: none; margin-left: -7px; border: 2px solid var(--vlp-bg-section-alt); font-size: 9.5px; }
+.vfp .cmh-scene-avs .av-c:first-child { margin-left: 0; }
+.vfp .cmh-scene-title { margin: 0; font-family: var(--vlp-font-body); font-weight: 600; font-size: 16px; letter-spacing: -0.32px; color: var(--vlp-color-ink); }
+.vfp .cmh-thread { display: grid; }
+.vfp .cmh-thread .cmh-cmt--plain { padding: 14px 0; }
+.vfp .cmh-thread .cmh-cmt--plain:first-child { padding-top: 4px; }
+.vfp .cmh-thread .cmh-cmt--plain:last-child { padding-bottom: 0; }
+.vfp .cmh-thread .cmh-cmt--plain + .cmh-cmt--plain { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .cmh-cmt-chip { margin-left: auto; }
+.vfp .cmh-cmt-actions { display: flex; align-items: center; gap: 8px; margin-top: 2px; }

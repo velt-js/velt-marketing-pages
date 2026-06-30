@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { BellIcon, CloudIcon, ListIcon, ServerIcon } from "@/components/feature-new/icons";
 import type { FeaturePageContent } from "@/components/feature-new/content";
 
 import { PLATFORM_DEMOS as D } from "@/components/feature-new/demo-presets/platform";
@@ -251,94 +250,6 @@ export const platformContent: FeaturePageContent = {
       { label: "Messaging, storage, CRM, analytics, automation connectors" },
     ],
     visibleCount: 12,
-  },
-
-  inProduction: {
-    kicker: "In production",
-    heading: "See the console on your work.",
-    support: "Where the control plane fits, by team.",
-    tabs: [
-      {
-        id: "sales",
-        label: "Sales enablement",
-        visual: D["in-production/sales"],
-        caption: "Watch adoption climb as teams comment on and approve assets, and export the activity for QBRs.",
-        link: { label: "For sales enablement", href: "/for/sales-enablement" },
-      },
-      {
-        id: "fintech",
-        label: "Fintech and compliance",
-        visual: D["in-production/fintech"],
-        caption: "Monitor monthly active documents, export an immutable record for examiners, and keep console data on your infrastructure.",
-        link: { label: "For fintech", href: "/for/fintech" },
-      },
-      {
-        id: "operations",
-        label: "Operations",
-        visual: D["in-production/operations"],
-        caption: "Debug integrations across messy environments with the live debugger, and route events to your ops stack through webhooks.",
-        link: { label: "For operations", href: "/for/operations" },
-      },
-      {
-        id: "ai",
-        label: "AI-native SaaS",
-        visual: D["in-production/ai"],
-        caption: "See agent activity beside human activity, and fire every approved change through your webhook with a record.",
-        link: { label: "For AI-native SaaS", href: "/for/ai-native-saas" },
-      },
-    ],
-    whereItFits: {
-      label: "Where it fits",
-      links: [
-        { label: "Sales enablement", href: "/for/sales-enablement" },
-        { label: "Fintech", href: "/for/fintech" },
-        { label: "Operations", href: "/for/operations" },
-        { label: "AI-native SaaS", href: "/for/ai-native-saas" },
-      ],
-    },
-    ctaBanner: {
-      title: "See the console on your data.",
-      microcopy: "30 minutes, with an engineer.",
-      cta: { label: "Book Demo", href: DEMO_HREF },
-      variant: "secondary",
-    },
-  },
-
-  related: {
-    kicker: "Related",
-    heading: "The pieces the console runs on.",
-    support: "Each is its own page.",
-    hideVisuals: true,
-    cards: [
-      {
-        icon: <ListIcon />,
-        title: "Audit trail",
-        body: "The immutable record the console explores and exports.",
-        visual: D["related/audit-trail"],
-        link: { label: "Audit trail", href: "/audit-trail" },
-      },
-      {
-        icon: <CloudIcon />,
-        title: "Webhooks and API",
-        body: "The platform's event and provisioning surface.",
-        visual: D["related/webhooks"],
-        link: { label: "Webhooks and API", href: "/webhooks-and-api" },
-      },
-      {
-        icon: <ServerIcon />,
-        title: "Self-hosting",
-        body: "Where the console's data can live.",
-        visual: D["related/self-hosting"],
-        link: { label: "Self-hosting", href: "/self-hosting" },
-      },
-      {
-        icon: <BellIcon />,
-        title: "Notifications",
-        body: "The outbound channels webhooks and the console feed.",
-        visual: D["related/notifications"],
-        link: { label: "Notifications", href: "/notifications" },
-      },
-    ],
   },
 
   enterprise: {
