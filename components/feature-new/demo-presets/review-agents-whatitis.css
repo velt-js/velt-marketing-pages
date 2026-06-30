@@ -1,0 +1,32 @@
+/* Review-agents "What it is" scene (.raw-*). One review thread: an AI Review
+   Agent posts a finding (confidence + citation + suggested fix + Approve /
+   Reject), a human replies, and it resolves with consent visible. Reuses the
+   sibling approval-flows .afw shell (head bar + accent-wash audited card) so the
+   two feature pages read as a family; the .raw-* classes carry only the
+   thread-specific finding + reply nodes. Scoped under .vfp; the scene-card is
+   the outer frame, so .afw carries no border/shadow of its own. */
+
+.vfp .raw-thread { display: grid; gap: 0; }
+
+/* Agent finding node — a bordered card, the emphasis of the thread. */
+.vfp .raw-finding { border: 1px solid var(--vlp-border-default); border-radius: 14px; background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); padding: 13px 14px; display: grid; gap: 10px; }
+.vfp .raw-finding-head { display: flex; align-items: center; gap: 10px; }
+.vfp .raw-finding-id { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.vfp .raw-finding-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-ink); }
+.vfp .raw-finding-conf { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .raw-finding-head .chip { margin-left: auto; }
+.vfp .raw-finding-body { margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--vlp-color-ink-soft); }
+.vfp .raw-finding .rav-cite { margin-top: 0; justify-self: start; }
+
+/* Thin spine joining the finding to the human reply (mirrors .afw-pipe). The
+   stem aligns under the 26px avatar centre (card padding-left 14 + radius 13). */
+.vfp .raw-stem { width: 2px; height: 14px; margin-left: 27px; border-radius: 1px; background: var(--vlp-color-timeline-dash); justify-self: start; }
+
+/* Human reply node — the same node language, on the cream surface to read as the
+   human turn: real headshot, ink name, muted mono actor label. */
+.vfp .raw-reply { display: flex; align-items: flex-start; gap: 10px; border: 1px solid var(--vlp-border-subtle); border-radius: 14px; background: var(--vlp-bg-section-alt); padding: 11px 14px; }
+.vfp .raw-reply-main { display: grid; gap: 3px; min-width: 0; }
+.vfp .raw-reply-head { display: inline-flex; align-items: center; gap: 8px; }
+.vfp .raw-reply-name { font-size: 12.5px; font-weight: 600; letter-spacing: -0.24px; color: var(--vlp-color-ink); }
+.vfp .raw-reply-kind { font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-subtle); }
+.vfp .raw-reply-body { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--vlp-color-ink-soft); }

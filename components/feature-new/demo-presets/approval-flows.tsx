@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { AuditLog, Precedent } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -18,6 +17,7 @@ import {
 
 import "./approval-flows-related.css";
 import "./approval-flows-customize.css";
+import "./approval-flows-whatitis.css";
 
 // Simulated-UI demo nodes for the /new-features/approval-flows page. Keys match
 // components/feature-new/demo-presets/approval-flows.keys.ts; resolved by
@@ -268,6 +268,45 @@ function IconBraces() {
   );
 }
 
+// Actor-type labels for the "What it is" pipeline rows (agent vs human node).
+const ACTOR_AGENT = "agent";
+const ACTOR_HUMAN = "human";
+
+type WhatItIsActor = typeof ACTOR_AGENT | typeof ACTOR_HUMAN;
+type WhatItIsStatus = "agent" | "pending" | "approved" | "rejected";
+
+/**
+ * Thin vertical connector between two "What it is" pipeline rows, so the run
+ * reads as one DAG rather than a flat list.
+ * @returns {JSX.Element} The connector stem.
+ */
+function PipeStem() {
+  return <span className="afw-pipe" aria-hidden="true" />;
+}
+
+/**
+ * Right-side cluster for a "What it is" pipeline row: a muted mono actor label
+ * (accented for agents) beside the colour-coded status chip.
+ * @param {{ actor: WhatItIsActor; status: string; statusKind: WhatItIsStatus }} props Actor type, status label, and status chip kind.
+ * @returns {JSX.Element} The actor + status cluster.
+ */
+function StepTags({
+  actor,
+  status,
+  statusKind,
+}: {
+  actor: WhatItIsActor;
+  status: string;
+  statusKind: WhatItIsStatus;
+}) {
+  return (
+    <span className="afw-tags">
+      <span className={`afw-kind${actor === ACTOR_AGENT ? " afw-kind--agent" : ""}`}>{actor}</span>
+      <span className={`chip chip-${statusKind}`}>{status}</span>
+    </span>
+  );
+}
+
 
 export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
   // ── BUILDER ─────────────────────────────────────────────────────────────────
@@ -440,44 +479,59 @@ export const APPROVAL_FLOWS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "approval-flows/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 14, padding: 18 }}>
-      <AuditLog
-        head={{ left: "Workflow · marketing email", right: "one DAG, both actor types" }}
-        rows={[
-          {
-            ts: "Step 1",
-            ev: (
-              <>
-                <strong>Brand Agent</strong> failed · finding pinned to the headline
-              </>
-            ),
-            chip: { label: "agent", kind: "agent" },
-          },
-          {
-            ts: "Step 2",
-            ev: (
-              <>
-                <strong>Sarah</strong> waiting · Approve / Reject
-              </>
-            ),
-            chip: { label: "human", kind: "pending" },
-          },
-          {
-            ts: "Step 3",
-            ev: (
-              <>
-                <strong>Compliance Agent</strong> pending
-              </>
-            ),
-            chip: { label: "agent", kind: "agent" },
-          },
-        ]}
-      />
-      <Precedent
-        heading="override · recorded"
-        body={"Dismiss on the agent finding requires a comment · recorded as overrideOfAi · by team lead"}
-        meta="one pipeline, both actor types, consent visible"
-      />
+    <div className="afw">
+      <div className="afw-head">
+        <span className="afw-head-title">
+          <IconSitemap />
+          Workflow · marketing email
+        </span>
+        <span className="afw-head-meta">one DAG · agent + human</span>
+      </div>
+
+      <div className="afw-body">
+        <div className="apc-chain afw-chain">
+          <ChainRow
+            agent
+            name="Brand Agent"
+            statusText="Finding pinned to the headline"
+            right={<StepTags actor={ACTOR_AGENT} status="failed" statusKind="rejected" />}
+          />
+          <PipeStem />
+          <ChainRow
+            status="waiting"
+            img={FACE.sarah}
+            name="Sarah"
+            statusText="Approve / Reject"
+            right={<StepTags actor={ACTOR_HUMAN} status="waiting" statusKind="pending" />}
+          />
+          <PipeStem />
+          <ChainRow
+            agent
+            name="Compliance Agent"
+            statusText="Queued behind sign-off"
+            right={<StepTags actor={ACTOR_AGENT} status="pending" statusKind="pending" />}
+          />
+        </div>
+
+        <div className="afw-override">
+          <p className="afw-override-head">
+            <IconShield />
+            override · recorded
+          </p>
+          <p className="afw-override-body">
+            Dismissing the agent finding needs a comment — recorded as{" "}
+            <code className="afw-code">overrideOfAi</code> by the team lead.
+          </p>
+          <p className="afw-override-meta">
+            <span className="afw-consent">
+              <IconCheckTabler />
+              consent visible
+            </span>
+            <span className="afw-dot">·</span>
+            both actor types
+          </p>
+        </div>
+      </div>
     </div>
   ),
 

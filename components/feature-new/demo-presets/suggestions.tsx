@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, Chip, ProvArrow, Precedent } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -22,6 +21,8 @@ import {
 } from "./hero-surface";
 
 import "./suggestions-showcase.css";
+import "./approval-flows-whatitis.css";
+import "./suggestions-whatitis.css";
 
 // Simulated-UI demo nodes for the /new-features/suggestions page. Keys match
 // components/feature-new/demo-presets/suggestions.keys.ts and are merged into
@@ -35,92 +36,67 @@ const FACE = {
   you: FACES.jeff,
 } as const;
 
-type AvatarKind = "human" | "agent" | "away";
+// "What it is" scene constants: one rate cell, two proposals (agent + human).
+const ACTOR_AGENT = "agent";
+const ACTOR_HUMAN = "human";
+const AGENT_NAME = "Rate Checker";
+const TARGET_CELL = "Rate";
+const CURRENT_VALUE = "12.0";
+const APPLIED_VALUE = "10.5";
+
+type SuggestionActor = typeof ACTOR_AGENT | typeof ACTOR_HUMAN;
+type SuggestionStatus = "accepted" | "rejected";
 
 /**
- * A framed "field" surface used to host suggestion diffs and review actions.
- * @param {{ children: ReactNode }} props Surface content.
- * @returns {JSX.Element} Field surface.
+ * One suggestion node for the "What it is" scene: an actor (agent flower or
+ * human headshot) proposing a del → ins diff on the shared cell, with the
+ * owner's accept/reject decision shown as a colour-coded chip plus a rationale.
+ * Sibling nodes are joined by the thin .sgw-stem spine so both proposals read
+ * as edits to one primitive.
+ * @param {{ name: string; actor: SuggestionActor; initials: string; img?: string; from: ReactNode; to: ReactNode; status: SuggestionStatus; note: string }} props Node content.
+ * @returns {JSX.Element} A suggestion proposal node.
  */
-function FieldSurface({ children }: { children: ReactNode }) {
-  return (
-    <div
-      style={{
-        border: "1px solid var(--line, #e7e2d9)",
-        borderRadius: 12,
-        background: "var(--bg, #fff)",
-        padding: 14,
-        display: "grid",
-        gap: 8,
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-/**
- * Old-value to proposed-value diff, struck-through original then accent target.
- * @param {{ from: ReactNode; to: ReactNode }} props Before and after values.
- * @returns {JSX.Element} Inline diff.
- */
-function Diff({ from, to }: { from: ReactNode; to: ReactNode }) {
-  return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 13 }}>
-      <span style={{ textDecoration: "line-through", opacity: 0.5 }}>{from}</span>
-      <ProvArrow />
-      <span style={{ fontWeight: 700, color: "var(--brand, #ff4f00)" }}>{to}</span>
-    </span>
-  );
-}
-
-/**
- * Pending suggestion card: author, target, diff, optional rationale, and either
- * accept/reject actions or a resolved outcome chip.
- * @param {{ author: { initials: string; kind?: AvatarKind; name?: string }; target: string; from: ReactNode; to: ReactNode; rationale?: string; decided?: "accepted" | "rejected"; rejectReason?: string }} props Suggestion data.
- * @returns {JSX.Element} Suggestion card.
- */
-function SuggestionCard({
-  author,
-  target,
+function SuggestionNode({
+  name,
+  actor,
+  initials,
+  img,
   from,
   to,
-  rationale,
-  decided,
-  rejectReason,
+  status,
+  note,
 }: {
-  author: { initials: string; kind?: AvatarKind; name?: string };
-  target: string;
+  name: string;
+  actor: SuggestionActor;
+  initials: string;
+  img?: string;
   from: ReactNode;
   to: ReactNode;
-  rationale?: string;
-  decided?: "accepted" | "rejected";
-  rejectReason?: string;
+  status: SuggestionStatus;
+  note: string;
 }) {
+  const isAgent = actor === ACTOR_AGENT;
   return (
-    <FieldSurface>
-      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <AvatarStack users={[author]} />
-        <span style={{ fontSize: 12.5, fontWeight: 700, color: "var(--ink, #0b353b)" }}>
-          {author.name}
+    <div className={`sgw-node${status === "rejected" ? " sgw-node--rejected" : ""}`}>
+      <div className="sgw-node-head">
+        <Av initials={initials} agent={isAgent} img={img} tone="a2" />
+        <span className="sgw-node-id">
+          <span className="sgw-node-name">{name}</span>
+          <span className={`sgw-node-kind${isAgent ? " sgw-node-kind--agent" : ""}`}>{actor}</span>
         </span>
-        <Chip kind="pending">suggestion</Chip>
+        <span className={`chip chip-${status === "accepted" ? "approved" : "rejected"}`}>{status}</span>
       </div>
-      <p style={{ margin: 0, fontSize: 12, opacity: 0.65 }}>{target}</p>
-      <Diff from={from} to={to} />
-      {rationale ? <p style={{ margin: 0, fontSize: 12, opacity: 0.8 }}>{rationale}</p> : null}
-      {decided ? (
-        <Chip kind={decided === "accepted" ? "approved" : "rejected"}>{decided}</Chip>
-      ) : (
-        <div style={{ display: "flex", gap: 6 }}>
-          <Chip kind="approved">Accept</Chip>
-          <Chip kind="rejected">Reject</Chip>
-        </div>
-      )}
-      {rejectReason ? (
-        <p style={{ margin: 0, fontSize: 11.5, opacity: 0.6 }}>reason: {rejectReason}</p>
-      ) : null}
-    </FieldSurface>
+      <div className="sgw-node-diff">
+        <span className="sgw-node-cell">{TARGET_CELL}</span>
+        <del style={DEL_STYLE}>{from}</del>
+        <span className="sgw-node-arrow" aria-hidden="true">{"→"}</span>
+        <ins style={INS_STYLE}>{to}</ins>
+      </div>
+      <p className="sgw-node-note">
+        {status === "rejected" ? <span className="sgw-node-reason">reason</span> : null}
+        {note}
+      </p>
+    </div>
   );
 }
 
@@ -216,6 +192,17 @@ function IconShuffle() {
       <path d="M16 20h4v-4" />
       <path d="M4 4l5 5" />
       <path d="M15 15l5 5" />
+    </svg>
+  );
+}
+
+/** @returns {JSX.Element} Table glyph with one highlighted cell for the scene head. */
+function IconTableCell() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 10h18M9 10v10" />
+      <rect x="3" y="10" width="6" height="5" fill="currentColor" stroke="none" opacity="0.18" />
     </svg>
   );
 }
@@ -439,29 +426,58 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "suggestions/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <p className="code-microcopy">Pricing table · Rate cell mid-review</p>
-      <SuggestionCard
-        author={{ initials: "RC", kind: "agent", name: "Rate Checker" }}
-        target="Rate"
-        from="12.0"
-        to="10.5"
-        rationale="Vendor rate is 12% over the contracted cap"
-        decided="accepted"
-      />
-      <SuggestionCard
-        author={{ initials: "AN", kind: "human", name: "Analyst" }}
-        target="Rate"
-        from="12.0"
-        to="11.4"
-        decided="rejected"
-        rejectReason="Use the agent's contracted figure"
-      />
-      <Precedent
-        heading="applied value · Rate"
-        body="10.5 · accepted from Rate Checker · your code wrote the change"
-        meta="one primitive, both actors, consent visible"
-      />
+    <div className="afw">
+      <div className="afw-head">
+        <span className="afw-head-title">
+          <IconTableCell />
+          Pricing table · {TARGET_CELL} cell
+        </span>
+        <span className="afw-head-meta">one cell · agent + human</span>
+      </div>
+
+      <div className="afw-body">
+        <div className="sgw-stack">
+          <SuggestionNode
+            name={AGENT_NAME}
+            actor={ACTOR_AGENT}
+            initials="RC"
+            from={CURRENT_VALUE}
+            to={APPLIED_VALUE}
+            status="accepted"
+            note="Vendor rate is 12% over the contracted cap"
+          />
+          <span className="sgw-stem" aria-hidden="true" />
+          <SuggestionNode
+            name="Analyst"
+            actor={ACTOR_HUMAN}
+            initials="AN"
+            img={FACE.maya}
+            from={CURRENT_VALUE}
+            to="11.4"
+            status="rejected"
+            note="Use the agent's contracted figure"
+          />
+        </div>
+
+        <div className="afw-override">
+          <p className="afw-override-head">
+            <IconBolt />
+            applied value · {TARGET_CELL}
+          </p>
+          <p className="afw-override-body">
+            Owner accepted {AGENT_NAME}&rsquo;s edit — <code className="afw-code">{APPLIED_VALUE}</code> written
+            by your code, never by Velt.
+          </p>
+          <p className="afw-override-meta">
+            <span className="afw-consent">
+              <IconCheck />
+              consent visible
+            </span>
+            <span className="afw-dot">·</span>
+            one primitive, both actors
+          </p>
+        </div>
+      </div>
     </div>
   ),
 
