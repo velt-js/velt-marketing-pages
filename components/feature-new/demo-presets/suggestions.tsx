@@ -250,7 +250,7 @@ function SuggestionEditorHero() {
       <div className="cmh-td" style={{ minHeight: 262 }}>
         <p className="cmh-td-doc" style={{ margin: "22px 0 0", maxWidth: "100%" }}>
           The Provider shall deliver the project within{" "}
-          <span className="cmh-mark" style={{ background: "rgba(255, 209, 102, 0.5)", boxShadow: "inset 0 -2px 0 rgba(255, 193, 7, 0.6)" }}>
+          <span className="cmh-mark" style={{ background: "transparent", boxShadow: "none", padding: 0 }}>
             <del style={DEL_STYLE}>30 calendar days</del>{" "}
             <ins style={INS_STYLE}>14 business days</ins>
           </span>{" "}
