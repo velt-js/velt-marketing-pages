@@ -6,6 +6,7 @@ import "./styles.css";
 import Nav from "@/components/home-new/Nav";
 import Footer from "@/components/home-new/Footer";
 import Integrations from "@/components/home-new/Integrations";
+import Enterprise from "@/components/home-new/Enterprise";
 import FeatureHero from "./FeatureHero";
 import LogoStrip from "./LogoStrip";
 import WhatItIs from "./WhatItIs";
@@ -27,10 +28,36 @@ type FeaturePageViewProps = {
   /**
    * Optional override for the enterprise section. When provided, it replaces the
    * default compliance-badge EnterpriseStrip (e.g. /platform swaps in the
-   * 4-pillar home-new Enterprise section).
+   * 4-pillar home-new Enterprise section). Takes precedence over the
+   * CMS-driven `content.enterprisePillars` section.
    */
   enterpriseSection?: ReactNode;
 };
+
+/**
+ * Pick the enterprise section to render. An explicit `enterpriseSection`
+ * override wins; otherwise a CMS-configured polished pillar section
+ * (`content.enterprisePillars`) renders; otherwise the default compliance-badge
+ * strip.
+ * @param {FeaturePageContent} content The page content.
+ * @param {ReactNode} [enterpriseSection] Optional explicit override.
+ * @returns {ReactNode} The enterprise section to render.
+ */
+function resolveEnterpriseSection(
+  content: FeaturePageContent,
+  enterpriseSection?: ReactNode,
+): ReactNode {
+  try {
+    if (enterpriseSection) return enterpriseSection;
+    if (content.enterprisePillars) {
+      return <Enterprise {...content.enterprisePillars} />;
+    }
+    return <EnterpriseStrip content={content.enterprise} />;
+  } catch (error) {
+    console.error("resolveEnterpriseSection failed", error);
+    return <EnterpriseStrip content={content.enterprise} />;
+  }
+}
 
 /**
  * Renders the full v10 feature page (all 15 sections) from a typed content
@@ -57,8 +84,8 @@ export default function FeaturePageView({ content, enterpriseSection }: FeatureP
           {content.slug === "comments" ? <Integrations /> : null}
           {content.makeItYours ? <MakeItYours content={content.makeItYours} /> : null}
           {content.inProduction ? <InProduction content={content.inProduction} /> : null}
-          <Related content={content.related} />
-          {enterpriseSection ?? <EnterpriseStrip content={content.enterprise} />}
+          {content.related ? <Related content={content.related} /> : null}
+          {resolveEnterpriseSection(content, enterpriseSection)}
           <TestimonialWall content={content.testimonials} />
           <Faq content={content.faq} />
           <FinalCta content={content.finalCta} />

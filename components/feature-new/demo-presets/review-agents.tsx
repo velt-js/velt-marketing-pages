@@ -107,6 +107,91 @@ function HeroFinding({
 }
 
 /**
+ * FINDINGS-AS-COMMENTS hero artifact: a live marketing-email document where a
+ * review agent's finding posts as a comment anchored to the exact text it
+ * flags. Mirrors the text-editor comment surface used across editor
+ * integrations (toolbar + a marked selection + an anchored thread with the
+ * Open/resolve chrome), but the thread author is the Brand Agent and the body
+ * carries a suggested fix plus Approve / Reject consent actions: the finding
+ * lives as a real comment, not a separate panel.
+ * @returns {JSX.Element} The finding-as-comment frame.
+ */
+function FindingCommentHero() {
+  return (
+    <Frame
+      app="EM"
+      crumb={<><b>marketing-email.md</b> <span className="sep">/</span> Lexical</>}
+      users={[
+        { initials: "BA", agent: true },
+        { initials: "SR", tone: "a3", img: FACE.sarah },
+      ]}
+    >
+      <div className="cmh-toolbar">
+        <span className="tb" style={{ fontWeight: 800 }}>B</span>
+        <span className="tb" style={{ fontStyle: "italic" }}>I</span>
+        <span className="tb" style={{ textDecoration: "underline" }}>U</span>
+        <span className="vbar" />
+        <span className="tb">H1</span>
+        <span className="tb">H2</span>
+        <span className="vbar" />
+        <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
+      </div>
+
+      <div className="cmh-td" style={{ minHeight: 318 }}>
+        <p className="cmh-td-doc" style={{ margin: "22px 0 0", maxWidth: "100%" }}>
+          <span className="cmh-mark" style={{ background: "rgba(255, 209, 102, 0.5)", boxShadow: "inset 0 -2px 0 rgba(255, 193, 7, 0.6)" }}>Launch Your Review Agents</span>
+          {" "}&mdash; ship marketing your brand team already trusts. Every headline on-spec,
+          every pricing claim cited. Plans start at $49/seat, no annual lock-in.
+        </p>
+
+        <div className="cmh-td-comment" style={{ width: "82%" }}>
+          <div className="cmh-td-chead">
+            <span className="cmh-td-status">
+              <svg className="cmh-td-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg>
+              Open
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-flag">
+              <svg className="cmh-td-flagico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg>
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-actions">
+              <svg className="cmh-td-kebab" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+              <span className="cmh-td-resolve" aria-label="Resolve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+              </span>
+            </span>
+          </div>
+          <div className="cmh-td-msg">
+            <Av initials="BA" agent />
+            <span className="cmh-td-name">Brand Agent</span>
+            <span className="cmh-td-time">just now</span>
+            <span className="chip chip-agent" style={{ marginLeft: "auto" }}>AI</span>
+          </div>
+          <p className="cmh-td-text">Headline uses title case. Brand guidelines &sect;3.1 require sentence case.</p>
+          <p className="cmh-suggest">
+            <span className="lbl">Suggested fix</span>
+            <span className="body">
+              <del style={DEL_STYLE}>Launch Your Review Agents</del>
+              {" "}
+              <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>
+              {" "}
+              <ins style={INS_STYLE}>Launch your review agents</ins>
+            </span>
+          </p>
+          <div className="cmh-acts">
+            <button type="button" className="cmh-btn approve"><IconCheck />Approve</button>
+            <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>findings post as comments anchored to the exact text &middot; approve to apply the fix</p>
+    </Frame>
+  );
+}
+
+/**
  * A labelled key-value row for the DEFINE config card.
  * @param {{ label: string; value: ReactNode }} props Row label and value.
  * @returns {JSX.Element} Config row.
@@ -438,28 +523,7 @@ export const REVIEW_AGENTS_DEMOS: Record<string, ReactNode> = {
     </Frame>
   ),
 
-  "review-agents/hero/findings": (
-    <Frame
-      app="EM"
-      crumb={<><b>marketing-email.md</b> <span className="sep">/</span> findings</>}
-      users={[{ initials: "BA", agent: true }, { initials: "SR", tone: "a3", img: FACE.sarah }]}
-    >
-      <HeroFinding
-        agentName="Brand Agent"
-        agentInitials="BA"
-        body="Headline uses title case. Brand guidelines §3.1 require sentence case."
-        delText="Launch Your Review Agents"
-        insText="Launch your review agents"
-      />
-      <HeroFinding
-        agentName="Brand Agent"
-        agentInitials="BA"
-        body="Pricing claim on line 4 has no cited source. Add a reference or remove the figure."
-        delText="$49/seat"
-        insText="$49/seat [1]"
-      />
-    </Frame>
-  ),
+  "review-agents/hero/findings": <FindingCommentHero />,
 
   "review-agents/hero/accept": (
     <Frame

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { AvatarStack, DarkPanel } from "../demos";
+import { DarkPanel } from "../demos";
 import { AiNativeBoard } from "./ai-board";
 import { ComplianceBoard } from "./compliance-board";
 import { DigitalSalesRoom } from "./digital-sales-room";
@@ -10,7 +10,6 @@ import { OperationsBoard } from "./ops-board";
 import {
   AgentFindingCard,
   Av,
-  Composer,
   DEL_STYLE,
   FACES,
   Frame,
@@ -35,65 +34,6 @@ const FACE = {
 // Simulated-UI demo nodes for the /new-features/comments page. Keys match
 // components/feature-new/demo-presets/comments.keys.ts; resolved by
 // demo-registry.tsx. Visuals are simulated, not live SDK instances.
-
-/**
- * A framed "document" surface that hosts comment threads.
- * @param {{ label?: string; children: ReactNode }} props Optional caption and surface content.
- * @returns {JSX.Element} Document surface.
- */
-function Surface({ label, children }: { label?: string; children: ReactNode }) {
-  return (
-    <div
-      style={{
-        border: "1px solid var(--line, #e7e2d9)",
-        borderRadius: 12,
-        background: "var(--bg, #fff)",
-        padding: 14,
-        display: "grid",
-        gap: 10,
-      }}
-    >
-      {label ? <p style={{ margin: 0, fontSize: 12, opacity: 0.6 }}>{label}</p> : null}
-      {children}
-    </div>
-  );
-}
-
-/**
- * A single comment bubble: avatar, author, body, and optional Approve/Reject
- * actions for agent findings.
- * @param {{ initials: string; author: string; agent?: boolean; body: ReactNode; actions?: boolean }} props Comment content.
- * @returns {JSX.Element} Comment bubble.
- */
-function Comment({
-  initials,
-  author,
-  agent,
-  body,
-  actions,
-}: {
-  initials: string;
-  author: string;
-  agent?: boolean;
-  body: ReactNode;
-  actions?: boolean;
-}) {
-  return (
-    <div style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-      <AvatarStack users={[{ initials, kind: agent ? "agent" : "human", name: author }]} />
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ margin: 0, fontSize: 12.5, fontWeight: 700, color: "var(--ink, #0b353b)" }}>{author}</p>
-        <p style={{ margin: "2px 0 0", fontSize: 12.5, lineHeight: 1.45, color: "var(--ink, #0b353b)" }}>{body}</p>
-        {actions ? (
-          <div style={{ display: "flex", gap: 6, marginTop: 8 }}>
-            <span className="chip chip-approved">Approve</span>
-            <span className="chip chip-rejected">Reject</span>
-          </div>
-        ) : null}
-      </div>
-    </div>
-  );
-}
 
 export const COMMENTS_DEMOS: Record<string, ReactNode> = {
   "comments/hero/freestyle": (
@@ -163,19 +103,17 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
         </div>
 
         <div className="cmh-cmt cmh-cmt-end">
-          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <Av initials="BA" agent />
           <div className="cmh-cmt-main">
             <div className="cmh-cmt-head">
-              <span className="cmh-cmt-name">Maya</span>
+              <span className="cmh-cmt-name">Brand Agent</span>
               <span className="cmh-cmt-time">2m</span>
             </div>
-            <p className="cmh-cmt-body">Is $85 the approved Q3 number? <span className="cmh-mention">@Sarah</span></p>
+            <p className="cmh-cmt-body">$85 doesn’t match the approved Q3 number.</p>
             <span className="cmh-cmt-replies"><IconReply />1 Reply</span>
           </div>
         </div>
       </div>
-
-      <Composer placeholder="Reply to Maya…" />
     </Frame>
   ),
 
@@ -229,8 +167,6 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
           <p className="cmh-td-text">This clause needs a liability cap before we send. <span className="cmh-td-mention">@Sarah</span> can you confirm scope?</p>
         </div>
       </div>
-
-      <Composer placeholder="Comment on the selection…" />
     </Frame>
   ),
 
@@ -281,20 +217,62 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
   ),
 
   "comments/what-it-is/scene": (
-    <div style={{ display: "grid", gap: 12, padding: 18 }}>
-      <Surface label="Sales deck · one thread, both actors">
-        <Comment
-          initials="BA"
-          author="Brand Agent"
-          agent
-          body="This pricing claim conflicts with the rate table in slide 4. Suggested fix attached."
-          actions
-        />
-        <Comment initials="DV" author="Dev" body="@Maya can you confirm the Q3 number?" />
-        <Comment initials="MA" author="Maya" body="Confirmed, accepting." />
-        <p className="code-microcopy">accepted · webhook review.approved fired · consent visible</p>
-      </Surface>
-    </div>
+    <>
+      <div className="scene-slide">
+        <div className="cmh-scene-head">
+          <span className="slide-tag">Sales deck · slide 4</span>
+          <span className="cmh-scene-avs">
+            <Av initials="BA" agent />
+            <Av initials="DV" tone="a3" img={FACE.dev} />
+            <Av initials="MA" tone="a2" img={FACE.maya} />
+          </span>
+        </div>
+        <p className="cmh-scene-title">One thread, both actors</p>
+      </div>
+
+      <div className="scene-thread cmh-thread">
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="BA" agent />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Brand Agent</span>
+              <span className="chip chip-agent">agent</span>
+              <span className="cmh-cmt-time">2m</span>
+            </div>
+            <p className="cmh-cmt-body">This pricing claim conflicts with the rate table on slide 4. Suggested fix attached.</p>
+            <div className="cmh-cmt-actions">
+              <button type="button" className="cmh-btn approve">Approve</button>
+              <button type="button" className="cmh-btn reject">Reject</button>
+            </div>
+          </div>
+        </div>
+
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="DV" tone="a3" img={FACE.dev} />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Dev</span>
+              <span className="cmh-cmt-time">1m</span>
+            </div>
+            <p className="cmh-cmt-body"><span className="cmh-cc-mention">@Maya</span> can you confirm the Q3 number?</p>
+          </div>
+        </div>
+
+        <div className="cmh-cmt cmh-cmt--plain">
+          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <div className="cmh-cmt-main">
+            <div className="cmh-cmt-head">
+              <span className="cmh-cmt-name">Maya</span>
+              <span className="cmh-cmt-time">now</span>
+              <span className="chip chip-approved cmh-cmt-chip">accepted</span>
+            </div>
+            <p className="cmh-cmt-body">Confirmed, accepting.</p>
+          </div>
+        </div>
+      </div>
+
+      <p className="webhook-line"><span className="pulse" />accepted · webhook review.approved fired · consent visible</p>
+    </>
   ),
 
   "comments/showcase/anything": (

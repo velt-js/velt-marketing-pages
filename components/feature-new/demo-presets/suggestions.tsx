@@ -16,6 +16,7 @@ import {
   Frame,
   IconArrowRight,
   IconCheck,
+  IconReply,
   IconX,
   INS_STYLE,
 } from "./hero-surface";
@@ -228,8 +229,18 @@ function IconFilter() {
   );
 }
 
-export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
-  "suggestions/hero/editor": (
+/**
+ * TEXT-EDITOR SUGGESTION hero artifact: a live contract document where a
+ * reviewer's edit posts as a suggestion anchored to the exact clause it
+ * touches. Mirrors the text-editor comment surface used across editor
+ * integrations (toolbar + an inline redline + an anchored thread with the
+ * Open/resolve chrome), but the thread carries a Suggested edit (del -> ins)
+ * plus Accept / Reject consent actions: the suggestion lives as a real comment
+ * on the line, not a separate panel.
+ * @returns {JSX.Element} The text-editor suggestion frame.
+ */
+function SuggestionEditorHero() {
+  return (
     <Frame
       app="CT"
       crumb={<><b>contract.md</b> <span className="sep">/</span> Clause 4</>}
@@ -249,39 +260,65 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
         <span className="tb" style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>&lt;/&gt;</span>
       </div>
 
-      <p className="cmh-doc">
-        The Provider shall deliver the project within{" "}
-        <span className="cmh-mark">
-          <del style={DEL_STYLE}>30 calendar days</del>{" "}
-          <ins style={INS_STYLE}>14 business days</ins>
-        </span>{" "}
-        of the signed order.
-      </p>
-
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="SR" tone="a3" img={FACE.sarah} />
-          Sarah
-          <span className="cmh-role">· Legal</span>
-          <span className="cmh-when">just now</span>
-        </div>
-        <p className="cmh-suggest">
-          <span className="lbl">Suggested edit</span>
-          <span className="body">
-            <del style={DEL_STYLE}>30 calendar days</del>
-            {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
+      <div className="cmh-td" style={{ minHeight: 262 }}>
+        <p className="cmh-td-doc" style={{ margin: "22px 0 0", maxWidth: "100%" }}>
+          The Provider shall deliver the project within{" "}
+          <span className="cmh-mark" style={{ background: "rgba(255, 209, 102, 0.5)", boxShadow: "inset 0 -2px 0 rgba(255, 193, 7, 0.6)" }}>
+            <del style={DEL_STYLE}>30 calendar days</del>{" "}
             <ins style={INS_STYLE}>14 business days</ins>
-          </span>
+          </span>{" "}
+          of the signed order.
         </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+
+        <div className="cmh-td-comment" style={{ width: "82%" }}>
+          <div className="cmh-td-chead">
+            <span className="cmh-td-status">
+              <svg className="cmh-td-dot" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="12" cy="12" r="9" /></svg>
+              Open
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-flag">
+              <svg className="cmh-td-flagico" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg>
+              <svg className="cmh-td-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </span>
+            <span className="cmh-td-actions">
+              <svg className="cmh-td-kebab" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6" /><circle cx="12" cy="12" r="1.6" /><circle cx="19" cy="12" r="1.6" /></svg>
+              <span className="cmh-td-resolve" aria-label="Resolve">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7" /></svg>
+              </span>
+            </span>
+          </div>
+          <div className="cmh-td-msg">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="cmh-td-avatar" src={FACE.sarah} alt="Sarah" />
+            <span className="cmh-td-name">Sarah</span>
+            <span className="cmh-role">· Legal</span>
+            <span className="cmh-td-time">just now</span>
+          </div>
+          <p className="cmh-suggest">
+            <span className="lbl">Suggested edit</span>
+            <span className="body">
+              <del style={DEL_STYLE}>30 calendar days</del>
+              {" "}
+              <span style={{ color: "var(--vlp-color-text-subtle)" }}>{"→"}</span>
+              {" "}
+              <ins style={INS_STYLE}>14 business days</ins>
+            </span>
+          </p>
+          <div className="cmh-acts">
+            <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
+            <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+          </div>
         </div>
       </div>
 
-      <Composer placeholder="Reply to Sarah…" you={FACE.you} />
+      <p className="code-microcopy" style={{ margin: "4px 0 0" }}>a suggested edit anchored to the exact clause &middot; accept to apply the redline</p>
     </Frame>
-  ),
+  );
+}
+
+export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
+  "suggestions/hero/editor": <SuggestionEditorHero />,
 
   "suggestions/hero/custom": (
     <Frame
@@ -352,36 +389,52 @@ export const SUGGESTIONS_DEMOS: Record<string, ReactNode> = {
 
   "suggestions/hero/agent": (
     <Frame
-      app="RC"
-      crumb={<><b>rates.csv</b> <span className="sep">/</span> row 14</>}
+      app="PR"
+      crumb={<><b>pricing.csv</b> <span className="sep">/</span> Pro · Proposed</>}
       users={[
-        { initials: "RN", tone: "a1", img: FACE.roman },
-        { initials: "RA", agent: true },
+        { initials: "KM", tone: "a2", img: FACE.maya },
+        { initials: "PA", agent: true },
       ]}
     >
-      <div className="finding cmh-finding">
-        <div className="fh">
-          <Av initials="RA" agent />
-          Rate Checker Agent
-          <span className="cmh-when">now</span>
+      {/* A spreadsheet cell carrying an anchored agent suggestion, approved by a human */}
+      <div className="sgn-csv-wrap">
+        <div className="sgn-csv" role="table" aria-label="Pricing">
+          <div className="sgn-csv-row sgn-csv-row--head" role="row">
+            <span role="columnheader">Plan</span>
+            <span role="columnheader">Current</span>
+            <span role="columnheader">Proposed</span>
+          </div>
+          <div className="sgn-csv-row" role="row">
+            <span role="cell">Starter</span>
+            <span role="cell">$29</span>
+            <span role="cell">$35</span>
+          </div>
+          <div className="sgn-csv-row" role="row">
+            <span role="cell">Pro</span>
+            <span role="cell">$79</span>
+            <span className="sgn-csv-cell--target" role="cell">$85</span>
+          </div>
         </div>
-        <p className="fb">
-          Vendor rate on row 14 is 12% above the contracted cap. Proposing a corrected value.
-        </p>
-        <p className="cmh-suggest">
-          <span className="body">
-            <del style={DEL_STYLE}>8.25%</del>
-            {" "}<span style={{ color: "var(--vlp-color-text-subtle)" }}>→</span>{" "}
-            <ins style={INS_STYLE}>7.35%</ins>
-          </span>
-        </p>
-        <div className="cmh-acts">
-          <button type="button" className="cmh-btn approve"><IconCheck />Accept</button>
-          <button type="button" className="cmh-btn reject"><IconX />Reject</button>
+
+        <div className="sgn-csv-pop">
+          <div className="sgn-csv-pop-head">
+            <Av initials="KM" tone="a2" img={FACE.maya} />
+            <span className="sgn-csv-pop-by">Approved by Kim</span>
+            <span className="sgn-csv-pop-check"><IconCheck /></span>
+          </div>
+          <div className="sgn-csv-pop-body">
+            <div className="sgn-csv-pop-meta">
+              <Av initials="PA" agent />
+              <span className="sgn-csv-pop-name">Pricing Agent</span>
+              <span className="sgn-csv-pop-time">58m</span>
+            </div>
+            <p className="sgn-csv-pop-text">
+              Proposed Pro price was $92, above the approved Q3 band. I suggest $85, the band maximum.
+            </p>
+            <span className="sgn-csv-pop-reply"><IconReply />Reply</span>
+          </div>
         </div>
       </div>
-
-      <Composer placeholder="Reply or override…" you={FACE.you} />
     </Frame>
   ),
 

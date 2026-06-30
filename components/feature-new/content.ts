@@ -169,6 +169,43 @@ export type EnterpriseContent = {
   cta: CtaLink;
 };
 
+/** Reliability uptime stat row shown on an enterprise pillar card. */
+export type EnterprisePillarUptime = { label: string; value: string };
+
+/**
+ * A single pillar card in the polished "Built for enterprise" section. Exactly
+ * one of `monoLines` / `regionsMono` / `uptime` is typically set per card,
+ * matching the four reference variants (deployment, reliability, global,
+ * compliance); all are optional so the card can render with copy alone.
+ */
+export type EnterprisePillar = {
+  label: string;
+  title: string;
+  body: string;
+  /** Monospace bullet/stat lines (e.g. "▸ comments → your db"). */
+  monoLines?: string[];
+  /** Monospace region list rendered without bullets. */
+  regionsMono?: string[];
+  /** Reliability uptime stat row (label + value). */
+  uptime?: EnterprisePillarUptime;
+  /** Monospace footer link (e.g. "velt.dev/self-hosting"). */
+  footerLink?: string;
+};
+
+/**
+ * Content for the polished dark "Built for enterprise" pillar section. Every
+ * field is optional: the section component supplies sensible defaults that
+ * match the homepage reference design when a field is omitted.
+ */
+export type EnterprisePillarsContent = {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+  pillars?: EnterprisePillar[];
+  primaryCta?: CtaLink;
+  secondaryCta?: CtaLink;
+};
+
 export type TestimonialCard = { metric: string; quote: string; who: string };
 
 export type TestimonialContent = {
@@ -199,8 +236,13 @@ export type FeaturePageContent = {
   details: DetailsContent;
   makeItYours?: MakeItYoursContent;
   inProduction?: InProductionContent;
-  related: RelatedContent;
+  related?: RelatedContent;
   enterprise: EnterpriseContent;
+  /**
+   * Optional polished 4-pillar "Built for enterprise" section. When present,
+   * FeaturePageView renders it in place of the default compliance-badge strip.
+   */
+  enterprisePillars?: EnterprisePillarsContent;
   testimonials: TestimonialContent;
   faq: FaqContent;
   finalCta: FinalCtaContent;

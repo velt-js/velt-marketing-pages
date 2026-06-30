@@ -533,6 +533,66 @@ export const featurePageV2 = defineType({
     }),
 
     defineField({
+      name: "enterprisePillars",
+      title: "Built for Enterprise (pillars)",
+      description:
+        "Polished dark 4-pillar compliance section. When filled in, it renders in place of the Enterprise Readiness Strip above. Leave empty to keep the strip. Omitted fields fall back to the homepage defaults.",
+      type: "object",
+      group: "sections",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({ name: "eyebrow", title: "Eyebrow", type: "string", description: 'Uppercase label, e.g. "Built for enterprise".' }),
+        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({ name: "description", title: "Description", type: "text", rows: 3 }),
+        defineField({
+          name: "pillars",
+          title: "Pillar cards",
+          description: "Up to four cards. Each typically sets one of mono lines / region lines / uptime.",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              name: "vfpEnterprisePillar",
+              fields: [
+                defineField({ name: "label", title: "Label", type: "string", description: 'e.g. "PILLAR 01 · DEPLOYMENT".', validation: (rule) => rule.required() }),
+                defineField({ name: "title", title: "Title", type: "string", validation: (rule) => rule.required() }),
+                defineField({ name: "body", title: "Body", type: "text", rows: 3, validation: (rule) => rule.required() }),
+                defineField({
+                  name: "monoLines",
+                  title: "Mono lines",
+                  description: 'Monospace bullet/stat lines, e.g. "▸ comments → your db".',
+                  type: "array",
+                  of: [{ type: "string" }],
+                }),
+                defineField({
+                  name: "regionsMono",
+                  title: "Region lines",
+                  description: "Monospace region list rendered without bullets.",
+                  type: "array",
+                  of: [{ type: "string" }],
+                }),
+                defineField({
+                  name: "uptime",
+                  title: "Uptime stat",
+                  type: "object",
+                  fields: [
+                    defineField({ name: "label", title: "Label", type: "string", description: 'e.g. "trailing 90d".' }),
+                    defineField({ name: "value", title: "Value", type: "string", description: 'e.g. "100.000%".' }),
+                  ],
+                }),
+                defineField({ name: "footerLink", title: "Footer link", type: "string", description: 'Monospace footer, e.g. "trust.velt.dev".' }),
+              ],
+              preview: { select: { title: "title", subtitle: "label" } },
+            },
+          ],
+          validation: (rule) => rule.max(4),
+        }),
+        defineField({ name: "primaryCta", title: "Primary CTA", type: "ctaLink" }),
+        defineField({ name: "secondaryCta", title: "Secondary CTA", type: "ctaLink" }),
+      ],
+    }),
+
+    defineField({
       name: "testimonials",
       title: "Testimonial Wall",
       type: "object",
