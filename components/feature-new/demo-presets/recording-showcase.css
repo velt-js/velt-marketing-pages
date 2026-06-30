@@ -76,6 +76,105 @@
 .vfp .rcd-edit-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .vfp .rcd-tools { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* Clean editor panel — white card with a byline used by the hero editor demo,
+   replacing ad-hoc inline styles so it matches the comments-page card chrome. */
+.vfp .rcd-panel { display: grid; gap: 12px; padding: 14px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); }
+.vfp .rcd-panel-head { display: flex; align-items: center; gap: 9px; }
+.vfp .rcd-panel-head .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .rcd-panel-name { font-size: 13px; font-weight: 700; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .rcd-panel-meta { margin-left: auto; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); }
+
+/* Timeline with contextual comment pins — a scrubber with teammate/agent
+   avatars dropped at the exact timestamps they commented on, plus the anchored
+   comment beneath. Reuses the comments-page avatar + comment-card language. */
+.vfp .rcd-tl { display: grid; gap: 14px; }
+.vfp .rcd-tl-bar { position: relative; height: 6px; margin: 40px 6px 0; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .rcd-tl-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; background: var(--vlp-color-accent); }
+.vfp .rcd-tl-knob { position: absolute; top: 50%; width: 13px; height: 13px; border-radius: 50%; background: var(--vlp-color-accent); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(255, 79, 0, 0.4); transform: translate(-50%, -50%); z-index: 2; }
+.vfp .rcd-tl-pin { position: absolute; bottom: 5px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; z-index: 1; }
+.vfp .rcd-tl-pin .av-c { width: 22px; height: 22px; flex: none; font-size: 9px; border: 2px solid var(--vlp-bg-page); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16); }
+.vfp .rcd-tl-stem { width: 2px; height: 9px; background: var(--vlp-border-default); }
+.vfp .rcd-tl-pin--on .rcd-tl-stem { background: var(--vlp-color-accent); }
+.vfp .rcd-tl-pin--on .av-c { box-shadow: 0 0 0 2px var(--vlp-color-accent), 0 2px 6px rgba(0, 0, 0, 0.16); }
+.vfp .rcd-tl-pin--agent .av-c { box-shadow: 0 0 0 2px #4f7cff, 0 2px 6px rgba(0, 0, 0, 0.16); }
+
+/* Contextual comment anchored to a timeline marker (@timestamp). */
+.vfp .rcd-tl-cmt { display: flex; gap: 10px; padding: 11px 12px; border: 1px solid var(--vlp-border-subtle); border-radius: 12px; background: var(--vlp-bg-section-alt); }
+.vfp .rcd-tl-cmt .av-c { width: 26px; height: 26px; flex: none; }
+.vfp .rcd-tl-cmt-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .rcd-tl-cmt-head { display: flex; align-items: center; gap: 8px; }
+.vfp .rcd-tl-cmt-name { font-size: 13px; font-weight: 700; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .rcd-tl-at { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-family: var(--vlp-font-mono); font-size: 9.5px; font-weight: 700; letter-spacing: 0.02em; }
+.vfp .rcd-tl-at svg { width: 9px; height: 9px; flex: none; }
+.vfp .rcd-tl-cmt-time { margin-left: auto; font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-tl-cmt-body { margin: 0; font-size: 12.5px; line-height: 1.45; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .rcd-tl-cmt-body .rcd-mention { color: var(--vlp-color-accent-ink); font-weight: 600; }
+
+/* ---------- Hero media player (.rcd-hp-*) ----------
+   The recording-hero Audio + Video artifacts: a player whose scrubber carries an
+   agent comment pinned to the exact moment it fired, plus a floating agent card
+   popping from that point. Audio plays over a transcript; Video over a poster. */
+.vfp .rcd-hp { display: grid; gap: 4px; }
+.vfp .rcd-hp-script { display: grid; gap: 22px; padding: 6px 2px 34px; }
+.vfp .rcd-hp-line { display: flex; gap: 14px; align-items: flex-start; }
+.vfp .rcd-hp-line .av-c { width: 32px; height: 32px; flex: none; }
+.vfp .rcd-hp-line p { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.5; letter-spacing: -0.28px; color: var(--vlp-color-ink); }
+.vfp .rcd-hp-line--mute { opacity: 0.32; }
+
+.vfp .rcd-hp-player { position: relative; display: flex; align-items: center; gap: 24px; }
+.vfp .rcd-hp-play { flex: none; width: 18px; height: 18px; display: grid; place-items: center; color: var(--vlp-color-ink); }
+.vfp .rcd-hp-play svg { width: 13px; height: 13px; margin-left: 1px; }
+.vfp .rcd-hp-track { position: relative; flex: 1; min-width: 0; height: 4px; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .rcd-hp-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; background: var(--vlp-color-accent); }
+.vfp .rcd-hp-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); z-index: 2; }
+.vfp .rcd-hp-marker .av-c { width: 26px; height: 26px; border: 2px solid var(--vlp-bg-page); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22); }
+.vfp .rcd-hp-dur { flex: none; font-family: var(--vlp-font-mono); font-size: 14px; font-weight: 600; letter-spacing: 0.01em; color: color-mix(in srgb, var(--vlp-color-ink) 34%, transparent); }
+
+/* Floating agent comment card anchored above the timeline marker. */
+.vfp .rcd-hp-pop { position: absolute; left: 30%; bottom: calc(100% + 18px); transform: translateX(-50%); z-index: 3; display: flex; gap: 9px; width: 220px; padding: 13px; background: #fff; border: 0.8px solid rgba(0, 0, 0, 0.08); border-radius: 13px; box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.18); }
+.vfp .rcd-hp-pop .av-c { width: 22px; height: 22px; flex: none; }
+.vfp .rcd-hp-pop-main { display: flex; flex-direction: column; gap: 5px; min-width: 0; padding-top: 2px; }
+.vfp .rcd-hp-pop-head { display: flex; align-items: center; gap: 7px; }
+.vfp .rcd-hp-pop-name { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .rcd-hp-pop-time { font-size: 11px; color: var(--vlp-color-text-subtle); }
+.vfp .rcd-hp-pop-body { margin: 0; font-size: 11.5px; line-height: 1.4; letter-spacing: -0.22px; color: var(--vlp-color-ink-soft); }
+
+/* Video variant — poster stage with the player overlaid along the bottom. */
+.vfp .rcd-hp-stage { position: relative; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; background: var(--vlp-bg-skeleton, #d9d9d9); }
+.vfp .rcd-hp-stage > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vfp .rcd-hp--video .rcd-hp-player { position: absolute; left: 16px; right: 16px; bottom: 14px; }
+.vfp .rcd-hp--video .rcd-hp-play { color: #fff; }
+.vfp .rcd-hp--video .rcd-hp-track { background: rgba(255, 255, 255, 0.32); }
+.vfp .rcd-hp--video .rcd-hp-dur { color: rgba(255, 255, 255, 0.62); }
+.vfp .rcd-hp--video .rcd-hp-marker .av-c { border-color: #fff; }
+
+/* Editor variant — a clean video poster with a minimal progress line, a single
+   floating agent card, and a filmstrip of frames beneath with the comment
+   pinned to the selected frame (replaces the busier scrubber + panel layout). */
+.vfp .rcd-ed { display: grid; gap: 16px; }
+.vfp .rcd-ed-frame { position: relative; }
+/* Cap the editor stage so the video doesn't dominate and the filmstrip + agent
+   card stay visible (the hero is wide, so a 16/10 stage would be ~500px tall). */
+.vfp .rcd-ed .rcd-hp-stage { aspect-ratio: auto; height: clamp(200px, 26vw, 300px); }
+.vfp .rcd-ed-bar { position: absolute; left: 16px; right: 16px; bottom: 14px; height: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.4); }
+.vfp .rcd-ed-fill { display: block; height: 100%; border-radius: 999px; background: var(--vlp-color-accent); }
+.vfp .rcd-ed-pop { left: 50%; top: auto; bottom: -22px; transform: translateX(-50%); }
+
+.vfp .rcd-strip { display: flex; gap: 8px; }
+.vfp .rcd-strip-cell { position: relative; flex: 1; aspect-ratio: 16 / 10; border-radius: 8px; background: var(--vlp-bg-skeleton, #ececec); }
+.vfp .rcd-strip-cell--sel { background: #d9d9d9; box-shadow: 0 0 0 2px var(--vlp-color-accent); }
+.vfp .rcd-strip-cell--sel > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; }
+.vfp .rcd-strip-pin { position: absolute; top: 50%; right: -12px; transform: translateY(-50%); z-index: 2; }
+.vfp .rcd-strip-pin .av-c { width: 26px; height: 26px; border: 2px solid var(--vlp-bg-page); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22); }
+
+/* WHAT IT IS scene — a human recording (clean player + transcript, with the
+   agent's comment pinned to the timeline) above the agent's reply in the same
+   thread, so "both actors" reads on one surface. */
+.vfp .rcd-wii { display: grid; gap: 14px; padding: 18px; }
+.vfp .rcd-wii-rec { display: grid; gap: 12px; padding: 14px 16px; border: 1px solid var(--vlp-border-default); border-radius: 14px; background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); }
+.vfp .rcd-wii-rec .rcd-hp-player { gap: 16px; }
+.vfp .rcd-wii-rec .rcd-transcript { margin: 0; }
+
 /* Recordings in threads — a recording attachment + reply / resolve / link row. */
 .vfp .rcd-attach { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--vlp-border-subtle); border-radius: 11px; background: var(--vlp-bg-section-alt); }
 .vfp .rcd-attach-play { width: 28px; height: 28px; flex: none; display: grid; place-items: center; border-radius: 8px; background: var(--vlp-color-accent); }

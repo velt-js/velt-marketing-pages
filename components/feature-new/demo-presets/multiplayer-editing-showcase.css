@@ -1,14 +1,41 @@
 /* ---------- Multiplayer-editing showcase artifacts (.mpe-*) ----------
-   Mock-UI cards for the /multiplayer-editing Capabilities grid, reusing the
-   comments + approval-flows design language: white labeled cards (apf-card)
-   over the shared cmh-cc head/body chrome, plus apf-tag, chip, int-chip and
-   the Av atoms. Only genuinely new co-editing patterns live here; everything
-   is namespaced .mpe- and scoped under .vfp. */
+   Mock-UI cards for the /multiplayer-editing Capabilities grid. Each artifact
+   is a clean white product mock (.mpe-cap, no colored header bar) matching the
+   home + comments page artifacts; the capability name/kicker/support copy come
+   from the surrounding ShowcaseCard chrome. Reuses the shared apf-note, chip,
+   int-chip and Av atoms. Only genuinely new co-editing patterns live here;
+   everything is namespaced .mpe- and scoped under .vfp. */
 
 /* Co-editing hero microcopy — co-located so the CoEditingHero component carries
    its own caption style onto pages that don't load HowItWorks.css (e.g. the
    editor integration spokes). Mirrors the base .code-microcopy utility. */
 .vfp .code-microcopy { font-family: var(--vlp-font-mono); font-size: 12.5px; color: var(--vlp-color-text-subtle); }
+
+/* Clean capability card — a plain white product-mock surface (no colored
+   header bar), matching the home + comments page artifacts. The capability's
+   name/kicker/support copy come from the surrounding ShowcaseCard chrome. */
+.vfp .mpe-cap { width: 100%; border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); padding: 16px; }
+.vfp .mpe-cap--narrow { max-width: 360px; margin: 0 auto; }
+
+/* "soon" badge on editor-library logo chips that aren't yet GA (e.g. Lexical). */
+.vfp .int-chip .mpe-chip-soon { margin-left: 1px; padding: 1px 6px; border-radius: 999px; background: var(--vlp-bg-section-alt); color: var(--vlp-color-text-subtle); font-family: var(--vlp-font-mono); font-size: 9px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+/* State-sync hero: one shared pipeline board open in two client tabs, the same
+   useLiveState filter selection reflected in both. A real product surface (tab
+   header + status filter + deal rows) rather than a code panel. */
+.vfp .mpe-ss { display: flex; gap: 8px; align-items: stretch; }
+.vfp .mpe-ss-pane { flex: 1; min-width: 0; display: flex; flex-direction: column; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); overflow: hidden; }
+.vfp .mpe-ss-pane--live { border-color: var(--vlp-color-accent-wash); box-shadow: 0 0 0 3px var(--vlp-color-accent-soft); }
+.vfp .mpe-ss-tabhead { display: flex; align-items: center; gap: 7px; padding: 8px 10px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: var(--vlp-color-ink); }
+.vfp .mpe-ss-tabhead .av-c { width: 18px; height: 18px; flex: none; font-size: 8px; }
+.vfp .mpe-ss-filters { display: flex; gap: 5px; padding: 9px 10px 5px; }
+.vfp .mpe-ss-ft { padding: 2px 9px; border-radius: 999px; border: 1px solid var(--vlp-border-subtle); background: #fff; font-size: 10.5px; font-weight: 600; letter-spacing: -0.21px; color: var(--vlp-color-text-muted); }
+.vfp .mpe-ss-ft--on { background: var(--vlp-color-accent-soft); border-color: var(--vlp-color-accent-wash); color: var(--vlp-color-accent-ink); }
+.vfp .mpe-ss-list { list-style: none; margin: 0; padding: 6px 10px 11px; display: flex; flex-direction: column; gap: 6px; }
+.vfp .mpe-ss-rowi { display: flex; align-items: center; gap: 8px; padding: 7px 9px; border: 1px solid var(--vlp-border-subtle); border-radius: 8px; background: #fff; font-size: 11.5px; font-weight: 500; letter-spacing: -0.23px; color: var(--vlp-color-ink); }
+.vfp .mpe-ss-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--vlp-color-green-approval); flex: none; }
+.vfp .mpe-ss-rowtxt { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .mpe-ss-amt { font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-muted); flex: none; }
 
 /* Shared down-arrow connector between stacked steps. */
 .vfp .mpe-down { display: grid; place-items: center; height: 18px; color: var(--vlp-color-text-subtle); }

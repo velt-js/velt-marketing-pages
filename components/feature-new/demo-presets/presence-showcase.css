@@ -37,6 +37,47 @@
 .vfp .prs-cluster-sub { font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
 .vfp .prs-roster { display: grid; grid-template-columns: 1fr 1fr; gap: 11px 16px; }
 
+/* ===========================================================================
+   HERO artifacts (avatars / cursors / selection / follow tabs) — restyled to
+   carry the home page's signature presence visuals: an overlapping photo-avatar
+   facepile with live status dots + a gradient "flower" agent, avatar-anchored
+   live cursors with colored name pills, and home-style selection name flags.
+   =========================================================================== */
+
+/* AVATARS — a big home-style facepile over the roster of who's here. */
+.vfp .prs-hero-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vfp .prs-hero-title { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .prs-hero-pile { display: flex; justify-content: center; padding: 6px 0 2px; }
+.vfp .prs-hero-face { position: relative; width: 48px; height: 48px; border-radius: 50%; margin-left: -12px; border: 3px solid #fff; overflow: hidden; background: var(--vlp-bg-wash); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14); }
+.vfp .prs-hero-face:first-child { margin-left: 0; }
+.vfp .prs-hero-face img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vfp .prs-hero-face--agent { overflow: visible; border: none; background: transparent; box-shadow: none; display: grid; place-items: center; }
+.vfp .prs-hero-face--agent svg { width: 48px; height: 48px; display: block; }
+.vfp .prs-hero-fdot { position: absolute; right: 1px; bottom: 1px; z-index: 1; width: 13px; height: 13px; border-radius: 50%; background: var(--vlp-color-presence-online, #2bb673); border: 3px solid #fff; }
+.vfp .prs-hero-fdot--away { background: var(--vlp-color-amber, #c08532); }
+.vfp .prs-hero-roster { border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-section-alt); padding: 2px 14px; }
+.vfp .prs-hero-roster .prs-person { padding: 11px 0; }
+.vfp .prs-hero-roster .prs-person + .prs-person { border-top: 1px solid var(--vlp-border-subtle); }
+
+/* CURSORS / FOLLOW — home-style live cursors on a document canvas. An
+   avatar-anchored cursor (ringed photo + pointer) and pointer + name-pill
+   cursors, each colored via the --cur custom property. */
+.vfp .prs-cur { position: absolute; display: inline-flex; align-items: flex-start; pointer-events: none; }
+.vfp .prs-cur-ptr { width: 22px; height: 28px; flex: none; display: block; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18)); }
+.vfp .prs-cur-name { margin-top: 22px; margin-left: -7px; background: var(--cur, #625df5); color: #fff; font-size: 10.5px; font-weight: 600; line-height: 1; padding: 5px 11px; border-radius: 999px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16); flex: none; }
+.vfp .prs-cur-name--mono { font-family: var(--vlp-font-mono); font-size: 10px; }
+.vfp .prs-cur--avatar { align-items: flex-end; }
+.vfp .prs-cur-ava { position: relative; width: 36px; height: 36px; flex: none; margin-bottom: -24px; border-radius: 50%; overflow: hidden; border: 2px solid #fff; box-shadow: 0 0 0 2px var(--cur, #625df5), 0 2px 8px rgba(0, 0, 0, 0.18); }
+.vfp .prs-cur-ava img { width: 100%; height: 100%; object-fit: cover; }
+.vfp .prs-cur--avatar .prs-cur-ptr { width: 24px; height: 31px; margin-left: -16px; transform: scaleX(-1); }
+
+/* SELECTION — colored, attributed text selections wearing home-style name
+   flags (a downward stem + a flag pill), colored via --sel / --selink. */
+.vfp .prs-sel { position: relative; }
+.vfp .prs-sel-hl { background: var(--sel); border-radius: 0 3px 3px 3px; padding: 1px 2px; box-shadow: inset 0 -2px 0 var(--selink); }
+.vfp .prs-sel-flag { position: absolute; top: -16px; left: -1px; background: var(--selink); color: #fff; font-size: 9.5px; font-weight: 700; line-height: 1.25; padding: 2px 7px; border-radius: 5px 5px 5px 0; white-space: nowrap; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16); }
+.vfp .prs-sel-flag::before { content: ""; position: absolute; left: 0; top: 100%; width: 2px; height: 6px; background: var(--selink); }
+
 /* STATES / AGENT — a vertical list of person rows with hairline dividers. */
 .vfp .prs-list { display: flex; flex-direction: column; }
 .vfp .prs-list .prs-person { padding: 11px 2px; }

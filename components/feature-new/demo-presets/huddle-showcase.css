@@ -144,3 +144,99 @@
 .vfp .hud-rel-stack .av-c { width: 28px; height: 28px; flex: none; margin-left: -9px; border: 2px solid var(--vlp-bg-section-alt); font-size: 10px; }
 .vfp .hud-rel-stack .av-c:first-child { margin-left: 0; }
 .vfp .hud-rel-talking { display: inline-flex; align-items: center; gap: 7px; font-size: 11.5px; font-weight: 600; letter-spacing: -0.23px; color: #0c6a41; }
+
+/* ---------- Huddle HERO artifacts (.hud-hero-*) ----------
+   Faithful recreations of the real Velt Huddle product popups — the in-call
+   roster (light) and the invite/contacts panel (dark) — floating over a
+   document stage, plus a screen-share frame. Drives the Start/Join/Share/Decide
+   hero beats. Scoped under .vfp; warm-gold helper hex matches the product. */
+
+/* Top-bar right cluster: "N in huddle" headphone badge + live presence stack. */
+.vfp .hud-hero-bar-right { display: inline-flex; align-items: center; gap: 10px; }
+.vfp .hud-hero-hbadge { display: inline-flex; align-items: center; gap: 5px; flex: none; padding: 4px 9px; border-radius: 999px; background: var(--vlp-color-purple); color: #fff; font-size: 11px; font-weight: 700; }
+.vfp .hud-hero-hbadge svg { width: 13px; height: 13px; }
+
+/* Document stage the popup + cursor sit over. */
+.vfp .hud-hero-doc { position: relative; display: flex; flex-direction: column; gap: 11px; min-height: 252px; padding: 4px 2px; }
+.vfp .hud-hero-sk { height: 11px; border-radius: 999px; background: var(--vlp-bg-skeleton); }
+.vfp .hud-hero-sk--hl { width: 34%; background: var(--vlp-color-accent-soft); box-shadow: inset 0 0 0 1px var(--vlp-color-accent-wash); }
+
+/* Live "Sean" cursor — a pointer + colored name pill. */
+.vfp .hud-hero-cur { position: absolute; left: 5%; bottom: 28%; display: inline-flex; align-items: flex-start; pointer-events: none; z-index: 3; }
+.vfp .hud-hero-cur-ptr { width: 22px; height: 28px; flex: none; display: block; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18)); }
+.vfp .hud-hero-cur-name { margin-top: 22px; margin-left: -7px; background: #10b981; color: #fff; font-size: 10.5px; font-weight: 600; line-height: 1; padding: 5px 11px; border-radius: 999px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16); flex: none; }
+
+/* ── In-call roster popup (light) — Join beat / image 1 ── */
+.vfp .hud-hero-panel { position: absolute; top: 6px; right: 0; width: 290px; max-width: 100%; padding: 15px; border-radius: 18px; background: #fff; border: 1px solid var(--vlp-border-subtle); box-shadow: 0 20px 48px rgba(38, 37, 30, 0.18); display: grid; gap: 13px; z-index: 2; }
+.vfp .hud-hero-phead { display: flex; align-items: center; gap: 9px; }
+.vfp .hud-hero-phones { display: inline-flex; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .hud-hero-phones svg { width: 20px; height: 20px; }
+.vfp .hud-hero-ptitle { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; letter-spacing: -0.29px; color: var(--vlp-color-ink); }
+.vfp .hud-hero-pinvite { display: grid; place-items: center; width: 30px; height: 30px; flex: none; border-radius: 50%; background: var(--vlp-color-purple); color: #fff; }
+.vfp .hud-hero-pinvite svg { width: 15px; height: 15px; }
+.vfp .hud-hero-pkebab { display: inline-flex; flex: none; color: var(--vlp-color-text-subtle); }
+.vfp .hud-hero-pkebab svg { width: 18px; height: 18px; }
+
+.vfp .hud-hero-prows { display: grid; gap: 12px; }
+.vfp .hud-hero-prow { display: flex; align-items: center; gap: 11px; }
+.vfp .hud-hero-pava { display: inline-grid; place-items: center; flex: none; padding: 2px; border-radius: 50%; border: 2px solid transparent; }
+.vfp .hud-hero-pava .av-c { width: 30px; height: 30px; font-size: 12px; }
+.vfp .hud-hero-pava--purple { border-color: var(--vlp-color-purple); }
+.vfp .hud-hero-pava--gold { border-color: #e0a200; }
+.vfp .hud-hero-pava--green { border-color: var(--vlp-color-green-approval); }
+.vfp .hud-hero-pava--green .av-c { background: var(--vlp-color-green-approval); }
+.vfp .hud-hero-pname { flex: 1; min-width: 0; font-size: 14px; font-weight: 500; letter-spacing: -0.28px; color: var(--vlp-color-ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vfp .hud-hero-pctrls { display: inline-flex; align-items: center; gap: 13px; flex: none; }
+.vfp .hud-hero-pctrl { display: inline-grid; place-items: center; color: var(--vlp-color-text-subtle); }
+.vfp .hud-hero-pctrl svg { width: 16px; height: 16px; }
+.vfp .hud-hero-pctrl--on { color: var(--vlp-color-accent); }
+
+.vfp .hud-hero-pfoot { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+.vfp .hud-hero-leave { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px; border-radius: 999px; border: 1.5px solid var(--vlp-color-reject); background: #fff; color: var(--vlp-color-reject); font-size: 13px; font-weight: 700; letter-spacing: 0.06em; }
+.vfp .hud-hero-leave svg { width: 15px; height: 15px; }
+.vfp .hud-hero-follow { display: grid; place-items: center; width: 42px; height: 42px; flex: none; border-radius: 50%; border: 1px solid var(--vlp-border-default); background: #fff; color: var(--vlp-color-ink-soft); }
+.vfp .hud-hero-follow svg { width: 17px; height: 17px; }
+
+/* Gold waveform variant for the speaking-but-not-you roster row. */
+.vfp .hud-wave--gold i { background: #e0a200; }
+
+/* ── Invite / contacts popup (dark) — Start beat / image 2 ── */
+.vfp .hud-hero-invite { position: absolute; top: 6px; right: 0; width: 300px; max-width: 100%; padding: 16px; border-radius: 20px; background: #17150f; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 24px 54px rgba(0, 0, 0, 0.42); display: grid; gap: 13px; z-index: 2; }
+.vfp .hud-hero-ihead { display: flex; align-items: center; gap: 9px; }
+.vfp .hud-hero-iphones { display: inline-flex; flex: none; color: rgba(255, 255, 255, 0.38); }
+.vfp .hud-hero-iphones svg { width: 20px; height: 20px; }
+.vfp .hud-hero-ititle { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; letter-spacing: -0.29px; color: rgba(255, 255, 255, 0.5); }
+.vfp .hud-hero-iadd { display: grid; place-items: center; width: 34px; height: 34px; flex: none; border-radius: 50%; background: var(--vlp-color-purple); color: #fff; }
+.vfp .hud-hero-iadd svg { width: 16px; height: 16px; }
+.vfp .hud-hero-ikebab { display: inline-flex; flex: none; color: rgba(255, 255, 255, 0.45); }
+.vfp .hud-hero-ikebab svg { width: 18px; height: 18px; }
+.vfp .hud-hero-isearch { display: flex; align-items: center; padding: 12px 16px; border-radius: 999px; border: 1.5px solid var(--vlp-color-purple); color: rgba(255, 255, 255, 0.42); font-size: 13.5px; letter-spacing: -0.27px; }
+.vfp .hud-hero-icaret { width: 1.5px; height: 15px; flex: none; margin-right: 6px; background: rgba(255, 255, 255, 0.8); animation: hud-hero-caret 1.1s step-end infinite; }
+@keyframes hud-hero-caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .vfp .hud-hero-icaret { animation: none; } }
+.vfp .hud-hero-ilist { display: grid; gap: 3px; }
+.vfp .hud-hero-irow { display: flex; align-items: center; gap: 12px; padding: 7px 2px; }
+.vfp .hud-hero-iava { width: 36px; height: 36px; flex: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); }
+.vfp .hud-hero-iname { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; letter-spacing: -0.29px; color: #fff; }
+.vfp .hud-hero-iplus { display: inline-flex; flex: none; color: #a6a1ff; }
+.vfp .hud-hero-iplus svg { width: 18px; height: 18px; }
+.vfp .hud-hero-iinvited { flex: none; font-size: 13.5px; letter-spacing: -0.27px; color: rgba(255, 255, 255, 0.4); }
+.vfp .hud-hero-ifoot { display: flex; gap: 10px; margin-top: 3px; }
+.vfp .hud-hero-ilink { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.88); font-size: 13px; font-weight: 600; letter-spacing: -0.26px; }
+.vfp .hud-hero-ilink svg { width: 15px; height: 15px; color: #a6a1ff; }
+.vfp .hud-hero-iinvite { flex: 1; display: inline-flex; align-items: center; justify-content: center; padding: 12px; border-radius: 999px; background: var(--vlp-color-purple); color: #fff; font-size: 14px; font-weight: 700; letter-spacing: -0.28px; }
+
+/* ── Screen-share frame — Share beat ── */
+.vfp .hud-hero-share { display: grid; gap: 12px; }
+.vfp .hud-hero-screen { border: 1px solid var(--vlp-border-subtle); border-radius: 14px; overflow: hidden; background: #fff; box-shadow: var(--vlp-shadow-md); }
+.vfp .hud-hero-screen-top { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: var(--vlp-bg-section-alt); border-bottom: 1px solid var(--vlp-border-subtle); }
+.vfp .hud-hero-screen-dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--vlp-border-default); }
+.vfp .hud-hero-screen-title { margin-left: 6px; font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-text-muted); }
+.vfp .hud-hero-screen-live { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; color: var(--vlp-color-accent); }
+.vfp .hud-hero-screen-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-accent); animation: cmh-pulse 2.4s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) { .vfp .hud-hero-screen-live i { animation: none; } }
+.vfp .hud-hero-screen-body { display: grid; gap: 10px; padding: 16px; }
+.vfp .hud-hero-share-strip { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border: 1px solid var(--vlp-border-subtle); border-radius: 12px; background: #fff; }
+.vfp .hud-hero-share-by { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .hud-hero-share-by .hud-hero-pava .av-c { width: 26px; height: 26px; font-size: 10px; }
+.vfp .hud-hero-share-ctrls { display: inline-flex; align-items: center; gap: 12px; flex: none; }
