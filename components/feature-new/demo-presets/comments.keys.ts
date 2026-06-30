@@ -8,7 +8,7 @@ export const COMMENTS_DEMO_KEYS: string[] = [
   "comments/hero/freestyle",
   "comments/hero/popover",
   "comments/hero/text",
-  "comments/hero/inbox",
+  "comments/hero/page",
   // Comments — what it is
   "comments/what-it-is/scene",
   // Comments — showcase cards

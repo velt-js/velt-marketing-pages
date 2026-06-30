@@ -133,15 +133,6 @@ function IconLock() {
   );
 }
 
-/** @returns {JSX.Element} Chevron-down glyph for dropdown / switcher affordances. */
-function IconChevronDown() {
-  return (
-    <svg className="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M6 9l6 6 6-6" />
-    </svg>
-  );
-}
-
 /**
  * A labelled console panel chrome (header + body) used across the console demos.
  * @param {{ title: ReactNode; right?: ReactNode; children: ReactNode; style?: CSSProperties }} props Panel content.
@@ -387,15 +378,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
     <div className="pv">
       <ConsoleWindow
         crumb={<><b>Adoption</b> <span className="sep">/</span> last 6 weeks</>}
-        right={
-          <Presence
-            users={[
-              { initials: "SR", tone: "a3", img: SHOWCASE_FACE.sarah },
-              { initials: "MA", tone: "a2", img: SHOWCASE_FACE.maya },
-              { initials: "BA", agent: true },
-            ]}
-          />
-        }
+        right={<Presence users={HERO_PRESENCE} />}
       >
         <div className="pcs-chart">
           <div className="pcs-bars">
@@ -422,7 +405,10 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/ai-chat": (
     <div className="pv">
-      <ConsoleWindow crumb={<><b>AI chat</b> <span className="sep">/</span> ask your console</>} right={<span className="pcs-chip">beta</span>}>
+      <ConsoleWindow
+        crumb={<><b>AI chat</b> <span className="sep">/</span> ask your console <span className="pcs-chip pcs-chip--beta">beta</span></>}
+        right={<Presence users={HERO_PRESENCE} />}
+      >
         <div className="pcs-chat">
           <p className="pcs-ask">Which documents had the most review activity last week?</p>
           <div className="pcs-ans">
@@ -447,7 +433,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/live-debugger": (
     <div className="pv">
-      <ConsoleWindow crumb={<><b>Live debugger</b> <span className="sep">/</span> state</>} right={<LivePill label="streaming" />}>
+      <ConsoleWindow crumb={<><b>Live debugger</b> <span className="sep">/</span> state</>} right={<Presence users={HERO_PRESENCE} />}>
         <div className="pcs-state">
           <div className="pcs-state-row">
             <span className="pcs-state-k">veltClient</span>
@@ -471,7 +457,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/devtools": (
     <div className="pv">
-      <ConsoleWindow crumb={<><b>Velt DevTools</b> <span className="sep">/</span> Chrome</>} right={<span className="pcs-chip">SDK 4.5.2 <IconChevronDown /></span>}>
+      <ConsoleWindow crumb={<><b>Velt DevTools</b> <span className="sep">/</span> Chrome <span className="sep">·</span> SDK 4.5.2</>} right={<Presence users={HERO_PRESENCE} />}>
         <div className="pcs-devtabs">
           <span className="pcs-devtab">Overview</span>
           <span className="pcs-devtab">Data</span>
@@ -502,12 +488,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
     <div className="pv">
       <ConsoleWindow
         crumb={<><b>Data</b> <span className="sep">/</span> filing-q3</>}
-        right={
-          <span className="pcs-tags">
-            <span className="pcs-chip"><IconDownload />JSON</span>
-            <span className="pcs-chip"><IconDownload />CSV</span>
-          </span>
-        }
+        right={<Presence users={HERO_PRESENCE} />}
       >
         <div className="pcs-table">
           <div className="pcs-tr pcs-tr--head"><span>Type</span><span>Actor</span><span>When</span></div>
@@ -527,13 +508,19 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
             <span className="pcs-td-when">08:50</span>
           </div>
         </div>
-        <p className="code-microcopy">142 records · export to JSON or CSV</p>
+        <div className="pcs-foot">
+          <p className="code-microcopy">142 records</p>
+          <span className="pcs-tags">
+            <span className="pcs-chip"><IconDownload />JSON</span>
+            <span className="pcs-chip"><IconDownload />CSV</span>
+          </span>
+        </div>
       </ConsoleWindow>
     </div>
   ),
   "showcase/feature-configs": (
     <div className="pv">
-      <ConsoleWindow crumb={<><b>Feature configs</b></>} right={<span className="pcs-chip">production <IconChevronDown /></span>}>
+      <ConsoleWindow crumb={<><b>Feature configs</b> <span className="sep">·</span> production</>} right={<Presence users={HERO_PRESENCE} />}>
         <div className="pcs-cfg">
           <div className="pcs-cfg-row">
             <div className="pcs-cfg-main"><p className="pcs-cfg-name">Comments</p><p className="pcs-cfg-sub">Inline threads and mentions</p></div>
@@ -554,8 +541,9 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/rest-apis": (
     <div className="pv">
-      <ConsoleWindow crumb={<><b>REST</b> <span className="sep">/</span> provisioning</>} right={<span className="pcs-chip">Bearer sk_live_***</span>}>
+      <ConsoleWindow crumb={<><b>REST</b> <span className="sep">/</span> provisioning</>} right={<Presence users={HERO_PRESENCE} />}>
         <div className="pcs-api">
+          <div className="pcs-auth"><IconLock />Authorization: Bearer sk_live_***</div>
           <div className="pcs-req-line">
             <span className="pcs-method">POST</span>
             <span className="pcs-path">/v2/workspace/apikey/create</span>
@@ -572,7 +560,7 @@ export const PLATFORM_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/webhooks": (
     <div className="pv">
-      <ConsoleWindow crumb={<><b>Webhooks</b> <span className="sep">/</span> deliveries</>} right={<LivePill label="delivering" />}>
+      <ConsoleWindow crumb={<><b>Webhooks</b> <span className="sep">/</span> deliveries</>} right={<Presence users={HERO_PRESENCE} />}>
         <div className="pcs-deliv">
           <div className="pcs-deliv-row">
             <span className="pcs-deliv-evt">comment.added</span>

@@ -112,6 +112,8 @@
 
 /* ── 07 · REST APIs: request line + response status ─────────────────────── */
 .vfp .pcs-api { display: grid; gap: 10px; }
+.vfp .pcs-auth { display: inline-flex; align-items: center; gap: 5px; align-self: start; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-muted); }
+.vfp .pcs-auth svg { width: 12px; height: 12px; flex: none; }
 .vfp .pcs-req-line { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .vfp .pcs-method { font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 6px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); }
 .vfp .pcs-path { font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-ink); overflow-wrap: anywhere; }

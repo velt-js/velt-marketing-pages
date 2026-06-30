@@ -167,6 +167,13 @@
 .vfp .rcd-strip-pin { position: absolute; top: 50%; right: -12px; transform: translateY(-50%); z-index: 2; }
 .vfp .rcd-strip-pin .av-c { width: 26px; height: 26px; border: 2px solid var(--vlp-bg-page); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22); }
 
+/* Capabilities grid: the cards now use the shared Frame (.cmh) product window
+   like the hero artifacts. Drop the hero bottom-margin and let it fill the
+   preview stage, and cap the editor filmstrip stage so it doesn't dominate its
+   narrow column. */
+.vfp .sc-card .prim-stage .cmh { margin-bottom: 0; width: 100%; }
+.vfp .sc-card .prim-stage .rcd-ed .rcd-hp-stage { height: clamp(150px, 18vw, 210px); }
+
 /* WHAT IT IS scene — a human recording (clean player + transcript, with the
    agent's comment pinned to the timeline) above the agent's reply in the same
    thread, so "both actors" reads on one surface. */

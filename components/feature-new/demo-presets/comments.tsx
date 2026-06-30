@@ -170,10 +170,10 @@ export const COMMENTS_DEMOS: Record<string, ReactNode> = {
     </Frame>
   ),
 
-  "comments/hero/inbox": (
+  "comments/hero/page": (
     <Frame
       app="VC"
-      crumb={<><b>Comments</b> <span className="sep">/</span> inbox</>}
+      crumb={<><b>Comments</b> <span className="sep">/</span> page</>}
       right={<span className="cmh-search"><IconSearch />Search threads</span>}
     >
       <div className="cmh-filters">
