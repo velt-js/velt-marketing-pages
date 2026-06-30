@@ -24,7 +24,7 @@ export default function Hero() {
               <span className="hero-badge-label">EU data residency</span>
             </span>
           </div>
-          <h1 className="hero-title">Add a Review and Approvals Layer to Your App</h1>
+          <h1 className="hero-title">Add Review and Approvals to Your App</h1>
           <p className="hero-sub">Velt brings governance to your product. AI and humans review together and work only ships once a human approves.</p>
           <div className="hero-actions">
             <a href="https://console.velt.dev/" className="hero-btn-primary hdark">Get Free API Key</a>
