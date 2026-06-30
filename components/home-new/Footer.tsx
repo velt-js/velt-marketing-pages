@@ -89,6 +89,8 @@ const FOOTER_COLUMNS: FooterColumn[] = [
     heading: "RESOURCES",
     links: [
       { label: "Docs", href: DOCS_URL, external: true },
+      { label: "Examples", href: "https://samples.velt.dev/", external: true },
+      { label: "Customization", href: "/customization" },
       { label: "Pricing", href: "/pricing" },
       { label: "Customers", href: "/customers" },
       { label: "Blog", href: "/blog" },

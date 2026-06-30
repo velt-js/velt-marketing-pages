@@ -142,10 +142,7 @@ export default function Collaboration() {
             </div>
           }
           code={
-            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltPresence
-  participants={users}
-  agents
-/&gt;` }} />
+            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltPresence/&gt;` }} />
           }
         />
 
@@ -165,9 +162,10 @@ export default function Collaboration() {
             </div>
           }
           code={
-            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `<span class="prim-code-kw">const</span> crdt = VeltCrdt.tiptap({
-  documentId: id,
-  singleEditor: <span class="prim-code-kw">false</span>,
+            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `useCollaboration({
+  editorId: <span class="prim-code-str">'my-tiptap-editor'</span>,
+  initialContent: <span class="prim-code-str">'&lt;p&gt;Start typing here...&lt;/p&gt;'</span>,
+  onError: (err) =&gt; console.error(<span class="prim-code-str">'Collaboration error:'</span>, err),
 });` }} />
           }
         />
@@ -211,10 +209,13 @@ export default function Collaboration() {
             </div>
           }
           code={
-            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltRecorderControl
-  type=<span class="prim-code-str">"all"</span>
-  editor
-/&gt;` }} />
+            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;div className=<span class="prim-code-str">"toolbar"</span>&gt;
+  &lt;VeltRecorderTool type=<span class="prim-code-str">'all'</span> /&gt;
+  &lt;VeltRecorderControlPanel mode=<span class="prim-code-str">"floating"</span> /&gt;
+&lt;/div&gt;
+&lt;div className=<span class="prim-code-str">"video-player"</span>&gt;
+  &lt;VeltRecorderPlayer recorderId={RECORDER_ID} /&gt;
+&lt;/div&gt;` }} />
           }
         />
 
@@ -257,9 +258,9 @@ export default function Collaboration() {
             </div>
           }
           code={
-            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;VeltHuddle
-  documentId={id}
-/&gt;` }} />
+            <pre className="prim-pre" dangerouslySetInnerHTML={{ __html: `&lt;div className=<span class="prim-code-str">"toolbar"</span>&gt;
+  &lt;VeltHuddleTool type=<span class="prim-code-str">'all'</span> /&gt;
+&lt;/div&gt;` }} />
           }
         />
       </div>

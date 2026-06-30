@@ -1,149 +1,211 @@
 import type { CSSProperties, ReactElement, ReactNode } from "react";
 
-import { AuditLog, AvatarStack, Chip, CursorTag, DarkPanel, NotifItem } from "../demos";
+import { AuditLog, Chip, CursorTag, DarkPanel } from "../demos";
+import {
+  AgentFindingCard,
+  Av,
+  Composer,
+  FACES,
+  Frame,
+  IconBubble,
+  IconReply,
+} from "./hero-surface";
 
 // Simulated-UI demo nodes for the static /customization page. Referenced
 // directly by app/customization/content.tsx so the page renders fully without
-// a CMS dependency. Visuals are simulated comment dialogs styled four ways
-// (CSS theme, Wireframes, Primitives, Headless) plus per-card previews. No
-// CSS files are added; all styles use existing --vlp-* tokens and inline styles.
+// a CMS dependency. Visuals reuse the shared product-surface toolkit
+// (hero-surface.tsx) so the comment UI here matches the comments + home pages:
+// real headshot avatars, the agent finding card, a live composer, framed
+// surfaces. Each of the four presentation layers (CSS, Wireframes, Primitives,
+// Headless) restyles the SAME thread to show how far customization goes.
 
-const PANEL: CSSProperties = {
-  border: "1px solid var(--vlp-border-default)",
-  borderRadius: "var(--vlp-radius-xl)",
-  background: "var(--vlp-bg-page)",
-  boxShadow: "var(--vlp-shadow-sm)",
-  overflow: "hidden",
-  fontSize: 12,
-};
+// Personas mapped to the shared headshots (fenne/hope read as women).
+const FACE = {
+  maya: FACES.fenne,
+  sarah: FACES.hope,
+  jordan: FACES.ethan,
+  you: FACES.jeff,
+} as const;
 
-const PANEL_HEAD: CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  padding: "10px 14px",
-  background: "var(--vlp-bg-section-alt)",
-  borderBottom: "1px solid var(--vlp-border-subtle)",
-  fontSize: 11.5,
-  fontWeight: 500,
-  color: "var(--vlp-color-text-muted)",
-};
-
-const MONO: CSSProperties = {
-  fontFamily: "var(--vlp-font-mono)",
-  fontSize: 10.5,
-  color: "var(--vlp-color-accent)",
-};
-
-type CommentDialogVariant = "css" | "wireframe" | "primitives" | "headless";
+const BRAND = "#4f46e5";
 
 /**
- * A simulated comment dialog shown four ways across the presentation spectrum.
- * The `variant` prop changes styling, layout, or render approach to illustrate
- * each customization layer.
- * @param {{ variant: CommentDialogVariant; accent?: string }} props Variant and optional accent color.
- * @returns {JSX.Element} The comment dialog visual.
+ * Set the local accent token so descendants (composer send, mentions, pins)
+ * pick up a brand color, illustrating CSS-variable theming.
+ * @param {string} color The accent color to apply.
+ * @returns {CSSProperties} A style object overriding --vlp-color-accent.
  */
-function CommentDialog({ variant, accent = "var(--vlp-color-accent)" }: { variant: CommentDialogVariant; accent?: string }) {
-  const base: CSSProperties = {
-    border: "1px solid var(--vlp-border-default)",
-    borderRadius: variant === "wireframe" ? 6 : 10,
-    background: variant === "headless" ? "transparent" : "var(--vlp-bg-page)",
-    overflow: "hidden",
-    fontSize: 12,
-    boxShadow: variant === "headless" ? "none" : "var(--vlp-shadow-sm)",
-  };
+function accentVar(color: string): CSSProperties {
+  return { ["--vlp-color-accent"]: color } as CSSProperties;
+}
 
-  const headerBg =
-    variant === "css"
-      ? accent
-      : variant === "wireframe"
-      ? "var(--vlp-bg-section-alt)"
-      : variant === "primitives"
-      ? "#1e1e2e"
-      : "var(--vlp-bg-section-alt)";
-
-  const headerColor =
-    variant === "css" || variant === "primitives" ? "#fff" : "var(--vlp-color-ink)";
-
-  const composerBorder = variant === "css" ? `2px solid ${accent}` : "1px solid var(--vlp-border-default)";
-
-  if (variant === "headless") {
-    return (
-      <div style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-ink-soft)", padding: "8px 0" }}>
-        <p style={{ margin: "0 0 6px", color: "var(--vlp-color-text-muted)", fontSize: 10 }}>{"// headless: your UI, Velt data"}</p>
-        <div style={{ display: "grid", gap: 6 }}>
-          <div style={{ background: "var(--vlp-bg-section-alt)", borderRadius: 8, padding: "8px 10px", border: "1px solid var(--vlp-border-subtle)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-              <span style={{ fontWeight: 700, color: "var(--vlp-color-ink)", fontFamily: "inherit" }}>annotations[0]</span>
-              <Chip kind="pending">open</Chip>
-            </div>
-            <p style={{ margin: 0, color: "var(--vlp-color-text-muted)", fontSize: 10.5 }}>{"status: 'open', replies: 2"}</p>
-          </div>
-          <AvatarStack users={[{ initials: "JD", kind: "human" }, { initials: "AI", kind: "agent" }]} />
-        </div>
-      </div>
-    );
-  }
-
+/**
+ * A human comment bubble built from the shared .cmh-cmt classes (real headshot
+ * avatar, name, time, body, optional reply count). Mirrors the comments page.
+ * @param {{ name: string; initials: string; time: string; img: string; body: ReactNode; replies?: number; end?: boolean }} props Comment content.
+ * @returns {JSX.Element} The comment bubble.
+ */
+function HumanComment({
+  name,
+  initials,
+  time,
+  img,
+  body,
+  replies,
+  end,
+}: {
+  name: string;
+  initials: string;
+  time: string;
+  img: string;
+  body: ReactNode;
+  replies?: number;
+  end?: boolean;
+}) {
   return (
-    <div style={base}>
-      <div style={{ background: headerBg, color: headerColor, padding: "8px 12px", display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: 11.5, fontWeight: 600 }}>
-        {variant === "wireframe" ? (
-          <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 10.5 }}>{"<slot: header>"} <span style={{ opacity: 0.5 }}>2 comments</span></span>
-        ) : variant === "primitives" ? (
-          <span>Feedback <span style={{ opacity: 0.6, fontWeight: 400, fontSize: 11 }}>(MUI card)</span></span>
-        ) : (
-          <span>Comments <span style={{ opacity: 0.7, fontWeight: 400 }}>2</span></span>
-        )}
-        <AvatarStack users={[{ initials: "JD", kind: "human" }, { initials: "AI", kind: "agent" }]} style={{ gap: 0 }} />
-      </div>
-
-      <div style={{ padding: "10px 12px", display: "grid", gap: 8 }}>
-        <div style={{ padding: "8px 10px", borderRadius: 7, background: "var(--vlp-bg-section-alt)", border: "1px solid var(--vlp-border-subtle)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-            <span style={{ fontWeight: 600, fontSize: 11.5, color: "var(--vlp-color-ink)" }}>Brand Agent</span>
-            <Chip kind="agent">agent</Chip>
-          </div>
-          <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-ink-soft)", lineHeight: 1.4 }}>Pricing claim needs a source.</p>
-          <div style={{ display: "flex", gap: 6, marginTop: 7 }}>
-            <span style={{ fontSize: 10.5, padding: "3px 8px", borderRadius: 5, background: accent, color: "#fff", fontWeight: 600 }}>Approve</span>
-            <span style={{ fontSize: 10.5, padding: "3px 8px", borderRadius: 5, background: "var(--vlp-border-default)", color: "var(--vlp-color-ink-soft)" }}>Reject</span>
-          </div>
+    <div className={`cmh-cmt${end ? " cmh-cmt-end" : ""}`}>
+      <Av initials={initials} tone="a2" img={img} />
+      <div className="cmh-cmt-main">
+        <div className="cmh-cmt-head">
+          <span className="cmh-cmt-name">{name}</span>
+          <span className="cmh-cmt-time">{time}</span>
         </div>
-
-        <div style={{ padding: "7px 10px", borderRadius: 7, border: "1px solid var(--vlp-border-subtle)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 3 }}>
-            <span style={{ fontWeight: 600, fontSize: 11.5, color: "var(--vlp-color-ink)" }}>Maya</span>
-            <span style={{ fontSize: 10.5, color: "var(--vlp-color-text-muted)" }}>2m</span>
-          </div>
-          <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-ink-soft)" }}>Source added to the doc.</p>
-        </div>
-
-        <div style={{ display: "flex", gap: 6, padding: "6px 8px", borderRadius: 7, border: composerBorder, background: "var(--vlp-bg-page)" }}>
-          <span style={{ flex: 1, fontSize: 11.5, color: "var(--vlp-color-text-subtle)" }}>Reply...</span>
-          <span style={{ fontSize: 10.5, padding: "3px 8px", borderRadius: 5, background: accent, color: "#fff", fontWeight: 600 }}>Send</span>
-        </div>
+        <p className="cmh-cmt-body">{body}</p>
+        {typeof replies === "number" ? (
+          <span className="cmh-cmt-replies"><IconReply />{replies} {replies === 1 ? "Reply" : "Replies"}</span>
+        ) : null}
       </div>
     </div>
   );
 }
 
 /**
- * A small "before/after" split showing the Velt default dialog beside a
- * restyled one. Used for the what-it-is mixed scene.
+ * The shared review thread (agent finding + human reply + composer) that every
+ * presentation layer restyles. The accent override demonstrates CSS theming.
+ * @param {{ accent?: string; actions?: boolean }} props Optional brand accent and whether the agent card shows actions.
+ * @returns {JSX.Element} The thread.
+ */
+function Thread({ accent, actions = true }: { accent?: string; actions?: boolean }) {
+  return (
+    <div style={{ display: "grid", gap: 12, ...(accent ? accentVar(accent) : null) }}>
+      <AgentFindingCard
+        name="Brand Agent"
+        time="2m"
+        body="This pricing claim needs a source before it ships."
+        replies={2}
+        actions={actions}
+      />
+      <HumanComment name="Maya" initials="MA" time="1m" img={FACE.maya} body="Source added to the doc." end />
+      <Composer placeholder="Reply to Maya…" you={FACE.you} />
+    </div>
+  );
+}
+
+// Dashed "slot" wrapper for the Wireframes layer: your HTML structure, with
+// Velt keeping behavior and data wiring inside each slot.
+const SLOT: CSSProperties = {
+  border: "1.5px dashed var(--vlp-border-strong, rgba(0,0,0,0.22))",
+  borderRadius: 10,
+  padding: "14px 12px 12px",
+  position: "relative",
+};
+const SLOT_LABEL: CSSProperties = {
+  position: "absolute",
+  top: -9,
+  left: 12,
+  padding: "0 6px",
+  background: "var(--vlp-bg-page)",
+  fontFamily: "var(--vlp-font-mono)",
+  fontSize: 10,
+  letterSpacing: "0.02em",
+  color: "var(--vlp-color-text-subtle)",
+};
+
+/**
+ * A labeled wireframe slot wrapping real Velt content.
+ * @param {{ label: string; children: ReactNode }} props Slot label and content.
+ * @returns {JSX.Element} The slot.
+ */
+function Slot({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div style={SLOT}>
+      <span style={SLOT_LABEL}>{label}</span>
+      {children}
+    </div>
+  );
+}
+
+// "Your component library" chrome for the Primitives layer.
+const YOUR_CARD: CSSProperties = {
+  border: "1px solid var(--vlp-border-default)",
+  borderRadius: 14,
+  background: "var(--vlp-bg-page)",
+  boxShadow: "var(--vlp-shadow-sm)",
+  overflow: "hidden",
+};
+const YOUR_TAG: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: 6,
+  padding: "6px 12px",
+  borderBottom: "1px solid var(--vlp-border-subtle)",
+  background: "var(--vlp-bg-section-alt)",
+  fontFamily: "var(--vlp-font-mono)",
+  fontSize: 10.5,
+  color: "var(--vlp-color-text-muted)",
+};
+
+/**
+ * One framed presentation layer for the hero tabs: a real product breadcrumb,
+ * live presence, then the supplied body.
+ * @param {{ children: ReactNode }} props The framed body.
+ * @returns {JSX.Element} The framed surface.
+ */
+function HeroFrame({ children }: { children: ReactNode }) {
+  return (
+    <Frame
+      app="SD"
+      crumb={<><b>Sales deck</b> <span className="sep">/</span> slide 4 · pricing</>}
+      users={[
+        { initials: "SR", tone: "a3", img: FACE.sarah },
+        { initials: "MA", tone: "a2", img: FACE.maya },
+        { initials: "BA", agent: true },
+      ]}
+    >
+      {children}
+    </Frame>
+  );
+}
+
+/**
+ * Wrap a demo node with a small monospace caption beneath it.
+ * @param {{ children: ReactNode; note: string }} props Demo node and caption.
+ * @returns {JSX.Element} Captioned demo.
+ */
+function Captioned({ children, note }: { children: ReactNode; note: string }) {
+  return (
+    <div style={{ display: "grid", gap: 8 }}>
+      {children}
+      <p className="code-microcopy">{note}</p>
+    </div>
+  );
+}
+
+/**
+ * A before/after split showing the Velt default thread beside a brand-themed
+ * one, for the what-it-is scene.
  * @returns {JSX.Element} The mixed scene visual.
  */
 export function WhatItIsScene(): ReactElement {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-      <div>
-        <p className="code-microcopy" style={{ marginBottom: 6 }}>Velt default</p>
-        <CommentDialog variant="css" accent="var(--vlp-color-ink)" />
+    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+      <div style={{ display: "grid", gap: 8 }}>
+        <p className="code-microcopy">Velt default</p>
+        <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." replies={2} actions={false} />
       </div>
-      <div>
-        <p className="code-microcopy" style={{ marginBottom: 6 }}>your design system</p>
-        <CommentDialog variant="css" accent="var(--vlp-color-accent)" />
+      <div style={{ display: "grid", gap: 8, ...accentVar(BRAND) }}>
+        <p className="code-microcopy">your design system</p>
+        <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." replies={2} actions={false} />
       </div>
     </div>
   );
@@ -151,30 +213,68 @@ export function WhatItIsScene(): ReactElement {
 
 // Keyed lookup the content module reads from. Keys are local to this page.
 export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
-  // Hero tabs: same comment dialog, four layers
+  // Hero tabs: the same review thread, four presentation layers.
   "hero/css": (
-    <div style={{ display: "grid", gap: 10 }}>
-      <CommentDialog variant="css" accent="#4f46e5" />
-      <p className="code-microcopy">--velt-primary: #4f46e5 applied, shadow DOM optional</p>
-    </div>
+    <Captioned note="--velt-primary: #4f46e5 applied, shadow DOM optional">
+      <HeroFrame>
+        <Thread accent={BRAND} />
+      </HeroFrame>
+    </Captioned>
   ),
   "hero/wireframes": (
-    <div style={{ display: "grid", gap: 10 }}>
-      <CommentDialog variant="wireframe" />
-      <p className="code-microcopy">{"<VeltCommentDialogWireframe> with your header slot"}</p>
-    </div>
+    <Captioned note="<VeltCommentDialogWireframe> — your slots, Velt's behavior">
+      <HeroFrame>
+        <div style={{ display: "grid", gap: 16 }}>
+          <Slot label="<thread slot>">
+            <div style={{ display: "grid", gap: 12 }}>
+              <AgentFindingCard name="Brand Agent" time="2m" body="This pricing claim needs a source before it ships." replies={2} actions={false} />
+              <HumanComment name="Maya" initials="MA" time="1m" img={FACE.maya} body="Source added to the doc." end />
+            </div>
+          </Slot>
+          <Slot label="<composer slot>">
+            <Composer placeholder="Reply to Maya…" you={FACE.you} />
+          </Slot>
+        </div>
+      </HeroFrame>
+    </Captioned>
   ),
   "hero/primitives": (
-    <div style={{ display: "grid", gap: 10 }}>
-      <CommentDialog variant="primitives" />
-      <p className="code-microcopy">{"<VeltCommentDialog> wrapped in MUI card"}</p>
-    </div>
+    <Captioned note="<VeltCommentDialog> composed inside your own components">
+      <HeroFrame>
+        <div style={{ display: "grid", gap: 12 }}>
+          <div style={YOUR_CARD}>
+            <span style={YOUR_TAG}>{"<Card> · shadcn"}</span>
+            <div style={{ padding: 4 }}>
+              <AgentFindingCard name="Brand Agent" time="2m" body="This pricing claim needs a source before it ships." replies={2} />
+            </div>
+          </div>
+          <div style={YOUR_CARD}>
+            <span style={YOUR_TAG}>{"<TextField> · MUI"}</span>
+            <div style={{ padding: 10 }}>
+              <Composer placeholder="Reply to Maya…" you={FACE.you} />
+            </div>
+          </div>
+        </div>
+      </HeroFrame>
+    </Captioned>
   ),
   "hero/headless": (
-    <div style={{ display: "grid", gap: 10 }}>
-      <CommentDialog variant="headless" />
-      <p className="code-microcopy">useCommentAnnotations(), your render</p>
-    </div>
+    <Captioned note="useCommentAnnotations() — Velt's data, your render">
+      <HeroFrame>
+        <div style={{ display: "grid", gap: 12 }}>
+          <DarkPanel>{"const annotations = useCommentAnnotations();\n// → [{ id, status: 'open', replies: 2 }]"}</DarkPanel>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+            <span className="cmh-pin"><IconBubble />2</span>
+            <span style={accentVar(BRAND)}><span className="cmh-pin"><IconBubble />1</span></span>
+            <div style={{ display: "flex" }}>
+              <Av initials="MA" tone="a2" img={FACE.maya} />
+              <span style={{ marginLeft: -7 }}><Av initials="BA" agent /></span>
+            </div>
+            <span className="code-microcopy" style={{ margin: 0 }}>your custom pins</span>
+          </div>
+        </div>
+      </HeroFrame>
+    </Captioned>
   ),
 
   // What it is: before/after mixed scene
@@ -183,43 +283,58 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
   // Showcase card previews
   "showcase/css-theming": (
     <div className="pv">
-      <CommentDialog variant="css" accent="#4f46e5" />
+      <div style={accentVar(BRAND)}>
+        <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." replies={2} />
+        <div style={{ marginTop: 10 }}>
+          <Composer placeholder="Reply to Maya…" you={FACE.you} />
+        </div>
+      </div>
     </div>
   ),
   "showcase/wireframes": (
     <div className="pv">
-      <CommentDialog variant="wireframe" />
+      <Slot label="<thread slot>">
+        <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." replies={2} actions={false} />
+      </Slot>
     </div>
   ),
   "showcase/primitives": (
     <div className="pv">
-      <CommentDialog variant="primitives" />
+      <div style={YOUR_CARD}>
+        <span style={YOUR_TAG}>{"<Card> · shadcn"}</span>
+        <div style={{ padding: 4 }}>
+          <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." replies={2} actions={false} />
+        </div>
+      </div>
     </div>
   ),
   "showcase/headless": (
     <div className="pv">
-      <CommentDialog variant="headless" />
+      <div style={{ display: "grid", gap: 10 }}>
+        <DarkPanel>{"const a = useCommentAnnotations();"}</DarkPanel>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span className="cmh-pin"><IconBubble />2</span>
+          <Av initials="MA" tone="a2" img={FACE.maya} />
+          <Av initials="BA" agent />
+          <span className="code-microcopy" style={{ margin: 0 }}>your render</span>
+        </div>
+      </div>
     </div>
   ),
   "showcase/mix": (
-    <div className="pv" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-      <div>
-        <p className="code-microcopy" style={{ marginBottom: 4 }}>dialog: wireframe</p>
-        <CommentDialog variant="wireframe" />
+    <div className="pv" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div style={{ display: "grid", gap: 6 }}>
+        <p className="code-microcopy" style={{ marginBottom: 0 }}>dialog: wireframe</p>
+        <Slot label="<slot>">
+          <HumanComment name="Maya" initials="MA" time="1m" img={FACE.maya} body="Source added." />
+        </Slot>
       </div>
-      <div>
-        <p className="code-microcopy" style={{ marginBottom: 4 }}>sidebar: primitive</p>
-        <div style={{ ...PANEL }}>
-          <div style={PANEL_HEAD}>
-            <span>Sidebar</span>
-            <span style={MONO}>primitive</span>
-          </div>
-          <div style={{ padding: 10 }}>
-            <NotifItem
-              avatar={{ initials: "AI", kind: "agent" }}
-              title={<><strong>Brand Agent</strong> flagged pricing</>}
-              chip={{ label: "agent", kind: "agent" }}
-            />
+      <div style={{ display: "grid", gap: 6 }}>
+        <p className="code-microcopy" style={{ marginBottom: 0 }}>sidebar: primitive</p>
+        <div style={YOUR_CARD}>
+          <span style={YOUR_TAG}>{"<Card>"}</span>
+          <div style={{ padding: 4 }}>
+            <AgentFindingCard name="Brand Agent" time="2m" body="Flagged pricing." actions={false} />
           </div>
         </div>
       </div>
@@ -227,39 +342,30 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/custom-data": (
     <div className="pv">
-      <div style={{ ...PANEL }}>
-        <div style={PANEL_HEAD}>
-          <span>Thread with your data</span>
-          <span style={MONO}>VeltData</span>
-        </div>
-        <div style={{ padding: 10, display: "grid", gap: 6 }}>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <Chip kind="pending">in-review</Chip>
-            <span style={{ fontSize: 11, color: "var(--vlp-color-text-muted)" }}>comment.status</span>
-          </div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+      <Frame app="SD" crumb={<><b>Thread</b> <span className="sep">/</span> your data</>} right={<Chip kind="pending">in-review</Chip>}>
+        <div style={{ display: "grid", gap: 10 }}>
+          <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." actions={false} />
+          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
             <span style={{ fontSize: 11.5, fontWeight: 600, color: "var(--vlp-color-accent)" }}>#brand-review</span>
-            <span style={{ fontSize: 11, color: "var(--vlp-color-text-muted)" }}>custom.channel</span>
+            <span style={{ fontFamily: "var(--vlp-font-mono)", fontSize: 11, color: "var(--vlp-color-text-muted)" }}>custom.channel</span>
           </div>
         </div>
-      </div>
+      </Frame>
     </div>
   ),
   "showcase/conditional": (
-    <div className="pv" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-      <div>
-        <p className="code-microcopy" style={{ marginBottom: 4 }}>reviewer</p>
-        <div style={{ padding: 8, border: "1px solid var(--vlp-border-default)", borderRadius: 8 }}>
-          <div style={{ display: "flex", gap: 6 }}>
-            <span style={{ fontSize: 10.5, padding: "3px 8px", borderRadius: 5, background: "var(--vlp-color-accent)", color: "#fff", fontWeight: 600 }}>Approve</span>
-            <span style={{ fontSize: 10.5, padding: "3px 8px", borderRadius: 5, background: "var(--vlp-border-default)", color: "var(--vlp-color-ink-soft)" }}>Reject</span>
-          </div>
+    <div className="pv" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+      <div style={{ display: "grid", gap: 6 }}>
+        <p className="code-microcopy" style={{ marginBottom: 0 }}>reviewer</p>
+        <div style={{ display: "flex", gap: 8, padding: 10, border: "1px solid var(--vlp-border-default)", borderRadius: 12 }}>
+          <button type="button" className="cmh-btn approve">Accept</button>
+          <button type="button" className="cmh-btn reject">Reject</button>
         </div>
       </div>
-      <div>
-        <p className="code-microcopy" style={{ marginBottom: 4 }}>viewer</p>
-        <div style={{ padding: 8, border: "1px solid var(--vlp-border-default)", borderRadius: 8 }}>
-          <span style={{ fontSize: 11, color: "var(--vlp-color-text-subtle)" }}>read only</span>
+      <div style={{ display: "grid", gap: 6 }}>
+        <p className="code-microcopy" style={{ marginBottom: 0 }}>viewer</p>
+        <div style={{ padding: 10, border: "1px solid var(--vlp-border-default)", borderRadius: 12 }}>
+          <span style={{ fontSize: 12, color: "var(--vlp-color-text-subtle)" }}>read only</span>
         </div>
       </div>
     </div>
@@ -273,14 +379,14 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            padding: "7px 10px",
-            borderRadius: 7,
+            padding: "9px 12px",
+            borderRadius: 10,
             border: index === 1 ? "1.5px solid var(--vlp-color-accent)" : "1px solid var(--vlp-border-subtle)",
             background: index === 1 ? "var(--vlp-bg-section-alt)" : "var(--vlp-bg-page)",
           }}
         >
-          <span style={{ fontSize: 12, fontWeight: index === 1 ? 600 : 400, color: "var(--vlp-color-ink)" }}>{variantName}</span>
-          {index === 1 ? <Chip kind="approved">active</Chip> : <span style={{ fontSize: 10.5, color: "var(--vlp-color-text-subtle)" }}>variant</span>}
+          <span style={{ fontSize: 13, fontWeight: index === 1 ? 600 : 400, color: "var(--vlp-color-ink)" }}>{variantName}</span>
+          {index === 1 ? <Chip kind="approved">active</Chip> : <span style={{ fontSize: 11, color: "var(--vlp-color-text-subtle)" }}>variant</span>}
         </div>
       ))}
     </div>
@@ -298,17 +404,19 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
   ),
   "showcase/design-to-code": (
     <div className="pv">
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-        <div style={{ ...PANEL, opacity: 0.75 }}>
-          <div style={PANEL_HEAD}>Figma frame</div>
-          <div style={{ padding: 10 }}>
-            <div style={{ height: 40, borderRadius: 5, background: "var(--vlp-bg-section-alt)", marginBottom: 6 }} />
-            <div style={{ height: 20, borderRadius: 5, background: "var(--vlp-border-subtle)" }} />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, alignItems: "center" }}>
+        <div style={{ ...YOUR_CARD, opacity: 0.85 }}>
+          <span style={YOUR_TAG}>Figma frame</span>
+          <div style={{ padding: 12 }}>
+            <div style={{ height: 40, borderRadius: 6, background: "var(--vlp-bg-section-alt)", marginBottom: 6 }} />
+            <div style={{ height: 18, borderRadius: 6, background: "var(--vlp-border-subtle)" }} />
           </div>
         </div>
-        <div>
-          <CommentDialog variant="wireframe" />
-          <p className="code-microcopy" style={{ marginTop: 4 }}>Wireframes + CSS</p>
+        <div style={{ display: "grid", gap: 6 }}>
+          <Slot label="<slot>">
+            <HumanComment name="Maya" initials="MA" time="1m" img={FACE.maya} body="Looks good." />
+          </Slot>
+          <p className="code-microcopy" style={{ marginBottom: 0 }}>Wireframes + CSS</p>
         </div>
       </div>
     </div>
@@ -317,38 +425,36 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
   // Make it yours cards
   "make-it-yours/design-tools": (
     <div className="pv">
-      <div style={{ ...PANEL }}>
-        <div style={PANEL_HEAD}>
-          <span>Themes Playground</span>
-          <span style={MONO}>playground.velt.dev</span>
-        </div>
-        <div style={{ padding: 10 }}>
-          <div style={{ display: "grid", gap: 6 }}>
-            {(["--velt-primary", "--velt-radius", "--velt-font"] as const).map((varName) => (
-              <div key={varName} style={{ display: "flex", justifyContent: "space-between", fontSize: 11 }}>
-                <span style={{ fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-ink-soft)" }}>{varName}</span>
-                <span style={{ color: "var(--vlp-color-accent)" }}>edit</span>
-              </div>
-            ))}
-          </div>
+      <div style={{ ...YOUR_CARD }}>
+        <span style={YOUR_TAG}>playground.velt.dev</span>
+        <div style={{ padding: 14, display: "grid", gap: 9 }}>
+          {([["--velt-primary", "#4f46e5"], ["--velt-radius", "12px"], ["--velt-font", "Inter"]] as const).map(([varName, value]) => (
+            <div key={varName} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12 }}>
+              <span style={{ fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-ink-soft)" }}>{varName}</span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 7, fontFamily: "var(--vlp-font-mono)", color: "var(--vlp-color-text-muted)" }}>
+                {varName === "--velt-primary" ? <span style={{ width: 12, height: 12, borderRadius: 3, background: BRAND }} /> : null}
+                {value}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   ),
   "make-it-yours/component-system": (
     <div className="pv">
-      <div style={{ display: "grid", gap: 5 }}>
+      <div style={{ display: "grid", gap: 6 }}>
         {(["CSS variables", "Wireframes", "Primitives", "Headless hooks", "Events + APIs", "Dark mode"] as const).map((item) => (
           <div
             key={item}
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 7,
-              padding: "5px 8px",
-              borderRadius: 6,
+              gap: 9,
+              padding: "8px 12px",
+              borderRadius: 10,
               background: "var(--vlp-bg-section-alt)",
-              fontSize: 11.5,
+              fontSize: 12.5,
               color: "var(--vlp-color-ink)",
             }}
           >
@@ -362,10 +468,10 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
 
   // Gallery item visuals
   "gallery/canvas": (
-    <div style={{ position: "relative", height: 72, display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ position: "relative", height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
       <CursorTag name="Maya" kind="approved" style={{ position: "absolute", top: 8, left: 16 }} />
       <CursorTag name="AI" kind="agent" style={{ position: "absolute", bottom: 10, right: 12 }} />
-      <Chip kind="pending">1 comment</Chip>
+      <span className="cmh-pin"><IconBubble />1</span>
     </div>
   ),
   "gallery/cell": (
@@ -374,9 +480,9 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
         <div
           key={index}
           style={{
-            padding: "5px 6px",
+            padding: "6px",
             border: "1px solid var(--vlp-border-subtle)",
-            fontSize: 11,
+            fontSize: 11.5,
             textAlign: "center",
             background: index === 5 ? "rgba(255, 79, 0, 0.08)" : "var(--vlp-bg-page)",
             color: "var(--vlp-color-ink)",
@@ -390,81 +496,91 @@ export const CUSTOMIZATION_DEMOS: Record<string, ReactNode> = {
     </div>
   ),
   "gallery/video": (
-    <div style={{ display: "flex", flexDirection: "column", gap: 6, padding: "6px 0" }}>
-      <div style={{ height: 40, borderRadius: 6, background: "var(--vlp-bg-section-alt)", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: 0, left: "30%", bottom: 0, width: 2, background: "var(--vlp-color-accent)", opacity: 0.8 }} />
-        <Chip kind="pending" key="pin">pin at 0:42</Chip>
+    <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "6px 0" }}>
+      <div style={{ height: 44, borderRadius: 8, background: "var(--vlp-bg-section-alt)", position: "relative", overflow: "hidden", display: "flex", alignItems: "center", paddingLeft: 12 }}>
+        <div style={{ position: "absolute", top: 0, left: "32%", bottom: 0, width: 2, background: "var(--vlp-color-accent)", opacity: 0.85 }} />
+        <span className="cmh-pin"><IconBubble />0:42</span>
       </div>
-      <p className="code-microcopy">frame-accurate pin on the timeline</p>
+      <p className="code-microcopy" style={{ marginBottom: 0 }}>frame-accurate pin on the timeline</p>
     </div>
   ),
   "gallery/coediting": (
-    <div style={{ padding: "6px 0" }}>
-      <AvatarStack
-        users={[
-          { initials: "JD", kind: "human", name: "Jordan" },
-          { initials: "AI", kind: "agent", name: "Brand Agent" },
-          { initials: "SA", kind: "human", name: "Sara" },
-        ]}
-        overflow={2}
-      />
-      <p className="code-microcopy" style={{ marginTop: 6 }}>three editors + 2 more, one doc</p>
+    <div style={{ padding: "8px 0", display: "grid", gap: 10 }}>
+      <div style={{ display: "flex" }}>
+        {[FACE.jordan, FACE.maya, FACE.sarah].map((img, index) => (
+          <span key={index} style={{ marginLeft: index === 0 ? 0 : -8 }}>
+            <Av initials="" tone="a1" img={img} />
+          </span>
+        ))}
+        <span style={{ marginLeft: -8 }}><Av initials="BA" agent /></span>
+      </div>
+      <p className="code-microcopy" style={{ marginBottom: 0 }}>three editors + an agent, one doc</p>
     </div>
   ),
   "gallery/huddles": (
-    <div style={{ display: "grid", gap: 6 }}>
-      <NotifItem
-        avatar={{ initials: "JD", kind: "human" }}
-        title={<><strong>Jordan</strong> started a huddle</>}
-        meta="2 participants"
-        chip={{ label: "live", kind: "approved" }}
-      />
+    <div style={{ display: "grid", gap: 8 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", border: "1px solid var(--vlp-border-default)", borderRadius: 12 }}>
+        <Av initials="JD" tone="a1" img={FACE.jordan} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <p style={{ margin: 0, fontSize: 13, color: "var(--vlp-color-ink)" }}><strong>Jordan</strong> started a huddle</p>
+          <p style={{ margin: 0, fontSize: 11.5, color: "var(--vlp-color-text-muted)" }}>2 participants</p>
+        </div>
+        <Chip kind="approved">live</Chip>
+      </div>
     </div>
   ),
   "gallery/presence": (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "4px 0" }}>
-      <AvatarStack users={[{ initials: "JD" }, { initials: "AI", kind: "agent" }, { initials: "SA" }]} overflow={1} />
-      <div style={{ display: "flex", gap: 8 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: "4px 0" }}>
+      <div style={{ display: "flex" }}>
+        <Av initials="JD" tone="a1" img={FACE.jordan} />
+        <span style={{ marginLeft: -8 }}><Av initials="MA" tone="a2" img={FACE.maya} /></span>
+        <span style={{ marginLeft: -8 }}><Av initials="BA" agent /></span>
+      </div>
+      <div style={{ display: "flex", gap: 10 }}>
         <CursorTag name="Jordan" />
         <CursorTag name="AI" kind="agent" />
       </div>
     </div>
   ),
   "gallery/notifications": (
-    <div style={{ display: "grid", gap: 0 }}>
-      <NotifItem
-        avatar={{ initials: "AI", kind: "agent" }}
-        title={<><strong>Brand Agent</strong> flagged a claim</>}
-        meta="needs review"
-        actions
-      />
-      <NotifItem
-        avatar={{ initials: "SA", kind: "human" }}
-        title={<><strong>Sara</strong> approved the change</>}
-        chip={{ label: "approved", kind: "approved" }}
-      />
+    <div style={{ display: "grid", gap: 8 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <Av initials="BA" agent />
+        <p style={{ margin: 0, flex: 1, fontSize: 13, color: "var(--vlp-color-ink)" }}><strong>Brand Agent</strong> flagged a claim</p>
+        <Chip kind="agent">agent</Chip>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <Av initials="SA" tone="a3" img={FACE.sarah} />
+        <p style={{ margin: 0, flex: 1, fontSize: 13, color: "var(--vlp-color-ink)" }}><strong>Sara</strong> approved the change</p>
+        <Chip kind="approved">approved</Chip>
+      </div>
     </div>
   ),
 
   // Related section visuals
   "related/comments": (
     <div className="pv">
-      <CommentDialog variant="css" accent="var(--vlp-color-accent)" />
+      <div style={accentVar(BRAND)}>
+        <AgentFindingCard name="Brand Agent" time="2m" body="Pricing claim needs a source." replies={2} actions={false} />
+      </div>
     </div>
   ),
   "related/notifications": (
     <div className="pv">
-      <NotifItem
-        avatar={{ initials: "AI", kind: "agent" }}
-        title={<><strong>Brand Agent</strong> flagged pricing</>}
-        meta="needs review"
-        chip={{ label: "agent", kind: "agent" }}
-      />
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <Av initials="BA" agent />
+        <p style={{ margin: 0, flex: 1, fontSize: 13, color: "var(--vlp-color-ink)" }}><strong>Brand Agent</strong> flagged pricing</p>
+        <Chip kind="agent">agent</Chip>
+      </div>
     </div>
   ),
   "related/presence": (
     <div className="pv">
-      <AvatarStack users={[{ initials: "JD" }, { initials: "AI", kind: "agent" }]} overflow={2} />
+      <div style={{ display: "flex" }}>
+        <Av initials="JD" tone="a1" img={FACE.jordan} />
+        <span style={{ marginLeft: -8 }}><Av initials="MA" tone="a2" img={FACE.maya} /></span>
+        <span style={{ marginLeft: -8 }}><Av initials="BA" agent /></span>
+      </div>
     </div>
   ),
   "related/webhooks": (

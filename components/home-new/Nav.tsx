@@ -407,6 +407,8 @@ const RESOURCES_LIBRARIES: NavEntry[] = [
 
 /** Resources links — more column. */
 const RESOURCES_MORE: NavEntry[] = [
+  { label: "Examples", href: "https://samples.velt.dev/", icon: NAV_ICONS.sparkles, external: true },
+  { label: "Customization", href: "/customization", icon: NAV_ICONS.settings },
   { label: "Compare", href: "/comparison", icon: NAV_ICONS.grid },
   { label: "Customers", href: "/customers", icon: NAV_ICONS.usersGroup },
   { label: "Blog", href: "/blog", icon: NAV_ICONS.book },
