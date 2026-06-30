@@ -13,6 +13,9 @@
 .vfp .sc-grid > .sc-card:nth-child(4n + 2) { grid-column: span 2; }
 .vfp .sc-grid > .sc-card:nth-child(4n + 3) { grid-column: span 2; }
 .vfp .sc-grid > .sc-card:nth-child(4n + 4) { grid-column: span 3; }
+/* A lone trailing wide card (e.g. the 9th card on a 9-card grid) sits in a span-3
+   slot with no pair, leaving the row half-empty. Stretch it to the full width. */
+.vfp .sc-grid > .sc-card:nth-child(4n + 1):last-child { grid-column: 1 / -1; }
 
 /* Flatten the .vfp demo atoms so the homepage `.prim-stage` frame is the only
    border (the homepage mocks sit flat inside the stage). */
