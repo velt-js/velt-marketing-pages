@@ -89,10 +89,18 @@ export function initAmplitude(): void {
         // Auto-track page views. We do not track pages manually (no custom
         // per-page properties are needed), so let Amplitude capture them.
         pageViews: true,
+        // Enrich every event with page-URL properties (current + previous
+        // page, page-type classification). Amplitude defaults this to true;
+        // listed explicitly so the autocapture surface is complete. Useful for
+        // page-level analysis but NOT a Heatmaps requirement.
+        pageUrlEnrichment: true,
         sessions: true,
         formInteractions: false,
         fileDownloads: false,
-        elementInteractions: false,
+        // Required for Amplitude Heatmaps' click/selector maps and for visual
+        // labeling of elements. Scroll maps + basic heatmaps come from Session
+        // Replay alone, but element-level click data needs this enabled.
+        elementInteractions: true,
         frustrationInteractions: true,
         webVitals: true,
         networkTracking: {
