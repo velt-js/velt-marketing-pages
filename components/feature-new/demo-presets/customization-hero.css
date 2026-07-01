@@ -9,7 +9,7 @@
    "your brand" in the CSS-theming and design-system surfaces. */
 
 /* ---------- Hero · CSS-variable theming ---------- */
-/* A :root token strip above the accented thread, so it reads as "these CSS
+/* A body token strip above the accented thread, so it reads as "these CSS
    variables were applied" rather than a plain recolor. */
 .vfp .czh-tokens {
   display: flex;

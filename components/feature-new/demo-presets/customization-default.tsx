@@ -13,10 +13,10 @@ import "./customization-default.css";
 // avatar, send button) so the SAME component can render as Velt's default or as
 // a brand-themed instance, which is the whole point of the customization
 // narrative ("same component, your colors"). The `variant` prop goes further:
-// variant="minimal" swaps the whole look for a flat, Notion-like monochrome
-// treatment (white header, hairline borders, neutral pills) via the
-// .czd--minimal modifier, WITHOUT touching the default appearance every other
-// usage relies on. Styling lives in customization-default.css; every class is
+// variant="minimal" swaps the whole look for a polished, Notion / Linear-like
+// minimal treatment (white header, soft shadow + hairline border, crisp pills,
+// gradient indigo avatar, one restrained accent) via the .czd--minimal
+// modifier, WITHOUT touching the default appearance every other usage relies on. Styling lives in customization-default.css; every class is
 // prefixed .czd- and scoped under .vfp. The palette is Velt's own fixed default
 // hexes (not --vlp-* tokens), the same convention the customization-hero module
 // uses for the #4f46e5 demo brand.
@@ -209,9 +209,9 @@ function IconAllComments(): ReactElement {
  * A faithful, reusable static reproduction of Velt's default comment dialog.
  * The `accent` prop rethemes the Open pill, footer, avatar, and send button so
  * the same component can render Velt's stock look or a brand-themed variant,
- * while `variant="minimal"` restyles the whole card into a flat, Notion-like
- * monochrome look (used for the "your design system" side of the What It Is
- * scene). The default look is unchanged so other usages are unaffected.
+ * while `variant="minimal"` restyles the whole card into a polished, Notion /
+ * Linear-like minimal look (used for the "your design system" side of the What
+ * It Is scene). The default look is unchanged so other usages are unaffected.
  * @param {VeltDefaultCommentDialogProps} props The dialog content and theming.
  * @returns {ReactElement} The default comment dialog.
  */

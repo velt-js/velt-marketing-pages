@@ -196,92 +196,127 @@
 }
 .vfp .czd-footer svg { width: 19px; height: 19px; flex: none; }
 
-/* ---------- Minimal / Notion variant ----------
+/* ---------- Minimal variant (opinionated warm-violet design system) ----------
    Applied via the .czd--minimal modifier (variant="minimal"), used only on the
    "Your design system" side of the What It Is scene. Restyles the SAME markup
-   into a flat, monochrome, Notion-like card: pure white surface, hairline
-   borders, neutral gray pills, a plain-white header (no navy bar), a muted
-   avatar square, and a small ghost send arrow (no filled purple circle). It
-   redefines the themeable custom props to neutral and overrides the accent /
-   avatar / navy colors directly, so it leaves Velt's default look above (and
-   every other VeltDefaultCommentDialog usage) untouched. */
+   into a card with a committed brand personality: a soft violet-to-fuchsia
+   "aurora" accent, a branded accent-washed header, an expressive two-stop
+   gradient avatar with a halo ring plus a live emerald presence dot, warm
+   neutrals with friendly radii, crisp bordered pills with an emerald "open"
+   status dot, and a filled aurora send button. The signature hue is a warm
+   violet #7c5cff -> fuchsia #e15fa8, deliberately warmer/pinker than Velt's
+   cool #5b5bf5 / #6c5ce7, so the card reads as a distinct brand, not a template.
+   It redefines the themeable custom props and overrides the accent / avatar /
+   navy colors directly, so it leaves Velt's default look above (and every other
+   VeltDefaultCommentDialog usage) untouched. */
 .vfp .czd--minimal {
-  --czd-n-text: #37352f;
-  --czd-n-gray: #787774;
-  --czd-n-faint: #9b9a97;
-  --czd-n-border: rgba(15, 15, 15, 0.1);
-  --czd-n-fill: rgba(15, 15, 15, 0.05);
-  --czd-accent: var(--czd-n-text);
-  --czd-avatar: var(--czd-n-fill);
+  --czd-n-text: #2f2a2e;
+  --czd-n-gray: #6f6a70;
+  --czd-n-faint: #a09aa2;
+  --czd-n-border: rgba(20, 12, 24, 0.1);
+  --czd-n-fill: #f5f3f6;
+  --czd-n-accent: #7c5cff;
+  --czd-n-accent-ink: #6a45f0;
+  --czd-n-grad: linear-gradient(135deg, #7c5cff 0%, #e15fa8 100%);
+  --czd-n-wash: linear-gradient(180deg, rgba(124, 92, 255, 0.08) 0%, rgba(225, 95, 168, 0.05) 100%);
+  --czd-n-halo: rgba(124, 92, 255, 0.16);
+  --czd-n-green: #2fae76;
+  --czd-accent: var(--czd-n-accent);
+  --czd-avatar: var(--czd-n-accent);
   border: 1px solid var(--czd-n-border);
-  border-radius: 8px;
-  box-shadow: none;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(20, 12, 24, 0.06), 0 10px 28px rgba(76, 40, 130, 0.1);
   color: var(--czd-n-text);
 }
 
-/* Header: drop the navy bar for a clean white row with a hairline underline. */
+/* Header: a soft violet-to-fuchsia wash gives the card a branded identity
+   (instead of plain white), with an accent-tinted lock and a frosted pill. */
 .vfp .czd--minimal .czd-head {
-  padding: 13px 14px;
-  background: #ffffff;
+  padding: 14px 16px;
+  background: var(--czd-n-wash);
   color: var(--czd-n-text);
-  border-bottom: 1px solid var(--czd-n-border);
+  border-bottom: 1px solid var(--czd-n-halo);
 }
-.vfp .czd--minimal .czd-head-lock { width: 18px; height: 18px; color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-head-lock { width: 18px; height: 18px; color: var(--czd-n-accent-ink); }
 .vfp .czd--minimal .czd-head-label { font-size: 14px; font-weight: 600; color: var(--czd-n-text); }
 .vfp .czd--minimal .czd-head-pill {
-  padding: 3px 10px;
-  background: var(--czd-n-fill);
-  color: var(--czd-n-gray);
+  padding: 4px 11px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--czd-n-halo);
+  color: var(--czd-n-text);
   font-size: 13px;
   font-weight: 500;
 }
 
-/* Toolbar: flat neutral-gray pills and icons, no purple. */
+/* Toolbar: crisp bordered pills; green "open" status dot; readable gray icons. */
 .vfp .czd--minimal .czd-toolbar { border-bottom: 1px solid var(--czd-n-border); }
 .vfp .czd--minimal .czd-status,
 .vfp .czd--minimal .czd-flag {
-  padding: 6px 10px;
-  border-radius: 6px;
-  background: var(--czd-n-fill);
-  color: var(--czd-n-gray);
+  padding: 6px 11px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid var(--czd-n-border);
+  box-shadow: 0 1px 1px rgba(15, 15, 15, 0.03);
+  color: var(--czd-n-text);
   font-weight: 500;
 }
-.vfp .czd--minimal .czd-tool { color: var(--czd-n-faint); }
-.vfp .czd--minimal .czd-tool--resolve { color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-status-dot { color: var(--czd-n-green); fill: var(--czd-n-green); }
+.vfp .czd--minimal .czd-status-caret,
+.vfp .czd--minimal .czd-flag-caret { color: var(--czd-n-faint); }
+.vfp .czd--minimal .czd-flag,
+.vfp .czd--minimal .czd-flag-icon { color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-tool { color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-tool--resolve { color: var(--czd-n-text); }
 
-/* Comment: neutral avatar square, monochrome name / meta / body. */
+/* Comment: an expressive aurora avatar (two-stop gradient, glossy top, soft
+   halo ring) with a live emerald presence dot, plus confident type. */
 .vfp .czd--minimal .czd-avatar {
-  border-radius: 6px;
-  background: var(--czd-n-fill);
-  box-shadow: inset 0 0 0 1px var(--czd-n-border);
-  color: var(--czd-n-text);
-  font-weight: 600;
+  position: relative;
+  border-radius: 50%;
+  background: var(--czd-n-grad);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 0 3px var(--czd-n-halo), 0 6px 14px rgba(124, 92, 255, 0.4);
+  color: #ffffff;
+  font-weight: 700;
+}
+.vfp .czd--minimal .czd-avatar::after {
+  content: "";
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--czd-n-green);
+  border: 2px solid #ffffff;
 }
 .vfp .czd--minimal .czd-name { color: var(--czd-n-text); font-weight: 600; }
 .vfp .czd--minimal .czd-time { color: var(--czd-n-gray); }
-.vfp .czd--minimal .czd-read { color: var(--czd-n-faint); }
+.vfp .czd--minimal .czd-read { color: var(--czd-n-green); }
 .vfp .czd--minimal .czd-device { color: var(--czd-n-gray); }
 .vfp .czd--minimal .czd-body { color: var(--czd-n-text); }
 
-/* Composer: hairline input + a small flat ghost send arrow. */
+/* Composer: crisp hairline input + a small filled aurora send button. */
 .vfp .czd--minimal .czd-composer {
-  padding: 9px 9px 9px 14px;
+  padding: 8px 8px 8px 15px;
+  background: #ffffff;
   border: 1px solid var(--czd-n-border);
-  border-radius: 6px;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(20, 12, 24, 0.04);
 }
-.vfp .czd--minimal .czd-composer-ph { color: var(--czd-n-faint); }
+.vfp .czd--minimal .czd-composer-ph { color: var(--czd-n-gray); }
 .vfp .czd--minimal .czd-send {
-  width: 30px;
-  height: 30px;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--czd-n-gray);
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: var(--czd-n-grad);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(124, 92, 255, 0.45);
 }
-.vfp .czd--minimal .czd-send svg { width: 18px; height: 18px; }
+.vfp .czd--minimal .czd-send svg { width: 17px; height: 17px; }
 
-/* Footer: subtle near-black text link with a muted icon, not purple. */
-.vfp .czd--minimal .czd-footer { color: var(--czd-n-text); font-weight: 500; }
-.vfp .czd--minimal .czd-footer svg { color: var(--czd-n-gray); }
+/* Footer: the "All comments" link picks up the signature aurora accent. */
+.vfp .czd--minimal .czd-footer { color: var(--czd-n-accent-ink); font-weight: 600; }
+.vfp .czd--minimal .czd-footer svg { color: var(--czd-n-accent-ink); }
 
 /* ---------- Compact: drop the header + footer chrome for tight tiles ---------- */
 .vfp .czd--compact { max-width: 340px; }

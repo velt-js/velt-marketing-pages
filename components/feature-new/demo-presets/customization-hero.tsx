@@ -49,7 +49,7 @@ const REPLY_PLACEHOLDER = "Reply to Maya…";
 const SCENE_COMMENT = "Source added to the deck. Ready for your review before slide 4 ships.";
 
 /**
- * The :root CSS-variable strip shown at the top of the CSS-theming hero tab, so
+ * The body CSS-variable strip shown at the top of the CSS-theming hero tab, so
  * the surface reads as "these --velt-* variables were applied" rather than a
  * flat recolor.
  * @returns {ReactElement} A row of --velt-* token pills.
@@ -62,7 +62,7 @@ function ThemeTokens(): ReactElement {
   ];
   return (
     <div className="czh-tokens">
-      <span className="czh-tokens-label">:root</span>
+      <span className="czh-tokens-label">body</span>
       {tokens.map((token) => (
         <span className="czh-token" key={token.key}>
           {token?.swatch ? (
@@ -77,7 +77,7 @@ function ThemeTokens(): ReactElement {
 }
 
 /**
- * The CSS-theming hero tab: a :root token strip above Velt's real default
+ * The CSS-theming hero tab: a body token strip above Velt's real default
  * comment dialog, brand-accented via the customer indigo (--velt-light-mode-accent), so
  * the tab reads as "this is the stock Velt dialog, themed with your brand".
  * @returns {ReactElement} The captioned, framed CSS-theming surface.
