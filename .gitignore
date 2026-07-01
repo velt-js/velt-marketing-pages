@@ -33,6 +33,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+*-local-command-caveatcaveat-the-messages-below.txt
+.claude/settings.local.json
 
 # env files (can opt-in for committing if needed)
 .env*
@@ -52,3 +54,6 @@ next-env.d.ts
 # responsive verification harness (local tooling, not committed)
 /.responsive-tools/
 /.screenshots/
+
+# local generated artifacts
+/tmp/

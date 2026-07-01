@@ -1,6 +1,5 @@
 // Connectors — matches live velt.dev "Connect Velt with 3rd Party Apps".
-// Logo positioning ripped from the Framer export CSS
-// (`/Users/yoenzhang/Downloads/79f9d44e-aee0-4640-93c0-37f7eddaf158/page.html`):
+// Logo positioning comes from the Framer export CSS:
 // cell height 365px, text block absolute at bottom:30/left:30/right:30,
 // each logo placed with Framer's own calc(XX% − Ypx) coordinates.
 

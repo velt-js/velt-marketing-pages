@@ -1,8 +1,6 @@
 # Velt marketing site — Framer → Next.js migration log
 
 > Living doc. Update as we go. Keep lean — findings, gotchas, and reusable patterns only. No verbose explanations.
->
-> **Canonical location**: `/Users/yoenzhang/Downloads/velt-marketing-pages/MIGRATION.md` (in the repo root under `/Downloads/`). First action on plan approval: write this file there, then keep it updated as we work.
 
 ## Status
 

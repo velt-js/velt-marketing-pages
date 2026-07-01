@@ -1,9 +1,8 @@
 "use client";
 
 // Nav — labels and hrefs extracted from the Framer HTML export
-// (/Users/yoenzhang/Downloads/79f9d44e-aee0-4640-93c0-37f7eddaf158/page.html,
-// nav element at lines 1696 + 1702). Product dropdown mirrors Figma node
-// 1:21692 "Nav". Hover animation approximates Framer Motion's
+// nav element. Product dropdown mirrors Figma node 1:21692 "Nav".
+// Hover animation approximates Framer Motion's
 // `{ type: "spring", duration: 0.4, bounce: 0.2 }` with a cubic-bezier that
 // overshoots slightly on enter and settles on exit.
 //
@@ -1466,4 +1465,3 @@ function DrawerLink({ item, onClose }: { item: DropdownItem; onClose: () => void
     </Tag>
   );
 }
-
