@@ -1,9 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 
 import {
-  AgentFindingCard,
   Av,
-  Composer,
   FACES,
   Frame,
   IconReply,
@@ -80,28 +78,6 @@ export function HumanComment({
           <span className="cmh-cmt-replies"><IconReply />{replies} {replies === 1 ? "Reply" : "Replies"}</span>
         ) : null}
       </div>
-    </div>
-  );
-}
-
-/**
- * The shared review thread (agent finding + human reply + composer) that every
- * presentation layer restyles. The accent override demonstrates CSS theming.
- * @param {{ accent?: string; actions?: boolean }} props Optional brand accent and whether the agent card shows actions.
- * @returns {JSX.Element} The thread.
- */
-export function Thread({ accent, actions = true }: { accent?: string; actions?: boolean }) {
-  return (
-    <div style={{ display: "grid", gap: 12, ...(accent ? accentVar(accent) : null) }}>
-      <AgentFindingCard
-        name="Brand Agent"
-        time="2m"
-        body="This pricing claim needs a source before it ships."
-        replies={2}
-        actions={actions}
-      />
-      <HumanComment name="Maya" initials="MA" time="1m" img={FACE.maya} body="Source added to the doc." end />
-      <Composer placeholder="Reply to Maya…" you={FACE.you} />
     </div>
   );
 }

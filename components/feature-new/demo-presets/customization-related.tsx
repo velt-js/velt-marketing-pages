@@ -229,7 +229,7 @@ function NotificationsVisual(): ReactElement {
         <div className="czr-inbox-head">
           <NotifBellIcon />
           Notifications
-          <span className="czr-inbox-count">3 new</span>
+          <span className="czr-inbox-count">2 new</span>
         </div>
         <div className="czr-inbox-rows">
           <InboxRow
