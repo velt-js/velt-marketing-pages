@@ -1,0 +1,289 @@
+/* Bespoke styling for the /customization HERO tabs + the "What it is" scene
+   (demo-presets/customization-hero.tsx). Everything here is prefixed .czh- and
+   scoped under .vfp (which wraps the page). It layers on top of the globally
+   loaded product-surface atoms in ../styles.css (.cmh-*, .afc-*, .av-c, .chip,
+   .code-microcopy) rather than restyling them, so the hero threads stay
+   consistent with the comments + home pages. Design tokens (--vlp-*) are used
+   throughout per DESIGN.md; the one exception is the customer brand indigo
+   (#4f46e5), which is intentionally a non-token demo color that stands in for
+   "your brand" in the CSS-theming and design-system surfaces. */
+
+/* ---------- Hero · CSS-variable theming ---------- */
+/* A :root token strip above the accented thread, so it reads as "these CSS
+   variables were applied" rather than a plain recolor. */
+.vfp .czh-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--vlp-border-subtle);
+  border-radius: 12px;
+  background: var(--vlp-bg-section-alt);
+}
+.vfp .czh-tokens-label {
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--vlp-color-text-subtle);
+  margin-right: 2px;
+}
+.vfp .czh-token {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--vlp-bg-page);
+  border: 1px solid var(--vlp-border-subtle);
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+}
+/* Stage that centers the real default dialog inside the CSS-theming hero frame. */
+.vfp .czh-css-stage { display: flex; justify-content: center; padding-top: 2px; }
+
+.vfp .czh-token-key { color: var(--vlp-color-ink-soft); }
+.vfp .czh-token-val { color: var(--vlp-color-text-muted); }
+.vfp .czh-swatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  flex: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+/* ---------- Hero · Wireframes ---------- */
+.vfp .czh-wire { display: grid; gap: 14px; }
+.vfp .czh-wire-bar { display: flex; align-items: center; gap: 10px; }
+.vfp .czh-wire-reg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px;
+  border-radius: 7px;
+  background: var(--vlp-bg-section-alt);
+  border: 1px solid var(--vlp-border-subtle);
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  color: var(--vlp-color-ink-soft);
+}
+.vfp .czh-wire-reg i { width: 6px; height: 6px; border-radius: 2px; background: var(--vlp-color-accent); flex: none; }
+.vfp .czh-wire-hint { font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+.vfp .czh-wire-hdr { display: flex; align-items: center; gap: 9px; }
+.vfp .czh-tmpl {
+  font-family: var(--vlp-font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vlp-color-accent-ink);
+  background: var(--vlp-color-accent-soft);
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+.vfp .czh-wire-hdr-label { font-size: 12.5px; color: var(--vlp-color-ink-soft); }
+.vfp .czh-wire-hdr .chip { margin-left: auto; }
+.vfp .czh-wire-stack { display: grid; gap: 12px; }
+
+/* ---------- Hero · Primitives ---------- */
+.vfp .czh-prims { display: grid; gap: 12px; }
+.vfp .czh-fw-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.vfp .czh-prim-body { padding: 12px; display: grid; gap: 10px; }
+.vfp .czh-prim-code { margin: 0; font-family: var(--vlp-font-mono); font-size: 10.5px; line-height: 1.5; color: var(--vlp-color-text-subtle); }
+.vfp .czh-mui { padding: 12px; display: grid; gap: 6px; }
+.vfp .czh-mui-label { font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; color: var(--vlp-color-accent-ink); }
+
+/* ---------- Hero · Headless (your render from Velt data) ---------- */
+.vfp .czh-headless { display: grid; gap: 12px; }
+.vfp .czh-artboard {
+  position: relative;
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 12px;
+  background: var(--vlp-bg-section-alt);
+  padding: 14px 16px 18px;
+  overflow: hidden;
+}
+.vfp .czh-art-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vlp-color-text-subtle);
+  margin-bottom: 14px;
+}
+.vfp .czh-art-bars { display: flex; align-items: flex-end; gap: 14px; height: 66px; padding-left: 2px; }
+.vfp .czh-art-bar { width: 26px; border-radius: 3px 3px 0 0; background: #cfd6ea; flex: none; }
+.vfp .czh-art-bar.is-hot { background: #9aa3e6; }
+.vfp .czh-art-lines { display: grid; gap: 8px; margin-top: 14px; }
+.vfp .czh-art-line { height: 8px; border-radius: 999px; background: var(--vlp-bg-skeleton); }
+.vfp .czh-art-line.is-short { width: 60%; }
+
+/* Your own pins (teardrop, not Velt's default pill) rendered from the hook
+   data. The wrapper sets --vlp-color-accent to the customer indigo, so both
+   pins pick up "your brand". */
+.vfp .czh-pin {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 3px;
+  background: var(--vlp-color-accent);
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.35);
+  z-index: 3;
+}
+.vfp .czh-pin .av-c { width: 22px; height: 22px; border: 2px solid #fff; font-size: 8.5px; }
+.vfp .czh-pin--a { top: 26px; right: 40px; }
+.vfp .czh-pin--b { bottom: 30px; left: 38%; }
+.vfp .czh-pin-count {
+  position: absolute;
+  top: -6px;
+  right: -7px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--vlp-color-accent);
+  font-family: var(--vlp-font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czh-render-note { display: inline-flex; align-items: center; gap: 8px; font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-muted); }
+.vfp .czh-render-note b { color: var(--vlp-color-ink-soft); font-weight: 600; }
+
+/* ---------- What it is · before / after scene ---------- */
+/* Rendered inside the shared .scene-card, which keeps its own border + radius +
+   overflow:hidden because this root is not a .cmh Frame. The header and footer
+   bands therefore sit flush to the card edges. */
+.vfp .czh-scene { display: grid; }
+.vfp .czh-scene-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 20px;
+  background: var(--vlp-bg-section-alt);
+  border-bottom: 1px solid var(--vlp-border-subtle);
+}
+.vfp .czh-scene-tag {
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vlp-color-text-subtle);
+}
+.vfp .czh-scene-avs { display: inline-flex; align-items: center; }
+.vfp .czh-scene-avs .av-c { width: 24px; height: 24px; margin-left: -7px; border: 2px solid var(--vlp-bg-section-alt); font-size: 9.5px; }
+.vfp .czh-scene-avs .av-c:first-child { margin-left: 0; }
+
+.vfp .czh-scene-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+}
+.vfp .czh-col { display: grid; gap: 10px; align-content: start; }
+.vfp .czh-col-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+}
+.vfp .czh-col-label i { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.vfp .czh-col-label--default i { background: var(--vlp-color-text-subtle); }
+.vfp .czh-col-label--brand i { background: var(--vlp-color-accent); }
+
+.vfp .czh-default { display: grid; gap: 10px; }
+
+/* The mid divider: a transform badge between the two looks. */
+.vfp .czh-scene-mid { display: grid; place-items: center; }
+.vfp .czh-scene-arrow {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--vlp-bg-page);
+  border: 1px solid var(--vlp-border-default);
+  color: var(--vlp-color-text-muted);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czh-scene-arrow svg { width: 15px; height: 15px; }
+
+/* "Your design system" card — indigo-themed variant of the same thread. The
+   right column sets --vlp-color-accent (indigo) plus --czh-brand-soft/-wash
+   tints, so the whole card recolors from the customer brand. */
+.vfp .czh-ds-card {
+  border: 1px solid var(--czh-brand-wash, var(--vlp-color-accent-wash));
+  border-radius: 16px;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-md);
+  overflow: hidden;
+}
+.vfp .czh-ds-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  background: var(--czh-brand-soft, var(--vlp-color-accent-soft));
+  color: var(--vlp-color-accent);
+}
+.vfp .czh-ds-mark { width: 18px; height: 18px; flex: none; border-radius: 6px; background: var(--vlp-color-accent); display: grid; place-items: center; }
+.vfp .czh-ds-mark svg { width: 13px; height: 13px; color: #fff; }
+.vfp .czh-ds-head-name { font-family: var(--vlp-font-heading); font-weight: 600; font-size: 12.5px; letter-spacing: -0.01em; }
+.vfp .czh-ds-tag {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--vlp-color-accent);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.vfp .czh-ds-body { padding: 13px 14px 14px; display: grid; gap: 10px; }
+.vfp .czh-ds-row { display: flex; align-items: center; gap: 10px; }
+.vfp .czh-ds-av { width: 28px; height: 28px; flex: none; border-radius: 9px; background: var(--vlp-color-accent); display: grid; place-items: center; color: #fff; }
+.vfp .czh-ds-av svg { width: 18px; height: 18px; }
+.vfp .czh-ds-name { font-family: var(--vlp-font-heading); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; color: var(--vlp-color-accent); }
+.vfp .czh-ds-time { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); margin-left: auto; }
+.vfp .czh-ds-text { margin: 0; font-size: 13px; line-height: 1.5; color: var(--vlp-color-ink-soft); }
+.vfp .czh-ds-reply { display: flex; align-items: center; gap: 9px; padding-top: 10px; border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czh-ds-reply .av-c { width: 22px; height: 22px; }
+.vfp .czh-ds-reply p { margin: 0; font-size: 12px; color: var(--vlp-color-text-muted); }
+.vfp .czh-ds-reply p b { color: var(--vlp-color-ink-soft); font-weight: 600; }
+.vfp .czh-ds-acts { display: flex; align-items: center; gap: 8px; }
+.vfp .czh-ds-btn { font-family: var(--vlp-font-heading); font-weight: 600; font-size: 12.5px; padding: 6px 14px; border-radius: 999px; }
+.vfp .czh-ds-btn--solid { background: var(--vlp-color-accent); color: #fff; }
+.vfp .czh-ds-btn--ghost { background: transparent; color: var(--vlp-color-accent); border: 1px solid var(--czh-brand-wash, var(--vlp-color-accent-wash)); }
+.vfp .czh-ds-replies { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--vlp-color-text-subtle); }
+.vfp .czh-ds-replies svg { width: 13px; height: 13px; }
+
+.vfp .czh-scene-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px 14px;
+  border-top: 1px solid var(--vlp-border-subtle);
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  color: var(--vlp-color-text-muted);
+}
+.vfp .czh-scene-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-green-approval); flex: none; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .vfp .czh-scene-split { grid-template-columns: 1fr; gap: 22px; }
+  .vfp .czh-scene-mid { display: none; }
+}
