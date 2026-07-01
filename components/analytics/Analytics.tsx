@@ -9,7 +9,9 @@
 //       lands)
 //   2.  Mixpanel — custom CDN at cdn.velt.dev/mp/lib.min.js, custom
 //       api_host. Session recording + heatmap + autocapture enabled.
-//   3.  Amplitude — session-replay plugin at 100% sample rate.
+//   3.  Amplitude — MOVED to the official npm SDK. Now initialized in
+//       instrumentation-client.ts → lib/analytics/amplitude.ts (autocapture
+//       + Session Replay). No longer loaded here.
 //   4.  Google — gtag for both Google Ads (conversion ID
 //       AW-16764728482) and GA4 (measurement ID G-6D523BSLHR).
 //       Single gtag.js load, two config() calls.
@@ -25,9 +27,9 @@
 //
 // All use next/script `afterInteractive` so they fire after hydration
 // without blocking initial paint. Script execution order is preserved
-// within the same strategy bucket, which matters for the Amplitude /
-// gtag pairs (external load → init) and for Mixpanel (custom URL var
-// captured by the stub IIFE via closure).
+// within the same strategy bucket, which matters for the gtag pair
+// (external load → init) and for Mixpanel (custom URL var captured by
+// the stub IIFE via closure).
 
 import Script from "next/script";
 
@@ -71,36 +73,15 @@ export function Analytics() {
         `}
       </Script>
 
-      {/* 3. Amplitude — base SDK bundle + session-replay plugin. The
-          bundled stub queues init() calls until the actual SDK loads,
-          so the inline init script directly after the external src
-          is safe. */}
-      <Script
-        id="amplitude-sdk"
-        src="https://cdn.amplitude.com/script/b539efb895d43d961b136736cba0d585.js"
-        strategy="afterInteractive"
-      />
-      <Script id="amplitude-init" strategy="afterInteractive">
-        {`
-          if (window.amplitude && window.sessionReplay) {
-            window.amplitude.add(window.sessionReplay.plugin({ sampleRate: 1 }));
-            window.amplitude.init('b539efb895d43d961b136736cba0d585', {
-              fetchRemoteConfig: true,
-              autocapture: {
-                attribution: true,
-                fileDownloads: true,
-                formInteractions: true,
-                pageViews: true,
-                sessions: true,
-                elementInteractions: true,
-                networkTracking: true,
-                webVitals: true,
-                frustrationInteractions: true,
-              },
-            });
-          }
-        `}
-      </Script>
+      {/* 3. Amplitude — MIGRATED. Amplitude + Session Replay now load via the
+          official npm SDK (@amplitude/analytics-browser +
+          @amplitude/plugin-session-replay-browser), initialized once at
+          bootstrap in instrumentation-client.ts → lib/analytics/amplitude.ts.
+          The former hosted-script + inline-init approach was removed because
+          the inline init raced the async SDK load and its manual Session
+          Replay registration (window.sessionReplay.plugin) hit a stub that
+          never exposed .plugin, so it silently failed. Do NOT re-add an
+          Amplitude script here — that would double-initialize the SDK. */}
 
       {/* 4. Google gtag — single SDK load services both Google Ads
           (conversion ID AW-16764728482) and GA4 (measurement ID
