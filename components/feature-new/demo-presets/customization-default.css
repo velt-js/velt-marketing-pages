@@ -1,0 +1,298 @@
+/* Faithful static reproduction of Velt's REAL default comment dialog
+   (demo-presets/customization-default.tsx -> VeltDefaultCommentDialog). Every
+   class is prefixed .czd- and scoped under .vfp (which wraps the /customization
+   page). Unlike the surrounding demo modules, the palette here is a fixed set of
+   Velt's own default hexes (navy header, indigo accent, avatar purple, lavender
+   pills) rather than the --vlp-* editorial tokens, because this artifact depicts
+   Velt's stock look, not the marketing page's brand, the same convention the
+   customization-hero module uses for the #4f46e5 demo brand color. The two
+   themeable colors are driven by --czd-accent (Open pill, footer) and
+   --czd-avatar (avatar, send button), set inline so the SAME component can
+   render brand-themed. Only the font family and page-neutral bits reuse tokens.
+   Visuals are simulated, not a live SDK instance. */
+
+.vfp .czd {
+  --czd-accent: #5b5bf5;
+  --czd-avatar: #6c5ce7;
+  --czd-navy: #21243f;
+  --czd-lavender: #eeeffc;
+  --czd-ink: #1c1c28;
+  --czd-muted: #8a8fa3;
+  --czd-border: #e7e7ef;
+  --czd-read: #57b49b;
+  width: 100%;
+  max-width: 380px;
+  border: 1px solid var(--czd-border);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(20, 20, 40, 0.06), 0 16px 36px -12px rgba(20, 20, 40, 0.22);
+  overflow: hidden;
+  font-family: var(--vlp-font-body);
+  color: var(--czd-ink);
+  text-align: left;
+}
+
+/* Optional anchored comment pin (the "#57" tag + avatar). Rendered in a
+   relative wrapper so it can overhang the card without being clipped. */
+.vfp .czd-wrap { position: relative; width: 100%; max-width: 380px; }
+.vfp .czd-wrap .czd { max-width: none; }
+.vfp .czd-pin {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px 3px 3px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px -2px rgba(20, 20, 40, 0.28);
+}
+.vfp .czd-pin-av {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--czd-avatar);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.vfp .czd-pin-tag { font-size: 12px; font-weight: 600; color: var(--czd-muted); }
+
+/* ---------- Header bar: dark navy, "Visible to [Everyone]" ---------- */
+.vfp .czd-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--czd-navy);
+  color: #ffffff;
+}
+.vfp .czd-head-lock { width: 22px; height: 22px; flex: none; color: #ffffff; }
+.vfp .czd-head-label { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.vfp .czd-head-pill {
+  margin-left: 2px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Toolbar row: status + flag pills, kebab / link / resolve ---------- */
+.vfp .czd-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--czd-border);
+}
+.vfp .czd-tools-left { display: flex; align-items: center; gap: 8px; }
+.vfp .czd-tools-right { display: flex; align-items: center; gap: 12px; }
+.vfp .czd-status,
+.vfp .czd-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--czd-lavender);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.vfp .czd-status { color: var(--czd-accent); }
+.vfp .czd-status-dot { width: 15px; height: 15px; flex: none; }
+.vfp .czd-status-caret { width: 13px; height: 13px; flex: none; }
+.vfp .czd-flag { color: var(--czd-muted); padding-left: 11px; padding-right: 11px; }
+.vfp .czd-flag-icon { width: 15px; height: 15px; flex: none; }
+.vfp .czd-flag-caret { width: 13px; height: 13px; flex: none; }
+.vfp .czd-tool {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  color: var(--czd-muted);
+  background: transparent;
+  border: 0;
+  cursor: default;
+}
+.vfp .czd-tool svg { width: 20px; height: 20px; }
+.vfp .czd-tool--resolve { color: var(--czd-ink); }
+
+/* ---------- Comment: avatar, name + time + read receipt, device, body ---------- */
+.vfp .czd-comment { display: flex; gap: 14px; padding: 16px 16px 4px; }
+.vfp .czd-avatar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 12px;
+  background: var(--czd-avatar);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+}
+.vfp .czd-comment-main { flex: 1; min-width: 0; }
+.vfp .czd-comment-head { display: flex; align-items: center; gap: 8px; }
+.vfp .czd-name { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: var(--czd-ink); }
+.vfp .czd-time { font-size: 14px; color: var(--czd-muted); }
+.vfp .czd-read { width: 18px; height: 18px; flex: none; color: var(--czd-read); }
+.vfp .czd-device { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 13px; color: var(--czd-muted); }
+.vfp .czd-device svg { width: 16px; height: 16px; flex: none; }
+.vfp .czd-body { margin: 10px 0 0; font-size: 15.5px; line-height: 1.5; color: var(--czd-ink); word-break: break-word; }
+
+/* ---------- Composer: bordered input + circular send button ---------- */
+.vfp .czd-composer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 16px 14px;
+  padding: 10px 10px 10px 16px;
+  border: 1px solid var(--czd-border);
+  border-radius: 14px;
+}
+.vfp .czd-composer-ph {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  color: var(--czd-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vfp .czd-send {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--czd-avatar);
+  color: #ffffff;
+  border: 0;
+  cursor: default;
+}
+.vfp .czd-send svg { width: 20px; height: 20px; }
+
+/* ---------- Footer: centered "All comments" ---------- */
+.vfp .czd-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 6px 16px 18px;
+  color: var(--czd-accent);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.vfp .czd-footer svg { width: 19px; height: 19px; flex: none; }
+
+/* ---------- Minimal / Notion variant ----------
+   Applied via the .czd--minimal modifier (variant="minimal"), used only on the
+   "Your design system" side of the What It Is scene. Restyles the SAME markup
+   into a flat, monochrome, Notion-like card: pure white surface, hairline
+   borders, neutral gray pills, a plain-white header (no navy bar), a muted
+   avatar square, and a small ghost send arrow (no filled purple circle). It
+   redefines the themeable custom props to neutral and overrides the accent /
+   avatar / navy colors directly, so it leaves Velt's default look above (and
+   every other VeltDefaultCommentDialog usage) untouched. */
+.vfp .czd--minimal {
+  --czd-n-text: #37352f;
+  --czd-n-gray: #787774;
+  --czd-n-faint: #9b9a97;
+  --czd-n-border: rgba(15, 15, 15, 0.1);
+  --czd-n-fill: rgba(15, 15, 15, 0.05);
+  --czd-accent: var(--czd-n-text);
+  --czd-avatar: var(--czd-n-fill);
+  border: 1px solid var(--czd-n-border);
+  border-radius: 8px;
+  box-shadow: none;
+  color: var(--czd-n-text);
+}
+
+/* Header: drop the navy bar for a clean white row with a hairline underline. */
+.vfp .czd--minimal .czd-head {
+  padding: 13px 14px;
+  background: #ffffff;
+  color: var(--czd-n-text);
+  border-bottom: 1px solid var(--czd-n-border);
+}
+.vfp .czd--minimal .czd-head-lock { width: 18px; height: 18px; color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-head-label { font-size: 14px; font-weight: 600; color: var(--czd-n-text); }
+.vfp .czd--minimal .czd-head-pill {
+  padding: 3px 10px;
+  background: var(--czd-n-fill);
+  color: var(--czd-n-gray);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* Toolbar: flat neutral-gray pills and icons, no purple. */
+.vfp .czd--minimal .czd-toolbar { border-bottom: 1px solid var(--czd-n-border); }
+.vfp .czd--minimal .czd-status,
+.vfp .czd--minimal .czd-flag {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--czd-n-fill);
+  color: var(--czd-n-gray);
+  font-weight: 500;
+}
+.vfp .czd--minimal .czd-tool { color: var(--czd-n-faint); }
+.vfp .czd--minimal .czd-tool--resolve { color: var(--czd-n-gray); }
+
+/* Comment: neutral avatar square, monochrome name / meta / body. */
+.vfp .czd--minimal .czd-avatar {
+  border-radius: 6px;
+  background: var(--czd-n-fill);
+  box-shadow: inset 0 0 0 1px var(--czd-n-border);
+  color: var(--czd-n-text);
+  font-weight: 600;
+}
+.vfp .czd--minimal .czd-name { color: var(--czd-n-text); font-weight: 600; }
+.vfp .czd--minimal .czd-time { color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-read { color: var(--czd-n-faint); }
+.vfp .czd--minimal .czd-device { color: var(--czd-n-gray); }
+.vfp .czd--minimal .czd-body { color: var(--czd-n-text); }
+
+/* Composer: hairline input + a small flat ghost send arrow. */
+.vfp .czd--minimal .czd-composer {
+  padding: 9px 9px 9px 14px;
+  border: 1px solid var(--czd-n-border);
+  border-radius: 6px;
+}
+.vfp .czd--minimal .czd-composer-ph { color: var(--czd-n-faint); }
+.vfp .czd--minimal .czd-send {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--czd-n-gray);
+}
+.vfp .czd--minimal .czd-send svg { width: 18px; height: 18px; }
+
+/* Footer: subtle near-black text link with a muted icon, not purple. */
+.vfp .czd--minimal .czd-footer { color: var(--czd-n-text); font-weight: 500; }
+.vfp .czd--minimal .czd-footer svg { color: var(--czd-n-gray); }
+
+/* ---------- Compact: drop the header + footer chrome for tight tiles ---------- */
+.vfp .czd--compact { max-width: 340px; }
+.vfp .czd--compact .czd-head,
+.vfp .czd--compact .czd-footer { display: none; }
+.vfp .czd--compact .czd-comment { padding-top: 14px; }
+.vfp .czd-wrap:has(> .czd--compact) { max-width: 340px; }
+
+/* ---------- Responsive: shrink type a touch in narrow columns ---------- */
+@media (max-width: 480px) {
+  .vfp .czd-head-label { font-size: 14px; }
+  .vfp .czd-name { font-size: 16px; }
+  .vfp .czd-body { font-size: 14.5px; }
+}

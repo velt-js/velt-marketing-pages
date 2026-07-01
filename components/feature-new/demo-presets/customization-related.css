@@ -1,0 +1,247 @@
+/* Bespoke artifacts for the /customization "Make it yours" + "Related" section
+   cards (.czr-*). Scoped under .vfp. Reuses the global .cmh-* / .cmh-cc* /
+   .cmh-cmt* / .afc / .chip / .av-c / .pv / .code-microcopy atoms defined in
+   components/feature-new/styles.css; only the genuinely new pieces (the Themes
+   Playground panel, the component-system spectrum stack, the themed comment
+   thread, the notification inbox, the presence cluster, and the webhooks tabs)
+   live here. All tokens come from the canonical --vlp-* set. Every class is
+   prefixed .czr- to stay conflict-free with the other section modules. Visuals
+   are simulated, not live SDK instances. */
+
+/* ---------- Shared bits ---------- */
+.vfp .czr-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--vlp-color-green-approval);
+  flex: none;
+}
+
+/* ---------- Make it yours / Design tools: Themes Playground panel ----------
+   A YOUR_CARD shell labeled "playground.velt.dev" with a live component
+   preview (an accent-themed pin + button, driven by --vlp-color-accent) above
+   the editable CSS-variable list with color swatches. */
+.vfp .czr-pg { display: grid; }
+.vfp .czr-pg-live {
+  display: grid;
+  gap: 10px;
+  padding: 13px 14px 12px;
+  border-bottom: 1px solid var(--vlp-border-subtle);
+}
+.vfp .czr-pg-live-label,
+.vfp .czr-vars-label {
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vlp-color-text-subtle);
+}
+.vfp .czr-pg-stage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.vfp .czr-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 10px;
+  background: var(--vlp-color-accent);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.vfp .czr-vars {
+  display: grid;
+  gap: 9px;
+  padding: 12px 14px 14px;
+}
+.vfp .czr-var {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--vlp-font-mono);
+  font-size: 12px;
+}
+.vfp .czr-var-name { color: var(--vlp-color-ink-soft); }
+.vfp .czr-var-val {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--vlp-color-text-muted);
+}
+.vfp .czr-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex: none;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+/* ---------- Make it yours / Component system: the spectrum stack ----------
+   A labeled card whose body is a vertical run of layers (CSS -> headless ->
+   behavior -> dark mode). Each row carries an accent dot, a name, a short
+   sub-descriptor, and a capability tag, so it reads as a structured spectrum
+   rather than a flat pill list. */
+.vfp .czr-sys {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 14px;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+  overflow: hidden;
+}
+.vfp .czr-sys-head,
+.vfp .czr-sys-foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--vlp-bg-section-alt);
+}
+.vfp .czr-sys-head { border-bottom: 1px solid var(--vlp-border-subtle); justify-content: space-between; }
+.vfp .czr-sys-foot { border-top: 1px solid var(--vlp-border-subtle); font-size: 12px; color: var(--vlp-color-text-muted); }
+.vfp .czr-sys-imp { font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .czr-sys-pill,
+.vfp .czr-sys-foot-pill {
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: var(--vlp-color-accent-ink);
+  background: var(--vlp-color-accent-soft);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+.vfp .czr-sys-foot-pill { margin-left: auto; }
+.vfp .czr-sys-list {
+  list-style: none;
+  margin: 0;
+  padding: 6px 14px 8px;
+  display: grid;
+  gap: 0;
+}
+.vfp .czr-sys-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 2px;
+}
+.vfp .czr-sys-row + .czr-sys-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czr-sys-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--vlp-color-accent);
+  box-shadow: 0 0 0 3px var(--vlp-color-accent-soft);
+}
+.vfp .czr-sys-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.vfp .czr-sys-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em; color: var(--vlp-color-ink); }
+.vfp .czr-sys-sub { font-size: 12px; color: var(--vlp-color-text-muted); }
+.vfp .czr-sys-tag {
+  flex: none;
+  white-space: nowrap;
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: var(--vlp-color-text-subtle);
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* ---------- Related / Comments: brand-themed thread ----------
+   An anchored pin, a two-message thread (agent finding + human reply as plain
+   comment rows), and a live composer. The local --vlp-color-accent override
+   (see accentVar) retints the pin and composer send button to the brand color,
+   so the card reads as a themed comment surface. */
+.vfp .czr-cmts { display: grid; gap: 11px; }
+.vfp .czr-cmts-top { display: flex; align-items: center; gap: 9px; }
+.vfp .czr-cmts-file { font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .czr-cmts-thread { display: grid; }
+.vfp .czr-cmts-thread .cmh-cmt--plain { padding: 10px 0; }
+.vfp .czr-cmts-thread .cmh-cmt--plain:first-child { padding-top: 2px; }
+.vfp .czr-cmts-thread .cmh-cmt--plain + .cmh-cmt--plain { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czr-cmt-chip { margin-left: 2px; }
+
+/* ---------- Related / Notifications: inbox feed ---------- */
+.vfp .czr-inbox {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 14px;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+  overflow: hidden;
+}
+.vfp .czr-inbox-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--vlp-border-subtle);
+  background: var(--vlp-bg-section-alt);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vlp-color-ink);
+}
+.vfp .czr-inbox-head svg { width: 15px; height: 15px; flex: none; color: var(--vlp-color-accent); }
+.vfp .czr-inbox-count {
+  margin-left: auto;
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: var(--vlp-color-accent-ink);
+  background: var(--vlp-color-accent-soft);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+.vfp .czr-inbox-rows { padding: 2px 14px 6px; }
+.vfp .czr-inbox-rows .cmh-inmain .t .chip { margin-left: 6px; vertical-align: middle; }
+
+/* ---------- Related / Presence: avatar cluster + cursors ---------- */
+.vfp .czr-presence { display: grid; gap: 13px; padding: 2px 0; }
+.vfp .czr-presence-head { display: flex; align-items: center; gap: 10px; }
+.vfp .czr-presence-label { font-family: var(--vlp-font-mono); font-size: 11px; color: var(--vlp-color-text-muted); }
+.vfp .czr-cluster { display: flex; align-items: center; }
+.vfp .czr-cluster .av-c {
+  width: 30px;
+  height: 30px;
+  margin-left: -8px;
+  font-size: 11px;
+  box-shadow: 0 0 0 2px var(--vlp-bg-page);
+}
+.vfp .czr-cluster .av-c:first-child { margin-left: 0; }
+.vfp .czr-more {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: var(--vlp-bg-section-alt);
+  box-shadow: 0 0 0 2px var(--vlp-bg-page);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vlp-color-text-muted);
+}
+.vfp .czr-cursors { display: flex; align-items: center; gap: 14px; }
+
+/* ---------- Related / Webhooks: events, hooks, REST tabs + dark panel ---------- */
+.vfp .czr-hooks-tabs { display: flex; align-items: center; gap: 6px; }
+.vfp .czr-tab {
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--vlp-color-text-muted);
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.vfp .czr-tab--on {
+  color: var(--vlp-color-accent-ink);
+  background: var(--vlp-color-accent-soft);
+  border-color: var(--vlp-color-accent-wash);
+}

@@ -14,7 +14,7 @@ import { CUSTOMIZATION_DEMOS as D, WhatItIsScene } from "@/components/feature-ne
 
 const API_KEY_HREF = "https://console.velt.dev";
 const DEMO_HREF = "/book-demo";
-const DOCS_HREF = "https://docs.velt.dev/ui-customization";
+const DOCS_HREF = "https://velt.dev/docs/ui-customization";
 const PLAYGROUND_HREF = "https://playground.velt.dev/themes";
 
 const STEP_INSTALL = `// install the SDK and drop in a component
@@ -26,20 +26,20 @@ import { VeltProvider, VeltComments } from '@veltdev/react';
 </VeltProvider>`;
 
 const STEP_LAYER = `// pick your presentation layer:
-// CSS variables (pass through shadow DOM)
-:root { --velt-primary: #4f46e5; }
+// CSS variables apply globally, no Shadow DOM change needed
+body { --velt-light-mode-accent: #4f46e5; }
 
 // or set shadowDom={false} for selector CSS and wireframes
 <VeltComments shadowDom={false} />`;
 
 const STEP_EXTEND = `// extend behavior where needed
-commentElement.on('commentClick', onClick);
+commentElement.on('commentPinClicked').subscribe(onClick);
 
 // read, mutate, control through hooks
 const { addComment } = useAddComment();
 
 // REST APIs from your backend
-POST https://api.velt.dev/v2/comments/add`;
+POST https://api.velt.dev/v2/commentannotations/comments/add`;
 
 /** Typed content for the Customization page. */
 export const customizationContent: FeaturePageContent = {
@@ -133,7 +133,7 @@ export const customizationContent: FeaturePageContent = {
       heading: "Agent-ready documentation.",
       sub: "The full customization model is documented end to end and available through the Velt MCP server, so a coding agent can resolve the right layer from a design.",
       tabs: [
-        { id: "docs", label: "Docs", command: "docs.velt.dev/ui-customization" },
+        { id: "docs", label: "Docs", command: "velt.dev/docs/ui-customization" },
         { id: "playground", label: "Playground", command: "playground.velt.dev/themes" },
         { id: "mcp", label: "MCP", command: "npx -y @velt-js/mcp-installer" },
       ],
@@ -170,14 +170,14 @@ export const customizationContent: FeaturePageContent = {
         headline:
           "Recolor, respace, and retype with --velt-* CSS variables, or your own CSS or Tailwind. Variable theming even works through the shadow DOM. The fastest path.",
         preview: D["showcase/css-theming"],
-        code: `// selector CSS needs shadowDom={false}; variables pass through either way
+        code: `// selector CSS needs shadowDom={false}; theme variables apply either way
 <VeltProvider apiKey="..."><VeltComments shadowDom={false} /></VeltProvider>
 
-:root {
-  --velt-primary: #4f46e5;
-  --velt-radius: 12px;
+body {
+  --velt-light-mode-accent: #4f46e5;
+  --velt-border-radius-md: 12px;
 }`,
-        copyText: "--velt-primary: #4f46e5; --velt-radius: 12px;",
+        copyText: "--velt-light-mode-accent: #4f46e5; --velt-border-radius-md: 12px;",
       },
       {
         num: "02",
@@ -188,8 +188,10 @@ export const customizationContent: FeaturePageContent = {
         preview: D["showcase/wireframes"],
         code: `<VeltWireframe>
   <VeltCommentDialogWireframe>
-    <div class="hdr">{commentCount} comments</div>
-    <VeltCommentDialogComposerWireframe />
+    <VeltCommentDialogWireframe.Header>
+      <VeltData field="annotation.comments.length" /> comments
+    </VeltCommentDialogWireframe.Header>
+    <VeltCommentDialogWireframe.Composer />
   </VeltCommentDialogWireframe>
 </VeltWireframe>`,
         copyText: "<VeltWireframe><VeltCommentDialogWireframe></VeltCommentDialogWireframe></VeltWireframe>",
@@ -215,12 +217,12 @@ export const customizationContent: FeaturePageContent = {
         headline:
           "Velt gives you data and actions through hooks. You build 100 percent of the UI, even on surfaces Velt cannot draw, like PDF, canvas, or a video timeline.",
         preview: D["showcase/headless"],
-        code: `const annotations = useCommentAnnotations();
+        code: `const { data } = useGetCommentAnnotations();
 
-return annotations.map(a => (
+return data?.map((a) => (
   <MyPin key={a.annotationId} data={a} />
 ));`,
-        copyText: "const annotations = useCommentAnnotations();",
+        copyText: "const { data } = useGetCommentAnnotations();",
       },
       {
         num: "05",
@@ -241,21 +243,21 @@ return annotations.map(a => (
           "Render your app's fields inside Velt components and wireframes with template variables and VeltData, and read that context back out. Threads can show your data, not just Velt's.",
         preview: D["showcase/custom-data"],
         code: `<div>
-  <VeltData path="comment.status" />
-  <VeltData path="custom.channels" />
+  <VeltData field="annotation.status.id" />
+  <VeltData field="dealStage" />
 </div>`,
-        copyText: "<VeltData path=\"comment.status\" />",
+        copyText: "<VeltData field=\"annotation.status.id\" />",
       },
       {
         num: "07",
         name: "Conditional UI and hidden features",
         codeKicker: "// conditional",
         headline:
-          "Render differently by user, role, or any condition with velt-if, and switch on parts that are off by default: reply avatars, priority, minimap, @here.",
+          "Render differently by user, role, or any condition with VeltIf, and switch on parts that are off by default: reply avatars, priority, minimap, @here.",
         preview: D["showcase/conditional"],
-        code: `<div velt-if="user.role == 'reviewer'">...</div>
+        code: `<VeltIf condition="{user.role} === 'reviewer'">...</VeltIf>
 <VeltComments replyAvatars={true} minimap={true} />`,
-        copyText: "<div velt-if=\"user.role == 'reviewer'\">...</div>",
+        copyText: "<VeltIf condition=\"{user.role} === 'reviewer'\">...</VeltIf>",
       },
       {
         num: "08",
@@ -274,12 +276,12 @@ return annotations.map(a => (
         headline:
           "Velt owns the core sync, but you customize behavior: attach custom actions and handlers, subscribe to events, mutate through hooks, and call the REST APIs.",
         preview: D["showcase/extend-behavior"],
-        code: `commentElement.on('commentClick', onClick);
+        code: `commentElement.on('commentPinClicked').subscribe(onClick);
 const { addComment } = useAddComment();
 
 # REST: create a comment from your backend
-POST https://api.velt.dev/v2/comments/add`,
-        copyText: "commentElement.on('commentClick', onClick);",
+POST https://api.velt.dev/v2/commentannotations/comments/add`,
+        copyText: "commentElement.on('commentPinClicked').subscribe(onClick);",
       },
       {
         num: "10",
@@ -307,27 +309,27 @@ POST https://api.velt.dev/v2/comments/add`,
     heading: "The full system, enumerated.",
     support: "The showcase is the highlight reel. This is the index.",
     items: [
-      { label: "170 modern --velt-* CSS variables" },
-      { label: "83 legacy CSS variables for backward compatibility" },
-      { label: "357 stateful CSS classes (unread, resolved, and more)" },
-      { label: "Custom font-family and class overrides" },
+      { label: "Full set of --velt-* theme variables for color, radius, spacing, and type" },
+      { label: "Separate --velt-light-mode-* and --velt-dark-mode-* color variables" },
+      { label: "Stateful CSS classes to target, like --selected and --loading" },
+      { label: "Custom font-family via --velt-default-font-family and class overrides" },
       { label: "shadowDom={false} for selector CSS and styled wireframes" },
-      { label: "82 wireframe components" },
-      { label: "770 slot elements across wireframes" },
-      { label: "{variable} template catalog" },
+      { label: "Wireframe components for every Velt surface" },
+      { label: "Sub-components for each part via dot notation (Header, Body, Composer)" },
+      { label: "Template variables like {annotation.status.id} and {user.name}" },
       { label: "velt-if, velt-class, and velt-data tokens" },
       { label: "Per-slot behavior wired by Velt" },
-      { label: "421 primitive components" },
+      { label: "Primitive components for full control (98+ for the Comment Dialog alone)" },
       { label: "Sub-component for nearly every child element" },
       { label: "Wrap in any UI library: MUI, shadcn, Radix" },
-      { label: "Leaf customization via leaf wireframe" },
-      { label: "useCommentAnnotations, useAddComment, and more headless hooks" },
+      { label: "Targeted single-component customization" },
+      { label: "useGetCommentAnnotations, useAddComment, and more headless hooks" },
       { label: "Render on PDF, canvas, and video timelines" },
       { label: "Element API methods (getCommentElement and more)" },
       { label: "Subscribable events via .on()" },
-      { label: "Custom actions and handlers on components" },
-      { label: "Component config and custom data" },
-      { label: "REST APIs (POST /v2/comments/add and more)" },
+      { label: "Action components (VeltButtonWireframe) with click callbacks" },
+      { label: "Custom data via UI State (client.setUiState)" },
+      { label: "REST APIs (POST /v2/commentannotations/comments/add and more)" },
       { label: "Reusable named UI variants" },
       { label: "Reply avatars, priority, minimap, @here, device badge (off by default)" },
       { label: "Coverage: comments, sidebar, notifications, reactions, presence, cursors, recorder, mentions, activity log, annotations" },
@@ -351,8 +353,7 @@ POST https://api.velt.dev/v2/comments/add`,
         code: `// preview your theme live
 playground.velt.dev/themes
 
-// design against real components
-figma.com/community/velt-ui-kit`,
+// design against the Velt Figma UI Kit`,
         copyText: "playground.velt.dev/themes",
       },
       {
@@ -363,12 +364,12 @@ figma.com/community/velt-ui-kit`,
         preview: D["make-it-yours/component-system"],
         code: `// the whole spectrum in one import
 import {
-  VeltComments,          // prebuilt
-  VeltWireframe,         // wireframes
-  VeltCommentDialog,     // primitive
-  useCommentAnnotations, // headless
+  VeltComments,             // prebuilt
+  VeltWireframe,            // wireframes
+  VeltCommentDialog,        // primitive
+  useGetCommentAnnotations, // headless
 } from '@veltdev/react';`,
-        copyText: "import { VeltComments, VeltWireframe, VeltCommentDialog, useCommentAnnotations } from '@veltdev/react';",
+        copyText: "import { VeltComments, VeltWireframe, VeltCommentDialog, useGetCommentAnnotations } from '@veltdev/react';",
       },
     ],
   },
@@ -458,7 +459,7 @@ import {
       },
       {
         q: "Can I customize behavior, not just appearance?",
-        a: "Yes. Velt owns the core sync, but you extend behavior: attach custom actions and handlers to components, subscribe to events with .on(), mutate through headless hooks, and call the REST APIs (for example POST /v2/comments/add).",
+        a: "Yes. Velt owns the core sync, but you extend behavior: attach custom actions and handlers to components, subscribe to events with .on(), mutate through headless hooks, and call the REST APIs (for example POST /v2/commentannotations/comments/add).",
       },
       {
         q: "Can I use my own React component library inside the comment UI?",

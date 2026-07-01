@@ -1,0 +1,134 @@
+/* Customization showcase artifacts (.czs-*): the 10 Showcase-card previews for
+   the /customization page. Each tile is a distinct, static in-product surface
+   that communicates ONE customization idea (CSS theming, wireframes, primitives,
+   headless, mix, custom data, conditional UI, variants, behavior extension,
+   design-to-code) in the shared comments visual language. Scoped under .vfp like
+   the other feature demos; tokens come from home-new/styles.css. Every bespoke
+   class is prefixed czs- so it never collides with the sibling customization
+   section modules (hero, gallery, related). Visuals are simulated, not live SDK. */
+
+/* ── Shared plain comment used inside several tiles ─────────────────────────── */
+.vfp .czs-cmt { display: flex; align-items: flex-start; gap: 10px; }
+.vfp .czs-cmt > .av-c { width: 28px; height: 28px; flex: none; }
+.vfp .czs-cmt-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.vfp .czs-cmt-head { display: flex; align-items: baseline; gap: 7px; }
+.vfp .czs-cmt-name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.27px; color: var(--vlp-color-ink); }
+.vfp .czs-cmt-time { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-subtle); }
+.vfp .czs-cmt-body { margin: 0; font-size: 12.5px; line-height: 1.4; letter-spacing: -0.25px; color: var(--vlp-color-ink-soft); }
+.vfp .czs-mention { color: var(--vlp-color-accent); font-weight: 600; }
+
+/* Small mono caption shared by the multi-panel tiles. */
+.vfp .czs-cap { margin: 0; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--vlp-color-text-subtle); }
+
+/* ── 01 · CSS theming: a token card recoloring a live comment + composer ────── */
+.vfp .czs-css { display: grid; gap: 10px; }
+.vfp .czs-tokens { border: 1px solid var(--vlp-border-subtle); border-radius: 12px; overflow: hidden; background: var(--vlp-bg-page); }
+.vfp .czs-tokens-tab { display: block; padding: 7px 12px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .czs-token { display: flex; align-items: center; gap: 9px; padding: 6px 12px; font-family: var(--vlp-font-mono); font-size: 11.5px; color: var(--vlp-color-ink-soft); }
+.vfp .czs-token + .czs-token { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czs-token b { margin-left: auto; font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .czs-swatch { width: 13px; height: 13px; flex: none; border-radius: 4px; background: var(--vlp-color-accent); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.vfp .czs-css-card { border: 1px solid var(--vlp-border-default); border-radius: 12px; padding: 12px; display: grid; gap: 10px; background: var(--vlp-bg-page); }
+.vfp .czs-css-stage { display: flex; justify-content: center; }
+.vfp .czs-sd { display: inline-flex; align-items: center; gap: 6px; font-family: var(--vlp-font-mono); font-size: 10.5px; letter-spacing: 0.01em; color: var(--vlp-color-text-muted); }
+.vfp .czs-sd svg { width: 13px; height: 13px; flex: none; color: var(--vlp-color-accent); }
+
+/* ── 02 · Wireframes: labeled dashed slots (shared Slot) composing a dialog ──── */
+.vfp .czs-wf { display: grid; gap: 15px; }
+.vfp .czs-wf-header { display: flex; align-items: center; justify-content: space-between; }
+.vfp .czs-wf-count { font-size: 13px; font-weight: 600; letter-spacing: -0.26px; color: var(--vlp-color-ink); }
+.vfp .czs-wf-resolve { font-family: var(--vlp-font-mono); font-size: 10.5px; color: var(--vlp-color-text-muted); border: 1px solid var(--vlp-border-default); border-radius: 999px; padding: 2px 9px; }
+
+/* ── 03 · Primitives: a Velt component wrapped in your own UI library card ───── */
+.vfp .czs-prim-body { padding: 11px; display: grid; gap: 10px; }
+.vfp .czs-prim-badge { display: inline-flex; align-items: center; gap: 6px; width: max-content; padding: 3px 9px; border-radius: 999px; background: var(--vlp-color-accent-soft); color: var(--vlp-color-accent-ink); font-family: var(--vlp-font-mono); font-size: 10.5px; font-weight: 600; }
+.vfp .czs-prim-badge i { width: 7px; height: 7px; flex: none; border-radius: 2px; background: var(--vlp-color-accent); }
+.vfp .czs-prim-actions { display: flex; align-items: center; gap: 8px; }
+.vfp .czs-prim-lib { margin-left: auto; font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-subtle); }
+
+/* ── 04 · Headless: hook data → your own pins on a surface Velt can't draw ──── */
+.vfp .czs-hl { display: grid; gap: 10px; }
+.vfp .czs-canvas { position: relative; height: 96px; border: 1px solid var(--vlp-border-default); border-radius: 12px; overflow: hidden; background-color: var(--vlp-bg-section-alt); background-image: radial-gradient(var(--vlp-border-default) 1px, transparent 1px); background-size: 14px 14px; background-position: -1px -1px; }
+.vfp .czs-canvas-tag { position: absolute; top: 8px; left: 10px; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); background: var(--vlp-bg-page); border: 1px solid var(--vlp-border-subtle); border-radius: 6px; padding: 2px 7px; }
+.vfp .czs-canvas .cmh-pin { position: absolute; }
+.vfp .czs-pin-a { top: 44px; left: 26px; }
+.vfp .czs-pin-b { bottom: 14px; right: 22px; }
+
+/* ── 05 · Mix per surface: a wireframe dialog beside a primitive sidebar ────── */
+.vfp .czs-mix { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 12px; align-items: start; }
+.vfp .czs-mix-col { display: grid; gap: 7px; min-width: 0; }
+.vfp .czs-mix-prim { border: 1px solid var(--vlp-border-default); border-radius: 11px; background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); overflow: hidden; }
+.vfp .czs-mix-prim-tag { display: block; padding: 5px 10px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-muted); }
+.vfp .czs-mix-prim-body { padding: 10px; }
+.vfp .czs-mix-reg { grid-column: 1 / -1; display: inline-flex; align-items: center; gap: 6px; justify-content: center; margin: 2px auto 0; padding: 4px 11px; border-radius: 999px; background: var(--vlp-bg-wash); font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; color: var(--vlp-color-text-muted); }
+.vfp .czs-mix-reg i { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--vlp-color-accent); }
+
+/* ── 06 · Custom data: your app's fields rendered inside a Velt thread ──────── */
+.vfp .czs-cd .cmh { margin-bottom: 0; }
+.vfp .czs-cd-body { display: grid; gap: 11px; }
+.vfp .czs-cd-fields { border-top: 1px dashed var(--vlp-border-default); padding-top: 10px; display: grid; gap: 0; }
+.vfp .czs-kv { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 6px 0; }
+.vfp .czs-kv + .czs-kv { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czs-kv-key { font-family: var(--vlp-font-mono); font-size: 11px; letter-spacing: 0.01em; color: var(--vlp-color-text-muted); }
+.vfp .czs-kv-val { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .czs-kv-accent { color: var(--vlp-color-accent-ink); }
+
+/* ── 07 · Conditional UI: reviewer vs viewer, parts off by default ──────────── */
+.vfp .czs-cond { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: stretch; }
+.vfp .czs-cond-col { display: flex; flex-direction: column; gap: 8px; padding: 11px; border: 1px solid var(--vlp-border-default); border-radius: 12px; background: var(--vlp-bg-page); }
+.vfp .czs-cond-col--on { border-color: var(--vlp-color-accent-wash); background: var(--vlp-color-accent-soft); }
+.vfp .czs-cond-tag { display: inline-flex; align-items: center; width: max-content; font-family: var(--vlp-font-mono); font-size: 10px; letter-spacing: 0.02em; padding: 3px 8px; border-radius: 6px; background: var(--vlp-color-accent-wash); color: var(--vlp-color-accent-ink); }
+.vfp .czs-cond-tag--muted { background: var(--vlp-bg-wash); color: var(--vlp-color-text-muted); }
+.vfp .czs-cond-avs { display: flex; }
+.vfp .czs-cond-avs > * { margin-left: -7px; }
+.vfp .czs-cond-avs > *:first-child { margin-left: 0; }
+.vfp .czs-cond-avs .av-c { width: 22px; height: 22px; font-size: 9px; border: 2px solid var(--vlp-color-accent-soft); }
+.vfp .czs-cond-body { margin: 0; font-size: 12px; line-height: 1.35; letter-spacing: -0.24px; color: var(--vlp-color-ink-soft); }
+.vfp .czs-cond-btns { display: flex; gap: 7px; }
+.vfp .czs-cond-ro { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: var(--vlp-color-text-subtle); }
+.vfp .czs-cond-ro svg { width: 13px; height: 13px; flex: none; }
+.vfp .czs-flags { margin-top: auto; display: flex; flex-wrap: wrap; gap: 5px; }
+.vfp .czs-flag { display: inline-flex; align-items: center; gap: 5px; font-family: var(--vlp-font-mono); font-size: 9.5px; letter-spacing: 0.01em; padding: 2px 7px; border-radius: 999px; }
+.vfp .czs-flag--on { background: var(--vlp-color-approve-soft); color: #0c6a41; }
+.vfp .czs-flag--off { border: 1px dashed var(--vlp-border-default); color: var(--vlp-color-text-subtle); }
+.vfp .czs-flag--on i { width: 5px; height: 5px; flex: none; border-radius: 50%; background: var(--vlp-color-green-approval); }
+.vfp .czs-flag--off i { width: 5px; height: 5px; flex: none; border-radius: 50%; background: var(--vlp-border-default); }
+
+/* ── 08 · Variants: a named variant applied consistently everywhere ─────────── */
+.vfp .czs-var { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 12px; align-items: start; }
+.vfp .czs-var-list { display: grid; gap: 6px; }
+.vfp .czs-var-opt { display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 9px; border: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-page); font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-text-muted); }
+.vfp .czs-var-opt--on { border-color: var(--vlp-color-accent); background: var(--vlp-color-accent-soft); color: var(--vlp-color-ink); font-weight: 600; }
+.vfp .czs-var-opt svg { width: 14px; height: 14px; flex: none; margin-left: auto; color: var(--vlp-color-accent); }
+.vfp .czs-var-apply { display: grid; gap: 6px; }
+.vfp .czs-var-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12.5px; letter-spacing: -0.25px; color: var(--vlp-color-ink); }
+.vfp .czs-var-row + .czs-var-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czs-var-row .chip { margin-left: auto; }
+.vfp .czs-var-dot { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--vlp-color-accent); }
+
+/* ── 09 · Extend behavior: an event / hook / REST activity log ──────────────── */
+.vfp .czs-log { border: 1px solid var(--vlp-border-default); border-radius: var(--vlp-radius-xl, 12px); background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); overflow: hidden; }
+.vfp .czs-log .audit { border: none; box-shadow: none; background: transparent; border-radius: 0; }
+.vfp .czs-log .audit-row .ev code, .vfp .czs-log-on { font-family: var(--vlp-font-mono); color: var(--vlp-color-accent-ink); }
+
+/* ── 10 · Design to code: a Figma frame generated into a working Velt UI ────── */
+.vfp .czs-d2c { display: grid; grid-template-columns: 1fr auto 1fr; gap: 9px; align-items: center; }
+.vfp .czs-d2c-arrow { display: grid; place-items: center; width: 22px; height: 22px; color: var(--vlp-color-text-subtle); }
+.vfp .czs-d2c-arrow svg { width: 18px; height: 18px; }
+.vfp .czs-panel { border: 1px solid var(--vlp-border-default); border-radius: 11px; overflow: hidden; background: var(--vlp-bg-page); box-shadow: var(--vlp-shadow-sm); }
+.vfp .czs-panel-tab { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-bottom: 1px solid var(--vlp-border-subtle); background: var(--vlp-bg-section-alt); font-family: var(--vlp-font-mono); font-size: 10px; color: var(--vlp-color-text-muted); }
+.vfp .czs-panel-tab i { width: 9px; height: 9px; flex: none; border-radius: 50%; background: var(--vlp-color-accent); }
+.vfp .czs-fig-art { padding: 12px; display: grid; gap: 7px; }
+.vfp .czs-fig-bar { height: 12px; border-radius: 4px; background: var(--vlp-color-accent-wash); }
+.vfp .czs-fig-line { height: 8px; border-radius: 999px; background: var(--vlp-bg-skeleton, #ededeb); }
+.vfp .czs-fig-line--sm { width: 62%; }
+.vfp .czs-gen-body { padding: 11px; display: grid; gap: 8px; }
+.vfp .czs-gen-slot { position: relative; border: 1.5px dashed var(--vlp-color-accent-wash); border-radius: 9px; padding: 12px 10px 9px; }
+.vfp .czs-gen-slot-label { position: absolute; top: -8px; left: 10px; padding: 0 5px; background: var(--vlp-bg-page); font-family: var(--vlp-font-mono); font-size: 9.5px; color: var(--vlp-color-accent-ink); }
+
+/* Keep every tile comfortably inside the showcase stage on narrow cards. */
+@media (max-width: 480px) {
+  .vfp .czs-mix,
+  .vfp .czs-cond,
+  .vfp .czs-var { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,350 @@
+/* Bespoke styling for the /customization "In production" examples gallery
+   (components/feature-new/ExamplesGallery.tsx). Each visual is a compact, static
+   mini-representation of a familiar product pattern (Figma canvas, Sheets cell,
+   Frame.io scrubber, Docs co-editing, Slack huddle, Miro presence, Knock inbox).
+   All bespoke classes are `czg-` prefixed to stay conflict-free; scoped under
+   `.vfp` (the customization page chrome) so they can lean on the shared design
+   tokens. Colors come from `--vlp-*` tokens per DESIGN.md. Visuals are simulated,
+   not live SDK instances. */
+
+/* Base: full-bleed inside `.eg-visual` and a bridge that maps the shared demo
+   component fallbacks (--brand/--ink/--line/--bg used by CursorTag/AvatarStack)
+   onto Velt tokens, so cursors and avatars stay on-brand. */
+.vfp .czg {
+  width: 100%;
+  --brand: var(--vlp-color-accent);
+  --ink: var(--vlp-color-ink);
+  --line: var(--vlp-border-default);
+  --bg: var(--vlp-bg-page);
+}
+
+/* Pulsing "live" pill reused by the huddle + presence visuals. */
+.vfp .czg-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--vlp-font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: var(--vlp-color-green-approval);
+}
+.vfp .czg-live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--vlp-color-green-approval);
+  flex: none;
+  animation: czg-pulse 2.4s ease-out infinite;
+}
+@keyframes czg-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(18, 131, 82, 0.5); }
+  70% { box-shadow: 0 0 0 5px rgba(18, 131, 82, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(18, 131, 82, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vfp .czg-live i { animation: none; }
+}
+
+/* Overlapping headshot stack (co-editing, huddle, presence). */
+.vfp .czg-stack { display: inline-flex; align-items: center; }
+.vfp .czg-stack .av-c {
+  width: 22px;
+  height: 22px;
+  margin-left: -8px;
+  border: 2px solid var(--vlp-bg-page);
+  font-size: 9px;
+}
+.vfp .czg-stack .av-c:first-child { margin-left: 0; }
+
+/* ---------- 1. Canvas comments (like Figma) ---------- */
+.vfp .czg-canvas {
+  position: relative;
+  height: 118px;
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--vlp-bg-page);
+  background-image: radial-gradient(circle, var(--vlp-border-subtle) 1.2px, transparent 1.3px);
+  background-size: 15px 15px;
+  background-position: -2px -2px;
+}
+.vfp .czg-canvas-frame {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 150px;
+  padding: 9px 10px 10px;
+  display: grid;
+  gap: 6px;
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 8px;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czg-canvas-frame-tag {
+  font-family: var(--vlp-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--vlp-color-text-subtle);
+}
+.vfp .czg-canvas-bar { height: 6px; border-radius: 3px; background: var(--vlp-border-subtle); }
+.vfp .czg-canvas-chart { display: flex; align-items: flex-end; gap: 6px; height: 32px; margin-top: 2px; }
+.vfp .czg-canvas-chart span { flex: 1; border-radius: 3px 3px 0 0; background: var(--vlp-color-accent-wash); }
+.vfp .czg-canvas-chart span:nth-child(2) { background: var(--vlp-color-accent); }
+.vfp .czg-canvas-pin { position: absolute; top: 9px; left: 150px; }
+
+/* ---------- 2. Cell comments (like Google Sheets) ---------- */
+.vfp .czg-sheet-wrap { display: grid; gap: 8px; }
+.vfp .czg-sheet-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--vlp-font-mono);
+  font-size: 10.5px;
+  color: var(--vlp-color-text-muted);
+}
+.vfp .czg-sheet-ic { width: 12px; height: 12px; border-radius: 3px; background: var(--vlp-color-green-approval); flex: none; }
+.vfp .czg-sheet-sub { margin-left: auto; color: var(--vlp-color-text-subtle); }
+.vfp .czg-sheet {
+  display: grid;
+  grid-template-columns: 24px 1fr 1fr 1fr;
+  gap: 1px;
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--vlp-border-subtle);
+}
+.vfp .czg-ch {
+  display: grid;
+  place-items: center;
+  padding: 6px 0;
+  background: var(--vlp-bg-section-alt);
+  font-family: var(--vlp-font-mono);
+  font-size: 10px;
+  color: var(--vlp-color-text-subtle);
+}
+.vfp .czg-cd {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 7px 9px;
+  background: var(--vlp-bg-page);
+  font-size: 12px;
+  color: var(--vlp-color-ink-soft);
+}
+.vfp .czg-cd-strong { font-weight: 600; color: var(--vlp-color-ink); }
+.vfp .czg-cd-hl {
+  position: relative;
+  font-weight: 600;
+  color: var(--vlp-color-ink);
+  box-shadow: inset 0 0 0 2px var(--vlp-color-accent);
+}
+.vfp .czg-cd-dot { position: absolute; top: 3px; right: 3px; width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-accent); }
+
+/* ---------- 3. Video comments (like Frame.io) ---------- */
+.vfp .czg-video { display: grid; gap: 9px; }
+.vfp .czg-video-screen {
+  position: relative;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--vlp-color-ink-soft), var(--vlp-color-ink));
+}
+.vfp .czg-play {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--vlp-color-white);
+  color: var(--vlp-color-ink);
+}
+.vfp .czg-play svg { width: 11px; height: 11px; margin-left: 1px; }
+.vfp .czg-video-track { position: relative; padding-top: 20px; }
+.vfp .czg-video-pin { position: absolute; top: -2px; left: 34%; transform: translateX(-50%); }
+.vfp .czg-scrub { position: relative; display: block; height: 6px; border-radius: 999px; background: var(--vlp-border-default); }
+.vfp .czg-scrub-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 34%; border-radius: 999px; background: var(--vlp-color-accent); }
+.vfp .czg-scrub-head {
+  position: absolute;
+  left: 34%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--vlp-bg-page);
+  border: 2px solid var(--vlp-color-accent);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czg-video-times {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-family: var(--vlp-font-mono);
+  font-size: 9.5px;
+  color: var(--vlp-color-text-subtle);
+}
+
+/* ---------- 4. Co-editing (like Google Docs) ---------- */
+.vfp .czg-doc-wrap { display: grid; gap: 8px; }
+.vfp .czg-doc {
+  display: grid;
+  gap: 10px;
+  padding: 11px 12px 13px;
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 10px;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czg-doc-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.vfp .czg-doc-title { font-family: var(--vlp-font-heading); font-weight: 600; font-size: 12.5px; color: var(--vlp-color-ink); }
+.vfp .czg-doc-body { display: grid; gap: 9px; }
+.vfp .czg-line { height: 8px; border-radius: 4px; background: var(--vlp-border-subtle); }
+.vfp .czg-doc-sel { position: relative; width: 54%; height: 9px; border-radius: 4px; background: var(--vlp-color-accent-soft); }
+.vfp .czg-doc-sel::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--vlp-color-accent);
+}
+.vfp .czg-doc-tag {
+  position: absolute;
+  right: -1px;
+  top: -15px;
+  transform: translateX(50%);
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-white);
+  font-family: var(--vlp-font-mono);
+  font-weight: 600;
+  font-size: 9px;
+  white-space: nowrap;
+}
+.vfp .czg-cap { margin: 0; }
+
+/* ---------- 5. Huddles (like Slack) ---------- */
+.vfp .czg-huddle {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czg-huddle-head {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--vlp-border-subtle);
+  font-family: var(--vlp-font-mono);
+  font-size: 11px;
+  color: var(--vlp-color-text-muted);
+}
+.vfp .czg-hash { color: var(--vlp-color-text-subtle); }
+.vfp .czg-huddle-tile { display: flex; align-items: center; gap: 10px; padding: 11px 12px; }
+.vfp .czg-huddle-ic {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 8px;
+  background: var(--vlp-color-accent-soft);
+  color: var(--vlp-color-accent-ink);
+}
+.vfp .czg-huddle-ic svg { width: 16px; height: 16px; }
+.vfp .czg-huddle-main { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.vfp .czg-huddle-t { margin: 0; font-size: 12.5px; color: var(--vlp-color-ink-soft); }
+.vfp .czg-huddle-t strong { font-weight: 700; color: var(--vlp-color-ink); }
+.vfp .czg-huddle-meta { display: flex; align-items: center; gap: 8px; }
+.vfp .czg-wave { display: inline-flex; align-items: center; gap: 2px; height: 16px; }
+.vfp .czg-wave-bar { width: 2.5px; border-radius: 2px; background: var(--vlp-color-accent); opacity: 0.8; }
+
+/* ---------- 6. Presence and cursors (like Miro) ---------- */
+.vfp .czg-board {
+  position: relative;
+  height: 118px;
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: var(--vlp-bg-page);
+  background-image: radial-gradient(circle, var(--vlp-border-subtle) 1.2px, transparent 1.3px);
+  background-size: 15px 15px;
+  background-position: -2px -2px;
+}
+.vfp .czg-board-cluster { position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 8px; }
+.vfp .czg-board-sel {
+  position: absolute;
+  top: 46px;
+  left: 22px;
+  width: 92px;
+  height: 44px;
+  border: 1.5px dashed var(--vlp-color-accent);
+  border-radius: 6px;
+  background: var(--vlp-color-accent-soft);
+  opacity: 0.55;
+}
+
+/* ---------- 7. Notifications (like Knock) ---------- */
+.vfp .czg-inbox {
+  border: 1px solid var(--vlp-border-default);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--vlp-bg-page);
+  box-shadow: var(--vlp-shadow-sm);
+}
+.vfp .czg-inbox-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--vlp-border-subtle);
+  background: var(--vlp-bg-section-alt);
+}
+.vfp .czg-inbox-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--vlp-font-heading);
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--vlp-color-ink);
+}
+.vfp .czg-inbox-title svg { width: 13px; height: 13px; color: var(--vlp-color-text-muted); }
+.vfp .czg-inbox-badge {
+  display: grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--vlp-color-accent);
+  color: var(--vlp-color-white);
+  font-family: var(--vlp-font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+}
+.vfp .czg-inbox-row { display: flex; align-items: center; gap: 9px; padding: 9px 12px; }
+.vfp .czg-inbox-row + .czg-inbox-row { border-top: 1px solid var(--vlp-border-subtle); }
+.vfp .czg-inbox .av-c { width: 24px; height: 24px; flex: none; }
+.vfp .czg-inbox-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--vlp-color-accent); flex: none; }
+.vfp .czg-inbox-dot--read { background: var(--vlp-border-default); }
+.vfp .czg-inbox-main { flex: 1; min-width: 0; display: flex; align-items: baseline; gap: 7px; }
+.vfp .czg-inbox-t {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--vlp-color-ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vfp .czg-inbox-t strong { font-weight: 700; color: var(--vlp-color-ink); }
+.vfp .czg-inbox-time { margin-left: auto; flex: none; font-family: var(--vlp-font-mono); font-size: 9.5px; color: var(--vlp-color-text-subtle); }
