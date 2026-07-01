@@ -272,6 +272,12 @@ const nextConfig: NextConfig = {
         destination: "/add-notifications-quick",
         permanent: true,
       },
+      // /comparison-2 was a duplicate of the canonical /comparison page.
+      {
+        source: "/comparison-2",
+        destination: "/comparison",
+        permanent: true,
+      },
     ];
   },
   async rewrites() {
