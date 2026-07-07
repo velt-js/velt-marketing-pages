@@ -32,6 +32,12 @@ type FeaturePageViewProps = {
    * CMS-driven `content.enterprisePillars` section.
    */
   enterpriseSection?: ReactNode;
+  /**
+   * Optional override for the "Little big details" section. When provided, it
+   * replaces the default DetailsWall (e.g. /comments swaps in the DetailsShowcase
+   * whose items are sourced from the legacy v1 featurePage document).
+   */
+  detailsSection?: ReactNode;
 };
 
 /**
@@ -66,7 +72,7 @@ function resolveEnterpriseSection(
  * @param {FeaturePageViewProps} props The page content.
  * @returns {JSX.Element} The composed feature page.
  */
-export default function FeaturePageView({ content, enterpriseSection }: FeaturePageViewProps) {
+export default function FeaturePageView({ content, enterpriseSection, detailsSection }: FeaturePageViewProps) {
   return (
     <div className="vlp">
       <a id="top" />
@@ -78,7 +84,7 @@ export default function FeaturePageView({ content, enterpriseSection }: FeatureP
           <WhatItIs content={content.whatItIs} />
           <HowItWorks content={content.howItWorks} />
           <Showcase content={content.showcase} />
-          <DetailsWall content={content.details} />
+          {detailsSection ?? <DetailsWall content={content.details} />}
           {/* The full home-new "Drops into the stack" integrations grid, scoped
               to the comments page per request. Self-styled (.vlp-scoped). */}
           {content.slug === "comments" ? <Integrations /> : null}
