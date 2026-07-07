@@ -14,13 +14,16 @@
 // will silently 404 — pick slugs that don't shadow existing folders.
 
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
 
 import {
   FeaturePageBody,
   type FeaturePageDoc,
 } from "@/components/feature/FeaturePageBody";
+import type { FeatureSidebarShowcaseSectionDoc } from "@/components/feature/FeatureSections";
 import FeaturePageView from "@/components/feature-new/FeaturePageView";
+import DetailsShowcase from "@/components/feature-new/DetailsShowcase";
 import { toFeaturePageContent } from "@/lib/feature-v2/to-content";
 import {
   getAllFeatureSlugs,
@@ -77,8 +80,10 @@ const FEATURE_META_DESCRIPTION_OVERRIDES: Record<string, string> = {
 // keeps generateStaticParams from emitting /platform, /devtools, and
 // /webhooks-and-api, which would otherwise collide with those static folders.
 // The v1 CMS docs are left untouched.
+const COMMENTS_SLUG = "comments";
+
 const SUPERSEDED_V1_SLUGS = new Set([
-  "comments",
+  COMMENTS_SLUG,
   "recordings",
   "multiplayer",
   "activity-logs",
@@ -86,6 +91,44 @@ const SUPERSEDED_V1_SLUGS = new Set([
   "dev-tools",
   "webhooks-and-api",
 ]);
+
+/**
+ * Builds the legacy "Little Big Details" sidebar showcase for the comments page.
+ * The v2 comments document has no sidebar-showcase field, so the section is
+ * sourced from the untouched v1 featurePage document and rendered in place of
+ * the default DetailsWall. Returns undefined for any other slug, when the v1
+ * section is absent, or on any failure — the caller then falls back to the
+ * standard DetailsWall.
+ * @param {string} slug The requested feature slug.
+ * @returns {Promise<ReactNode>} The showcase element, or undefined.
+ */
+async function buildCommentsDetailsSection(slug: string): Promise<ReactNode> {
+  try {
+    if (slug !== COMMENTS_SLUG) {
+      return undefined;
+    }
+    const legacyDoc = (await getFeaturePageBySlug(COMMENTS_SLUG)) as FeaturePageDoc | null;
+    const showcase = legacyDoc?.sections?.find(
+      (section): section is FeatureSidebarShowcaseSectionDoc =>
+        section?._type === "featureSidebarShowcaseSection",
+    );
+    if (!showcase) {
+      return undefined;
+    }
+    return (
+      <DetailsShowcase
+        kicker="Little big details"
+        heading={showcase.heading}
+        support={showcase.subheading}
+        items={showcase.items}
+        defaultScreenshotSrc={showcase.defaultScreenshotSrc}
+      />
+    );
+  } catch (error) {
+    console.error("buildCommentsDetailsSection failed", error);
+    return undefined;
+  }
+}
 
 export async function generateStaticParams() {
   try {
@@ -183,6 +226,7 @@ export default async function FeaturePage({
   const v2 = await getFeaturePageV2BySlug(slug);
   if (v2) {
     const content = toFeaturePageContent(v2);
+    const detailsSection = await buildCommentsDetailsSection(slug);
 
     const pageUrl = `${SITE_URL}/${slug}`;
     const pageTitle = v2.breadcrumbLabel ?? v2.title ?? v2.hero?.title ?? "";
@@ -221,7 +265,7 @@ export default async function FeaturePage({
         <JsonLd id={`ld-${slug}-breadcrumb`} data={breadcrumb} />
         <JsonLd id={`ld-${slug}-faq`} data={faqSchema} />
 
-        <FeaturePageView content={content} />
+        <FeaturePageView content={content} detailsSection={detailsSection} />
       </>
     );
   }
