@@ -1,4 +1,15 @@
+import { Fragment } from "react";
 import "./Hero.css";
+
+// Canonical per-feature routes (root slugs served by app/(features)/[slug]).
+// Labels render uppercase via .hero-feature-strip; keep them title case here.
+const HERO_FEATURE_LINKS = [
+  { label: "Comments", href: "/comments" },
+  { label: "Approvals", href: "/approval-flows" },
+  { label: "Review agents", href: "/review-agents" },
+  { label: "Memory", href: "/memory" },
+  { label: "Audit trails", href: "/audit-trail" },
+];
 
 export default function Hero() {
   return (
@@ -30,7 +41,14 @@ export default function Hero() {
             <a href="https://console.velt.dev/" className="hero-btn-primary hdark">Get Free API Key</a>
             <a href="/book-demo" className="hero-btn-secondary hsoft">Book Demo</a>
           </div>
-          <p className="hero-feature-strip">Comments · Approvals · Review agents · Memory · Audit trails</p>
+          <p className="hero-feature-strip">
+            {HERO_FEATURE_LINKS.map((feature, index) => (
+              <Fragment key={feature.href}>
+                {index > 0 && <span className="hero-feature-sep"> · </span>}
+                <a href={feature.href} className="hero-feature-link hl">{feature.label}</a>
+              </Fragment>
+            ))}
+          </p>
         </div>
 
 

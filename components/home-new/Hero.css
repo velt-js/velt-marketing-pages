@@ -77,6 +77,18 @@
   color: var(--vlp-color-text-subtle);
 }
 
+/* Feature labels link to their per-feature page; inherit the strip color and
+   lean on the shared .hl utility for the accent hover. The middot separators
+   stay plain text so only the words are interactive. */
+.vlp .hero-feature-link {
+  color: inherit;
+  transition: color 0.15s ease;
+}
+
+.vlp .hero-feature-sep {
+  color: inherit;
+}
+
 .vlp .hero-btn-primary {
   display: inline-flex;
   align-items: center;
