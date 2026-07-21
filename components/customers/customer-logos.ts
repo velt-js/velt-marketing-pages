@@ -1,6 +1,8 @@
-// 43 customer logos rendered on /customers (Figma node 536:8693, content
-// pulled from velt.dev/customers' Framer source). Order in this array
-// drives display order: left→right, top→bottom across the 3-col grid.
+// 48 customer logos rendered on /customers (Figma nodes 536:8693 + 965:3418,
+// content pulled from velt.dev/customers' Framer source plus the refreshed
+// Figma logo strip). Order in this array drives display order: left→right,
+// top→bottom across the 3-col grid. "Row N" comments below reflect the
+// original 43-logo layout and shift down after the Figma-strip additions.
 // Each entry carries the customer's site URL so the grid cell can wrap
 // in an external <a target="_blank">. logoWidth / logoHeight are the
 // intrinsic dimensions of the source PNG — the browser uses them to
@@ -24,6 +26,12 @@ export const customerLogos: CustomerLogoEntry[] = [
   { name: "Google", href: "https://google.com", logoSrc: `${BASE}/google.png`, logoWidth: 2401, logoHeight: 753 },
   { name: "Pendo", href: "https://www.pendo.io/", logoSrc: `${BASE}/pendo.png`, logoWidth: 326, logoHeight: 90 },
   { name: "Varonis", href: "https://www.varonis.com/", logoSrc: `${BASE}/varonis.png`, logoWidth: 361, logoHeight: 60 },
+  // Rows added from the refreshed Figma "logos" frame (node 965:3418)
+  { name: "Freshworks", href: "https://www.freshworks.com/", logoSrc: `${BASE}/freshworks.png`, logoWidth: 321, logoHeight: 75 },
+  { name: "HCLTech", href: "https://www.hcltech.com/", logoSrc: `${BASE}/hcltech.png`, logoWidth: 245, logoHeight: 54 },
+  { name: "RepTrak", href: "https://www.reptrak.com/", logoSrc: `${BASE}/reptrak.png`, logoWidth: 280, logoHeight: 109 },
+  { name: "Coast", href: "https://www.trycoast.com/", logoSrc: `${BASE}/coast.png`, logoWidth: 243, logoHeight: 75 },
+  { name: "Dock", href: "https://www.dock.us/", logoSrc: `${BASE}/dock.png`, logoWidth: 190, logoHeight: 48 },
   // Row 2
   { name: "HeyGen", href: "https://www.heygen.com/", logoSrc: `${BASE}/heygen.png`, logoWidth: 310, logoHeight: 104 },
   { name: "Flyr", href: "https://flyr.com/", logoSrc: `${BASE}/flyr.png`, logoWidth: 656, logoHeight: 160 },
@@ -51,7 +59,7 @@ export const customerLogos: CustomerLogoEntry[] = [
   { name: "Vellum AI", href: "https://www.vellum.ai/", logoSrc: `${BASE}/vellum.png`, logoWidth: 203, logoHeight: 83 },
   // Row 8
   { name: "Intelas", href: "https://www.intelas.com/", logoSrc: `${BASE}/intelas.png`, logoWidth: 218, logoHeight: 54 },
-  { name: "OpenEnvoy", href: "https://www.openenvoy.com/", logoSrc: `${BASE}/openenvoy.png`, logoWidth: 576, logoHeight: 136 },
+  { name: "OpenEnvoy", href: "https://www.openenvoy.com/", logoSrc: `${BASE}/openenvoy.png`, logoWidth: 270, logoHeight: 75 },
   // Row 9
   { name: "Cofactr", href: "https://www.cofactr.com/", logoSrc: `${BASE}/cofactr.png`, logoWidth: 870, logoHeight: 180 },
   { name: "Butter", href: "https://usebutter.com/", logoSrc: `${BASE}/butter.png`, logoWidth: 536, logoHeight: 190 },
@@ -59,9 +67,9 @@ export const customerLogos: CustomerLogoEntry[] = [
   // Row 10
   { name: "Toolio", href: "https://www.toolio.com/", logoSrc: `${BASE}/toolio.png`, logoWidth: 312, logoHeight: 92 },
   { name: "Bloomfilter AI", href: "https://www.bloomfilter.ai/", logoSrc: `${BASE}/bloomfilter.png`, logoWidth: 808, logoHeight: 192 },
-  { name: "Reejig", href: "https://reejig.com/", logoSrc: `${BASE}/reejig.png`, logoWidth: 730, logoHeight: 286 },
+  { name: "Reejig", href: "https://reejig.com/", logoSrc: `${BASE}/reejig.png`, logoWidth: 164, logoHeight: 75 },
   // Row 11
-  { name: "Privado AI", href: "https://www.privado.ai/", logoSrc: `${BASE}/privado.png`, logoWidth: 934, logoHeight: 282 },
+  { name: "Privado AI", href: "https://www.privado.ai/", logoSrc: `${BASE}/privado.png`, logoWidth: 255, logoHeight: 75 },
   { name: "Booma AI", href: "https://www.booma.ai/", logoSrc: `${BASE}/booma.png`, logoWidth: 230, logoHeight: 58 },
   { name: "Zamp Finance", href: "https://www.zamp.finance/", logoSrc: `${BASE}/zamp.png`, logoWidth: 292, logoHeight: 102 },
   // Row 12
