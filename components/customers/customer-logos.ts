@@ -1,4 +1,4 @@
-// 48 customer logos rendered on /customers (Figma nodes 536:8693 + 965:3418,
+// 49 customer logos rendered on /customers (Figma nodes 536:8693 + 965:3418,
 // content pulled from velt.dev/customers' Framer source plus the refreshed
 // Figma logo strip). Order in this array drives display order: left→right,
 // top→bottom across the 3-col grid. "Row N" comments below reflect the
@@ -27,6 +27,7 @@ export const customerLogos: CustomerLogoEntry[] = [
   { name: "Pendo", href: "https://www.pendo.io/", logoSrc: `${BASE}/pendo.png`, logoWidth: 326, logoHeight: 90 },
   { name: "Varonis", href: "https://www.varonis.com/", logoSrc: `${BASE}/varonis.png`, logoWidth: 361, logoHeight: 60 },
   // Rows added from the refreshed Figma "logos" frame (node 965:3418)
+  { name: "Altana", href: "https://altana.ai/", logoSrc: `${BASE}/altana.png`, logoWidth: 242, logoHeight: 64 },
   { name: "Freshworks", href: "https://www.freshworks.com/", logoSrc: `${BASE}/freshworks.png`, logoWidth: 321, logoHeight: 75 },
   { name: "HCLTech", href: "https://www.hcltech.com/", logoSrc: `${BASE}/hcltech.png`, logoWidth: 245, logoHeight: 54 },
   { name: "RepTrak", href: "https://www.reptrak.com/", logoSrc: `${BASE}/reptrak.png`, logoWidth: 280, logoHeight: 109 },
