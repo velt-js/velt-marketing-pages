@@ -9,15 +9,22 @@ import LogoCarousel, { type LogoCarouselItem } from "./LogoCarousel";
 // the exported PNG) is what gives each its correct width.
 const LOGO_DIR = "/images/logos/grid";
 
+// NOTE: the homepage splits this list even/odd into two marquees (see
+// TRUST_LOGOS / PROOF_LOGOS below), so a brand's on-screen neighbors in the
+// top strip are the entries two indices away. Altana, Freshworks, and
+// HCLTech hold even slots so they scroll right after Google and Varonis.
 export const LOGOS: LogoCarouselItem[] = [
   { src: `${LOGO_DIR}/google.png`, alt: "Google", ratio: 1.944 },
   { src: `${LOGO_DIR}/openenvoy.png`, alt: "OpenEnvoy", ratio: 2.556 },
   { src: `${LOGO_DIR}/varonis.png`, alt: "Varonis", ratio: 2.472 },
   { src: `${LOGO_DIR}/pendo.png`, alt: "Pendo", ratio: 1.993 },
-  { src: `${LOGO_DIR}/bigtincan.png`, alt: "Bigtincan", ratio: 2.076 },
+  { src: `${LOGO_DIR}/altana.png`, alt: "Altana", ratio: 2.653 },
   { src: `${LOGO_DIR}/heygen.png`, alt: "HeyGen", ratio: 1.944 },
-  { src: `${LOGO_DIR}/flyr.png`, alt: "FLYR", ratio: 2.056 },
+  { src: `${LOGO_DIR}/freshworks.png`, alt: "Freshworks", ratio: 2.924 },
   { src: `${LOGO_DIR}/runway.png`, alt: "Runway", ratio: 1.729 },
+  { src: `${LOGO_DIR}/hcltech.png`, alt: "HCLTech", ratio: 2.368 },
+  { src: `${LOGO_DIR}/bigtincan.png`, alt: "Bigtincan", ratio: 2.076 },
+  { src: `${LOGO_DIR}/flyr.png`, alt: "FLYR", ratio: 2.056 },
   { src: `${LOGO_DIR}/lambdatest.png`, alt: "LambdaTest", ratio: 2.347 },
   { src: `${LOGO_DIR}/datarails.png`, alt: "Datarails", ratio: 1.847 },
   { src: `${LOGO_DIR}/firehydrant.png`, alt: "FireHydrant", ratio: 2.417 },
@@ -32,11 +39,8 @@ export const LOGOS: LogoCarouselItem[] = [
   { src: `${LOGO_DIR}/butter.png`, alt: "Butter", ratio: 2.243 },
   { src: `${LOGO_DIR}/colossyan.png`, alt: "Colossyan", ratio: 2.306 },
   { src: `${LOGO_DIR}/classwallet.png`, alt: "ClassWallet", ratio: 2.694 },
-  // Logos from the refreshed Figma "logos" frame (node 965:3418).
-  { src: `${LOGO_DIR}/freshworks.png`, alt: "Freshworks", ratio: 2.924 },
   { src: `${LOGO_DIR}/coast.png`, alt: "Coast", ratio: 2.354 },
   { src: `${LOGO_DIR}/reptrak.png`, alt: "RepTrak", ratio: 2.797 },
-  { src: `${LOGO_DIR}/hcltech.png`, alt: "HCLTech", ratio: 2.368 },
   { src: `${LOGO_DIR}/privado.png`, alt: "Privado AI", ratio: 2.438 },
   { src: `${LOGO_DIR}/reejig.png`, alt: "Reejig", ratio: 1.806 },
   { src: `${LOGO_DIR}/dock.png`, alt: "Dock", ratio: 1.993 },
