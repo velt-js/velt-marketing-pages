@@ -19,6 +19,13 @@ type LaunchKitTabsProps = {
 
 const OFF_APP_CARDS: CardDef[] = [
   {
+    title: "Design System",
+    description:
+      "Kickstart your launch with our ready-to-use design system components.",
+    imageSrc: "/images/launch-kit/design-system.png",
+    imageAlt: "Velt launch design system",
+  },
+  {
     title: "Email Template",
     description:
       "Our professionally designed email template clearly communicates the value of your new features.",
