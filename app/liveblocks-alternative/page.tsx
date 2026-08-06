@@ -33,7 +33,7 @@ import {
 const COMPETITOR_LABEL = "LIVEBLOCKS";
 
 const LIVEBLOCKS_ALT_DESCRIPTION =
-  "Velt is the #1 alternative to Liveblocks. Velt is used by popular SaaS products on their flagship products. On the other hand, Liveblocks is used on experimental projects or conference websites.";
+  "Velt is the #1 Liveblocks alternative: polished comments, presence, and review workflows for real-time collaboration, trusted on flagship SaaS products.";
 
 const LIVEBLOCKS_ALT_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -65,7 +65,7 @@ export default function LiveblocksAlternativePage() {
         <PageHero
           decorated
           heading="Forget Liveblocks. Get Velt."
-          subheading="The best way to build collaborative features and boost your engagement"
+          subheading="Ship real-time collaboration in days: comments, presence, and review workflows proven on flagship SaaS products"
           primaryCta={{
             label: "Get Started",
             href: "https://console.velt.dev/",
