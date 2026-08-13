@@ -70,6 +70,35 @@
   line-height: 1;
 }
 
+/* Collapses the answer to zero height WITHOUT display:none or visibility:
+   hidden, so the text stays readable to anything that reads the page as text
+   while sighted readers still see an accordion. The grid 0fr/1fr pair is what
+   allows the transition on content of unknown height. */
+.vlp .prf-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--vlp-transition-fast, 180ms) ease;
+}
+
+.vlp .prf-answer-wrap--open {
+  grid-template-rows: 1fr;
+}
+
+.vlp .prf-answer-wrap > .prf-answer {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.vlp .prf-answer-wrap:not(.prf-answer-wrap--open) > .prf-answer {
+  margin-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vlp .prf-answer-wrap {
+    transition: none;
+  }
+}
+
 .vlp .prf-answer {
   font-size: var(--vlp-text-body-md);
   line-height: 1.6;

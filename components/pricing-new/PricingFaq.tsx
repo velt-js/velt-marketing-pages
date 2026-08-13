@@ -151,9 +151,22 @@ export default function PricingFaq() {
                 <div className="prf-row-header">
                   <span className="prf-num">{item.num}</span>
                   <span className="prf-question">{item.question}</span>
-                  <span className="prf-toggle">{isOpen ? "−" : "+"}</span>
+                  <span className="prf-toggle" aria-hidden="true">
+                    {isOpen ? "−" : "+"}
+                  </span>
                 </div>
-                {isOpen ? <p className="prf-answer">{item.answer}</p> : null}
+                {/* Every answer stays in the DOM and collapses to zero height,
+                    rather than being unmounted when closed. Unmounted answers
+                    are invisible to anything reading the page as text: the
+                    page-to-Markdown conversion of /pricing carried one answer
+                    and eight bare questions. */}
+                <div
+                  className={
+                    isOpen ? "prf-answer-wrap prf-answer-wrap--open" : "prf-answer-wrap"
+                  }
+                >
+                  <p className="prf-answer">{item.answer}</p>
+                </div>
               </div>
             );
           })}
