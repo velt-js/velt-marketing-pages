@@ -37,7 +37,13 @@ const NAV_OFFSET = 52;
  */
 function CheckMark() {
   return (
-    <svg className="prc-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className="prc-check"
+      viewBox="0 0 24 24"
+      fill="none"
+      role="img"
+      aria-label="Included"
+    >
       <path
         d="M5 12.5l4 4 10-10"
         stroke="currentColor"
@@ -55,7 +61,13 @@ function CheckMark() {
  */
 function CrossMark() {
   return (
-    <svg className="prc-cross" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg
+      className="prc-cross"
+      viewBox="0 0 24 24"
+      fill="none"
+      role="img"
+      aria-label="Not included"
+    >
       <path d="M6 12h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
@@ -108,14 +120,14 @@ function Caret({ open }: { open: boolean }) {
  */
 function TierHeader({ innerRef }: { innerRef: React.Ref<HTMLDivElement> }) {
   return (
-    <div className="prc-tier-header" ref={innerRef}>
-      <div className="prc-row prc-row--header">
-        <div />
+    <div className="prc-tier-header" ref={innerRef} role="rowgroup">
+      <div className="prc-row prc-row--header" role="row">
+        <div role="columnheader" aria-label="Feature" />
         {TIERS.map((tier) => {
           const cta = HEADER_CTA[tier.id];
           const external = cta.href.startsWith("http");
           return (
-            <div key={tier.id} className="prc-tier-col">
+            <div key={tier.id} className="prc-tier-col" role="columnheader">
               <span className="prc-tier-name">{tier.name}</span>
               <span className="prc-tier-price">{tier.price}</span>
               <a
@@ -263,11 +275,18 @@ export default function PricingTable() {
           <MobileAccordion />
         </div>
 
-        {/* Desktop */}
-        <div className="prc-desktop">
+        {/* Desktop. The grid declares ARIA table semantics so screen readers
+            and page-to-Markdown agents both read it as rows and columns
+            instead of ~300 unlabelled boxes. */}
+        <div
+          className="prc-desktop"
+          role="table"
+          aria-label="Velt plan feature comparison"
+        >
           <div
             className="prc-tier-header-sticky"
             style={{ top: NAV_OFFSET }}
+            role="presentation"
           >
             <TierHeader innerRef={tierHeaderRef} />
           </div>
@@ -282,21 +301,28 @@ export default function PricingTable() {
                     top: NAV_OFFSET + tierHeaderHeight,
                     borderTopColor: section.accent,
                   }}
+                  role="row"
                 >
-                  <button
-                    type="button"
-                    onClick={() => toggleSection(section.title)}
-                    aria-expanded={open}
-                    className="prc-section-btn"
+                  <div
+                    className="prc-section-cell"
+                    role="rowheader"
+                    aria-colspan={TIERS.length + 1}
                   >
-                    <span
-                      className="prc-section-title"
-                      style={{ color: section.accent }}
+                    <button
+                      type="button"
+                      onClick={() => toggleSection(section.title)}
+                      aria-expanded={open}
+                      className="prc-section-btn"
                     >
-                      {section.title}
-                    </span>
-                    <Caret open={open} />
-                  </button>
+                      <span
+                        className="prc-section-title"
+                        style={{ color: section.accent }}
+                      >
+                        {section.title}
+                      </span>
+                      <Caret open={open} />
+                    </button>
+                  </div>
                 </div>
 
                 {open &&
@@ -304,15 +330,16 @@ export default function PricingTable() {
                     <div
                       key={`${section.title}-${rowIdx}`}
                       className="prc-row prc-row--body"
+                      role="row"
                     >
-                      <div className="prc-label">
+                      <div className="prc-label" role="rowheader">
                         <span className="prc-label-main">{row.label}</span>
                         {row.sublabel ? (
                           <span className="prc-label-sub">{row.sublabel}</span>
                         ) : null}
                       </div>
                       {row.values.map((value, valueIdx) => (
-                        <div key={valueIdx} className="prc-value">
+                        <div key={valueIdx} className="prc-value" role="cell">
                           <Cell value={value} />
                         </div>
                       ))}
