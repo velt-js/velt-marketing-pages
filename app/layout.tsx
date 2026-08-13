@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Urbanist, Poppins, Inter_Tight } from "next/font/google";
+import localFont from "next/font/local";
 import Script from "next/script";
 import "./globals.css";
 import { JsonLd } from "./_seo/JsonLd";
@@ -9,24 +9,39 @@ import {
 } from "./_seo/schema";
 import { Analytics } from "@/components/analytics/Analytics";
 
-const urbanist = Urbanist({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+// Fonts are vendored into app/fonts and loaded with next/font/local rather than
+// next/font/google. `next/font/google` resolves each @font-face `src` by
+// downloading the file from fonts.gstatic.com during the build, and Google
+// rotates those hashed URLs. Once a build cache holds a stale copy of the
+// Google stylesheet, every `src` in it 404s and Turbopack fails the build with
+// "Can't resolve '@vercel/turbopack-next/internal/font/google/font'". Keeping
+// the files in the repo makes the build hermetic.
+//
+// The woff2 files are subsets of the upstream Google Fonts sources covering the
+// same latin + latin-ext unicode ranges the Google stylesheet used to serve.
+
+const urbanist = localFont({
+  src: "./fonts/Urbanist-variable.woff2",
+  weight: "300 700",
+  style: "normal",
   display: "swap",
 });
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const poppins = localFont({
+  src: [
+    { path: "./fonts/Poppins-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/Poppins-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/Poppins-600.woff2", weight: "600", style: "normal" },
+  ],
   display: "swap",
   variable: "--font-poppins",
 });
 
 // Inter Tight is used for the new homepage body copy via --vlp-font-body.
-// Self-hosted via next/font to avoid a runtime CDN request to fonts.googleapis.com.
-const interTight = Inter_Tight({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const interTight = localFont({
+  src: "./fonts/InterTight-variable.woff2",
+  weight: "400 700",
+  style: "normal",
   display: "swap",
   variable: "--font-inter-tight",
 });

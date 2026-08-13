@@ -101,7 +101,10 @@ body { background: var(--vlp-color-white, #ffffff); }
   --vlp-trust-header-gap-bottom: 28px;
 
   /* ── Typography ─────────────────────────────────────────── */
-  --vlp-font-body:           'Inter Tight', ui-sans-serif, system-ui, sans-serif;
+  /* --font-inter-tight is set on <html> by next/font/local in app/layout.tsx.
+     The literal 'Inter Tight' stays as a fallback for the pages that pull the
+     family in over a <link> to fonts.googleapis.com. */
+  --vlp-font-body:           var(--font-inter-tight), 'Inter Tight', ui-sans-serif, system-ui, sans-serif;
   --vlp-font-heading:        'Urbanist', sans-serif;
   --vlp-font-mono:           'Geist Mono', monospace;
 
