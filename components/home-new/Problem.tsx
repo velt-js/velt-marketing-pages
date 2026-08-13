@@ -13,9 +13,9 @@ const CHECKLIST_ITEMS = [
 ];
 
 /**
- * Fires a `checklist_item_checked` event on both Mixpanel and Amplitude,
- * guarded with optional chaining so the call is a no-op when either SDK
- * is absent (e.g. during development, ad-blocked, or before script load).
+ * Fires a `checklist_item_checked` event on Amplitude, guarded with optional
+ * chaining so the call is a no-op when the SDK is absent (e.g. during
+ * development, ad-blocked, or before script load).
  *
  * @param {string} item - The human-readable label of the item that was checked.
  */
@@ -23,7 +23,6 @@ function trackItemChecked(item: string): void {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const win = window as any;
-    win.mixpanel?.track("checklist_item_checked", { item });
     win.amplitude?.track("checklist_item_checked", { item });
   } catch (error) {
     console.error("Problem checklist analytics failed", error);

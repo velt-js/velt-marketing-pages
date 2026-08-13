@@ -7,8 +7,8 @@
 //   1.  Termly  — cookie-consent resource blocker (autoBlock=off,
 //       so it loads but doesn't actively gate anything until consent UX
 //       lands)
-//   2.  Mixpanel — custom CDN at cdn.velt.dev/mp/lib.min.js, custom
-//       api_host. Session recording + heatmap + autocapture enabled.
+//   2.  Mixpanel — REMOVED. Slot kept so the numbering below still
+//       lines up with the surviving tags.
 //   3.  Amplitude — MOVED to the official npm SDK. Now initialized in
 //       instrumentation-client.ts → lib/analytics/amplitude.ts (autocapture
 //       + Session Replay). No longer loaded here.
@@ -22,14 +22,13 @@
 //   9.  Common Room — site 08f69d8a-754c-4c96-a7de-bef17fb066e1.
 //   10. Intercom — app_id fxx14qnk (chat widget).
 //   11. Calendly listener — listens for `calendly.event_scheduled`
-//       postMessages and fires a `demoBooked` event on Mixpanel and
-//       Koala (`window.ko`) with the page's query-string params.
+//       postMessages and fires a `demoBooked` event on Koala
+//       (`window.ko`) with the page's query-string params.
 //
 // All use next/script `afterInteractive` so they fire after hydration
 // without blocking initial paint. Script execution order is preserved
 // within the same strategy bucket, which matters for the gtag pair
-// (external load → init) and for Mixpanel (custom URL var captured by
-// the stub IIFE via closure).
+// (external load → init).
 
 import Script from "next/script";
 
@@ -44,34 +43,9 @@ export function Analytics() {
         strategy="afterInteractive"
       />
 
-      {/* 2. Mixpanel — custom CDN, custom api_host, session recording.
-          Combined into a single tag so the IIFE captures
-          MIXPANEL_CUSTOM_LIB_URL via lexical scope. Framer's original
-          split (var in one <script>, IIFE in another) would have made
-          the const script-scoped and inaccessible, silently falling
-          back to Mixpanel's default CDN. */}
-      <Script id="mixpanel" strategy="afterInteractive">
-        {`
-          const MIXPANEL_CUSTOM_LIB_URL = "https://cdn.velt.dev/mp/lib.min.js";
-          (function (f, b) { if (!b.__SV) { var e, g, i, h; window.mixpanel = b; b._i = []; b.init = function (e, f, c) { function g(a, d) { var b = d.split("."); 2 == b.length && ((a = a[b[0]]), (d = b[1])); a[d] = function () { a.push([d].concat(Array.prototype.slice.call(arguments, 0))); }; } var a = b; "undefined" !== typeof c ? (a = b[c] = []) : (c = "mixpanel"); a.people = a.people || []; a.toString = function (a) { var d = "mixpanel"; "mixpanel" !== c && (d += "." + c); a || (d += " (stub)"); return d; }; a.people.toString = function () { return a.toString(1) + ".people (stub)"; }; i = "disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" "); for (h = 0; h < i.length; h++) g(a, i[h]); var j = "set set_once union unset remove delete".split(" "); a.get_group = function () { function b(c) { d[c] = function () { call2_args = arguments; call2 = [c].concat(Array.prototype.slice.call(call2_args, 0)); a.push([e, call2]); }; } for (var d = {}, e = ["get_group"].concat(Array.prototype.slice.call(arguments, 0)), c = 0; c < j.length; c++) b(j[c]); return d; }; b._i.push([e, f, c]); }; b.__SV = 1.2; e = f.createElement("script"); e.type = "text/javascript"; e.async = !0; e.src = "undefined" !== typeof MIXPANEL_CUSTOM_LIB_URL ? MIXPANEL_CUSTOM_LIB_URL : "file:" === f.location.protocol && "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\\/\\//) ? "https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js" : "//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"; g = f.getElementsByTagName("script")[0]; g.parentNode.insertBefore(e, g); } })(document, window.mixpanel || []);
-          if (window.mixpanel) {
-            window.mixpanel.init("6fe5c5cd3adeb341288776482e7bb147", {
-              track_pageview: "full-url",
-              api_host: "https://cdn.velt.dev/mp",
-              record_sessions_percent: 100,
-              record_heatmap_data: true,
-              autocapture: {
-                pageview: "full-url",
-                click: true,
-                input: true,
-                scroll: true,
-                submit: true,
-                capture_text_content: true,
-              },
-            });
-          }
-        `}
-      </Script>
+      {/* 2. Mixpanel — REMOVED. The loader stub, init (session recording,
+          heatmaps, autocapture) and the cdn.velt.dev/mp proxy are gone;
+          pageview and event coverage now rests on Amplitude and gtag. */}
 
       {/* 3. Amplitude — MIGRATED. Amplitude + Session Replay now load via the
           official npm SDK (@amplitude/analytics-browser +
@@ -169,9 +143,9 @@ export function Analytics() {
         `}
       </Script>
 
-      {/* 11. Calendly listener — fires `demoBooked` on Mixpanel
-          (loaded above) and Koala (window.ko if present) whenever
-          the embedded Calendly widget reports a successful booking.
+      {/* 11. Calendly listener — fires `demoBooked` on Koala
+          (window.ko if present) whenever the embedded Calendly widget
+          reports a successful booking.
           Wrapped in an IIFE so the helper fns don't pollute window. */}
       <Script id="calendly-listener" strategy="afterInteractive">
         {`
@@ -195,7 +169,6 @@ export function Analytics() {
               if (!isCalendlyEvent(e)) return;
               if (e.data.event !== 'calendly.event_scheduled') return;
               var queryParams = getAllQueryParams();
-              if (window.mixpanel) window.mixpanel.track('demoBooked', queryParams);
               if (window.ko) window.ko.track('demoBooked', queryParams);
             });
           })();

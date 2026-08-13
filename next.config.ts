@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
             value: "camera=(), microphone=(), geolocation=()",
           },
           // Report-only CSP: the site loads scripts from many third-party
-          // origins (Mixpanel, Amplitude, gtag/Google, Reddit, Twitter,
+          // origins (Amplitude, gtag/Google, Reddit, Twitter,
           // Apollo, reb2b, Common Room, Intercom, Calendly, Sanity, Vercel,
           // Superflow CDN). An enforcing Content-Security-Policy would break
           // these integrations without an exhaustive allowlist audit.
