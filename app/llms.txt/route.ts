@@ -32,7 +32,7 @@ Velt is built for products where work cannot ship unapproved: sales enablement, 
 - [Multiplayer editing](https://velt.dev/multiplayer-editing.md): co-editing, single editor mode, and live state sync
 - [Recording](https://velt.dev/recording.md): voice, video, screen, and a built-in video editor
 - [Huddle](https://velt.dev/huddle.md): live audio and video inside the document
-- [Self-hosting](https://velt.dev/self-hosting.md): per-feature data providers, your content and PII stay on your infrastructure
+- [Self-hosting](https://velt.dev/self-hosting.md): run all of Velt in your own cloud account, or keep just the data in your database
 
 ## Platform
 

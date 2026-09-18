@@ -45,6 +45,11 @@ import type { GalleryContent } from "@/components/feature-new/ExamplesGallery";
 import { customizationContent, spectrumContent, galleryContent } from "@/app/customization/content";
 import { devtoolsContent } from "@/app/devtools/content";
 import { platformContent } from "@/app/platform/content";
+import {
+  CLOUD_STATUS_LINE,
+  DEPLOYMENT_MODELS,
+  FEDRAMP_NOTE,
+} from "@/lib/deployment";
 
 export const SITE_URL = "https://velt.dev";
 
@@ -1398,7 +1403,7 @@ For teams shipping collaboration features to production.
 For organizations with security, compliance, or self-hosting needs.
 - Everything in Growth
 - SOC 2 Type II / HIPAA
-- Self-hosted deployment option
+- Self-hosting: run all of Velt in your own cloud account, or keep just the data in your database
 - 99.999% uptime SLA
 - Dedicated support and account management
 
@@ -1455,10 +1460,16 @@ Every component is themeable via design tokens, or run headless and render your 
 
 ## Deployment
 
-- Multi-region cloud (default)
-- Self-hosted in your VPC (Enterprise)
+Three models, named by where the data lives.
+
+${DEPLOYMENT_MODELS.map((model) => `- **${model.name}**: ${model.body}`).join("\n")}
+
+${CLOUD_STATUS_LINE}
+
 - Single-tenant deployment available
 - Customer-managed encryption keys (CMEK)
+
+${FEDRAMP_NOTE}
 
 ## Reliability
 

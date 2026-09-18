@@ -6,6 +6,7 @@ import type { SpectrumContent } from "@/components/feature-new/Spectrum";
 import type { GalleryContent } from "@/components/feature-new/ExamplesGallery";
 
 import { CUSTOMIZATION_DEMOS as D, WhatItIsScene } from "@/components/feature-new/demo-presets/customization";
+import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "@/lib/deployment";
 
 // Local, in-repo content for the new-theme /customization page.
 // Rendered statically by app/customization/page.tsx via CustomizationView.
@@ -422,10 +423,10 @@ import {
   },
 
   enterprise: {
-    badges: ["SOC 2 Type II", "HIPAA with BAA", "Data residency"],
+    badges: [...DEPLOYMENT_BADGES, "Data residency"],
     line: (
       <>
-        Customization is presentation and behavior extension only and does not change where your data lives. The one setup flag it touches is{" "}
+        Customization is presentation and behavior extension only and does not change where your data lives. It works the same whether Velt runs in our cloud or yours. {CLOUD_STATUS_LINE} The one setup flag it touches is{" "}
         <code>shadowDom</code>. See <Link href="/enterprise">Enterprise</Link> and <Link href="/self-hosting">Self-hosting</Link>.
       </>
     ),

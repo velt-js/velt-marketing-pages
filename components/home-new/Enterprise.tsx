@@ -9,6 +9,7 @@ import type {
 
 import {
   CLOUD_STATUS_LINE,
+  DEPLOYMENT_BADGES,
   DEPLOYMENT_MODELS,
   DEPLOYMENT_BETA_CTA,
   HAS_PRIVATE_BETA_CLOUD,
@@ -153,6 +154,13 @@ export default function Enterprise({
                 <div className="ent-pillar-link">{pillar.footerLink}</div>
               ) : null}
             </div>
+          ))}
+        </div>
+        <div className="ent-badges">
+          {DEPLOYMENT_BADGES.map((badge) => (
+            <span className="ent-badge-chip" key={badge}>
+              {badge}
+            </span>
           ))}
         </div>
         <div className="ent-cloud-row">

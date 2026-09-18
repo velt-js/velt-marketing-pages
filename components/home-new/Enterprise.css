@@ -197,3 +197,24 @@
   color: var(--vlp-color-accent);
   text-decoration: none;
 }
+
+/* ── Trust badges ──────────────────────────────────────────────── */
+.vlp .ent-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-2);
+  margin-bottom: var(--vlp-gap-card);
+}
+
+.vlp .ent-badge-chip {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-on-dark);
+  border: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+  border-radius: var(--vlp-radius-md);
+  padding: 6px 12px;
+}
