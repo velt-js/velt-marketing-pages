@@ -72,6 +72,24 @@ function normalizeHref(href: Nullable<string>): string {
   }
 }
 
+/**
+ * Rewrite stale paths that appear inside authored prose rather than in an
+ * href. `normalizeHref` only sees link targets, but seeded FAQ answers point
+ * readers at `/governance` in body text, which has no route. Deterministic and
+ * idempotent: prose with no stale path passes through unchanged.
+ * @param {Nullable<string>} text The raw prose from Sanity content.
+ * @returns {string} The normalized prose.
+ */
+function normalizeProse(text: Nullable<string>): string {
+  try {
+    if (!text) return text ?? "";
+    return text.replace(/\/governance\b/g, ENTERPRISE_PATH);
+  } catch (error) {
+    console.error("normalizeProse failed", error);
+    return text ?? "";
+  }
+}
+
 type Nullable<T> = T | null | undefined;
 
 interface RawCta {
@@ -646,7 +664,7 @@ export function toFeaturePageContent(doc: FeaturePageV2Doc): FeaturePageContent 
       heading: faq.heading ?? "",
       items: (faq.items ?? []).map((item) => ({
         q: item.question ?? "",
-        a: item.answer ?? "",
+        a: normalizeProse(item.answer),
       })),
     },
 
