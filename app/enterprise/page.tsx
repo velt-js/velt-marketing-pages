@@ -13,8 +13,10 @@ import LandingHero from "@/components/landing-new/LandingHero";
 import SectionHead from "@/components/landing-new/SectionHead";
 import LogoStripBand from "@/components/landing-new/LogoStripBand";
 import EnterprisePillars from "@/components/landing-new/EnterprisePillars";
+import DeploymentSection from "@/components/deployment/DeploymentSection";
 import CustomerShowcase from "@/components/home-new/CustomerShowcase";
 import CtaBanner from "@/components/home-new/CtaBanner";
+import { DEPLOYMENT_BODY } from "@/lib/deployment";
 import { buildPageMetadata } from "@/app/_seo/page-metadata";
 import { JsonLd } from "@/app/_seo/JsonLd";
 import {
@@ -26,7 +28,7 @@ import {
 const CONSOLE_URL = "https://console.velt.dev/";
 
 const ENTERPRISE_DESCRIPTION =
-  "Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime. SOC 2 Type II, HIPAA BAA, and enterprise-grade SLAs.";
+  "Run all of Velt inside your own cloud account. Full self-hosting, customer-managed encryption, and dedicated support with 99.999% uptime. SOC 2 Type II and HIPAA with a BAA.";
 
 const ENTERPRISE_BREADCRUMB = buildBreadcrumbList([
   { name: "Home", url: SITE_URL },
@@ -89,13 +91,17 @@ export default function EnterprisePage() {
         <LandingHero
           eyebrow="Enterprise"
           heading="The collaboration stack for enterprise"
-          subheading="Access self-hosting, custom encryption, dedicated support, and full data control with 99.999% uptime."
+          subheading={DEPLOYMENT_BODY}
           primaryCta={{ label: "Book Demo", href: "/book-demo" }}
           secondaryCta={{ label: "Get Free API Key", href: CONSOLE_URL, newTab: true }}
           semiboldHeading
         />
 
         <LogoStripBand alt />
+
+        {/* Deployment story. All copy comes from lib/deployment.ts; the FedRAMP
+            line renders only here and on /self-hosting. */}
+        <DeploymentSection showFedrampNote />
 
         <EnterprisePillars />
 

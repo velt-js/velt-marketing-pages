@@ -1,0 +1,105 @@
+/* Deployment anchor section. Scoped under .vlp so it shares the token set in
+   components/home-new/styles.css. Pulls exclusively from --vlp-* tokens per
+   DESIGN.md, no hardcoded hex values. Rides on .lp-section--dark from
+   components/landing-new/landing.css for the ink background and on-dark text. */
+
+/* ── Cloud availability row ────────────────────────────────────── */
+.vlp .dep-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--vlp-gap-card);
+  margin-bottom: var(--vlp-gap-section);
+}
+
+.vlp .dep-status {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-label);
+  letter-spacing: var(--vlp-tracking-mono);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-on-dark);
+  margin: 0;
+}
+
+.vlp .dep-beta-cta {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--vlp-btn-font-family);
+  font-weight: var(--vlp-weight-semibold);
+  font-size: var(--vlp-btn-light-font-md);
+  background: var(--vlp-btn-light-bg);
+  color: var(--vlp-btn-light-text);
+  padding: var(--vlp-btn-light-padding-md);
+  border-radius: var(--vlp-btn-light-radius);
+  text-decoration: none;
+}
+
+/* ── The three models ──────────────────────────────────────────── */
+.vlp .dep-models {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--vlp-gap-card);
+  margin-bottom: var(--vlp-gap-section);
+}
+
+.vlp .dep-model {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vlp-space-2);
+  padding: var(--vlp-card-padding);
+  border: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+  border-radius: var(--vlp-radius-card);
+}
+
+.vlp .dep-model-name {
+  font-family: var(--vlp-font-heading);
+  font-size: var(--vlp-text-card);
+  font-weight: var(--vlp-weight-semibold);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+  color: var(--vlp-color-text-on-dark);
+  margin: 0;
+}
+
+.vlp .dep-model-body {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-on-dark-muted);
+  margin: 0;
+}
+
+/* ── Trust badges ──────────────────────────────────────────────── */
+.vlp .dep-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vlp-space-2);
+}
+
+.vlp .dep-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vlp-space-2);
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-on-dark);
+  border: var(--vlp-border-width) solid var(--vlp-border-on-dark);
+  border-radius: var(--vlp-radius-md);
+  padding: 6px 12px;
+}
+
+/* ── FedRAMP line (only /enterprise and /self-hosting) ─────────── */
+.vlp .dep-fedramp {
+  margin: var(--vlp-gap-card) 0 0;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-on-dark-muted);
+}
+
+/* ── Responsive ────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .vlp .dep-models {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

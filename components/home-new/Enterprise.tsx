@@ -1,10 +1,18 @@
 import { Fragment } from "react";
+import Link from "next/link";
 
 import type {
   CtaLink,
   EnterprisePillar,
   EnterprisePillarsContent,
 } from "@/components/feature-new/content";
+
+import {
+  CLOUD_STATUS_LINE,
+  DEPLOYMENT_MODELS,
+  DEPLOYMENT_BETA_CTA,
+  HAS_PRIVATE_BETA_CLOUD,
+} from "@/lib/deployment";
 
 import "./Enterprise.css";
 
@@ -14,7 +22,7 @@ type EnterpriseProps = EnterprisePillarsContent;
 const DEFAULT_EYEBROW = "Built for enterprise";
 const DEFAULT_HEADING = "Built for your customers' compliance.";
 const DEFAULT_DESCRIPTION =
-  "Per-feature data providers keep content and PII on your infrastructure. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.";
+  "Run all of Velt inside your own cloud account, or keep just the data in your database. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.";
 const DEFAULT_PRIMARY_CTA: CtaLink = { label: "Book Demo", href: "/book-demo" };
 const DEFAULT_SECONDARY_CTA: CtaLink = {
   label: "Governance",
@@ -24,13 +32,11 @@ const DEFAULT_SECONDARY_CTA: CtaLink = {
 const DEFAULT_PILLARS: EnterprisePillar[] = [
   {
     label: "PILLAR 01 · DEPLOYMENT",
-    title: "Your data stays yours.",
-    body: "Velt stores minimal identifiers. Everything sensitive lives where you say it does.",
-    monoLines: [
-      "▸ comments → your db",
-      "▸ recordings → your S3",
-      "▸ user PII → never leaves",
-    ],
+    title: "Run it in your own cloud.",
+    body: "Three models, named by where the data lives. Pick one per customer.",
+    monoLines: DEPLOYMENT_MODELS.map(
+      (model) => `▸ ${model.name.toLowerCase()}`,
+    ),
     footerLink: "velt.dev/self-hosting",
   },
   {
@@ -148,6 +154,14 @@ export default function Enterprise({
               ) : null}
             </div>
           ))}
+        </div>
+        <div className="ent-cloud-row">
+          <p className="ent-cloud-status">{CLOUD_STATUS_LINE}</p>
+          {HAS_PRIVATE_BETA_CLOUD ? (
+            <Link className="ent-cloud-cta hl" href={DEPLOYMENT_BETA_CTA.href}>
+              {DEPLOYMENT_BETA_CTA.label}
+            </Link>
+          ) : null}
         </div>
         <div className="ent-actions">
           <a
