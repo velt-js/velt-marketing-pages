@@ -14,6 +14,12 @@
 
 import { createClient } from "@sanity/client";
 
+// Deployment copy is owned by lib/deployment.ts. Read it rather than restating
+// it, so the seeded page and the coded pages cannot drift. Never write a
+// cloud's availability into this file by hand, and never claim Velt holds a
+// FedRAMP authorization: that line belongs to /enterprise and /self-hosting.
+import { CLOUD_STATUS_LINE } from "../lib/deployment.ts";
+
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
@@ -251,7 +257,7 @@ const doc = {
         },
         {
           title: "Residency for regulated data",
-          body: "Data residency options include the EU; self-host data providers keep comment and review content plus user PII on your infrastructure, and Velt stores minimal identifiers.",
+          body: `Run all of Velt inside your own cloud account, or keep just the comment and review content plus user PII in your database while Velt holds IDs only. ${CLOUD_STATUS_LINE} Data residency options include the EU.`,
           link: cta("Self-hosting", "/self-hosting"),
         },
       ],
@@ -288,7 +294,7 @@ const doc = {
         {
           question: "Our buyers are banks and insurers. Can review data stay on our infrastructure?",
           answer:
-            "Cloud by default, with a hybrid model: self-host data providers keep comment and review content plus user PII on your infrastructure while Velt stores only minimal identifiers, with data residency options including EU. Velt is SOC 2 Type II audited and supports HIPAA workloads. See /self-hosting and /enterprise.",
+            `Three models, named by where the data lives. Velt Cloud: we run it, with data residency options including the EU. Your database: we run the service, your comment and review content plus user PII stay with you, and Velt holds IDs only. Your cloud: all of Velt runs in your account. ${CLOUD_STATUS_LINE} Velt is SOC 2 Type II audited and supports HIPAA workloads. See /self-hosting and /enterprise.`,
         },
         {
           question: "How does pricing work when one filing is touched by a dozen reviewers?",

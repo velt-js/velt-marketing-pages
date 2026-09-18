@@ -3,10 +3,17 @@
  * Seed the featurePageV2-self-hosting document in Sanity so it renders at
  * /new-features/self-hosting via app/new-features/[slug]/page.tsx.
  *
- * Self-hosting is a deployment/governance capability: the page describes the
- * shipped per-feature data-provider model only (content and PII on your
- * infrastructure, minimal identifiers on Velt). It never claims full-stack
- * self-hosting, VPC deployment, BYOK, or Helm.
+ * Self-hosting is a deployment/governance capability. This page MAY claim full
+ * self-hosting: all of Velt running inside the customer's own cloud account,
+ * alongside the data-provider model where only the data stays with them.
+ *
+ * Copy guardrails, still binding:
+ *   - Cloud availability comes from CLOUD_STATUS in lib/deployment.ts. Never
+ *     write a cloud's status into this file by hand.
+ *   - Never claim Velt holds a FedRAMP authorization. Velt has none. The one
+ *     permitted sentence is FEDRAMP_NOTE in lib/deployment.ts, which says only
+ *     that Velt can run inside a customer's boundary. No badge.
+ *   - Never name a government cloud until one is actually deployed.
  *
  * Usage:
  *   node --env-file=.env.local scripts/seed-feature-v2-self-hosting.mjs
@@ -20,6 +27,16 @@
  */
 
 import { createClient } from "@sanity/client";
+
+// Deployment copy is owned by lib/deployment.ts. This script reads it rather
+// than restating it, so the seeded page and the coded pages cannot drift.
+import {
+  CLOUD_STATUS_LINE,
+  DEPLOYMENT_BODY,
+  DEPLOYMENT_HEADING,
+  DEPLOYMENT_MODELS,
+  FEDRAMP_NOTE,
+} from "../lib/deployment.ts";
 
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
@@ -85,15 +102,14 @@ const doc = {
   slug: { _type: "slug", current: "self-hosting" },
   beta: false,
   breadcrumbLabel: "Self-Hosting",
-  metaTitle: "Self-Hosting | Add Velt without moving your data | Velt",
+  metaTitle: "Self-Hosting | Run all of Velt in your own cloud | Velt",
   metaDescription:
-    "Per-feature data providers keep comments, recordings, and user PII on your infrastructure. Velt stores only minimal identifiers.",
+    "Run all of Velt inside your own cloud account, or keep just the data in your database. Your keys, your logs, your network.",
 
   hero: {
     kicker: "Self-hosted data",
-    title: "Add Velt without moving your data.",
-    secondary:
-      "Per-feature data providers keep comments, recordings, notifications, attachments, and user PII on your infrastructure; Velt stores only minimal identifiers. Node and Python backend SDKs.",
+    title: DEPLOYMENT_HEADING,
+    secondary: `${DEPLOYMENT_BODY} ${CLOUD_STATUS_LINE}`,
     accent: "No more enterprise deals stalled on \u201Cwhere does our data live?\u201D",
     microcopy: "Free tier. No credit card. First comment in 5 minutes.",
     primaryCta: cta("Get Free API Key", "https://console.velt.dev/", true),
@@ -355,6 +371,24 @@ const doc = {
     ),
   },
 
+  // Transparency table. Rakesh fills the four answers before this ships; the
+  // TODO text is deliberately visible so an unfilled row cannot pass review.
+  leavesAccount: {
+    kicker: "Transparency",
+    heading: "What leaves your account",
+    support:
+      "Running all of Velt in your own cloud does not mean nothing crosses the boundary. These four things do. Here is exactly what each one carries.",
+    rows: keyed(
+      [
+        { item: "SDK bundle", answer: "TODO" },
+        { item: "License check", answer: "TODO" },
+        { item: "Telemetry and error reporting", answer: "TODO" },
+        { item: "Updates", answer: "TODO" },
+      ],
+      "vfpLeavesRow",
+    ),
+  },
+
   makeItYours: {
     kicker: "Make it yours",
     heading: "Your providers, your privacy posture.",
@@ -503,19 +537,16 @@ const doc = {
   enterprisePillars: {
     eyebrow: "Built for enterprise",
     heading: "Built for your customers' compliance.",
-    description:
-      "Per-feature data providers keep content and PII on your infrastructure. SOC 2 Type II audited, HIPAA workloads supported, data residency options including the EU.",
+    description: `${DEPLOYMENT_BODY} ${FEDRAMP_NOTE}`,
     pillars: keyed(
       [
         {
           label: "PILLAR 01 \u00B7 DEPLOYMENT",
-          title: "Your data stays yours.",
-          body: "Velt stores minimal identifiers. Everything sensitive lives where you say it does.",
-          monoLines: [
-            "\u25B8 comments \u2192 your db",
-            "\u25B8 recordings \u2192 your S3",
-            "\u25B8 user PII \u2192 never leaves",
-          ],
+          title: "Run it in your own cloud.",
+          body: "Three models, named by where the data lives. Pick one per customer.",
+          monoLines: DEPLOYMENT_MODELS.map(
+            (model) => `\u25B8 ${model.name.toLowerCase()}`,
+          ),
           footerLink: "velt.dev/self-hosting",
         },
         {

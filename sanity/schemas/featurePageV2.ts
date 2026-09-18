@@ -397,6 +397,39 @@ export const featurePageV2 = defineType({
       ],
     }),
 
+    // Optional transparency table. Used by /self-hosting to state exactly what
+    // still leaves the customer's account when Velt runs inside it.
+    defineField({
+      name: "leavesAccount",
+      title: "What Leaves Your Account",
+      type: "object",
+      group: "sections",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({ name: "kicker", title: "Kicker", type: "string" }),
+        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({ name: "support", title: "Support line", type: "text", rows: 3 }),
+        defineField({
+          name: "rows",
+          title: "Rows",
+          type: "array",
+          of: [
+            {
+              type: "object",
+              name: "vfpLeavesRow",
+              fields: [
+                defineField({ name: "item", title: "Item", type: "string", validation: (rule) => rule.required() }),
+                defineField({ name: "answer", title: "Answer", type: "text", rows: 3 }),
+              ],
+              preview: {
+                select: { title: "item", subtitle: "answer" },
+              },
+            },
+          ],
+        }),
+      ],
+    }),
+
     defineField({
       name: "makeItYours",
       title: "Make It Yours",

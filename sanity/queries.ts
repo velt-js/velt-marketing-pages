@@ -386,6 +386,10 @@ export async function getFeaturePageV2BySlug(slug: string) {
         kicker, heading, support, visibleCount,
         items[] { label, soon }
       },
+      leavesAccount {
+        kicker, heading, support,
+        rows[] { item, answer }
+      },
       makeItYours {
         kicker, heading, support,
         cards[] { iconKey, title, body, preview, code, copyText },
