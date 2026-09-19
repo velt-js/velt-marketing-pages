@@ -172,13 +172,13 @@ export const REASONS: ComparisonReason[] = [
     pairs: [
       {
         velt: {
-          title: "Option to self-host data",
-          subtitle: "Keep full control of your sensitive data.",
+          title: "Run all of Velt in your own cloud",
+          subtitle: "Your account, your keys, your logs. Or keep just the data in your database.",
           media: { kind: "video", src: `${VIDEO_BASE}/storage-velt.mp4` },
         },
         other: {
           title: "No self-hosting option",
-          subtitle: "Sensitive data must reside in their system.",
+          subtitle: "Your data and their service both sit in their cloud.",
           media: { kind: "video", src: `${VIDEO_BASE}/storage-competitor.mp4` },
         },
       },

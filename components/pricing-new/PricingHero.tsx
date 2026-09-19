@@ -1,3 +1,5 @@
+import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "@/lib/deployment";
+
 import "./PricingHero.css";
 
 /**
@@ -33,6 +35,14 @@ export default function PricingHero() {
             Book Demo
           </a>
         </div>
+        <div className="prh-badges">
+          {DEPLOYMENT_BADGES.map((badge) => (
+            <span className="prh-badge" key={badge}>
+              {badge}
+            </span>
+          ))}
+        </div>
+        <p className="prh-cloud-status">{CLOUD_STATUS_LINE}</p>
         <div className="prh-meta">
           <span className="prh-meta-item">FREE TIER · NO CARD</span>
           <span className="prh-meta-dot">·</span>

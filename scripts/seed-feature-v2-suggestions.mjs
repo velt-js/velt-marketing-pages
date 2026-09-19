@@ -16,6 +16,12 @@
 
 import { createClient } from "@sanity/client";
 
+// Deployment copy is owned by lib/deployment.ts. Read it rather than restating
+// it, so the seeded page and the coded pages cannot drift. Never write a
+// cloud's availability into this file by hand, and never claim Velt holds a
+// FedRAMP authorization: that line belongs to /enterprise and /self-hosting.
+import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "../lib/deployment.ts";
+
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
@@ -473,8 +479,8 @@ const doc = {
   },
 
   enterprise: {
-    badges: ["SOC 2 Type II", "HIPAA", "EU data residency", "Self-host data"],
-    line: "Suggestions persist as comment annotations, so suggestion content can live on your infrastructure via the comments self-host data provider, with only minimal identifiers on Velt. Accept and reject decisions are recorded for the audit trail, and the same isolation guarantees cover the rest of the SDK.",
+    badges: [...DEPLOYMENT_BADGES, "EU data residency", "Self-host data"],
+    line: `Suggestions persist as comment annotations, so suggestion content can live on your infrastructure via the comments self-host data provider, with only minimal identifiers on Velt. Accept and reject decisions are recorded for the audit trail, and the same isolation guarantees cover the rest of the SDK. ${CLOUD_STATUS_LINE}`,
     links: keyed([cta("self-hosting", "/self-hosting"), cta("governance", "/governance")]),
     cta: cta("Book Demo", "/book-demo"),
   },

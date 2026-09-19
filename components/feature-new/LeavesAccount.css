@@ -1,0 +1,106 @@
+/* "What leaves your account" transparency table. Scoped under .vfp, on the
+   alternating cream band so it reads as its own beat after the details wall.
+   Pulls --vlp-* tokens only. */
+
+.vfp .vla {
+  background: var(--vlp-bg-section-alt);
+  border-top: 1px solid var(--vlp-border-default);
+  border-bottom: 1px solid var(--vlp-border-default);
+  padding: 80px 0;
+}
+
+.vfp .vla-head {
+  display: grid;
+  gap: 12px;
+  max-width: var(--vlp-content-narrow);
+  margin-bottom: 40px;
+}
+
+.vfp .vla-head h2 {
+  font-size: var(--vlp-text-section);
+  line-height: var(--vlp-leading-snug);
+  letter-spacing: var(--vlp-tracking-snug);
+}
+
+.vfp .vla-support {
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+  color: var(--vlp-color-text-muted);
+  text-wrap: pretty;
+}
+
+.vfp .vla-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--vlp-bg-card);
+  border: 1px solid var(--vlp-border-default);
+  border-radius: var(--vlp-radius-card);
+  overflow: hidden;
+  text-align: left;
+}
+
+.vfp .vla-table th,
+.vfp .vla-table td {
+  padding: 16px 22px;
+  vertical-align: top;
+  font-size: var(--vlp-text-body);
+  line-height: var(--vlp-leading-body);
+}
+
+.vfp .vla-table thead th {
+  font-family: var(--vlp-font-mono);
+  font-size: var(--vlp-text-tag);
+  letter-spacing: var(--vlp-tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--vlp-color-text-muted);
+  font-weight: 400;
+  border-bottom: 1px solid var(--vlp-border-default);
+}
+
+.vfp .vla-table tbody tr + tr th,
+.vfp .vla-table tbody tr + tr td {
+  border-top: 1px solid var(--vlp-border-default);
+}
+
+.vfp .vla-table tbody th {
+  width: 34%;
+  font-weight: 500;
+  color: var(--vlp-color-text);
+}
+
+.vfp .vla-table tbody td {
+  color: var(--vlp-color-text-muted);
+  text-wrap: pretty;
+}
+
+@media (max-width: 720px) {
+  .vfp .vla {
+    padding: 56px 0;
+  }
+
+  .vfp .vla-table thead {
+    display: none;
+  }
+
+  .vfp .vla-table,
+  .vfp .vla-table tbody,
+  .vfp .vla-table tr,
+  .vfp .vla-table th,
+  .vfp .vla-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .vfp .vla-table tbody tr + tr {
+    border-top: 1px solid var(--vlp-border-default);
+  }
+
+  .vfp .vla-table tbody tr + tr th,
+  .vfp .vla-table tbody tr + tr td {
+    border-top: 0;
+  }
+
+  .vfp .vla-table tbody th {
+    padding-bottom: 4px;
+  }
+}

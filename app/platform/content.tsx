@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { FeaturePageContent } from "@/components/feature-new/content";
 
 import { PLATFORM_DEMOS as D } from "@/components/feature-new/demo-presets/platform";
+import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "@/lib/deployment";
 
 // Local, in-repo content for the new-theme /platform (Admin Console) page.
 // Rendered statically by app/platform/page.tsx via FeaturePageView — no Sanity
@@ -253,10 +254,10 @@ export const platformContent: FeaturePageContent = {
   },
 
   enterprise: {
-    badges: ["SOC 2 Type II", "HIPAA with BAA", "Self-hosting", "Multi-region", "BYOK encryption"],
+    badges: [...DEPLOYMENT_BADGES, "Multi-region", "BYOK encryption"],
     line: (
       <>
-        Per-feature data providers keep content and PII on your infrastructure, with SOC 2 Type II, HIPAA with a BAA, and bring-your-own-key encryption. See <Link href="/enterprise">Enterprise</Link> and <Link href="/self-hosting">Self-hosting</Link>.
+        Run all of Velt inside your own cloud account, or keep just the data in your database. {CLOUD_STATUS_LINE} SOC 2 Type II, HIPAA with a BAA, and bring-your-own-key encryption. See <Link href="/enterprise">Enterprise</Link> and <Link href="/self-hosting">Self-hosting</Link>.
       </>
     ),
     cta: { label: "View Trust Center", href: "https://trust.velt.dev", newTab: true },

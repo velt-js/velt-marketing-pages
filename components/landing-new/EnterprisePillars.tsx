@@ -57,10 +57,10 @@ const PILLARS: Pillar[] = [
         <path d="M7 8h.01 M7 16h.01" />
       </TabIcon>
     ),
-    headingAccent: "Own and control",
-    headingRest: " your customer data",
+    headingAccent: "Run all of Velt",
+    headingRest: " inside your own cloud",
     subheading:
-      "Enjoy the full Velt experience while keeping all sensitive data on your servers.",
+      "Keep the whole stack in your account, or keep just the data in your database.",
     imageSrc: "/images/enterprise/self-hosting.jpg",
     imageAlt: "Self-hosted database diagram",
     testimonial: {

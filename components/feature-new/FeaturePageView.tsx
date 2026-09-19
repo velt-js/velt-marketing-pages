@@ -13,6 +13,7 @@ import WhatItIs from "./WhatItIs";
 import HowItWorks from "./HowItWorks";
 import Showcase from "./Showcase";
 import DetailsWall from "./DetailsWall";
+import LeavesAccount from "./LeavesAccount";
 import MakeItYours from "./MakeItYours";
 import InProduction from "./InProduction";
 import Related from "./Related";
@@ -85,6 +86,9 @@ export default function FeaturePageView({ content, enterpriseSection, detailsSec
           <HowItWorks content={content.howItWorks} />
           <Showcase content={content.showcase} />
           {detailsSection ?? <DetailsWall content={content.details} />}
+          {content.leavesAccount ? (
+            <LeavesAccount content={content.leavesAccount} />
+          ) : null}
           {/* The full home-new "Drops into the stack" integrations grid, scoped
               to the comments page per request. Self-styled (.vlp-scoped). */}
           {content.slug === "comments" ? <Integrations /> : null}

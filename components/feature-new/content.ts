@@ -107,6 +107,15 @@ export type DetailsContent = {
   visibleCount: number;
 };
 
+export type LeavesAccountRow = { item: string; answer: string };
+
+export type LeavesAccountContent = {
+  kicker: string;
+  heading: string;
+  support: string;
+  rows: LeavesAccountRow[];
+};
+
 export type MakeItYoursCard = {
   icon: ReactNode;
   title: string;
@@ -234,6 +243,7 @@ export type FeaturePageContent = {
   howItWorks: HowItWorksContent;
   showcase: ShowcaseContent;
   details: DetailsContent;
+  leavesAccount?: LeavesAccountContent;
   makeItYours?: MakeItYoursContent;
   inProduction?: InProductionContent;
   related?: RelatedContent;

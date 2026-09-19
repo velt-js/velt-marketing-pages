@@ -54,6 +54,18 @@ export type Section = {
   rows: Row[];
 };
 
+import { DEPLOYMENT_MODELS, type DeploymentModel } from "@/lib/deployment";
+
+/**
+ * Look up a deployment model's public name so the pricing tier bullets and the
+ * comparison table use the same names as every other deployment surface.
+ * @param {DeploymentModel["id"]} id The model id.
+ * @returns {string} The model's name, or an empty string if it is missing.
+ */
+function modelName(id: DeploymentModel["id"]): string {
+  return DEPLOYMENT_MODELS.find((model) => model.id === id)?.name ?? "";
+}
+
 const check: CellValue = { kind: "check" };
 const cross: CellValue = { kind: "x" };
 const text = (value: string, sub?: string): CellValue => ({
@@ -131,7 +143,9 @@ export const TIERS: Tier[] = [
       { text: "All Features (15+)" },
       { text: "Pre-built Components" },
       { text: "Full Customization" },
-      { text: "Data Self-hosting" },
+      {
+        text: `Self-hosting (${modelName("your-database").toLowerCase()} or ${modelName("your-cloud").toLowerCase()})`,
+      },
       { text: "Advanced Webhooks & Integrations" },
       { text: "GDPR APIs" },
       { text: "Multiple Region Hosting (EU, APAC, NA)" },
@@ -300,7 +314,16 @@ export const SECTIONS: Section[] = [
     title: "Security & Compliance",
     accent: "#eb8d2f",
     rows: [
-      { label: "Data Self-hosting", values: [cross, cross, check] },
+      {
+        label: modelName("your-database"),
+        sublabel: "(data self-hosting)",
+        values: [cross, cross, check],
+      },
+      {
+        label: modelName("your-cloud"),
+        sublabel: "(full self-hosting)",
+        values: [cross, cross, check],
+      },
       { label: "GDPR APIs", values: [cross, cross, check] },
       {
         label: "Multiple Region Hosting",

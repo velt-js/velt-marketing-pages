@@ -4,6 +4,7 @@ import { ShieldIcon, VeltMark } from "@/components/feature-new/icons";
 import type { FeaturePageContent } from "@/components/feature-new/content";
 
 import { DEVTOOLS_DEMOS as D } from "@/components/feature-new/demo-presets/devtools";
+import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "@/lib/deployment";
 
 // Local, in-repo content for the new-theme /devtools (Chrome Extension) page.
 // Rendered statically by app/devtools/page.tsx via FeaturePageView, no Sanity
@@ -291,10 +292,10 @@ export const devtoolsContent: FeaturePageContent = {
   },
 
   enterprise: {
-    badges: ["SOC 2 Type II", "HIPAA with BAA", "Data residency"],
+    badges: [...DEPLOYMENT_BADGES, "Data residency"],
     line: (
       <>
-        The extension reads your running app locally in the browser and does not change where your data lives. Per-feature data providers keep content and PII on your infrastructure. See <Link href="/enterprise">Enterprise</Link> and <Link href="/self-hosting">Self-hosting</Link>.
+        The extension reads your running app locally in the browser and does not change where your data lives. Velt itself can run in your own cloud account, or hold nothing but IDs while the data stays in your database. {CLOUD_STATUS_LINE} See <Link href="/enterprise">Enterprise</Link> and <Link href="/self-hosting">Self-hosting</Link>.
       </>
     ),
     cta: { label: "View Trust Center", href: "https://trust.velt.dev", newTab: true },

@@ -3,6 +3,7 @@
 import { Fragment, useState, type ReactNode } from "react";
 import Link from "next/link";
 import "./PricingFaq.css";
+import { CLOUD_STATUS_LINE } from "@/lib/deployment";
 
 type PricingFaqItem = {
   num: string;
@@ -98,7 +99,8 @@ const FAQS: PricingFaqItem[] = [
     answer: (
       <>
         Velt provides enterprise-grade security. Our products are SOC 2 Type II
-        and HIPAA compliant.{" "}
+        and HIPAA compliant. You can also run all of Velt inside your own cloud
+        account. {CLOUD_STATUS_LINE}{" "}
         <a
           href="https://trust.velt.dev/"
           target="_blank"

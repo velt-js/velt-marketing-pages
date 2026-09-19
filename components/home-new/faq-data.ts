@@ -8,7 +8,22 @@
 // guarantee the rendered accordion and the JSON-LD diff to zero
 // (spec Part 3.5 + Part 5.7 gate 6).
 
+import {
+  CLOUD_STATUS_LINE,
+  DEPLOYMENT_MODELS,
+  DEPLOYMENT_MODELS_HEADING,
+  DEPLOYMENT_MODELS_SUPPORT,
+} from "@/lib/deployment";
+
 export type HomeFaq = { num: string; q: string; a: string };
+
+// Composed from lib/deployment.ts so the accordion, the FAQPage JSON-LD and
+// every other deployment surface stay in lockstep.
+const DEPLOYMENT_ANSWER = [
+  `${DEPLOYMENT_MODELS_HEADING}. ${DEPLOYMENT_MODELS_SUPPORT}`,
+  ...DEPLOYMENT_MODELS.map((model) => `${model.name}. ${model.body}`),
+  CLOUD_STATUS_LINE,
+].join(" ");
 
 export const FAQS: HomeFaq[] = [
   {
@@ -34,7 +49,7 @@ export const FAQS: HomeFaq[] = [
   {
     num: "05",
     q: "Where does data live? Do you support self-hosting?",
-    a: "Cloud by default, with a hybrid model where content and user PII stay on your infrastructure and Velt stores only metadata, and data residency options including EU. Velt is SOC 2 Type II audited and supports HIPAA workloads.",
+    a: DEPLOYMENT_ANSWER,
   },
   {
     num: "06",

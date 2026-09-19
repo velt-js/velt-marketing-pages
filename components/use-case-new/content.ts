@@ -8,6 +8,7 @@ import type {
 } from "@/components/feature-new/content";
 import { allLibraryCards, libraryTabs } from "@/components/library/shared-content";
 import { libraryLogo } from "@/components/libraries-new/library-logos";
+import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "@/lib/deployment";
 
 // Typed content contract for the new-theme Use Case pages (hub index +
 // per-use-case detail). Sections that match the feature-page system 1:1 reuse
@@ -121,8 +122,8 @@ export const USE_CASE_LOGO_STRIP: LogoStripContent = {
 };
 
 export const USE_CASE_ENTERPRISE: EnterpriseContent = {
-  badges: ["SOC 2 Type II", "HIPAA with BAA", "Self-hosting", "Multi-region", "BYOK encryption"],
-  line: "Per-feature data providers keep content and PII on your infrastructure, with SOC 2 Type II, HIPAA with a BAA, and bring-your-own-key encryption.",
+  badges: [...DEPLOYMENT_BADGES, "Multi-region", "BYOK encryption"],
+  line: `Run all of Velt inside your own cloud account, or keep just the data in your database. ${CLOUD_STATUS_LINE} SOC 2 Type II, HIPAA with a BAA, and bring-your-own-key encryption.`,
   cta: { label: "View Trust Center", href: TRUST_CENTER_HREF, newTab: true },
 };
 

@@ -14,6 +14,12 @@
 
 import { createClient } from "@sanity/client";
 
+// Deployment copy is owned by lib/deployment.ts. Read it rather than restating
+// it, so the seeded page and the coded pages cannot drift. Never write a
+// cloud's availability into this file by hand, and never claim Velt holds a
+// FedRAMP authorization: that line belongs to /enterprise and /self-hosting.
+import { CLOUD_STATUS_LINE } from "../lib/deployment.ts";
+
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
 if (!token && !DRY_RUN) {
@@ -236,7 +242,7 @@ const doc = {
         },
         {
           title: "Residency for client data",
-          body: "Data residency options including the EU; self-hosted data providers keep comment and suggestion content plus user PII on your infrastructure, and Velt stores minimal identifiers.",
+          body: `Run all of Velt inside your own cloud account, or keep just the comment and suggestion content plus user PII in your database while Velt holds IDs only. ${CLOUD_STATUS_LINE} Data residency options include the EU.`,
           link: cta("Self-hosting", "/self-hosting"),
         },
         {

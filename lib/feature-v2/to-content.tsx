@@ -192,6 +192,16 @@ interface RawDetails {
   visibleCount?: number | null;
   items?: RawDetailItem[] | null;
 }
+interface RawLeavesRow {
+  item?: string | null;
+  answer?: string | null;
+}
+interface RawLeavesAccount {
+  kicker?: string | null;
+  heading?: string | null;
+  support?: string | null;
+  rows?: RawLeavesRow[] | null;
+}
 interface RawMakeCard {
   iconKey?: string | null;
   title?: string | null;
@@ -300,6 +310,7 @@ export interface FeaturePageV2Doc {
   howItWorks?: RawHowItWorks | null;
   showcase?: RawShowcase | null;
   details?: RawDetails | null;
+  leavesAccount?: RawLeavesAccount | null;
   makeItYours?: RawMakeItYours | null;
   inProduction?: RawInProduction | null;
   related?: RawRelated | null;
@@ -476,6 +487,7 @@ export function toFeaturePageContent(doc: FeaturePageV2Doc): FeaturePageContent 
   const howItWorks = doc.howItWorks ?? {};
   const showcase = doc.showcase ?? {};
   const details = doc.details ?? {};
+  const leavesAccount = doc.leavesAccount;
   const makeItYours = doc.makeItYours ?? {};
   const inProduction = doc.inProduction ?? {};
   const related = doc.related ?? {};
@@ -589,6 +601,19 @@ export function toFeaturePageContent(doc: FeaturePageV2Doc): FeaturePageContent 
       })),
       visibleCount: details.visibleCount ?? 12,
     },
+
+    leavesAccount:
+      leavesAccount && (leavesAccount.rows ?? []).length > 0
+        ? {
+            kicker: leavesAccount.kicker ?? "",
+            heading: leavesAccount.heading ?? "",
+            support: normalizeProse(leavesAccount.support),
+            rows: (leavesAccount.rows ?? []).map((row) => ({
+              item: row.item ?? "",
+              answer: normalizeProse(row.answer),
+            })),
+          }
+        : undefined,
 
     makeItYours: {
       kicker: makeItYours.kicker ?? "",
