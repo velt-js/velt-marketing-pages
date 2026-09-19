@@ -103,7 +103,7 @@
   }
 }
 
-/* ── Deployment trust badges + cloud availability ──────────────── */
+/* ── Deployment trust badges ───────────────────────────────────── */
 .vlp .prh-badges {
   display: flex;
   flex-wrap: wrap;
@@ -123,13 +123,4 @@
   border: var(--vlp-border-width) solid var(--vlp-border-default);
   border-radius: var(--vlp-radius-md);
   padding: 6px 12px;
-}
-
-.vlp .prh-cloud-status {
-  margin: var(--vlp-space-2) 0 0;
-  font-family: var(--vlp-font-mono);
-  font-size: var(--vlp-text-label);
-  letter-spacing: var(--vlp-tracking-mono);
-  color: var(--vlp-color-text-muted);
-  text-align: center;
 }

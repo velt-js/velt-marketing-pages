@@ -1,4 +1,4 @@
-import { CLOUD_STATUS_LINE, DEPLOYMENT_BADGES } from "@/lib/deployment";
+import { DEPLOYMENT_BADGES } from "@/lib/deployment";
 
 import "./PricingHero.css";
 
@@ -42,7 +42,6 @@ export default function PricingHero() {
             </span>
           ))}
         </div>
-        <p className="prh-cloud-status">{CLOUD_STATUS_LINE}</p>
         <div className="prh-meta">
           <span className="prh-meta-item">FREE TIER · NO CARD</span>
           <span className="prh-meta-dot">·</span>
