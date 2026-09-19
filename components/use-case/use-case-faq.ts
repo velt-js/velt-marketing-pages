@@ -14,7 +14,7 @@ export const useCaseFaq: FaqEntry[] = [
   {
     question: "Do you support self-hosting?",
     answer:
-      "Yes. Enterprise plans include a self-hosting option so your customers' sensitive data stays in your infrastructure. Velt provides multi-region hosting (Amsterdam, Tokyo, Texas) plus the ability to bring your own keys for end-to-end encryption.",
+      "Yes. Enterprise plans include a self-hosting option so your customers' sensitive data stays in your infrastructure. Velt runs in 42 regions with residency pinning, and you can bring your own keys for end-to-end encryption.",
   },
   {
     question: "How long does integration take?",

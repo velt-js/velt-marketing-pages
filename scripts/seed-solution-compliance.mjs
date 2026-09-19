@@ -283,12 +283,12 @@ const doc = {
         {
           question: "Our customers face EU AI Act obligations. Does this give them Article 14 evidence?",
           answer:
-            "Article 14 applies to high-risk AI systems defined in Annex III (credit, insurance, hiring, critical infrastructure, and essential services among them), enforceable from August 2, 2026; it is not a universal obligation on every AI feature. If your product or your customers operate in that scope, Velt provides the mechanism (approval before action) and the evidence (a record of who approved what, when, and why). Talk to your counsel about whether you are in scope; see /governance.",
+            "Article 14 applies to high-risk AI systems defined in Annex III (credit, insurance, hiring, critical infrastructure, and essential services among them), enforceable from August 2, 2026; it is not a universal obligation on every AI feature. If your product or your customers operate in that scope, Velt provides the mechanism (approval before action) and the evidence (a record of who approved what, when, and why). Talk to your counsel about whether you are in scope; see /enterprise.",
         },
         {
           question: "Our buyers are banks and insurers. Can review data stay on our infrastructure?",
           answer:
-            "Cloud by default, with a hybrid model: self-host data providers keep comment and review content plus user PII on your infrastructure while Velt stores only minimal identifiers, with data residency options including EU. Velt is SOC 2 Type II audited and supports HIPAA workloads. See /self-hosting and /governance.",
+            "Cloud by default, with a hybrid model: self-host data providers keep comment and review content plus user PII on your infrastructure while Velt stores only minimal identifiers, with data residency options including EU. Velt is SOC 2 Type II audited and supports HIPAA workloads. See /self-hosting and /enterprise.",
         },
         {
           question: "How does pricing work when one filing is touched by a dozen reviewers?",

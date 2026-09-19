@@ -281,7 +281,7 @@ const doc = {
         {
           question: "Does this satisfy EU AI Act Article 14?",
           answer:
-            "Article 14 applies to high-risk AI systems defined in Annex III, credit and insurance among them, enforceable from August 2, 2026; it is not a universal obligation on every AI feature. If your product or your customers operate in that scope, Velt provides the oversight mechanism and the audit evidence. Talk to your counsel about whether you are in scope; see /governance.",
+            "Article 14 applies to high-risk AI systems defined in Annex III, credit and insurance among them, enforceable from August 2, 2026; it is not a universal obligation on every AI feature. If your product or your customers operate in that scope, Velt provides the oversight mechanism and the audit evidence. Talk to your counsel about whether you are in scope; see /enterprise.",
         },
         {
           question: "How is Velt priced for an FP&A or fintech platform?",
