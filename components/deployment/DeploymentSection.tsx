@@ -10,8 +10,11 @@ import {
   DEPLOYMENT_EYEBROW,
   DEPLOYMENT_HEADING,
   DEPLOYMENT_MODELS,
+  DEPLOYMENT_MODELS_HEADING,
+  DEPLOYMENT_MODELS_SUPPORT,
   FEDRAMP_NOTE,
   HAS_PRIVATE_BETA_CLOUD,
+  deploymentOptionLabel,
 } from "@/lib/deployment";
 
 import "./DeploymentSection.css";
@@ -63,10 +66,16 @@ export default function DeploymentSection({
           ) : null}
         </div>
 
+        <div className="dep-models-head">
+          <h3 className="dep-models-heading">{DEPLOYMENT_MODELS_HEADING}</h3>
+          <p className="dep-models-support">{DEPLOYMENT_MODELS_SUPPORT}</p>
+        </div>
+
         <div className="dep-models">
-          {DEPLOYMENT_MODELS.map((model) => (
+          {DEPLOYMENT_MODELS.map((model, index) => (
             <article className="dep-model" key={model.id}>
-              <h3 className="dep-model-name">{model.name}</h3>
+              <p className="dep-model-label">{deploymentOptionLabel(index)}</p>
+              <h4 className="dep-model-name">{model.name}</h4>
               <p className="dep-model-body">{model.body}</p>
             </article>
           ))}

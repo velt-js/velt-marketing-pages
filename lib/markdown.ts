@@ -48,6 +48,8 @@ import { platformContent } from "@/app/platform/content";
 import {
   CLOUD_STATUS_LINE,
   DEPLOYMENT_MODELS,
+  DEPLOYMENT_MODELS_HEADING,
+  DEPLOYMENT_MODELS_SUPPORT,
   FEDRAMP_NOTE,
 } from "@/lib/deployment";
 
@@ -1460,7 +1462,7 @@ Every component is themeable via design tokens, or run headless and render your 
 
 ## Deployment
 
-Three models, named by where the data lives.
+${DEPLOYMENT_MODELS_HEADING}. ${DEPLOYMENT_MODELS_SUPPORT}
 
 ${DEPLOYMENT_MODELS.map((model) => `- **${model.name}**: ${model.body}`).join("\n")}
 

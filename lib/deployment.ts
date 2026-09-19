@@ -106,9 +106,24 @@ export const DEPLOYMENT_EYEBROW = "Deployment";
 /** Section heading for the deployment story. */
 export const DEPLOYMENT_HEADING = "Run all of Velt inside your own cloud.";
 
-/** Supporting copy under DEPLOYMENT_HEADING. */
+/**
+ * Supporting copy under DEPLOYMENT_HEADING.
+ *
+ * This describes one option ("Your cloud") only, so it opens by saying so.
+ * Without that, a reader hits "Velt never sees the data" and then a card that
+ * says "We run it" with nothing explaining that these are alternatives. Keep
+ * it self-contained: it renders under headings other than DEPLOYMENT_HEADING
+ * (e.g. the /enterprise hero), so it cannot refer back to the heading above it.
+ */
 export const DEPLOYMENT_BODY =
-  "Velt runs in your own cloud account. Nothing leaves it. Your keys, your logs, your network. Velt is never a subprocessor, because Velt never sees the data.";
+  "One of three ways to run Velt. In this one, Velt runs in your own cloud account. Nothing leaves it. Your keys, your logs, your network. Velt is never a subprocessor, because Velt never sees the data.";
+
+/** Heading that introduces the model cards. States the count explicitly. */
+export const DEPLOYMENT_MODELS_HEADING = "Three deployment options";
+
+/** Support line under DEPLOYMENT_MODELS_HEADING. */
+export const DEPLOYMENT_MODELS_SUPPORT =
+  "Named by where the data lives. Pick one per customer.";
 
 /** One deployment model, named by where the customer's data lives. */
 export type DeploymentModel = {
@@ -138,6 +153,17 @@ export const DEPLOYMENT_MODELS: DeploymentModel[] = [
     body: "Everything runs in your account. Nothing comes back to us.",
   },
 ];
+
+/**
+ * Mono label for a model card, e.g. "OPTION 01 OF 03". Derived from the list
+ * so the count cannot fall out of step with it.
+ * @param {number} index Zero-based position in DEPLOYMENT_MODELS.
+ * @returns {string} The label.
+ */
+export function deploymentOptionLabel(index: number): string {
+  const total = String(DEPLOYMENT_MODELS.length).padStart(2, "0");
+  return `Option ${String(index + 1).padStart(2, "0")} of ${total}`;
+}
 
 /** Trust badges rendered on every surface that carries the deployment story. */
 export const DEPLOYMENT_BADGES: string[] = [

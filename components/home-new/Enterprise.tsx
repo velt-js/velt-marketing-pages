@@ -11,6 +11,8 @@ import {
   CLOUD_STATUS_LINE,
   DEPLOYMENT_BADGES,
   DEPLOYMENT_MODELS,
+  DEPLOYMENT_MODELS_HEADING,
+  DEPLOYMENT_MODELS_SUPPORT,
   DEPLOYMENT_BETA_CTA,
   HAS_PRIVATE_BETA_CLOUD,
 } from "@/lib/deployment";
@@ -34,7 +36,7 @@ const DEFAULT_PILLARS: EnterprisePillar[] = [
   {
     label: "PILLAR 01 · DEPLOYMENT",
     title: "Run it in your own cloud.",
-    body: "Three models, named by where the data lives. Pick one per customer.",
+    body: `${DEPLOYMENT_MODELS_HEADING}. ${DEPLOYMENT_MODELS_SUPPORT}`,
     monoLines: DEPLOYMENT_MODELS.map(
       (model) => `▸ ${model.name.toLowerCase()}`,
     ),

@@ -18,7 +18,10 @@ import { createClient } from "@sanity/client";
 // it, so the seeded page and the coded pages cannot drift. Never write a
 // cloud's availability into this file by hand, and never claim Velt holds a
 // FedRAMP authorization: that line belongs to /enterprise and /self-hosting.
-import { CLOUD_STATUS_LINE } from "../lib/deployment.ts";
+import {
+  CLOUD_STATUS_LINE,
+  DEPLOYMENT_MODELS_HEADING,
+} from "../lib/deployment.ts";
 
 const DRY_RUN = process.env.DRY_RUN === "1";
 const token = process.env.SANITY_API_TOKEN;
@@ -294,7 +297,7 @@ const doc = {
         {
           question: "Our buyers are banks and insurers. Can review data stay on our infrastructure?",
           answer:
-            `Three models, named by where the data lives. Velt Cloud: we run it, with data residency options including the EU. Your database: we run the service, your comment and review content plus user PII stay with you, and Velt holds IDs only. Your cloud: all of Velt runs in your account. ${CLOUD_STATUS_LINE} Velt is SOC 2 Type II audited and supports HIPAA workloads. See /self-hosting and /enterprise.`,
+            `${DEPLOYMENT_MODELS_HEADING}, named by where the data lives. Velt Cloud: we run it, with data residency options including the EU. Your database: we run the service, your comment and review content plus user PII stay with you, and Velt holds IDs only. Your cloud: all of Velt runs in your account. ${CLOUD_STATUS_LINE} Velt is SOC 2 Type II audited and supports HIPAA workloads. See /self-hosting and /enterprise.`,
         },
         {
           question: "How does pricing work when one filing is touched by a dozen reviewers?",

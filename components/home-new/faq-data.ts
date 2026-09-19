@@ -8,14 +8,19 @@
 // guarantee the rendered accordion and the JSON-LD diff to zero
 // (spec Part 3.5 + Part 5.7 gate 6).
 
-import { CLOUD_STATUS_LINE, DEPLOYMENT_MODELS } from "@/lib/deployment";
+import {
+  CLOUD_STATUS_LINE,
+  DEPLOYMENT_MODELS,
+  DEPLOYMENT_MODELS_HEADING,
+  DEPLOYMENT_MODELS_SUPPORT,
+} from "@/lib/deployment";
 
 export type HomeFaq = { num: string; q: string; a: string };
 
 // Composed from lib/deployment.ts so the accordion, the FAQPage JSON-LD and
 // every other deployment surface stay in lockstep.
 const DEPLOYMENT_ANSWER = [
-  "Three models, named by where the data lives.",
+  `${DEPLOYMENT_MODELS_HEADING}. ${DEPLOYMENT_MODELS_SUPPORT}`,
   ...DEPLOYMENT_MODELS.map((model) => `${model.name}. ${model.body}`),
   CLOUD_STATUS_LINE,
 ].join(" ");

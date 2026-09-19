@@ -35,6 +35,8 @@ import {
   DEPLOYMENT_BODY,
   DEPLOYMENT_HEADING,
   DEPLOYMENT_MODELS,
+  DEPLOYMENT_MODELS_HEADING,
+  DEPLOYMENT_MODELS_SUPPORT,
   FEDRAMP_NOTE,
 } from "../lib/deployment.ts";
 
@@ -543,7 +545,7 @@ const doc = {
         {
           label: "PILLAR 01 \u00B7 DEPLOYMENT",
           title: "Run it in your own cloud.",
-          body: "Three models, named by where the data lives. Pick one per customer.",
+          body: `${DEPLOYMENT_MODELS_HEADING}. ${DEPLOYMENT_MODELS_SUPPORT}`,
           monoLines: DEPLOYMENT_MODELS.map(
             (model) => `\u25B8 ${model.name.toLowerCase()}`,
           ),
