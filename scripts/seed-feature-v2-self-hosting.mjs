@@ -647,7 +647,32 @@ const doc = {
   },
 };
 
+/**
+ * Drop the "What leaves your account" section when any answer is still a
+ * placeholder. The section is optional in the renderer, so omitting it leaves
+ * the rest of the page correct and simply hides the table until the real
+ * answers exist. Without this, a re-seed publishes "TODO" on velt.dev.
+ * @param {object} document The document about to be written.
+ * @returns {boolean} True when the section was dropped.
+ */
+function dropUnansweredLeavesAccount(document) {
+  const rows = document.leavesAccount?.rows ?? [];
+  const unanswered = rows.filter(
+    (row) => !row.answer || row.answer.trim().toUpperCase() === "TODO",
+  );
+  if (unanswered.length === 0) return false;
+  console.warn(
+    `Skipping leavesAccount: ${unanswered.length} of ${rows.length} answers still TODO ` +
+      `(${unanswered.map((row) => row.item).join(", ")}). ` +
+      "Fill them in this script and re-run to publish the table.",
+  );
+  delete document.leavesAccount;
+  return true;
+}
+
 async function main() {
+  dropUnansweredLeavesAccount(doc);
+
   if (DRY_RUN) {
     console.log("DRY RUN \u2014 document shape:");
     console.log(JSON.stringify(doc, null, 2));

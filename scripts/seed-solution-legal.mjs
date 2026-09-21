@@ -69,7 +69,10 @@ const doc = {
   title: "Legal",
   slug: { _type: "slug", current: "legal" },
   breadcrumbLabel: "Legal",
-  metaTitle: "Review and approval for legal software | Velt",
+  // Matches the value live in Sanity, which is richer than the original seed
+  // and sits inside the 50-60 char search-snippet window (56). Do not shorten
+  // it back: re-seeding would regress the page title.
+  metaTitle: "Review, redlines, and approval for legal software | Velt",
   metaDescription:
     "Clause-anchored comments, redline suggestions, and approval chains for contract and legal ops platforms. Every clause attributed.",
 
