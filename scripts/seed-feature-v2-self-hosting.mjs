@@ -32,6 +32,7 @@ import { createClient } from "@sanity/client";
 // than restating it, so the seeded page and the coded pages cannot drift.
 import {
   CLOUD_STATUS_LINE,
+  DEPLOYMENT_BADGES,
   DEPLOYMENT_BODY,
   DEPLOYMENT_HEADING,
   DEPLOYMENT_MODELS,
@@ -525,9 +526,12 @@ const doc = {
     ),
   },
 
+  // enterprisePillars below wins over this strip in FeaturePageView, so this
+  // block does not currently render. Kept in step with the other feature seeds
+  // so it is not stale if the pillars are ever removed.
   enterprise: {
-    badges: ["SOC 2 Type II", "HIPAA", "EU data residency", "Field-level inventory"],
-    line: "Comments, recordings, notifications, activity, attachments, and user PII can live on your own infrastructure through per-feature data providers, with Velt keeping only minimal structural identifiers. The Complete Field Inventory documents every persisted field on both sides, with types, examples, and strip rules. SOC 2 Type II, HIPAA, and EU data residency options back the cloud that runs the sync and rendering.",
+    badges: [...DEPLOYMENT_BADGES, "EU data residency", "Field-level inventory"],
+    line: `Run all of Velt inside your own cloud account, or keep just the comments, recordings, notifications, activity, attachments, and user PII in your database while Velt holds IDs only. ${CLOUD_STATUS_LINE} The Complete Field Inventory documents every persisted field on both sides, with types, examples, and strip rules. SOC 2 Type II, HIPAA, and EU data residency options back the cloud that runs the sync and rendering.`,
     links: keyed([cta("field inventory", "https://docs.velt.dev/self-host-data/field-inventory", true), cta("governance", "/governance")]),
     cta: cta("Book Demo", "/book-demo"),
   },
