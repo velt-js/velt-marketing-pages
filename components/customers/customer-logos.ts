@@ -1,4 +1,4 @@
-// 49 customer logos rendered on /customers (Figma nodes 536:8693 + 965:3418,
+// 53 customer logos rendered on /customers (Figma nodes 536:8693 + 965:3418,
 // content pulled from velt.dev/customers' Framer source plus the refreshed
 // Figma logo strip). Order in this array drives display order: left→right,
 // top→bottom across the 3-col grid. "Row N" comments below reflect the
@@ -33,6 +33,9 @@ export const customerLogos: CustomerLogoEntry[] = [
   { name: "RepTrak", href: "https://www.reptrak.com/", logoSrc: `${BASE}/reptrak.png`, logoWidth: 280, logoHeight: 109 },
   { name: "Coast", href: "https://www.trycoast.com/", logoSrc: `${BASE}/coast.png`, logoWidth: 243, logoHeight: 75 },
   { name: "Dock", href: "https://www.dock.us/", logoSrc: `${BASE}/dock.png`, logoWidth: 190, logoHeight: 48 },
+  { name: "Stagwell", href: "https://www.stagwellglobal.com/", logoSrc: `${BASE}/stagwell.png`, logoWidth: 514, logoHeight: 96 },
+  { name: "The Harris Poll", href: "https://theharrispoll.com/", logoSrc: `${BASE}/harris-poll.png`, logoWidth: 295, logoHeight: 51 },
+  { name: "GALE", href: "https://www.galepartners.com/", logoSrc: `${BASE}/gale.png`, logoWidth: 192, logoHeight: 52 },
   // Row 2
   { name: "HeyGen", href: "https://www.heygen.com/", logoSrc: `${BASE}/heygen.png`, logoWidth: 310, logoHeight: 104 },
   { name: "Flyr", href: "https://flyr.com/", logoSrc: `${BASE}/flyr.png`, logoWidth: 656, logoHeight: 160 },

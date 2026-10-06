@@ -44,6 +44,9 @@ export const LOGOS: LogoCarouselItem[] = [
   { src: `${LOGO_DIR}/privado.png`, alt: "Privado AI", ratio: 2.438 },
   { src: `${LOGO_DIR}/reejig.png`, alt: "Reejig", ratio: 1.806 },
   { src: `${LOGO_DIR}/dock.png`, alt: "Dock", ratio: 1.993 },
+  { src: `${LOGO_DIR}/stagwell.png`, alt: "Stagwell", ratio: 2.306 },
+  { src: `${LOGO_DIR}/harris-poll.png`, alt: "The Harris Poll", ratio: 2.438 },
+  { src: `${LOGO_DIR}/gale.png`, alt: "GALE", ratio: 1.792 },
 ];
 
 // The homepage shows two marquees (TrustStrip near the top, Proof near the
